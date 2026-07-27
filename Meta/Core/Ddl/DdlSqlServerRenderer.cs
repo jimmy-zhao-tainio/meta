@@ -103,6 +103,21 @@ public static class DdlSqlServerRenderer
             builder.AppendLine();
         }
 
+        foreach (var statement in database.Updates)
+        {
+            var assignments = string.Join(
+                ", ",
+                statement.Values.Select(item =>
+                    $"[{EscapeIdentifier(item.ColumnName)}] = {item.SqlLiteral}"));
+            builder.AppendLine(
+                $"UPDATE [{EscapeIdentifier(statement.Schema)}].[{EscapeIdentifier(statement.TableName)}] SET {assignments} WHERE [{EscapeIdentifier(statement.WhereColumnName)}] = {statement.WhereSqlLiteral};");
+        }
+
+        if (database.Updates.Count > 0)
+        {
+            builder.AppendLine();
+        }
+
         return NormalizeNewlines(builder.ToString());
     }
 

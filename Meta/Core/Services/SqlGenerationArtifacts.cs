@@ -111,7 +111,7 @@ internal static class SqlGenerationArtifacts
             database.Tables.Add(table);
         }
 
-        foreach (var entity in GetEntitiesTopologically(workspace.Model))
+        foreach (var entity in GetEntitiesInRequiredDependencyOrder(workspace.Model))
         {
             if (!workspace.Instance.RecordsByEntity.TryGetValue(entity.Name, out var records))
             {
@@ -124,6 +124,13 @@ internal static class SqlGenerationArtifacts
                 {
                     Schema = "dbo",
                     TableName = entity.Name,
+                };
+                var deferredRelationships = new DdlUpdateStatement
+                {
+                    Schema = "dbo",
+                    TableName = entity.Name,
+                    WhereColumnName = "Id",
+                    WhereSqlLiteral = ToSqlLiteral(row.Id),
                 };
                 statement.Values.Add(new DdlInsertValue
                 {
@@ -152,20 +159,37 @@ internal static class SqlGenerationArtifacts
                     statement.Values.Add(new DdlInsertValue
                     {
                         ColumnName = relationshipName,
-                        SqlLiteral = row.RelationshipIds.TryGetValue(relationshipName, out var relationshipValue)
-                            ? ToSqlLiteral(relationshipValue)
-                            : "NULL",
+                        SqlLiteral = relationship.IsNullable
+                            ? "NULL"
+                            : row.RelationshipIds.TryGetValue(relationshipName, out var relationshipValue)
+                                ? ToSqlLiteral(relationshipValue)
+                                : "NULL",
                     });
+
+                    if (relationship.IsNullable &&
+                        row.RelationshipIds.TryGetValue(relationshipName, out var deferredRelationshipValue) &&
+                        !string.IsNullOrWhiteSpace(deferredRelationshipValue))
+                    {
+                        deferredRelationships.Values.Add(new DdlInsertValue
+                        {
+                            ColumnName = relationshipName,
+                            SqlLiteral = ToSqlLiteral(deferredRelationshipValue),
+                        });
+                    }
                 }
 
                 database.Inserts.Add(statement);
+                if (deferredRelationships.Values.Count > 0)
+                {
+                    database.Updates.Add(deferredRelationships);
+                }
             }
         }
 
         return database;
     }
 
-    private static IReadOnlyList<GenericEntity> GetEntitiesTopologically(GenericModel model)
+    private static IReadOnlyList<GenericEntity> GetEntitiesInRequiredDependencyOrder(GenericModel model)
     {
         var lookup = model.Entities
             .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
@@ -192,12 +216,13 @@ internal static class SqlGenerationArtifacts
             if (visiting.Contains(entityName))
             {
                 throw new InvalidOperationException(
-                    $"Cannot generate data script because relationship cycle includes '{entityName}'.");
+                    $"Cannot generate data script because required relationship cycle includes '{entityName}'.");
             }
 
             visiting.Add(entityName);
             var entity = lookup[entityName];
             foreach (var relationship in entity.Relationships
+                         .Where(item => !item.IsNullable)
                          .OrderBy(item => item.Entity, StringComparer.OrdinalIgnoreCase))
             {
                 if (lookup.ContainsKey(relationship.Entity))

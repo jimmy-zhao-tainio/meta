@@ -37,6 +37,141 @@ public sealed class GenerationServiceTests
     }
 
     [Fact]
+    public async Task GenerateSql_OrdersRequiredRelationshipTargetsBeforeSources()
+    {
+        var output = Path.Combine(
+            Path.GetTempPath(),
+            "metadata-gen-tests",
+            Guid.NewGuid().ToString("N"),
+            "required-order");
+        var workspace = new Workspace
+        {
+            Model = new GenericModel
+            {
+                Name = "RequiredRelationshipOrder",
+            },
+            Instance = new GenericInstance
+            {
+                ModelName = "RequiredRelationshipOrder",
+            },
+        };
+        var child = new GenericEntity { Name = "AChild" };
+        child.Relationships.Add(new GenericRelationship { Entity = "ZParent" });
+        workspace.Model.Entities.Add(child);
+        workspace.Model.Entities.Add(new GenericEntity { Name = "ZParent" });
+
+        var childRow = new GenericRecord { Id = "child" };
+        childRow.RelationshipIds["ZParentId"] = "parent";
+        workspace.Instance.GetOrCreateEntityRecords("AChild").Add(childRow);
+        workspace.Instance.GetOrCreateEntityRecords("ZParent").Add(new GenericRecord { Id = "parent" });
+
+        try
+        {
+            GenerationService.GenerateSql(workspace, output);
+            var data = await File.ReadAllTextAsync(Path.Combine(output, "data.sql"));
+
+            var parentInsert = data.IndexOf(
+                "INSERT INTO [dbo].[ZParent]",
+                StringComparison.Ordinal);
+            var childInsert = data.IndexOf(
+                "INSERT INTO [dbo].[AChild]",
+                StringComparison.Ordinal);
+            Assert.True(parentInsert >= 0);
+            Assert.True(childInsert > parentInsert);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
+        }
+    }
+
+    [Fact]
+    public async Task GenerateSql_DefersOptionalSameEntityRelationshipUntilAfterInserts()
+    {
+        var output = Path.Combine(
+            Path.GetTempPath(),
+            "metadata-gen-tests",
+            Guid.NewGuid().ToString("N"),
+            "optional-predecessor");
+        var workspace = BuildOptionalSameEntityWorkspace(
+            "OperationStep",
+            "PreviousStep",
+            ("first", null),
+            ("second", "first"));
+
+        try
+        {
+            GenerationService.GenerateSql(workspace, output);
+            var schema = await File.ReadAllTextAsync(Path.Combine(output, "schema.sql"));
+            var data = await File.ReadAllTextAsync(Path.Combine(output, "data.sql"));
+
+            Assert.Contains(
+                "[PreviousStepId] NVARCHAR(128) NULL",
+                schema,
+                StringComparison.Ordinal);
+            Assert.Contains(
+                "FOREIGN KEY([PreviousStepId]) REFERENCES [dbo].[OperationStep]([Id])",
+                schema,
+                StringComparison.Ordinal);
+            Assert.Contains(
+                "INSERT INTO [dbo].[OperationStep] ([Id], [PreviousStepId]) VALUES (N'second', NULL);",
+                data,
+                StringComparison.Ordinal);
+
+            var finalInsert = data.LastIndexOf(
+                "INSERT INTO [dbo].[OperationStep]",
+                StringComparison.Ordinal);
+            var relationshipUpdate = data.IndexOf(
+                "UPDATE [dbo].[OperationStep] SET [PreviousStepId] = N'first' WHERE [Id] = N'second';",
+                StringComparison.Ordinal);
+            Assert.True(finalInsert >= 0);
+            Assert.True(relationshipUpdate > finalInsert);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
+        }
+    }
+
+    [Fact]
+    public async Task GenerateSql_DefersOptionalSameEntityCycleUntilAfterInserts()
+    {
+        var output = Path.Combine(
+            Path.GetTempPath(),
+            "metadata-gen-tests",
+            Guid.NewGuid().ToString("N"),
+            "optional-cycle");
+        var workspace = BuildOptionalSameEntityWorkspace(
+            "Item",
+            "RelatedItem",
+            ("first", "second"),
+            ("second", "first"));
+
+        try
+        {
+            GenerationService.GenerateSql(workspace, output);
+            var data = await File.ReadAllTextAsync(Path.Combine(output, "data.sql"));
+
+            var finalInsert = data.LastIndexOf(
+                "INSERT INTO [dbo].[Item]",
+                StringComparison.Ordinal);
+            var firstUpdate = data.IndexOf(
+                "UPDATE [dbo].[Item] SET [RelatedItemId] = N'second' WHERE [Id] = N'first';",
+                StringComparison.Ordinal);
+            var secondUpdate = data.IndexOf(
+                "UPDATE [dbo].[Item] SET [RelatedItemId] = N'first' WHERE [Id] = N'second';",
+                StringComparison.Ordinal);
+            Assert.True(finalInsert >= 0);
+            Assert.True(firstUpdate > finalInsert);
+            Assert.True(secondUpdate > finalInsert);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
+        }
+    }
+
+    [Fact]
     public async Task GenerateSsdt_WritesExpectedFiles()
     {
         var services = new ServiceCollection();
@@ -377,6 +512,46 @@ public sealed class GenerationServiceTests
         {
             DeleteDirectoryIfExists(projectRoot);
         }
+    }
+
+    private static Workspace BuildOptionalSameEntityWorkspace(
+        string entityName,
+        string relationshipRole,
+        params (string Id, string? RelationshipTargetId)[] rows)
+    {
+        var workspace = new Workspace
+        {
+            Model = new GenericModel
+            {
+                Name = "OptionalPreviousStep",
+            },
+            Instance = new GenericInstance
+            {
+                ModelName = "OptionalPreviousStep",
+            },
+        };
+        var entity = new GenericEntity { Name = entityName };
+        entity.Relationships.Add(new GenericRelationship
+        {
+            Entity = entityName,
+            Role = relationshipRole,
+            IsNullable = true,
+        });
+        workspace.Model.Entities.Add(entity);
+
+        var records = workspace.Instance.GetOrCreateEntityRecords(entityName);
+        foreach (var (id, relationshipTargetId) in rows)
+        {
+            var record = new GenericRecord { Id = id };
+            if (!string.IsNullOrWhiteSpace(relationshipTargetId))
+            {
+                record.RelationshipIds[relationshipRole + "Id"] = relationshipTargetId;
+            }
+
+            records.Add(record);
+        }
+
+        return workspace;
     }
 
     private static void DeleteDirectoryIfExists(string path)
