@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <OptionTokenList>
-    <OptionToken Id="token-workspace" OptionId="opt-workspace">
-      <Token>--workspace</Token>
+    <OptionToken Id="token-new-workspace-description" OptionId="opt-new-workspace-description">
+      <Token>--description</Token>
     </OptionToken>
     <OptionToken Id="token-new-workspace-name" OptionId="opt-new-workspace-name">
       <Token>--name</Token>
@@ -10,35 +10,20 @@
     <OptionToken Id="token-new-workspace-root" OptionId="opt-new-workspace-root">
       <Token>--root</Token>
     </OptionToken>
-    <OptionToken Id="token-new-workspace-description" OptionId="opt-new-workspace-description">
-      <Token>--description</Token>
-    </OptionToken>
-    <OptionToken Id="token-workspace-name" OptionId="opt-workspace-name">
-      <Token>--name</Token>
-    </OptionToken>
-    <OptionToken Id="token-workspace-path" OptionId="opt-workspace-path">
-      <Token>--path</Token>
-    </OptionToken>
-    <OptionToken Id="token-workspace-model" OptionId="opt-workspace-model">
-      <Token>--model</Token>
-    </OptionToken>
-    <OptionToken Id="token-workspace-description" OptionId="opt-workspace-description">
+    <OptionToken Id="token-operation-description" OptionId="opt-operation-description">
       <Token>--description</Token>
     </OptionToken>
     <OptionToken Id="token-operation-name" OptionId="opt-operation-name">
       <Token>--name</Token>
     </OptionToken>
-    <OptionToken Id="token-operation-description" OptionId="opt-operation-description">
-      <Token>--description</Token>
-    </OptionToken>
-    <OptionToken Id="token-step-operation" OptionId="opt-step-operation">
+    <OptionToken Id="token-run-operation" OptionId="opt-run-operation">
       <Token>--operation</Token>
     </OptionToken>
-    <OptionToken Id="token-step-name" OptionId="opt-step-name">
-      <Token>--name</Token>
+    <OptionToken Id="token-run-verbose" OptionId="opt-run-verbose">
+      <Token>--verbose</Token>
     </OptionToken>
-    <OptionToken Id="token-step-executable" OptionId="opt-step-executable">
-      <Token>--executable</Token>
+    <OptionToken Id="token-show-verbose" OptionId="opt-show-verbose">
+      <Token>--verbose</Token>
     </OptionToken>
     <OptionToken Id="token-step-arguments" OptionId="opt-step-arguments">
       <Token>--arguments</Token>
@@ -46,23 +31,47 @@
     <OptionToken Id="token-step-arguments-stdin" OptionId="opt-step-arguments-stdin">
       <Token>--arguments-stdin</Token>
     </OptionToken>
-    <OptionToken Id="token-step-working-directory" OptionId="opt-step-working-directory">
-      <Token>--working-directory</Token>
+    <OptionToken Id="token-step-description" OptionId="opt-step-description">
+      <Token>--description</Token>
     </OptionToken>
-    <OptionToken Id="token-step-previous-step" OptionId="opt-step-previous-step">
-      <Token>--previous-step</Token>
+    <OptionToken Id="token-step-executable" OptionId="opt-step-executable">
+      <Token>--executable</Token>
     </OptionToken>
     <OptionToken Id="token-step-expected-exit-code" OptionId="opt-step-expected-exit-code">
       <Token>--expected-exit-code</Token>
     </OptionToken>
-    <OptionToken Id="token-step-description" OptionId="opt-step-description">
+    <OptionToken Id="token-step-name" OptionId="opt-step-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-step-operation" OptionId="opt-step-operation">
+      <Token>--operation</Token>
+    </OptionToken>
+    <OptionToken Id="token-step-previous-step" OptionId="opt-step-previous-step">
+      <Token>--previous-step</Token>
+    </OptionToken>
+    <OptionToken Id="token-step-working-directory" OptionId="opt-step-working-directory">
+      <Token>--working-directory</Token>
+    </OptionToken>
+    <OptionToken Id="token-steps-operation" OptionId="opt-steps-operation">
+      <Token>--operation</Token>
+    </OptionToken>
+    <OptionToken Id="token-validate-operation" OptionId="opt-validate-operation">
+      <Token>--operation</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace" OptionId="opt-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace-description" OptionId="opt-workspace-description">
       <Token>--description</Token>
     </OptionToken>
-    <OptionToken Id="token-show-verbose" OptionId="opt-show-verbose">
-      <Token>--verbose</Token>
+    <OptionToken Id="token-workspace-model" OptionId="opt-workspace-model">
+      <Token>--model</Token>
     </OptionToken>
-    <OptionToken Id="token-run-operation" OptionId="opt-run-operation">
-      <Token>--operation</Token>
+    <OptionToken Id="token-workspace-name" OptionId="opt-workspace-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace-path" OptionId="opt-workspace-path">
+      <Token>--path</Token>
     </OptionToken>
   </OptionTokenList>
 </MetaCli>

@@ -1,26 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ParameterList>
-    <Parameter Id="param-workspace" ValueShapeId="shape-path">
-      <Description>MetaMesh workspace. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
+    <Parameter Id="param-new-workspace-description" ValueShapeId="shape-text">
+      <Description>Mesh description.</Description>
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-new-workspace-name" ValueShapeId="shape-text">
+      <Description>Mesh name.</Description>
+      <Name>name</Name>
     </Parameter>
     <Parameter Id="param-new-workspace-path" ValueShapeId="shape-path">
       <Description>Empty target directory for the MetaMesh workspace.</Description>
       <IsRequired>true</IsRequired>
       <Name>path</Name>
     </Parameter>
-    <Parameter Id="param-new-workspace-name" ValueShapeId="shape-text">
-      <Description>Mesh name.</Description>
-      <Name>name</Name>
-    </Parameter>
     <Parameter Id="param-new-workspace-root" ValueShapeId="shape-path">
       <Description>Root path used to resolve relative workspace paths.</Description>
       <Name>root</Name>
     </Parameter>
-    <Parameter Id="param-new-workspace-description" ValueShapeId="shape-text">
-      <Description>Mesh description.</Description>
+    <Parameter Id="param-operation-description" ValueShapeId="shape-text">
+      <Description>Operation description.</Description>
       <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-operation-name" ValueShapeId="shape-text">
+      <Description>Operation name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-run-operation" ValueShapeId="shape-text">
+      <Description>Operation name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>operation</Name>
+    </Parameter>
+    <Parameter Id="param-run-verbose" ValueShapeId="shape-flag">
+      <Description>Attach child processes to the current console and show their native output.</Description>
+      <Name>verbose</Name>
+    </Parameter>
+    <Parameter Id="param-show-verbose" ValueShapeId="shape-flag">
+      <Description>Show workspace paths and step commands.</Description>
+      <Name>verbose</Name>
+    </Parameter>
+    <Parameter Id="param-step-arguments" ValueShapeId="shape-arguments">
+      <Description>Arguments passed to the executable.</Description>
+      <Name>arguments</Name>
+    </Parameter>
+    <Parameter Id="param-step-arguments-stdin" ValueShapeId="shape-flag">
+      <Description>Read executable arguments from standard input.</Description>
+      <Name>arguments-stdin</Name>
+    </Parameter>
+    <Parameter Id="param-step-description" ValueShapeId="shape-text">
+      <Description>Step description.</Description>
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-step-executable" ValueShapeId="shape-path">
+      <Description>Executable or script command to run.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>executable</Name>
+    </Parameter>
+    <Parameter Id="param-step-expected-exit-code" ValueShapeId="shape-text">
+      <Description>Exit code that marks the step as successful. Defaults to 0.</Description>
+      <Name>expected-exit-code</Name>
+    </Parameter>
+    <Parameter Id="param-step-name" ValueShapeId="shape-text">
+      <Description>Step name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-step-operation" ValueShapeId="shape-text">
+      <Description>Operation name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>operation</Name>
+    </Parameter>
+    <Parameter Id="param-step-previous-step" ValueShapeId="shape-text">
+      <Description>Previous step by step name.</Description>
+      <Name>previous-step</Name>
+    </Parameter>
+    <Parameter Id="param-step-working-directory" ValueShapeId="shape-path">
+      <Description>Working directory, absolute or relative to the mesh root.</Description>
+      <Name>working-directory</Name>
+    </Parameter>
+    <Parameter Id="param-steps-operation" ValueShapeId="shape-text">
+      <Description>Operation name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>operation</Name>
+    </Parameter>
+    <Parameter Id="param-validate-operation" ValueShapeId="shape-text">
+      <Description>Operation name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>operation</Name>
+    </Parameter>
+    <Parameter Id="param-workspace" ValueShapeId="shape-path">
+      <Description>MetaMesh workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-workspace-description" ValueShapeId="shape-text">
+      <Description>Workspace description.</Description>
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-workspace-model" ValueShapeId="shape-text">
+      <Description>Model name hosted by the workspace.</Description>
+      <Name>model</Name>
     </Parameter>
     <Parameter Id="param-workspace-name" ValueShapeId="shape-text">
       <Description>Declared workspace name.</Description>
@@ -31,71 +110,6 @@
       <Description>Workspace path, absolute or relative to the mesh root.</Description>
       <IsRequired>true</IsRequired>
       <Name>path</Name>
-    </Parameter>
-    <Parameter Id="param-workspace-model" ValueShapeId="shape-text">
-      <Description>Model name hosted by the workspace.</Description>
-      <Name>model</Name>
-    </Parameter>
-    <Parameter Id="param-workspace-description" ValueShapeId="shape-text">
-      <Description>Workspace description.</Description>
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-operation-name" ValueShapeId="shape-text">
-      <Description>Operation name.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>name</Name>
-    </Parameter>
-    <Parameter Id="param-operation-description" ValueShapeId="shape-text">
-      <Description>Operation description.</Description>
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-step-operation" ValueShapeId="shape-text">
-      <Description>Operation name.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>operation</Name>
-    </Parameter>
-    <Parameter Id="param-step-name" ValueShapeId="shape-text">
-      <Description>Step name.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>name</Name>
-    </Parameter>
-    <Parameter Id="param-step-executable" ValueShapeId="shape-path">
-      <Description>Executable or script command to run.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>executable</Name>
-    </Parameter>
-    <Parameter Id="param-step-arguments" ValueShapeId="shape-arguments">
-      <Description>Arguments passed to the executable.</Description>
-      <Name>arguments</Name>
-    </Parameter>
-    <Parameter Id="param-step-arguments-stdin" ValueShapeId="shape-flag">
-      <Description>Read executable arguments from standard input.</Description>
-      <Name>arguments-stdin</Name>
-    </Parameter>
-    <Parameter Id="param-step-working-directory" ValueShapeId="shape-path">
-      <Description>Working directory, absolute or relative to the mesh root.</Description>
-      <Name>working-directory</Name>
-    </Parameter>
-    <Parameter Id="param-step-previous-step" ValueShapeId="shape-text">
-      <Description>Previous step by step name.</Description>
-      <Name>previous-step</Name>
-    </Parameter>
-    <Parameter Id="param-step-expected-exit-code" ValueShapeId="shape-text">
-      <Description>Exit code that marks the step as successful. Defaults to 0.</Description>
-      <Name>expected-exit-code</Name>
-    </Parameter>
-    <Parameter Id="param-step-description" ValueShapeId="shape-text">
-      <Description>Step description.</Description>
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-show-verbose" ValueShapeId="shape-flag">
-      <Description>Show workspace paths and step commands.</Description>
-      <Name>verbose</Name>
-    </Parameter>
-    <Parameter Id="param-run-operation" ValueShapeId="shape-text">
-      <Description>Operation name.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>operation</Name>
     </Parameter>
   </ParameterList>
 </MetaCli>

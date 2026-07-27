@@ -122,6 +122,13 @@ public sealed class MetaMeshCliTests
             Assert.Contains("hello", run.Output);
             Assert.Contains("1 step completed.", run.Output);
 
+            var verboseRun = RunCli($"run --workspace \"{meshPath}\" --operation refresh-docs --verbose");
+            Assert.Equal(0, verboseRun.ExitCode);
+            Assert.Contains("Operation: refresh-docs", verboseRun.Output);
+            Assert.Contains("hello", verboseRun.Output);
+            Assert.DoesNotContain("      hello", verboseRun.Output);
+            Assert.Contains("1 step completed.", verboseRun.Output);
+
             Assert.True(File.Exists(Path.Combine(meshPath, "instances", "Workspace.xml")));
             Assert.True(File.Exists(Path.Combine(meshPath, "instances", "Operation.xml")));
             Assert.True(File.Exists(Path.Combine(meshPath, "instances", "OperationStep.xml")));

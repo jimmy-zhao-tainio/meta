@@ -182,15 +182,21 @@ internal static class Program
     {
         var workspacePath = ResolveWorkspacePath(invocation);
         var operationName = invocation.Required("operation");
+        var verbose = invocation.Flag("verbose");
         Presenter.WriteInfo($"Operation: {operationName}");
 
-        using var progress = MetaMeshRunProgressRenderer.TryCreate();
+        using var progress = verbose ? null : MetaMeshRunProgressRenderer.TryCreate();
         try
         {
             IMetaMeshRunObserver observer = progress is null
                 ? new ConsoleRunObserver()
                 : new ProgressRunObserver(progress);
-            var result = Service.RunOperation(model, operationName, workspacePath, observer);
+            var result = Service.RunOperation(
+                model,
+                operationName,
+                workspacePath,
+                observer,
+                attachToConsole: verbose);
             progress?.Complete(failed: !result.Succeeded);
             if (!result.Succeeded)
             {

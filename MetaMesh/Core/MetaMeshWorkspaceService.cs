@@ -155,7 +155,8 @@ public sealed class MetaMeshWorkspaceService
         MetaMesh.MetaMeshModel model,
         string operationName,
         string meshWorkspacePath,
-        IMetaMeshRunObserver? observer = null)
+        IMetaMeshRunObserver? observer = null,
+        bool attachToConsole = false)
     {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(meshWorkspacePath);
@@ -176,7 +177,13 @@ public sealed class MetaMeshWorkspaceService
                 step.Name,
                 FormatCommand(step.Executable, step.Arguments),
                 step.WorkingDirectory));
-            var result = RunProcess(step.Name, step.Executable, step.Arguments, step.WorkingDirectory, step.ExpectedExitCode);
+            var result = RunProcess(
+                step.Name,
+                step.Executable,
+                step.Arguments,
+                step.WorkingDirectory,
+                step.ExpectedExitCode,
+                attachToConsole);
             observer?.StepCompleted(result);
             stepResults.Add(result);
             if (!result.Succeeded)
@@ -270,26 +277,29 @@ public sealed class MetaMeshWorkspaceService
         string executable,
         string arguments,
         string workingDirectory,
-        int expectedExitCode)
+        int expectedExitCode,
+        bool attachToConsole)
     {
         var startInfo = new ProcessStartInfo
         {
             FileName = executable,
             Arguments = arguments,
             WorkingDirectory = workingDirectory,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
+            RedirectStandardOutput = !attachToConsole,
+            RedirectStandardError = !attachToConsole,
             UseShellExecute = false,
-            CreateNoWindow = true,
+            CreateNoWindow = !attachToConsole,
         };
 
         using var process = Process.Start(startInfo)
                             ?? throw new InvalidOperationException($"Could not start operation step '{stepName}'.");
-        var stdout = process.StandardOutput.ReadToEndAsync();
-        var stderr = process.StandardError.ReadToEndAsync();
+        var stdout = attachToConsole ? null : process.StandardOutput.ReadToEndAsync();
+        var stderr = attachToConsole ? null : process.StandardError.ReadToEndAsync();
         process.WaitForExit();
 
-        var output = stdout.GetAwaiter().GetResult() + stderr.GetAwaiter().GetResult();
+        var output = attachToConsole
+            ? string.Empty
+            : stdout!.GetAwaiter().GetResult() + stderr!.GetAwaiter().GetResult();
         return new MetaMeshRunStepResult(
             stepName,
             FormatCommand(executable, arguments),
