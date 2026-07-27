@@ -3,7 +3,6 @@
   <DocumentationNarrativeList>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:check:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:check">
       <Body>Validate sanctioned type mappings.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260701172656434</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -12,7 +11,6 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:check:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:check:option:workspace">
       <Body>MetaDataTypeConversion workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260701172656434</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -21,7 +19,6 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:help:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:help">
       <Body>Show help.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260701172656434</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -30,7 +27,6 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:new-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:new-workspace">
       <Body>Create a seeded MetaDataTypeConversion workspace.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260701172656434</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -39,7 +35,6 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:resolve:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:resolve">
       <Body>Resolve one source data type id through the sanctioned mappings.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260701172656434</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -48,7 +43,6 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:resolve:option:source-data-type:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:resolve:option:source-data-type">
       <Body>Source data type id to resolve.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260701172656434</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -57,7 +51,6 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:resolve:option:target-data-type-system">
       <Body>Target data type system when the source type has mappings to several target systems.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260701172656434</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -66,7 +59,6 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:command:resolve:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-type-conversion:app:command:resolve:option:workspace">
       <Body>MetaDataTypeConversion workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260701172656434</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -79,7 +71,6 @@
 The conversion workspace is shared policy. Transform binding uses it to evaluate source-to-target compatibility, and generators can apply the same approved behavior when they project a model into SQL or another platform. This avoids quietly embedding widening assumptions in individual tools.
 
 Keeping conversion rules modeled also makes the hard cases visible. A design can be reviewed for loss, truncation, precision, and fallback choices before a transform or target is generated, and the resulting decision is reusable wherever the same type boundary appears.</Body>
-      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -87,7 +78,6 @@ Keeping conversion rules modeled also makes the hard cases visible. A design can
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-data-type-conversion:app">
       <Body>Author conversion rules that map data types across platforms with explicit length, precision, scale, and fallback behavior.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <LastReviewedImportBatchId>source:cli:meta-data-type-conversion:batch:20260701172656434</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>

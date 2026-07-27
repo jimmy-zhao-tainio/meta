@@ -30,40 +30,6 @@
         <Relationship entity="DocumentationInstanceImportSpec" />
       </RelationshipList>
     </Entity>
-    <Entity name="DocumentationExample">
-      <PropertyList>
-        <Property name="Origin" />
-        <Property name="ReviewStatus" />
-        <Property name="Summary" isRequired="false" />
-        <Property name="Title" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="DocumentationSubject" />
-        <Relationship entity="DocumentationExample" role="PreviousExample" isRequired="false" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="DocumentationExampleCode">
-      <PropertyList>
-        <Property name="Code" />
-        <Property name="Language" isRequired="false" />
-        <Property name="Title" isRequired="false" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="DocumentationExampleSection" />
-        <Relationship entity="DocumentationExampleCode" role="PreviousCode" isRequired="false" />
-      </RelationshipList>
-    </Entity>
-    <Entity name="DocumentationExampleSection">
-      <PropertyList>
-        <Property name="Body" isRequired="false" />
-        <Property name="BodyFormat" />
-        <Property name="Title" isRequired="false" />
-      </PropertyList>
-      <RelationshipList>
-        <Relationship entity="DocumentationExample" />
-        <Relationship entity="DocumentationExampleSection" role="PreviousSection" isRequired="false" />
-      </RelationshipList>
-    </Entity>
     <Entity name="DocumentationFact">
       <PropertyList>
         <Property name="Name" />
@@ -126,7 +92,6 @@
     <Entity name="DocumentationNarrative">
       <PropertyList>
         <Property name="Body" isRequired="false" />
-        <Property name="BodyFormat" />
         <Property name="LastReviewedImportBatchId" isRequired="false" />
         <Property name="Origin" />
         <Property name="ReviewStatus" />

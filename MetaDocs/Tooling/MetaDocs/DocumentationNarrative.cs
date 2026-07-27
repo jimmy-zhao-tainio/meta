@@ -17,8 +17,6 @@ namespace MetaDocs
 
         public string? Body { get; set; }
 
-        public string BodyFormat { get; set; } = string.Empty;
-
         public string? LastReviewedImportBatchId { get; set; }
 
         public string Origin { get; set; } = string.Empty;

@@ -137,7 +137,6 @@ public sealed class MetaDocsBrowseService
         }
 
         AppendNarratives(builder, model, page);
-        AppendExamples(builder, model, page);
 
         AppendSectionBreak(builder);
         builder.AppendLine("Up:");
@@ -206,7 +205,6 @@ public sealed class MetaDocsBrowseService
             }
         }
 
-        AppendExamples(builder, model, app);
 
         AppendSectionBreak(builder);
         builder.AppendLine("Up:");
@@ -270,7 +268,6 @@ public sealed class MetaDocsBrowseService
             }
         }
 
-        AppendExamples(builder, model, command);
 
         AppendSectionBreak(builder);
         builder.AppendLine("Up:");
@@ -338,7 +335,6 @@ public sealed class MetaDocsBrowseService
             }
         }
 
-        AppendExamples(builder, model, modelSubject);
 
         AppendSectionBreak(builder);
         builder.AppendLine("Up:");
@@ -364,7 +360,6 @@ public sealed class MetaDocsBrowseService
         }
 
         AppendNarratives(builder, model, entity);
-        AppendExamples(builder, model, entity);
 
         if (properties.Length != 0)
         {
@@ -549,49 +544,6 @@ public sealed class MetaDocsBrowseService
         }
     }
 
-    private static void AppendExamples(StringBuilder builder, MetaDocsModel model, DocumentationSubject subject)
-    {
-        var examples = Examples(model, subject);
-        if (examples.Length == 0)
-        {
-            return;
-        }
-
-        AppendSectionBreak(builder);
-        builder.AppendLine("Examples:");
-        foreach (var example in examples)
-        {
-            builder.AppendLine($"  {example.Title}");
-            if (!string.IsNullOrWhiteSpace(example.Summary))
-            {
-                AppendIndentedLines(builder, example.Summary!, 4);
-            }
-
-            foreach (var section in ExampleSections(model, example))
-            {
-                if (!string.IsNullOrWhiteSpace(section.Title))
-                {
-                    builder.AppendLine($"    {section.Title}");
-                }
-
-                if (!string.IsNullOrWhiteSpace(section.Body))
-                {
-                    AppendIndentedLines(builder, FormatBody(section.Body!, section.BodyFormat), 4);
-                }
-
-                foreach (var code in ExampleCodes(model, section))
-                {
-                    if (!string.IsNullOrWhiteSpace(code.Title))
-                    {
-                        builder.AppendLine($"    {code.Title}:");
-                    }
-
-                    AppendIndentedLines(builder, code.Code, 6);
-                }
-            }
-        }
-    }
-
     private static void AppendNarratives(StringBuilder builder, MetaDocsModel model, DocumentationSubject subject)
     {
         var narratives = NarrativeSections(model, subject);
@@ -605,7 +557,7 @@ public sealed class MetaDocsBrowseService
         foreach (var narrative in narratives)
         {
             builder.AppendLine($"  {FirstNonEmpty(narrative.Title, narrative.Slot, "Description")}");
-            AppendIndentedLines(builder, FormatBody(narrative.Body!, narrative.BodyFormat), 4);
+            AppendIndentedLines(builder, MetaDocsMarkdown.ToPlainText(narrative.Body!), 4);
         }
     }
 
@@ -726,31 +678,6 @@ public sealed class MetaDocsBrowseService
             }
         }
     }
-
-    private static DocumentationExample[] Examples(MetaDocsModel model, DocumentationSubject subject) =>
-        MetaDocsOrdering.ByPrevious(
-                model.DocumentationExampleList
-                    .Where(IsCurrent)
-                    .Where(example => ReferenceEquals(example.DocumentationSubject, subject)),
-                static example => example.PreviousExample,
-                static example => FirstNonEmpty(example.Title, example.Id))
-            .ToArray();
-
-    private static DocumentationExampleSection[] ExampleSections(MetaDocsModel model, DocumentationExample example) =>
-        MetaDocsOrdering.ByPrevious(
-                model.DocumentationExampleSectionList
-                    .Where(section => ReferenceEquals(section.DocumentationExample, example)),
-                static section => section.PreviousSection,
-                static section => FirstNonEmpty(section.Title, section.Id))
-            .ToArray();
-
-    private static DocumentationExampleCode[] ExampleCodes(MetaDocsModel model, DocumentationExampleSection section) =>
-        MetaDocsOrdering.ByPrevious(
-                model.DocumentationExampleCodeList
-                    .Where(code => ReferenceEquals(code.DocumentationExampleSection, section)),
-                static code => code.PreviousCode,
-                static code => FirstNonEmpty(code.Title, code.Id))
-            .ToArray();
 
     private static IEnumerable<DocumentationSubject> Closest(IEnumerable<DocumentationSubject> subjects, string value) =>
         subjects
@@ -886,13 +813,8 @@ public sealed class MetaDocsBrowseService
             .FirstOrDefault(row => !string.IsNullOrWhiteSpace(row.Body));
         return narrative is null
             ? subject.Summary ?? string.Empty
-            : FormatBody(narrative.Body!, narrative.BodyFormat);
+            : MetaDocsMarkdown.ToPlainText(narrative.Body!);
     }
-
-    private static string FormatBody(string body, string bodyFormat) =>
-        string.Equals(bodyFormat, "Markdown", StringComparison.OrdinalIgnoreCase)
-            ? MetaDocsMarkdown.ToPlainText(body)
-            : body;
 
     private static DocumentationNarrative[] NarrativeSections(MetaDocsModel model, DocumentationSubject subject) =>
         MetaDocsOrdering.ByPrevious(
@@ -1012,11 +934,6 @@ public sealed class MetaDocsBrowseService
         !string.Equals(fact.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(fact.Status, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(fact.Status, "Ignored", StringComparison.OrdinalIgnoreCase);
-
-    private static bool IsCurrent(DocumentationExample example) =>
-        !string.Equals(example.ReviewStatus, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
-        !string.Equals(example.ReviewStatus, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
-        !string.Equals(example.ReviewStatus, "Ignored", StringComparison.OrdinalIgnoreCase);
 
     private static bool IsCurrent(DocumentationRelationship relationship) =>
         IsVisibleStatus(relationship.DocumentationSource?.Status) &&

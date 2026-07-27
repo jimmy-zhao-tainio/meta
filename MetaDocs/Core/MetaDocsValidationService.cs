@@ -25,7 +25,6 @@ public sealed class MetaDocsValidationService
         CheckDuplicateDisplayPaths(model, diagnostics);
         CheckFactReferences(model, diagnostics, subjectIds, sourceIds, batchIds);
         CheckNarrativeReferences(model, diagnostics, subjectIds);
-        CheckExamples(model, diagnostics, subjectIds);
         CheckRelationships(model, diagnostics, subjectIds, sourceIds, batchIds);
         CheckViews(model, diagnostics, subjectsById);
         CheckNarrativeReviewState(model, diagnostics, options.IncludeDescriptionDiagnostics);
@@ -132,124 +131,6 @@ public sealed class MetaDocsValidationService
                     "MissingNarrativeSubject",
                     $"DocumentationNarrative '{narrative.Id}' has an inconsistent subject reference.",
                     narrative.Id));
-            }
-        }
-    }
-
-    private static void CheckExamples(
-        MetaDocsModel model,
-        ICollection<MetaDocsDiagnostic> diagnostics,
-        ISet<string> subjectIds)
-    {
-        var exampleIds = model.DocumentationExampleList
-            .Select(example => example.Id)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var sectionIds = model.DocumentationExampleSectionList
-            .Select(section => section.Id)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var sectionsByExample = model.DocumentationExampleSectionList
-            .Where(section => section.DocumentationExample is not null)
-            .GroupBy(section => section.DocumentationExample.Id, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(group => group.Key, group => group.ToArray(), StringComparer.OrdinalIgnoreCase);
-        var codesBySection = model.DocumentationExampleCodeList
-            .Where(code => code.DocumentationExampleSection is not null)
-            .GroupBy(code => code.DocumentationExampleSection.Id, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(group => group.Key, group => group.ToArray(), StringComparer.OrdinalIgnoreCase);
-
-        foreach (var example in model.DocumentationExampleList)
-        {
-            if (example.DocumentationSubject is null || !subjectIds.Contains(example.DocumentationSubject.Id))
-            {
-                diagnostics.Add(Error(
-                    "MDOC036",
-                    "BrokenExampleSubject",
-                    $"DocumentationExample '{example.Id}' references a missing subject.",
-                    example.Id));
-            }
-
-            if (example.PreviousExample is not null &&
-                (!exampleIds.Contains(example.PreviousExample.Id) ||
-                 !ReferenceEquals(example.PreviousExample.DocumentationSubject, example.DocumentationSubject)))
-            {
-                diagnostics.Add(Error(
-                    "MDOC037",
-                    "BrokenExampleOrder",
-                    $"DocumentationExample '{example.Id}' has a previous example outside the same subject.",
-                    example.Id));
-            }
-
-            if (!sectionsByExample.ContainsKey(example.Id))
-            {
-                diagnostics.Add(Error(
-                    "MDOC038",
-                    "EmptyDocumentationExample",
-                    $"DocumentationExample '{example.Id}' has no sections.",
-                    example.Id));
-            }
-        }
-
-        foreach (var section in model.DocumentationExampleSectionList)
-        {
-            if (section.DocumentationExample is null || !exampleIds.Contains(section.DocumentationExample.Id))
-            {
-                diagnostics.Add(Error(
-                    "MDOC039",
-                    "BrokenExampleSection",
-                    $"DocumentationExampleSection '{section.Id}' references a missing example.",
-                    section.Id));
-            }
-
-            if (section.PreviousSection is not null &&
-                (!sectionIds.Contains(section.PreviousSection.Id) ||
-                 !ReferenceEquals(section.PreviousSection.DocumentationExample, section.DocumentationExample)))
-            {
-                diagnostics.Add(Error(
-                    "MDOC040",
-                    "BrokenExampleSectionOrder",
-                    $"DocumentationExampleSection '{section.Id}' has a previous section outside the same example.",
-                    section.Id));
-            }
-
-            if (string.IsNullOrWhiteSpace(section.Body) &&
-                (!codesBySection.TryGetValue(section.Id, out var codeRows) || codeRows.Length == 0))
-            {
-                diagnostics.Add(Error(
-                    "MDOC041",
-                    "EmptyExampleSection",
-                    $"DocumentationExampleSection '{section.Id}' has neither text nor code.",
-                    section.Id));
-            }
-        }
-
-        foreach (var code in model.DocumentationExampleCodeList)
-        {
-            if (code.DocumentationExampleSection is null || !sectionIds.Contains(code.DocumentationExampleSection.Id))
-            {
-                diagnostics.Add(Error(
-                    "MDOC042",
-                    "BrokenExampleCode",
-                    $"DocumentationExampleCode '{code.Id}' references a missing example section.",
-                    code.Id));
-            }
-
-            if (code.PreviousCode is not null &&
-                (!model.DocumentationExampleCodeList.Contains(code.PreviousCode) ||
-                 !ReferenceEquals(code.PreviousCode.DocumentationExampleSection, code.DocumentationExampleSection)))
-            {
-                diagnostics.Add(Error(
-                    "MDOC043",
-                    "BrokenExampleCodeOrder",
-                    $"DocumentationExampleCode '{code.Id}' has a previous code block outside the same section.",
-                    code.Id));
-            }
-
-            if (string.IsNullOrWhiteSpace(code.Code))
-            {
-                diagnostics.Add(Error(
-                    "MDOC044",
-                    "EmptyExampleCode",
-                    $"DocumentationExampleCode '{code.Id}' has no code text.",
-                    code.Id));
             }
         }
     }

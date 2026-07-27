@@ -158,27 +158,6 @@ public sealed class MetaDocsSuiteMerger
             AddById(target.DocumentationNarrativeList, row, clone, maps.Narratives, item => item.Id);
         }
 
-        foreach (var row in source.DocumentationExampleList)
-        {
-            var clone = CloneExample(row);
-            clone.DocumentationSubject = maps.Subjects[row.DocumentationSubject];
-            AddById(target.DocumentationExampleList, row, clone, maps.Examples, item => item.Id);
-        }
-
-        foreach (var row in source.DocumentationExampleSectionList)
-        {
-            var clone = CloneExampleSection(row);
-            clone.DocumentationExample = maps.Examples[row.DocumentationExample];
-            AddById(target.DocumentationExampleSectionList, row, clone, maps.ExampleSections, item => item.Id);
-        }
-
-        foreach (var row in source.DocumentationExampleCodeList)
-        {
-            var clone = CloneExampleCode(row);
-            clone.DocumentationExampleSection = maps.ExampleSections[row.DocumentationExampleSection];
-            AddById(target.DocumentationExampleCodeList, row, clone, maps.ExampleCodes, item => item.Id);
-        }
-
         foreach (var row in source.DocumentationRelationshipList)
         {
             var clone = CloneRelationship(row);
@@ -464,38 +443,9 @@ public sealed class MetaDocsSuiteMerger
             Slot = row.Slot,
             Title = row.Title,
             Body = row.Body,
-            BodyFormat = row.BodyFormat,
             Origin = row.Origin,
             LastReviewedImportBatchId = row.LastReviewedImportBatchId,
             ReviewStatus = row.ReviewStatus,
-        };
-
-    private static DocumentationExample CloneExample(DocumentationExample row) =>
-        new()
-        {
-            Id = row.Id,
-            Title = row.Title,
-            Summary = row.Summary,
-            Origin = row.Origin,
-            ReviewStatus = row.ReviewStatus,
-        };
-
-    private static DocumentationExampleSection CloneExampleSection(DocumentationExampleSection row) =>
-        new()
-        {
-            Id = row.Id,
-            Title = row.Title,
-            Body = row.Body,
-            BodyFormat = row.BodyFormat,
-        };
-
-    private static DocumentationExampleCode CloneExampleCode(DocumentationExampleCode row) =>
-        new()
-        {
-            Id = row.Id,
-            Title = row.Title,
-            Language = row.Language,
-            Code = row.Code,
         };
 
     private static DocumentationRelationship CloneRelationship(DocumentationRelationship row) =>
@@ -624,21 +574,6 @@ public sealed class MetaDocsSuiteMerger
             static row => row.PreviousNarrative,
             static (row, previous) => row.PreviousNarrative = previous);
         ApplyPrevious(
-            source.DocumentationExampleList,
-            maps.Examples,
-            static row => row.PreviousExample,
-            static (row, previous) => row.PreviousExample = previous);
-        ApplyPrevious(
-            source.DocumentationExampleSectionList,
-            maps.ExampleSections,
-            static row => row.PreviousSection,
-            static (row, previous) => row.PreviousSection = previous);
-        ApplyPrevious(
-            source.DocumentationExampleCodeList,
-            maps.ExampleCodes,
-            static row => row.PreviousCode,
-            static (row, previous) => row.PreviousCode = previous);
-        ApplyPrevious(
             source.DocumentationRelationshipList,
             maps.Relationships,
             static row => row.PreviousRelationship,
@@ -759,9 +694,6 @@ public sealed class MetaDocsSuiteMerger
         public Dictionary<DocumentationSubjectAlias, DocumentationSubjectAlias> SubjectAliases { get; } = new();
         public Dictionary<DocumentationFact, DocumentationFact> Facts { get; } = new();
         public Dictionary<DocumentationNarrative, DocumentationNarrative> Narratives { get; } = new();
-        public Dictionary<DocumentationExample, DocumentationExample> Examples { get; } = new();
-        public Dictionary<DocumentationExampleSection, DocumentationExampleSection> ExampleSections { get; } = new();
-        public Dictionary<DocumentationExampleCode, DocumentationExampleCode> ExampleCodes { get; } = new();
         public Dictionary<DocumentationRelationship, DocumentationRelationship> Relationships { get; } = new();
         public Dictionary<DocumentationTheme, DocumentationTheme> Themes { get; } = new();
         public Dictionary<DocumentationTemplate, DocumentationTemplate> Templates { get; } = new();

@@ -1,142 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ParameterList>
-    <Parameter Id="param-add-example-code-option-code" ValueShapeId="shape-text">
-      <Description>Code text.</Description>
-      <Name>code</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-code-option-code-stdin" ValueShapeId="shape-flag">
-      <Description>Read code text from standard input.</Description>
-      <Name>code-stdin</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-code-option-id" ValueShapeId="shape-text">
-      <Description>Stable code block id.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>id</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-code-option-language" ValueShapeId="shape-text">
-      <Description>Code language label.</Description>
-      <Name>language</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-code-option-previous-code" ValueShapeId="shape-text">
-      <Description>Previous code block id for ordered code in the same section.</Description>
-      <Name>previous-code</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-code-option-section" ValueShapeId="shape-text">
-      <Description>Example section id.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>section</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-code-option-title" ValueShapeId="shape-text">
-      <Description>Optional code block title.</Description>
-      <Name>title</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-code-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaDocs workspace to update. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-body" ValueShapeId="shape-text">
-      <Description>First example section text.</Description>
-      <Name>body</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-body-format" ValueShapeId="shape-text">
-      <Description>Body format. Default: PlainText.</Description>
-      <Name>body-format</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-body-stdin" ValueShapeId="shape-flag">
-      <Description>Read the first example section text from standard input.</Description>
-      <Name>body-stdin</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-cli" ValueShapeId="shape-text">
-      <Description>CLI application name.</Description>
-      <Name>cli</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-command" ValueShapeId="shape-text">
-      <Description>CLI command name or path.</Description>
-      <Name>command</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-id" ValueShapeId="shape-text">
-      <Description>Stable example id.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>id</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-model" ValueShapeId="shape-text">
-      <Description>Model name.</Description>
-      <Name>model</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-option" ValueShapeId="shape-token">
-      <Description>CLI option token.</Description>
-      <Name>option</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-previous-example" ValueShapeId="shape-text">
-      <Description>Previous example id for ordered examples on the same subject.</Description>
-      <Name>previous-example</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-section-id" ValueShapeId="shape-text">
-      <Description>Stable id for the first example section.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>section-id</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-subject" ValueShapeId="shape-text">
-      <Description>Documentation subject id or key.</Description>
-      <Name>subject</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-summary" ValueShapeId="shape-text">
-      <Description>Optional short example summary.</Description>
-      <Name>summary</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-title" ValueShapeId="shape-text">
-      <Description>Example title.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>title</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaDocs workspace to update. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-section-option-body" ValueShapeId="shape-text">
-      <Description>Example section text.</Description>
-      <Name>body</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-section-option-body-format" ValueShapeId="shape-text">
-      <Description>Body format. Default: PlainText.</Description>
-      <Name>body-format</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-section-option-body-stdin" ValueShapeId="shape-flag">
-      <Description>Read example section text from standard input.</Description>
-      <Name>body-stdin</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-section-option-example" ValueShapeId="shape-text">
-      <Description>Example id.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>example</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-section-option-id" ValueShapeId="shape-text">
-      <Description>Stable section id.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>id</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-section-option-previous-section" ValueShapeId="shape-text">
-      <Description>Previous section id for ordered sections in the same example.</Description>
-      <Name>previous-section</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-section-option-title" ValueShapeId="shape-text">
-      <Description>Optional section title.</Description>
-      <Name>title</Name>
-    </Parameter>
-    <Parameter Id="param-add-example-section-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaDocs workspace to update. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
     <Parameter Id="param-author-page-option-body" ValueShapeId="shape-text">
       <Description>Authored narrative body.</Description>
       <IsRequired>true</IsRequired>
       <Name>body</Name>
-    </Parameter>
-    <Parameter Id="param-author-page-option-body-format" ValueShapeId="shape-text">
-      <DefaultValue>Markdown</DefaultValue>
-      <Description>Narrative body format. Defaults to Markdown.</Description>
-      <Name>body-format</Name>
     </Parameter>
     <Parameter Id="param-author-page-option-id" ValueShapeId="shape-text">
       <Description>Stable documentation subject id.</Description>
@@ -379,11 +247,6 @@
     <Parameter Id="param-update-description-option-body" ValueShapeId="shape-text">
       <Description>Authored description body.</Description>
       <Name>body</Name>
-    </Parameter>
-    <Parameter Id="param-update-description-option-body-format" ValueShapeId="shape-text">
-      <DefaultValue>Markdown</DefaultValue>
-      <Description>Body format. Defaults to Markdown.</Description>
-      <Name>body-format</Name>
     </Parameter>
     <Parameter Id="param-update-description-option-body-stdin" ValueShapeId="shape-flag">
       <Description>Read authored description body from standard input.</Description>

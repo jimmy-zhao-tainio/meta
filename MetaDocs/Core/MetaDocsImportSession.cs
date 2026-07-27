@@ -244,7 +244,6 @@ public sealed class MetaDocsImportSession
                 Slot = slot,
                 Title = title,
                 Body = body,
-                BodyFormat = "PlainText",
                 Origin = origin,
                 LastReviewedImportBatchId = batch.Id,
                 ReviewStatus = string.IsNullOrWhiteSpace(body) ? "NeedsAuthoring" : "Current",
@@ -264,7 +263,6 @@ public sealed class MetaDocsImportSession
             narrative.Slot = slot;
             narrative.Title = title;
             narrative.Body = body;
-            narrative.BodyFormat = "PlainText";
             narrative.Origin = origin;
             narrative.ReviewStatus = string.IsNullOrWhiteSpace(body) ? "NeedsAuthoring" : "Current";
         }
@@ -389,20 +387,6 @@ public sealed class MetaDocsImportSession
             (row.DocumentationSubject is not null && staleSubjectIds.Contains(row.DocumentationSubject.Id)));
         model.DocumentationViewNodeList.RemoveAll(row =>
             row.DocumentationSubject is not null && staleSubjectIds.Contains(row.DocumentationSubject.Id));
-        var staleExampleIds = model.DocumentationExampleList
-            .Where(row => row.DocumentationSubject is not null && staleSubjectIds.Contains(row.DocumentationSubject.Id))
-            .Select(row => row.Id)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var staleExampleSectionIds = model.DocumentationExampleSectionList
-            .Where(row => row.DocumentationExample is not null && staleExampleIds.Contains(row.DocumentationExample.Id))
-            .Select(row => row.Id)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-        model.DocumentationExampleCodeList.RemoveAll(row =>
-            row.DocumentationExampleSection is not null && staleExampleSectionIds.Contains(row.DocumentationExampleSection.Id));
-        model.DocumentationExampleSectionList.RemoveAll(row =>
-            staleExampleSectionIds.Contains(row.Id));
-        model.DocumentationExampleList.RemoveAll(row =>
-            staleExampleIds.Contains(row.Id));
         model.DocumentationSubjectList.RemoveAll(row =>
             staleSubjectIds.Contains(row.Id));
     }

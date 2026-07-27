@@ -445,7 +445,6 @@ public sealed class MetametabiDocsSiteRenderer
             AppendCommandCard(builder, model, command);
         }
 
-        AppendExamplesSection(builder, model, application, "              ", "General examples");
         builder.AppendLine("            </div>");
         AppendApplicationCommandRail(builder, model, application, commands, panelId);
         builder.AppendLine("          </div>");
@@ -469,14 +468,13 @@ public sealed class MetametabiDocsSiteRenderer
             .Append(Html(subject.DisplayName))
             .AppendLine("</h2>");
         var lead = SubjectLead(model, subject);
-        if (!string.IsNullOrWhiteSpace(lead.Body))
+        if (!string.IsNullOrWhiteSpace(lead))
         {
             AppendPanelLead(builder, lead, "            ");
         }
 
         builder.AppendLine("          </header>");
         AppendNarrativeSections(builder, model, subject);
-        AppendExamplesSection(builder, model, subject, title: "Examples");
         builder.AppendLine("        </section>");
     }
 
@@ -526,7 +524,6 @@ public sealed class MetametabiDocsSiteRenderer
     private static void AppendCommandCard(StringBuilder builder, MetaDocsModel model, DocumentationSubject command)
     {
         var options = ChildSubjects(model, command, "CliOption");
-        var examples = Examples(model, command);
         var guidance = CommandGuidance(model, command);
         var summary = SubjectSummary(model, command);
         builder.Append("          <details class=\"card cli-command-card\" id=\"")
@@ -549,9 +546,6 @@ public sealed class MetametabiDocsSiteRenderer
         builder.Append("              <span class=\"command-counts\">")
             .Append(options.Length)
             .Append(options.Length == 1 ? " option" : " options")
-            .Append(" / ")
-            .Append(examples.Length)
-            .Append(examples.Length == 1 ? " example" : " examples")
             .AppendLine("</span>");
         builder.AppendLine("            </summary>");
         builder.AppendLine("            <div class=\"command-body\">");
@@ -578,11 +572,6 @@ public sealed class MetametabiDocsSiteRenderer
         if (options.Length > 0)
         {
             AppendOptionsTable(builder, model, options);
-        }
-
-        if (examples.Length > 0)
-        {
-            AppendExamplesSection(builder, model, examples, "              ");
         }
 
         builder.AppendLine("              </div>");
@@ -624,16 +613,6 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("              </section>");
     }
 
-    private static void AppendExamplesSection(
-        StringBuilder builder,
-        MetaDocsModel model,
-        DocumentationSubject subject,
-        string indent = "          ",
-        string title = "Examples")
-    {
-        AppendExamplesSection(builder, model, Examples(model, subject), indent, title);
-    }
-
     private static void AppendNarrativeSections(
         StringBuilder builder,
         MetaDocsModel model,
@@ -650,147 +629,26 @@ public sealed class MetametabiDocsSiteRenderer
                     .AppendLine("</h3>");
             }
 
-            AppendFormattedText(builder, narrative.Body!, narrative.BodyFormat, indent + "  ");
+            AppendMarkdown(builder, narrative.Body!, indent + "  ");
             builder.Append(indent).AppendLine("</section>");
         }
     }
 
-    private static void AppendExamplesSection(
-        StringBuilder builder,
-        MetaDocsModel model,
-        IReadOnlyList<DocumentationExample> examples,
-        string indent,
-        string title = "Examples")
-    {
-        if (examples.Count == 0)
-        {
-            return;
-        }
-
-        builder.Append(indent).AppendLine("<section class=\"subsection examples\">");
-        builder.Append(indent).Append("  <h4 class=\"subsection-title\">")
-            .Append(Html(title))
-            .AppendLine("</h4>");
-        foreach (var example in examples)
-        {
-            builder.Append(indent).AppendLine("  <article class=\"example-block\">");
-            builder.Append(indent).Append("    <h5>")
-                .Append(Html(example.Title))
-                .AppendLine("</h5>");
-            if (!string.IsNullOrWhiteSpace(example.Summary))
-            {
-                builder.Append(indent).Append("    <p class=\"note\">")
-                    .Append(HtmlInline(example.Summary!))
-                    .AppendLine("</p>");
-            }
-
-            foreach (var section in ExampleSections(model, example))
-            {
-                if (!string.IsNullOrWhiteSpace(section.Title))
-                {
-                    builder.Append(indent).Append("    <h6>")
-                        .Append(Html(section.Title!))
-                        .AppendLine("</h6>");
-                }
-
-                if (!string.IsNullOrWhiteSpace(section.Body))
-                {
-                    AppendFormattedText(builder, section.Body!, section.BodyFormat, indent + "    ");
-                }
-
-                foreach (var code in ExampleCodes(model, section))
-                {
-                    if (!string.IsNullOrWhiteSpace(code.Title))
-                    {
-                        builder.Append(indent).Append("    <div class=\"code-title\">")
-                            .Append(Html(code.Title!))
-                            .AppendLine("</div>");
-                    }
-
-                    builder.Append(indent).Append("    <pre><code");
-                    if (!string.IsNullOrWhiteSpace(code.Language))
-                    {
-                        builder.Append(" class=\"language-").Append(Attr(code.Language!)).Append('"');
-                    }
-
-                    builder.Append('>')
-                        .Append(Html(code.Code))
-                        .AppendLine("</code></pre>");
-                }
-            }
-
-            builder.Append(indent).AppendLine("  </article>");
-        }
-
-        builder.Append(indent).AppendLine("</section>");
-    }
-
-    private static void AppendFormattedText(
+    private static void AppendMarkdown(
         StringBuilder builder,
         string value,
-        string bodyFormat,
         string indent)
     {
-        if (string.Equals(bodyFormat, "Markdown", StringComparison.OrdinalIgnoreCase))
-        {
-            builder.Append(indent).AppendLine("<div class=\"markdown-content\">");
-            builder.Append(MetaDocsMarkdown.ToHtml(value).TrimEnd()).AppendLine();
-            builder.Append(indent).AppendLine("</div>");
-            return;
-        }
-
-        var lines = value
-            .Replace("\r\n", "\n", StringComparison.Ordinal)
-            .Replace('\r', '\n')
-            .Split('\n');
-        var index = 0;
-        while (index < lines.Length)
-        {
-            while (index < lines.Length && string.IsNullOrWhiteSpace(lines[index]))
-            {
-                index++;
-            }
-
-            if (index >= lines.Length)
-            {
-                break;
-            }
-
-            var paragraph = new StringBuilder();
-            while (index < lines.Length &&
-                   !string.IsNullOrWhiteSpace(lines[index]))
-            {
-                if (paragraph.Length > 0)
-                {
-                    paragraph.Append(' ');
-                }
-
-                paragraph.Append(lines[index].Trim());
-                index++;
-            }
-
-            if (paragraph.Length > 0)
-            {
-                builder.Append(indent).Append("<p>")
-                    .Append(Html(paragraph.ToString()))
-                    .AppendLine("</p>");
-            }
-        }
+        builder.Append(indent).AppendLine("<div class=\"markdown-content\">");
+        builder.Append(MetaDocsMarkdown.ToHtml(value).TrimEnd()).AppendLine();
+        builder.Append(indent).AppendLine("</div>");
     }
 
-    private static void AppendPanelLead(StringBuilder builder, FormattedText lead, string indent)
+    private static void AppendPanelLead(StringBuilder builder, string lead, string indent)
     {
-        if (string.Equals(lead.BodyFormat, "Markdown", StringComparison.OrdinalIgnoreCase))
-        {
-            builder.Append(indent).AppendLine("<div class=\"panel-lead markdown-content\">");
-            builder.Append(MetaDocsMarkdown.ToHtml(lead.Body).TrimEnd()).AppendLine();
-            builder.Append(indent).AppendLine("</div>");
-            return;
-        }
-
-        builder.Append(indent).Append("<p class=\"panel-lead\">")
-            .Append(Html(lead.Body))
-            .AppendLine("</p>");
+        builder.Append(indent).AppendLine("<div class=\"panel-lead markdown-content\">");
+        builder.Append(MetaDocsMarkdown.ToHtml(lead).TrimEnd()).AppendLine();
+        builder.Append(indent).AppendLine("</div>");
     }
 
     private static string OptionValueDetails(MetaDocsModel model, DocumentationSubject option)
@@ -857,8 +715,6 @@ public sealed class MetametabiDocsSiteRenderer
         {
             AppendEntityCard(builder, model, entity);
         }
-
-        AppendExamplesSection(builder, model, modelSubject, title: "General examples");
 
         builder.AppendLine("          <details class=\"inline-details\">");
         builder.AppendLine("            <summary>Technical metadata</summary>");
@@ -975,8 +831,6 @@ public sealed class MetametabiDocsSiteRenderer
         {
             AppendReferencedByTable(builder, model, incomingReferences);
         }
-
-        AppendExamplesSection(builder, model, entity, "              ");
 
         builder.AppendLine("              </div>");
         builder.AppendLine("            </div>");
@@ -1257,12 +1111,12 @@ public sealed class MetametabiDocsSiteRenderer
     private static string SubjectSummary(MetaDocsModel? model, DocumentationSubject subject) =>
         ShortSummary(FirstNonEmpty(model is null ? string.Empty : FindNarrative(model, subject, "Summary")?.Body, subject.Summary));
 
-    private static FormattedText SubjectLead(MetaDocsModel model, DocumentationSubject subject)
+    private static string SubjectLead(MetaDocsModel model, DocumentationSubject subject)
     {
         var narrative = FindNarrative(model, subject, "Summary");
         return !string.IsNullOrWhiteSpace(narrative?.Body)
-            ? new FormattedText(narrative.Body, narrative.BodyFormat)
-            : new FormattedText(subject.Summary ?? string.Empty, "Markdown");
+            ? narrative.Body
+            : subject.Summary ?? string.Empty;
     }
 
     private static string EntitySummary(MetaDocsModel model, DocumentationSubject entity)
@@ -1330,34 +1184,7 @@ public sealed class MetametabiDocsSiteRenderer
 
     private static DocumentationNarrative[] NarrativeSections(MetaDocsModel model, DocumentationSubject subject) =>
         Narratives(model, subject)
-            .Where(static row =>
-                !string.Equals(row.Slot, "Summary", StringComparison.OrdinalIgnoreCase) &&
-                !string.Equals(row.Slot, "Example", StringComparison.OrdinalIgnoreCase))
-            .ToArray();
-
-    private static DocumentationExample[] Examples(MetaDocsModel model, DocumentationSubject subject) =>
-        MetaDocsOrdering.ByPrevious(
-                model.DocumentationExampleList
-                    .Where(row => ReferenceEquals(row.DocumentationSubject, subject))
-                    .Where(row => !string.Equals(row.ReviewStatus, "MissingFromSource", StringComparison.OrdinalIgnoreCase)),
-                static row => row.PreviousExample,
-                static row => $"{row.Title}:{row.Id}")
-            .ToArray();
-
-    private static DocumentationExampleSection[] ExampleSections(MetaDocsModel model, DocumentationExample example) =>
-        MetaDocsOrdering.ByPrevious(
-                model.DocumentationExampleSectionList
-                    .Where(row => ReferenceEquals(row.DocumentationExample, example)),
-                static row => row.PreviousSection,
-                static row => $"{row.Title}:{row.Id}")
-            .ToArray();
-
-    private static DocumentationExampleCode[] ExampleCodes(MetaDocsModel model, DocumentationExampleSection section) =>
-        MetaDocsOrdering.ByPrevious(
-                model.DocumentationExampleCodeList
-                    .Where(row => ReferenceEquals(row.DocumentationExampleSection, section)),
-                static row => row.PreviousCode,
-                static row => $"{row.Title}:{row.Id}")
+            .Where(static row => !string.Equals(row.Slot, "Summary", StringComparison.OrdinalIgnoreCase))
             .ToArray();
 
     private static DocumentationFact[] Facts(MetaDocsModel model, DocumentationSubject subject) =>
@@ -1673,8 +1500,6 @@ public sealed class MetametabiDocsSiteRenderer
         DocumentationSubject Subject,
         string NavigationTitle,
         IReadOnlyList<ReferenceNode> Children);
-
-    private sealed record FormattedText(string Body, string BodyFormat);
 
     private sealed record EntityReference(
         DocumentationSubject SourceEntity,

@@ -291,7 +291,7 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public void Cli_AddExampleAuthorsStructuredExamplesForBrowseSearchMergeAndRender()
+    public void Cli_UpdateDescriptionAuthorsMarkdownForBrowseSearchMergeAndRender()
     {
         var docsWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-example-docs-" + Guid.NewGuid().ToString("N"));
         var suiteWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-example-suite-" + Guid.NewGuid().ToString("N"));
@@ -303,50 +303,54 @@ public sealed class MetaDocsRuntimeTests
             new MetaDocsCliImporter().ImportApplication(model, CreateMetaSqlApp(), parentSubjectId: reference.MetaBiCli.Id);
             model.SaveToXmlWorkspace(docsWorkspace);
 
-            var addExample = RunCli(
-                $"add-example --workspace {QuoteArgument(docsWorkspace)} --cli meta-sql --command deploy --id example:meta-sql:deploy --title \"Deploy a manifest\" --section-id example:meta-sql:deploy:overview --body-stdin",
-                standardInput: "Apply a deploy manifest after source and live fingerprint validation.");
-            Assert.Equal(0, addExample.ExitCode);
-            Assert.Contains("Added example: Deploy a manifest.", addExample.Output);
+            const string markdown = """
+                Apply a deploy manifest after source and live fingerprint validation.
 
-            var addCode = RunCli(
-                $"add-example-code --workspace {QuoteArgument(docsWorkspace)} --section example:meta-sql:deploy:overview --id example:meta-sql:deploy:command --language powershell --code-stdin",
-                standardInput: "\uFEFFmeta-sql deploy --connection-env META_SQL_DEV --manifest-workspace .\\DeployPlan --source-workspace .\\MetaSql");
-            Assert.Equal(0, addCode.ExitCode);
-            Assert.Contains("Added example code:", addCode.Output);
+                ```powershell
+                meta-sql deploy --connection-env META_SQL_DEV --manifest-workspace .\DeployPlan --source-workspace .\MetaSql
+                ```
+                """;
+            var update = RunCli(
+                $"update-description --workspace {QuoteArgument(docsWorkspace)} --cli meta-sql --command deploy --slot Example.Deploy --title \"Deploy a manifest\" --body-stdin",
+                standardInput: "\uFEFF" + markdown);
+            Assert.Equal(0, update.ExitCode);
+            Assert.Contains("Updated description:", update.Output);
 
             var validate = RunCli($"validate --workspace {QuoteArgument(docsWorkspace)}");
             Assert.Equal(0, validate.ExitCode);
             Assert.Contains("Diagnostics: 0 error(s), 0 warning(s), 0 info.", validate.Output);
 
             var authored = MetaDocsModel.LoadFromXmlWorkspace(docsWorkspace, searchUpward: false);
-            var authoredCode = Assert.Single(authored.DocumentationExampleCodeList);
-            Assert.Equal("meta-sql deploy --connection-env META_SQL_DEV --manifest-workspace .\\DeployPlan --source-workspace .\\MetaSql", authoredCode.Code);
+            var authoredNarrative = Assert.Single(authored.DocumentationNarrativeList, row => row.Slot == "Example.Deploy");
+            Assert.Equal("Deploy a manifest", authoredNarrative.Title);
+            Assert.StartsWith("Apply a deploy manifest", authoredNarrative.Body, StringComparison.Ordinal);
+            Assert.Contains("```powershell", authoredNarrative.Body, StringComparison.Ordinal);
 
             var browse = RunCli($"browse --workspace {QuoteArgument(docsWorkspace)} cli/meta-sql/deploy");
             Assert.Equal(0, browse.ExitCode);
-            Assert.Contains("Examples:", browse.Output);
+            Assert.Contains("Descriptions:", browse.Output);
             Assert.Contains("Deploy a manifest", browse.Output);
             Assert.Contains("meta-sql deploy --connection-env META_SQL_DEV", browse.Output);
 
             var search = RunCli($"search --workspace {QuoteArgument(docsWorkspace)} \"Deploy a manifest\"");
             Assert.Equal(0, search.ExitCode);
             Assert.Contains("meta-sql deploy", search.Output);
-            Assert.Contains("example Deploy a manifest", search.Output);
+            Assert.Contains("Deploy a manifest", search.Output);
 
             var merge = RunCli($"merge --include {QuoteArgument(docsWorkspace)} --workspace {QuoteArgument(suiteWorkspace)}");
             Assert.Equal(0, merge.ExitCode);
             var suite = MetaDocsModel.LoadFromXmlWorkspace(suiteWorkspace, searchUpward: false);
-            var suiteExample = Assert.Single(suite.DocumentationExampleList);
-            Assert.Equal("Deploy a manifest", suiteExample.Title);
-            Assert.Equal("meta-sql deploy", suiteExample.DocumentationSubject.DisplayName);
+            var suiteNarrative = Assert.Single(suite.DocumentationNarrativeList, row => row.Slot == "Example.Deploy");
+            Assert.Equal("Deploy a manifest", suiteNarrative.Title);
+            Assert.Equal("meta-sql deploy", suiteNarrative.DocumentationSubject.DisplayName);
 
             var render = RunCli($"render-site --workspace {QuoteArgument(suiteWorkspace)} --out {QuoteArgument(siteOutput)}");
             Assert.Equal(0, render.ExitCode);
             var html = File.ReadAllText(Path.Combine(siteOutput, "docs.html"));
-            Assert.Contains("example-block", html, StringComparison.Ordinal);
             Assert.Contains("Deploy a manifest", html, StringComparison.Ordinal);
+            Assert.Contains("<pre><code class=\"language-powershell\">", html, StringComparison.Ordinal);
             Assert.Contains("meta-sql deploy --connection-env META_SQL_DEV", html, StringComparison.Ordinal);
+            Assert.DoesNotContain("General examples", html, StringComparison.Ordinal);
         }
         finally
         {
@@ -819,34 +823,21 @@ public sealed class MetaDocsRuntimeTests
             Slot = "Summary",
             Title = "Summary",
             Body = "Authored customer description.",
-            BodyFormat = "PlainText",
             Origin = "Authored",
             ReviewStatus = "Current",
         });
         var email = Assert.Single(model.DocumentationSubjectList, row =>
             IsSubjectType(row, "Property") &&
             row.DisplayName == "Email");
-        model.DocumentationExampleList.Add(new DocumentationExample
+        model.DocumentationNarrativeList.Add(new DocumentationNarrative
         {
-            Id = "example:email:removed",
+            Id = "narrative:email:removed",
             DocumentationSubject = email,
-            Title = "Removed property example",
+            Slot = "Example.RemovedProperty",
+            Title = "Removed property description",
+            Body = "Example tied to a property that disappears.\n\n```text\nEmail\n```",
             Origin = "Authored",
             ReviewStatus = "Current",
-        });
-        model.DocumentationExampleSectionList.Add(new DocumentationExampleSection
-        {
-            Id = "example:email:removed:section",
-            DocumentationExample = model.DocumentationExampleList.Single(row => row.Id == "example:email:removed"),
-            Body = "Example tied to a property that disappears.",
-            BodyFormat = "PlainText",
-        });
-        model.DocumentationExampleCodeList.Add(new DocumentationExampleCode
-        {
-            Id = "example:email:removed:code",
-            DocumentationExampleSection = model.DocumentationExampleSectionList.Single(row => row.Id == "example:email:removed:section"),
-            Language = "text",
-            Code = "Email",
         });
 
         WriteSampleModel(sourceWorkspace, includeEmail: false);
@@ -868,9 +859,7 @@ public sealed class MetaDocsRuntimeTests
         Assert.DoesNotContain(model.DocumentationSubjectList, row =>
             IsSubjectType(row, "Property") &&
             row.DisplayName == "Email");
-        Assert.DoesNotContain(model.DocumentationExampleList, row => row.Id == "example:email:removed");
-        Assert.DoesNotContain(model.DocumentationExampleSectionList, row => row.Id == "example:email:removed:section");
-        Assert.DoesNotContain(model.DocumentationExampleCodeList, row => row.Id == "example:email:removed:code");
+        Assert.DoesNotContain(model.DocumentationNarrativeList, row => row.Id == "narrative:email:removed");
     }
 
     [Fact]
@@ -912,43 +901,24 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public void SuiteMerge_PreservesStructuredExamples()
+    public void SuiteMerge_PreservesMarkdownDescriptions()
     {
         var source = MetaDocsModel.CreateEmpty();
         new MetaDocsCliImporter().ImportApplication(source, CreateSameNamedApp(), sourceId: "source:cli:left");
-        var authoring = new MetaDocsExampleAuthoringService();
-        var example = authoring.UpsertExample(
+        var narrative = new MetaDocsQueryService().UpsertDescription(
             source,
             new MetaDocsSubjectSelector(Cli: "same-cli"),
-            "example:same-cli:overview",
+            "Example.Run",
             "Run the CLI",
-            "Example summary.",
-            "example:same-cli:overview:section",
-            "Run the command from the workspace you want to inspect.",
-            "PlainText",
-            string.Empty);
-        var section = Assert.Single(source.DocumentationExampleSectionList);
-        authoring.UpsertCode(
-            source,
-            section.Id,
-            "example:same-cli:overview:command",
-            "Command",
-            "powershell",
-            "same-cli show",
-            string.Empty);
+            "Run the command from the workspace you want to inspect.\n\n```powershell\nsame-cli show\n```");
 
         var suite = new MetaDocsSuiteMerger().MergeIntoNew(new[] { source });
 
-        var suiteExample = Assert.Single(suite.DocumentationExampleList);
-        Assert.NotSame(example, suiteExample);
-        Assert.Equal("Run the CLI", suiteExample.Title);
-        Assert.Equal("same-cli", suiteExample.DocumentationSubject.DisplayName);
-        var suiteSection = Assert.Single(suite.DocumentationExampleSectionList);
-        Assert.Same(suiteExample, suiteSection.DocumentationExample);
-        Assert.Equal("Run the command from the workspace you want to inspect.", suiteSection.Body);
-        var suiteCode = Assert.Single(suite.DocumentationExampleCodeList);
-        Assert.Same(suiteSection, suiteCode.DocumentationExampleSection);
-        Assert.Equal("same-cli show", suiteCode.Code);
+        var suiteNarrative = Assert.Single(suite.DocumentationNarrativeList, row => row.Slot == "Example.Run");
+        Assert.NotSame(narrative, suiteNarrative);
+        Assert.Equal("Run the CLI", suiteNarrative.Title);
+        Assert.Equal("same-cli", suiteNarrative.DocumentationSubject.DisplayName);
+        Assert.Contains("```powershell\nsame-cli show\n```", suiteNarrative.Body, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -1113,7 +1083,6 @@ public sealed class MetaDocsRuntimeTests
             DocumentationSubject = left,
             Slot = "Summary",
             Body = "Draft",
-            BodyFormat = "PlainText",
             Origin = "Authored",
             ReviewStatus = "NeedsReview",
         });
@@ -1506,7 +1475,6 @@ public sealed class MetaDocsRuntimeTests
             Slot = "Summary",
             Title = "Summary",
             Body = "Authored Ada description.",
-            BodyFormat = "PlainText",
             Origin = "Authored",
             ReviewStatus = "Current",
         });
@@ -1859,25 +1827,12 @@ public sealed class MetaDocsRuntimeTests
         var reference = AddPublicReferenceTree(model);
         new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), parentSubjectId: reference.MetaBiCli.Id);
         var command = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "CliCommand"));
-        var exampleAuthoring = new MetaDocsExampleAuthoringService();
-        exampleAuthoring.UpsertExample(
+        new MetaDocsQueryService().UpsertDescription(
             model,
             new MetaDocsSubjectSelector(Cli: "meta-transform-binding", Command: "bind"),
-            $"{command.Id}:example:bind",
+            "Example.Bind",
             "Bind a transform workspace",
-            string.Empty,
-            $"{command.Id}:example:bind:section",
-            "Bind every script in a transform workspace against source and target schema workspaces.",
-            "PlainText",
-            string.Empty);
-        exampleAuthoring.UpsertCode(
-            model,
-            $"{command.Id}:example:bind:section",
-            $"{command.Id}:example:bind:command",
-            "Command",
-            "powershell",
-            "meta-transform-binding bind --transform-workspace TransformWS --source-schema SchemaWS --target-schema SchemaWS",
-            string.Empty);
+            "Bind every script in a transform workspace against source and target schema workspaces.\n\n```powershell\nmeta-transform-binding bind --transform-workspace TransformWS --source-schema SchemaWS --target-schema SchemaWS\n```");
         var application = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "CliApplication"));
         var hiddenProperty = new DocumentationSubject
         {
@@ -1954,7 +1909,7 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public void RenderSite_RendersApplicationAndModelExamplesAfterDetailCards()
+    public void RenderSite_InterleavesMarkdownProseAndCodeBeforeReferenceDetails()
     {
         var model = MetaDocsModel.CreateEmpty();
         var reference = AddPublicReferenceTree(model);
@@ -1966,39 +1921,31 @@ public sealed class MetaDocsRuntimeTests
             row => IsSubjectType(row, "Model") && row.DisplayName == "MetaDocs");
         model.DocumentationSubjectList.Add(new DocumentationSubject
         {
-            Id = "source:model:test:entity:documentationexample",
+            Id = "source:model:test:entity:documentationnarrative",
             DocumentationSource = modelSubject.DocumentationSource,
             DocumentationSubjectType = MetaDocsVocabulary.EnsureSubjectType(model, "Entity"),
             ParentSubject = modelSubject,
             SourceTypeName = "GenericEntity",
-            NativeId = "DocumentationExample",
-            DisplayName = "DocumentationExample",
-            DisplayPath = "MetaDocs.DocumentationExample",
-            Summary = "Structured documentation examples.",
+            NativeId = "DocumentationNarrative",
+            DisplayName = "DocumentationNarrative",
+            DisplayPath = "MetaDocs.DocumentationNarrative",
+            Summary = "Authored Markdown documentation.",
             Status = "Current",
         });
 
-        var examples = new MetaDocsExampleAuthoringService();
-        examples.UpsertExample(
+        var descriptions = new MetaDocsQueryService();
+        descriptions.UpsertDescription(
             model,
             new MetaDocsSubjectSelector(Cli: "meta-docs"),
-            "example:meta-docs:app-general",
+            "Guide",
             "Plan documentation work",
-            string.Empty,
-            "example:meta-docs:app-general:overview",
-            "Use the MetaDocs CLI to refresh, browse, and render documentation workspaces.",
-            "PlainText",
-            string.Empty);
-        examples.UpsertExample(
+            "Use the MetaDocs CLI to refresh documentation workspaces.\n\n```powershell\nmeta-docs browse cli/meta-docs\n```\n\nRender the reviewed workspace when it is ready.");
+        descriptions.UpsertDescription(
             model,
             new MetaDocsSubjectSelector(Model: "MetaDocs"),
-            "example:metadocs:model-general",
+            "Guide",
             "Shape a docs workspace",
-            string.Empty,
-            "example:metadocs:model-general:overview",
-            "Use the model reference to understand the durable documentation workspace structure.",
-            "PlainText",
-            string.Empty);
+            "Use the model reference to understand the durable documentation workspace structure.\n\n```text\nDocumentationSubject -> DocumentationNarrative\n```");
 
         var html = new MetametabiDocsSiteRenderer().RenderSite(model);
 
@@ -2008,7 +1955,7 @@ public sealed class MetaDocsRuntimeTests
         var applicationExampleIndex = html.IndexOf("Plan documentation work", cliPanelIndex, StringComparison.Ordinal);
         var commandRailIndex = html.IndexOf("<aside class=\"application-command-rail\"", cliPanelIndex, StringComparison.Ordinal);
         Assert.True(commandRailIndex > commandDetailIndex);
-        Assert.True(applicationExampleIndex > commandDetailIndex);
+        Assert.True(applicationExampleIndex < commandDetailIndex);
 
         var modelPanelIndex = html.IndexOf("id=\"model-metadocs\" data-panel=\"model-metadocs\"", StringComparison.Ordinal);
         Assert.True(modelPanelIndex >= 0);
@@ -2017,9 +1964,12 @@ public sealed class MetaDocsRuntimeTests
         var modelExampleIndex = html.IndexOf("Shape a docs workspace", modelPanelIndex, StringComparison.Ordinal);
         Assert.True(entityIndexIndex >= 0);
         Assert.True(entityDetailIndex > entityIndexIndex);
-        Assert.True(modelExampleIndex > entityDetailIndex);
+        Assert.True(modelExampleIndex < entityIndexIndex);
 
-        Assert.Contains("<h4 class=\"subsection-title\">General examples</h4>", html, StringComparison.Ordinal);
+        Assert.Contains("<pre><code class=\"language-powershell\">", html, StringComparison.Ordinal);
+        Assert.Contains("Render the reviewed workspace when it is ready.", html, StringComparison.Ordinal);
+        Assert.DoesNotContain("General examples", html, StringComparison.Ordinal);
+        Assert.DoesNotContain("example-block", html, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -2060,8 +2010,7 @@ public sealed class MetaDocsRuntimeTests
             new MetaDocsSubjectSelector(Subject: reference.MetaOverview.Id),
             "RichText",
             "Readable prose",
-            "Use **strong emphasis** and `inline code` in authored documentation.",
-            "Markdown");
+            "Use **strong emphasis** and `inline code` in authored documentation.");
         html = new MetametabiDocsSiteRenderer().RenderSite(model);
         Assert.Contains("<h3 class=\"document-heading\">Readable prose</h3>", html, StringComparison.Ordinal);
         Assert.Contains("<strong>strong emphasis</strong>", html, StringComparison.Ordinal);
@@ -2263,8 +2212,7 @@ public sealed class MetaDocsRuntimeTests
                 ParentSubjectId: meta.Id,
                 SourceId: "source:authored:public-reference",
                 SourceDisplayName: "Public reference",
-                NavigationTitle: "Overview",
-                BodyFormat: "Markdown"));
+                NavigationTitle: "Overview"));
         var metaCli = authoring.UpsertPage(
             model,
             new MetaDocsAuthoredPage(
@@ -2313,8 +2261,7 @@ public sealed class MetaDocsRuntimeTests
                 ParentSubjectId: metaBi.Id,
                 SourceId: "source:authored:public-reference",
                 SourceDisplayName: "Public reference",
-                NavigationTitle: "Overview",
-                BodyFormat: "Markdown"));
+                NavigationTitle: "Overview"));
         var metaBiCli = authoring.UpsertPage(
             model,
             new MetaDocsAuthoredPage(

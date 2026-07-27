@@ -3,8 +3,7 @@
   <DocumentationNarrativeList>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-operation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-operation">
       <Body>Add one declared operation.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -12,8 +11,7 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-operation:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-operation:option:description">
       <Body>Operation description.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -21,8 +19,7 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-operation:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-operation:option:name">
       <Body>Operation name.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -30,17 +27,27 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-operation:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-operation:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:narrative:example-example-meta-mesh-add-step-stdin:author-a-step-with-stdin-arguments" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousNarrativeId="source:cli:meta-mesh:app:command:add-step:narrative:guidance:token-substitution">
+      <Body>Use --arguments-stdin when the child command has quoting-heavy arguments. The step remains modeled, while the argument text stays exactly as the child CLI expects it.
+
+```powershell
+@'
+render-site --workspace ..\SuiteWorkspace --out ..\Site
+'@ | meta-mesh add-step --operation regenerate-public-docs --name render-site --executable meta-docs --arguments-stdin --working-directory .
+```</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Example.example:meta-mesh:add-step-stdin</Slot>
+      <Title>Author a step with stdin arguments</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:narrative:guidance:token-substitution" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousNarrativeId="source:cli:meta-mesh:app:command:add-step:narrative:summary:summary">
-      <Body>Step arguments support {workspace:&lt;name&gt;.path}, which expands to a declared workspace path, and {env:NAME}, which verifies NAME is non-empty and passes the variable name to the child process.
-Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensitive text.</Body>
-      <BodyFormat>PlainText</BodyFormat>
+      <Body>Step arguments support `{workspace:&lt;name&gt;.path}`, which expands to a declared workspace path, and `{env:NAME}`, which verifies `NAME` is non-empty and passes the variable name to the child process. Use `--arguments-stdin` when child arguments contain quotes, SQL, or shell-sensitive text.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guidance</Slot>
@@ -48,8 +55,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step">
       <Body>Add one executable step to an operation.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -57,8 +63,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:option:arguments-stdin:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step:option:arguments-stdin">
       <Body>Read executable arguments from standard input.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -66,8 +71,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:option:arguments:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step:option:arguments">
       <Body>Arguments passed to the executable.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -75,8 +79,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step:option:description">
       <Body>Step description.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -84,8 +87,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:option:executable:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step:option:executable">
       <Body>Executable or script command to run.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -93,8 +95,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:option:expected-exit-code:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step:option:expected-exit-code">
       <Body>Exit code that marks the step as successful. Defaults to 0.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -102,8 +103,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step:option:name">
       <Body>Step name.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -111,8 +111,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:option:operation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step:option:operation">
       <Body>Operation name.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -120,8 +119,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:option:previous-step:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step:option:previous-step">
       <Body>Previous step by step name.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -129,8 +127,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:option:working-directory:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step:option:working-directory">
       <Body>Working directory, absolute or relative to the mesh root.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -138,8 +135,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-step:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-step:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -147,8 +143,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-workspace">
       <Body>Add one declared workspace.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -156,8 +151,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-workspace:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:description">
       <Body>Workspace description.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -165,8 +159,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-workspace:option:model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:model">
       <Body>Model name hosted by the workspace.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -174,8 +167,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-workspace:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:name">
       <Body>Declared workspace name.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -183,8 +175,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-workspace:option:path:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:path">
       <Body>Workspace path, absolute or relative to the mesh root.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -192,8 +183,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:add-workspace:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -201,8 +191,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:help:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:help">
       <Body>Show help.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -210,8 +199,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:help:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:help:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -219,8 +207,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:new-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:new-workspace">
       <Body>Create an empty MetaMesh workspace.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -228,8 +215,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:new-workspace:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:description">
       <Body>Mesh description.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -237,8 +223,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:new-workspace:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:name">
       <Body>Mesh name.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -246,8 +231,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:new-workspace:option:root:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:root">
       <Body>Root path used to resolve relative workspace paths.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -255,8 +239,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:new-workspace:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -264,8 +247,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:operations:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:operations">
       <Body>List declared operations.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -273,16 +255,27 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:operations:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:operations:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:example-example-meta-mesh-run-docs-operation:run-the-documentation-operation" DocumentationSubjectId="source:cli:meta-mesh:app:command:run" PreviousNarrativeId="source:cli:meta-mesh:app:command:run:narrative:guidance:preflight">
+      <Body>Run a modeled operation from its mesh workspace. The documentation mesh imports source workspaces, rebuilds the suite workspace, validates it, and renders the static site.
+
+```powershell
+cd MetaDocs\Docs\Documentation.MetaMesh
+meta-mesh validate --operation regenerate-public-docs
+meta-mesh run --operation regenerate-public-docs
+```</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Example.example:meta-mesh:run-docs-operation</Slot>
+      <Title>Run the documentation operation</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:guidance:preflight" DocumentationSubjectId="source:cli:meta-mesh:app:command:run" PreviousNarrativeId="source:cli:meta-mesh:app:command:run:narrative:summary:summary">
       <Body>Run performs validation before starting: ordered step chain, declared workspace paths, executable lookup, working-directory access, and non-empty {env:...} variables must all resolve first.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guidance</Slot>
@@ -290,8 +283,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:run">
       <Body>Run the steps declared for one operation.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -299,8 +291,15 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:option:operation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:run:option:operation">
       <Body>Operation name.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:option:verbose:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:run:option:verbose">
+      <Body>Attach child processes to the current console and show their native output.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -308,8 +307,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:run:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -317,8 +315,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:show:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:show">
       <Body>Show a compact mesh overview.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -326,8 +323,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:show:option:verbose:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:show:option:verbose">
       <Body>Show workspace paths and step commands.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -335,8 +331,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:show:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:show:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -344,8 +339,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:steps:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:steps">
       <Body>List steps for one operation.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -353,8 +347,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:steps:option:operation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:steps:option:operation">
       <Body>Operation name.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -362,8 +355,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:steps:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:steps:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -371,7 +363,6 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:validate:narrative:guidance:preflight" DocumentationSubjectId="source:cli:meta-mesh:app:command:validate" PreviousNarrativeId="source:cli:meta-mesh:app:command:validate:narrative:summary:summary">
       <Body>Validate performs the same preflight as run but starts no child processes.</Body>
-      <BodyFormat>PlainText</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guidance</Slot>
@@ -379,8 +370,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:validate:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:validate">
       <Body>Validate one operation before running it.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -388,8 +378,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:validate:option:operation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:validate:option:operation">
       <Body>Operation name.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -397,8 +386,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:validate:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:validate:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -406,8 +394,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:workspaces:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:workspaces">
       <Body>List declared workspaces.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -415,8 +402,7 @@ Use --arguments-stdin when child arguments contain quotes, SQL, or shell-sensiti
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:workspaces:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:workspaces:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -430,7 +416,6 @@ Workspace tokens make a step portable across a repository, while environment tok
 The result is a durable replacement for task-specific wrapper scripts. Documentation regeneration, integration demos, and multi-workspace setup can be replayed as operations with visible inputs, progress, and failures that identify the exact step requiring attention.
 
 The AdventureWorks full-stack mesh demonstrates the same structure at system scale: 27 declared workspaces and 30 operations synchronize a source schema, build and deploy Data Vault and warehouse layers, bind transforms, author pipelines, infer orchestration, generate Data Quality assets, and deploy a processed Tabular model. MetaMesh owns participation, sequence, preflight, and execution visibility; each product CLI continues to own its domain behavior.</Body>
-      <BodyFormat>Markdown</BodyFormat>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -438,8 +423,7 @@ The AdventureWorks full-stack mesh demonstrates the same structure at system sca
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app">
       <Body>Define repository workflows as declared workspaces and executable operation steps, then validate and run them from a model.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -447,8 +431,7 @@ The AdventureWorks full-stack mesh demonstrates the same structure at system sca
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:option:workspace">
       <Body>MetaMesh workspace. Defaults to the current directory.</Body>
-      <BodyFormat>PlainText</BodyFormat>
-      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260704174600864</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-mesh:batch:20260720155803062</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>

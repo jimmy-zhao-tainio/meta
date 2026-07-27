@@ -32,9 +32,6 @@ internal static class Program
             .Bind("exec-contents", RunContents)
             .Bind("exec-search", RunSearch)
             .Bind("exec-update-description", RunUpdateDescription)
-            .Bind("exec-add-example", RunAddExample)
-            .Bind("exec-add-example-section", RunAddExampleSection)
-            .Bind("exec-add-example-code", RunAddExampleCode)
             .Bind("exec-import-cli", RunImportCli)
             .Bind("exec-import-workspace-model", RunImportWorkspaceModel)
             .Bind("exec-import-workspace-instances", RunImportWorkspaceInstances)
@@ -71,8 +68,7 @@ internal static class Program
                 Optional(invocation, "source-id", "source:authored:metametabi-docs"),
                 Optional(invocation, "source-name", "Authored MetaDocs pages"),
                 ParseBoolean(Optional(invocation, "view-root")),
-                Optional(invocation, "navigation-title"),
-                Optional(invocation, "body-format", "Markdown"));
+                Optional(invocation, "navigation-title"));
             var subject = new MetaDocsAuthoringService().UpsertPage(model, page);
             model.SaveToXmlWorkspace(workspace.OutputWorkspace);
             Presenter.WriteInfo($"Authored page: {subject.DisplayName}.");
@@ -162,88 +158,13 @@ internal static class Program
                 SubjectSelector(invocation),
                 Optional(invocation, "slot", "Summary"),
                 Optional(invocation, "title"),
-                body,
-                Optional(invocation, "body-format", "Markdown"));
+                body);
             model.SaveToXmlWorkspace(workspace);
             Presenter.WriteInfo($"Updated description: {narrative.DocumentationSubject.Id} ({narrative.Slot}).");
         }
         catch (Exception exception) when (exception is not MetaCliExitException)
         {
             throw new InvalidOperationException($"Cannot update documentation description. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
-        }
-    }
-
-    private static void RunAddExample(MetaCliInvocation invocation)
-    {
-        var workspace = WorkspaceOrCurrent(invocation);
-        try
-        {
-            var body = ReadBody(invocation);
-            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
-            var example = new MetaDocsExampleAuthoringService().UpsertExample(
-                model,
-                SubjectSelector(invocation),
-                invocation.Required("id"),
-                invocation.Required("title"),
-                Optional(invocation, "summary"),
-                invocation.Required("section-id"),
-                body,
-                Optional(invocation, "body-format", "PlainText"),
-                Optional(invocation, "previous-example"));
-            model.SaveToXmlWorkspace(workspace);
-            Presenter.WriteInfo($"Added example: {example.Title}.");
-        }
-        catch (Exception exception) when (exception is not MetaCliExitException)
-        {
-            throw new InvalidOperationException($"Cannot add documentation example. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
-        }
-    }
-
-    private static void RunAddExampleSection(MetaCliInvocation invocation)
-    {
-        var workspace = WorkspaceOrCurrent(invocation);
-        try
-        {
-            var body = ReadBody(invocation);
-            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
-            var section = new MetaDocsExampleAuthoringService().UpsertSection(
-                model,
-                invocation.Required("example"),
-                invocation.Required("id"),
-                Optional(invocation, "title"),
-                body,
-                Optional(invocation, "body-format", "PlainText"),
-                Optional(invocation, "previous-section"));
-            model.SaveToXmlWorkspace(workspace);
-            Presenter.WriteInfo($"Added example section: {section.Id}.");
-        }
-        catch (Exception exception) when (exception is not MetaCliExitException)
-        {
-            throw new InvalidOperationException($"Cannot add documentation example section. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
-        }
-    }
-
-    private static void RunAddExampleCode(MetaCliInvocation invocation)
-    {
-        var workspace = WorkspaceOrCurrent(invocation);
-        try
-        {
-            var code = ReadCode(invocation);
-            var model = MetaDocsModel.LoadFromXmlWorkspaceAsync(workspace, searchUpward: false).GetAwaiter().GetResult();
-            var codeRow = new MetaDocsExampleAuthoringService().UpsertCode(
-                model,
-                invocation.Required("section"),
-                invocation.Required("id"),
-                Optional(invocation, "title"),
-                Optional(invocation, "language"),
-                code,
-                Optional(invocation, "previous-code"));
-            model.SaveToXmlWorkspace(workspace);
-            Presenter.WriteInfo($"Added example code: {codeRow.Id}.");
-        }
-        catch (Exception exception) when (exception is not MetaCliExitException)
-        {
-            throw new InvalidOperationException($"Cannot add documentation example code. Workspace: {Path.GetFullPath(workspace)}. {exception.Message}", exception);
         }
     }
 
@@ -537,28 +458,6 @@ internal static class Program
         }
 
         return inlineBody;
-    }
-
-    private static string ReadCode(MetaCliInvocation invocation)
-    {
-        var inlineCode = Optional(invocation, "code");
-        var stdin = invocation.Flag("code-stdin");
-        if (!string.IsNullOrWhiteSpace(inlineCode) && stdin)
-        {
-            throw new MetaCliExitException(2, "Use either --code <text> or --code-stdin, not both.");
-        }
-
-        if (stdin)
-        {
-            return MetaCliStandardInput.ReadToEnd();
-        }
-
-        if (string.IsNullOrWhiteSpace(inlineCode))
-        {
-            throw new MetaCliExitException(2, "Provide --code <text> or --code-stdin.");
-        }
-
-        return inlineCode;
     }
 
     private static int ParseLimit(string value)

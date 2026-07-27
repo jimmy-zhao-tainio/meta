@@ -72,28 +72,6 @@ public sealed class MetaDocsQueryService
                     .ThenBy(static fact => fact.Name, StringComparer.OrdinalIgnoreCase)
                     .ToArray(),
                 StringComparer.OrdinalIgnoreCase);
-        var examplesBySubject = model.DocumentationExampleList
-            .Where(IsCurrent)
-            .Where(static example => example.DocumentationSubject is not null)
-            .GroupBy(static example => example.DocumentationSubject.Id, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(
-                static group => group.Key,
-                group => OrderedExamples(group).ToArray(),
-                StringComparer.OrdinalIgnoreCase);
-        var sectionsByExample = model.DocumentationExampleSectionList
-            .Where(static section => section.DocumentationExample is not null)
-            .GroupBy(static section => section.DocumentationExample.Id, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(
-                static group => group.Key,
-                group => OrderedSections(group).ToArray(),
-                StringComparer.OrdinalIgnoreCase);
-        var codesBySection = model.DocumentationExampleCodeList
-            .Where(static code => code.DocumentationExampleSection is not null)
-            .GroupBy(static code => code.DocumentationExampleSection.Id, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(
-                static group => group.Key,
-                group => OrderedCodes(group).ToArray(),
-                StringComparer.OrdinalIgnoreCase);
         foreach (var subject in model.DocumentationSubjectList
                      .Where(IsCurrent)
                      .Where(subject => string.IsNullOrWhiteSpace(subjectType) || MetaDocsVocabulary.IsSubjectType(subject, subjectType))
@@ -131,33 +109,6 @@ public sealed class MetaDocsQueryService
                 }
             }
 
-            if (examplesBySubject.TryGetValue(subject.Id, out var examples))
-            {
-                foreach (var example in examples)
-                {
-                    AddIfContains(matches, subject, "example", $"{example.Title} {example.Summary}", query);
-                    AddIfContains(matches, subject, "example", example.Summary, query);
-                    if (!sectionsByExample.TryGetValue(example.Id, out var sections))
-                    {
-                        continue;
-                    }
-
-                    foreach (var section in sections)
-                    {
-                        AddIfContains(matches, subject, "example", FirstNonEmpty(section.Title, section.Body), query, section.Body);
-                        if (!codesBySection.TryGetValue(section.Id, out var codes))
-                        {
-                            continue;
-                        }
-
-                        foreach (var code in codes)
-                        {
-                            AddIfContains(matches, subject, "example", FirstNonEmpty(code.Title, code.Code), query, code.Code);
-                        }
-                    }
-                }
-            }
-
             if (matches.Count > countBeforeSubject)
             {
                 matchedSubjectCount++;
@@ -180,8 +131,7 @@ public sealed class MetaDocsQueryService
         MetaDocsSubjectSelector selector,
         string slot,
         string title,
-        string body,
-        string bodyFormat = "Markdown")
+        string body)
     {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(slot);
@@ -208,7 +158,6 @@ public sealed class MetaDocsQueryService
         narrative.Slot = normalizedSlot;
         narrative.Title = normalizedTitle;
         narrative.Body = body.Trim();
-        narrative.BodyFormat = string.IsNullOrWhiteSpace(bodyFormat) ? "Markdown" : bodyFormat.Trim();
         narrative.Origin = "Authored";
         narrative.LastReviewedImportBatchId = string.Empty;
         narrative.ReviewStatus = "Current";
@@ -407,27 +356,6 @@ public sealed class MetaDocsQueryService
                 narratives,
                 static narrative => narrative.PreviousNarrative,
                 static narrative => $"{narrative.Slot}:{narrative.Title}:{narrative.Id}")
-            .ToArray();
-
-    private static IReadOnlyList<DocumentationExample> OrderedExamples(IEnumerable<DocumentationExample> examples) =>
-        MetaDocsOrdering.ByPrevious(
-                examples,
-                static example => example.PreviousExample,
-                static example => $"{example.Title}:{example.Id}")
-            .ToArray();
-
-    private static IReadOnlyList<DocumentationExampleSection> OrderedSections(IEnumerable<DocumentationExampleSection> sections) =>
-        MetaDocsOrdering.ByPrevious(
-                sections,
-                static section => section.PreviousSection,
-                static section => $"{section.Title}:{section.Id}")
-            .ToArray();
-
-    private static IReadOnlyList<DocumentationExampleCode> OrderedCodes(IEnumerable<DocumentationExampleCode> codes) =>
-        MetaDocsOrdering.ByPrevious(
-                codes,
-                static code => code.PreviousCode,
-                static code => $"{code.Title}:{code.Id}")
             .ToArray();
 
     private static void AddSubjectMatches(List<MetaDocsSearchMatch> matches, DocumentationSubject subject, string query)
@@ -684,11 +612,6 @@ public sealed class MetaDocsQueryService
         !string.Equals(fact.Status, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(fact.Status, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(fact.Status, "Ignored", StringComparison.OrdinalIgnoreCase);
-
-    private static bool IsCurrent(DocumentationExample example) =>
-        !string.Equals(example.ReviewStatus, "MissingFromSource", StringComparison.OrdinalIgnoreCase) &&
-        !string.Equals(example.ReviewStatus, "Deprecated", StringComparison.OrdinalIgnoreCase) &&
-        !string.Equals(example.ReviewStatus, "Ignored", StringComparison.OrdinalIgnoreCase);
 
     private static string FirstNonEmpty(params string?[] values) =>
         values.FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)) ?? string.Empty;

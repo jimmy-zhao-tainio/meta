@@ -280,7 +280,15 @@
       <Status>New</Status>
       <Summary>Operation name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:run" PreviousSubjectId="source:cli:meta-mesh:app:command:run:option:operation">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run:option:verbose" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:run" PreviousSubjectId="source:cli:meta-mesh:app:command:run:option:operation">
+      <DisplayName>--verbose</DisplayName>
+      <DisplayPath>meta-mesh run --verbose</DisplayPath>
+      <NativeId>opt-run-verbose</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Attach child processes to the current console and show their native output.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:run" PreviousSubjectId="source:cli:meta-mesh:app:command:run:option:verbose">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh run --workspace</DisplayPath>
       <NativeId>opt-workspace</NativeId>
@@ -323,9 +331,9 @@
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:steps:option:operation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:steps">
       <DisplayName>--operation</DisplayName>
       <DisplayPath>meta-mesh steps --operation</DisplayPath>
-      <NativeId>opt-run-operation</NativeId>
+      <NativeId>opt-steps-operation</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Summary>Operation name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:steps:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:steps" PreviousSubjectId="source:cli:meta-mesh:app:command:steps:option:operation">
@@ -347,9 +355,9 @@
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate:option:operation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:validate">
       <DisplayName>--operation</DisplayName>
       <DisplayPath>meta-mesh validate --operation</DisplayPath>
-      <NativeId>opt-run-operation</NativeId>
+      <NativeId>opt-validate-operation</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Summary>Operation name.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:validate" PreviousSubjectId="source:cli:meta-mesh:app:command:validate:option:operation">
