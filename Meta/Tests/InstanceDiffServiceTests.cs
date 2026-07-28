@@ -68,8 +68,8 @@ public sealed class InstanceDiffServiceTests
                         Name = "Person",
                         Properties =
                         {
-                            new GenericProperty { Name = "Name", DataType = "string", IsNullable = false },
-                            new GenericProperty { Name = "Age", DataType = "string", IsNullable = false },
+                            new GenericProperty { Name = "Name", IsNullable = false },
+                            new GenericProperty { Name = "Age", IsNullable = false },
                         },
                     },
                 },

@@ -974,7 +974,6 @@ public sealed class WorkspaceServiceTests
         item.Properties.Add(new GenericProperty
         {
             Name = "OptionalProp",
-            DataType = "string",
             IsNullable = true,
         });
         workspace.Model.Entities.Add(item);
@@ -1120,7 +1119,6 @@ public sealed class WorkspaceServiceTests
         item.Properties.Add(new GenericProperty
         {
             Name = "OptionalProp",
-            DataType = "string",
             IsNullable = true,
         });
         workspace.Model.Entities.Add(item);

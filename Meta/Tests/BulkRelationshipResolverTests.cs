@@ -112,14 +112,14 @@ public sealed class BulkRelationshipResolverTests
         {
             Name = "Cube",
         };
-        cube.Properties.Add(new GenericProperty { Name = "CubeName", DataType = "string", IsNullable = false });
+        cube.Properties.Add(new GenericProperty { Name = "CubeName", IsNullable = false });
         workspace.Model.Entities.Add(cube);
 
         var measure = new GenericEntity
         {
             Name = "Measure",
         };
-        measure.Properties.Add(new GenericProperty { Name = "MeasureName", DataType = "string", IsNullable = false });
+        measure.Properties.Add(new GenericProperty { Name = "MeasureName", IsNullable = false });
         measure.Relationships.Add(new GenericRelationship { Entity = "Cube" });
         workspace.Model.Entities.Add(measure);
 

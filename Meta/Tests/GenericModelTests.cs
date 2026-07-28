@@ -17,7 +17,7 @@ public sealed class GenericModelTests
                     Name = "Person",
                     Properties =
                     {
-                        new GenericProperty { Name = "Name", DataType = "string", IsNullable = false },
+                        new GenericProperty { Name = "Name", IsNullable = false },
                     },
                     Relationships =
                     {
@@ -52,8 +52,8 @@ public sealed class GenericModelTests
                     Name = "Person",
                     Properties =
                     {
-                        new GenericProperty { Name = "Age", DataType = "int", IsNullable = false },
-                        new GenericProperty { Name = "Name", DataType = "string", IsNullable = true },
+                        new GenericProperty { Name = "Age", IsNullable = false },
+                        new GenericProperty { Name = "Name", IsNullable = true },
                     },
                     Relationships =
                     {
@@ -81,8 +81,8 @@ public sealed class GenericModelTests
                     Name = "Person",
                     Properties =
                     {
-                        new GenericProperty { Name = "Name", DataType = "string", IsNullable = true },
-                        new GenericProperty { Name = "Age", DataType = "int", IsNullable = false },
+                        new GenericProperty { Name = "Name", IsNullable = true },
+                        new GenericProperty { Name = "Age", IsNullable = false },
                     },
                     Relationships =
                     {

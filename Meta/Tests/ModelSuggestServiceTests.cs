@@ -113,10 +113,10 @@ public sealed class ModelSuggestServiceTests
     public void Analyze_RoleStyleIdSuffix_IsReportedAsWeakSuggestion()
     {
         var workspace = CreateWorkspaceSkeleton();
-        AddEntity(workspace.Model, "Product", ("ProductName", "string"));
+        AddEntity(workspace.Model, "Product", "ProductName");
         AddEntity(workspace.Model, "Order",
-            ("OrderNumber", "string"),
-            ("SourceProductId", "string"));
+            "OrderNumber",
+            "SourceProductId");
 
         AddRow(workspace.Instance, "Product", "PRD-001", ("ProductName", "Road Bike"));
         AddRow(workspace.Instance, "Product", "PRD-002", ("ProductName", "Bottle Cage"));
@@ -143,11 +143,11 @@ public sealed class ModelSuggestServiceTests
     public void Analyze_PropertyMatchingMoreThanOneTarget_IsReportedAsWeakAmbiguousSuggestion()
     {
         var workspace = CreateWorkspaceSkeleton();
-        AddEntity(workspace.Model, "Type", ("TypeName", "string"));
-        AddEntity(workspace.Model, "ReferenceType", ("ReferenceTypeName", "string"));
+        AddEntity(workspace.Model, "Type", "TypeName");
+        AddEntity(workspace.Model, "ReferenceType", "ReferenceTypeName");
         AddEntity(workspace.Model, "Mapping",
-            ("ReferenceTypeId", "string"),
-            ("MappingName", "string"));
+            "ReferenceTypeId",
+            "MappingName");
 
         AddRow(workspace.Instance, "Type", "TYPE-001", ("TypeName", "Alpha"));
         AddRow(workspace.Instance, "Type", "TYPE-002", ("TypeName", "Beta"));
@@ -183,8 +183,8 @@ public sealed class ModelSuggestServiceTests
     public void Analyze_SymmetricPeerKeys_AreBlockedAsAmbiguous()
     {
         var workspace = CreateWorkspaceSkeleton();
-        AddEntity(workspace.Model, "Left", ("PeerId", "int"));
-        AddEntity(workspace.Model, "Right", ("PeerId", "int"));
+        AddEntity(workspace.Model, "Left", "PeerId");
+        AddEntity(workspace.Model, "Right", "PeerId");
 
         AddRow(workspace.Instance, "Left", "1", ("PeerId", "1"));
         AddRow(workspace.Instance, "Left", "2", ("PeerId", "2"));
@@ -301,16 +301,16 @@ public sealed class ModelSuggestServiceTests
     private static DomainWorkspace BuildDemoWorkspace()
     {
         var workspace = CreateWorkspaceSkeleton();
-        AddEntity(workspace.Model, "Product", ("ProductName", "string"), ("ProductGroup", "string"));
-        AddEntity(workspace.Model, "Supplier", ("SupplierName", "string"));
-        AddEntity(workspace.Model, "Category", ("CategoryName", "string"));
-        AddEntity(workspace.Model, "Warehouse", ("WarehouseName", "string"));
+        AddEntity(workspace.Model, "Product", "ProductName", "ProductGroup");
+        AddEntity(workspace.Model, "Supplier", "SupplierName");
+        AddEntity(workspace.Model, "Category", "CategoryName");
+        AddEntity(workspace.Model, "Warehouse", "WarehouseName");
         AddEntity(workspace.Model, "Order",
-            ("OrderNumber", "string"),
-            ("ProductId", "string"),
-            ("SupplierId", "string"),
-            ("WarehouseId", "string"),
-            ("StatusText", "string"));
+            "OrderNumber",
+            "ProductId",
+            "SupplierId",
+            "WarehouseId",
+            "StatusText");
 
         AddRow(workspace.Instance, "Product", "PRD-001", ("ProductName", "Road Bike"), ("ProductGroup", "Cycles"));
         AddRow(workspace.Instance, "Product", "PRD-002", ("ProductName", "Touring Bike"), ("ProductGroup", "Cycles"));
@@ -356,19 +356,18 @@ public sealed class ModelSuggestServiceTests
         };
     }
 
-    private static void AddEntity(GenericModel model, string entityName, params (string Name, string DataType)[] properties)
+    private static void AddEntity(GenericModel model, string entityName, params string[] properties)
     {
         var entity = new GenericEntity
         {
             Name = entityName,
         };
 
-        foreach (var property in properties)
+        foreach (var propertyName in properties)
         {
             entity.Properties.Add(new GenericProperty
             {
-                Name = property.Name,
-                DataType = property.DataType,
+                Name = propertyName,
                 IsNullable = false,
             });
         }

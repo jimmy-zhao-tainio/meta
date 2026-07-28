@@ -52,7 +52,7 @@ public sealed class OperationServiceTests
         };
 
         var entity = new GenericEntity { Name = "Thing" };
-        entity.Properties.Add(new GenericProperty { Name = "Name", DataType = "string", IsNullable = false });
+        entity.Properties.Add(new GenericProperty { Name = "Name", IsNullable = false });
         workspace.Model.Entities.Add(entity);
 
         var records = workspace.Instance.GetOrCreateEntityRecords("Thing");

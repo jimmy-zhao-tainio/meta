@@ -20,14 +20,12 @@ internal sealed partial class CliRuntime
             {
                 name = item.Name,
                 isRequired = !item.IsNullable,
-                dataType = item.DataType,
             })
             .ToList();
         properties.Insert(0, new
         {
             name = "Id",
             isRequired = true,
-            dataType = "string",
         });
 
         presenter.WriteInfo($"Entity: {entity.Name}");
@@ -35,12 +33,11 @@ internal sealed partial class CliRuntime
 
         presenter.WriteInfo("Properties:");
         presenter.WriteTable(
-            new[] { "Name", "Type", "Required" },
+            new[] { "Name", "Required" },
             properties
                 .Select(property => (IReadOnlyList<string>)new[]
                 {
                     property.name,
-                    property.dataType,
                     property.isRequired ? "required" : "optional",
                 })
                 .ToList());

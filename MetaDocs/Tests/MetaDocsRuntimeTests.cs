@@ -1769,7 +1769,7 @@ public sealed class MetaDocsRuntimeTests
         var html = new MetametabiDocsSiteRenderer().RenderSite(model);
 
         Assert.Contains("<th>Entity</th><th>Properties</th><th>Relationships</th>", html, StringComparison.Ordinal);
-        Assert.Contains("<th>Name</th><th>Type</th><th>Required</th><th>Nullable</th><th>Description</th>", html, StringComparison.Ordinal);
+        Assert.Contains("<th>Name</th><th>Required</th><th>Nullable</th><th>Description</th>", html, StringComparison.Ordinal);
         Assert.Contains("<th>Name</th><th>Target</th><th>Role</th><th>Column</th><th>Required</th>", html, StringComparison.Ordinal);
         Assert.Contains("id=\"model-samplemodel\" data-panel=\"model-samplemodel\"", html, StringComparison.Ordinal);
         Assert.Contains("class=\"card model-entity-card\"", html, StringComparison.Ordinal);
@@ -2474,7 +2474,7 @@ public sealed class MetaDocsRuntimeTests
                 </Entity>
                 <Entity name="Order">
                   <PropertyList>
-                    <Property name="Amount" dataType="decimal" />
+                    <Property name="Amount" />
                   </PropertyList>
                   <RelationshipList>
                     <Relationship entity="Customer" />

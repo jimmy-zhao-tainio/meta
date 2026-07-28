@@ -121,16 +121,6 @@ public sealed class ValidationService : IValidationService
                     Location = $"model/entity/{entity.Name}/property/{property.Name}",
                 });
             }
-            if (string.IsNullOrWhiteSpace(property.DataType))
-            {
-                diagnostics.Issues.Add(new DiagnosticIssue
-                {
-                    Code = "property.datatype.empty",
-                    Message = $"Property '{entity.Name}.{property.Name}' has empty data type.",
-                    Severity = IssueSeverity.Warning,
-                    Location = $"model/entity/{entity.Name}/property/{property.Name}/@dataType",
-                });
-            }
         }
     }
 
@@ -442,31 +432,6 @@ public sealed class ValidationService : IValidationService
                     }
                 }
 
-                foreach (var property in modelEntity.Properties
-                             .Where(item => !string.Equals(item.Name, "Id", StringComparison.OrdinalIgnoreCase)))
-                {
-                    if (!record.Values.TryGetValue(property.Name, out var propertyValue) || propertyValue == null)
-                    {
-                        continue;
-                    }
-
-                    if (IsStringDataType(property.DataType))
-                    {
-                        continue;
-                    }
-
-                    if (string.IsNullOrWhiteSpace(propertyValue))
-                    {
-                        diagnostics.Issues.Add(new DiagnosticIssue
-                        {
-                            Code = "instance.property.parse",
-                            Message =
-                                $"Entity '{entityName}' record '{record.Id}' has invalid empty value for non-string property '{property.Name}'.",
-                            Severity = IssueSeverity.Error,
-                            Location = $"instance/{entityName}/{record.Id}/{property.Name}",
-                        });
-                    }
-                }
             }
         }
 
@@ -548,16 +513,6 @@ public sealed class ValidationService : IValidationService
     private static bool IsValidIdentity(string? value)
     {
         return !string.IsNullOrWhiteSpace(NormalizeIdentity(value));
-    }
-
-    private static bool IsStringDataType(string? dataType)
-    {
-        if (string.IsNullOrWhiteSpace(dataType))
-        {
-            return true;
-        }
-
-        return string.Equals(dataType.Trim(), "string", StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool IsValidName(string value)

@@ -196,7 +196,6 @@ public static class WorkspaceOperationApplier
         entity.Properties.Add(new GenericProperty
         {
             Name = operation.Property.Name,
-            DataType = operation.Property.DataType,
             IsNullable = operation.Property.IsNullable,
         });
 

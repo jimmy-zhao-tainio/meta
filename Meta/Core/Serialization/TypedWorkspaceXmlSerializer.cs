@@ -668,7 +668,6 @@ public static class TypedWorkspaceXmlSerializer
                 entity.Properties.Add(new GenericProperty
                 {
                     Name = scalar.XmlElementName,
-                    DataType = "string",
                     IsNullable = !scalar.IsRequired,
                 });
             }

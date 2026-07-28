@@ -59,7 +59,6 @@ public sealed class DataBatchParserTests
         entity.Properties.Add(new GenericProperty
         {
             Name = "MeasureName",
-            DataType = "string",
             IsNullable = false,
         });
         entity.Relationships.Add(new GenericRelationship

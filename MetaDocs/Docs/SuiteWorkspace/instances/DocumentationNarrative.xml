@@ -482,10 +482,10 @@ Because the semantics remain aligned, different producers and consumers can coll
     <DocumentationNarrative Id="public:meta:overview:narrative:modelxmlcontract:model-xml-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:cliataglance:meta-cli-at-a-glance">
       <Body>`model.xml` declares the schema of a metadata workspace: which entities exist, which scalar properties they carry, and how they relate.
 
-A model has one `&lt;Model name="..."&gt;` root and follows a small set of rules:
+A model has one `&lt;Model name=...&gt;` root and follows a small set of rules:
 
-- `&lt;Entity name="Cube"&gt;` defines a record type; every entity has an implicit `Id`.
-- `&lt;PropertyList&gt;` contains scalar fields. String is the default data type, properties are required by default, and `isRequired="false"` makes a property optional.
+- `&lt;Entity name=Cube&gt;` defines a record type; every entity has an implicit `Id`.
+- `&lt;PropertyList&gt;` contains scalar text fields. Properties are required by default, and `isRequired=false` makes a property optional.
 - `&lt;RelationshipList&gt;` contains references to other entities. Relationships are required by default.
 - A relationship role is used when more than one relationship targets the same entity and the references need distinct meanings.
 - XML instance containers and generated C# root collections use the deterministic `&lt;EntityName&gt;List` convention.

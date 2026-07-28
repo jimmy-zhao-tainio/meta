@@ -219,12 +219,10 @@ public sealed class ImportService : IImportService
         {
             var values = dataRows.Select(row => CsvImportSupport.GetCellValue(row, plan.ColumnIndex)).ToList();
             var hasEmpty = values.Any(value => string.IsNullOrWhiteSpace(value));
-            var inferredDataType = CsvImportSupport.InferDataType(values);
 
             entity.Properties.Add(new GenericProperty
             {
                 Name = plan.PropertyName,
-                DataType = inferredDataType,
                 IsNullable = hasEmpty,
             });
         }
@@ -289,7 +287,6 @@ public sealed class ImportService : IImportService
             properties.Add(new GenericProperty
             {
                 Name = column.Name,
-                DataType = "string",
                 IsNullable = column.IsNullable,
             });
         }

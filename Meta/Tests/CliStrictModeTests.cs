@@ -1281,7 +1281,7 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
-    public async Task ImportCsv_NewWorkspace_CreatesEntityRowsAndInferredTypes()
+    public async Task ImportCsv_NewWorkspace_CreatesEntityRowsAndRequiredness()
     {
         var csvRoot = Path.Combine(Path.GetTempPath(), "metadata-import-csv", Guid.NewGuid().ToString("N"));
         var csvPath = Path.Combine(csvRoot, "landing.csv");
@@ -1323,23 +1323,18 @@ public sealed partial class CliStrictModeTests
             Assert.Contains(properties, property => string.Equals((string?)property.Attribute("name"), "Display_Name", StringComparison.Ordinal));
             Assert.Contains(properties, property =>
                 string.Equals((string?)property.Attribute("name"), "Active", StringComparison.Ordinal) &&
-                string.Equals((string?)property.Attribute("dataType"), "bool", StringComparison.OrdinalIgnoreCase) &&
                 string.Equals((string?)property.Attribute("isRequired"), "false", StringComparison.OrdinalIgnoreCase));
             Assert.Contains(properties, property =>
                 string.Equals((string?)property.Attribute("name"), "Count", StringComparison.Ordinal) &&
-                string.Equals((string?)property.Attribute("dataType"), "int", StringComparison.OrdinalIgnoreCase) &&
                 string.Equals((string?)property.Attribute("isRequired"), "false", StringComparison.OrdinalIgnoreCase));
             Assert.Contains(properties, property =>
                 string.Equals((string?)property.Attribute("name"), "BigCount", StringComparison.Ordinal) &&
-                string.Equals((string?)property.Attribute("dataType"), "long", StringComparison.OrdinalIgnoreCase) &&
                 string.Equals((string?)property.Attribute("isRequired"), "false", StringComparison.OrdinalIgnoreCase));
             Assert.Contains(properties, property =>
                 string.Equals((string?)property.Attribute("name"), "Amount", StringComparison.Ordinal) &&
-                string.Equals((string?)property.Attribute("dataType"), "decimal", StringComparison.OrdinalIgnoreCase) &&
                 string.Equals((string?)property.Attribute("isRequired"), "false", StringComparison.OrdinalIgnoreCase));
             Assert.Contains(properties, property =>
                 string.Equals((string?)property.Attribute("name"), "CreatedAt", StringComparison.Ordinal) &&
-                string.Equals((string?)property.Attribute("dataType"), "datetime", StringComparison.OrdinalIgnoreCase) &&
                 string.Equals((string?)property.Attribute("isRequired"), "false", StringComparison.OrdinalIgnoreCase));
             Assert.Contains(properties, property => string.Equals((string?)property.Attribute("name"), "Status", StringComparison.Ordinal));
             Assert.Contains(properties, property =>

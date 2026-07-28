@@ -368,7 +368,7 @@ public sealed class CliTests
                         Name = "ReferenceType",
                         Properties =
                         {
-                            new GenericProperty { Name = "Name", DataType = "string", IsNullable = false },
+                            new GenericProperty { Name = "Name", IsNullable = false },
                         },
                     },
                 },
@@ -393,10 +393,10 @@ public sealed class CliTests
         {
             Name = "Mapping",
         };
-        entity.Properties.Add(new GenericProperty { Name = "Name", DataType = "string", IsNullable = false });
+        entity.Properties.Add(new GenericProperty { Name = "Name", IsNullable = false });
         foreach (var propertySet in propertySets)
         {
-            entity.Properties.Add(new GenericProperty { Name = propertySet.PropertyName, DataType = "string", IsNullable = false });
+            entity.Properties.Add(new GenericProperty { Name = propertySet.PropertyName, IsNullable = false });
         }
 
         var workspace = new Workspace

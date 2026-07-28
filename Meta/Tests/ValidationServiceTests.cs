@@ -55,7 +55,7 @@ public sealed class ValidationServiceTests
         workspace.Model.Entities.Add(cube);
 
         var measure = new GenericEntity { Name = "Measure" };
-        measure.Properties.Add(new GenericProperty { Name = "CubeId", DataType = "string", IsNullable = false });
+        measure.Properties.Add(new GenericProperty { Name = "CubeId", IsNullable = false });
         measure.Relationships.Add(new GenericRelationship { Entity = "Cube" });
         workspace.Model.Entities.Add(measure);
 
@@ -142,26 +142,6 @@ public sealed class ValidationServiceTests
     }
 
     [Fact]
-    public void Validate_RequiredNonStringProperty_RejectsExplicitEmptyValue()
-    {
-        var workspace = BuildWorkspace(
-            modelName: "MetadataModel",
-            entityName: "Cube",
-            propertyName: "Rank");
-        workspace.Model.Entities[0].Properties[0].DataType = "int";
-        var record = new GenericRecord { Id = "1" };
-        record.Values["Rank"] = string.Empty;
-        workspace.Instance.GetOrCreateEntityRecords("Cube").Add(record);
-
-        var diagnostics = new ValidationService().Validate(workspace);
-
-        Assert.Contains(diagnostics.Issues,
-            issue => issue.Code == "instance.property.parse" && issue.Location.EndsWith("/Rank"));
-        Assert.DoesNotContain(diagnostics.Issues,
-            issue => issue.Code == "instance.required.missing" && issue.Location.EndsWith("/Rank"));
-    }
-
-    [Fact]
     public void Validate_NullableRelationship_AllowsMissingValue()
     {
         var workspace = new Workspace
@@ -216,7 +196,6 @@ public sealed class ValidationServiceTests
         entity.Properties.Add(new GenericProperty
         {
             Name = propertyName,
-            DataType = "string",
             IsNullable = false,
         });
 

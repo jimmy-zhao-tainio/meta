@@ -217,7 +217,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
                 "InstancePropertyValue",
                 property.Name,
                 value,
-                InferValueKind(property.DataType, value));
+                "String");
             var propertySubject = FindModelPropertySubject(docsModel, modelSourceId, entity.Name, property.Name);
             if (propertySubject is not null)
             {
@@ -354,25 +354,6 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         return string.IsNullOrWhiteSpace(sourcePath)
             ? $"{sourceDisplayName}.{entityName}.{displayName}"
             : $"{sourceDisplayName}.{sourcePath}";
-    }
-
-    private static string InferValueKind(string? dataType, string value)
-    {
-        if (bool.TryParse(value, out _))
-        {
-            return "Boolean";
-        }
-
-        if (decimal.TryParse(value, out _))
-        {
-            return "Number";
-        }
-
-        return string.Equals(dataType, "string", StringComparison.OrdinalIgnoreCase)
-            ? "String"
-            : string.IsNullOrWhiteSpace(dataType)
-                ? "String"
-                : dataType!;
     }
 
     private static string ComputeSourceFingerprint(Workspace workspace)

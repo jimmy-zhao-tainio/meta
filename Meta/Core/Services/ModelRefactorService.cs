@@ -569,7 +569,6 @@ public sealed class ModelRefactorService : IModelRefactorService
         sourceEntity.Properties.Add(new GenericProperty
         {
             Name = propertyName,
-            DataType = "string",
             IsNullable = false,
         });
 

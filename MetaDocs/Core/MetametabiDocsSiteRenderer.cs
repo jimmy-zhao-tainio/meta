@@ -845,16 +845,13 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("              <section class=\"subsection\">");
         builder.AppendLine("                <h4 class=\"subsection-title\">Properties</h4>");
         builder.AppendLine("                <table>");
-        builder.AppendLine("                  <thead><tr><th>Name</th><th>Type</th><th>Required</th><th>Nullable</th><th>Description</th></tr></thead>");
+        builder.AppendLine("                  <thead><tr><th>Name</th><th>Required</th><th>Nullable</th><th>Description</th></tr></thead>");
         builder.AppendLine("                  <tbody>");
         foreach (var property in properties)
         {
             builder.AppendLine("                    <tr>");
             builder.Append("                      <td>")
                 .Append(Html(property.DisplayName))
-                .AppendLine("</td>");
-            builder.Append("                      <td>")
-                .Append(Html(FindFact(model, property, "Model", "DataType")))
                 .AppendLine("</td>");
             builder.Append("                      <td>")
                 .Append(Html(FindFact(model, property, "Model", "Required")))

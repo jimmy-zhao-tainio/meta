@@ -1,4 +1,3 @@
-using System.Globalization;
 using Meta.Core.Domain;
 using Meta.Core.Services;
 using MetaWeaveModel = global::MetaWeave.MetaWeaveModel;
@@ -144,11 +143,6 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                                 ? ProfileImplicitId(targetCandidate.EntityName, targetCandidate.Rows)
                                 : ProfileProperty(targetCandidate.EntityName, targetCandidate.Property!, targetCandidate.Rows);
                             if (!IsEligibleTarget(targetProfile))
-                            {
-                                continue;
-                            }
-
-                            if (!IsTypeCompatibleStrict(sourceProfile.DataType, targetProfile.DataType))
                             {
                                 continue;
                             }
@@ -355,7 +349,6 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
 
     private static PropertyProfile ProfileProperty(string entityName, GenericProperty property, IReadOnlyList<GenericRecord> rows)
     {
-        var dataType = NormalizeDataType(property.DataType);
         var nonNullCount = 0;
         var blankCount = 0;
         var distinctNonBlank = new HashSet<string>(StringComparer.Ordinal);
@@ -384,7 +377,6 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
         return new PropertyProfile(
             EntityName: entityName,
             PropertyName: property.Name,
-            DataType: dataType,
             RowCount: rows.Count,
             NonNullCount: nonNullCount,
             NullCount: rows.Count - nonNullCount,
@@ -401,7 +393,6 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
         var blankCount = 0;
         var distinctNonBlank = new HashSet<string>(StringComparer.Ordinal);
         var comparableValueCounts = new Dictionary<string, int>(StringComparer.Ordinal);
-        var observedIds = new List<string>();
 
         foreach (var row in rows)
         {
@@ -413,7 +404,6 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
             }
 
             nonNullCount++;
-            observedIds.Add(value);
             distinctNonBlank.Add(value);
             comparableValueCounts.TryGetValue(value, out var existing);
             comparableValueCounts[value] = existing + 1;
@@ -422,7 +412,6 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
         return new PropertyProfile(
             EntityName: entityName,
             PropertyName: "Id",
-            DataType: DetectImplicitIdDataType(observedIds),
             RowCount: rows.Count,
             NonNullCount: nonNullCount,
             NullCount: rows.Count - nonNullCount,
@@ -532,48 +521,6 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
         return value;
     }
 
-    private static string NormalizeDataType(string? dataType)
-    {
-        var value = (dataType ?? string.Empty).Trim();
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return "string";
-        }
-
-        return value.ToLowerInvariant() switch
-        {
-            "boolean" => "bool",
-            "int32" => "int",
-            "int64" => "long",
-            _ => value,
-        };
-    }
-
-    private static bool IsTypeCompatibleStrict(string sourceType, string targetType)
-    {
-        return string.Equals(NormalizeDataType(sourceType), NormalizeDataType(targetType), StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static string DetectImplicitIdDataType(IReadOnlyCollection<string> ids)
-    {
-        if (ids.Count == 0)
-        {
-            return "int";
-        }
-
-        if (ids.All(value => int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out _)))
-        {
-            return "int";
-        }
-
-        if (ids.All(value => long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out _)))
-        {
-            return "long";
-        }
-
-        return "string";
-    }
-
     private static bool IsBlank(string value)
     {
         return string.IsNullOrEmpty(value);
@@ -595,7 +542,6 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
     private sealed record PropertyProfile(
         string EntityName,
         string PropertyName,
-        string DataType,
         int RowCount,
         int NonNullCount,
         int NullCount,

@@ -68,7 +68,6 @@ public static class WorkspaceSnapshotCloner
                 entityClone.Properties.Add(new GenericProperty
                 {
                     Name = property.Name,
-                    DataType = property.DataType,
                     IsNullable = property.IsNullable,
                 });
             }

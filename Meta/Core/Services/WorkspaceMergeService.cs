@@ -171,7 +171,6 @@ public sealed class WorkspaceMergeService : IWorkspaceMergeService
                 clone.Properties.Add(new GenericProperty
                 {
                     Name = property.Name,
-                    DataType = property.DataType,
                     IsNullable = property.IsNullable,
                 });
             }

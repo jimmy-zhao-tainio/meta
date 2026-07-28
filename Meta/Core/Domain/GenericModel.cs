@@ -31,7 +31,6 @@ public sealed class GenericModel
                     "property",
                     entity.Name,
                     property.Name,
-                    property.DataType,
                     property.IsNullable ? "nullable" : "required");
             }
 
@@ -71,7 +70,6 @@ public sealed class GenericModel
                 entityClone.Properties.Add(new GenericProperty
                 {
                     Name = property.Name ?? string.Empty,
-                    DataType = property.DataType ?? string.Empty,
                     IsNullable = property.IsNullable,
                 });
             }
@@ -156,7 +154,6 @@ public sealed class GenericEntity
 public sealed class GenericProperty
 {
     public string Name { get; set; } = string.Empty;
-    public string DataType { get; set; } = "string";
     public bool IsNullable { get; set; }
 }
 

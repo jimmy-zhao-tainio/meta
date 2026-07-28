@@ -74,10 +74,15 @@ public static class ModelXmlCodec
                             $"Property '{entity.Name}.{propertyName}' uses unsupported attribute 'isNullable'. Use 'isRequired'.");
                     }
 
+                    if (propertyElement.Attribute("dataType") != null)
+                    {
+                        throw new InvalidDataException(
+                            $"Property '{entity.Name}.{propertyName}' uses unsupported attribute 'dataType'. Model datatype semantics explicitly.");
+                    }
+
                     var property = new GenericProperty
                     {
                         Name = propertyName,
-                        DataType = ParseDataType((string?)propertyElement.Attribute("dataType")),
                         IsNullable = !ParseRequired((string?)propertyElement.Attribute("isRequired")),
                     };
                     entity.Properties.Add(property);
@@ -140,11 +145,6 @@ public static class ModelXmlCodec
                 {
                     var propertyElement = new XElement("Property",
                         new XAttribute("name", property.Name ?? string.Empty));
-                    var dataType = string.IsNullOrWhiteSpace(property.DataType) ? "string" : property.DataType;
-                    if (!string.Equals(dataType, "string", StringComparison.OrdinalIgnoreCase))
-                    {
-                        propertyElement.Add(new XAttribute("dataType", dataType));
-                    }
 
                     if (property.IsNullable)
                     {
@@ -188,17 +188,6 @@ public static class ModelXmlCodec
         }
 
         return new XDocument(new XDeclaration("1.0", "utf-8", null), root);
-    }
-
-    private static string ParseDataType(string? dataTypeValue)
-    {
-        if (string.IsNullOrWhiteSpace(dataTypeValue))
-        {
-            return "string";
-        }
-
-        var trimmed = dataTypeValue.Trim();
-        return string.IsNullOrWhiteSpace(trimmed) ? "string" : trimmed;
     }
 
     private static bool ParseRequired(string? isRequiredValue)

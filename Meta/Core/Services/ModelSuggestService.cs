@@ -26,9 +26,7 @@ public sealed class PropertyProfileStats
 {
     public string EntityName { get; set; } = string.Empty;
     public string PropertyName { get; set; } = string.Empty;
-    public string DataType { get; set; } = "string";
     public bool IsRequired { get; set; }
-    public bool IsStringLike { get; set; }
     public int RowCount { get; set; }
     public int NonNullCount { get; set; }
     public int NullCount { get; set; }
@@ -254,7 +252,6 @@ public static class ModelSuggestService
         GenericProperty property,
         IReadOnlyList<GenericRecord> rows)
     {
-        var dataType = NormalizeDataType(property.DataType);
         var nonNullCount = 0;
         var blankCount = 0;
         var nonNullDistinct = new HashSet<string>(StringComparer.Ordinal);
@@ -292,9 +289,7 @@ public static class ModelSuggestService
             {
                 EntityName = entityName,
                 PropertyName = property.Name,
-                DataType = dataType,
                 IsRequired = !property.IsNullable,
-                IsStringLike = IsStringLike(dataType),
                 RowCount = rowCount,
                 NonNullCount = nonNullCount,
                 NullCount = nullCount,
@@ -317,7 +312,6 @@ public static class ModelSuggestService
         var nonNullDistinct = new HashSet<string>(StringComparer.Ordinal);
         var nonBlankDistinct = new HashSet<string>(StringComparer.Ordinal);
         var nonBlankCounts = new Dictionary<string, int>(StringComparer.Ordinal);
-        var observedIds = new List<string>();
 
         foreach (var row in rows)
         {
@@ -329,7 +323,6 @@ public static class ModelSuggestService
             }
 
             nonNullCount++;
-            observedIds.Add(value);
             nonNullDistinct.Add(value);
             nonBlankDistinct.Add(value);
             nonBlankCounts.TryGetValue(value, out var existing);
@@ -339,16 +332,13 @@ public static class ModelSuggestService
         var rowCount = rows.Count;
         var nullCount = rowCount - nonNullCount;
         var nonBlankCount = nonNullCount;
-        var dataType = DetectImplicitIdDataType(observedIds);
 
         return new PropertyProfile(
             Stats: new PropertyProfileStats
             {
                 EntityName = entityName,
                 PropertyName = "Id",
-                DataType = dataType,
                 IsRequired = true,
-                IsStringLike = IsStringLike(dataType),
                 RowCount = rowCount,
                 NonNullCount = nonNullCount,
                 NullCount = nullCount,
@@ -368,7 +358,7 @@ public static class ModelSuggestService
         foreach (var profile in profiles)
         {
             var stats = profile.Stats;
-            if (stats.RowCount < 2 || !IsComparableScalar(stats.DataType) || stats.NonNullCount == 0)
+            if (stats.RowCount < 2 || stats.NonNullCount == 0)
             {
                 continue;
             }
@@ -590,13 +580,11 @@ public static class ModelSuggestService
         var targetStats = target.Stats;
         var sourceEntity = model.FindEntity(sourceStats.EntityName)
             ?? throw new InvalidOperationException($"Entity '{sourceStats.EntityName}' does not exist.");
-        var typeCompatible = IsTypeCompatibleStrict(sourceStats.DataType, targetStats.DataType);
         var coverage = BuildCoverageMetrics(source, target);
         var blockers = BuildRelationshipBlockers(
             sourceStats,
             targetStats,
             coverage,
-            typeCompatible,
             target.ComparableValueCounts,
             BuildModelShapeBlockers(
                 sourceEntity,
@@ -625,7 +613,7 @@ public static class ModelSuggestService
             TargetDistinctComparableValueCount = targetStats.DistinctNonBlankCount,
             TargetComparableIsUnique = targetStats.IsUniqueOverNonBlank,
             SourceShowsReuse = sourceStats.NonBlankCount > sourceStats.DistinctNonBlankCount,
-            Score = ScoreRelationshipCandidate(sourceStats, targetStats, coverage, typeCompatible, blockers.Count),
+            Score = ScoreRelationshipCandidate(sourceStats, targetStats, coverage, blockers.Count),
         };
         suggestion.Blockers.AddRange(blockers);
 
@@ -633,9 +621,6 @@ public static class ModelSuggestService
             string.Equals(sourceStats.PropertyName, targetStats.PropertyName, StringComparison.OrdinalIgnoreCase)
                 ? "Exact property-name match."
                 : "Property names differ.");
-        suggestion.Evidence.Add(typeCompatible
-            ? "Compatible scalar type."
-            : "Incompatible scalar type.");
         suggestion.Evidence.Add(
             $"Source values matched target key: {coverage.MatchedSourceRowCount.ToString(CultureInfo.InvariantCulture)}/{sourceStats.NonBlankCount.ToString(CultureInfo.InvariantCulture)} rows (distinct {coverage.MatchedDistinctCount.ToString(CultureInfo.InvariantCulture)}/{sourceStats.DistinctNonBlankCount.ToString(CultureInfo.InvariantCulture)}).");
         suggestion.Evidence.Add(
@@ -650,7 +635,6 @@ public static class ModelSuggestService
         PropertyProfileStats source,
         PropertyProfileStats target,
         CoverageMetrics coverage,
-        bool typeCompatible,
         IReadOnlyDictionary<string, int> targetComparableCounts,
         IReadOnlyList<string> modelShapeBlockers,
         bool sourceShowsClearLookupReuse,
@@ -658,11 +642,6 @@ public static class ModelSuggestService
     {
         var blockers = new List<string>();
         blockers.AddRange(modelShapeBlockers);
-
-        if (!typeCompatible)
-        {
-            blockers.Add("Incompatible scalar type between source and target lookup key.");
-        }
 
         if (targetComparableCounts.Values.Any(count => count > 1))
         {
@@ -839,18 +818,13 @@ public static class ModelSuggestService
         PropertyProfileStats source,
         PropertyProfileStats target,
         CoverageMetrics coverage,
-        bool typeCompatible,
         int blockerCount)
     {
         var coverageRatio = source.NonBlankCount == 0
             ? 0.0d
             : coverage.MatchedSourceRowCount / (double)source.NonBlankCount;
 
-        var score = 0.20d;
-        if (typeCompatible)
-        {
-            score += 0.20d;
-        }
+        var score = 0.40d;
 
         score += 0.35d * coverageRatio;
         score += target.IsUniqueOverNonBlank ? 0.15d : 0.02d;
@@ -874,9 +848,7 @@ public static class ModelSuggestService
         {
             EntityName = source.EntityName,
             PropertyName = source.PropertyName,
-            DataType = source.DataType,
             IsRequired = source.IsRequired,
-            IsStringLike = source.IsStringLike,
             RowCount = source.RowCount,
             NonNullCount = source.NonNullCount,
             NullCount = source.NullCount,
@@ -887,39 +859,6 @@ public static class ModelSuggestService
             IsUniqueOverNonNull = source.IsUniqueOverNonNull,
             IsUniqueOverNonBlank = source.IsUniqueOverNonBlank,
         };
-    }
-
-    private static string NormalizeDataType(string? dataType)
-    {
-        var value = (dataType ?? string.Empty).Trim();
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            return "string";
-        }
-
-        return value.ToLowerInvariant() switch
-        {
-            "boolean" => "bool",
-            "int32" => "int",
-            "int64" => "long",
-            _ => value,
-        };
-    }
-
-    private static bool IsComparableScalar(string dataType)
-    {
-        return dataType.ToLowerInvariant() is "string" or "bool" or "byte" or "short" or "int" or "long" or
-            "decimal" or "double" or "float" or "datetime" or "datetime2" or "date" or "time" or "guid";
-    }
-
-    private static bool IsTypeCompatibleStrict(string sourceType, string targetType)
-    {
-        return string.Equals(NormalizeDataType(sourceType), NormalizeDataType(targetType), StringComparison.OrdinalIgnoreCase);
-    }
-
-    private static bool IsStringLike(string dataType)
-    {
-        return string.Equals(dataType, "string", StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool SourceShowsClearLookupReuse(PropertyProfileStats source)
@@ -957,26 +896,6 @@ public static class ModelSuggestService
         role = propertyName[..^2];
         isWeak = true;
         return !string.IsNullOrWhiteSpace(role);
-    }
-
-    private static string DetectImplicitIdDataType(IReadOnlyCollection<string> ids)
-    {
-        if (ids.Count == 0)
-        {
-            return "int";
-        }
-
-        if (ids.All(value => int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out _)))
-        {
-            return "int";
-        }
-
-        if (ids.All(value => long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out _)))
-        {
-            return "long";
-        }
-
-        return "string";
     }
 
     private static bool IsBlank(string value)

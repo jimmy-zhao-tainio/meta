@@ -198,7 +198,6 @@ public sealed class MetaDocsWorkspaceModelImporter
             entitySubject,
             previousProperty);
         session.UpsertFact(subject, "Model", "Name", property.Name);
-        session.UpsertFact(subject, "Model", "DataType", string.IsNullOrWhiteSpace(property.DataType) ? "string" : property.DataType);
         session.UpsertFact(subject, "Model", "Required", (!property.IsNullable).ToString(), "Boolean");
         session.UpsertFact(subject, "Model", "Nullable", property.IsNullable.ToString(), "Boolean");
         var containsRelationship = session.UpsertRelationship(

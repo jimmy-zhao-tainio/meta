@@ -59,7 +59,7 @@ public sealed class WorkspaceMergeServiceTests
             Name = entityName,
             Properties =
             {
-                new GenericProperty { Name = "Name", DataType = "string", IsNullable = false },
+                new GenericProperty { Name = "Name", IsNullable = false },
             },
         });
 

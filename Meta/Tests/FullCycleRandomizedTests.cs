@@ -154,7 +154,6 @@ public sealed class FullCycleRandomizedTests
                 entity.Properties.Add(new GenericProperty
                 {
                     Name = propertyName,
-                    DataType = "string",
                     IsNullable = random.NextDouble() >= 0.35d,
                 });
             }

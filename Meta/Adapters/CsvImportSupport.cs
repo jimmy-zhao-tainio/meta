@@ -146,45 +146,6 @@ internal static class CsvImportSupport
         return row.Count == 0 || row.All(cell => string.IsNullOrWhiteSpace(cell));
     }
 
-    public static string InferDataType(IReadOnlyCollection<string> values)
-    {
-        var nonEmptyValues = values
-            .Where(value => !string.IsNullOrWhiteSpace(value))
-            .ToList();
-
-        if (nonEmptyValues.Count == 0)
-        {
-            return "string";
-        }
-
-        if (nonEmptyValues.All(value => bool.TryParse(value, out _)))
-        {
-            return "bool";
-        }
-
-        if (nonEmptyValues.All(value => int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out _)))
-        {
-            return "int";
-        }
-
-        if (nonEmptyValues.All(value => long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out _)))
-        {
-            return "long";
-        }
-
-        if (nonEmptyValues.All(value => decimal.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out _)))
-        {
-            return "decimal";
-        }
-
-        if (nonEmptyValues.All(value => DateTime.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.RoundtripKind, out _)))
-        {
-            return "datetime";
-        }
-
-        return "string";
-    }
-
     public static string NormalizeIdentifier(string value, string fallback)
     {
         var input = (value ?? string.Empty).Trim().TrimStart('\uFEFF');

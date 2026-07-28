@@ -15,7 +15,6 @@ internal sealed partial class CliRuntime
             Property = new GenericProperty
             {
                 Name = propertyName,
-                DataType = "string",
                 IsNullable = !required,
             },
             PropertyDefaultValue = defaultValue,
