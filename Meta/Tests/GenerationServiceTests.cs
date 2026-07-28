@@ -172,6 +172,39 @@ public sealed class GenerationServiceTests
     }
 
     [Fact]
+    public void GenerateSql_RejectsRequiredRelationshipCycleBeforeWritingOutput()
+    {
+        var output = Path.Combine(
+            Path.GetTempPath(),
+            "metadata-gen-tests",
+            Guid.NewGuid().ToString("N"),
+            "required-cycle");
+        var workspace = new Workspace
+        {
+            Model = new GenericModel
+            {
+                Name = "RequiredRelationshipCycle",
+            },
+            Instance = new GenericInstance
+            {
+                ModelName = "RequiredRelationshipCycle",
+            },
+        };
+        var first = new GenericEntity { Name = "First" };
+        first.Relationships.Add(new GenericRelationship { Entity = "Second" });
+        var second = new GenericEntity { Name = "Second" };
+        second.Relationships.Add(new GenericRelationship { Entity = "First" });
+        workspace.Model.Entities.Add(first);
+        workspace.Model.Entities.Add(second);
+
+        var exception = Assert.Throws<InvalidOperationException>(
+            () => GenerationService.GenerateSql(workspace, output));
+
+        Assert.Contains("required relationship cycle", exception.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.False(Directory.Exists(output));
+    }
+
+    [Fact]
     public async Task GenerateSsdt_WritesExpectedFiles()
     {
         var services = new ServiceCollection();

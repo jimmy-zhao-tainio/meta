@@ -22,9 +22,11 @@ public static partial class GenerationService
             throw new ArgumentNullException(nameof(workspace));
         }
 
+        var schema = SqlGenerationArtifacts.BuildSchema(workspace);
+        var data = SqlGenerationArtifacts.BuildData(workspace);
         var outputRoot = GenerationOutputWriter.PrepareDirectory(outputDirectory);
-        GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "schema.sql"), SqlGenerationArtifacts.BuildSchema(workspace));
-        GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "data.sql"), SqlGenerationArtifacts.BuildData(workspace));
+        GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "schema.sql"), schema);
+        GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "data.sql"), data);
 
         return GenerationOutputWriter.BuildManifest(outputRoot);
     }
@@ -106,9 +108,9 @@ public static partial class GenerationService
             throw new ArgumentNullException(nameof(workspace));
         }
 
-        var outputRoot = GenerationOutputWriter.PrepareDirectory(outputDirectory);
         var schema = SqlGenerationArtifacts.BuildSchema(workspace);
         var data = SqlGenerationArtifacts.BuildData(workspace);
+        var outputRoot = GenerationOutputWriter.PrepareDirectory(outputDirectory);
         GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "Schema.sql"), schema);
         GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "Data.sql"), data);
         GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "PostDeploy.sql"), SqlGenerationArtifacts.BuildPostDeployScript());

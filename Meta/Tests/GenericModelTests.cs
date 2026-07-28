@@ -94,4 +94,36 @@ public sealed class GenericModelTests
 
         Assert.Equal(left.ComputeContractSignature(), right.ComputeContractSignature());
     }
+
+    [Fact]
+    public void ComputeContractSignature_ChangesWithRelationshipNullability()
+    {
+        var required = BuildRelationshipModel(isNullable: false);
+        var optional = BuildRelationshipModel(isNullable: true);
+
+        Assert.NotEqual(
+            required.ComputeContractSignature(),
+            optional.ComputeContractSignature());
+    }
+
+    private static GenericModel BuildRelationshipModel(bool isNullable)
+    {
+        var model = new GenericModel
+        {
+            Name = "People",
+            Entities =
+            {
+                new GenericEntity { Name = "Team" },
+            },
+        };
+        var person = new GenericEntity { Name = "Person" };
+        person.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Team",
+            Role = "PrimaryTeam",
+            IsNullable = isNullable,
+        });
+        model.Entities.Add(person);
+        return model;
+    }
 }

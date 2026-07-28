@@ -80,7 +80,8 @@ internal static class SqlServerImportReader
                                   srcColumn.name AS SourceColumn,
                                   dstTable.name AS TargetTable,
                                   dstColumn.name AS TargetColumn,
-                                  fkc.constraint_column_id AS ConstraintColumnId
+                                  fkc.constraint_column_id AS ConstraintColumnId,
+                                  srcColumn.is_nullable AS IsNullable
                               FROM sys.foreign_keys fk
                               INNER JOIN sys.foreign_key_columns fkc
                                   ON fk.object_id = fkc.constraint_object_id
@@ -115,6 +116,7 @@ internal static class SqlServerImportReader
                 TargetTable = reader.GetString(3),
                 TargetColumn = reader.GetString(4),
                 ConstraintColumnId = reader.GetInt32(5),
+                IsNullable = reader.GetBoolean(6),
             });
         }
 
@@ -223,6 +225,11 @@ internal static class SqlServerImportReader
                 var relationshipValue = reader[columnName];
                 if (relationshipValue is DBNull)
                 {
+                    if (relationship.IsNullable)
+                    {
+                        continue;
+                    }
+
                     throw new InvalidOperationException(
                         $"Table '{schema}.{entity.Name}' has null relationship value for '{columnName}' on row '{id}'.");
                 }
@@ -268,4 +275,5 @@ internal sealed class SqlServerRelationshipRow
     public string TargetTable { get; set; } = string.Empty;
     public string TargetColumn { get; set; } = string.Empty;
     public int ConstraintColumnId { get; set; }
+    public bool IsNullable { get; set; }
 }

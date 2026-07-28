@@ -44,7 +44,8 @@ public sealed class GenericModel
                     "relationship",
                     entity.Name,
                     relationship.Entity,
-                    relationship.GetColumnName());
+                    relationship.GetColumnName(),
+                    relationship.IsNullable ? "nullable" : "required");
             }
         }
 

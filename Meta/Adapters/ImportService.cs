@@ -118,6 +118,7 @@ public sealed class ImportService : IImportService
                 Role = string.Equals(role, targetEntity.Name, StringComparison.OrdinalIgnoreCase)
                     ? string.Empty
                     : role,
+                IsNullable = relationship.IsNullable,
             });
         }
 

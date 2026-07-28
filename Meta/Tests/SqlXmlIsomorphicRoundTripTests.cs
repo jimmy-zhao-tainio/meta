@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Meta.Adapters;
+using Meta.Core.Domain;
 using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
@@ -17,11 +18,17 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
         if (string.IsNullOrWhiteSpace(baseConnectionString))
         {
-            return;
+            throw new InvalidOperationException(
+                "SQL round-trip verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
         }
 
         var repoRoot = FindRepositoryRoot();
-        var sourceInputRoot = Path.Combine(repoRoot, "Samples", "MainWorkspace");
+        var sourceInputRoot = Path.Combine(
+            repoRoot,
+            "Samples",
+            "Demos",
+            "EnterpriseBIPlatformTooling",
+            "Workspace");
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-sql-roundtrip", Guid.NewGuid().ToString("N"));
         var leftWorkspaceRoot = Path.Combine(tempRoot, "left");
         var rightWorkspaceRoot = Path.Combine(tempRoot, "right");
@@ -38,6 +45,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             // Keep database name and model name aligned so SQL import produces the same model name.
             sourceWorkspace.Model.Name = databaseName;
             sourceWorkspace.Instance.ModelName = databaseName;
+            AddOptionalCubePredecessor(sourceWorkspace);
             sourceWorkspace.WorkspaceRootPath = leftWorkspaceRoot;
             sourceWorkspace.MetadataRootPath = string.Empty;
             sourceWorkspace.IsDirty = true;
@@ -63,14 +71,34 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             await services.WorkspaceService.SaveAsync(importedWorkspace);
 
             AssertMetadataTreesAreByteIdentical(
-                Path.Combine(leftWorkspaceRoot, "metadata"),
-                Path.Combine(rightWorkspaceRoot, "metadata"));
+                leftWorkspaceRoot,
+                rightWorkspaceRoot);
         }
         finally
         {
             await DropDatabaseIfExistsAsync(baseConnectionString, databaseName);
             DeleteDirectoryIfExists(tempRoot);
         }
+    }
+
+    private static void AddOptionalCubePredecessor(Workspace workspace)
+    {
+        var cube = workspace.Model.FindEntity("Cube")
+                   ?? throw new InvalidOperationException("Round-trip fixture does not contain the Cube entity.");
+        cube.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Cube",
+            Role = "PreviousCube",
+            IsNullable = true,
+        });
+
+        var cubes = workspace.Instance.GetOrCreateEntityRecords("Cube");
+        if (cubes.Count < 2)
+        {
+            throw new InvalidOperationException("Round-trip fixture requires at least two Cube rows.");
+        }
+
+        cubes[1].RelationshipIds["PreviousCubeId"] = cubes[0].Id;
     }
 
     private static async Task<string?> ResolveSqlTestConnectionStringAsync()
@@ -82,6 +110,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             candidates.Add(envOverride.Trim());
         }
 
+        candidates.Add("Server=.;Integrated Security=true;TrustServerCertificate=True;Encrypt=False");
         candidates.Add("Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;TrustServerCertificate=True;Encrypt=False");
 
         foreach (var candidate in candidates)
