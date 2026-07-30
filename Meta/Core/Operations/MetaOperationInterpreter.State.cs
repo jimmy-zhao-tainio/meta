@@ -18,13 +18,33 @@ public sealed partial class MetaOperationInterpreter
                 $"{message} Model '{state.Model.Name}' and instance '{state.Instance.ModelName}' do not match.");
         }
 
-        EnsureNoUnknownInstanceMembers(state, message);
-
         var diagnostics = _validationService.Validate(new Workspace
         {
             Model = state.Model,
             Instance = state.Instance,
         });
+        ThrowIfErrors(diagnostics, message);
+    }
+
+    private void EnsureModelConforming(
+        GenericModel model,
+        string message)
+    {
+        var diagnostics = _validationService.Validate(new Workspace
+        {
+            Model = model,
+            Instance = new GenericInstance
+            {
+                ModelName = model.Name,
+            },
+        });
+        ThrowIfErrors(diagnostics, message);
+    }
+
+    private static void ThrowIfErrors(
+        WorkspaceDiagnostics diagnostics,
+        string message)
+    {
         if (!diagnostics.HasErrors)
         {
             return;
@@ -37,47 +57,6 @@ public sealed partial class MetaOperationInterpreter
         throw new MetaOperationException(
             $"{message} {string.Join(" | ", details)}",
             diagnostics: diagnostics);
-    }
-
-    private static void EnsureNoUnknownInstanceMembers(
-        GenericMetadataState state,
-        string message)
-    {
-        foreach (var entityRecords in state.Instance.RecordsByEntity)
-        {
-            var entity = state.Model.FindEntity(entityRecords.Key);
-            if (entity == null)
-            {
-                throw new MetaOperationException(
-                    $"{message} Instance entity '{entityRecords.Key}' is not modeled.");
-            }
-
-            var properties = entity.Properties
-                .Select(property => property.Name)
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
-            var relationships = entity.Relationships
-                .Select(relationship => relationship.GetColumnName())
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-            foreach (var record in entityRecords.Value)
-            {
-                var unknownProperty = record.Values.Keys.FirstOrDefault(
-                    propertyName => !properties.Contains(propertyName));
-                if (unknownProperty != null)
-                {
-                    throw new MetaOperationException(
-                        $"{message} Record '{entity.Name}.{record.Id}' contains unknown property '{unknownProperty}'.");
-                }
-
-                var unknownRelationship = record.RelationshipIds.Keys.FirstOrDefault(
-                    relationshipName => !relationships.Contains(relationshipName));
-                if (unknownRelationship != null)
-                {
-                    throw new MetaOperationException(
-                        $"{message} Record '{entity.Name}.{record.Id}' contains unknown relationship '{unknownRelationship}'.");
-                }
-            }
-        }
     }
 
     private static GenericEntity RequireEntity(

@@ -26,9 +26,13 @@ columns carry enabled, trusted checks that restrict SQL identities to
 non-empty printable ASCII without leading or trailing spaces. Within that
 explicit repertoire, the SQL collation preserves Meta's
 `OrdinalIgnoreCase` identity semantics; SQL does not silently substitute
-broader linguistic Unicode equivalence. Foreign keys must also be enabled and
-trusted. Generic SQL import remains a separate permissive path for
-interpreting ordinary database tables as text.
+broader linguistic Unicode equivalence. Foreign keys must also be enabled,
+trusted, enforced for replication, and use `NO ACTION`. Identity checks must
+likewise be enforced for replication. Defaults, computed columns, triggers,
+secondary indexes, temporal table behavior, row-level security, additional
+checks, and cross-schema foreign keys are rejected before mutation. Generic
+SQL import remains a separate permissive path for interpreting ordinary
+database tables as text.
 
 The C# source provider now covers the same complete operation vocabulary over a
 bounded natural C# form. Roslyn compiles and semantically reads entity classes,
@@ -92,21 +96,31 @@ and instance graph. It also proves:
 - rejected in-memory and XML plans publish no partial state
 - rejected SQL DML and DDL plans roll back to their savepoint
 - discarding a SQL session rolls back both DDL and DML
+- every accepted operation leaves a conforming state; plans cannot rely on a
+  later operation to repair an invalid intermediate state
 - XML stale commits fail before overwriting a newer workspace
 - generated SQL workspaces encode case-insensitive identity and relationship
   columns and their supported identity repertoire explicitly
 - SQL operation sessions reject ordinary database storage before mutation,
   while generic SQL import continues to accept it
-- SQL operation sessions reject disabled or untrusted identity checks and
-  foreign keys without scanning all instance rows
-- direct SQL model plans are checked against the same final model invariants
-  as the normative interpreter and roll back when the resulting model is
-  invalid
+- SQL operation sessions reject disabled, untrusted, or replication-bypassed
+  identity checks and foreign keys, altered identity checks, row-level
+  security, hidden table behavior, and referential actions without scanning
+  all instance rows
+- direct SQL model operations are checked against the same per-operation model
+  invariants as the normative interpreter and roll back when an operation
+  produces an invalid model
 - relationship operations store the target record's canonical Id spelling
 - C# decoding follows the actual `BuiltIn` factory, constructor, returned
   collections, automatic-property defaults, and object-reference assignments
 - C# decoding rejects disconnected factories, hidden mutations, unsupported
-  control flow, and unrepresentable source names before publication
+  control flow, additional executable source, unknown instance members, and
+  unrepresentable source names before publication
+- C# relationship lookup indexes must be populated before a modeled
+  relationship assignment uses them
+- C# publication holds one sibling write lock from stale-state comparison
+  through directory replacement, fingerprints the exact source bytes Roslyn
+  decoded, and checks the live directory again at the publication boundary
 - the checked-in Enterprise BI workspace completes both
   `XML -> C# -> SQL -> XML` and `XML -> SQL -> C# -> XML` through a live
   SQL Server database, with semantic equality checked at every boundary and
@@ -135,7 +149,7 @@ The migration also:
 - carries structured validation diagnostics through rejected operation plans
 - makes `bulk-insert` insert-only and removes the misleading `--key` upsert path
 - parses quoted CSV and TSV input without splitting quoted delimiters or line
-  breaks
+  breaks, and rejects both empty and header-only bulk input
 
 The MetaCli workspace was changed through the `meta` CLI. Its save also brought
 older empty-element formatting onto the current canonical self-closing form;
@@ -165,19 +179,24 @@ Verification after the Roslyn C# source provider was added on 2026-07-29:
 
 Pre-commit hardening verification on 2026-07-30:
 
-- the focused operation, XML, SQL Server, C#, generation, and composed
-  representation suite passed all 56 tests
+- the focused C# source session suite passed all 25 tests
+- the full SQL Server operation session suite passed all 21 tests
 - the SQL storage contract rejected identities outside its explicit
-  repertoire, missing identity constraints, disabled foreign keys, and a
-  required-reference cycle without scanning instance tables
+  repertoire, altered or missing identity constraints, disabled foreign keys,
+  replication-bypassed checks and foreign keys, row-level security, default
+  constraints, computed columns, triggers, secondary indexes, additional
+  checks, cascade actions, and a required-reference cycle without scanning
+  instance tables
 - the printable one- and two-character ASCII repertoire produced no
   unexpected equality groups under the selected SQL identity collation
+- `dotnet test Meta\Tests\Meta.Core.Tests.csproj --nologo -m:1 -nr:false`
+  passed all 292 tests
 - `dotnet build Metadata.Framework.sln --nologo -m:1 -nr:false`
   completed with zero warnings and zero errors
 - `dotnet test Metadata.Framework.sln --no-build --nologo -m:1 -nr:false`
-  passed all 370 tests
-- `meta check --workspace Meta\Cli\meta.MetaCli` returned `Ok`
-- live SQL test databases were removed
+  passed all 396 tests: Meta.Core 292, MetaDocs 43, MetaMesh 12, MetaCli 28,
+  and MetaWeave 21
+- live SQL test databases and C# publication test directories were removed
 
 ### Limits that remain explicit
 
@@ -194,9 +213,10 @@ Pre-commit hardening verification on 2026-07-30:
   integrity; the operation layer rejects storage where those guarantees are
   absent. Checks that cannot be represented as bounded SQL constraints remain
   outside session opening rather than causing hidden full materialization.
-- SQL schema refactors preserve unknown database dependencies by failing when
-  SQL Server refuses a change; the operation layer does not silently drop
-  external constraints, indexes, or computed objects.
+- SQL schema refactors reject known table behavior outside the encoded
+  workspace contract when the session opens. Other external database
+  dependencies remain in place and can cause SQL Server to reject a change;
+  the operation layer does not silently drop them.
 - The existing XML writer rejects stale writes and restores caught write
   failures, but its multi-file publication is not yet crash-atomic.
 - The C# session owns and canonicalizes a directory containing only marked

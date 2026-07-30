@@ -168,7 +168,8 @@ internal sealed partial class CliRuntime
         var records = ParseDelimitedRecords(input ?? string.Empty, delimiter);
         if (records.Count == 0)
         {
-            return Array.Empty<Dictionary<string, string>>();
+            throw new InvalidOperationException(
+                "Bulk insert requires a header row and at least one data row.");
         }
 
         var header = records[0]
@@ -210,6 +211,12 @@ internal sealed partial class CliRuntime
             }
 
             rows.Add(row);
+        }
+
+        if (rows.Count == 0)
+        {
+            throw new InvalidOperationException(
+                "Bulk insert requires a header row and at least one data row.");
         }
 
         return rows;

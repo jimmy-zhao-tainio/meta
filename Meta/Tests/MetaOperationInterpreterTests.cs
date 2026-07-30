@@ -1,6 +1,7 @@
 using System.Text;
 using Meta.Core.Domain;
 using Meta.Core.Operations;
+using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
 
@@ -91,6 +92,130 @@ public sealed class MetaOperationInterpreterTests
         Assert.Equal(0, exception.OperationIndex);
         Assert.IsType<InsertRecordOperation>(exception.Operation);
         Assert.Equal(before, Canonicalize(source));
+    }
+
+    [Fact]
+    public void Apply_RejectsTemporarilyIncompleteRecordAtTheInsertOperation()
+    {
+        var source = BuildState();
+        var before = Canonicalize(source);
+        var plan = MetaOperationPlan.Create(
+            new InsertRecordOperation(
+                "Person",
+                "person-b"),
+            new SetPropertyOperation(
+                "Person",
+                "person-b",
+                "LegacyName",
+                "Too late"));
+
+        var exception = Assert.Throws<MetaOperationException>(
+            () => new MetaOperationInterpreter().Apply(source, plan));
+
+        Assert.Equal(0, exception.OperationIndex);
+        Assert.IsType<InsertRecordOperation>(exception.Operation);
+        Assert.NotNull(exception.Diagnostics);
+        Assert.Contains(
+            exception.Diagnostics.Issues,
+            issue => issue.Code == "instance.required.missing");
+        Assert.Equal(before, Canonicalize(source));
+    }
+
+    [Fact]
+    public void Apply_RequiresReferencesToBeClearedBeforeDeletingTheirTarget()
+    {
+        var source = BuildState();
+        var rejected = MetaOperationPlan.Create(
+            new DeleteRecordOperation("Team", "team-a"),
+            new ClearRelationshipOperation("Person", "person-a", "Team"));
+
+        var exception = Assert.Throws<MetaOperationException>(
+            () => new MetaOperationInterpreter().Apply(source, rejected));
+
+        Assert.Equal(0, exception.OperationIndex);
+        Assert.IsType<DeleteRecordOperation>(exception.Operation);
+
+        var accepted = MetaOperationPlan.Create(
+            new ClearRelationshipOperation("Person", "person-a", "Team"),
+            new DeleteRecordOperation("Team", "team-a"));
+        var result = new MetaOperationInterpreter().Apply(source, accepted);
+
+        Assert.DoesNotContain(
+            result.State.Instance.RecordsByEntity["Team"],
+            record => record.Id == "team-a");
+    }
+
+    [Fact]
+    public void Apply_AllowsDeletingARecordThatReferencesItself()
+    {
+        var source = BuildState();
+        var plan = MetaOperationPlan.Create(
+            new AddRelationshipOperation(
+                "Person",
+                "Person",
+                "Manager",
+                isRequired: false),
+            new SetRelationshipOperation(
+                "Person",
+                "person-a",
+                "Manager",
+                "person-a"),
+            new DeleteRecordOperation(
+                "Person",
+                "person-a"));
+
+        var result = new MetaOperationInterpreter().Apply(source, plan);
+
+        Assert.Empty(
+            result.State.Instance.RecordsByEntity["Person"]);
+    }
+
+    [Fact]
+    public void Apply_DoesNotRescanTheInstanceAfterEveryInsert()
+    {
+        var source = BuildState();
+        var validation = new RecordingValidationService();
+        var operations = Enumerable.Range(0, 100)
+            .Select(index => (MetaOperation)new InsertRecordOperation(
+                "Person",
+                $"person-{index + 100}",
+                new Dictionary<string, string>
+                {
+                    ["LegacyName"] = $"Person {index}",
+                }))
+            .ToArray();
+
+        var result = new MetaOperationInterpreter(validation).Apply(
+            source,
+            MetaOperationPlan.Create(operations));
+
+        Assert.Equal(
+            101,
+            result.State.Instance.RecordsByEntity["Person"].Count);
+        Assert.Equal([3, 103], validation.RecordCounts);
+    }
+
+    [Fact]
+    public void Apply_RejectsModelInvalidityAtTheIntroducingOperation()
+    {
+        var source = BuildState();
+        var exception = Assert.Throws<MetaOperationException>(
+            () => new MetaOperationInterpreter().Apply(
+                source,
+                MetaOperationPlan.Create(
+                    new AddRelationshipOperation(
+                        "Person",
+                        "Person",
+                        "Manager",
+                        isRequired: true,
+                        existingRecordTargetId: "person-a"))));
+
+        Assert.Equal(0, exception.OperationIndex);
+        Assert.IsType<AddRelationshipOperation>(exception.Operation);
+        Assert.NotNull(exception.Diagnostics);
+        Assert.Contains(
+            exception.Diagnostics.Issues,
+            issue => issue.Code == "relationship.cycle");
     }
 
     [Fact]
@@ -472,5 +597,20 @@ public sealed class MetaOperationInterpreterTests
         }
 
         builder.AppendLine();
+    }
+
+    private sealed class RecordingValidationService : IValidationService
+    {
+        private readonly ValidationService _inner = new();
+
+        public List<int> RecordCounts { get; } = [];
+
+        public WorkspaceDiagnostics Validate(Workspace workspace)
+        {
+            RecordCounts.Add(
+                workspace.Instance.RecordsByEntity.Values.Sum(
+                    records => records.Count));
+            return _inner.Validate(workspace);
+        }
     }
 }

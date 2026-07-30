@@ -65,8 +65,9 @@ public sealed partial class MetaOperationInterpreter
             records.Count > 0 &&
             operation.ExistingRecordValue == null)
         {
-            throw new InvalidOperationException(
-                $"Required property '{entity.Name}.{propertyName}' needs a value for existing records.");
+            throw new ExistingRecordsRequirePropertyValueException(
+                entity.Name,
+                propertyName);
         }
 
         entity.Properties.Add(new GenericProperty
@@ -190,8 +191,9 @@ public sealed partial class MetaOperationInterpreter
                 .ToList();
             if (missing.Count > 0 && operation.MissingRecordValue == null)
             {
-                throw new InvalidOperationException(
-                    $"Property '{entity.Name}.{property.Name}' needs a value for {missing.Count} existing record(s).");
+                throw new ExistingRecordsRequirePropertyValueException(
+                    entity.Name,
+                    property.Name);
             }
 
             if (operation.MissingRecordValue != null)
@@ -248,8 +250,9 @@ public sealed partial class MetaOperationInterpreter
             sourceRecords.Count > 0 &&
             targetId == null)
         {
-            throw new InvalidOperationException(
-                $"Required relationship '{sourceEntity.Name}.{relationshipName}' needs a target for existing records.");
+            throw new ExistingRecordsRequireRelationshipTargetException(
+                sourceEntity.Name,
+                relationshipName);
         }
 
         sourceEntity.Relationships.Add(relationship);

@@ -369,6 +369,56 @@ public sealed class CSharpMetaOperationSessionTests
     }
 
     [Fact]
+    public void Reader_RejectsRelationshipLookupBeforeIdentityIndexPopulation()
+    {
+        var root = CreateTempDirectory();
+        try
+        {
+            var source = MetaOperationInterpreterTests.BuildState();
+            GenerationService.GenerateCSharp(
+                new Workspace
+                {
+                    Model = source.Model,
+                    Instance = source.Instance,
+                },
+                root);
+            var modelPath = Path.Combine(root, "OperationProof.cs");
+            var original = File.ReadAllText(modelPath);
+            var newline = original.Contains(
+                "\r\n",
+                StringComparison.Ordinal)
+                ? "\r\n"
+                : "\n";
+            var populationLoop = string.Join(
+                    newline,
+                    "            foreach (var row in teamList)",
+                    "            {",
+                    "                teamListById[row.Id] = row;",
+                    "            }",
+                    string.Empty)
+                + newline;
+            var edited = original.Replace(
+                populationLoop,
+                string.Empty,
+                StringComparison.Ordinal);
+            Assert.NotEqual(original, edited);
+            File.WriteAllText(modelPath, edited);
+
+            var exception = Assert.Throws<InvalidDataException>(
+                () => new CSharpMetaWorkspaceReader().Read(root));
+
+            Assert.Contains(
+                "identity index 'teamListById' before it is populated",
+                exception.Message,
+                StringComparison.Ordinal);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
     public void Reader_DecodesAuthoredPropertyAndInstanceValue()
     {
         var root = CreateTempDirectory();
@@ -624,6 +674,169 @@ public sealed class CSharpMetaOperationSessionTests
 
             Assert.Empty(
                 Directory.EnumerateFileSystemEntries(root));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Create_RejectsUnknownInstanceEntityWithoutWritingFiles()
+    {
+        var root = CreateTempDirectory();
+        try
+        {
+            var source = MetaOperationInterpreterTests.BuildState();
+            source.Instance.RecordsByEntity["Unknown"] =
+            [
+                new GenericRecord
+                {
+                    Id = "unknown-a",
+                },
+            ];
+
+            Assert.Throws<MetaOperationException>(
+                () => CSharpMetaOperationSession.Create(
+                    root,
+                    source));
+
+            Assert.Empty(
+                Directory.EnumerateFileSystemEntries(root));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Create_TreatsMissingAndEmptyEntityCollectionsAsEquivalent()
+    {
+        var root = CreateTempDirectory();
+        try
+        {
+            var source = MetaOperationInterpreterTests.BuildState();
+            source.Model.Entities.Add(new GenericEntity
+            {
+                Name = "Unused",
+            });
+
+            CSharpMetaOperationSession.Create(root, source);
+
+            var actual = new CSharpMetaWorkspaceReader().Read(root);
+            Assert.Empty(actual.Instance.RecordsByEntity["Unused"]);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Create_UsesModeledMemberAndReferenceIdentity()
+    {
+        var root = CreateTempDirectory();
+        try
+        {
+            var source = MetaOperationInterpreterTests.BuildState();
+            var person = source.Instance.RecordsByEntity["Person"][0];
+            var legacyName = person.Values["LegacyName"];
+            person.Values.Remove("LegacyName");
+            person.Values.Add("legacyname", legacyName);
+            person.RelationshipIds.Remove("TeamId");
+            person.RelationshipIds.Add("teamid", "TEAM-A");
+
+            CSharpMetaOperationSession.Create(root, source);
+
+            var actual = new CSharpMetaWorkspaceReader().Read(root);
+            var actualPerson = Assert.Single(
+                actual.Instance.RecordsByEntity["Person"]);
+            Assert.Contains("LegacyName", actualPerson.Values.Keys);
+            Assert.Contains("TeamId", actualPerson.RelationshipIds.Keys);
+            Assert.Equal(
+                "team-a",
+                actualPerson.RelationshipIds["TeamId"]);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Reader_RejectsAdditionalExecutableSource()
+    {
+        var root = CreateTempDirectory();
+        try
+        {
+            var source = MetaOperationInterpreterTests.BuildState();
+            GenerationService.GenerateCSharpWorkspace(
+                source.Model,
+                source.Instance,
+                root);
+            File.WriteAllText(
+                Path.Combine(root, "AdditionalBehavior.cs"),
+                """
+                // <meta-workspace>
+                #nullable enable
+
+                namespace OperationProof
+                {
+                    public static partial class OperationProof
+                    {
+                        static OperationProof()
+                        {
+                            _builtIn = null!;
+                        }
+                    }
+                }
+                """);
+
+            var exception = Assert.Throws<InvalidDataException>(
+                () => CSharpMetaOperationSession.OpenExisting(root));
+
+            Assert.Contains(
+                "exactly one source declaration",
+                exception.Message,
+                StringComparison.Ordinal);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Commit_RequiresExclusiveWorkspacePublicationLock()
+    {
+        var root = CreateTempDirectory();
+        try
+        {
+            var session = CSharpMetaOperationSession.Create(
+                root,
+                MetaOperationInterpreterTests.BuildState());
+            session.Apply(MetaOperationPlan.Create(
+                new SetPropertyOperation(
+                    "Person",
+                    "person-a",
+                    "LegacyName",
+                    "Committed after lock")));
+
+            using (WorkspaceWriteLock.AcquireSibling(root))
+            {
+                Assert.Throws<InvalidOperationException>(
+                    () => session.Commit());
+            }
+
+            session.Commit();
+
+            var actual = new CSharpMetaWorkspaceReader().Read(root);
+            var person = Assert.Single(
+                actual.Instance.RecordsByEntity["Person"]);
+            Assert.Equal(
+                "Committed after lock",
+                person.Values["LegacyName"]);
         }
         finally
         {

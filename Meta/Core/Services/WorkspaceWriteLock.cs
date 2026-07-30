@@ -5,12 +5,12 @@ using System.IO;
 
 namespace Meta.Core.Services;
 
-internal static class WorkspaceWriteLock
+public static class WorkspaceWriteLock
 {
     private const string LockFileName = ".meta.lock";
     private const int MaxAcquireAttempts = 3;
 
-    public static WorkspaceWriteLockHandle Acquire(string workspaceRootPath)
+    public static IDisposable Acquire(string workspaceRootPath)
     {
         if (string.IsNullOrWhiteSpace(workspaceRootPath))
         {
@@ -19,8 +19,32 @@ internal static class WorkspaceWriteLock
 
         var root = Path.GetFullPath(workspaceRootPath);
         Directory.CreateDirectory(root);
-        var lockPath = Path.Combine(root, LockFileName);
+        return AcquireAtPath(Path.Combine(root, LockFileName));
+    }
 
+    public static IDisposable AcquireSibling(string workspaceRootPath)
+    {
+        if (string.IsNullOrWhiteSpace(workspaceRootPath))
+        {
+            throw new ArgumentException(
+                "Workspace root path is required.",
+                nameof(workspaceRootPath));
+        }
+
+        var root = Path.TrimEndingDirectorySeparator(
+            Path.GetFullPath(workspaceRootPath));
+        var parent = Directory.GetParent(root)?.FullName
+                     ?? throw new InvalidOperationException(
+                         $"Workspace root '{root}' has no parent directory.");
+        Directory.CreateDirectory(parent);
+        var lockPath = Path.Combine(
+            parent,
+            $".{Path.GetFileName(root)}{LockFileName}");
+        return AcquireAtPath(lockPath);
+    }
+
+    private static WorkspaceWriteLockHandle AcquireAtPath(string lockPath)
+    {
         for (var attempt = 0; attempt < MaxAcquireAttempts; attempt++)
         {
             var record = WorkspaceLockRecord.CreateCurrent();

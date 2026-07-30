@@ -89,8 +89,9 @@ public sealed partial class SqlServerMetaOperationSession
             hasRows &&
             operation.ExistingRecordValue == null)
         {
-            throw new InvalidOperationException(
-                $"Required property '{entity.Name}.{propertyName}' needs a value for existing records.");
+            throw new ExistingRecordsRequirePropertyValueException(
+                entity.Name,
+                propertyName);
         }
 
         var addAsNullable = operation.ExistingRecordValue != null;
@@ -217,18 +218,19 @@ public sealed partial class SqlServerMetaOperationSession
 
         if (operation.IsRequired)
         {
-            var missingCount = await CountNullsAsync(
-                    entity.Name,
-                    property.Name,
-                    cancellationToken)
-                .ConfigureAwait(false);
-            if (missingCount > 0 && operation.MissingRecordValue == null)
+            if (operation.MissingRecordValue == null &&
+                await HasNullsAsync(
+                        entity.Name,
+                        property.Name,
+                        cancellationToken)
+                    .ConfigureAwait(false))
             {
-                throw new InvalidOperationException(
-                    $"Property '{entity.Name}.{property.Name}' needs a value for {missingCount} existing record(s).");
+                throw new ExistingRecordsRequirePropertyValueException(
+                    entity.Name,
+                    property.Name);
             }
 
-            if (missingCount > 0)
+            if (operation.MissingRecordValue != null)
             {
                 await using var command = CreateCommand(
                     $"UPDATE {QualifiedTable(entity.Name)} " +
@@ -237,7 +239,7 @@ public sealed partial class SqlServerMetaOperationSession
                 command.Parameters.Add(
                     new SqlParameter("@value", SqlDbType.NVarChar, -1)
                     {
-                        Value = operation.MissingRecordValue!,
+                        Value = operation.MissingRecordValue,
                     });
                 await command.ExecuteNonQueryAsync(cancellationToken)
                     .ConfigureAwait(false);
@@ -289,8 +291,9 @@ public sealed partial class SqlServerMetaOperationSession
             .ConfigureAwait(false);
         if (operation.IsRequired && hasRows && targetId == null)
         {
-            throw new InvalidOperationException(
-                $"Required relationship '{sourceEntity.Name}.{columnName}' needs a target for existing records.");
+            throw new ExistingRecordsRequireRelationshipTargetException(
+                sourceEntity.Name,
+                columnName);
         }
 
         var addAsNullable = targetId != null;

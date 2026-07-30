@@ -132,7 +132,8 @@ internal static class SqlServerImportReader
                                   checkConstraint.name,
                                   checkConstraint.definition,
                                   checkConstraint.is_disabled,
-                                  checkConstraint.is_not_trusted
+                                  checkConstraint.is_not_trusted,
+                                  checkConstraint.is_not_for_replication
                               FROM sys.check_constraints AS checkConstraint
                               INNER JOIN sys.tables AS tableInfo
                                   ON tableInfo.object_id = checkConstraint.parent_object_id
@@ -165,6 +166,7 @@ internal static class SqlServerImportReader
                 Definition = reader.GetString(1),
                 IsDisabled = reader.GetBoolean(2),
                 IsNotTrusted = reader.GetBoolean(3),
+                IsNotForReplication = reader.GetBoolean(4),
             });
         }
 
@@ -190,7 +192,10 @@ internal static class SqlServerImportReader
                                   fkc.constraint_column_id AS ConstraintColumnId,
                                   srcColumn.is_nullable AS IsNullable,
                                   fk.is_disabled AS IsDisabled,
-                                  fk.is_not_trusted AS IsNotTrusted
+                                  fk.is_not_trusted AS IsNotTrusted,
+                                  fk.is_not_for_replication AS IsNotForReplication,
+                                  fk.delete_referential_action AS DeleteAction,
+                                  fk.update_referential_action AS UpdateAction
                               FROM sys.foreign_keys fk
                               INNER JOIN sys.foreign_key_columns fkc
                                   ON fk.object_id = fkc.constraint_object_id
@@ -228,6 +233,9 @@ internal static class SqlServerImportReader
                 IsNullable = reader.GetBoolean(6),
                 IsDisabled = reader.GetBoolean(7),
                 IsNotTrusted = reader.GetBoolean(8),
+                IsNotForReplication = reader.GetBoolean(9),
+                DeleteAction = reader.GetByte(10),
+                UpdateAction = reader.GetByte(11),
             });
         }
 
@@ -249,6 +257,148 @@ internal static class SqlServerImportReader
         }
 
         return normalized;
+    }
+
+    public static async Task<List<string>>
+        LoadBehaviorChangingTableFeaturesAsync(
+            SqlConnection connection,
+            string schema,
+            string tableName,
+            CancellationToken cancellationToken,
+            SqlTransaction? transaction = null)
+    {
+        var features = new List<string>();
+        await using var command = connection.CreateCommand();
+        command.Transaction = transaction;
+        command.CommandText = """
+                              SELECT Feature
+                              FROM
+                              (
+                                  SELECT
+                                      N'default constraint ''' + defaultInfo.name + N'''' AS Feature
+                                  FROM sys.default_constraints AS defaultInfo
+                                  INNER JOIN sys.tables AS tableInfo
+                                      ON tableInfo.object_id = defaultInfo.parent_object_id
+                                  INNER JOIN sys.schemas AS schemaInfo
+                                      ON schemaInfo.schema_id = tableInfo.schema_id
+                                  WHERE schemaInfo.name = @schema
+                                    AND tableInfo.name = @table
+
+                                  UNION ALL
+
+                                  SELECT
+                                      N'computed column ''' + columnInfo.name + N'''' AS Feature
+                                  FROM sys.computed_columns AS columnInfo
+                                  INNER JOIN sys.tables AS tableInfo
+                                      ON tableInfo.object_id = columnInfo.object_id
+                                  INNER JOIN sys.schemas AS schemaInfo
+                                      ON schemaInfo.schema_id = tableInfo.schema_id
+                                  WHERE schemaInfo.name = @schema
+                                    AND tableInfo.name = @table
+
+                                  UNION ALL
+
+                                  SELECT
+                                      N'trigger ''' + triggerInfo.name + N'''' AS Feature
+                                  FROM sys.triggers AS triggerInfo
+                                  INNER JOIN sys.tables AS tableInfo
+                                      ON tableInfo.object_id = triggerInfo.parent_id
+                                  INNER JOIN sys.schemas AS schemaInfo
+                                      ON schemaInfo.schema_id = tableInfo.schema_id
+                                  WHERE schemaInfo.name = @schema
+                                    AND tableInfo.name = @table
+
+                                  UNION ALL
+
+                                  SELECT
+                                      N'secondary index ''' + indexInfo.name + N'''' AS Feature
+                                  FROM sys.indexes AS indexInfo
+                                  INNER JOIN sys.tables AS tableInfo
+                                      ON tableInfo.object_id = indexInfo.object_id
+                                  INNER JOIN sys.schemas AS schemaInfo
+                                      ON schemaInfo.schema_id = tableInfo.schema_id
+                                  WHERE schemaInfo.name = @schema
+                                    AND tableInfo.name = @table
+                                    AND indexInfo.index_id > 0
+                                    AND indexInfo.is_primary_key = 0
+                                    AND indexInfo.is_hypothetical = 0
+
+                                  UNION ALL
+
+                                  SELECT
+                                      N'temporal table behavior' AS Feature
+                                  FROM sys.tables AS tableInfo
+                                  INNER JOIN sys.schemas AS schemaInfo
+                                      ON schemaInfo.schema_id = tableInfo.schema_id
+                                  WHERE schemaInfo.name = @schema
+                                    AND tableInfo.name = @table
+                                    AND tableInfo.temporal_type <> 0
+
+                                  UNION ALL
+
+                                  SELECT
+                                      N'row-level security policy ''' +
+                                      securityPolicy.name + N'''' AS Feature
+                                  FROM sys.security_predicates AS securityPredicate
+                                  INNER JOIN sys.security_policies AS securityPolicy
+                                      ON securityPolicy.object_id = securityPredicate.object_id
+                                  INNER JOIN sys.tables AS tableInfo
+                                      ON tableInfo.object_id = securityPredicate.target_object_id
+                                  INNER JOIN sys.schemas AS schemaInfo
+                                      ON schemaInfo.schema_id = tableInfo.schema_id
+                                  WHERE schemaInfo.name = @schema
+                                    AND tableInfo.name = @table
+
+                                  UNION ALL
+
+                                  SELECT
+                                      N'foreign key crossing the workspace schema ''' +
+                                      foreignKey.name + N'''' AS Feature
+                                  FROM sys.foreign_keys AS foreignKey
+                                  INNER JOIN sys.tables AS sourceTable
+                                      ON sourceTable.object_id = foreignKey.parent_object_id
+                                  INNER JOIN sys.schemas AS sourceSchema
+                                      ON sourceSchema.schema_id = sourceTable.schema_id
+                                  INNER JOIN sys.tables AS targetTable
+                                      ON targetTable.object_id = foreignKey.referenced_object_id
+                                  INNER JOIN sys.schemas AS targetSchema
+                                      ON targetSchema.schema_id = targetTable.schema_id
+                                  WHERE
+                                      (
+                                          sourceSchema.name = @schema
+                                          AND sourceTable.name = @table
+                                          AND targetSchema.name <> @schema
+                                      )
+                                      OR
+                                      (
+                                          targetSchema.name = @schema
+                                          AND targetTable.name = @table
+                                          AND sourceSchema.name <> @schema
+                                      )
+                              ) AS unsupported
+                              ORDER BY Feature;
+                              """;
+        command.Parameters.Add(
+            new SqlParameter("@schema", SqlDbType.NVarChar, 128)
+            {
+                Value = schema,
+            });
+        command.Parameters.Add(
+            new SqlParameter("@table", SqlDbType.NVarChar, 128)
+            {
+                Value = tableName,
+            });
+
+        await using var reader = await command
+            .ExecuteReaderAsync(cancellationToken)
+            .ConfigureAwait(false);
+        while (await reader.ReadAsync(cancellationToken)
+                   .ConfigureAwait(false))
+        {
+            features.Add(reader.GetString(0));
+        }
+
+        return features;
     }
 
     public static async Task<List<GenericRecord>> LoadRowsAsync(
@@ -392,6 +542,9 @@ internal sealed class SqlServerRelationshipRow
     public bool IsNullable { get; set; }
     public bool IsDisabled { get; set; }
     public bool IsNotTrusted { get; set; }
+    public bool IsNotForReplication { get; set; }
+    public byte DeleteAction { get; set; }
+    public byte UpdateAction { get; set; }
 }
 
 internal sealed class SqlServerCheckConstraintRow
@@ -400,4 +553,5 @@ internal sealed class SqlServerCheckConstraintRow
     public string Definition { get; set; } = string.Empty;
     public bool IsDisabled { get; set; }
     public bool IsNotTrusted { get; set; }
+    public bool IsNotForReplication { get; set; }
 }
