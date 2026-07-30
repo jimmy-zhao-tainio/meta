@@ -16,7 +16,7 @@ internal sealed partial class CliRuntime
         var rightDiagnostics = services.ValidationService.Validate(rightWorkspace);
         if (rightDiagnostics.HasErrors || (globalStrict && rightDiagnostics.WarningCount > 0))
         {
-            return PrintOperationValidationFailure("instance diff-aligned right workspace", Array.Empty<WorkspaceOp>(), rightDiagnostics);
+            return PrintOperationValidationFailure("instance diff-aligned right workspace", MetaOperationPlan.Empty, rightDiagnostics);
         }
 
         Meta.Core.Services.InstanceDiffBuildResult diff;
@@ -37,12 +37,11 @@ internal sealed partial class CliRuntime
             Directory.Delete(diff.DiffWorkspacePath, recursive: true);
         }
 
-        ApplyImplicitNormalization(diff.DiffWorkspace);
         var diagnostics = services.ValidationService.Validate(diff.DiffWorkspace);
         diff.DiffWorkspace.Diagnostics = diagnostics;
         if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
         {
-            return PrintOperationValidationFailure("instance diff-aligned", Array.Empty<WorkspaceOp>(), diagnostics);
+            return PrintOperationValidationFailure("instance diff-aligned", MetaOperationPlan.Empty, diagnostics);
         }
 
         await services.WorkspaceService.SaveAsync(diff.DiffWorkspace).ConfigureAwait(false);

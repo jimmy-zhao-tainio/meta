@@ -101,6 +101,62 @@ public static partial class GenerationService
         return GenerationOutputWriter.BuildManifest(outputRoot);
     }
 
+    public static GenerationManifest GenerateCSharpWorkspace(
+        GenericModel model,
+        GenericInstance instance,
+        string outputDirectory)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentNullException.ThrowIfNull(instance);
+
+        var workspace = new Workspace
+        {
+            Model = model,
+            Instance = instance,
+        };
+        var diagnostics = new ValidationService().Validate(workspace);
+        if (diagnostics.HasErrors)
+        {
+            var details = diagnostics.Issues
+                .Where(issue => issue.Severity == IssueSeverity.Error)
+                .Take(5)
+                .Select(issue => $"{issue.Code} {issue.Location} - {issue.Message}");
+            throw new InvalidOperationException(
+                $"Cannot generate a C# workspace from invalid metadata. {string.Join(" | ", details)}");
+        }
+
+        var outputRoot = GenerationOutputWriter.PrepareDirectory(outputDirectory);
+        var namespaceName = ResolveModelNamespaceName(model.Name);
+        var modelTypeName = ResolveConsumerModelTypeName(model);
+        var modelFileName = modelTypeName + ".cs";
+        GenerationOutputWriter.WriteText(
+            Path.Combine(outputRoot, modelFileName),
+            BuildCSharpWorkspaceModel(workspace, modelTypeName, namespaceName));
+
+        var emittedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            modelFileName,
+        };
+        foreach (var entity in model.Entities
+                     .Where(item => !string.IsNullOrWhiteSpace(item.Name))
+                     .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.Name, StringComparer.Ordinal))
+        {
+            var entityFileName = entity.Name + ".cs";
+            if (!emittedFiles.Add(entityFileName))
+            {
+                throw new InvalidOperationException(
+                    $"Cannot generate a C# workspace because file name collides on '{entityFileName}'.");
+            }
+
+            GenerationOutputWriter.WriteText(
+                Path.Combine(outputRoot, entityFileName),
+                BuildCSharpWorkspaceEntity(entity, namespaceName));
+        }
+
+        return GenerationOutputWriter.BuildManifest(outputRoot);
+    }
+
     public static GenerationManifest GenerateSsdt(Workspace workspace, string outputDirectory)
     {
         if (workspace == null)

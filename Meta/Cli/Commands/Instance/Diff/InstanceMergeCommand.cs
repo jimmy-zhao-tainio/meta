@@ -14,14 +14,13 @@ internal sealed partial class CliRuntime
         try
         {
             services.InstanceDiffService.ApplyEqualDiffWorkspace(targetWorkspace, diffWorkspace);
-            ApplyImplicitNormalization(targetWorkspace);
 
             var diagnostics = services.ValidationService.Validate(targetWorkspace);
             targetWorkspace.Diagnostics = diagnostics;
             if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
             {
                 WorkspaceSnapshotCloner.Restore(targetWorkspace, before);
-                return PrintOperationValidationFailure("instance merge", Array.Empty<WorkspaceOp>(), diagnostics);
+                return PrintOperationValidationFailure("instance merge", MetaOperationPlan.Empty, diagnostics);
             }
 
             await services.WorkspaceService.SaveAsync(targetWorkspace).ConfigureAwait(false);

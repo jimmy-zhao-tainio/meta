@@ -13,14 +13,11 @@ internal sealed partial class CliRuntime
             return PrintArgumentError("Error: --default-value is only valid with --required true.");
         }
 
-        var operation = new WorkspaceOp
-        {
-            Type = WorkspaceOpTypes.ChangeNullability,
-            EntityName = entityName,
-            PropertyName = propertyName,
-            IsNullable = !required,
-            PropertyDefaultValue = defaultValue,
-        };
+        var operation = new SetPropertyRequiredOperation(
+            entityName,
+            propertyName,
+            required,
+            defaultValue);
 
         var requiredText = required ? "required" : "optional";
         var successDetails = new List<(string Key, string Value)>

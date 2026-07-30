@@ -22,7 +22,6 @@ internal sealed partial class CliRuntime
             before = WorkspaceSnapshotCloner.Capture(workspace);
 
             var result = services.ModelRefactorService.RenameEntity(workspace, commandOptions.Refactor);
-            ApplyImplicitNormalization(workspace);
 
             var diagnostics = services.ValidationService.Validate(workspace);
             workspace.Diagnostics = diagnostics;
@@ -31,7 +30,7 @@ internal sealed partial class CliRuntime
                 WorkspaceSnapshotCloner.Restore(workspace, before);
                 return PrintOperationValidationFailure(
                     "model rename-entity",
-                    Array.Empty<WorkspaceOp>(),
+                    MetaOperationPlan.Empty,
                     diagnostics);
             }
 

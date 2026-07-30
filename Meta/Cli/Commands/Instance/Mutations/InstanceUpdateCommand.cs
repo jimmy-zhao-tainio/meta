@@ -26,21 +26,10 @@ internal sealed partial class CliRuntime
             PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
             var entity = RequireEntity(workspace, entityName);
             ResolveRowById(workspace, entityName, id);
-            var patches = new List<RowPatch>
-            {
-                BuildRowPatchForUpdate(entity, id, options.SetValues),
-            };
-            var operation = new WorkspaceOp
-            {
-                Type = WorkspaceOpTypes.BulkUpsertRows,
-                EntityName = entityName,
-                RowPatches = patches,
-            };
-
-            BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
+            var plan = BuildRecordUpdatePlan(entity, id, options.SetValues);
             return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
                     workspace,
-                    new[] { operation },
+                    plan,
                     commandName: "instance.update",
                     successMessage: $"updated {BuildEntityInstanceAddress(entityName, id)}")
                 .ConfigureAwait(false);

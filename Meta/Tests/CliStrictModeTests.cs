@@ -998,17 +998,14 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
-    public async Task BulkInsert_AutoId_RejectsKeyCombination()
+    public async Task BulkInsert_Csv_PreservesQuotedDelimitersAndLineBreaks()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();
-        var tsvPath = Path.Combine(workspaceRoot, "bulk-auto-id-conflict.tsv");
-        await File.WriteAllLinesAsync(
-            tsvPath,
-            new[]
-            {
-                "CubeName\tPurpose\tRefreshMode",
-                "Auto Cube Conflict\tConflict row\tManual",
-            });
+        var csvPath = Path.Combine(workspaceRoot, "bulk-quoted.csv");
+        await File.WriteAllTextAsync(
+            csvPath,
+            "Id,CubeName,Purpose,RefreshMode\r\n" +
+            "99,\"Quoted, Cube\",\"First line\r\nSecond line\",Manual\r\n");
 
         try
         {
@@ -1016,19 +1013,65 @@ public sealed partial class CliStrictModeTests
                 "bulk-insert",
                 "Cube",
                 "--from",
-                "tsv",
+                "csv",
                 "--file",
-                tsvPath,
-                "--auto-id",
-                "--key",
-                "Id",
+                csvPath,
                 "--workspace",
                 workspaceRoot);
 
-            Assert.Equal(1, result.ExitCode);
-            Assert.Contains("cannot be combined", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
-            Assert.Contains("Usage:", result.CombinedOutput, StringComparison.Ordinal);
-            Assert.Contains("Next:", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.True(result.ExitCode == 0, result.CombinedOutput);
+
+            var row = LoadEntityRows(workspaceRoot, "Cube")
+                .Single(item => string.Equals(
+                    (string?)item.Attribute("Id"),
+                    "99",
+                    StringComparison.OrdinalIgnoreCase));
+            Assert.Equal("Quoted, Cube", row.Element("CubeName")?.Value);
+            Assert.Equal(
+                "First line\nSecond line",
+                row.Element("Purpose")?.Value.Replace("\r\n", "\n", StringComparison.Ordinal));
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task BulkInsert_RejectsExistingIdWithoutChangingTheRecord()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        var tsvPath = Path.Combine(workspaceRoot, "bulk-existing-id.tsv");
+        await File.WriteAllLinesAsync(
+            tsvPath,
+            new[]
+            {
+                "Id\tCubeName\tPurpose\tRefreshMode",
+                "1\tReplacement\tMust not be written\tManual",
+            });
+
+        try
+        {
+            var before = LoadEntityRows(workspaceRoot, "Cube")
+                .Single(row => string.Equals((string?)row.Attribute("Id"), "1", StringComparison.OrdinalIgnoreCase));
+            var beforeName = before.Element("CubeName")?.Value;
+
+            var result = await RunCliAsync(
+                "bulk-insert",
+                "Cube",
+                "--from",
+                "tsv",
+                "--file",
+                tsvPath,
+                "--workspace",
+                workspaceRoot);
+
+            Assert.NotEqual(0, result.ExitCode);
+            Assert.Contains("because it already exists", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+
+            var after = LoadEntityRows(workspaceRoot, "Cube")
+                .Single(row => string.Equals((string?)row.Attribute("Id"), "1", StringComparison.OrdinalIgnoreCase));
+            Assert.Equal(beforeName, after.Element("CubeName")?.Value);
         }
         finally
         {
@@ -1046,7 +1089,7 @@ public sealed partial class CliStrictModeTests
             new[]
             {
                 "Id\tUnknownColumn",
-                "1\tBadValue",
+                "999\tBadValue",
             });
 
         try
@@ -1075,8 +1118,6 @@ public sealed partial class CliStrictModeTests
                 "tsv",
                 "--file",
                 tsvPath,
-                "--key",
-                "Id",
                 "--workspace",
                 workspaceRoot);
 

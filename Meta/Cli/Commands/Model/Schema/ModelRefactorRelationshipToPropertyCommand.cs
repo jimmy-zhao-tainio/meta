@@ -24,7 +24,6 @@ internal sealed partial class CliRuntime
             before = WorkspaceSnapshotCloner.Capture(workspace);
 
             var result = services.ModelRefactorService.RefactorRelationshipToProperty(workspace, refactorOptions);
-            ApplyImplicitNormalization(workspace);
 
             var diagnostics = services.ValidationService.Validate(workspace);
             workspace.Diagnostics = diagnostics;
@@ -33,7 +32,7 @@ internal sealed partial class CliRuntime
                 WorkspaceSnapshotCloner.Restore(workspace, before);
                 return PrintOperationValidationFailure(
                     "model refactor relationship-to-property",
-                    Array.Empty<WorkspaceOp>(),
+                    MetaOperationPlan.Empty,
                     diagnostics);
             }
 

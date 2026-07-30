@@ -5,7 +5,7 @@ internal sealed partial class CliRuntime
     async Task<int> BulkInsertAsync(string[] commandArgs)
     {
         var entityName = RequiredValue("Entity");
-        var parseResult = ReadUpsertOptions(commandArgs, startIndex: 2);
+        var parseResult = ReadBulkInsertOptions(commandArgs, startIndex: 2);
         if (!parseResult.Ok)
         {
             return PrintArgumentError(parseResult.ErrorMessage);
@@ -23,11 +23,6 @@ internal sealed partial class CliRuntime
         if ((hasFile && parseResult.UseStdin) || (!hasFile && !parseResult.UseStdin))
         {
             return PrintArgumentError("Error: provide exactly one of --file or --stdin.");
-        }
-
-        if (parseResult.AutoId && parseResult.KeyFields.Count > 0)
-        {
-            return PrintArgumentError("Error: --auto-id cannot be combined with --key.");
         }
 
         string input;
@@ -57,23 +52,17 @@ internal sealed partial class CliRuntime
             }
 
             var rows = ParseBulkInputRows(input, parseResult.Format);
-            var operation = BuildUpsertOperationFromRows(
+            var (plan, ids) = BuildBulkInsertPlan(
                 workspace,
                 entity,
                 rows,
-                parseResult.KeyFields,
-                autoEnsure: false,
-                autoId: parseResult.AutoId);
-            BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
+                parseResult.AutoId);
             return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
                     workspace,
-                    new[] { operation },
+                    plan,
                     commandName: "bulk-insert",
                     successMessage: $"bulk insert {entityName}",
-                    successDetails: BuildUpsertSuccessDetails(
-                        workspace,
-                        entityName,
-                        operation.RowPatches.Select(patch => patch.Id).ToList()))
+                    successDetails: BuildBulkInsertSuccessDetails(ids.Count))
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)

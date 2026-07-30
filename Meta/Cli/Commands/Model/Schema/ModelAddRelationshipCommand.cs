@@ -10,15 +10,14 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var operation = new WorkspaceOp
-        {
-            Type = WorkspaceOpTypes.AddRelationship,
-            EntityName = fromEntity,
-            RelatedEntity = toEntity,
-            RelatedRole = options.Role,
-            RelatedDefaultId = options.DefaultId,
-            IsNullable = !options.Required,
-        };
+        var operation = new AddRelationshipOperation(
+            fromEntity,
+            toEntity,
+            options.Role,
+            options.Required,
+            string.IsNullOrWhiteSpace(options.DefaultId)
+                ? null
+                : options.DefaultId);
 
         var relationshipColumnName = (string.IsNullOrWhiteSpace(options.Role) ? toEntity : options.Role) + "Id";
         var requiredText = options.Required ? "required" : "optional";

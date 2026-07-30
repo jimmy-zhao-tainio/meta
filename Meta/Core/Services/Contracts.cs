@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Meta.Core.Domain;
-using Meta.Core.Operations;
 
 namespace Meta.Core.Services;
 
@@ -69,15 +68,6 @@ public interface IExportService
 {
     Task ExportXmlAsync(Workspace workspace, string outputDirectory, CancellationToken cancellationToken = default);
     Task ExportCsvAsync(Workspace workspace, string entityName, string outputPath, CancellationToken cancellationToken = default);
-}
-
-public interface IOperationService
-{
-    void Execute(Workspace workspace, WorkspaceOp operation);
-    bool CanUndo(Workspace workspace);
-    bool CanRedo(Workspace workspace);
-    void Undo(Workspace workspace);
-    void Redo(Workspace workspace);
 }
 
 public interface IModelRefactorService

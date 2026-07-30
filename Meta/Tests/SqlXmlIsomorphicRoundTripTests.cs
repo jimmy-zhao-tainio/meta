@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Meta.Adapters;
 using Meta.Core.Domain;
+using Meta.Core.Operations;
 using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
@@ -13,7 +14,19 @@ namespace Meta.Core.Tests;
 public sealed class SqlXmlIsomorphicRoundTripTests
 {
     [Fact]
-    public async Task XmlSqlXml_RoundTrip_IsByteIdentical_ForCanonicalMetadata()
+    public Task XmlCSharpSqlXml_RoundTrip_PreservesCanonicalMetadata()
+    {
+        return AssertMixedRoundTripAsync(csharpBeforeSql: true);
+    }
+
+    [Fact]
+    public Task XmlSqlCSharpXml_RoundTrip_PreservesCanonicalMetadata()
+    {
+        return AssertMixedRoundTripAsync(csharpBeforeSql: false);
+    }
+
+    private static async Task AssertMixedRoundTripAsync(
+        bool csharpBeforeSql)
     {
         var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
         if (string.IsNullOrWhiteSpace(baseConnectionString))
@@ -32,7 +45,14 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-sql-roundtrip", Guid.NewGuid().ToString("N"));
         var leftWorkspaceRoot = Path.Combine(tempRoot, "left");
         var rightWorkspaceRoot = Path.Combine(tempRoot, "right");
-        var sqlOutRoot = Path.Combine(tempRoot, "sql");
+        var sourceCSharpRoot = Path.Combine(tempRoot, "csharp-source");
+        var roundTrippedCSharpRoot = Path.Combine(
+            tempRoot,
+            "csharp-round-tripped");
+        var sourceSqlRoot = Path.Combine(tempRoot, "sql-source");
+        var roundTrippedSqlRoot = Path.Combine(
+            tempRoot,
+            "sql-round-tripped");
         var databaseName = "MetaRt" + Guid.NewGuid().ToString("N")[..20];
 
         try
@@ -51,12 +71,29 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             sourceWorkspace.IsDirty = true;
             await services.WorkspaceService.SaveAsync(sourceWorkspace);
 
-            GenerationService.GenerateSql(sourceWorkspace, sqlOutRoot);
+            var sourceState = GenericMetadataState.Capture(sourceWorkspace);
+            var sourceCanonical =
+                MetaOperationInterpreterTests.Canonicalize(sourceState);
+            GenerationService.GenerateCSharpWorkspace(
+                sourceState.Model,
+                sourceState.Instance,
+                sourceCSharpRoot);
+
+            var stateForSql = csharpBeforeSql
+                ? ReadCSharpAndAssertState(
+                    sourceCSharpRoot,
+                    sourceCanonical,
+                    "XML -> C#")
+                : sourceState;
+            var workspaceForSql = CreateWorkspace(
+                stateForSql,
+                sourceWorkspace.WorkspaceConfig);
+            GenerationService.GenerateSql(workspaceForSql, sourceSqlRoot);
             await RecreateDatabaseFromScriptsAsync(
                 baseConnectionString,
                 databaseName,
-                Path.Combine(sqlOutRoot, "schema.sql"),
-                Path.Combine(sqlOutRoot, "data.sql"));
+                Path.Combine(sourceSqlRoot, "schema.sql"),
+                Path.Combine(sourceSqlRoot, "data.sql"));
 
             var databaseConnectionString = new SqlConnectionStringBuilder(baseConnectionString)
             {
@@ -65,20 +102,102 @@ public sealed class SqlXmlIsomorphicRoundTripTests
 
             var importedWorkspace = await services.ImportService
                 .ImportSqlAsync(databaseConnectionString, "dbo");
-            importedWorkspace.WorkspaceRootPath = rightWorkspaceRoot;
-            importedWorkspace.MetadataRootPath = string.Empty;
-            importedWorkspace.IsDirty = true;
-            await services.WorkspaceService.SaveAsync(importedWorkspace);
+            var sqlState = GenericMetadataState.Capture(importedWorkspace);
+            AssertStateEqual(
+                sourceCanonical,
+                sqlState,
+                csharpBeforeSql
+                    ? "C# -> SQL"
+                    : "XML -> SQL");
+
+            var finalState = sqlState;
+            if (!csharpBeforeSql)
+            {
+                GenerationService.GenerateCSharpWorkspace(
+                    sqlState.Model,
+                    sqlState.Instance,
+                    roundTrippedCSharpRoot);
+                finalState = ReadCSharpAndAssertState(
+                    roundTrippedCSharpRoot,
+                    sourceCanonical,
+                    "SQL -> C#");
+            }
+
+            var finalWorkspace = CreateWorkspace(
+                finalState,
+                sourceWorkspace.WorkspaceConfig);
+            finalWorkspace.WorkspaceRootPath = rightWorkspaceRoot;
+            finalWorkspace.MetadataRootPath = string.Empty;
+            finalWorkspace.IsDirty = true;
+            await services.WorkspaceService.SaveAsync(finalWorkspace);
 
             AssertMetadataTreesAreByteIdentical(
                 leftWorkspaceRoot,
                 rightWorkspaceRoot);
+
+            if (csharpBeforeSql)
+            {
+                GenerationService.GenerateCSharpWorkspace(
+                    finalState.Model,
+                    finalState.Instance,
+                    roundTrippedCSharpRoot);
+            }
+
+            AssertArtifactTreesAreByteIdentical(
+                sourceCSharpRoot,
+                roundTrippedCSharpRoot,
+                "C#");
+
+            GenerationService.GenerateSql(
+                CreateWorkspace(
+                    finalState,
+                    sourceWorkspace.WorkspaceConfig),
+                roundTrippedSqlRoot);
+            AssertArtifactTreesAreByteIdentical(
+                sourceSqlRoot,
+                roundTrippedSqlRoot,
+                "SQL");
         }
         finally
         {
             await DropDatabaseIfExistsAsync(baseConnectionString, databaseName);
             DeleteDirectoryIfExists(tempRoot);
         }
+    }
+
+    private static GenericMetadataState ReadCSharpAndAssertState(
+        string csharpRoot,
+        string expectedCanonical,
+        string boundary)
+    {
+        var state = new CSharpMetaWorkspaceReader().Read(csharpRoot);
+        AssertStateEqual(expectedCanonical, state, boundary);
+        return state;
+    }
+
+    private static void AssertStateEqual(
+        string expectedCanonical,
+        GenericMetadataState actual,
+        string boundary)
+    {
+        Assert.True(
+            string.Equals(
+                expectedCanonical,
+                MetaOperationInterpreterTests.Canonicalize(actual),
+                StringComparison.Ordinal),
+            $"Metadata state changed across {boundary}.");
+    }
+
+    private static Workspace CreateWorkspace(
+        GenericMetadataState state,
+        Meta.Core.WorkspaceConfig.Generated.MetaWorkspace workspaceConfig)
+    {
+        return new Workspace
+        {
+            WorkspaceConfig = workspaceConfig,
+            Model = state.Model.Clone(),
+            Instance = WorkspaceSnapshotCloner.CloneInstance(state.Instance),
+        };
     }
 
     private static void AddOptionalCubePredecessor(Workspace workspace)
@@ -276,6 +395,26 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             Assert.True(
                 expectedBytes.AsSpan().SequenceEqual(actualBytes),
                 $"Metadata file bytes differ for '{path}'.");
+        }
+    }
+
+    private static void AssertArtifactTreesAreByteIdentical(
+        string expectedRoot,
+        string actualRoot,
+        string representation)
+    {
+        var expected = ReadMetadataFileBytes(expectedRoot);
+        var actual = ReadMetadataFileBytes(actualRoot);
+
+        Assert.Equal(
+            expected.Keys.OrderBy(path => path, StringComparer.Ordinal),
+            actual.Keys.OrderBy(path => path, StringComparer.Ordinal));
+
+        foreach (var path in expected.Keys)
+        {
+            Assert.True(
+                expected[path].AsSpan().SequenceEqual(actual[path]),
+                $"{representation} artifact bytes differ for '{path}'.");
         }
     }
 

@@ -22,7 +22,11 @@ public static class DdlSqlServerRenderer
             builder.AppendLine($"CREATE TABLE [{EscapeIdentifier(table.Schema)}].[{EscapeIdentifier(table.Name)}] (");
             var lines = table.Columns
                 .Select(column =>
-                    $"    [{EscapeIdentifier(column.Name)}] {column.DataType} {(column.IsNullable ? "NULL" : "NOT NULL")}")
+                    $"    [{EscapeIdentifier(column.Name)}] {column.DataType}" +
+                    (string.IsNullOrWhiteSpace(column.Collation)
+                        ? string.Empty
+                        : $" COLLATE {column.Collation}") +
+                    $" {(column.IsNullable ? "NULL" : "NOT NULL")}")
                 .ToList();
 
             if (table.PrimaryKey != null)
@@ -30,6 +34,13 @@ public static class DdlSqlServerRenderer
                 var pkColumns = string.Join(", ", table.PrimaryKey.ColumnNames.Select(name => $"[{EscapeIdentifier(name)}] ASC"));
                 var clustered = table.PrimaryKey.IsClustered ? "CLUSTERED" : "NONCLUSTERED";
                 lines.Add($"    CONSTRAINT [{EscapeIdentifier(NormalizeIdentifier(table.PrimaryKey.Name))}] PRIMARY KEY {clustered} ({pkColumns})");
+            }
+
+            foreach (var constraint in table.CheckConstraints
+                         .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase))
+            {
+                lines.Add(
+                    $"    CONSTRAINT [{EscapeIdentifier(NormalizeIdentifier(constraint.Name))}] CHECK ({constraint.Expression})");
             }
 
             foreach (var constraint in table.UniqueConstraints

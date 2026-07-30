@@ -11,10 +11,12 @@ Scope:
 
 - `Meta.Core`:
   - domain types (`Workspace`, `GenericModel`, `GenericInstance`, `GenericEntity`, `GenericRecord`)
+  - concrete operation plans and generic/XML interpreters in `Meta.Core.Operations`
   - core service contracts and implementations in `Meta.Core.Services`
 - `Meta.Adapters`:
   - `ServiceCollection` composition root
   - `ImportService` / `ExportService` adapter implementations
+  - SQL Server and Roslyn-backed C# operation sessions
 
 ## Quick start
 
@@ -39,7 +41,6 @@ if (diagnostics.HasErrors)
 - `IValidationService ValidationService`
 - `IImportService ImportService`
 - `IExportService ExportService`
-- `IOperationService OperationService`
 - `IModelRefactorService ModelRefactorService`
 - `IInstanceRefactorService InstanceRefactorService`
 - `IInstanceDiffService InstanceDiffService`
@@ -52,14 +53,14 @@ Use this when you want a single default object graph for tooling code.
 ### `IWorkspaceService`
 
 ```csharp
-Task<Workspace> LoadAsync(string workspaceRootPath, bool searchUpward = true, CancellationToken cancellationToken = default);
+Task<Workspace> LoadAsync(string workspaceRootPath, bool searchUpward = false, CancellationToken cancellationToken = default);
 Task SaveAsync(Workspace workspace, CancellationToken cancellationToken = default);
 Task SaveAsync(Workspace workspace, string? expectedFingerprint, CancellationToken cancellationToken = default);
 string CalculateHash(Workspace workspace);
 ```
 
 Behavior:
-- `LoadAsync` resolves a workspace from the provided path (upward search by default).
+- `LoadAsync` loads the exact workspace path by default. Upward search is available only when the caller requests it explicitly.
 - `SaveAsync` is validation-gated and atomic at workspace level.
 - `SaveAsync(... expectedFingerprint ...)` enforces optimistic concurrency.
 - `CalculateHash` returns deterministic workspace content hash.
@@ -90,19 +91,94 @@ Behavior:
 - merges full model + instance from multiple workspaces into a target workspace object
 - fail-only on collisions/incompatible config
 
-### `IOperationService`
+## Operation contract (`Meta.Core.Operations`)
 
 ```csharp
-void Execute(Workspace workspace, WorkspaceOp operation);
-bool CanUndo(Workspace workspace);
-bool CanRedo(Workspace workspace);
-void Undo(Workspace workspace);
-void Redo(Workspace workspace);
+var plan = MetaOperationPlan.Create(
+    new InsertRecordOperation(
+        "Cube",
+        "sales",
+        new Dictionary<string, string>
+        {
+            ["Name"] = "Sales",
+        }));
+
+var session = await XmlMetaOperationSession.OpenExistingAsync(@".\Workspace");
+session.Apply(plan);
+await session.CommitAsync();
 ```
 
-Behavior:
-- operation execution with in-memory undo/redo history per workspace instance
-- no persistence by itself (call `IWorkspaceService.SaveAsync` explicitly)
+`MetaOperationPlan` is an ordered, atomic program of concrete operations.
+The operation families are:
+
+- model operations: `AddEntityOperation`, `RemoveEntityOperation`
+- model-and-instance refactors: add, remove, rename, or change the requiredness of a property; add or remove a relationship
+- instance operations: insert/delete a record, set/clear a property, and set/clear a relationship
+
+The generic reference interpreter validates the source and resulting state.
+`MetaOperationException` identifies the failing operation and carries structured
+workspace diagnostics when conformance rejects the result.
+
+Execution surfaces:
+
+- `InMemoryMetaOperationSession`: copy-and-publish reference state
+- `XmlMetaOperationSession`: exact-path XML load, explicit commit/discard, and stale-write rejection
+- `SqlServerMetaOperationSession`: serializable SQL transaction with a savepoint per plan
+- `CSharpMetaOperationSession`: owned C# source directory, Roslyn
+  decode/compile, staged canonical publication, and stale-write rejection
+
+The XML, SQL Server, and C# source sessions support the complete current
+fourteen-operation vocabulary. The same conformance plans are compared with the
+normative in-memory interpreter.
+
+The SQL Server session opens only an encoded Meta SQL workspace. Entity
+identities and relationship values are `nvarchar(128)` under the explicit
+Meta identity collation and are constrained to non-empty printable ASCII
+without leading or trailing spaces. This bounded repertoire makes SQL
+case-insensitive equality agree with Meta's `OrdinalIgnoreCase` identity
+semantics. Identity checks and foreign keys must be enabled and trusted; the
+session verifies those schema guarantees without materializing the tables.
+Generic SQL import remains the permissive route for ordinary databases.
+
+### C# source workspace
+
+```csharp
+using Meta.Adapters;
+using Meta.Core.Operations;
+
+var state = new CSharpMetaWorkspaceReader()
+    .Read(@".\Metadata.CSharp");
+
+var session = CSharpMetaOperationSession.OpenExisting(
+    @".\Metadata.CSharp");
+session.Apply(MetaOperationPlan.Create(
+    new SetPropertyOperation(
+        "Cube",
+        "sales",
+        "Name",
+        "Sales and margin")));
+session.Commit();
+```
+
+Create a new owned source workspace with:
+
+```csharp
+var session = CSharpMetaOperationSession.Create(
+    @".\Metadata.CSharp",
+    initialState);
+```
+
+The accepted C# form consists of the generated model root, sealed entity
+classes, automatic string and object-reference properties, entity collection
+initializers, and statically resolvable relationship assignments. Roslyn
+compiles the source and supplies symbols, nullable annotations, constant
+semantics, and operation trees. Workspace code is never executed.
+
+Commit regenerates a canonical marked source directory, compiles and decodes
+the staged output, compares it with the pending abstract state, checks the
+baseline directory fingerprint, and then publishes it. The session owns the
+directory: arbitrary project files, custom methods or accessors, and unrelated
+source are not preserved.
 
 ### `IModelRefactorService`
 
@@ -229,10 +305,13 @@ Use this for read-only structural suggestion analysis in tooling flows. Strong s
 ```csharp
 GenerationManifest GenerateSql(Workspace workspace, string outputDirectory);
 GenerationManifest GenerateCSharp(Workspace workspace, string outputDirectory, bool includeTooling = false);
+GenerationManifest GenerateCSharpWorkspace(GenericModel model, GenericInstance instance, string outputDirectory);
 GenerationManifest GenerateSsdt(Workspace workspace, string outputDirectory);
 ```
 
 `GenerateCSharp(... includeTooling: true)` emits optional `<ModelName>.Tooling.cs` helper surface.
+`GenerateCSharpWorkspace(...)` emits the bounded, marked C# form used by
+`CSharpMetaOperationSession`.
 
 ### `GraphStatsService` (static)
 
@@ -242,17 +321,15 @@ GraphStatsReport Compute(GenericModel model, int topN = 10, int cycleSampleLimit
 
 Model-level graph diagnostics (in/out degree, SCC/cycle, roots/sinks, component counts).
 
-### `NormalizationService` (static)
-
-```csharp
-IReadOnlyList<WorkspaceOp> BuildNormalizeOperations(Workspace workspace, NormalizeOptions? options = null);
-```
-
-Generates deterministic cleanup operations; execute with `IOperationService`.
-
 ## Error model
 
 Typical failures throw `InvalidOperationException` with explicit precondition messages.
+
+Operation failures throw `MetaOperationException` with:
+
+- `OperationIndex`
+- `Operation`
+- `Diagnostics` when structural conformance rejected the source or result
 
 Optimistic save mismatch throws `WorkspaceConflictException`:
 
@@ -262,42 +339,21 @@ Optimistic save mismatch throws `WorkspaceConflictException`:
 ## Recommended tooling workflow
 
 ```csharp
-using Meta.Adapters;
-using Meta.Core.Services;
+using Meta.Core.Operations;
 
-var services = new ServiceCollection();
-
-var workspace = await services.WorkspaceService.LoadAsync(@".\Workspace");
-var beforeHash = services.WorkspaceService.CalculateHash(workspace);
-
-var diagnostics = services.ValidationService.Validate(workspace);
-if (diagnostics.HasErrors)
-{
-    throw new InvalidOperationException("Fix validation errors before mutation.");
-}
-
-// Example: model refactor
-var refactorResult = services.ModelRefactorService.RefactorPropertyToRelationship(
-    workspace,
-    new PropertyToRelationshipRefactorOptions(
-        SourceEntityName: "Order",
-        SourcePropertyName: "WarehouseId",
-        TargetEntityName: "Warehouse",
-        LookupPropertyName: "Id",
-        Role: "",
-        DropSourceProperty: true,
-        RequireSourceReuse: true));
-
-// Validate post-change
-var postDiagnostics = services.ValidationService.Validate(workspace);
-if (postDiagnostics.HasErrors)
-{
-    throw new InvalidOperationException("Refactor introduced validation errors.");
-}
-
-// Persist with optimistic concurrency
-await services.WorkspaceService.SaveAsync(workspace, expectedFingerprint: beforeHash);
+var session = await XmlMetaOperationSession.OpenExistingAsync(@".\Workspace");
+session.Apply(MetaOperationPlan.Create(
+    new SetPropertyOperation(
+        "Cube",
+        "sales",
+        "Name",
+        "Sales and margin")));
+await session.CommitAsync();
 ```
+
+Use `IModelRefactorService` and `IInstanceRefactorService` for the larger
+rename and property/relationship conversion refactors that have not yet moved
+onto the shared operation contract.
 
 ## Notes for generated tooling users
 
@@ -315,7 +371,7 @@ This maps CLI surfaces to the primary C# service entrypoints used today.
 | `meta status` | `WorkspaceService.LoadAsync(...)` |
 | `meta check` | `WorkspaceService.LoadAsync(...)` + `ValidationService.Validate(...)` |
 | `meta list ...`, `meta view ...`, `meta query ...` | `WorkspaceService.LoadAsync(...)` then in-memory domain traversal |
-| `meta model add-entity/add-property/add-relationship/drop-*`, `meta instance update`, `meta instance relationship set`, `meta delete`, `meta insert`, `meta bulk-insert` | `OperationService.Execute(...)` over `WorkspaceOp` + `NormalizationService.BuildNormalizeOperations(...)` + `ValidationService.Validate(...)` + `WorkspaceService.SaveAsync(...)` |
+| `meta model add-entity/add-property/add-relationship/drop-*`, `meta instance update`, `meta instance relationship set`, `meta delete`, `meta insert`, `meta bulk-insert` | `XmlMetaOperationSession` over one ordered `MetaOperationPlan` |
 | `meta model rename-model/rename-entity/rename-relationship` | `ModelRefactorService` + `ValidationService.Validate(...)` + `WorkspaceService.SaveAsync(...)` |
 | `meta model refactor property-to-relationship` | `ModelRefactorService.RefactorPropertyToRelationship(...)` + validate + save |
 | `meta model refactor relationship-to-property` | `ModelRefactorService.RefactorRelationshipToProperty(...)` + validate + save |

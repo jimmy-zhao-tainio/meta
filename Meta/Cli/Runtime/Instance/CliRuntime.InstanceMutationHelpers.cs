@@ -1,6 +1,8 @@
 internal sealed partial class CliRuntime
 {
-    IReadOnlyList<(string Key, string Value)> BuildRowPreviewDetails(GenericEntity entity, RowPatch rowPatch)
+    IReadOnlyList<(string Key, string Value)> BuildRowPreviewDetails(
+        GenericEntity entity,
+        InsertRecordOperation operation)
     {
         var details = new List<(string Key, string Value)>();
         var previewProperty = entity.Properties
@@ -11,7 +13,7 @@ internal sealed partial class CliRuntime
             .FirstOrDefault();
 
         if (!string.IsNullOrWhiteSpace(previewProperty) &&
-            rowPatch.Values.TryGetValue(previewProperty, out var previewValue) &&
+            operation.Values.TryGetValue(previewProperty, out var previewValue) &&
             !string.IsNullOrWhiteSpace(previewValue))
         {
             details.Add((previewProperty, previewValue));
@@ -20,21 +22,13 @@ internal sealed partial class CliRuntime
         return details;
     }
 
-    IReadOnlyList<(string Key, string Value)> BuildUpsertSuccessDetails(
-        Workspace workspace,
-        string entityName,
-        IReadOnlyList<string> rowIds)
+    IReadOnlyList<(string Key, string Value)> BuildBulkInsertSuccessDetails(int inserted)
     {
-        var existingIds = workspace.Instance.GetOrCreateEntityRecords(entityName)
-            .Select(record => record.Id)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var inserted = rowIds.Count(id => !existingIds.Contains(id));
-        var updated = rowIds.Count - inserted;
+        var value = inserted.ToString(CultureInfo.InvariantCulture);
         return new[]
         {
-            ("Inserted", inserted.ToString(CultureInfo.InvariantCulture)),
-            ("Updated", updated.ToString(CultureInfo.InvariantCulture)),
-            ("Total", rowIds.Count.ToString(CultureInfo.InvariantCulture)),
+            ("Inserted", value),
+            ("Total", value),
         };
     }
 
@@ -81,7 +75,7 @@ internal sealed partial class CliRuntime
         return row;
     }
 
-    RowPatch BuildRowPatchForUpdate(
+    MetaOperationPlan BuildRecordUpdatePlan(
         GenericEntity entity,
         string id,
         IReadOnlyDictionary<string, string> setValues)
@@ -91,14 +85,11 @@ internal sealed partial class CliRuntime
             throw new InvalidOperationException($"Cannot update '{entity.Name}' instance with empty Id.");
         }
 
-        var propertyNames = entity.Properties.Select(property => property.Name)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var propertyByName = entity.Properties.ToDictionary(
+            property => property.Name,
+            StringComparer.OrdinalIgnoreCase);
         var relationshipByAlias = BuildRelationshipAliasMap(entity);
-
-        var patch = new RowPatch
-        {
-            Id = id,
-        };
+        var operations = new List<MetaOperation>();
 
         foreach (var pair in setValues)
         {
@@ -107,15 +98,45 @@ internal sealed partial class CliRuntime
                 throw new InvalidOperationException("instance update does not allow updating Id.");
             }
 
-            if (propertyNames.Contains(pair.Key))
+            if (propertyByName.TryGetValue(pair.Key, out var property))
             {
-                patch.Values[pair.Key] = pair.Value;
+                operations.Add(new SetPropertyOperation(
+                    entity.Name,
+                    id,
+                    property.Name,
+                    pair.Value));
                 continue;
             }
 
-            if (relationshipByAlias.TryGetValue(pair.Key, out var relationshipUsageName))
+            if (relationshipByAlias.TryGetValue(pair.Key, out var relationship))
             {
-                patch.RelationshipIds[relationshipUsageName] = NormalizeRelationshipInputValue(pair.Value);
+                if (relationship == null)
+                {
+                    throw new InvalidOperationException(
+                        $"Relationship selector '{entity.Name}.{pair.Key}' is ambiguous in the model.");
+                }
+
+                var targetId = NormalizeRelationshipInputValue(pair.Value);
+                if (string.IsNullOrWhiteSpace(targetId))
+                {
+                    if (!relationship.IsNullable)
+                    {
+                        throw new InvalidOperationException(
+                            $"Required relationship '{entity.Name}.{relationship.GetColumnName()}' cannot be cleared.");
+                    }
+
+                    operations.Add(new ClearRelationshipOperation(
+                        entity.Name,
+                        id,
+                        relationship.GetColumnName()));
+                    continue;
+                }
+
+                operations.Add(new SetRelationshipOperation(
+                    entity.Name,
+                    id,
+                    relationship.GetColumnName(),
+                    targetId));
                 continue;
             }
 
@@ -123,18 +144,20 @@ internal sealed partial class CliRuntime
                 $"Field '{pair.Key}' is not a property or relationship on entity '{entity.Name}'.");
         }
 
-        return patch;
+        return new MetaOperationPlan(operations);
     }
 
-    RowPatch BuildRowPatchForCreate(
+    InsertRecordOperation BuildInsertOperation(
         Workspace workspace,
         GenericEntity entity,
         IReadOnlyDictionary<string, string> setValues,
-        string? explicitId)
+        string explicitId)
     {
-        var id = !string.IsNullOrWhiteSpace(explicitId)
-            ? explicitId.Trim()
-            : GenerateNextId(workspace, entity.Name);
+        var id = explicitId?.Trim() ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(id))
+        {
+            throw new InvalidOperationException($"Cannot create '{entity.Name}' with an empty Id.");
+        }
 
         if (workspace.Instance.GetOrCreateEntityRecords(entity.Name)
             .Any(row => string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase)))
@@ -142,18 +165,12 @@ internal sealed partial class CliRuntime
             throw new InvalidOperationException($"Cannot create '{entity.Name}' with Id '{id}' because it already exists.");
         }
 
-        var propertyNames = entity.Properties.Select(property => property.Name)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var propertyByName = entity.Properties.ToDictionary(
+            property => property.Name,
+            StringComparer.OrdinalIgnoreCase);
         var relationshipByAlias = BuildRelationshipAliasMap(entity);
-
-        var patch = new RowPatch
-        {
-            Id = id,
-            Values =
-            {
-                ["Id"] = id,
-            },
-        };
+        var values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var relationshipIds = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
         foreach (var pair in setValues)
         {
@@ -162,23 +179,46 @@ internal sealed partial class CliRuntime
                 continue;
             }
 
-            if (propertyNames.Contains(pair.Key))
+            if (propertyByName.TryGetValue(pair.Key, out var property))
             {
-                patch.Values[pair.Key] = pair.Value;
+                values[property.Name] = pair.Value;
                 continue;
             }
 
-            if (relationshipByAlias.TryGetValue(pair.Key, out var relationshipUsageName))
+            if (relationshipByAlias.TryGetValue(pair.Key, out var relationship))
             {
-                patch.RelationshipIds[relationshipUsageName] = NormalizeRelationshipInputValue(pair.Value);
+                if (relationship == null)
+                {
+                    throw new InvalidOperationException(
+                        $"Relationship selector '{entity.Name}.{pair.Key}' is ambiguous in the model.");
+                }
+
+                var targetId = NormalizeRelationshipInputValue(pair.Value);
+                if (string.IsNullOrWhiteSpace(targetId))
+                {
+                    if (!relationship.IsNullable)
+                    {
+                        throw new InvalidOperationException(
+                            $"insert is missing required relationship '{relationship.GetColumnName()}'. Set it with --set {relationship.GetColumnName()}=<Id>.");
+                    }
+
+                    continue;
+                }
+
+                relationshipIds[relationship.GetColumnName()] = targetId;
                 continue;
             }
 
-            throw new InvalidOperationException($"Field '{pair.Key}' is not a property or relationship on entity '{entity.Name}'.");
+            throw new InvalidOperationException(
+                $"Field '{pair.Key}' is not a property or relationship on entity '{entity.Name}'.");
         }
 
-        EnsureCreatePatchIncludesRequiredRelationships(entity, patch, operationName: "insert", rowNumber: null);
-        return patch;
+        EnsureInsertIncludesRequiredRelationships(
+            entity,
+            relationshipIds,
+            operationName: "insert",
+            rowNumber: null);
+        return new InsertRecordOperation(entity.Name, id, values, relationshipIds);
     }
 
     bool ContainsIdSetAssignment(IReadOnlyDictionary<string, string> setValues)
@@ -189,12 +229,6 @@ internal sealed partial class CliRuntime
         }
 
         return setValues.Keys.Any(key => string.Equals(key, "Id", StringComparison.OrdinalIgnoreCase));
-    }
-
-    string ResolveRelationshipName(GenericEntity entity, string candidateToEntityName)
-    {
-        return ResolveRelationshipDefinition(entity, candidateToEntityName, out _)
-            ?.GetColumnName() ?? string.Empty;
     }
 
     GenericRelationship? ResolveRelationshipDefinition(
@@ -241,66 +275,14 @@ internal sealed partial class CliRuntime
         return null;
     }
 
-    string TryGetDisplayValue(GenericEntity entity, GenericRecord row)
-    {
-        var previewProperty = entity.Properties
-            .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
-            .OrderBy(property => property.IsNullable ? 1 : 0)
-            .ThenBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
-            .Select(property => property.Name)
-            .FirstOrDefault();
-        if (string.IsNullOrWhiteSpace(previewProperty))
-        {
-            return string.Empty;
-        }
-
-        return row.Values.TryGetValue(previewProperty, out var value) ? value : string.Empty;
-    }
-
-    int CountRelationshipUsages(GenericRecord row, string relationshipUsageName)
-    {
-        return row.RelationshipIds.Count(item =>
-            string.Equals(item.Key, relationshipUsageName, StringComparison.OrdinalIgnoreCase) &&
-            !string.IsNullOrWhiteSpace(item.Value));
-    }
-
-    RowPatch BuildRelationshipUsageRewritePatch(
-        GenericRecord sourceRow,
-        string relationshipUsageName,
-        string? targetId)
-    {
-        var patch = new RowPatch
-        {
-            Id = sourceRow.Id,
-            ReplaceExisting = true,
-        };
-        foreach (var value in sourceRow.Values)
-        {
-            patch.Values[value.Key] = value.Value;
-        }
-
-        foreach (var relationship in sourceRow.RelationshipIds
-                     .Where(item => !string.Equals(item.Key, relationshipUsageName, StringComparison.OrdinalIgnoreCase)))
-        {
-            patch.RelationshipIds[relationship.Key] = relationship.Value;
-        }
-
-        if (!string.IsNullOrWhiteSpace(targetId))
-        {
-            patch.RelationshipIds[relationshipUsageName] = targetId;
-        }
-
-        return patch;
-    }
-
     string NormalizeRelationshipInputValue(string value)
     {
         return value?.Trim() ?? string.Empty;
     }
 
-    void EnsureCreatePatchIncludesRequiredRelationships(
+    void EnsureInsertIncludesRequiredRelationships(
         GenericEntity entity,
-        RowPatch patch,
+        IReadOnlyDictionary<string, string> relationshipIds,
         string operationName,
         int? rowNumber)
     {
@@ -310,24 +292,28 @@ internal sealed partial class CliRuntime
                      .Where(name => !string.IsNullOrWhiteSpace(name))
                      .OrderBy(name => name, StringComparer.OrdinalIgnoreCase))
         {
-            if (!patch.RelationshipIds.TryGetValue(relationship, out var relationshipId) ||
-                string.IsNullOrWhiteSpace(relationshipId))
+            if (relationshipIds.TryGetValue(relationship, out var relationshipId) &&
+                !string.IsNullOrWhiteSpace(relationshipId))
             {
-                if (string.Equals(operationName, "bulk-insert", StringComparison.OrdinalIgnoreCase))
-                {
-                    throw new InvalidOperationException(
-                        $"bulk-insert row {rowNumber.GetValueOrDefault()} is missing required relationship '{relationship}'. Set column '{relationship}' to a target Id.");
-                }
-
-                throw new InvalidOperationException(
-                    $"insert is missing required relationship '{relationship}'. Set it with --set {relationship}=<Id>.");
+                continue;
             }
+
+            if (string.Equals(operationName, "bulk-insert", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException(
+                    $"bulk-insert row {rowNumber.GetValueOrDefault()} is missing required relationship '{relationship}'. Set column '{relationship}' to a target Id.");
+            }
+
+            throw new InvalidOperationException(
+                $"insert is missing required relationship '{relationship}'. Set it with --set {relationship}=<Id>.");
         }
     }
 
-    Dictionary<string, string> BuildRelationshipAliasMap(GenericEntity entity)
+    Dictionary<string, GenericRelationship?> BuildRelationshipAliasMap(
+        GenericEntity entity)
     {
-        var aliases = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var aliases = new Dictionary<string, GenericRelationship?>(
+            StringComparer.OrdinalIgnoreCase);
         foreach (var relationship in entity.Relationships)
         {
             var relationshipName = relationship.GetColumnName();
@@ -336,45 +322,24 @@ internal sealed partial class CliRuntime
                 continue;
             }
 
-            aliases[relationshipName] = relationshipName;
-            aliases[relationship.GetRoleOrDefault()] = relationshipName;
+            AddAlias(relationshipName, relationship);
+            AddAlias(relationship.GetRoleOrDefault(), relationship);
         }
 
         return aliases;
-    }
 
-    string GenerateNextId(Workspace workspace, string entityName)
-    {
-        var records = workspace.Instance.GetOrCreateEntityRecords(entityName);
-        var ids = records
-            .Select(row => row.Id)
-            .Where(value => !string.IsNullOrWhiteSpace(value))
-            .Select(value => value.Trim())
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-        var numericIds = ids
-            .Select(value => long.TryParse(value, out var parsed) ? parsed : (long?)null)
-            .Where(value => value.HasValue)
-            .Select(value => value!.Value)
-            .ToList();
-
-        if (numericIds.Count > 0)
+        void AddAlias(
+            string alias,
+            GenericRelationship relationship)
         {
-            var next = numericIds.Max() + 1;
-            while (ids.Contains(next.ToString()))
+            if (aliases.TryGetValue(alias, out var existing) &&
+                !ReferenceEquals(existing, relationship))
             {
-                next++;
+                aliases[alias] = null;
+                return;
             }
 
-            return next.ToString();
+            aliases[alias] = relationship;
         }
-
-        var candidate = 1L;
-        while (ids.Contains(candidate.ToString()))
-        {
-            candidate++;
-        }
-
-        return candidate.ToString();
     }
 }
