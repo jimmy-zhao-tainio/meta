@@ -10,12 +10,11 @@ The intended scope is a layer below MetaCli that gives workspace mutations one
 semantic contract across XML, SQL, an owned C# source workspace, and generated
 typed C# where those surfaces can represent the operation naturally.
 
-The proof changes no product model, MetaCli runtime, or MetaHost behavior. A
-second slice now moves the generic `meta` CLI commands that fit the operation
-vocabulary onto the XML operation session. Larger rename and
-property/relationship conversion refactors remain on their dedicated services
-until the operation vocabulary can represent them across the intended
-surfaces.
+The proof changes no product model, MetaCli runtime, or MetaHost behavior. The
+generic `meta` CLI commands that fit the operation vocabulary now use the XML
+operation session. Larger rename and property/relationship conversion
+refactors remain on their dedicated services until the operation vocabulary
+can represent them across the intended surfaces.
 
 The SQL interpreter now covers the complete current operation vocabulary.
 Opening a SQL operation session first verifies that the database uses Meta's
@@ -155,6 +154,26 @@ The MetaCli workspace was changed through the `meta` CLI. Its save also brought
 older empty-element formatting onto the current canonical self-closing form;
 that is a one-time physical normalization, not a semantic command-surface
 change.
+
+An adoption audit on 2026-07-30 confirmed that the current vocabulary is fully
+adopted by the public generic mutation surface:
+
+- model add/drop entity, property, and relationship commands use operation
+  plans
+- model property rename and requiredness commands use operation plans
+- instance insert, bulk insert, update, relationship set, and delete commands
+  use operation plans
+- no public command handler mutates `Workspace.Model` or
+  `Workspace.Instance` directly
+- CSV import composition and preflight were moved out of the command handler
+  and into `IImportService`; the CLI now loads, delegates, validates, saves,
+  and presents the structured result
+
+Rename-model, rename-entity, rename-relationship, property/relationship
+conversion, rename-instance-id, diff/merge, workspace merge, import, workspace
+creation, and lifecycle commands do not have an equivalent operation in the
+current vocabulary. They deliberately remain structured service flows. The
+audit did not invent operations merely to make that inventory uniform.
 
 Verification on 2026-07-29:
 

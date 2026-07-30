@@ -62,7 +62,16 @@ public interface IImportService
         string csvPath,
         string entityName,
         CancellationToken cancellationToken = default);
+    Task<CsvWorkspaceImportResult> ImportCsvIntoWorkspaceAsync(
+        Workspace workspace,
+        string csvPath,
+        string entityName,
+        CancellationToken cancellationToken = default);
 }
+
+public readonly record struct CsvWorkspaceImportResult(
+    string EntityName,
+    int RowsImported);
 
 public interface IExportService
 {
