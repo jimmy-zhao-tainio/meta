@@ -44,12 +44,8 @@ public sealed class CSharpMetaOperationSession
                 nameof(workspacePath));
         }
 
-        var root = Path.GetFullPath(workspacePath);
-        using var writeLock = WorkspaceWriteLock.AcquireSibling(root);
-        _ = new MetaOperationInterpreter().Apply(
-            initialState,
-            MetaOperationPlan.Empty);
         CSharpMetaLanguage.RequireRepresentable(initialState);
+        var root = Path.GetFullPath(workspacePath);
         if (Directory.Exists(root) &&
             Directory.EnumerateFileSystemEntries(root).Any())
         {
@@ -162,8 +158,6 @@ public sealed class CSharpMetaOperationSession
             return;
         }
 
-        using var writeLock =
-            WorkspaceWriteLock.AcquireSibling(WorkspacePath);
         var actualFingerprint = Directory.Exists(WorkspacePath)
             ? CSharpMetaWorkspaceFiles.ComputeFingerprint(WorkspacePath)
             : "<missing>";
@@ -181,8 +175,6 @@ public sealed class CSharpMetaOperationSession
         var stagedPath = CSharpMetaWorkspaceFiles.CreateSiblingPath(
             WorkspacePath,
             "stage");
-        CSharpMetaWorkspaceReader.CSharpMetaWorkspaceDocument? stagedDocument =
-            null;
         try
         {
             GenerationService.GenerateCSharpWorkspace(
@@ -190,7 +182,7 @@ public sealed class CSharpMetaOperationSession
                 _working.Instance,
                 stagedPath);
             CSharpMetaWorkspaceFiles.RequireOwnedWorkspace(stagedPath);
-            stagedDocument = _reader.ReadDocument(stagedPath);
+            var stagedDocument = _reader.ReadDocument(stagedPath);
             if (!string.Equals(
                     CSharpMetaStateSignature.Build(_working),
                     CSharpMetaStateSignature.Build(stagedDocument.State),
@@ -202,8 +194,7 @@ public sealed class CSharpMetaOperationSession
 
             CSharpMetaWorkspaceFiles.PublishDirectory(
                 stagedPath,
-                WorkspacePath,
-                _baselineFingerprint);
+                WorkspacePath);
         }
         finally
         {
@@ -213,9 +204,10 @@ public sealed class CSharpMetaOperationSession
             }
         }
 
-        _baseline = stagedDocument!.State.Clone();
+        var committed = _reader.ReadDocument(WorkspacePath);
+        _baseline = committed.State.Clone();
         _working = _baseline.Clone();
-        _baselineFingerprint = stagedDocument.Fingerprint;
+        _baselineFingerprint = committed.Fingerprint;
         _hasPendingOperations = false;
     }
 

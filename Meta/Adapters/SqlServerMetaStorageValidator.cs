@@ -40,21 +40,6 @@ internal static class SqlServerMetaStorageValidator
 
         foreach (var entity in model.Entities)
         {
-            var behaviorChangingFeatures =
-                await SqlServerImportReader
-                    .LoadBehaviorChangingTableFeaturesAsync(
-                        connection,
-                        schema,
-                        entity.Name,
-                        cancellationToken,
-                        transaction)
-                    .ConfigureAwait(false);
-            if (behaviorChangingFeatures.Count > 0)
-            {
-                throw new InvalidOperationException(
-                    $"SQL operation sessions require an encoded Meta workspace. Table '{schema}.{entity.Name}' contains unsupported behavior: {string.Join(", ", behaviorChangingFeatures)}.");
-            }
-
             var columns = await SqlServerImportReader.LoadColumnsAsync(
                     connection,
                     schema,
@@ -117,24 +102,6 @@ internal static class SqlServerMetaStorageValidator
                 entity.Name,
                 "Id");
 
-            var expectedCheckNames = entity.Relationships
-                .Select(relationship =>
-                    MetaSqlStorageContract.GetIdentityCheckConstraintName(
-                        entity.Name,
-                        relationship.GetColumnName()))
-                .Append(
-                    MetaSqlStorageContract.GetIdentityCheckConstraintName(
-                        entity.Name,
-                        "Id"))
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
-            var unexpectedCheck = checksByEntity[entity.Name].Keys
-                .FirstOrDefault(name => !expectedCheckNames.Contains(name));
-            if (unexpectedCheck != null)
-            {
-                throw new InvalidOperationException(
-                    $"SQL operation sessions require an encoded Meta workspace. Table '{schema}.{entity.Name}' contains unsupported check constraint '{unexpectedCheck}'.");
-            }
-
             var primaryKeyColumns =
                 await SqlServerImportReader.LoadPrimaryKeyColumnsAsync(
                         connection,
@@ -192,15 +159,6 @@ internal static class SqlServerMetaStorageValidator
                         $"the foreign key to '{relationship.Entity}.Id' is missing");
                 }
 
-                if (storedRelationship.IsNotForReplication)
-                {
-                    throw InvalidStorage(
-                        schema,
-                        entity.Name,
-                        columnName,
-                        "the foreign key must be enforced for replication");
-                }
-
                 if (storedRelationship.IsDisabled ||
                     storedRelationship.IsNotTrusted)
                 {
@@ -209,16 +167,6 @@ internal static class SqlServerMetaStorageValidator
                         entity.Name,
                         columnName,
                         "the foreign key must be enabled and trusted");
-                }
-
-                if (storedRelationship.DeleteAction != 0 ||
-                    storedRelationship.UpdateAction != 0)
-                {
-                    throw InvalidStorage(
-                        schema,
-                        entity.Name,
-                        columnName,
-                        "the foreign key must use NO ACTION for delete and update");
                 }
 
                 var column = RequireColumn(
@@ -291,15 +239,6 @@ internal static class SqlServerMetaStorageValidator
                 $"required identity constraint '{name}' is missing");
         }
 
-        if (constraint.IsNotForReplication)
-        {
-            throw InvalidStorage(
-                schema,
-                entityName,
-                columnName,
-                $"identity constraint '{name}' must be enforced for replication");
-        }
-
         if (constraint.IsDisabled || constraint.IsNotTrusted)
         {
             throw InvalidStorage(
@@ -309,13 +248,20 @@ internal static class SqlServerMetaStorageValidator
                 $"identity constraint '{name}' must be enabled and trusted");
         }
 
-        var expectedDefinition =
-            MetaSqlStorageContract.GetIdentityCheckCatalogDefinition(
-                columnName);
-        if (!string.Equals(
-                constraint.Definition.Trim(),
-                expectedDefinition,
-                StringComparison.OrdinalIgnoreCase))
+        var quotedColumn =
+            $"[{columnName.Replace("]", "]]", StringComparison.Ordinal)}]";
+        var requiredDefinitionParts = new[]
+        {
+            $"datalength({quotedColumn})",
+            $"left({quotedColumn}",
+            $"right({quotedColumn}",
+            MetaSqlStorageContract.IdentityCharacterCollation,
+            "%[^ -~]%",
+        };
+        if (requiredDefinitionParts.Any(part =>
+                !constraint.Definition.Contains(
+                    part,
+                    StringComparison.OrdinalIgnoreCase)))
         {
             throw InvalidStorage(
                 schema,

@@ -27,21 +27,6 @@ public sealed partial class MetaOperationInterpreter
             try
             {
                 ApplyOperation(working, operation);
-                if (operation is not InstanceOperation)
-                {
-                    EnsureModelConforming(
-                        working.Model,
-                        $"Operation {index + 1} ({operation.GetType().Name}) produced an invalid model.");
-                }
-            }
-            catch (MetaOperationException exception)
-            {
-                throw new MetaOperationException(
-                    exception.Message,
-                    index,
-                    operation,
-                    exception,
-                    exception.Diagnostics);
             }
             catch (Exception exception) when (exception is not MetaOperationException)
             {

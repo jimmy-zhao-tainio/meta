@@ -29,18 +29,6 @@ public static class MetaSqlStorageContract
             "NOT LIKE N'%[^ -~]%'";
     }
 
-    public static string GetIdentityCheckCatalogDefinition(
-        string columnName)
-    {
-        var column = QuoteIdentifier(columnName);
-        return
-            $"(datalength({column})>(0) AND " +
-            $"left({column},(1))<>N' ' AND " +
-            $"right({column},(1))<>N' ' AND " +
-            $"NOT ({column}) collate {IdentityCharacterCollation} " +
-            "like N'%[^ -~]%')";
-    }
-
     public static string RequireRepresentableIdentity(
         string value,
         string parameterName)

@@ -358,7 +358,7 @@ public sealed class ValidationService : IValidationService
                 {
                     Code = "instance.entity.unknown",
                     Message = $"Instance includes unknown entity '{entityName}'.",
-                    Severity = IssueSeverity.Error,
+                    Severity = IssueSeverity.Warning,
                     Location = $"instance/{entityName}",
                 });
                 continue;
@@ -366,12 +366,6 @@ public sealed class ValidationService : IValidationService
 
             var ids = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             idsByEntity[entityName] = ids;
-            var modeledProperties = modelEntity.Properties
-                .Select(property => property.Name)
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
-            var modeledRelationships = modelEntity.Relationships
-                .Select(relationship => relationship.GetColumnName())
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
             foreach (var record in entityRecords.Value)
             {
@@ -407,39 +401,37 @@ public sealed class ValidationService : IValidationService
                     });
                 }
 
-                foreach (var propertyName in record.Values.Keys.Where(
-                             propertyName => !modeledProperties.Contains(propertyName)))
+                foreach (var requiredProperty in modelEntity.Properties
+                             .Where(property =>
+                                 !property.IsNullable &&
+                                 !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase)))
                 {
-                    diagnostics.Issues.Add(new DiagnosticIssue
+                    var hasValue = record.Values.TryGetValue(requiredProperty.Name, out var value);
+                    if (!hasValue)
                     {
-                        Code = "instance.property.unknown",
-                        Message =
-                            $"Entity '{entityName}' record '{record.Id}' contains unknown property '{propertyName}'.",
-                        Severity = IssueSeverity.Error,
-                        Location =
-                            $"instance/{entityName}/{record.Id}/{propertyName}",
-                    });
+                        diagnostics.Issues.Add(new DiagnosticIssue
+                        {
+                            Code = "instance.required.missing",
+                            Message = $"Entity '{entityName}' record '{record.Id}' is missing required value '{requiredProperty.Name}'.",
+                            Severity = IssueSeverity.Error,
+                            Location = $"instance/{entityName}/{record.Id}/{requiredProperty.Name}",
+                        });
+
+                        continue;
+                    }
+
+                    if (value == null)
+                    {
+                        diagnostics.Issues.Add(new DiagnosticIssue
+                        {
+                            Code = "instance.required.missing",
+                            Message = $"Entity '{entityName}' record '{record.Id}' is missing required value '{requiredProperty.Name}'.",
+                            Severity = IssueSeverity.Error,
+                            Location = $"instance/{entityName}/{record.Id}/{requiredProperty.Name}",
+                        });
+                    }
                 }
 
-                foreach (var relationshipName in record.RelationshipIds.Keys.Where(
-                             relationshipName =>
-                                 !modeledRelationships.Contains(relationshipName)))
-                {
-                    diagnostics.Issues.Add(new DiagnosticIssue
-                    {
-                        Code = "instance.relationship.unknown",
-                        Message =
-                            $"Entity '{entityName}' record '{record.Id}' contains unknown relationship '{relationshipName}'.",
-                        Severity = IssueSeverity.Error,
-                        Location =
-                            $"instance/{entityName}/{record.Id}/relationship/{relationshipName}",
-                    });
-                }
-
-                AddRequiredMemberIssues(
-                    modelEntity,
-                    record,
-                    diagnostics.Issues);
             }
         }
 
@@ -459,6 +451,18 @@ public sealed class ValidationService : IValidationService
                     if (!record.RelationshipIds.TryGetValue(relationshipName, out var relatedId) ||
                         string.IsNullOrWhiteSpace(relatedId))
                     {
+                        if (relationship.IsNullable)
+                        {
+                            continue;
+                        }
+
+                        diagnostics.Issues.Add(new DiagnosticIssue
+                        {
+                            Code = "instance.relationship.missing",
+                            Message = $"Entity '{entityName}' record '{record.Id}' is missing relationship '{relationshipName}'.",
+                            Severity = IssueSeverity.Error,
+                            Location = $"instance/{entityName}/{record.Id}/relationship/{relationshipName}",
+                        });
                         continue;
                     }
 
@@ -501,68 +505,14 @@ public sealed class ValidationService : IValidationService
         }
     }
 
-    internal static void AddRequiredMemberIssues(
-        GenericEntity entity,
-        GenericRecord record,
-        ICollection<DiagnosticIssue> issues)
-    {
-        foreach (var property in entity.Properties.Where(
-                     property =>
-                         !property.IsNullable &&
-                         !string.Equals(
-                             property.Name,
-                             "Id",
-                             StringComparison.OrdinalIgnoreCase) &&
-                         (!record.Values.TryGetValue(
-                              property.Name,
-                              out var value) ||
-                          value == null)))
-        {
-            issues.Add(new DiagnosticIssue
-            {
-                Code = "instance.required.missing",
-                Message =
-                    $"Entity '{entity.Name}' record '{record.Id}' is missing required value '{property.Name}'.",
-                Severity = IssueSeverity.Error,
-                Location =
-                    $"instance/{entity.Name}/{record.Id}/{property.Name}",
-            });
-        }
-
-        foreach (var relationship in entity.Relationships.Where(
-                     relationship =>
-                         !relationship.IsNullable &&
-                         (!record.RelationshipIds.TryGetValue(
-                              relationship.GetColumnName(),
-                              out var targetId) ||
-                          string.IsNullOrWhiteSpace(targetId))))
-        {
-            var relationshipName = relationship.GetColumnName();
-            issues.Add(new DiagnosticIssue
-            {
-                Code = "instance.relationship.missing",
-                Message =
-                    $"Entity '{entity.Name}' record '{record.Id}' is missing relationship '{relationshipName}'.",
-                Severity = IssueSeverity.Error,
-                Location =
-                    $"instance/{entity.Name}/{record.Id}/relationship/{relationshipName}",
-            });
-        }
-    }
-
     private static string NormalizeIdentity(string? value)
     {
-        return value ?? string.Empty;
+        return value?.Trim() ?? string.Empty;
     }
 
     private static bool IsValidIdentity(string? value)
     {
-        var identity = NormalizeIdentity(value);
-        return !string.IsNullOrWhiteSpace(identity) &&
-               string.Equals(
-                   identity,
-                   identity.Trim(),
-                   StringComparison.Ordinal);
+        return !string.IsNullOrWhiteSpace(NormalizeIdentity(value));
     }
 
     private static bool IsValidName(string value)

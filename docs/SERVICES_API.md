@@ -115,9 +115,7 @@ The operation families are:
 - model-and-instance refactors: add, remove, rename, or change the requiredness of a property; add or remove a relationship
 - instance operations: insert/delete a record, set/clear a property, and set/clear a relationship
 
-The generic reference interpreter requires every operation to preserve a
-conforming state. It validates the source and final states, validates model
-changes immediately, and checks complete record aggregates before insertion.
+The generic reference interpreter validates the source and resulting state.
 `MetaOperationException` identifies the failing operation and carries structured
 workspace diagnostics when conformance rejects the result.
 
@@ -127,8 +125,7 @@ Execution surfaces:
 - `XmlMetaOperationSession`: exact-path XML load, explicit commit/discard, and stale-write rejection
 - `SqlServerMetaOperationSession`: serializable SQL transaction with a savepoint per plan
 - `CSharpMetaOperationSession`: owned C# source directory, Roslyn
-  decode/compile, closed source-contract validation, staged canonical
-  publication under an exclusive sibling lock, and stale-write rejection
+  decode/compile, staged canonical publication, and stale-write rejection
 
 The XML, SQL Server, and C# source sessions support the complete current
 fourteen-operation vocabulary. The same conformance plans are compared with the
@@ -139,13 +136,9 @@ identities and relationship values are `nvarchar(128)` under the explicit
 Meta identity collation and are constrained to non-empty printable ASCII
 without leading or trailing spaces. This bounded repertoire makes SQL
 case-insensitive equality agree with Meta's `OrdinalIgnoreCase` identity
-semantics. Identity checks and foreign keys must be enabled, trusted, and
-enforced for replication; the session verifies the exact generated identity
-checks without materializing the tables. It rejects storage behavior outside
-the encoded workspace contract, including defaults, computed columns,
-triggers, secondary indexes, row-level security, additional checks,
-referential actions, and foreign keys that cross the workspace schema. Generic
-SQL import remains the permissive route for ordinary databases.
+semantics. Identity checks and foreign keys must be enabled and trusted; the
+session verifies those schema guarantees without materializing the tables.
+Generic SQL import remains the permissive route for ordinary databases.
 
 ### C# source workspace
 
@@ -182,12 +175,10 @@ compiles the source and supplies symbols, nullable annotations, constant
 semantics, and operation trees. Workspace code is never executed.
 
 Commit regenerates a canonical marked source directory, compiles and decodes
-the staged output, compares it with the pending abstract state, and publishes
-it only when the live directory still matches the baseline. The reader's
-fingerprint covers the exact source bytes supplied to Roslyn, and publication
-checks the previous directory again after claiming its path. The session owns
-the directory: arbitrary project files, custom methods or accessors, and
-unrelated source are not preserved.
+the staged output, compares it with the pending abstract state, checks the
+baseline directory fingerprint, and then publishes it. The session owns the
+directory: arbitrary project files, custom methods or accessors, and unrelated
+source are not preserved.
 
 ### `IModelRefactorService`
 

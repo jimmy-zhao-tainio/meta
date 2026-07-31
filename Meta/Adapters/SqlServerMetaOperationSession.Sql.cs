@@ -72,17 +72,15 @@ public sealed partial class SqlServerMetaOperationSession
             CultureInfo.InvariantCulture);
     }
 
-    private async Task<bool> HasNullsAsync(
+    private async Task<long> CountNullsAsync(
         string entityName,
         string columnName,
         CancellationToken cancellationToken)
     {
         await using var command = CreateCommand(
-            "SELECT CASE WHEN EXISTS (" +
-            $"SELECT 1 FROM {QualifiedTable(entityName)} " +
-            $"WHERE {QuoteIdentifier(columnName)} IS NULL) " +
-            "THEN CAST(1 AS bit) ELSE CAST(0 AS bit) END;");
-        return Convert.ToBoolean(
+            $"SELECT COUNT_BIG(*) FROM {QualifiedTable(entityName)} " +
+            $"WHERE {QuoteIdentifier(columnName)} IS NULL;");
+        return Convert.ToInt64(
             await command.ExecuteScalarAsync(cancellationToken)
                 .ConfigureAwait(false),
             CultureInfo.InvariantCulture);

@@ -1,6 +1,5 @@
 using System.Security.Cryptography;
 using System.Text;
-using Meta.Core.Services;
 
 namespace Meta.Adapters;
 
@@ -63,14 +62,8 @@ internal static class CSharpMetaWorkspaceFiles
 
     public static string ComputeFingerprint(string workspacePath)
     {
-        return CaptureSnapshot(workspacePath).Fingerprint;
-    }
-
-    public static CSharpMetaWorkspaceSnapshot CaptureSnapshot(
-        string workspacePath)
-    {
         var root = Path.GetFullPath(workspacePath);
-        var paths = Directory.GetFiles(
+        var files = Directory.GetFiles(
                 root,
                 "*",
                 SearchOption.AllDirectories)
@@ -82,26 +75,18 @@ internal static class CSharpMetaWorkspaceFiles
                 StringComparer.Ordinal)
             .ToArray();
 
-        var files = new List<CSharpMetaWorkspaceFile>(paths.Length);
         using var hash = IncrementalHash.CreateHash(
             HashAlgorithmName.SHA256);
-        foreach (var path in paths)
+        foreach (var path in files)
         {
             var relativePath = Path.GetRelativePath(root, path)
                 .Replace('\\', '/');
-            var contents = File.ReadAllBytes(path);
             Append(hash, Encoding.UTF8.GetBytes(relativePath));
-            Append(hash, contents);
-            files.Add(
-                new CSharpMetaWorkspaceFile(
-                    path,
-                    contents));
+            Append(hash, File.ReadAllBytes(path));
         }
 
-        return new CSharpMetaWorkspaceSnapshot(
-            files,
-            Convert.ToHexString(hash.GetHashAndReset())
-                .ToLowerInvariant());
+        return Convert.ToHexString(hash.GetHashAndReset())
+            .ToLowerInvariant();
     }
 
     public static string CreateSiblingPath(
@@ -120,8 +105,7 @@ internal static class CSharpMetaWorkspaceFiles
 
     public static void PublishDirectory(
         string stagedPath,
-        string workspacePath,
-        string expectedFingerprint)
+        string workspacePath)
     {
         var stage = Path.GetFullPath(stagedPath);
         var root = Path.GetFullPath(workspacePath);
@@ -141,68 +125,19 @@ internal static class CSharpMetaWorkspaceFiles
         }
 
         var backup = CreateSiblingPath(root, "backup");
-        try
-        {
-            Directory.Move(root, backup);
-        }
-        catch (DirectoryNotFoundException)
-        {
-            throw new WorkspaceConflictException(
-                $"C# workspace '{root}' disappeared while its commit was being prepared.",
-                expectedFingerprint,
-                "<missing>");
-        }
-        catch (IOException) when (!Directory.Exists(root))
-        {
-            throw new WorkspaceConflictException(
-                $"C# workspace '{root}' was replaced while its commit was being prepared.",
-                expectedFingerprint,
-                File.Exists(root)
-                    ? "<replaced by file>"
-                    : "<missing>");
-        }
-
-        string actualFingerprint;
-        try
-        {
-            actualFingerprint = ComputeFingerprint(backup);
-        }
-        catch
-        {
-            TryRestoreBackup(backup, root);
-            throw;
-        }
-
-        if (!string.Equals(
-                actualFingerprint,
-                expectedFingerprint,
-                StringComparison.Ordinal))
-        {
-            var restored = TryRestoreBackup(backup, root);
-            throw new WorkspaceConflictException(
-                $"C# workspace '{root}' changed while its commit was being prepared." +
-                (restored
-                    ? string.Empty
-                    : $" The prior workspace remains at '{backup}'."),
-                expectedFingerprint,
-                actualFingerprint);
-        }
-
+        Directory.Move(root, backup);
         try
         {
             Directory.Move(stage, root);
         }
         catch
         {
-            if (Directory.Exists(root))
+            if (!Directory.Exists(root) &&
+                Directory.Exists(backup))
             {
-                throw new WorkspaceConflictException(
-                    $"C# workspace '{root}' was recreated while its commit was being published. The prior workspace remains at '{backup}'.",
-                    expectedFingerprint,
-                    "<workspace path recreated>");
+                Directory.Move(backup, root);
             }
 
-            TryRestoreBackup(backup, root);
             throw;
         }
 
@@ -222,31 +157,6 @@ internal static class CSharpMetaWorkspaceFiles
         }
     }
 
-    private static bool TryRestoreBackup(
-        string backupPath,
-        string workspacePath)
-    {
-        if (Directory.Exists(workspacePath) ||
-            !Directory.Exists(backupPath))
-        {
-            return false;
-        }
-
-        try
-        {
-            Directory.Move(backupPath, workspacePath);
-            return true;
-        }
-        catch (IOException)
-        {
-            return false;
-        }
-        catch (UnauthorizedAccessException)
-        {
-            return false;
-        }
-    }
-
     private static void Append(
         IncrementalHash hash,
         ReadOnlySpan<byte> value)
@@ -255,11 +165,3 @@ internal static class CSharpMetaWorkspaceFiles
         hash.AppendData(value);
     }
 }
-
-internal sealed record CSharpMetaWorkspaceSnapshot(
-    IReadOnlyList<CSharpMetaWorkspaceFile> Files,
-    string Fingerprint);
-
-internal sealed record CSharpMetaWorkspaceFile(
-    string FullPath,
-    byte[] Contents);

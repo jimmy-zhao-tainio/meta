@@ -333,8 +333,6 @@ public sealed partial class CSharpMetaWorkspaceReader
     {
         var dictionaries = new Dictionary<ILocalSymbol, INamedTypeSymbol>(
             SymbolEqualityComparer.Default);
-        var populatedDictionaries = new HashSet<ILocalSymbol>(
-            SymbolEqualityComparer.Default);
         foreach (var statement in source.FactorySyntax.Body!.Statements)
         {
             switch (statement)
@@ -347,25 +345,18 @@ public sealed partial class CSharpMetaWorkspaceReader
                         dictionaries);
                     break;
                 case ForEachStatementSyntax forEach:
-                    var populatedDictionary = RequireDictionaryIndexLoop(
+                    RequireDictionaryIndexLoop(
                         source,
                         forEach,
                         recordsByLocal,
                         dictionaries);
-                    if (!populatedDictionaries.Add(populatedDictionary))
-                    {
-                        throw new InvalidDataException(
-                            $"C# Meta identity index '{populatedDictionary.Name}' is populated more than once.");
-                    }
-
                     break;
                 case ExpressionStatementSyntax expression:
                     ReadRecordAssignment(
                         source,
                         expression,
                         recordsByLocal,
-                        dictionaries,
-                        populatedDictionaries);
+                        dictionaries);
                     break;
                 case ReturnStatementSyntax:
                     break;
@@ -437,7 +428,7 @@ public sealed partial class CSharpMetaWorkspaceReader
         }
     }
 
-    private static ILocalSymbol RequireDictionaryIndexLoop(
+    private static void RequireDictionaryIndexLoop(
         CSharpMetaSourceMap source,
         ForEachStatementSyntax syntax,
         IReadOnlyDictionary<ILocalSymbol, CSharpEntityRecords> recordsByLocal,
@@ -496,16 +487,13 @@ public sealed partial class CSharpMetaWorkspaceReader
             throw new InvalidDataException(
                 $"C# Meta factory '{source.FactoryMethod.Name}' contains an unsupported foreach statement.");
         }
-
-        return dictionaryReference.Local;
     }
 
     private static void ReadRecordAssignment(
         CSharpMetaSourceMap source,
         ExpressionStatementSyntax syntax,
         IReadOnlyDictionary<ILocalSymbol, CSharpEntityRecords> recordsByLocal,
-        IReadOnlyDictionary<ILocalSymbol, INamedTypeSymbol> dictionaries,
-        IReadOnlySet<ILocalSymbol> populatedDictionaries)
+        IReadOnlyDictionary<ILocalSymbol, INamedTypeSymbol> dictionaries)
     {
         if (source.FactorySemanticModel.GetOperation(
                 syntax.Expression) is not
@@ -564,7 +552,6 @@ public sealed partial class CSharpMetaWorkspaceReader
                 source,
                 assignment.Value,
                 dictionaries,
-                populatedDictionaries,
                 target.Property.Type,
                 out var targetId))
         {
@@ -657,7 +644,6 @@ public sealed partial class CSharpMetaWorkspaceReader
         CSharpMetaSourceMap source,
         IOperation operation,
         IReadOnlyDictionary<ILocalSymbol, INamedTypeSymbol> dictionaries,
-        IReadOnlySet<ILocalSymbol> populatedDictionaries,
         ITypeSymbol targetEntityType,
         out string targetId)
     {
@@ -704,12 +690,6 @@ public sealed partial class CSharpMetaWorkspaceReader
         {
             targetId = string.Empty;
             return false;
-        }
-
-        if (!populatedDictionaries.Contains(indexReference.Local))
-        {
-            throw new InvalidDataException(
-                $"C# Meta relationship resolver uses identity index '{indexReference.Local.Name}' before it is populated.");
         }
 
         targetId = value;

@@ -281,20 +281,25 @@ internal sealed partial class CliRuntime
         string commandName,
         MetaOperationException exception)
     {
-        var cause = exception.InnerException;
-        var message = cause?.Message ?? exception.Message;
-        message = (exception.Operation, cause) switch
+        var message = exception.InnerException?.Message ?? exception.Message;
+        message = exception.Operation switch
         {
-            (AddPropertyOperation operation,
-                ExistingRecordsRequirePropertyValueException) =>
+            AddPropertyOperation operation
+                when message.Contains(
+                    "needs a value for existing records",
+                    StringComparison.OrdinalIgnoreCase) =>
                 $"Property '{operation.EntityName}.{operation.PropertyName}' requires --default-value because the entity has existing rows.",
 
-            (SetPropertyRequiredOperation operation,
-                ExistingRecordsRequirePropertyValueException) =>
+            SetPropertyRequiredOperation operation
+                when message.Contains(
+                    "needs a value for",
+                    StringComparison.OrdinalIgnoreCase) =>
                 $"Property '{operation.EntityName}.{operation.PropertyName}' requires --default-value because existing rows are missing a value.",
 
-            (AddRelationshipOperation operation,
-                ExistingRecordsRequireRelationshipTargetException) =>
+            AddRelationshipOperation operation
+                when message.Contains(
+                    "needs a target for existing records",
+                    StringComparison.OrdinalIgnoreCase) =>
                 $"Relationship '{operation.SourceEntityName}.{(string.IsNullOrWhiteSpace(operation.Role) ? operation.TargetEntityName : operation.Role)}Id' requires --default-id because the entity has existing rows.",
 
             _ => message,

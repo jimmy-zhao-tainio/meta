@@ -113,31 +113,11 @@ public sealed partial class SqlServerMetaOperationSession : IAsyncDisposable
             {
                 await ApplyOperationAsync(operation, cancellationToken)
                     .ConfigureAwait(false);
-                if (operation is not InstanceOperation)
-                {
-                    var diagnostics = ValidateModel(_model);
-                    if (diagnostics.HasErrors)
-                    {
-                        throw new MetaOperationException(
-                            $"Operation {index + 1} ({operation.GetType().Name}) produced an invalid model. {FormatErrors(diagnostics)}",
-                            diagnostics: diagnostics);
-                    }
-                }
             }
             catch (OperationCanceledException)
             {
                 RollbackPlan(savepoint, modelBefore);
                 throw;
-            }
-            catch (MetaOperationException exception)
-            {
-                RollbackPlan(savepoint, modelBefore);
-                throw new MetaOperationException(
-                    exception.Message,
-                    index,
-                    operation,
-                    exception,
-                    exception.Diagnostics);
             }
             catch (Exception exception)
             {
@@ -148,6 +128,16 @@ public sealed partial class SqlServerMetaOperationSession : IAsyncDisposable
                     operation,
                     exception);
             }
+        }
+
+        var diagnostics = ValidateModel(_model);
+        if (diagnostics.HasErrors)
+        {
+            RollbackPlan(savepoint, modelBefore);
+            throw new MetaOperationException(
+                "Operation plan produced invalid metadata. " +
+                FormatErrors(diagnostics),
+                diagnostics: diagnostics);
         }
 
         return new MetaOperationResult(plan.Operations.Count);

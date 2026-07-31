@@ -1,6 +1,5 @@
 using Microsoft.Data.SqlClient;
 using Meta.Adapters;
-using Meta.Core.Ddl;
 using Meta.Core.Domain;
 using Meta.Core.Operations;
 using Meta.Core.Services;
@@ -10,80 +9,6 @@ namespace Meta.Core.Tests;
 
 public sealed class SqlServerMetaOperationSessionTests
 {
-    public static IEnumerable<object[]> UnsupportedStorageBehavior()
-    {
-        yield return
-        [
-            "ALTER TABLE [dbo].[Person] ADD CONSTRAINT " +
-            "[DF_Person_Note] DEFAULT N'default' FOR [Note];",
-            "default constraint",
-        ];
-        yield return
-        [
-            "CREATE TRIGGER [dbo].[TR_Person_MetaProbe] ON [dbo].[Person] " +
-            "AFTER INSERT AS BEGIN SET NOCOUNT ON; END;",
-            "trigger",
-        ];
-        yield return
-        [
-            "CREATE INDEX [IX_Person_Id_Extra] " +
-            "ON [dbo].[Person] ([Id]);",
-            "secondary index",
-        ];
-        yield return
-        [
-            "ALTER TABLE [dbo].[Person] ADD " +
-            "[ComputedName] AS ([LegacyName]);",
-            "computed column",
-        ];
-        yield return
-        [
-            "ALTER TABLE [dbo].[Person] ADD CONSTRAINT " +
-            "[CK_Person_Unmodeled] CHECK (1 = 1);",
-            "unsupported check constraint",
-        ];
-        yield return
-        [
-            "ALTER TABLE [dbo].[Person] DROP CONSTRAINT " +
-            "[FK_Person_Team_TeamId]; " +
-            "ALTER TABLE [dbo].[Person] ADD CONSTRAINT " +
-            "[FK_Person_Team_TeamId] FOREIGN KEY ([TeamId]) " +
-            "REFERENCES [dbo].[Team] ([Id]) ON DELETE CASCADE;",
-            "NO ACTION",
-        ];
-        yield return
-        [
-            "ALTER TABLE [dbo].[Person] DROP CONSTRAINT " +
-            "[FK_Person_Team_TeamId]; " +
-            "ALTER TABLE [dbo].[Person] ADD CONSTRAINT " +
-            "[FK_Person_Team_TeamId] FOREIGN KEY ([TeamId]) " +
-            "REFERENCES [dbo].[Team] ([Id]) NOT FOR REPLICATION;",
-            "enforced for replication",
-        ];
-        yield return
-        [
-            "ALTER TABLE [dbo].[Person] DROP CONSTRAINT " +
-            "[CK_Person_Id_MetaIdentity]; " +
-            "ALTER TABLE [dbo].[Person] ADD CONSTRAINT " +
-            "[CK_Person_Id_MetaIdentity] CHECK NOT FOR REPLICATION (" +
-            MetaSqlStorageContract.GetIdentityCheckExpression("Id") +
-            ");",
-            "enforced for replication",
-        ];
-        yield return
-        [
-            "EXEC(N'CREATE FUNCTION " +
-            "[dbo].[fn_MetaProbeSecurityPredicate](@Id NVARCHAR(128)) " +
-            "RETURNS TABLE WITH SCHEMABINDING AS RETURN " +
-            "(SELECT 1 AS [allowed] WHERE @Id IS NOT NULL);'); " +
-            "EXEC(N'CREATE SECURITY POLICY [dbo].[MetaProbeSecurityPolicy] " +
-            "ADD FILTER PREDICATE " +
-            "[dbo].[fn_MetaProbeSecurityPredicate]([Id]) " +
-            "ON [dbo].[Person] WITH (STATE = ON);');",
-            "row-level security policy",
-        ];
-    }
-
     [Fact]
     public async Task SqlSession_RejectsDatabaseThatIsNotEncodedMetaWorkspace()
     {
@@ -348,9 +273,8 @@ public sealed class SqlServerMetaOperationSessionTests
                             "Manager",
                             isRequired: true,
                             existingRecordTargetId: "person-a"))));
-                Assert.Equal(0, exception.OperationIndex);
-                Assert.IsType<AddRelationshipOperation>(
-                    exception.Operation);
+                Assert.Equal(-1, exception.OperationIndex);
+                Assert.Null(exception.Operation);
                 Assert.NotNull(exception.Diagnostics);
                 Assert.Contains(
                     exception.Diagnostics.Issues,
@@ -371,60 +295,6 @@ public sealed class SqlServerMetaOperationSessionTests
                 imported.Model.FindEntity("Person")!.Relationships,
                 relationship =>
                     relationship.GetColumnName() == "ManagerId");
-        }
-        finally
-        {
-            await DropDatabaseIfExistsAsync(
-                baseConnectionString,
-                databaseName);
-            DeleteDirectoryIfExists(outputRoot);
-        }
-    }
-
-    [Fact]
-    public async Task SqlSession_AllowsDeletingARecordThatReferencesItself()
-    {
-        var baseConnectionString = await RequireSqlTestConnectionStringAsync();
-        var databaseName = "MetaOps" + Guid.NewGuid().ToString("N")[..20];
-        var outputRoot = CreateTempDirectory();
-
-        try
-        {
-            var source = MetaOperationInterpreterTests.BuildState(databaseName);
-            await DeployStateAsync(
-                source,
-                outputRoot,
-                baseConnectionString,
-                databaseName);
-            var databaseConnectionString = ForDatabase(
-                baseConnectionString,
-                databaseName);
-
-            await using (var session =
-                         await SqlServerMetaOperationSession.OpenExistingAsync(
-                             databaseConnectionString))
-            {
-                await session.ApplyAsync(MetaOperationPlan.Create(
-                    new AddRelationshipOperation(
-                        "Person",
-                        "Person",
-                        "Manager",
-                        isRequired: false),
-                    new SetRelationshipOperation(
-                        "Person",
-                        "person-a",
-                        "Manager",
-                        "person-a"),
-                    new DeleteRecordOperation(
-                        "Person",
-                        "person-a")));
-                await session.CommitAsync();
-            }
-
-            var imported = await new ImportService(new WorkspaceService())
-                .ImportSqlAsync(databaseConnectionString, "dbo");
-            Assert.Empty(
-                imported.Instance.RecordsByEntity["Person"]);
         }
         finally
         {
@@ -517,106 +387,6 @@ public sealed class SqlServerMetaOperationSessionTests
                 "required identity constraint",
                 exception.Message,
                 StringComparison.Ordinal);
-        }
-        finally
-        {
-            await DropDatabaseIfExistsAsync(
-                baseConnectionString,
-                databaseName);
-            DeleteDirectoryIfExists(outputRoot);
-        }
-    }
-
-    [Fact]
-    public async Task SqlSession_RejectsIdentityConstraintWithFamiliarButDifferentText()
-    {
-        var baseConnectionString = await RequireSqlTestConnectionStringAsync();
-        var databaseName = "MetaOps" + Guid.NewGuid().ToString("N")[..20];
-        var outputRoot = CreateTempDirectory();
-
-        try
-        {
-            var source = MetaOperationInterpreterTests.BuildState(databaseName);
-            await DeployStateAsync(
-                source,
-                outputRoot,
-                baseConnectionString,
-                databaseName);
-            var databaseConnectionString = ForDatabase(
-                baseConnectionString,
-                databaseName);
-            await using (var connection = new SqlConnection(
-                             databaseConnectionString))
-            {
-                await connection.OpenAsync();
-                await using var command = connection.CreateCommand();
-                command.CommandText =
-                    "ALTER TABLE [dbo].[Person] DROP CONSTRAINT " +
-                    "[CK_Person_Id_MetaIdentity]; " +
-                    "ALTER TABLE [dbo].[Person] ADD CONSTRAINT " +
-                    "[CK_Person_Id_MetaIdentity] CHECK (" +
-                    "DATALENGTH([Id]) > 0 OR (" +
-                    "LEFT([Id], 1) <> N' ' AND " +
-                    "RIGHT([Id], 1) <> N' ' AND " +
-                    "[Id] COLLATE Latin1_General_100_BIN2 " +
-                    "NOT LIKE N'%[^ -~]%'));";
-                await command.ExecuteNonQueryAsync();
-            }
-
-            var exception = await Assert.ThrowsAsync<InvalidOperationException>(
-                () => SqlServerMetaOperationSession.OpenExistingAsync(
-                    databaseConnectionString));
-            Assert.Contains(
-                "does not enforce the Meta SQL identity repertoire",
-                exception.Message,
-                StringComparison.Ordinal);
-        }
-        finally
-        {
-            await DropDatabaseIfExistsAsync(
-                baseConnectionString,
-                databaseName);
-            DeleteDirectoryIfExists(outputRoot);
-        }
-    }
-
-    [Theory]
-    [MemberData(nameof(UnsupportedStorageBehavior))]
-    public async Task SqlSession_RejectsUnmodeledStorageBehavior(
-        string mutationSql,
-        string expectedMessage)
-    {
-        var baseConnectionString = await RequireSqlTestConnectionStringAsync();
-        var databaseName = "MetaOps" + Guid.NewGuid().ToString("N")[..20];
-        var outputRoot = CreateTempDirectory();
-
-        try
-        {
-            var source = MetaOperationInterpreterTests.BuildState(databaseName);
-            await DeployStateAsync(
-                source,
-                outputRoot,
-                baseConnectionString,
-                databaseName);
-            var databaseConnectionString = ForDatabase(
-                baseConnectionString,
-                databaseName);
-            await using (var connection = new SqlConnection(
-                             databaseConnectionString))
-            {
-                await connection.OpenAsync();
-                await using var command = connection.CreateCommand();
-                command.CommandText = mutationSql;
-                await command.ExecuteNonQueryAsync();
-            }
-
-            var exception = await Assert.ThrowsAsync<InvalidOperationException>(
-                () => SqlServerMetaOperationSession.OpenExistingAsync(
-                    databaseConnectionString));
-            Assert.Contains(
-                expectedMessage,
-                exception.Message,
-                StringComparison.OrdinalIgnoreCase);
         }
         finally
         {

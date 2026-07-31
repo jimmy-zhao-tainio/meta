@@ -22,12 +22,9 @@ public sealed partial class CSharpMetaWorkspaceReader
     internal CSharpMetaWorkspaceDocument ReadDocument(string workspacePath)
     {
         var root = RequireWorkspacePath(workspacePath);
-        var snapshot = CSharpMetaWorkspaceFiles.CaptureSnapshot(root);
-        var sourceFiles = snapshot.Files
-            .Where(file => string.Equals(
-                Path.GetExtension(file.FullPath),
-                ".cs",
-                StringComparison.OrdinalIgnoreCase))
+        var sourceFiles = Directory.GetFiles(root, "*.cs", SearchOption.AllDirectories)
+            .OrderBy(path => Path.GetRelativePath(root, path), StringComparer.OrdinalIgnoreCase)
+            .ThenBy(path => Path.GetRelativePath(root, path), StringComparer.Ordinal)
             .ToArray();
         if (sourceFiles.Length == 0)
         {
@@ -36,12 +33,12 @@ public sealed partial class CSharpMetaWorkspaceReader
         }
 
         var syntaxTrees = sourceFiles
-            .Select(file => CSharpSyntaxTree.ParseText(
-                DecodeSourceText(file.Contents),
+            .Select(path => CSharpSyntaxTree.ParseText(
+                SourceText.From(File.ReadAllText(path), Encoding.UTF8),
                 new CSharpParseOptions(
                     LanguageVersion.Latest,
                     DocumentationMode.Parse),
-                file.FullPath))
+                path))
             .ToArray();
         var compilation = CSharpCompilation.Create(
             "Meta.CSharpWorkspace",
@@ -55,7 +52,6 @@ public sealed partial class CSharpMetaWorkspaceReader
         ThrowOnCompilationErrors(root, compilation);
         var sourceMap = FindSourceMap(compilation);
         var modelMap = ReadModel(sourceMap);
-        RequireClosedSourceContract(sourceMap, modelMap);
         var instance = ReadInstance(sourceMap, modelMap);
         var state = new GenericMetadataState(modelMap.Model, instance);
         _ = new MetaOperationInterpreter().Apply(
@@ -65,20 +61,7 @@ public sealed partial class CSharpMetaWorkspaceReader
         return new CSharpMetaWorkspaceDocument(
             root,
             state,
-            snapshot.Fingerprint);
-    }
-
-    private static SourceText DecodeSourceText(byte[] contents)
-    {
-        using var stream = new MemoryStream(
-            contents,
-            writable: false);
-        using var reader = new StreamReader(
-            stream,
-            Encoding.UTF8,
-            detectEncodingFromByteOrderMarks: true);
-        var text = reader.ReadToEnd();
-        return SourceText.From(text, reader.CurrentEncoding);
+            CSharpMetaWorkspaceFiles.ComputeFingerprint(root));
     }
 
     private static CSharpMetaSourceMap FindSourceMap(
