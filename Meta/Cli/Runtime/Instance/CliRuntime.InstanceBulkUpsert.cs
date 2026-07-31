@@ -1,21 +1,39 @@
 internal sealed partial class CliRuntime
 {
-    (MetaOperationPlan Plan, IReadOnlyList<string> Ids) BuildBulkInsertPlan(
+    WorkspaceOp BuildUpsertOperationFromRows(
         Workspace workspace,
         GenericEntity entity,
         IReadOnlyList<Dictionary<string, string>> rows,
-        bool autoId)
+        IReadOnlyList<string> keyFields,
+        bool autoEnsure,
+        bool autoId = false)
     {
-        var propertyByName = entity.Properties.ToDictionary(
-            property => property.Name,
-            StringComparer.OrdinalIgnoreCase);
+        var operation = new WorkspaceOp
+        {
+            Type = WorkspaceOpTypes.BulkUpsertRows,
+            EntityName = entity.Name,
+        };
+
+        var propertyNames = entity.Properties
+            .Select(property => property.Name)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
         var relationshipByAlias = BuildRelationshipAliasMap(entity);
-        var existingIds = workspace.Instance.GetOrCreateEntityRecords(entity.Name)
+
+        foreach (var keyField in keyFields)
+        {
+            if (!string.Equals(keyField, "Id", StringComparison.OrdinalIgnoreCase) &&
+                !propertyNames.Contains(keyField) &&
+                !relationshipByAlias.ContainsKey(keyField))
+            {
+                throw new InvalidOperationException($"bulk-insert --key field '{keyField}' is not valid for entity '{entity.Name}'.");
+            }
+        }
+
+        var reservedIds = workspace.Instance.GetOrCreateEntityRecords(entity.Name)
             .Select(record => record.Id)
             .Where(id => !string.IsNullOrWhiteSpace(id))
             .Select(id => id.Trim())
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var reservedIds = new HashSet<string>(existingIds, StringComparer.OrdinalIgnoreCase);
 
         if (autoId)
         {
@@ -27,39 +45,51 @@ internal sealed partial class CliRuntime
             }
         }
 
-        var operations = new List<MetaOperation>();
-        var ids = new List<string>();
+        var createdByKey = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var existingOrPlannedIds = workspace.Instance.GetOrCreateEntityRecords(entity.Name)
+            .Select(record => record.Id)
+            .Where(id => !string.IsNullOrWhiteSpace(id))
+            .Select(id => id.Trim())
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
         for (var rowIndex = 0; rowIndex < rows.Count; rowIndex++)
         {
-            var rowNumber = rowIndex + 1;
             var row = rows[rowIndex];
             row.TryGetValue("Id", out var providedId);
             var id = providedId?.Trim() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(id))
             {
-                if (!autoId)
+                if (autoId)
                 {
-                    throw new InvalidOperationException(
-                        $"bulk-insert row {rowNumber} is missing Id. Add an Id column value or use --auto-id.");
+                    id = GenerateNextIdFromReserved(reservedIds);
+                    reservedIds.Add(id);
                 }
-
-                id = GenerateNextIdFromReserved(reservedIds);
+                else if (keyFields.Count > 0)
+                {
+                    id = ResolveIdByKeys(workspace, entity, keyFields, row, autoEnsure, createdByKey, reservedIds);
+                }
+                else
+                {
+                    throw new InvalidOperationException("bulk-insert row is missing Id and no --key fields were provided.");
+                }
             }
-
-            if (!reservedIds.Add(id))
+            else
             {
-                if (existingIds.Contains(id))
-                {
-                    throw new InvalidOperationException(
-                        $"bulk-insert row {rowNumber} cannot insert '{entity.Name}.{id}' because it already exists.");
-                }
-
-                throw new InvalidOperationException(
-                    $"bulk-insert row {rowNumber} repeats Id '{id}' from an earlier input row.");
+                reservedIds.Add(id);
             }
 
-            var values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            var relationshipIds = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var createsNewRow = !existingOrPlannedIds.Contains(id);
+            existingOrPlannedIds.Add(id);
+
+            var patch = new RowPatch
+            {
+                Id = id,
+                Values =
+                {
+                    ["Id"] = id,
+                },
+            };
+
             foreach (var pair in row)
             {
                 if (string.Equals(pair.Key, "Id", StringComparison.OrdinalIgnoreCase))
@@ -67,50 +97,112 @@ internal sealed partial class CliRuntime
                     continue;
                 }
 
-                if (propertyByName.TryGetValue(pair.Key, out var property))
+                if (propertyNames.Contains(pair.Key))
                 {
-                    values[property.Name] = pair.Value;
+                    patch.Values[pair.Key] = pair.Value;
                     continue;
                 }
 
-                if (relationshipByAlias.TryGetValue(pair.Key, out var relationship))
+                if (relationshipByAlias.TryGetValue(pair.Key, out var relationshipUsageName))
                 {
-                    if (relationship == null)
-                    {
-                        throw new InvalidOperationException(
-                            $"Relationship selector '{entity.Name}.{pair.Key}' is ambiguous in the model.");
-                    }
-
-                    var targetId = NormalizeRelationshipInputValue(pair.Value);
-                    if (string.IsNullOrWhiteSpace(targetId))
-                    {
-                        if (!relationship.IsNullable)
-                        {
-                            throw new InvalidOperationException(
-                                $"bulk-insert row {rowNumber} is missing required relationship '{relationship.GetColumnName()}'. Set column '{relationship.GetColumnName()}' to a target Id.");
-                        }
-
-                        continue;
-                    }
-
-                    relationshipIds[relationship.GetColumnName()] = targetId;
+                    patch.RelationshipIds[relationshipUsageName] = NormalizeRelationshipInputValue(pair.Value);
                     continue;
                 }
 
-                throw new InvalidOperationException(
-                    $"Column '{pair.Key}' is not a property or relationship on entity '{entity.Name}'.");
+                throw new InvalidOperationException($"Column '{pair.Key}' is not a property or relationship on entity '{entity.Name}'.");
             }
 
-            EnsureInsertIncludesRequiredRelationships(
-                entity,
-                relationshipIds,
-                operationName: "bulk-insert",
-                rowNumber);
-            operations.Add(new InsertRecordOperation(entity.Name, id, values, relationshipIds));
-            ids.Add(id);
+            if (createsNewRow)
+            {
+                EnsureCreatePatchIncludesRequiredRelationships(entity, patch, operationName: "bulk-insert", rowNumber: rowIndex + 1);
+            }
+
+            operation.RowPatches.Add(patch);
         }
 
-        return (new MetaOperationPlan(operations), ids);
+        return operation;
+    }
+
+    string ResolveIdByKeys(
+        Workspace workspace,
+        GenericEntity entity,
+        IReadOnlyList<string> keyFields,
+        IReadOnlyDictionary<string, string> row,
+        bool autoEnsure,
+        IDictionary<string, string> createdByKey,
+        ISet<string> reservedIds)
+    {
+        var keyValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var key in keyFields)
+        {
+            if (!row.TryGetValue(key, out var value) || string.IsNullOrWhiteSpace(value))
+            {
+                throw new InvalidOperationException($"bulk-insert --key field '{key}' is missing or empty in input row.");
+            }
+
+            var resolvedKey = ResolveQueryField(entity, key);
+            keyValues[resolvedKey] = value.Trim();
+        }
+
+        var signature = string.Join(
+            "\u001f",
+            keyValues
+                .OrderBy(pair => pair.Key, StringComparer.OrdinalIgnoreCase)
+                .Select(pair => $"{pair.Key.ToLowerInvariant()}={pair.Value.ToLowerInvariant()}"));
+        if (createdByKey.TryGetValue(signature, out var existingCreatedId))
+        {
+            return existingCreatedId;
+        }
+
+        var candidates = workspace.Instance.GetOrCreateEntityRecords(entity.Name)
+            .Where(record => keyValues.All(pair =>
+                string.Equals(GetRecordFieldValue(record, pair.Key), pair.Value, StringComparison.OrdinalIgnoreCase)))
+            .Select(record => record.Id)
+            .Where(id => !string.IsNullOrWhiteSpace(id))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        if (candidates.Count == 1)
+        {
+            return candidates[0];
+        }
+
+        if (candidates.Count > 1)
+        {
+            throw new InvalidOperationException(
+                $"bulk-insert --key matched multiple rows in '{entity.Name}' for key '{signature}'.");
+        }
+
+        if (!autoEnsure)
+        {
+            throw new InvalidOperationException(
+                $"bulk-insert --key found no matching row in '{entity.Name}' for key '{signature}'.");
+        }
+
+        var createdId = GenerateNextIdFromReserved(reservedIds);
+        reservedIds.Add(createdId);
+        createdByKey[signature] = createdId;
+        return createdId;
+    }
+
+    string GetRecordFieldValue(GenericRecord record, string field)
+    {
+        if (string.Equals(field, "Id", StringComparison.OrdinalIgnoreCase))
+        {
+            return record.Id ?? string.Empty;
+        }
+
+        if (record.Values.TryGetValue(field, out var value))
+        {
+            return value ?? string.Empty;
+        }
+
+        if (record.RelationshipIds.TryGetValue(field, out var relationshipValue))
+        {
+            return relationshipValue ?? string.Empty;
+        }
+
+        return string.Empty;
     }
 
     string GenerateNextIdFromReserved(ISet<string> reservedIds)
@@ -124,21 +216,21 @@ internal sealed partial class CliRuntime
         if (numericIds.Count > 0)
         {
             var next = numericIds.Max() + 1;
-            while (reservedIds.Contains(next.ToString(CultureInfo.InvariantCulture)))
+            while (reservedIds.Contains(next.ToString()))
             {
                 next++;
             }
 
-            return next.ToString(CultureInfo.InvariantCulture);
+            return next.ToString();
         }
 
         var candidate = 1L;
-        while (reservedIds.Contains(candidate.ToString(CultureInfo.InvariantCulture)))
+        while (reservedIds.Contains(candidate.ToString()))
         {
             candidate++;
         }
 
-        return candidate.ToString(CultureInfo.InvariantCulture);
+        return candidate.ToString();
     }
 
     IReadOnlyList<Dictionary<string, string>> ParseBulkInputRows(string input, string format)
@@ -165,122 +257,41 @@ internal sealed partial class CliRuntime
 
     IReadOnlyList<Dictionary<string, string>> ParseDelimitedRows(string input, char delimiter)
     {
-        var records = ParseDelimitedRecords(input ?? string.Empty, delimiter);
-        if (records.Count == 0)
+        var lines = (input ?? string.Empty)
+            .Replace("\r\n", "\n", StringComparison.Ordinal)
+            .Replace('\r', '\n')
+            .Split('\n', StringSplitOptions.RemoveEmptyEntries)
+            .ToList();
+        if (lines.Count == 0)
         {
             return Array.Empty<Dictionary<string, string>>();
         }
 
-        var header = records[0]
-            .Select(item => item.Trim().TrimStart('\uFEFF'))
-            .ToArray();
+        var header = lines[0].Split(delimiter).Select(item => item.Trim()).ToArray();
         if (header.Length == 0 || header.Any(string.IsNullOrWhiteSpace))
         {
             throw new InvalidOperationException("Input header is empty or invalid.");
         }
 
-        var duplicateHeader = header
-            .GroupBy(name => name, StringComparer.OrdinalIgnoreCase)
-            .FirstOrDefault(group => group.Count() > 1);
-        if (duplicateHeader != null)
-        {
-            throw new InvalidOperationException(
-                $"Input header contains duplicate column '{duplicateHeader.Key}'.");
-        }
-
         var rows = new List<Dictionary<string, string>>();
-        for (var rowIndex = 1; rowIndex < records.Count; rowIndex++)
+        for (var i = 1; i < lines.Count; i++)
         {
-            var record = records[rowIndex];
-            if (record.All(string.IsNullOrWhiteSpace))
-            {
-                continue;
-            }
-
-            if (record.Count != header.Length)
+            var parts = lines[i].Split(delimiter);
+            if (parts.Length != header.Length)
             {
                 throw new InvalidOperationException(
-                    $"Input row {rowIndex + 1} column count ({record.Count}) does not match header ({header.Length}).");
+                    $"Input row {i + 1} column count ({parts.Length}) does not match header ({header.Length}).");
             }
 
             var row = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            for (var columnIndex = 0; columnIndex < header.Length; columnIndex++)
+            for (var c = 0; c < header.Length; c++)
             {
-                row.Add(header[columnIndex], record[columnIndex].Trim());
+                row[header[c]] = parts[c].Trim();
             }
 
             rows.Add(row);
         }
 
         return rows;
-    }
-
-    IReadOnlyList<IReadOnlyList<string>> ParseDelimitedRecords(string input, char delimiter)
-    {
-        var records = new List<IReadOnlyList<string>>();
-        var record = new List<string>();
-        var field = new StringBuilder();
-        var inQuotes = false;
-
-        for (var index = 0; index < input.Length; index++)
-        {
-            var character = input[index];
-            if (character == '"')
-            {
-                if (inQuotes && index + 1 < input.Length && input[index + 1] == '"')
-                {
-                    field.Append('"');
-                    index++;
-                }
-                else
-                {
-                    inQuotes = !inQuotes;
-                }
-
-                continue;
-            }
-
-            if (!inQuotes && character == delimiter)
-            {
-                record.Add(field.ToString());
-                field.Clear();
-                continue;
-            }
-
-            if (!inQuotes && (character == '\r' || character == '\n'))
-            {
-                record.Add(field.ToString());
-                field.Clear();
-                if (record.Any(value => !string.IsNullOrWhiteSpace(value)))
-                {
-                    records.Add(record);
-                }
-
-                record = new List<string>();
-                if (character == '\r' &&
-                    index + 1 < input.Length &&
-                    input[index + 1] == '\n')
-                {
-                    index++;
-                }
-
-                continue;
-            }
-
-            field.Append(character);
-        }
-
-        if (inQuotes)
-        {
-            throw new InvalidOperationException("Input contains an unclosed quoted field.");
-        }
-
-        record.Add(field.ToString());
-        if (record.Any(value => !string.IsNullOrWhiteSpace(value)))
-        {
-            records.Add(record);
-        }
-
-        return records;
     }
 }

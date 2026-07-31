@@ -1,112 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ExecutableCommandParameterList>
-    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-auto-id" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-auto-id" />
-    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-entity" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-entity" />
-    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-file" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-file" />
-    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-from" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-from" />
-    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-stdin" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-stdin" />
-    <ExecutableCommandParameter Id="exec-delete:parameter:param-delete-entity" ExecutableCommandId="exec-delete" ParameterId="param-delete-entity" />
-    <ExecutableCommandParameter Id="exec-delete:parameter:param-delete-id" ExecutableCommandId="exec-delete" ParameterId="param-delete-id" />
-    <ExecutableCommandParameter Id="exec-deploy-sqlserver:parameter:param-deploy-sqlserver-connection-env" ExecutableCommandId="exec-deploy-sqlserver" ParameterId="param-deploy-sqlserver-connection-env" />
-    <ExecutableCommandParameter Id="exec-deploy-sqlserver:parameter:param-deploy-sqlserver-database" ExecutableCommandId="exec-deploy-sqlserver" ParameterId="param-deploy-sqlserver-database" />
-    <ExecutableCommandParameter Id="exec-deploy-sqlserver:parameter:param-deploy-sqlserver-scripts" ExecutableCommandId="exec-deploy-sqlserver" ParameterId="param-deploy-sqlserver-scripts" />
-    <ExecutableCommandParameter Id="exec-export-csv:parameter:param-export-csv-entity" ExecutableCommandId="exec-export-csv" ParameterId="param-export-csv-entity" />
-    <ExecutableCommandParameter Id="exec-export-csv:parameter:param-export-csv-out" ExecutableCommandId="exec-export-csv" ParameterId="param-export-csv-out" />
-    <ExecutableCommandParameter Id="exec-generate-csharp:parameter:param-generate-csharp-out" ExecutableCommandId="exec-generate-csharp" ParameterId="param-generate-csharp-out" />
-    <ExecutableCommandParameter Id="exec-generate-csharp:parameter:param-generate-csharp-tooling" ExecutableCommandId="exec-generate-csharp" ParameterId="param-generate-csharp-tooling" />
-    <ExecutableCommandParameter Id="exec-generate-sql:parameter:param-generate-sql-out" ExecutableCommandId="exec-generate-sql" ParameterId="param-generate-sql-out" />
-    <ExecutableCommandParameter Id="exec-generate-ssdt:parameter:param-generate-ssdt-out" ExecutableCommandId="exec-generate-ssdt" ParameterId="param-generate-ssdt-out" />
-    <ExecutableCommandParameter Id="exec-graph-inbound:parameter:param-graph-inbound-entity" ExecutableCommandId="exec-graph-inbound" ParameterId="param-graph-inbound-entity" />
-    <ExecutableCommandParameter Id="exec-graph-inbound:parameter:param-graph-inbound-top" ExecutableCommandId="exec-graph-inbound" ParameterId="param-graph-inbound-top" />
-    <ExecutableCommandParameter Id="exec-graph-stats:parameter:param-graph-stats-cycles" ExecutableCommandId="exec-graph-stats" ParameterId="param-graph-stats-cycles" />
-    <ExecutableCommandParameter Id="exec-graph-stats:parameter:param-graph-stats-top" ExecutableCommandId="exec-graph-stats" ParameterId="param-graph-stats-top" />
-    <ExecutableCommandParameter Id="exec-help:parameter:param-help-command" ExecutableCommandId="exec-help" ParameterId="param-help-command" />
-    <ExecutableCommandParameter Id="exec-import-csv:parameter:param-import-csv-csvfile" ExecutableCommandId="exec-import-csv" ParameterId="param-import-csv-csvfile" />
-    <ExecutableCommandParameter Id="exec-import-csv:parameter:param-import-csv-entity" ExecutableCommandId="exec-import-csv" ParameterId="param-import-csv-entity" />
-    <ExecutableCommandParameter Id="exec-import-csv:parameter:param-import-csv-new-workspace" ExecutableCommandId="exec-import-csv" ParameterId="param-import-csv-new-workspace" />
-    <ExecutableCommandParameter Id="exec-import-sql:parameter:param-import-sql-connection-env" ExecutableCommandId="exec-import-sql" ParameterId="param-import-sql-connection-env" />
-    <ExecutableCommandParameter Id="exec-import-sql:parameter:param-import-sql-new-workspace" ExecutableCommandId="exec-import-sql" ParameterId="param-import-sql-new-workspace" />
-    <ExecutableCommandParameter Id="exec-import-sql:parameter:param-import-sql-schema" ExecutableCommandId="exec-import-sql" ParameterId="param-import-sql-schema" />
-    <ExecutableCommandParameter Id="exec-init:parameter:param-init-path" ExecutableCommandId="exec-init" ParameterId="param-init-path" />
-    <ExecutableCommandParameter Id="exec-insert:parameter:param-insert-auto-id" ExecutableCommandId="exec-insert" ParameterId="param-insert-auto-id" />
-    <ExecutableCommandParameter Id="exec-insert:parameter:param-insert-entity" ExecutableCommandId="exec-insert" ParameterId="param-insert-entity" />
-    <ExecutableCommandParameter Id="exec-insert:parameter:param-insert-id" ExecutableCommandId="exec-insert" ParameterId="param-insert-id" />
-    <ExecutableCommandParameter Id="exec-insert:parameter:param-insert-set" ExecutableCommandId="exec-insert" ParameterId="param-insert-set" />
-    <ExecutableCommandParameter Id="exec-instance-diff-aligned:parameter:param-instance-diff-aligned-alignmentworkspace" ExecutableCommandId="exec-instance-diff-aligned" ParameterId="param-instance-diff-aligned-alignmentworkspace" />
-    <ExecutableCommandParameter Id="exec-instance-diff-aligned:parameter:param-instance-diff-aligned-leftworkspace" ExecutableCommandId="exec-instance-diff-aligned" ParameterId="param-instance-diff-aligned-leftworkspace" />
-    <ExecutableCommandParameter Id="exec-instance-diff-aligned:parameter:param-instance-diff-aligned-rightworkspace" ExecutableCommandId="exec-instance-diff-aligned" ParameterId="param-instance-diff-aligned-rightworkspace" />
-    <ExecutableCommandParameter Id="exec-instance-diff:parameter:param-instance-diff-leftworkspace" ExecutableCommandId="exec-instance-diff" ParameterId="param-instance-diff-leftworkspace" />
-    <ExecutableCommandParameter Id="exec-instance-diff:parameter:param-instance-diff-rightworkspace" ExecutableCommandId="exec-instance-diff" ParameterId="param-instance-diff-rightworkspace" />
-    <ExecutableCommandParameter Id="exec-instance-merge-aligned:parameter:param-instance-merge-aligned-diffworkspace" ExecutableCommandId="exec-instance-merge-aligned" ParameterId="param-instance-merge-aligned-diffworkspace" />
-    <ExecutableCommandParameter Id="exec-instance-merge-aligned:parameter:param-instance-merge-aligned-targetworkspace" ExecutableCommandId="exec-instance-merge-aligned" ParameterId="param-instance-merge-aligned-targetworkspace" />
-    <ExecutableCommandParameter Id="exec-instance-merge:parameter:param-instance-merge-diffworkspace" ExecutableCommandId="exec-instance-merge" ParameterId="param-instance-merge-diffworkspace" />
-    <ExecutableCommandParameter Id="exec-instance-merge:parameter:param-instance-merge-targetworkspace" ExecutableCommandId="exec-instance-merge" ParameterId="param-instance-merge-targetworkspace" />
-    <ExecutableCommandParameter Id="exec-instance-relationship-list:parameter:param-instance-relationship-list-fromentity" ExecutableCommandId="exec-instance-relationship-list" ParameterId="param-instance-relationship-list-fromentity" />
-    <ExecutableCommandParameter Id="exec-instance-relationship-list:parameter:param-instance-relationship-list-fromid" ExecutableCommandId="exec-instance-relationship-list" ParameterId="param-instance-relationship-list-fromid" />
-    <ExecutableCommandParameter Id="exec-instance-relationship-set:parameter:param-instance-relationship-set-fromentity" ExecutableCommandId="exec-instance-relationship-set" ParameterId="param-instance-relationship-set-fromentity" />
-    <ExecutableCommandParameter Id="exec-instance-relationship-set:parameter:param-instance-relationship-set-fromid" ExecutableCommandId="exec-instance-relationship-set" ParameterId="param-instance-relationship-set-fromid" />
-    <ExecutableCommandParameter Id="exec-instance-relationship-set:parameter:param-instance-relationship-set-to" ExecutableCommandId="exec-instance-relationship-set" ParameterId="param-instance-relationship-set-to" />
-    <ExecutableCommandParameter Id="exec-instance-rename-id:parameter:param-instance-rename-id-entity" ExecutableCommandId="exec-instance-rename-id" ParameterId="param-instance-rename-id-entity" />
-    <ExecutableCommandParameter Id="exec-instance-rename-id:parameter:param-instance-rename-id-newid" ExecutableCommandId="exec-instance-rename-id" ParameterId="param-instance-rename-id-newid" />
-    <ExecutableCommandParameter Id="exec-instance-rename-id:parameter:param-instance-rename-id-oldid" ExecutableCommandId="exec-instance-rename-id" ParameterId="param-instance-rename-id-oldid" />
-    <ExecutableCommandParameter Id="exec-instance-update:parameter:param-instance-update-entity" ExecutableCommandId="exec-instance-update" ParameterId="param-instance-update-entity" />
-    <ExecutableCommandParameter Id="exec-instance-update:parameter:param-instance-update-id" ExecutableCommandId="exec-instance-update" ParameterId="param-instance-update-id" />
-    <ExecutableCommandParameter Id="exec-instance-update:parameter:param-instance-update-set" ExecutableCommandId="exec-instance-update" ParameterId="param-instance-update-set" />
-    <ExecutableCommandParameter Id="exec-list-properties:parameter:param-list-properties-entity" ExecutableCommandId="exec-list-properties" ParameterId="param-list-properties-entity" />
-    <ExecutableCommandParameter Id="exec-list-relationships:parameter:param-list-relationships-entity" ExecutableCommandId="exec-list-relationships" ParameterId="param-list-relationships-entity" />
-    <ExecutableCommandParameter Id="exec-model-add-entity:parameter:param-model-add-entity-name" ExecutableCommandId="exec-model-add-entity" ParameterId="param-model-add-entity-name" />
-    <ExecutableCommandParameter Id="exec-model-add-property:parameter:param-model-add-property-default-value" ExecutableCommandId="exec-model-add-property" ParameterId="param-model-add-property-default-value" />
-    <ExecutableCommandParameter Id="exec-model-add-property:parameter:param-model-add-property-entity" ExecutableCommandId="exec-model-add-property" ParameterId="param-model-add-property-entity" />
-    <ExecutableCommandParameter Id="exec-model-add-property:parameter:param-model-add-property-property" ExecutableCommandId="exec-model-add-property" ParameterId="param-model-add-property-property" />
-    <ExecutableCommandParameter Id="exec-model-add-property:parameter:param-model-add-property-required" ExecutableCommandId="exec-model-add-property" ParameterId="param-model-add-property-required" />
-    <ExecutableCommandParameter Id="exec-model-add-relationship:parameter:param-model-add-relationship-default-id" ExecutableCommandId="exec-model-add-relationship" ParameterId="param-model-add-relationship-default-id" />
-    <ExecutableCommandParameter Id="exec-model-add-relationship:parameter:param-model-add-relationship-fromentity" ExecutableCommandId="exec-model-add-relationship" ParameterId="param-model-add-relationship-fromentity" />
-    <ExecutableCommandParameter Id="exec-model-add-relationship:parameter:param-model-add-relationship-required" ExecutableCommandId="exec-model-add-relationship" ParameterId="param-model-add-relationship-required" />
-    <ExecutableCommandParameter Id="exec-model-add-relationship:parameter:param-model-add-relationship-role" ExecutableCommandId="exec-model-add-relationship" ParameterId="param-model-add-relationship-role" />
-    <ExecutableCommandParameter Id="exec-model-add-relationship:parameter:param-model-add-relationship-toentity" ExecutableCommandId="exec-model-add-relationship" ParameterId="param-model-add-relationship-toentity" />
-    <ExecutableCommandParameter Id="exec-model-drop-entity:parameter:param-model-drop-entity-entity" ExecutableCommandId="exec-model-drop-entity" ParameterId="param-model-drop-entity-entity" />
-    <ExecutableCommandParameter Id="exec-model-drop-property:parameter:param-model-drop-property-entity" ExecutableCommandId="exec-model-drop-property" ParameterId="param-model-drop-property-entity" />
-    <ExecutableCommandParameter Id="exec-model-drop-property:parameter:param-model-drop-property-property" ExecutableCommandId="exec-model-drop-property" ParameterId="param-model-drop-property-property" />
-    <ExecutableCommandParameter Id="exec-model-drop-relationship:parameter:param-model-drop-relationship-fromentity" ExecutableCommandId="exec-model-drop-relationship" ParameterId="param-model-drop-relationship-fromentity" />
-    <ExecutableCommandParameter Id="exec-model-drop-relationship:parameter:param-model-drop-relationship-toentity" ExecutableCommandId="exec-model-drop-relationship" ParameterId="param-model-drop-relationship-toentity" />
-    <ExecutableCommandParameter Id="exec-model-refactor-property-to-relationship:parameter:param-model-refactor-property-to-relationship-lookup" ExecutableCommandId="exec-model-refactor-property-to-relationship" ParameterId="param-model-refactor-property-to-relationship-lookup" />
-    <ExecutableCommandParameter Id="exec-model-refactor-property-to-relationship:parameter:param-model-refactor-property-to-relationship-preserve-property" ExecutableCommandId="exec-model-refactor-property-to-relationship" ParameterId="param-model-refactor-property-to-relationship-preserve-property" />
-    <ExecutableCommandParameter Id="exec-model-refactor-property-to-relationship:parameter:param-model-refactor-property-to-relationship-role" ExecutableCommandId="exec-model-refactor-property-to-relationship" ParameterId="param-model-refactor-property-to-relationship-role" />
-    <ExecutableCommandParameter Id="exec-model-refactor-property-to-relationship:parameter:param-model-refactor-property-to-relationship-source" ExecutableCommandId="exec-model-refactor-property-to-relationship" ParameterId="param-model-refactor-property-to-relationship-source" />
-    <ExecutableCommandParameter Id="exec-model-refactor-property-to-relationship:parameter:param-model-refactor-property-to-relationship-target" ExecutableCommandId="exec-model-refactor-property-to-relationship" ParameterId="param-model-refactor-property-to-relationship-target" />
-    <ExecutableCommandParameter Id="exec-model-refactor-relationship-to-property:parameter:param-model-refactor-relationship-to-property-property" ExecutableCommandId="exec-model-refactor-relationship-to-property" ParameterId="param-model-refactor-relationship-to-property-property" />
-    <ExecutableCommandParameter Id="exec-model-refactor-relationship-to-property:parameter:param-model-refactor-relationship-to-property-role" ExecutableCommandId="exec-model-refactor-relationship-to-property" ParameterId="param-model-refactor-relationship-to-property-role" />
-    <ExecutableCommandParameter Id="exec-model-refactor-relationship-to-property:parameter:param-model-refactor-relationship-to-property-source" ExecutableCommandId="exec-model-refactor-relationship-to-property" ParameterId="param-model-refactor-relationship-to-property-source" />
-    <ExecutableCommandParameter Id="exec-model-refactor-relationship-to-property:parameter:param-model-refactor-relationship-to-property-target" ExecutableCommandId="exec-model-refactor-relationship-to-property" ParameterId="param-model-refactor-relationship-to-property-target" />
-    <ExecutableCommandParameter Id="exec-model-rename-entity:parameter:param-model-rename-entity-new" ExecutableCommandId="exec-model-rename-entity" ParameterId="param-model-rename-entity-new" />
-    <ExecutableCommandParameter Id="exec-model-rename-entity:parameter:param-model-rename-entity-old" ExecutableCommandId="exec-model-rename-entity" ParameterId="param-model-rename-entity-old" />
-    <ExecutableCommandParameter Id="exec-model-rename-model:parameter:param-model-rename-model-new" ExecutableCommandId="exec-model-rename-model" ParameterId="param-model-rename-model-new" />
-    <ExecutableCommandParameter Id="exec-model-rename-model:parameter:param-model-rename-model-old" ExecutableCommandId="exec-model-rename-model" ParameterId="param-model-rename-model-old" />
-    <ExecutableCommandParameter Id="exec-model-rename-property:parameter:param-model-rename-property-entity" ExecutableCommandId="exec-model-rename-property" ParameterId="param-model-rename-property-entity" />
-    <ExecutableCommandParameter Id="exec-model-rename-property:parameter:param-model-rename-property-new" ExecutableCommandId="exec-model-rename-property" ParameterId="param-model-rename-property-new" />
-    <ExecutableCommandParameter Id="exec-model-rename-property:parameter:param-model-rename-property-old" ExecutableCommandId="exec-model-rename-property" ParameterId="param-model-rename-property-old" />
-    <ExecutableCommandParameter Id="exec-model-rename-relationship:parameter:param-model-rename-relationship-existing-column" ExecutableCommandId="exec-model-rename-relationship" ParameterId="param-model-rename-relationship-existing-column" />
-    <ExecutableCommandParameter Id="exec-model-rename-relationship:parameter:param-model-rename-relationship-fromentity" ExecutableCommandId="exec-model-rename-relationship" ParameterId="param-model-rename-relationship-fromentity" />
-    <ExecutableCommandParameter Id="exec-model-rename-relationship:parameter:param-model-rename-relationship-role" ExecutableCommandId="exec-model-rename-relationship" ParameterId="param-model-rename-relationship-role" />
-    <ExecutableCommandParameter Id="exec-model-rename-relationship:parameter:param-model-rename-relationship-toentity" ExecutableCommandId="exec-model-rename-relationship" ParameterId="param-model-rename-relationship-toentity" />
-    <ExecutableCommandParameter Id="exec-model-set-property-required:parameter:param-model-set-property-required-default-value" ExecutableCommandId="exec-model-set-property-required" ParameterId="param-model-set-property-required-default-value" />
-    <ExecutableCommandParameter Id="exec-model-set-property-required:parameter:param-model-set-property-required-entity" ExecutableCommandId="exec-model-set-property-required" ParameterId="param-model-set-property-required-entity" />
-    <ExecutableCommandParameter Id="exec-model-set-property-required:parameter:param-model-set-property-required-property" ExecutableCommandId="exec-model-set-property-required" ParameterId="param-model-set-property-required-property" />
-    <ExecutableCommandParameter Id="exec-model-set-property-required:parameter:param-model-set-property-required-required" ExecutableCommandId="exec-model-set-property-required" ParameterId="param-model-set-property-required-required" />
-    <ExecutableCommandParameter Id="exec-model-suggest:parameter:param-model-suggest-explain" ExecutableCommandId="exec-model-suggest" ParameterId="param-model-suggest-explain" />
-    <ExecutableCommandParameter Id="exec-model-suggest:parameter:param-model-suggest-print-commands" ExecutableCommandId="exec-model-suggest" ParameterId="param-model-suggest-print-commands" />
-    <ExecutableCommandParameter Id="exec-model-suggest:parameter:param-model-suggest-show-keys" ExecutableCommandId="exec-model-suggest" ParameterId="param-model-suggest-show-keys" />
-    <ExecutableCommandParameter Id="exec-query:parameter:param-query-contains" ExecutableCommandId="exec-query" ParameterId="param-query-contains" />
-    <ExecutableCommandParameter Id="exec-query:parameter:param-query-entity" ExecutableCommandId="exec-query" ParameterId="param-query-entity" />
-    <ExecutableCommandParameter Id="exec-query:parameter:param-query-equals" ExecutableCommandId="exec-query" ParameterId="param-query-equals" />
-    <ExecutableCommandParameter Id="exec-query:parameter:param-query-top" ExecutableCommandId="exec-query" ParameterId="param-query-top" />
-    <ExecutableCommandParameter Id="exec-view-entity:parameter:param-view-entity-entity" ExecutableCommandId="exec-view-entity" ParameterId="param-view-entity-entity" />
-    <ExecutableCommandParameter Id="exec-view-instance:parameter:param-view-instance-entity" ExecutableCommandId="exec-view-instance" ParameterId="param-view-instance-entity" />
-    <ExecutableCommandParameter Id="exec-view-instance:parameter:param-view-instance-id" ExecutableCommandId="exec-view-instance" ParameterId="param-view-instance-id" />
-    <ExecutableCommandParameter Id="exec-workspace-merge:parameter:param-workspace-merge-leftworkspace" ExecutableCommandId="exec-workspace-merge" ParameterId="param-workspace-merge-leftworkspace" />
-    <ExecutableCommandParameter Id="exec-workspace-merge:parameter:param-workspace-merge-model" ExecutableCommandId="exec-workspace-merge" ParameterId="param-workspace-merge-model" />
-    <ExecutableCommandParameter Id="exec-workspace-merge:parameter:param-workspace-merge-new-workspace" ExecutableCommandId="exec-workspace-merge" ParameterId="param-workspace-merge-new-workspace" />
-    <ExecutableCommandParameter Id="exec-workspace-merge:parameter:param-workspace-merge-rightworkspace" ExecutableCommandId="exec-workspace-merge" ParameterId="param-workspace-merge-rightworkspace" />
+    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-auto-id" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-auto-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-entity" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-file" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-file">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-from" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-from">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-key" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-key">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-bulk-insert:parameter:param-bulk-insert-stdin" ExecutableCommandId="exec-bulk-insert" ParameterId="param-bulk-insert-stdin">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-delete:parameter:param-delete-entity" ExecutableCommandId="exec-delete" ParameterId="param-delete-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-delete:parameter:param-delete-id" ExecutableCommandId="exec-delete" ParameterId="param-delete-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-deploy-sqlserver:parameter:param-deploy-sqlserver-connection-env" ExecutableCommandId="exec-deploy-sqlserver" ParameterId="param-deploy-sqlserver-connection-env">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-deploy-sqlserver:parameter:param-deploy-sqlserver-database" ExecutableCommandId="exec-deploy-sqlserver" ParameterId="param-deploy-sqlserver-database">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-deploy-sqlserver:parameter:param-deploy-sqlserver-scripts" ExecutableCommandId="exec-deploy-sqlserver" ParameterId="param-deploy-sqlserver-scripts">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-export-csv:parameter:param-export-csv-entity" ExecutableCommandId="exec-export-csv" ParameterId="param-export-csv-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-export-csv:parameter:param-export-csv-out" ExecutableCommandId="exec-export-csv" ParameterId="param-export-csv-out">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-generate-csharp:parameter:param-generate-csharp-out" ExecutableCommandId="exec-generate-csharp" ParameterId="param-generate-csharp-out">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-generate-csharp:parameter:param-generate-csharp-tooling" ExecutableCommandId="exec-generate-csharp" ParameterId="param-generate-csharp-tooling">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-generate-sql:parameter:param-generate-sql-out" ExecutableCommandId="exec-generate-sql" ParameterId="param-generate-sql-out">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-generate-ssdt:parameter:param-generate-ssdt-out" ExecutableCommandId="exec-generate-ssdt" ParameterId="param-generate-ssdt-out">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-graph-inbound:parameter:param-graph-inbound-entity" ExecutableCommandId="exec-graph-inbound" ParameterId="param-graph-inbound-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-graph-inbound:parameter:param-graph-inbound-top" ExecutableCommandId="exec-graph-inbound" ParameterId="param-graph-inbound-top">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-graph-stats:parameter:param-graph-stats-cycles" ExecutableCommandId="exec-graph-stats" ParameterId="param-graph-stats-cycles">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-graph-stats:parameter:param-graph-stats-top" ExecutableCommandId="exec-graph-stats" ParameterId="param-graph-stats-top">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-help:parameter:param-help-command" ExecutableCommandId="exec-help" ParameterId="param-help-command">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-import-csv:parameter:param-import-csv-csvfile" ExecutableCommandId="exec-import-csv" ParameterId="param-import-csv-csvfile">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-import-csv:parameter:param-import-csv-entity" ExecutableCommandId="exec-import-csv" ParameterId="param-import-csv-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-import-csv:parameter:param-import-csv-new-workspace" ExecutableCommandId="exec-import-csv" ParameterId="param-import-csv-new-workspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-import-sql:parameter:param-import-sql-connection-env" ExecutableCommandId="exec-import-sql" ParameterId="param-import-sql-connection-env">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-import-sql:parameter:param-import-sql-new-workspace" ExecutableCommandId="exec-import-sql" ParameterId="param-import-sql-new-workspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-import-sql:parameter:param-import-sql-schema" ExecutableCommandId="exec-import-sql" ParameterId="param-import-sql-schema">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-init:parameter:param-init-path" ExecutableCommandId="exec-init" ParameterId="param-init-path">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-insert:parameter:param-insert-auto-id" ExecutableCommandId="exec-insert" ParameterId="param-insert-auto-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-insert:parameter:param-insert-entity" ExecutableCommandId="exec-insert" ParameterId="param-insert-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-insert:parameter:param-insert-id" ExecutableCommandId="exec-insert" ParameterId="param-insert-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-insert:parameter:param-insert-set" ExecutableCommandId="exec-insert" ParameterId="param-insert-set">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-diff-aligned:parameter:param-instance-diff-aligned-alignmentworkspace" ExecutableCommandId="exec-instance-diff-aligned" ParameterId="param-instance-diff-aligned-alignmentworkspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-diff-aligned:parameter:param-instance-diff-aligned-leftworkspace" ExecutableCommandId="exec-instance-diff-aligned" ParameterId="param-instance-diff-aligned-leftworkspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-diff-aligned:parameter:param-instance-diff-aligned-rightworkspace" ExecutableCommandId="exec-instance-diff-aligned" ParameterId="param-instance-diff-aligned-rightworkspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-diff:parameter:param-instance-diff-leftworkspace" ExecutableCommandId="exec-instance-diff" ParameterId="param-instance-diff-leftworkspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-diff:parameter:param-instance-diff-rightworkspace" ExecutableCommandId="exec-instance-diff" ParameterId="param-instance-diff-rightworkspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-merge-aligned:parameter:param-instance-merge-aligned-diffworkspace" ExecutableCommandId="exec-instance-merge-aligned" ParameterId="param-instance-merge-aligned-diffworkspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-merge-aligned:parameter:param-instance-merge-aligned-targetworkspace" ExecutableCommandId="exec-instance-merge-aligned" ParameterId="param-instance-merge-aligned-targetworkspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-merge:parameter:param-instance-merge-diffworkspace" ExecutableCommandId="exec-instance-merge" ParameterId="param-instance-merge-diffworkspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-merge:parameter:param-instance-merge-targetworkspace" ExecutableCommandId="exec-instance-merge" ParameterId="param-instance-merge-targetworkspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-relationship-list:parameter:param-instance-relationship-list-fromentity" ExecutableCommandId="exec-instance-relationship-list" ParameterId="param-instance-relationship-list-fromentity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-relationship-list:parameter:param-instance-relationship-list-fromid" ExecutableCommandId="exec-instance-relationship-list" ParameterId="param-instance-relationship-list-fromid">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-relationship-set:parameter:param-instance-relationship-set-fromentity" ExecutableCommandId="exec-instance-relationship-set" ParameterId="param-instance-relationship-set-fromentity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-relationship-set:parameter:param-instance-relationship-set-fromid" ExecutableCommandId="exec-instance-relationship-set" ParameterId="param-instance-relationship-set-fromid">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-relationship-set:parameter:param-instance-relationship-set-to" ExecutableCommandId="exec-instance-relationship-set" ParameterId="param-instance-relationship-set-to">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-rename-id:parameter:param-instance-rename-id-entity" ExecutableCommandId="exec-instance-rename-id" ParameterId="param-instance-rename-id-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-rename-id:parameter:param-instance-rename-id-newid" ExecutableCommandId="exec-instance-rename-id" ParameterId="param-instance-rename-id-newid">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-rename-id:parameter:param-instance-rename-id-oldid" ExecutableCommandId="exec-instance-rename-id" ParameterId="param-instance-rename-id-oldid">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-update:parameter:param-instance-update-entity" ExecutableCommandId="exec-instance-update" ParameterId="param-instance-update-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-update:parameter:param-instance-update-id" ExecutableCommandId="exec-instance-update" ParameterId="param-instance-update-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-instance-update:parameter:param-instance-update-set" ExecutableCommandId="exec-instance-update" ParameterId="param-instance-update-set">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-list-properties:parameter:param-list-properties-entity" ExecutableCommandId="exec-list-properties" ParameterId="param-list-properties-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-list-relationships:parameter:param-list-relationships-entity" ExecutableCommandId="exec-list-relationships" ParameterId="param-list-relationships-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-add-entity:parameter:param-model-add-entity-name" ExecutableCommandId="exec-model-add-entity" ParameterId="param-model-add-entity-name">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-add-property:parameter:param-model-add-property-default-value" ExecutableCommandId="exec-model-add-property" ParameterId="param-model-add-property-default-value">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-add-property:parameter:param-model-add-property-entity" ExecutableCommandId="exec-model-add-property" ParameterId="param-model-add-property-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-add-property:parameter:param-model-add-property-property" ExecutableCommandId="exec-model-add-property" ParameterId="param-model-add-property-property">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-add-property:parameter:param-model-add-property-required" ExecutableCommandId="exec-model-add-property" ParameterId="param-model-add-property-required">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-add-relationship:parameter:param-model-add-relationship-default-id" ExecutableCommandId="exec-model-add-relationship" ParameterId="param-model-add-relationship-default-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-add-relationship:parameter:param-model-add-relationship-fromentity" ExecutableCommandId="exec-model-add-relationship" ParameterId="param-model-add-relationship-fromentity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-add-relationship:parameter:param-model-add-relationship-required" ExecutableCommandId="exec-model-add-relationship" ParameterId="param-model-add-relationship-required">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-add-relationship:parameter:param-model-add-relationship-role" ExecutableCommandId="exec-model-add-relationship" ParameterId="param-model-add-relationship-role">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-add-relationship:parameter:param-model-add-relationship-toentity" ExecutableCommandId="exec-model-add-relationship" ParameterId="param-model-add-relationship-toentity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-drop-entity:parameter:param-model-drop-entity-entity" ExecutableCommandId="exec-model-drop-entity" ParameterId="param-model-drop-entity-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-drop-property:parameter:param-model-drop-property-entity" ExecutableCommandId="exec-model-drop-property" ParameterId="param-model-drop-property-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-drop-property:parameter:param-model-drop-property-property" ExecutableCommandId="exec-model-drop-property" ParameterId="param-model-drop-property-property">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-drop-relationship:parameter:param-model-drop-relationship-fromentity" ExecutableCommandId="exec-model-drop-relationship" ParameterId="param-model-drop-relationship-fromentity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-drop-relationship:parameter:param-model-drop-relationship-toentity" ExecutableCommandId="exec-model-drop-relationship" ParameterId="param-model-drop-relationship-toentity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-refactor-property-to-relationship:parameter:param-model-refactor-property-to-relationship-lookup" ExecutableCommandId="exec-model-refactor-property-to-relationship" ParameterId="param-model-refactor-property-to-relationship-lookup">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-refactor-property-to-relationship:parameter:param-model-refactor-property-to-relationship-preserve-property" ExecutableCommandId="exec-model-refactor-property-to-relationship" ParameterId="param-model-refactor-property-to-relationship-preserve-property">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-refactor-property-to-relationship:parameter:param-model-refactor-property-to-relationship-role" ExecutableCommandId="exec-model-refactor-property-to-relationship" ParameterId="param-model-refactor-property-to-relationship-role">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-refactor-property-to-relationship:parameter:param-model-refactor-property-to-relationship-source" ExecutableCommandId="exec-model-refactor-property-to-relationship" ParameterId="param-model-refactor-property-to-relationship-source">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-refactor-property-to-relationship:parameter:param-model-refactor-property-to-relationship-target" ExecutableCommandId="exec-model-refactor-property-to-relationship" ParameterId="param-model-refactor-property-to-relationship-target">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-refactor-relationship-to-property:parameter:param-model-refactor-relationship-to-property-property" ExecutableCommandId="exec-model-refactor-relationship-to-property" ParameterId="param-model-refactor-relationship-to-property-property">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-refactor-relationship-to-property:parameter:param-model-refactor-relationship-to-property-role" ExecutableCommandId="exec-model-refactor-relationship-to-property" ParameterId="param-model-refactor-relationship-to-property-role">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-refactor-relationship-to-property:parameter:param-model-refactor-relationship-to-property-source" ExecutableCommandId="exec-model-refactor-relationship-to-property" ParameterId="param-model-refactor-relationship-to-property-source">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-refactor-relationship-to-property:parameter:param-model-refactor-relationship-to-property-target" ExecutableCommandId="exec-model-refactor-relationship-to-property" ParameterId="param-model-refactor-relationship-to-property-target">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-entity:parameter:param-model-rename-entity-new" ExecutableCommandId="exec-model-rename-entity" ParameterId="param-model-rename-entity-new">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-entity:parameter:param-model-rename-entity-old" ExecutableCommandId="exec-model-rename-entity" ParameterId="param-model-rename-entity-old">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-model:parameter:param-model-rename-model-new" ExecutableCommandId="exec-model-rename-model" ParameterId="param-model-rename-model-new">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-model:parameter:param-model-rename-model-old" ExecutableCommandId="exec-model-rename-model" ParameterId="param-model-rename-model-old">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-property:parameter:param-model-rename-property-entity" ExecutableCommandId="exec-model-rename-property" ParameterId="param-model-rename-property-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-property:parameter:param-model-rename-property-new" ExecutableCommandId="exec-model-rename-property" ParameterId="param-model-rename-property-new">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-property:parameter:param-model-rename-property-old" ExecutableCommandId="exec-model-rename-property" ParameterId="param-model-rename-property-old">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-relationship:parameter:param-model-rename-relationship-existing-column" ExecutableCommandId="exec-model-rename-relationship" ParameterId="param-model-rename-relationship-existing-column">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-relationship:parameter:param-model-rename-relationship-fromentity" ExecutableCommandId="exec-model-rename-relationship" ParameterId="param-model-rename-relationship-fromentity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-relationship:parameter:param-model-rename-relationship-role" ExecutableCommandId="exec-model-rename-relationship" ParameterId="param-model-rename-relationship-role">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-rename-relationship:parameter:param-model-rename-relationship-toentity" ExecutableCommandId="exec-model-rename-relationship" ParameterId="param-model-rename-relationship-toentity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-set-property-required:parameter:param-model-set-property-required-default-value" ExecutableCommandId="exec-model-set-property-required" ParameterId="param-model-set-property-required-default-value">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-set-property-required:parameter:param-model-set-property-required-entity" ExecutableCommandId="exec-model-set-property-required" ParameterId="param-model-set-property-required-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-set-property-required:parameter:param-model-set-property-required-property" ExecutableCommandId="exec-model-set-property-required" ParameterId="param-model-set-property-required-property">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-set-property-required:parameter:param-model-set-property-required-required" ExecutableCommandId="exec-model-set-property-required" ParameterId="param-model-set-property-required-required">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-suggest:parameter:param-model-suggest-explain" ExecutableCommandId="exec-model-suggest" ParameterId="param-model-suggest-explain">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-suggest:parameter:param-model-suggest-print-commands" ExecutableCommandId="exec-model-suggest" ParameterId="param-model-suggest-print-commands">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-model-suggest:parameter:param-model-suggest-show-keys" ExecutableCommandId="exec-model-suggest" ParameterId="param-model-suggest-show-keys">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-query:parameter:param-query-contains" ExecutableCommandId="exec-query" ParameterId="param-query-contains">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-query:parameter:param-query-entity" ExecutableCommandId="exec-query" ParameterId="param-query-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-query:parameter:param-query-equals" ExecutableCommandId="exec-query" ParameterId="param-query-equals">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-query:parameter:param-query-top" ExecutableCommandId="exec-query" ParameterId="param-query-top">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-view-entity:parameter:param-view-entity-entity" ExecutableCommandId="exec-view-entity" ParameterId="param-view-entity-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-view-instance:parameter:param-view-instance-entity" ExecutableCommandId="exec-view-instance" ParameterId="param-view-instance-entity">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-view-instance:parameter:param-view-instance-id" ExecutableCommandId="exec-view-instance" ParameterId="param-view-instance-id">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-workspace-merge:parameter:param-workspace-merge-leftworkspace" ExecutableCommandId="exec-workspace-merge" ParameterId="param-workspace-merge-leftworkspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-workspace-merge:parameter:param-workspace-merge-model" ExecutableCommandId="exec-workspace-merge" ParameterId="param-workspace-merge-model">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-workspace-merge:parameter:param-workspace-merge-new-workspace" ExecutableCommandId="exec-workspace-merge" ParameterId="param-workspace-merge-new-workspace">
+    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-workspace-merge:parameter:param-workspace-merge-rightworkspace" ExecutableCommandId="exec-workspace-merge" ParameterId="param-workspace-merge-rightworkspace">
+    </ExecutableCommandParameter>
   </ExecutableCommandParameterList>
 </MetaCli>

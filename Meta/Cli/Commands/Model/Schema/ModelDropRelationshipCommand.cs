@@ -33,20 +33,20 @@ internal sealed partial class CliRuntime
             var relationshipName = relationship.GetColumnName();
             var targetEntityName = relationship.Entity;
 
-            var operation = new RemoveRelationshipOperation(
-                fromEntityName,
-                relationshipName);
-            return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
-                    workspace,
-                    MetaOperationPlan.Create(operation),
+            var operation = new WorkspaceOp
+            {
+                Type = WorkspaceOpTypes.DeleteRelationship,
+                EntityName = fromEntityName,
+                RelatedEntity = relationshipName,
+            };
+            return await ExecuteOperationAsync(
+                    options.WorkspacePath,
+                    operation,
                     "model drop-relationship",
                     "relationship removed",
-                    new[]
-                    {
-                        ("From", fromEntityName),
-                        ("To", targetEntityName),
-                        ("Name", relationshipName),
-                    })
+                    ("From", fromEntityName),
+                    ("To", targetEntityName),
+                    ("Name", relationshipName))
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)

@@ -26,6 +26,8 @@ internal sealed partial class CliRuntime
                 workspace,
                 new RenameModelRefactorOptions(options.OldModelName, options.NewModelName));
 
+            ApplyImplicitNormalization(workspace);
+
             var diagnostics = services.ValidationService.Validate(workspace);
             workspace.Diagnostics = diagnostics;
             if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
@@ -33,7 +35,7 @@ internal sealed partial class CliRuntime
                 WorkspaceSnapshotCloner.Restore(workspace, before);
                 return PrintOperationValidationFailure(
                     "model rename-model",
-                    MetaOperationPlan.Empty,
+                    Array.Empty<WorkspaceOp>(),
                     diagnostics);
             }
 

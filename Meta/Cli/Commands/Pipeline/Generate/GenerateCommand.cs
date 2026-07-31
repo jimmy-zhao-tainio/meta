@@ -27,7 +27,7 @@ internal sealed partial class CliRuntime
             workspace.Diagnostics = diagnostics;
             if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
             {
-                return PrintOperationValidationFailure("generate", MetaOperationPlan.Empty, diagnostics);
+                return PrintOperationValidationFailure("generate", Array.Empty<WorkspaceOp>(), diagnostics);
             }
 
             GenerationManifest manifest;

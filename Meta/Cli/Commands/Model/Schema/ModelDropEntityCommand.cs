@@ -74,13 +74,17 @@ internal sealed partial class CliRuntime
                         .ToList());
             }
 
-            var operation = new RemoveEntityOperation(entityName);
-            return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
-                    workspace,
-                    MetaOperationPlan.Create(operation),
+            var operation = new WorkspaceOp
+            {
+                Type = WorkspaceOpTypes.DeleteEntity,
+                EntityName = entityName,
+            };
+            return await ExecuteOperationAsync(
+                    options.WorkspacePath,
+                    operation,
                     "model drop-entity",
                     "entity removed",
-                    new[] { ("Entity", entityName) })
+                    ("Entity", entityName))
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)

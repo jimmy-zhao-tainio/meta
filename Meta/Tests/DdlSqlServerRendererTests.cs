@@ -19,23 +19,8 @@ public sealed class DdlSqlServerRendererTests
             },
         };
         table.PrimaryKey.ColumnNames.Add("Id");
-        table.Columns.Add(new DdlColumn
-        {
-            Name = "Id",
-            DataType = "NVARCHAR(128)",
-            Collation = MetaSqlStorageContract.IdentityCollation,
-            IsNullable = false,
-        });
+        table.Columns.Add(new DdlColumn { Name = "Id", DataType = "NVARCHAR(128)", IsNullable = false });
         table.Columns.Add(new DdlColumn { Name = "Name", DataType = "NVARCHAR(MAX)", IsNullable = false });
-        table.CheckConstraints.Add(new DdlCheckConstraint
-        {
-            Name =
-                MetaSqlStorageContract.GetIdentityCheckConstraintName(
-                    "Sample",
-                    "Id"),
-            Expression =
-                MetaSqlStorageContract.GetIdentityCheckExpression("Id"),
-        });
         var index = new DdlIndex
         {
             Name = "IX_Sample_Name",
@@ -48,14 +33,6 @@ public sealed class DdlSqlServerRendererTests
 
         var sql = DdlSqlServerRenderer.RenderSchema(database);
 
-        Assert.Contains(
-            "[Id] NVARCHAR(128) COLLATE Latin1_General_100_CI_AS NOT NULL",
-            sql,
-            StringComparison.Ordinal);
-        Assert.Contains(
-            "CONSTRAINT [CK_Sample_Id_MetaIdentity] CHECK (DATALENGTH([Id]) > 0",
-            sql,
-            StringComparison.Ordinal);
         Assert.Contains("CREATE NONCLUSTERED INDEX [IX_Sample_Name] ON [dbo].[Sample] ([Name] ASC);", sql, StringComparison.Ordinal);
     }
 }

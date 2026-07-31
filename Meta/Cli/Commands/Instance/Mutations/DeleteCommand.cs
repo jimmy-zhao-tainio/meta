@@ -17,11 +17,16 @@ internal sealed partial class CliRuntime
             RequireEntity(workspace, entityName);
             ResolveRowById(workspace, entityName, id);
 
-            var operation = new DeleteRecordOperation(entityName, id);
+            var operation = new WorkspaceOp
+            {
+                Type = WorkspaceOpTypes.DeleteRows,
+                EntityName = entityName,
+                Ids = new List<string> { id },
+            };
 
             return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
                     workspace,
-                    MetaOperationPlan.Create(operation),
+                    new[] { operation },
                     commandName: "delete",
                     successMessage: $"deleted {BuildEntityInstanceAddress(entityName, id)}")
                 .ConfigureAwait(false);

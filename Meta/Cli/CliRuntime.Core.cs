@@ -146,7 +146,7 @@ internal sealed partial class CliRuntime
 
     async Task<int> ExecuteOperationAsync(
         string workspacePath,
-        MetaOperation operation,
+        WorkspaceOp operation,
         string commandName,
         string successMessage,
         params (string Key, string Value)[] successDetails)
@@ -157,7 +157,7 @@ internal sealed partial class CliRuntime
             PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
             return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
                     workspace,
-                    MetaOperationPlan.Create(operation),
+                    new[] { operation },
                     commandName,
                     successMessage,
                     successDetails)
@@ -171,7 +171,7 @@ internal sealed partial class CliRuntime
 
     async Task<int> ExecuteOperationsAgainstLoadedWorkspaceAsync(
         Workspace workspace,
-        MetaOperationPlan plan,
+        IReadOnlyList<WorkspaceOp> operations,
         string commandName,
         string successMessage,
         IReadOnlyList<(string Key, string Value)>? successDetails = null)
@@ -181,38 +181,36 @@ internal sealed partial class CliRuntime
             throw new ArgumentNullException(nameof(workspace));
         }
 
-        ArgumentNullException.ThrowIfNull(plan);
+        if (operations == null)
+        {
+            throw new ArgumentNullException(nameof(operations));
+        }
 
-        var session = XmlMetaOperationSession.OpenLoaded(
-            workspace,
-            services.WorkspaceService);
+        var before = WorkspaceSnapshotCloner.Capture(workspace);
         try
         {
-            session.Apply(plan);
+            foreach (var operation in operations)
+            {
+                services.OperationService.Execute(workspace, operation);
+            }
+
+            ApplyImplicitNormalization(workspace);
         }
-        catch (MetaOperationException exception) when (exception.Diagnostics != null)
+        catch
         {
-            session.Discard();
-            return PrintOperationValidationFailure(
-                commandName,
-                plan,
-                exception.Diagnostics);
-        }
-        catch (MetaOperationException exception)
-        {
-            session.Discard();
-            return PrintMetaOperationFailure(commandName, exception);
+            WorkspaceSnapshotCloner.Restore(workspace, before);
+            throw;
         }
 
         var diagnostics = services.ValidationService.Validate(workspace);
         workspace.Diagnostics = diagnostics;
         if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
         {
-            session.Discard();
-            return PrintOperationValidationFailure(commandName, plan, diagnostics);
+            WorkspaceSnapshotCloner.Restore(workspace, before);
+            return PrintOperationValidationFailure(commandName, operations, diagnostics);
         }
 
-        await session.CommitAsync().ConfigureAwait(false);
+        await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
         var details = new List<(string Key, string Value)>();
         if (successDetails is { Count: > 0 })
         {
@@ -228,6 +226,20 @@ internal sealed partial class CliRuntime
         }
 
         return 0;
+    }
+
+    void ApplyImplicitNormalization(Workspace workspace)
+    {
+        var normalizeOps = NormalizationService.BuildNormalizeOperations(
+            workspace,
+            new NormalizeOptions
+            {
+                DropUnknown = false,
+            });
+        foreach (var normalizeOp in normalizeOps)
+        {
+            services.OperationService.Execute(workspace, normalizeOp);
+        }
     }
 
     private MetaCliInvocation Invocation =>
@@ -514,15 +526,21 @@ internal sealed partial class CliRuntime
         return (true, role, defaultId, required, workspacePath, string.Empty);
     }
 
-    (bool Ok, string Format, string FilePath, bool UseStdin, string WorkspacePath, bool AutoId, string ErrorMessage)
-        ReadBulkInsertOptions(string[] commandArgs, int startIndex)
+    (bool Ok, string Format, string FilePath, bool UseStdin, string WorkspacePath, IReadOnlyList<string> KeyFields, bool AutoId, string ErrorMessage)
+        ReadUpsertOptions(string[] commandArgs, int startIndex)
     {
         var format = OptionalValue("from").Trim().ToLowerInvariant();
         var filePath = OptionalValue("file");
         var useStdin = Flag("stdin");
         var workspacePath = WorkspacePath();
+        var keyFields = OptionalValue("key")
+            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .Select(item => item.Trim())
+            .Where(item => !string.IsNullOrWhiteSpace(item))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
         var autoId = Flag("auto-id");
-        return (true, format, filePath, useStdin, workspacePath, autoId, string.Empty);
+        return (true, format, filePath, useStdin, workspacePath, keyFields, autoId, string.Empty);
     }
 
     IReadOnlyList<(string Key, string Value)> ParseWherePairs(string? where)

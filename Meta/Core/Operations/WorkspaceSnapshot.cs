@@ -129,6 +129,16 @@ public static class WorkspaceSnapshotCloner
         return MetaWorkspaceGenerated.Normalize(source, "workspace-config");
     }
 
+    public static RowPatch ToRowPatch(GenericRecord record)
+    {
+        return new RowPatch
+        {
+            Id = record.Id,
+            ReplaceExisting = false,
+            Values = record.Values.ToDictionary(item => item.Key, item => item.Value, StringComparer.OrdinalIgnoreCase),
+            RelationshipIds = record.RelationshipIds.ToDictionary(item => item.Key, item => item.Value, StringComparer.OrdinalIgnoreCase),
+        };
+    }
 }
 
 

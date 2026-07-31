@@ -25,7 +25,7 @@ internal sealed partial class CliRuntime
                     workspace.Diagnostics = diagnostics;
                     if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
                     {
-                        return PrintOperationValidationFailure("export", MetaOperationPlan.Empty, diagnostics);
+                        return PrintOperationValidationFailure("export", Array.Empty<Meta.Core.Operations.WorkspaceOp>(), diagnostics);
                     }
 
                     var entityName = RequiredValue("Entity");

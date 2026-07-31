@@ -59,6 +59,7 @@ internal sealed partial class CliRuntime
                     commandOptions.TargetEntityName,
                     currentRole,
                     commandOptions.NewRole));
+            ApplyImplicitNormalization(workspace);
 
             var diagnostics = services.ValidationService.Validate(workspace);
             workspace.Diagnostics = diagnostics;
@@ -67,7 +68,7 @@ internal sealed partial class CliRuntime
                 WorkspaceSnapshotCloner.Restore(workspace, before);
                 return PrintOperationValidationFailure(
                     "model rename-relationship",
-                    MetaOperationPlan.Empty,
+                    Array.Empty<WorkspaceOp>(),
                     diagnostics);
             }
 

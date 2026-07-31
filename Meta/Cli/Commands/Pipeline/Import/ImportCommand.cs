@@ -28,11 +28,12 @@ internal sealed partial class CliRuntime
                     var importedFromSql = await services.ImportService
                         .ImportSqlAsync(connectionString, sqlOptions.Schema)
                         .ConfigureAwait(false);
+                    ApplyImplicitNormalization(importedFromSql);
                     var sqlDiagnostics = services.ValidationService.Validate(importedFromSql);
                     importedFromSql.Diagnostics = sqlDiagnostics;
                     if (sqlDiagnostics.HasErrors || (globalStrict && sqlDiagnostics.WarningCount > 0))
                     {
-                        return PrintOperationValidationFailure("import", MetaOperationPlan.Empty, sqlDiagnostics);
+                        return PrintOperationValidationFailure("import", Array.Empty<WorkspaceOp>(), sqlDiagnostics);
                     }
                     await services.ExportService.ExportXmlAsync(importedFromSql, workspacePath).ConfigureAwait(false);
                     presenter.WriteOk(
@@ -63,11 +64,12 @@ internal sealed partial class CliRuntime
                             return targetValidation;
                         }
 
+                        ApplyImplicitNormalization(importedFromCsv);
                         var csvDiagnostics = services.ValidationService.Validate(importedFromCsv);
                         importedFromCsv.Diagnostics = csvDiagnostics;
                         if (csvDiagnostics.HasErrors || (globalStrict && csvDiagnostics.WarningCount > 0))
                         {
-                            return PrintOperationValidationFailure("import", MetaOperationPlan.Empty, csvDiagnostics);
+                            return PrintOperationValidationFailure("import", Array.Empty<WorkspaceOp>(), csvDiagnostics);
                         }
 
                         await services.ExportService.ExportXmlAsync(importedFromCsv, workspacePath).ConfigureAwait(false);
@@ -99,11 +101,13 @@ internal sealed partial class CliRuntime
                     {
                         MergeCsvImportIntoExistingEntity(existingEntity, workspaceForCsv, importedEntityForMerge, importedRowsForMerge);
                     }
+                    ApplyImplicitNormalization(workspaceForCsv);
+
                     var workspaceCsvDiagnostics = services.ValidationService.Validate(workspaceForCsv);
                     workspaceForCsv.Diagnostics = workspaceCsvDiagnostics;
                     if (workspaceCsvDiagnostics.HasErrors || (globalStrict && workspaceCsvDiagnostics.WarningCount > 0))
                     {
-                        return PrintOperationValidationFailure("import", MetaOperationPlan.Empty, workspaceCsvDiagnostics);
+                        return PrintOperationValidationFailure("import", Array.Empty<WorkspaceOp>(), workspaceCsvDiagnostics);
                     }
 
                     await services.WorkspaceService.SaveAsync(workspaceForCsv).ConfigureAwait(false);

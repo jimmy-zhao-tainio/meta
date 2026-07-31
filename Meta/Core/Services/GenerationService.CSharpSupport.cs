@@ -29,17 +29,6 @@ public static partial class GenerationService
         builder.AppendLine();
     }
 
-    private static void AppendCSharpWorkspaceHeader(StringBuilder builder)
-    {
-        builder.AppendLine("// <meta-workspace>");
-        builder.AppendLine("// This C# source represents a Meta model and its instances.");
-        builder.AppendLine("// Meta operations may rewrite modeled declarations and instance initializers.");
-        builder.AppendLine("// </meta-workspace>");
-        builder.AppendLine();
-        builder.AppendLine("#nullable enable");
-        builder.AppendLine();
-    }
-
     private static string GetDisplayWorkspacePath(string? workspacePath)
     {
         if (string.IsNullOrWhiteSpace(workspacePath))
@@ -143,18 +132,6 @@ public static partial class GenerationService
                 case '"':
                     builder.Append("\\\"");
                     break;
-                case '\0':
-                    builder.Append("\\0");
-                    break;
-                case '\a':
-                    builder.Append("\\a");
-                    break;
-                case '\b':
-                    builder.Append("\\b");
-                    break;
-                case '\f':
-                    builder.Append("\\f");
-                    break;
                 case '\r':
                     builder.Append("\\r");
                     break;
@@ -164,20 +141,8 @@ public static partial class GenerationService
                 case '\t':
                     builder.Append("\\t");
                     break;
-                case '\v':
-                    builder.Append("\\v");
-                    break;
                 default:
-                    if (char.IsControl(character))
-                    {
-                        builder.Append("\\u");
-                        builder.Append(((int)character).ToString("X4", CultureInfo.InvariantCulture));
-                    }
-                    else
-                    {
-                        builder.Append(character);
-                    }
-
+                    builder.Append(character);
                     break;
             }
         }

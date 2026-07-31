@@ -929,36 +929,6 @@ public static partial class GenerationService
     {
         var builder = new StringBuilder();
         AppendGeneratedCSharpHeader(builder, requiresTooling: false, workspacePath: workspace.WorkspaceRootPath);
-        return BuildCSharpConsumerModelBody(
-            workspace,
-            modelTypeName,
-            namespaceName,
-            builder,
-            useDirectRelationshipReferences: false);
-    }
-
-    private static string BuildCSharpWorkspaceModel(
-        Workspace workspace,
-        string modelTypeName,
-        string namespaceName)
-    {
-        var builder = new StringBuilder();
-        AppendCSharpWorkspaceHeader(builder);
-        return BuildCSharpConsumerModelBody(
-            workspace,
-            modelTypeName,
-            namespaceName,
-            builder,
-            useDirectRelationshipReferences: true);
-    }
-
-    private static string BuildCSharpConsumerModelBody(
-        Workspace workspace,
-        string modelTypeName,
-        string namespaceName,
-        StringBuilder builder,
-        bool useDirectRelationshipReferences)
-    {
         var entities = workspace.Model.Entities
             .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
             .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
@@ -1036,13 +1006,9 @@ public static partial class GenerationService
                              .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
                              .ThenBy(property => property.Name, StringComparer.Ordinal))
                 {
-                    if (!record.Values.TryGetValue(property.Name, out var propertyValue) &&
-                        property.IsNullable)
-                    {
-                        continue;
-                    }
-
-                    var value = propertyValue ?? string.Empty;
+                    var value = record.Values.TryGetValue(property.Name, out var propertyValue)
+                        ? propertyValue ?? string.Empty
+                        : string.Empty;
                     builder.AppendLine($"                    {property.Name} = {ToCSharpStringLiteral(value)},");
                 }
 
@@ -1053,18 +1019,15 @@ public static partial class GenerationService
             builder.AppendLine();
         }
 
-        if (!useDirectRelationshipReferences)
+        foreach (var entity in entities)
         {
-            foreach (var entity in entities)
-            {
-                var rowsVar = ToCamelIdentifier(entity.GetListName());
-                builder.AppendLine($"            var {rowsVar}ById = new Dictionary<string, {entity.Name}>(global::System.StringComparer.OrdinalIgnoreCase);");
-                builder.AppendLine($"            foreach (var row in {rowsVar})");
-                builder.AppendLine("            {");
-                builder.AppendLine($"                {rowsVar}ById[row.Id] = row;");
-                builder.AppendLine("            }");
-                builder.AppendLine();
-            }
+            var rowsVar = ToCamelIdentifier(entity.GetListName());
+            builder.AppendLine($"            var {rowsVar}ById = new Dictionary<string, {entity.Name}>(global::System.StringComparer.OrdinalIgnoreCase);");
+            builder.AppendLine($"            foreach (var row in {rowsVar})");
+            builder.AppendLine("            {");
+            builder.AppendLine($"                {rowsVar}ById[row.Id] = row;");
+            builder.AppendLine("            }");
+            builder.AppendLine();
         }
 
         foreach (var entity in entities)
@@ -1094,40 +1057,12 @@ public static partial class GenerationService
                     }
                     else
                     {
-                        if (useDirectRelationshipReferences)
-                        {
-                            var targetRecords = workspace.Instance.RecordsByEntity.TryGetValue(
-                                targetEntity.Name,
-                                out var targetEntityRecords)
-                                ? targetEntityRecords
-                                    .OrderBy(
-                                        targetRecord => targetRecord.Id,
-                                        StringComparer.OrdinalIgnoreCase)
-                                    .ToList()
-                                : [];
-                            var targetIndex = targetRecords.FindIndex(
-                                targetRecord => string.Equals(
-                                    targetRecord.Id,
-                                    relationshipValue,
-                                    StringComparison.OrdinalIgnoreCase));
-                            if (targetIndex < 0)
-                            {
-                                throw new InvalidOperationException(
-                                    $"Relationship '{entity.Name}.{relationship.GetColumnName()}' on row '{entity.Name}:{record.Id}' points to missing Id '{relationshipValue}'.");
-                            }
-
-                            builder.AppendLine(
-                                $"            {rowsVar}[{recordIndex.ToString(CultureInfo.InvariantCulture)}].{relationship.GetNavigationName()} = {targetVar}[{targetIndex.ToString(CultureInfo.InvariantCulture)}];");
-                        }
-                        else
-                        {
-                            builder.AppendLine($"            {rowsVar}[{recordIndex.ToString(CultureInfo.InvariantCulture)}].{relationship.GetNavigationName()} = RequireTarget(");
-                            builder.AppendLine($"                {targetVar}ById,");
-                            builder.AppendLine($"                {ToCSharpStringLiteral(relationshipValue)},");
-                            builder.AppendLine($"                {ToCSharpStringLiteral(entity.Name)},");
-                            builder.AppendLine($"                {ToCSharpStringLiteral(record.Id)},");
-                            builder.AppendLine($"                {ToCSharpStringLiteral(relationship.GetColumnName())});");
-                        }
+                        builder.AppendLine($"            {rowsVar}[{recordIndex.ToString(CultureInfo.InvariantCulture)}].{relationship.GetNavigationName()} = RequireTarget(");
+                        builder.AppendLine($"                {targetVar}ById,");
+                        builder.AppendLine($"                {ToCSharpStringLiteral(relationshipValue)},");
+                        builder.AppendLine($"                {ToCSharpStringLiteral(entity.Name)},");
+                        builder.AppendLine($"                {ToCSharpStringLiteral(record.Id)},");
+                        builder.AppendLine($"                {ToCSharpStringLiteral(relationship.GetColumnName())});");
                     }
                 }
             }
@@ -1149,32 +1084,28 @@ public static partial class GenerationService
         builder.AppendLine("            );");
         builder.AppendLine("        }");
         builder.AppendLine();
-        if (!useDirectRelationshipReferences)
-        {
-            builder.AppendLine("        private static T RequireTarget<T>(");
-            builder.AppendLine("            Dictionary<string, T> rowsById,");
-            builder.AppendLine("            string targetId,");
-            builder.AppendLine("            string sourceEntityName,");
-            builder.AppendLine("            string sourceId,");
-            builder.AppendLine("            string relationshipName)");
-            builder.AppendLine("            where T : class");
-            builder.AppendLine("        {");
-            builder.AppendLine("            if (string.IsNullOrEmpty(targetId))");
-            builder.AppendLine("            {");
-            builder.AppendLine("                throw new global::System.InvalidOperationException(");
-            builder.AppendLine("                    $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' is empty.\");");
-            builder.AppendLine("            }");
-            builder.AppendLine();
-            builder.AppendLine("            if (!rowsById.TryGetValue(targetId, out var target))");
-            builder.AppendLine("            {");
-            builder.AppendLine("                throw new global::System.InvalidOperationException(");
-            builder.AppendLine("                    $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' points to missing Id '{targetId}'.\");");
-            builder.AppendLine("            }");
-            builder.AppendLine();
-            builder.AppendLine("            return target;");
-            builder.AppendLine("        }");
-        }
-
+        builder.AppendLine("        private static T RequireTarget<T>(");
+        builder.AppendLine("            Dictionary<string, T> rowsById,");
+        builder.AppendLine("            string targetId,");
+        builder.AppendLine("            string sourceEntityName,");
+        builder.AppendLine("            string sourceId,");
+        builder.AppendLine("            string relationshipName)");
+        builder.AppendLine("            where T : class");
+        builder.AppendLine("        {");
+        builder.AppendLine("            if (string.IsNullOrEmpty(targetId))");
+        builder.AppendLine("            {");
+        builder.AppendLine("                throw new global::System.InvalidOperationException(");
+        builder.AppendLine("                    $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' is empty.\");");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine("            if (!rowsById.TryGetValue(targetId, out var target))");
+        builder.AppendLine("            {");
+        builder.AppendLine("                throw new global::System.InvalidOperationException(");
+        builder.AppendLine("                    $\"Relationship '{sourceEntityName}.{relationshipName}' on row '{sourceEntityName}:{sourceId}' points to missing Id '{targetId}'.\");");
+        builder.AppendLine("            }");
+        builder.AppendLine();
+        builder.AppendLine("            return target;");
+        builder.AppendLine("        }");
         builder.AppendLine("    }");
         builder.AppendLine("}");
         return NormalizeNewlines(builder.ToString());
@@ -1188,23 +1119,6 @@ public static partial class GenerationService
     {
         var builder = new StringBuilder();
         AppendGeneratedCSharpHeader(builder, requiresTooling: requiresTooling, workspacePath: workspacePath);
-        return BuildCSharpEntityBody(entity, namespaceName, builder);
-    }
-
-    private static string BuildCSharpWorkspaceEntity(
-        GenericEntity entity,
-        string namespaceName)
-    {
-        var builder = new StringBuilder();
-        AppendCSharpWorkspaceHeader(builder);
-        return BuildCSharpEntityBody(entity, namespaceName, builder);
-    }
-
-    private static string BuildCSharpEntityBody(
-        GenericEntity entity,
-        string namespaceName,
-        StringBuilder builder)
-    {
         builder.AppendLine($"namespace {namespaceName}");
         builder.AppendLine("{");
         builder.AppendLine($"    public sealed class {entity.Name}");

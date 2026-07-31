@@ -50,7 +50,7 @@ internal sealed partial class CliRuntime
         mergedWorkspace.Diagnostics = diagnostics;
         if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
         {
-            return PrintOperationValidationFailure("workspace merge", MetaOperationPlan.Empty, diagnostics);
+            return PrintOperationValidationFailure("workspace merge", Array.Empty<WorkspaceOp>(), diagnostics);
         }
 
         await services.WorkspaceService.SaveAsync(mergedWorkspace).ConfigureAwait(false);

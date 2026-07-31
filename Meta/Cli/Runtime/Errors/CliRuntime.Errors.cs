@@ -269,47 +269,17 @@ internal sealed partial class CliRuntime
 
     int PrintOperationValidationFailure(
         string commandName,
-        MetaOperationPlan plan,
+        IReadOnlyList<WorkspaceOp> operations,
         WorkspaceDiagnostics diagnostics)
     {
-        var headline = BuildOperationValidationHeadline(commandName, plan, diagnostics);
-        PrintHumanFailure(headline, BuildHumanValidationBlockers(commandName, diagnostics));
+        var headline = BuildOperationValidationHeadline(commandName, operations, diagnostics);
+        PrintHumanFailure(headline, BuildHumanValidationBlockers(commandName, operations, diagnostics));
         return 4;
-    }
-
-    int PrintMetaOperationFailure(
-        string commandName,
-        MetaOperationException exception)
-    {
-        var message = exception.InnerException?.Message ?? exception.Message;
-        message = exception.Operation switch
-        {
-            AddPropertyOperation operation
-                when message.Contains(
-                    "needs a value for existing records",
-                    StringComparison.OrdinalIgnoreCase) =>
-                $"Property '{operation.EntityName}.{operation.PropertyName}' requires --default-value because the entity has existing rows.",
-
-            SetPropertyRequiredOperation operation
-                when message.Contains(
-                    "needs a value for",
-                    StringComparison.OrdinalIgnoreCase) =>
-                $"Property '{operation.EntityName}.{operation.PropertyName}' requires --default-value because existing rows are missing a value.",
-
-            AddRelationshipOperation operation
-                when message.Contains(
-                    "needs a target for existing records",
-                    StringComparison.OrdinalIgnoreCase) =>
-                $"Relationship '{operation.SourceEntityName}.{(string.IsNullOrWhiteSpace(operation.Role) ? operation.TargetEntityName : operation.Role)}Id' requires --default-id because the entity has existing rows.",
-
-            _ => message,
-        };
-
-        return PrintDataError("E_OPERATION", message);
     }
 
     IReadOnlyList<string> BuildHumanValidationBlockers(
         string commandName,
+        IReadOnlyList<WorkspaceOp> operations,
         WorkspaceDiagnostics diagnostics)
     {
         var orderedIssues = diagnostics.Issues
@@ -409,25 +379,33 @@ internal sealed partial class CliRuntime
 
     string BuildOperationValidationHeadline(
         string commandName,
-        MetaOperationPlan plan,
+        IReadOnlyList<WorkspaceOp> operations,
         WorkspaceDiagnostics diagnostics)
     {
         if (string.Equals(commandName, "delete", StringComparison.OrdinalIgnoreCase))
         {
-            var deleteOperation = plan.Operations
-                .OfType<DeleteRecordOperation>()
-                .FirstOrDefault();
-            if (!string.IsNullOrWhiteSpace(deleteOperation?.EntityName))
+            var deleteOp = operations
+                .FirstOrDefault(op => string.Equals(op.Type, WorkspaceOpTypes.DeleteRows, StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrWhiteSpace(deleteOp?.EntityName))
             {
-                return $"Cannot delete {BuildEntityInstanceAddress(deleteOperation.EntityName, deleteOperation.Id)}";
+                var targetId = deleteOp.Ids?
+                    .Where(value => !string.IsNullOrWhiteSpace(value))
+                    .Select(value => value.Trim())
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .ToList();
+                if (targetId is { Count: 1 })
+                {
+                    return $"Cannot delete {BuildEntityInstanceAddress(deleteOp.EntityName, targetId[0])}";
+                }
+
+                return $"Cannot delete {deleteOp.EntityName}";
             }
         }
 
         if (string.Equals(commandName, "model drop-entity", StringComparison.OrdinalIgnoreCase))
         {
-            var targetEntity = plan.Operations
-                .OfType<RemoveEntityOperation>()
-                .FirstOrDefault()
+            var targetEntity = operations
+                .FirstOrDefault(op => string.Equals(op.Type, WorkspaceOpTypes.DeleteEntity, StringComparison.OrdinalIgnoreCase))
                 ?.EntityName;
             if (!string.IsNullOrWhiteSpace(targetEntity))
             {
@@ -667,14 +645,14 @@ internal sealed partial class CliRuntime
                 if (allowed.Contains(extension, StringComparer.OrdinalIgnoreCase))
                 {
                     hints.Add($"Detected file extension '.{extension}'.");
-                    hints.Add($"Next: meta bulk-insert <Entity> --from {extension} --file <path>");
+                    hints.Add($"Next: meta bulk-insert <Entity> --from {extension} --file <path> --key Id");
                 }
             }
 
             if (hints.Count == 0)
             {
                 hints.Add("Allowed values: tsv, csv.");
-                hints.Add("Next: meta bulk-insert <Entity> --from tsv --file <path>");
+                hints.Add("Next: meta bulk-insert <Entity> --from tsv --file <path> --key Id");
             }
         }
 

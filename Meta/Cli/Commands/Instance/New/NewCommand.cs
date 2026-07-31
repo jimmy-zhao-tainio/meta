@@ -39,17 +39,21 @@ internal sealed partial class CliRuntime
                 ? GenerateNextAutoId(workspace, entityName)
                 : explicitId;
 
-            var operation = BuildInsertOperation(
-                workspace,
-                entity,
-                parseResult.SetValues,
-                resolvedId!);
+            var rowPatch = BuildRowPatchForCreate(workspace, entity, parseResult.SetValues, resolvedId);
+            var operation = new WorkspaceOp
+            {
+                Type = WorkspaceOpTypes.BulkUpsertRows,
+                EntityName = entityName,
+                RowPatches = { rowPatch },
+            };
+
+            BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
             return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
                     workspace,
-                    MetaOperationPlan.Create(operation),
+                    new[] { operation },
                     commandName: "insert",
-                    successMessage: $"created {BuildEntityInstanceAddress(entityName, operation.Id)}",
-                    successDetails: BuildRowPreviewDetails(entity, operation))
+                    successMessage: $"created {BuildEntityInstanceAddress(entityName, rowPatch.Id)}",
+                    successDetails: BuildRowPreviewDetails(entity, rowPatch))
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)

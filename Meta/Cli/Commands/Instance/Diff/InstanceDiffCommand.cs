@@ -13,7 +13,7 @@ internal sealed partial class CliRuntime
         var rightDiagnostics = services.ValidationService.Validate(rightWorkspace);
         if (rightDiagnostics.HasErrors || (globalStrict && rightDiagnostics.WarningCount > 0))
         {
-            return PrintOperationValidationFailure("instance diff right workspace", MetaOperationPlan.Empty, rightDiagnostics);
+            return PrintOperationValidationFailure("instance diff right workspace", Array.Empty<WorkspaceOp>(), rightDiagnostics);
         }
 
         if (!AreModelXmlFilesByteIdentical(leftPath, leftWorkspace, rightPath, rightWorkspace, out var leftModelPath, out var rightModelPath))
@@ -45,11 +45,12 @@ internal sealed partial class CliRuntime
             Directory.Delete(diff.DiffWorkspacePath, recursive: true);
         }
 
+        ApplyImplicitNormalization(diff.DiffWorkspace);
         var diagnostics = services.ValidationService.Validate(diff.DiffWorkspace);
         diff.DiffWorkspace.Diagnostics = diagnostics;
         if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
         {
-            return PrintOperationValidationFailure("instance diff", MetaOperationPlan.Empty, diagnostics);
+            return PrintOperationValidationFailure("instance diff", Array.Empty<WorkspaceOp>(), diagnostics);
         }
 
         await services.WorkspaceService.SaveAsync(diff.DiffWorkspace).ConfigureAwait(false);

@@ -15,12 +15,10 @@ internal static class SqlServerImportReader
     public static async Task<List<string>> LoadTableNamesAsync(
         SqlConnection connection,
         string schema,
-        CancellationToken cancellationToken,
-        SqlTransaction? transaction = null)
+        CancellationToken cancellationToken)
     {
         var tables = new List<string>();
         await using var command = connection.CreateCommand();
-        command.Transaction = transaction;
         command.CommandText = """
                               SELECT TABLE_NAME
                               FROM INFORMATION_SCHEMA.TABLES
@@ -42,19 +40,12 @@ internal static class SqlServerImportReader
         SqlConnection connection,
         string schema,
         string tableName,
-        CancellationToken cancellationToken,
-        SqlTransaction? transaction = null)
+        CancellationToken cancellationToken)
     {
         var columns = new List<SqlServerColumnRow>();
         await using var command = connection.CreateCommand();
-        command.Transaction = transaction;
         command.CommandText = """
-                              SELECT
-                                  COLUMN_NAME,
-                                  IS_NULLABLE,
-                                  DATA_TYPE,
-                                  CHARACTER_MAXIMUM_LENGTH,
-                                  COLLATION_NAME
+                              SELECT COLUMN_NAME, IS_NULLABLE
                               FROM INFORMATION_SCHEMA.COLUMNS
                               WHERE TABLE_SCHEMA = @schema AND TABLE_NAME = @table
                               ORDER BY ORDINAL_POSITION;
@@ -69,117 +60,19 @@ internal static class SqlServerImportReader
             {
                 Name = reader.GetString(0),
                 IsNullable = string.Equals(reader.GetString(1), "YES", StringComparison.OrdinalIgnoreCase),
-                DataType = reader.GetString(2),
-                CharacterMaximumLength = reader.IsDBNull(3)
-                    ? null
-                    : reader.GetInt32(3),
-                CollationName = reader.IsDBNull(4)
-                    ? null
-                    : reader.GetString(4),
             });
         }
 
         return columns;
-    }
-
-    public static async Task<List<string>> LoadPrimaryKeyColumnsAsync(
-        SqlConnection connection,
-        string schema,
-        string tableName,
-        CancellationToken cancellationToken,
-        SqlTransaction? transaction = null)
-    {
-        var columns = new List<string>();
-        await using var command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText = """
-                              SELECT usage.COLUMN_NAME
-                              FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS constraintInfo
-                              INNER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS usage
-                                  ON usage.CONSTRAINT_CATALOG = constraintInfo.CONSTRAINT_CATALOG
-                                  AND usage.CONSTRAINT_SCHEMA = constraintInfo.CONSTRAINT_SCHEMA
-                                  AND usage.CONSTRAINT_NAME = constraintInfo.CONSTRAINT_NAME
-                              WHERE constraintInfo.CONSTRAINT_TYPE = 'PRIMARY KEY'
-                                AND constraintInfo.TABLE_SCHEMA = @schema
-                                AND constraintInfo.TABLE_NAME = @table
-                              ORDER BY usage.ORDINAL_POSITION;
-                              """;
-        command.Parameters.Add(new SqlParameter("@schema", SqlDbType.NVarChar, 128) { Value = schema });
-        command.Parameters.Add(new SqlParameter("@table", SqlDbType.NVarChar, 128) { Value = tableName });
-
-        await using var reader = await command.ExecuteReaderAsync(cancellationToken).ConfigureAwait(false);
-        while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
-        {
-            columns.Add(reader.GetString(0));
-        }
-
-        return columns;
-    }
-
-    public static async Task<List<SqlServerCheckConstraintRow>>
-        LoadCheckConstraintsAsync(
-            SqlConnection connection,
-            string schema,
-            string tableName,
-            CancellationToken cancellationToken,
-            SqlTransaction? transaction = null)
-    {
-        var constraints = new List<SqlServerCheckConstraintRow>();
-        await using var command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText = """
-                              SELECT
-                                  checkConstraint.name,
-                                  checkConstraint.definition,
-                                  checkConstraint.is_disabled,
-                                  checkConstraint.is_not_trusted
-                              FROM sys.check_constraints AS checkConstraint
-                              INNER JOIN sys.tables AS tableInfo
-                                  ON tableInfo.object_id = checkConstraint.parent_object_id
-                              INNER JOIN sys.schemas AS schemaInfo
-                                  ON schemaInfo.schema_id = tableInfo.schema_id
-                              WHERE schemaInfo.name = @schema
-                                AND tableInfo.name = @table
-                              ORDER BY checkConstraint.name;
-                              """;
-        command.Parameters.Add(
-            new SqlParameter("@schema", SqlDbType.NVarChar, 128)
-            {
-                Value = schema,
-            });
-        command.Parameters.Add(
-            new SqlParameter("@table", SqlDbType.NVarChar, 128)
-            {
-                Value = tableName,
-            });
-
-        await using var reader = await command
-            .ExecuteReaderAsync(cancellationToken)
-            .ConfigureAwait(false);
-        while (await reader.ReadAsync(cancellationToken)
-                   .ConfigureAwait(false))
-        {
-            constraints.Add(new SqlServerCheckConstraintRow
-            {
-                Name = reader.GetString(0),
-                Definition = reader.GetString(1),
-                IsDisabled = reader.GetBoolean(2),
-                IsNotTrusted = reader.GetBoolean(3),
-            });
-        }
-
-        return constraints;
     }
 
     public static async Task<List<SqlServerRelationshipRow>> LoadRelationshipsAsync(
         SqlConnection connection,
         string schema,
-        CancellationToken cancellationToken,
-        SqlTransaction? transaction = null)
+        CancellationToken cancellationToken)
     {
         var relationships = new List<SqlServerRelationshipRow>();
         await using var command = connection.CreateCommand();
-        command.Transaction = transaction;
         command.CommandText = """
                               SELECT
                                   fk.name AS ConstraintName,
@@ -188,9 +81,7 @@ internal static class SqlServerImportReader
                                   dstTable.name AS TargetTable,
                                   dstColumn.name AS TargetColumn,
                                   fkc.constraint_column_id AS ConstraintColumnId,
-                                  srcColumn.is_nullable AS IsNullable,
-                                  fk.is_disabled AS IsDisabled,
-                                  fk.is_not_trusted AS IsNotTrusted
+                                  srcColumn.is_nullable AS IsNullable
                               FROM sys.foreign_keys fk
                               INNER JOIN sys.foreign_key_columns fkc
                                   ON fk.object_id = fkc.constraint_object_id
@@ -226,8 +117,6 @@ internal static class SqlServerImportReader
                 TargetColumn = reader.GetString(4),
                 ConstraintColumnId = reader.GetInt32(5),
                 IsNullable = reader.GetBoolean(6),
-                IsDisabled = reader.GetBoolean(7),
-                IsNotTrusted = reader.GetBoolean(8),
             });
         }
 
@@ -376,9 +265,6 @@ internal sealed class SqlServerColumnRow
 {
     public string Name { get; set; } = string.Empty;
     public bool IsNullable { get; set; }
-    public string DataType { get; set; } = string.Empty;
-    public int? CharacterMaximumLength { get; set; }
-    public string? CollationName { get; set; }
 }
 
 internal sealed class SqlServerRelationshipRow
@@ -390,14 +276,4 @@ internal sealed class SqlServerRelationshipRow
     public string TargetColumn { get; set; } = string.Empty;
     public int ConstraintColumnId { get; set; }
     public bool IsNullable { get; set; }
-    public bool IsDisabled { get; set; }
-    public bool IsNotTrusted { get; set; }
-}
-
-internal sealed class SqlServerCheckConstraintRow
-{
-    public string Name { get; set; } = string.Empty;
-    public string Definition { get; set; } = string.Empty;
-    public bool IsDisabled { get; set; }
-    public bool IsNotTrusted { get; set; }
 }

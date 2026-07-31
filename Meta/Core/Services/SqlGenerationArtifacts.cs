@@ -70,16 +70,7 @@ internal static class SqlGenerationArtifacts
             {
                 Name = "Id",
                 DataType = "NVARCHAR(128)",
-                Collation = MetaSqlStorageContract.IdentityCollation,
                 IsNullable = false,
-            });
-            table.CheckConstraints.Add(new DdlCheckConstraint
-            {
-                Name = MetaSqlStorageContract.GetIdentityCheckConstraintName(
-                    entity.Name,
-                    "Id"),
-                Expression =
-                    MetaSqlStorageContract.GetIdentityCheckExpression("Id"),
             });
 
             foreach (var property in entity.Properties
@@ -103,18 +94,7 @@ internal static class SqlGenerationArtifacts
                 {
                     Name = relationshipName,
                     DataType = "NVARCHAR(128)",
-                    Collation = MetaSqlStorageContract.IdentityCollation,
                     IsNullable = relationship.IsNullable,
-                });
-                table.CheckConstraints.Add(new DdlCheckConstraint
-                {
-                    Name =
-                        MetaSqlStorageContract.GetIdentityCheckConstraintName(
-                            entity.Name,
-                            relationshipName),
-                    Expression =
-                        MetaSqlStorageContract.GetIdentityCheckExpression(
-                            relationshipName),
                 });
 
                 var foreignKey = new DdlForeignKeyConstraint
@@ -140,9 +120,6 @@ internal static class SqlGenerationArtifacts
 
             foreach (var row in records.OrderBy(record => record.Id, StringComparer.OrdinalIgnoreCase))
             {
-                MetaSqlStorageContract.RequireRepresentableIdentity(
-                    row.Id,
-                    $"{entity.Name}.Id");
                 var statement = new DdlInsertStatement
                 {
                     Schema = "dbo",
@@ -193,23 +170,11 @@ internal static class SqlGenerationArtifacts
                         row.RelationshipIds.TryGetValue(relationshipName, out var deferredRelationshipValue) &&
                         !string.IsNullOrWhiteSpace(deferredRelationshipValue))
                     {
-                        MetaSqlStorageContract.RequireRepresentableIdentity(
-                            deferredRelationshipValue,
-                            $"{entity.Name}.{relationshipName}");
                         deferredRelationships.Values.Add(new DdlInsertValue
                         {
                             ColumnName = relationshipName,
                             SqlLiteral = ToSqlLiteral(deferredRelationshipValue),
                         });
-                    }
-                    else if (!relationship.IsNullable &&
-                             row.RelationshipIds.TryGetValue(
-                                 relationshipName,
-                                 out var requiredRelationshipValue))
-                    {
-                        MetaSqlStorageContract.RequireRepresentableIdentity(
-                            requiredRelationshipValue,
-                            $"{entity.Name}.{relationshipName}");
                     }
                 }
 

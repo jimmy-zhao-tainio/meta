@@ -50,15 +50,19 @@ internal sealed partial class CliRuntime
                     $"Instance with Id '{toId}' does not exist in entity '{toTargetEntityName}'.");
             }
 
-            var operation = new SetRelationshipOperation(
-                fromEntityName,
-                fromId,
-                toRelationshipName,
-                toId);
+            var operation = new WorkspaceOp
+            {
+                Type = WorkspaceOpTypes.BulkUpsertRows,
+                EntityName = fromEntityName,
+                RowPatches =
+                {
+                    BuildRelationshipUsageRewritePatch(fromRow, toRelationshipName, toId),
+                },
+            };
 
             return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
                     workspace,
-                    MetaOperationPlan.Create(operation),
+                    new[] { operation },
                     commandName: "instance.relationship.set",
                     successMessage: "relationship usage updated",
                     successDetails: new[]

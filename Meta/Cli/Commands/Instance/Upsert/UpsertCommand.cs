@@ -5,7 +5,7 @@ internal sealed partial class CliRuntime
     async Task<int> BulkInsertAsync(string[] commandArgs)
     {
         var entityName = RequiredValue("Entity");
-        var parseResult = ReadBulkInsertOptions(commandArgs, startIndex: 2);
+        var parseResult = ReadUpsertOptions(commandArgs, startIndex: 2);
         if (!parseResult.Ok)
         {
             return PrintArgumentError(parseResult.ErrorMessage);
@@ -23,6 +23,11 @@ internal sealed partial class CliRuntime
         if ((hasFile && parseResult.UseStdin) || (!hasFile && !parseResult.UseStdin))
         {
             return PrintArgumentError("Error: provide exactly one of --file or --stdin.");
+        }
+
+        if (parseResult.AutoId && parseResult.KeyFields.Count > 0)
+        {
+            return PrintArgumentError("Error: --auto-id cannot be combined with --key.");
         }
 
         string input;
@@ -52,17 +57,23 @@ internal sealed partial class CliRuntime
             }
 
             var rows = ParseBulkInputRows(input, parseResult.Format);
-            var (plan, ids) = BuildBulkInsertPlan(
+            var operation = BuildUpsertOperationFromRows(
                 workspace,
                 entity,
                 rows,
-                parseResult.AutoId);
+                parseResult.KeyFields,
+                autoEnsure: false,
+                autoId: parseResult.AutoId);
+            BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
             return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
                     workspace,
-                    plan,
+                    new[] { operation },
                     commandName: "bulk-insert",
                     successMessage: $"bulk insert {entityName}",
-                    successDetails: BuildBulkInsertSuccessDetails(ids.Count))
+                    successDetails: BuildUpsertSuccessDetails(
+                        workspace,
+                        entityName,
+                        operation.RowPatches.Select(patch => patch.Id).ToList()))
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)

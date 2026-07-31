@@ -10,51 +10,6 @@ namespace Meta.Core.Tests;
 public sealed class GenerationServiceTests
 {
     [Fact]
-    public void GenerateSql_RejectsIdentityOutsideSqlRepresentation()
-    {
-        var output = Path.Combine(
-            Path.GetTempPath(),
-            "metadata-gen-tests",
-            Guid.NewGuid().ToString("N"),
-            "identity");
-        var workspace = new Workspace
-        {
-            Model = new GenericModel
-            {
-                Name = "SqlIdentity",
-            },
-            Instance = new GenericInstance
-            {
-                ModelName = "SqlIdentity",
-            },
-        };
-        workspace.Model.Entities.Add(new GenericEntity
-        {
-            Name = "Thing",
-        });
-        workspace.Instance.GetOrCreateEntityRecords("Thing").Add(
-            new GenericRecord
-            {
-                Id = "fullwidth-\uFF21",
-            });
-
-        try
-        {
-            var exception = Assert.Throws<InvalidOperationException>(
-                () => GenerationService.GenerateSql(workspace, output));
-            Assert.Contains(
-                "printable ASCII",
-                exception.Message,
-                StringComparison.Ordinal);
-            Assert.False(Directory.Exists(output));
-        }
-        finally
-        {
-            DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
-        }
-    }
-
-    [Fact]
     public async Task GenerateSql_IsDeterministicAcrossRuns()
     {
         var services = new ServiceCollection();
@@ -151,7 +106,7 @@ public sealed class GenerationServiceTests
             var data = await File.ReadAllTextAsync(Path.Combine(output, "data.sql"));
 
             Assert.Contains(
-                "[PreviousStepId] NVARCHAR(128) COLLATE Latin1_General_100_CI_AS NULL",
+                "[PreviousStepId] NVARCHAR(128) NULL",
                 schema,
                 StringComparison.Ordinal);
             Assert.Contains(

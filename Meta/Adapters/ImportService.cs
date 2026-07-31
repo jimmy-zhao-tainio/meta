@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
@@ -14,6 +15,11 @@ namespace Meta.Adapters;
 
 public sealed class ImportService : IImportService
 {
+    private const int MaxIdentifierLength = 128;
+    private static readonly Regex IdentifierPattern = new(
+        "^[A-Za-z_][A-Za-z0-9_]*$",
+        RegexOptions.CultureInvariant | RegexOptions.Compiled);
+
     private readonly IWorkspaceService _workspaceService;
 
     public ImportService(IWorkspaceService workspaceService)
@@ -30,7 +36,8 @@ public sealed class ImportService : IImportService
             throw new ArgumentException("Connection string is required.", nameof(connectionString));
         }
 
-        var effectiveSchema = SqlServerMetaModelReader.NormalizeSchema(schema);
+        var effectiveSchema = string.IsNullOrWhiteSpace(schema) ? "dbo" : schema.Trim();
+        ValidateIdentifier(effectiveSchema, "Schema name");
 
         var workspace = new Workspace
         {
@@ -45,15 +52,79 @@ public sealed class ImportService : IImportService
         using var connection = new SqlConnection(connectionString);
         await connection.OpenAsync(cancellationToken).ConfigureAwait(false);
 
-        workspace.Model = await SqlServerMetaModelReader.LoadAsync(
-                connection,
-                effectiveSchema,
-                cancellationToken)
-            .ConfigureAwait(false);
+        workspace.Model.Name = connection.Database ?? "MetadataModel";
+        ValidateIdentifier(workspace.Model.Name, "Database name");
         workspace.Instance.ModelName = workspace.Model.Name;
+
+        var entityLookup = new Dictionary<string, GenericEntity>(StringComparer.OrdinalIgnoreCase);
+        foreach (var tableName in await SqlServerImportReader.LoadTableNamesAsync(connection, effectiveSchema, cancellationToken).ConfigureAwait(false))
+        {
+            ValidateIdentifier(tableName, "Table name");
+            if (entityLookup.ContainsKey(tableName))
+            {
+                throw new InvalidOperationException($"Duplicate table name '{tableName}' in schema '{effectiveSchema}'.");
+            }
+
+            var entity = new GenericEntity
+            {
+                Name = tableName,
+            };
+
+            workspace.Model.Entities.Add(entity);
+            entityLookup[tableName] = entity;
+        }
 
         foreach (var entity in workspace.Model.Entities)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+            var columns = await SqlServerImportReader.LoadColumnsAsync(connection, effectiveSchema, entity.Name, cancellationToken).ConfigureAwait(false);
+            ApplyEntityColumns(entity, columns);
+        }
+
+        var relationships = await SqlServerImportReader.LoadRelationshipsAsync(connection, effectiveSchema, cancellationToken).ConfigureAwait(false);
+        foreach (var relationship in relationships)
+        {
+            if (!entityLookup.TryGetValue(relationship.SourceTable, out var sourceEntity) ||
+                !entityLookup.TryGetValue(relationship.TargetTable, out var targetEntity))
+            {
+                continue;
+            }
+
+            if (!string.Equals(relationship.TargetColumn, "Id", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException(
+                    $"Foreign key '{relationship.ConstraintName}' on '{sourceEntity.Name}.{relationship.SourceColumn}' must reference '{targetEntity.Name}.Id'.");
+            }
+
+            var sourceColumnName = relationship.SourceColumn.Trim();
+            ValidateIdentifier(sourceColumnName, $"Foreign key column on table '{sourceEntity.Name}'");
+            if (!sourceColumnName.EndsWith("Id", StringComparison.OrdinalIgnoreCase) || sourceColumnName.Length <= 2)
+            {
+                throw new InvalidOperationException(
+                    $"Foreign key '{relationship.ConstraintName}' on '{sourceEntity.Name}.{relationship.SourceColumn}' must use an '<Role>Id' column name.");
+            }
+
+            var role = sourceColumnName[..^2];
+            if (sourceEntity.Relationships.Any(item =>
+                    string.Equals(item.GetRoleOrDefault(), role, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new InvalidOperationException(
+                    $"Table '{sourceEntity.Name}' has duplicate relationship role '{role}'.");
+            }
+
+            sourceEntity.Relationships.Add(new GenericRelationship
+            {
+                Entity = targetEntity.Name,
+                Role = string.Equals(role, targetEntity.Name, StringComparison.OrdinalIgnoreCase)
+                    ? string.Empty
+                    : role,
+                IsNullable = relationship.IsNullable,
+            });
+        }
+
+        foreach (var entity in workspace.Model.Entities)
+        {
+            NormalizeRelationshipProperties(entity);
             var rows = await SqlServerImportReader.LoadRowsAsync(connection, effectiveSchema, entity, cancellationToken).ConfigureAwait(false);
             workspace.Instance.RecordsByEntity[entity.Name] = rows;
         }
@@ -194,6 +265,74 @@ public sealed class ImportService : IImportService
         }
 
         return workspace;
+    }
+
+    private static void ApplyEntityColumns(GenericEntity entity, IReadOnlyCollection<SqlServerColumnRow> columns)
+    {
+        var properties = new List<GenericProperty>();
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var column in columns)
+        {
+            ValidateIdentifier(column.Name, $"Column name on table '{entity.Name}'");
+            if (!seen.Add(column.Name))
+            {
+                throw new InvalidOperationException($"Duplicate column '{column.Name}' on table '{entity.Name}'.");
+            }
+
+            if (string.Equals(column.Name, "Id", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            properties.Add(new GenericProperty
+            {
+                Name = column.Name,
+                IsNullable = column.IsNullable,
+            });
+        }
+
+        if (!seen.Contains("Id"))
+        {
+            throw new InvalidOperationException($"Table '{entity.Name}' must contain required column 'Id'.");
+        }
+
+        entity.Properties.Clear();
+        entity.Properties.AddRange(properties);
+    }
+
+    private static void NormalizeRelationshipProperties(GenericEntity entity)
+    {
+        if (entity.Relationships.Count == 0 || entity.Properties.Count == 0)
+        {
+            return;
+        }
+
+        var relationshipColumns = entity.Relationships
+            .Where(item => !string.IsNullOrWhiteSpace(item.Entity))
+            .Select(item => item.GetColumnName())
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        entity.Properties.RemoveAll(property =>
+            relationshipColumns.Contains(property.Name));
+    }
+
+    private static void ValidateIdentifier(string value, string label)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            throw new InvalidOperationException($"{label} is required.");
+        }
+
+        if (value.Length > MaxIdentifierLength)
+        {
+            throw new InvalidOperationException($"{label} '{value}' exceeds max length {MaxIdentifierLength}.");
+        }
+
+        if (!IdentifierPattern.IsMatch(value))
+        {
+            throw new InvalidOperationException(
+                $"{label} '{value}' is invalid. Use [A-Za-z_][A-Za-z0-9_]* and max length {MaxIdentifierLength}.");
+        }
     }
 
     private static string NormalizeIdentity(string? value)

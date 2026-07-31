@@ -25,6 +25,7 @@ internal sealed partial class CliRuntime
             var result = services.InstanceRefactorService.RenameInstanceId(
                 workspace,
                 new RenameInstanceIdRefactorOptions(entityName, oldId, newId));
+            ApplyImplicitNormalization(workspace);
 
             var diagnostics = services.ValidationService.Validate(workspace);
             workspace.Diagnostics = diagnostics;
@@ -33,7 +34,7 @@ internal sealed partial class CliRuntime
                 WorkspaceSnapshotCloner.Restore(workspace, before);
                 return PrintOperationValidationFailure(
                     "instance rename-id",
-                    MetaOperationPlan.Empty,
+                    Array.Empty<WorkspaceOp>(),
                     diagnostics);
             }
 

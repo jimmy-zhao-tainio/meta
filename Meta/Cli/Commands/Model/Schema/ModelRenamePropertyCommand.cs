@@ -11,10 +11,13 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var operation = new RenamePropertyOperation(
-            entityName,
-            oldPropertyName,
-            newPropertyName);
+        var operation = new WorkspaceOp
+        {
+            Type = WorkspaceOpTypes.RenameProperty,
+            EntityName = entityName,
+            PropertyName = oldPropertyName,
+            NewPropertyName = newPropertyName,
+        };
 
         return await ExecuteOperationAsync(
                 options.WorkspacePath,
