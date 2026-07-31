@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using Meta.Core.Operations;
 
 namespace MetaMesh.Core;
 
@@ -47,15 +46,14 @@ public sealed class MetaMeshWorkspaceService
     }
 
     public MetaMeshWorkspaceSummary AddWorkspace(
-        ITypedMetaOperationSession<MetaMesh.MetaMeshModel> session,
+        MetaMesh.MetaMeshModel model,
         string name,
         string path,
         string? modelName,
         string? description,
         string meshWorkspacePath)
     {
-        ArgumentNullException.ThrowIfNull(session);
-        var model = session.Model;
+        ArgumentNullException.ThrowIfNull(model);
         var mesh = RequireMesh(model);
         var normalizedName = RequiredName(name);
         var normalizedPath = RequiredName(path);
@@ -76,18 +74,17 @@ public sealed class MetaMeshWorkspaceService
         };
 
         RequireUniqueId(model.WorkspaceList, workspace.Id, "Workspace");
-        session.Apply(plan => plan.Insert(workspace));
+        model.WorkspaceList.Add(workspace);
         var resolvedRootPath = ResolveMeshRootPath(mesh, Path.GetFullPath(meshWorkspacePath));
         return ToWorkspaceSummary(workspace, meshWorkspacePath, resolvedRootPath);
     }
 
     public MetaMeshOperationSummary AddOperation(
-        ITypedMetaOperationSession<MetaMesh.MetaMeshModel> session,
+        MetaMesh.MetaMeshModel model,
         string name,
         string? description)
     {
-        ArgumentNullException.ThrowIfNull(session);
-        var model = session.Model;
+        ArgumentNullException.ThrowIfNull(model);
         var mesh = RequireMesh(model);
         var normalizedName = RequiredName(name);
 
@@ -105,12 +102,12 @@ public sealed class MetaMeshWorkspaceService
         };
 
         RequireUniqueId(model.OperationList, operation.Id, "Operation");
-        session.Apply(plan => plan.Insert(operation));
+        model.OperationList.Add(operation);
         return ToOperationSummary(model, operation);
     }
 
     public MetaMeshOperationSummary AddStep(
-        ITypedMetaOperationSession<MetaMesh.MetaMeshModel> session,
+        MetaMesh.MetaMeshModel model,
         string operationName,
         string name,
         string executable,
@@ -120,8 +117,7 @@ public sealed class MetaMeshWorkspaceService
         string? expectedExitCode,
         string? description)
     {
-        ArgumentNullException.ThrowIfNull(session);
-        var model = session.Model;
+        ArgumentNullException.ThrowIfNull(model);
         var operation = RequireOperation(model, operationName);
         var normalizedName = RequiredName(name);
         var normalizedExecutable = RequiredName(executable);
@@ -151,7 +147,7 @@ public sealed class MetaMeshWorkspaceService
         };
 
         RequireUniqueId(model.OperationStepList, step.Id, "OperationStep");
-        session.Apply(plan => plan.Insert(step));
+        model.OperationStepList.Add(step);
         return ToOperationSummary(model, operation);
     }
 

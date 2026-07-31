@@ -716,44 +716,6 @@ public sealed class WorkspaceServiceTests
     }
 
     [Fact]
-    public async Task SaveLoad_WhitespacePropertyValue_StaysExact()
-    {
-        var services = new ServiceCollection();
-        var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
-        try
-        {
-            const string value = "  ";
-            var workspace = BuildWorkspaceWithOptionalProperty(
-                tempRoot,
-                includeOptionalProp: true,
-                optionalPropValue: value);
-            await services.WorkspaceService.SaveAsync(workspace);
-
-            var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
-            var shardDoc = XDocument.Load(itemShardPath);
-            var element = Assert.Single(
-                shardDoc.Descendants("OptionalProp"));
-            Assert.Equal("preserve", (string?)element.Attribute(
-                XNamespace.Xml + "space"));
-
-            var reloaded = await services.WorkspaceService.LoadAsync(
-                tempRoot,
-                searchUpward: false);
-            var row = reloaded.Instance
-                .GetOrCreateEntityRecords("Item")
-                .Single();
-            Assert.Equal(value, row.Values["OptionalProp"]);
-        }
-        finally
-        {
-            if (Directory.Exists(tempRoot))
-            {
-                Directory.Delete(tempRoot, recursive: true);
-            }
-        }
-    }
-
-    [Fact]
     public async Task SaveLoad_NullPropertyValue_IsNotSerializedAsEmptyString()
     {
         var services = new ServiceCollection();

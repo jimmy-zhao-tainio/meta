@@ -7,7 +7,7 @@ using Meta.Core.Domain;
 
 namespace Meta.Core.Serialization;
 
-public static partial class TypedWorkspaceXmlSerializer
+public static class TypedWorkspaceXmlSerializer
 {
     private const string WorkspaceXmlFileName = "workspace.xml";
     private const string DefaultModelFileRelativePath = "model.xml";
@@ -634,7 +634,7 @@ public static partial class TypedWorkspaceXmlSerializer
         foreach (var scalar in entityMap.ScalarProperties.Where(item => item.IsRequired))
         {
             var value = scalar.Property.GetValue(row) as string;
-            if (value == null)
+            if (string.IsNullOrWhiteSpace(value))
             {
                 throw new InvalidOperationException(
                     $"Entity '{entityMap.EntityName}' row '{GetId(entityMap, row)}' is missing required property '{scalar.Property.Name}'.");
@@ -746,16 +746,13 @@ public static partial class TypedWorkspaceXmlSerializer
 
             foreach (var scalar in entityMap.ScalarProperties)
             {
-                var value = scalar.Property.GetValue(row) as string;
-                if (value == null)
+                var value = scalar.Property.GetValue(row) as string ?? string.Empty;
+                if (!scalar.IsRequired && string.IsNullOrWhiteSpace(value))
                 {
                     continue;
                 }
 
-                rowElement.Add(
-                    CanonicalXmlSerializer.CreateTextElement(
-                        scalar.XmlElementName,
-                        value));
+                rowElement.Add(new XElement(scalar.XmlElementName, value));
             }
 
             listElement.Add(rowElement);

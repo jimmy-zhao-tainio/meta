@@ -1,4 +1,3 @@
-using Meta.Core.Operations;
 using Meta.Core.Presentation;
 using MetaCli.Core;
 using MetaMesh.Core;
@@ -116,58 +115,40 @@ internal static class Program
         }
     }
 
-    private static async Task RunAddWorkspace(
-        MetaCliInvocation invocation,
-        MetaMeshModel model)
+    private static void RunAddWorkspace(MetaCliInvocation invocation, MetaMeshModel model)
     {
         var workspacePath = ResolveWorkspacePath(invocation);
-        var session =
-            await TypedXmlMetaOperationSession<MetaMeshModel>.OpenLoadedAsync(
-                model,
-                workspacePath);
         var summary = Service.AddWorkspace(
-            session,
+            model,
             invocation.Required("name"),
             invocation.Required("path"),
             invocation.Optional("model"),
             invocation.Optional("description"),
             workspacePath);
-        await session.CommitAsync();
+        model.SaveToXmlWorkspace(workspacePath);
 
         Presenter.WriteOk();
         WriteWorkspaces(new[] { summary }, Array.Empty<MetaMeshWorkspaceIssue>());
     }
 
-    private static async Task RunAddOperation(
-        MetaCliInvocation invocation,
-        MetaMeshModel model)
+    private static void RunAddOperation(MetaCliInvocation invocation, MetaMeshModel model)
     {
         var workspacePath = ResolveWorkspacePath(invocation);
-        var session =
-            await TypedXmlMetaOperationSession<MetaMeshModel>.OpenLoadedAsync(
-                model,
-                workspacePath);
         var summary = Service.AddOperation(
-            session,
+            model,
             invocation.Required("name"),
             invocation.Optional("description"));
-        await session.CommitAsync();
+        model.SaveToXmlWorkspace(workspacePath);
 
         Presenter.WriteOk();
         WriteOperations(new[] { summary });
     }
 
-    private static async Task RunAddStep(
-        MetaCliInvocation invocation,
-        MetaMeshModel model)
+    private static void RunAddStep(MetaCliInvocation invocation, MetaMeshModel model)
     {
         var workspacePath = ResolveWorkspacePath(invocation);
-        var session =
-            await TypedXmlMetaOperationSession<MetaMeshModel>.OpenLoadedAsync(
-                model,
-                workspacePath);
         Service.AddStep(
-            session,
+            model,
             invocation.Required("operation"),
             invocation.Required("name"),
             invocation.Required("executable"),
@@ -176,7 +157,7 @@ internal static class Program
             invocation.Optional("previous-step"),
             invocation.Optional("expected-exit-code"),
             invocation.Optional("description"));
-        await session.CommitAsync();
+        model.SaveToXmlWorkspace(workspacePath);
 
         Presenter.WriteOk();
     }

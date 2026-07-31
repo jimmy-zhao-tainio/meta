@@ -41,16 +41,6 @@ normative operation semantics, emits a canonical C# workspace, asks Roslyn to
 read it back, compares the complete abstract state, and only then publishes it.
 It never executes workspace source.
 
-The first generated-tooling facade is also implemented. Generated model classes
-and their entity lists are the typed C# workspace surface; the facade does not
-introduce a parallel typed representation. `TypedMetaOperationSession<TModel>`
-accepts generated rows and member selectors, lowers the six instance operations
-to the normative generic interpreter, and preserves canonical C# object
-references. `TypedXmlMetaOperationSession<TModel>` pairs that same generated
-graph with the existing fingerprinted XML session so typed product mutations
-commit through the generic staged writer rather than an unguarded full typed
-save.
-
 ## Implemented vertical proof
 
 The first slice now includes:
@@ -70,12 +60,6 @@ The first slice now includes:
 - a Roslyn-backed C# reader and owned-source session with explicit
   create/open/apply/commit/discard, stale-write rejection, semantic round-trip
   verification, and direct object-reference relationships
-- an in-memory generated-tooling session with typed rows, scalar selectors,
-  object-reference selectors, ordered atomic plans, and explicit set/clear
-  operations
-- an XML-backed generated-tooling session that materializes or accepts the
-  generated graph, proves it matches the generic XML baseline, and commits with
-  fingerprint-based stale-write rejection
 
 The implementation follows the same boundaries:
 
@@ -141,22 +125,6 @@ and instance graph. It also proves:
   SQL Server database, with semantic equality checked at every boundary and
   byte-identical canonical XML, generated C#, and generated SQL after each
   cycle
-- typed insert inputs and row identities are captured when a typed plan is
-  authored, so later object mutation cannot silently retarget or rewrite the
-  plan
-- each typed plan uses one whole-plan generic interpretation and one final
-  generated-graph comparison rather than cloning and validating the workspace
-  once per operation
-- direct generated-object mutation outside a typed session is rejected
-- absent XML shards and empty generated entity lists compare as the same
-  instance state, while unknown entities still fail
-- generic and generated-tooling XML now preserve explicit empty text and
-  leading or trailing whitespace; required text means present rather than
-  non-empty
-- rejected typed plans preserve the generated object graph and earlier accepted
-  pending plans
-- MetaMesh `add-workspace`, `add-operation`, and `add-step` use the typed XML
-  session; only new-workspace creation still publishes a supplied initial graph
 
 ### Generic CLI migration
 
@@ -249,34 +217,11 @@ Pre-commit hardening verification on 2026-07-30:
   and MetaWeave 21
 - live SQL test databases and C# publication test directories were removed
 
-Typed generated-tooling facade verification on 2026-07-30:
-
-- the focused in-memory and XML-backed typed session suite passed all 15 tests
-- the XML-backed proof exercised insert, set/clear property, set/clear
-  relationship, and delete in one typed plan
-- the MetaMesh external CLI suite passed all 12 tests
-- `dotnet test Meta\Tests\Meta.Core.Tests.csproj --no-build --nologo -m:1
-  -nr:false --blame-hang --blame-hang-timeout 5m` passed all 309 tests
-- `dotnet build Metadata.Framework.sln --nologo -m:1 -nr:false` completed
-  with zero warnings and zero errors
-- `dotnet test Metadata.Framework.sln --no-build --nologo -m:1 -nr:false
-  --blame-hang --blame-hang-timeout 5m` passed all 413 tests: Meta.Core 309,
-  MetaDocs 43, MetaMesh 12, MetaCli 28, and MetaWeave 21
-
 ### Limits that remain explicit
 
-- The generated typed facade currently covers the six instance operations. A
-  compiled generated model cannot accept schema operations without regenerating
-  its tooling.
+- No generated typed operation facade exists yet.
 - MetaCliRuntime does not own operation sessions. The generic `meta` handlers
-  own the XML session for the migrated command family. MetaMesh temporarily
-  receives the runtime-loaded generated graph, opens the same XML workspace as
-  a generic session, proves both loads agree, and then delegates commit to that
-  session. Runtime ownership should remove this deliberate double load.
-- The typed facade currently exposes the generated model for bounded product
-  reads. It detects direct mutation before apply, commit, and discard; a later
-  read facade can narrow that mutable exposure when SQL-backed product reads
-  are introduced.
+  own the XML session for the migrated command family.
 - Rename-model, rename-entity, rename-relationship,
   property-to-relationship, relationship-to-property, rename-instance-id,
   instance diff/merge, workspace merge, and import flows still use their
@@ -1468,17 +1413,16 @@ change a product model.
 
 Migrate the generic `meta` mutation and refactor commands to this session.
 
-### Phase 4: introduce the typed facade (initial proof completed)
+### Phase 4: introduce the typed facade
 
-- reuse the generated-tooling reflection map as the sanctioned internal
-  descriptor for the initial proof; do not duplicate it in product code
-- typed entity/property/relationship operation builders cover all six instance
-  operations
-- the generated model itself is the bounded typed read surface for this proof
-- object references remain the C# integrity surface
-- the session has exclusive mutation ownership and rejects direct graph changes
-- typed XML commits use the staged, locked, conflict-aware generic XML session
-- typed instance operations are checked against the same generic semantics
+- expose sanctioned generated model descriptors
+- add typed entity/property/relationship operation builders
+- add the smallest bounded typed read surface required by the selected proofs
+- preserve object references as the C# integrity surface
+- define exclusive ownership or copy-and-publish semantics for compiled typed
+  C# state
+- make typed XML commits staged, locked, and conflict-aware
+- prove typed instance operations lower to the same generic semantics
 
 Good first product proofs:
 
@@ -1487,10 +1431,6 @@ Good first product proofs:
 - MetaMesh `add-workspace`, `add-operation`, and `add-step`, because the service
   already mutates a runtime-loaded typed model and the handler currently owns
   saving
-
-MetaMesh is the completed first product proof because it consumes the local
-foundation project directly. MetaDataQuality remains the next cross-repository
-proof after the foundation package is refreshed.
 
 ### Phase 5: migrate product authoring services
 

@@ -141,48 +141,6 @@ public sealed class TypedWorkspaceXmlSerializerTests
     }
 
     [Fact]
-    public void SaveLoad_PreservesExplicitEmptyAndWhitespaceText()
-    {
-        var tempRoot = CreateTempRoot();
-        try
-        {
-            var workspacePath = Path.Combine(tempRoot, "workspace");
-            TypedWorkspaceXmlSerializer.Save(new TestTypedModel
-            {
-                AlphaList =
-                {
-                    new Alpha
-                    {
-                        Id = "empty",
-                        Name = string.Empty,
-                        Note = string.Empty,
-                    },
-                    new Alpha
-                    {
-                        Id = "whitespace",
-                        Name = " ",
-                        Note = "  ",
-                    },
-                },
-            }, workspacePath);
-
-            var loaded =
-                TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath);
-            var empty = loaded.AlphaList.Single(item => item.Id == "empty");
-            var whitespace = loaded.AlphaList.Single(
-                item => item.Id == "whitespace");
-            Assert.Equal(string.Empty, empty.Name);
-            Assert.Equal(string.Empty, empty.Note);
-            Assert.Equal(" ", whitespace.Name);
-            Assert.Equal("  ", whitespace.Note);
-        }
-        finally
-        {
-            DeleteDirectoryIfExists(tempRoot);
-        }
-    }
-
-    [Fact]
     public void Save_RejectsIdsThatDifferOnlyByCase()
     {
         var tempRoot = CreateTempRoot();
@@ -353,7 +311,6 @@ public sealed class TypedWorkspaceXmlSerializerTests
         public string Id { get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;
-        public string? Note { get; set; }
     }
 
     public sealed class Beta

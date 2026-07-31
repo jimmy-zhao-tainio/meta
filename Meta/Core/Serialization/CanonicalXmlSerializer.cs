@@ -39,20 +39,4 @@ internal static class CanonicalXmlSerializer
     {
         return Utf8NoBom.GetString(SerializeToUtf8(document, indented));
     }
-
-    public static XElement CreateTextElement(XName name, string value)
-    {
-        ArgumentNullException.ThrowIfNull(name);
-        ArgumentNullException.ThrowIfNull(value);
-
-        var element = new XElement(name, value);
-        if (value.Length > 0 &&
-            (char.IsWhiteSpace(value[0]) ||
-             char.IsWhiteSpace(value[^1])))
-        {
-            element.SetAttributeValue(XNamespace.Xml + "space", "preserve");
-        }
-
-        return element;
-    }
 }

@@ -249,10 +249,7 @@ public static class InstanceXmlCodec
                     continue;
                 }
 
-                recordElement.Add(
-                    CanonicalXmlSerializer.CreateTextElement(
-                        propertyName,
-                        value));
+                recordElement.Add(new XElement(propertyName, value));
             }
 
             listElement.Add(recordElement);
