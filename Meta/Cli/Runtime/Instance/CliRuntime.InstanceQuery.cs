@@ -106,8 +106,7 @@ internal sealed partial class CliRuntime
     {
         presenter.WriteInfo($"Graph: {model.Name}");
         presenter.WriteInfo($"Nodes: {stats.NodeCount.ToString(CultureInfo.InvariantCulture)}");
-        presenter.WriteInfo(
-            $"Edges: declared={stats.EdgeCount.ToString(CultureInfo.InvariantCulture)} unique={stats.UniqueEdgeCount.ToString(CultureInfo.InvariantCulture)} dup={stats.DuplicateEdgeCount.ToString(CultureInfo.InvariantCulture)} missingTarget={stats.MissingTargetEdgeCount.ToString(CultureInfo.InvariantCulture)}");
+        presenter.WriteInfo($"Edges: {stats.EdgeCount.ToString(CultureInfo.InvariantCulture)}");
         presenter.WriteInfo(
             $"Components: {stats.WeaklyConnectedComponents.ToString(CultureInfo.InvariantCulture)}  Roots: {stats.RootCount.ToString(CultureInfo.InvariantCulture)}  Sinks: {stats.SinkCount.ToString(CultureInfo.InvariantCulture)}  Isolated: {stats.IsolatedCount.ToString(CultureInfo.InvariantCulture)}");
         presenter.WriteInfo(

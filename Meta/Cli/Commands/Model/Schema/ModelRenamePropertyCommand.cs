@@ -5,15 +5,8 @@ internal sealed partial class CliRuntime
         var entityName = RequiredValue("Entity");
         var oldPropertyName = RequiredValue("Old");
         var newPropertyName = RequiredValue("New");
-        var options = ReadMutatingCommonOptions(commandArgs, startIndex: 5);
-        if (!options.Ok)
-        {
-            return PrintArgumentError(options.ErrorMessage);
-        }
-
         return await ExecuteOperationAsync(
-                options.WorkspacePath,
-                () => new Operation.RenameProperty(
+                new Operation.RenameProperty(
                     entityName,
                     oldPropertyName,
                     newPropertyName),

@@ -20,6 +20,22 @@
     <Parameter Id="param-bulk-insert-stdin" ValueShapeId="shape-flag">
       <Name>stdin</Name>
     </Parameter>
+    <Parameter Id="param-create-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the SQL Server connection string.</Description>
+      <Name>connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-create-csharp" ValueShapeId="shape-path">
+      <Description>Create a C# workspace at this directory.</Description>
+      <Name>csharp</Name>
+    </Parameter>
+    <Parameter Id="param-create-sql" ValueShapeId="shape-path">
+      <Description>Create a SQL workspace described by this directory.</Description>
+      <Name>sql</Name>
+    </Parameter>
+    <Parameter Id="param-create-xml" ValueShapeId="shape-path">
+      <Description>Create an XML workspace at this directory.</Description>
+      <Name>xml</Name>
+    </Parameter>
     <Parameter Id="param-delete-entity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>Entity</Name>
@@ -58,10 +74,6 @@
       <IsRequired>true</IsRequired>
       <Name>out</Name>
     </Parameter>
-    <Parameter Id="param-generate-ssdt-out" ValueShapeId="shape-dir">
-      <IsRequired>true</IsRequired>
-      <Name>out</Name>
-    </Parameter>
     <Parameter Id="param-graph-inbound-entity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>Entity</Name>
@@ -86,23 +98,45 @@
       <IsRequired>true</IsRequired>
       <Name>entity</Name>
     </Parameter>
-    <Parameter Id="param-import-csv-new-workspace" ValueShapeId="shape-path">
-      <Name>new-workspace</Name>
+    <Parameter Id="param-import-csv-output-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the output SQL workspace connection string.</Description>
+      <Name>output-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-import-csv-output-csharp" ValueShapeId="shape-path">
+      <Description>Create the output on the csharp workspace surface.</Description>
+      <Name>output-csharp</Name>
+    </Parameter>
+    <Parameter Id="param-import-csv-output-sql" ValueShapeId="shape-path">
+      <Description>Create the output on the sql workspace surface.</Description>
+      <Name>output-sql</Name>
+    </Parameter>
+    <Parameter Id="param-import-csv-output-xml" ValueShapeId="shape-path">
+      <Description>Create the output on the xml workspace surface.</Description>
+      <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-import-sql-connection-env" ValueShapeId="shape-name">
       <IsRequired>true</IsRequired>
       <Name>connection-env</Name>
     </Parameter>
-    <Parameter Id="param-import-sql-new-workspace" ValueShapeId="shape-path">
-      <IsRequired>true</IsRequired>
-      <Name>new-workspace</Name>
+    <Parameter Id="param-import-sql-output-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the output SQL workspace connection string.</Description>
+      <Name>output-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-import-sql-output-csharp" ValueShapeId="shape-path">
+      <Description>Create the output on the csharp workspace surface.</Description>
+      <Name>output-csharp</Name>
+    </Parameter>
+    <Parameter Id="param-import-sql-output-sql" ValueShapeId="shape-path">
+      <Description>Create the output on the sql workspace surface.</Description>
+      <Name>output-sql</Name>
+    </Parameter>
+    <Parameter Id="param-import-sql-output-xml" ValueShapeId="shape-path">
+      <Description>Create the output on the xml workspace surface.</Description>
+      <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-import-sql-schema" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>schema</Name>
-    </Parameter>
-    <Parameter Id="param-init-path" ValueShapeId="shape-path">
-      <Name>path</Name>
     </Parameter>
     <Parameter Id="param-insert-auto-id" ValueShapeId="shape-flag">
       <Name>auto-id</Name>
@@ -322,10 +356,6 @@
       <IsRequired>true</IsRequired>
       <Name>Old</Name>
     </Parameter>
-    <Parameter Id="param-model-rename-relationship-existing-column" ValueShapeId="shape-text">
-      <Description>Persisted relationship column to reconcile before the rename.</Description>
-      <Name>existing-column</Name>
-    </Parameter>
     <Parameter Id="param-model-rename-relationship-fromentity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>FromEntity</Name>
@@ -391,7 +421,7 @@
       <IsRequired>true</IsRequired>
       <Name>Id</Name>
     </Parameter>
-    <Parameter Id="param-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-workspace" ValueShapeId="shape-workspace-location">
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-workspace-merge-leftworkspace" ValueShapeId="shape-path">
@@ -402,9 +432,21 @@
       <IsRequired>true</IsRequired>
       <Name>model</Name>
     </Parameter>
-    <Parameter Id="param-workspace-merge-new-workspace" ValueShapeId="shape-path">
-      <IsRequired>true</IsRequired>
-      <Name>new-workspace</Name>
+    <Parameter Id="param-workspace-merge-output-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the output SQL workspace connection string.</Description>
+      <Name>output-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-workspace-merge-output-csharp" ValueShapeId="shape-path">
+      <Description>Create the output on the csharp workspace surface.</Description>
+      <Name>output-csharp</Name>
+    </Parameter>
+    <Parameter Id="param-workspace-merge-output-sql" ValueShapeId="shape-path">
+      <Description>Create the output on the sql workspace surface.</Description>
+      <Name>output-sql</Name>
+    </Parameter>
+    <Parameter Id="param-workspace-merge-output-xml" ValueShapeId="shape-path">
+      <Description>Create the output on the xml workspace surface.</Description>
+      <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-workspace-merge-rightworkspace" ValueShapeId="shape-path">
       <IsRequired>true</IsRequired>

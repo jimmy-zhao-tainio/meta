@@ -6,26 +6,209 @@ using Meta.Core.Operations;
 
 namespace Meta.Adapters;
 
-public sealed class SqlWorkspaceSource : IMetaWorkspaceSource, IAsyncDisposable
+public sealed class SqlWorkspace : IMetaWorkspace
 {
+    private readonly SqlWorkspaceConnection _connection;
+
+    private SqlWorkspace(SqlWorkspaceConnection connection)
+    {
+        _connection = connection;
+    }
+
+    public static async Task<SqlWorkspace> OpenAsync(
+        string connectionString,
+        CancellationToken cancellationToken = default) =>
+        new(await SqlWorkspaceConnection.OpenAsync(
+                connectionString,
+                SqlWorkspaceContract.Schema,
+                cancellationToken)
+            .ConfigureAwait(false));
+
+    public static async Task CreateAsync(
+        string connectionString,
+        InMemoryWorkspace workspace,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(workspace);
+        var databaseName = await SqlWorkspaceDatabase.CreateAsync(
+                connectionString,
+                workspace.Model.Name,
+                cancellationToken)
+            .ConfigureAwait(false);
+        try
+        {
+            await using var destination = await OpenAsync(
+                    connectionString,
+                    cancellationToken)
+                .ConfigureAwait(false);
+            var modelName = await destination.ReadModelNameAsync(
+                    cancellationToken)
+                .ConfigureAwait(false);
+            var operations = WorkspaceSynchronization.PlanCreation(
+                workspace,
+                modelName);
+            await destination._connection.ExecuteVerifiedAsync(
+                    operations,
+                    workspace,
+                    cancellationToken)
+                .ConfigureAwait(false);
+        }
+        catch (Exception creationException)
+        {
+            try
+            {
+                await SqlWorkspaceDatabase.DropIfExistsAsync(
+                        connectionString,
+                        databaseName,
+                        CancellationToken.None)
+                    .ConfigureAwait(false);
+            }
+            catch (Exception cleanupException)
+            {
+                throw new AggregateException(
+                    $"SQL workspace database '{databaseName}' could not be removed after creation failed.",
+                    creationException,
+                    cleanupException);
+            }
+
+            throw;
+        }
+    }
+
+    public ValueTask<IReadOnlyList<OperationResult>> ExecuteAsync(
+        IReadOnlyList<Operation> operations,
+        CancellationToken cancellationToken = default) =>
+        _connection.ExecuteAsync(operations, cancellationToken);
+
+    public ValueTask DisposeAsync() => _connection.DisposeAsync();
+
+    public ValueTask<string> ReadModelNameAsync(
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadModelNameAsync(cancellationToken);
+
+    public IAsyncEnumerable<string> ReadEntityNamesAsync(
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadEntityNamesAsync(cancellationToken);
+
+    public IAsyncEnumerable<PropertyDefinition> ReadPropertiesAsync(
+        string entityName,
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadPropertiesAsync(entityName, cancellationToken);
+
+    public IAsyncEnumerable<RelationshipDefinition> ReadRelationshipsAsync(
+        string entityName,
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadRelationshipsAsync(entityName, cancellationToken);
+
+    public IAsyncEnumerable<RecordData> ReadRecordsAsync(
+        string entityName,
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadRecordsAsync(entityName, cancellationToken);
+
+    public ValueTask<long> CountRecordsAsync(
+        string entityName,
+        CancellationToken cancellationToken = default) =>
+        _connection.CountRecordsAsync(entityName, cancellationToken);
+
+    public ValueTask<RecordQueryResult> QueryRecordsAsync(
+        string entityName,
+        RecordQuery query,
+        CancellationToken cancellationToken = default) =>
+        _connection.QueryRecordsAsync(entityName, query, cancellationToken);
+
+    public ValueTask<RecordData?> ReadRecordAsync(
+        string entityName,
+        string id,
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadRecordAsync(entityName, id, cancellationToken);
+}
+
+public sealed class SqlSchemaSource : IMetaWorkspaceSource, IAsyncDisposable
+{
+    private readonly SqlWorkspaceConnection _connection;
+
+    private SqlSchemaSource(SqlWorkspaceConnection connection)
+    {
+        _connection = connection;
+    }
+
+    public static async Task<SqlSchemaSource> OpenAsync(
+        string connectionString,
+        string schema,
+        CancellationToken cancellationToken = default) =>
+        new(await SqlWorkspaceConnection.OpenAsync(
+                connectionString,
+                schema,
+                cancellationToken)
+            .ConfigureAwait(false));
+
+    public ValueTask<string> ReadModelNameAsync(
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadModelNameAsync(cancellationToken);
+
+    public IAsyncEnumerable<string> ReadEntityNamesAsync(
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadEntityNamesAsync(cancellationToken);
+
+    public IAsyncEnumerable<PropertyDefinition> ReadPropertiesAsync(
+        string entityName,
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadPropertiesAsync(entityName, cancellationToken);
+
+    public IAsyncEnumerable<RelationshipDefinition> ReadRelationshipsAsync(
+        string entityName,
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadRelationshipsAsync(entityName, cancellationToken);
+
+    public IAsyncEnumerable<RecordData> ReadRecordsAsync(
+        string entityName,
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadRecordsAsync(entityName, cancellationToken);
+
+    public ValueTask<long> CountRecordsAsync(
+        string entityName,
+        CancellationToken cancellationToken = default) =>
+        _connection.CountRecordsAsync(entityName, cancellationToken);
+
+    public ValueTask<RecordQueryResult> QueryRecordsAsync(
+        string entityName,
+        RecordQuery query,
+        CancellationToken cancellationToken = default) =>
+        _connection.QueryRecordsAsync(entityName, query, cancellationToken);
+
+    public ValueTask<RecordData?> ReadRecordAsync(
+        string entityName,
+        string id,
+        CancellationToken cancellationToken = default) =>
+        _connection.ReadRecordAsync(entityName, id, cancellationToken);
+
+    public ValueTask DisposeAsync() => _connection.DisposeAsync();
+}
+
+internal sealed class SqlWorkspaceConnection : IMetaWorkspaceSource, IAsyncDisposable
+{
+    private readonly string _connectionString;
     private readonly SqlConnection _connection;
     private readonly SqlTransaction _transaction;
     private readonly string _schema;
-    private readonly GenericModel _model;
+    private GenericModel _model;
+    private bool _completed;
 
-    private SqlWorkspaceSource(
+    private SqlWorkspaceConnection(
+        string connectionString,
         SqlConnection connection,
         SqlTransaction transaction,
         string schema,
         GenericModel model)
     {
+        _connectionString = connectionString;
         _connection = connection;
         _transaction = transaction;
         _schema = schema;
         _model = model;
     }
 
-    public static async Task<SqlWorkspaceSource> OpenAsync(
+    public static async Task<SqlWorkspaceConnection> OpenAsync(
         string connectionString,
         string schema,
         CancellationToken cancellationToken = default)
@@ -56,7 +239,8 @@ public sealed class SqlWorkspaceSource : IMetaWorkspaceSource, IAsyncDisposable
                 connection,
                 transaction,
                 effectiveSchema);
-            return new SqlWorkspaceSource(
+            return new SqlWorkspaceConnection(
+                connectionString,
                 connection,
                 transaction,
                 effectiveSchema,
@@ -195,6 +379,125 @@ public sealed class SqlWorkspaceSource : IMetaWorkspaceSource, IAsyncDisposable
             .ConfigureAwait(false);
     }
 
+    public ValueTask<IReadOnlyList<OperationResult>> ExecuteAsync(
+        IReadOnlyList<Operation> operations,
+        CancellationToken cancellationToken = default)
+    {
+        ValidateExecution(operations, cancellationToken);
+
+        if (operations.Count == 0)
+        {
+            return ValueTask.FromResult<IReadOnlyList<OperationResult>>([]);
+        }
+
+        if (operations.Any(operation => operation is Operation.RenameModel))
+        {
+            if (operations.Count != 1 ||
+                operations[0] is not Operation.RenameModel renameModel)
+            {
+                throw new InvalidOperationException(
+                    "SQL model rename must be applied as one operation because SQL Server database rename cannot participate in a transaction with other workspace operations.");
+            }
+
+            _transaction.Rollback();
+            _completed = true;
+            _transaction.Dispose();
+            _connection.Dispose();
+            try
+            {
+                var result = SqlOperationTarget.RenameDatabase(
+                    _connectionString,
+                    _schema,
+                    renameModel);
+                return ValueTask.FromResult<IReadOnlyList<OperationResult>>(
+                    [result]);
+            }
+            catch (Exception exception)
+            {
+                throw new MetaOperationException(
+                    0,
+                    renameModel,
+                    exception);
+            }
+        }
+
+        var results = ApplyOperations(operations);
+        _transaction.Commit();
+        _completed = true;
+        return ValueTask.FromResult<IReadOnlyList<OperationResult>>(results);
+    }
+
+    internal async ValueTask<IReadOnlyList<OperationResult>> ExecuteVerifiedAsync(
+        IReadOnlyList<Operation> operations,
+        InMemoryWorkspace expected,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(expected);
+        ValidateExecution(operations, cancellationToken);
+        if (operations.Any(operation => operation is Operation.RenameModel))
+        {
+            throw new InvalidOperationException(
+                "Verified SQL workspace creation cannot rename the destination database.");
+        }
+
+        var results = ApplyOperations(operations);
+        var actual = await WorkspaceComposition.MaterializeAsync(
+                this,
+                cancellationToken)
+            .ConfigureAwait(false);
+        var difference = InMemoryWorkspaceComparer.FindDifference(
+            expected,
+            actual);
+        if (difference != null)
+        {
+            throw new InvalidOperationException(
+                $"Created SQL workspace changed metadata semantics. {difference}");
+        }
+
+        _transaction.Commit();
+        _completed = true;
+        return results;
+    }
+
+    private IReadOnlyList<OperationResult> ApplyOperations(
+        IReadOnlyList<Operation> operations)
+    {
+        var target = new SqlOperationTarget(
+            _connection,
+            _transaction,
+            _schema);
+        var results = new List<OperationResult>(operations.Count);
+        for (var index = 0; index < operations.Count; index++)
+        {
+            var operation = operations[index];
+            try
+            {
+                results.Add(operation.ApplyTo(target));
+                if (operation is Operation.ModelOperation or
+                    Operation.RefactorOperation)
+                {
+                    _model = SqlWorkspaceModelReader.Read(
+                        _connection,
+                        _transaction,
+                        _schema);
+                }
+            }
+            catch (MetaOperationException)
+            {
+                throw;
+            }
+            catch (Exception exception)
+            {
+                throw new MetaOperationException(
+                    index,
+                    operation,
+                    exception);
+            }
+        }
+
+        return results;
+    }
+
     public async ValueTask DisposeAsync()
     {
         await _transaction.DisposeAsync().ConfigureAwait(false);
@@ -211,5 +514,29 @@ public sealed class SqlWorkspaceSource : IMetaWorkspaceSource, IAsyncDisposable
                      throw new InvalidOperationException(
                          $"Entity '{name}' does not exist.");
         return ValueTask.FromResult(entity);
+    }
+
+    private void EnsureActive()
+    {
+        if (_completed)
+        {
+            throw new InvalidOperationException(
+                "SQL workspace execution has completed.");
+        }
+    }
+
+    private void ValidateExecution(
+        IReadOnlyList<Operation> operations,
+        CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(operations);
+        cancellationToken.ThrowIfCancellationRequested();
+        EnsureActive();
+        if (operations.Any(operation => operation == null))
+        {
+            throw new ArgumentException(
+                "Operations cannot contain null.",
+                nameof(operations));
+        }
     }
 }

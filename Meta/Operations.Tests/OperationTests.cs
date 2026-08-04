@@ -84,7 +84,8 @@ public sealed class OperationTests
             new Operation.RenameModel("Original", "Renamed"),
             new Operation.RenameRecord("Parent", "parent", "parent-new"),
             new Operation.RenameRelationship("Child", "Parent", "Owner"),
-            new Operation.RenameEntity("Parent", "Party"));
+            new Operation.RenameEntity("Parent", "Party"),
+            new Operation.RenameRecord("Party", "parent-new", "parent-final"));
 
         Assert.Equal(
             new RenameModelResult("Original", "Renamed"),
@@ -103,6 +104,9 @@ public sealed class OperationTests
         Assert.Equal(
             new RenameEntityResult("Parent", "Party", 1, 1, 0),
             execution.Results[3]);
+        Assert.Equal(
+            new RenameRecordResult("Party", "parent-new", "parent-final", 1),
+            execution.Results[4]);
     }
 
     [Fact]

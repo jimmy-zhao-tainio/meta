@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ExecutableCommandParameterList>
+    <ExecutableCommandParameter Id="exec-add-operation:parameter:param-add-operation-workspace" ExecutableCommandId="exec-add-operation" ParameterId="param-add-operation-workspace" />
     <ExecutableCommandParameter Id="exec-add-operation:parameter:param-operation-description" ExecutableCommandId="exec-add-operation" ParameterId="param-operation-description" />
     <ExecutableCommandParameter Id="exec-add-operation:parameter:param-operation-name" ExecutableCommandId="exec-add-operation" ParameterId="param-operation-name" />
+    <ExecutableCommandParameter Id="exec-add-step:parameter:param-add-step-workspace" ExecutableCommandId="exec-add-step" ParameterId="param-add-step-workspace" />
     <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-arguments" ExecutableCommandId="exec-add-step" ParameterId="param-step-arguments" />
     <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-arguments-stdin" ExecutableCommandId="exec-add-step" ParameterId="param-step-arguments-stdin" />
     <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-description" ExecutableCommandId="exec-add-step" ParameterId="param-step-description" />
@@ -12,18 +14,30 @@
     <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-operation" ExecutableCommandId="exec-add-step" ParameterId="param-step-operation" />
     <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-previous-step" ExecutableCommandId="exec-add-step" ParameterId="param-step-previous-step" />
     <ExecutableCommandParameter Id="exec-add-step:parameter:param-step-working-directory" ExecutableCommandId="exec-add-step" ParameterId="param-step-working-directory" />
+    <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-add-workspace-workspace" ExecutableCommandId="exec-add-workspace" ParameterId="param-add-workspace-workspace" />
+    <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-csharp-path" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-csharp-path" />
     <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-description" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-description" />
     <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-model" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-model" />
     <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-name" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-name" />
-    <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-path" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-path" />
-    <ExecutableCommandParameter Id="exec-new-workspace:parameter:param-new-workspace-description" ExecutableCommandId="exec-new-workspace" ParameterId="param-new-workspace-description" />
-    <ExecutableCommandParameter Id="exec-new-workspace:parameter:param-new-workspace-name" ExecutableCommandId="exec-new-workspace" ParameterId="param-new-workspace-name" />
-    <ExecutableCommandParameter Id="exec-new-workspace:parameter:param-new-workspace-path" ExecutableCommandId="exec-new-workspace" ParameterId="param-new-workspace-path" />
-    <ExecutableCommandParameter Id="exec-new-workspace:parameter:param-new-workspace-root" ExecutableCommandId="exec-new-workspace" ParameterId="param-new-workspace-root" />
+    <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-sql-connection-env" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-sql-connection-env" />
+    <ExecutableCommandParameter Id="exec-add-workspace:parameter:param-workspace-xml-path" ExecutableCommandId="exec-add-workspace" ParameterId="param-workspace-xml-path" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-connection-env" ExecutableCommandId="exec-create" ParameterId="param-create-connection-env" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-csharp" ExecutableCommandId="exec-create" ParameterId="param-create-csharp" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-description" ExecutableCommandId="exec-create" ParameterId="param-create-description" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-name" ExecutableCommandId="exec-create" ParameterId="param-create-name" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-root" ExecutableCommandId="exec-create" ParameterId="param-create-root" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-sql" ExecutableCommandId="exec-create" ParameterId="param-create-sql" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-xml" ExecutableCommandId="exec-create" ParameterId="param-create-xml" />
+    <ExecutableCommandParameter Id="exec-operations:parameter:param-operations-workspace" ExecutableCommandId="exec-operations" ParameterId="param-operations-workspace" />
     <ExecutableCommandParameter Id="exec-run:parameter:param-run-operation" ExecutableCommandId="exec-run" ParameterId="param-run-operation" />
     <ExecutableCommandParameter Id="exec-run:parameter:param-run-verbose" ExecutableCommandId="exec-run" ParameterId="param-run-verbose" />
+    <ExecutableCommandParameter Id="exec-run:parameter:param-run-workspace" ExecutableCommandId="exec-run" ParameterId="param-run-workspace" />
     <ExecutableCommandParameter Id="exec-show:parameter:param-show-verbose" ExecutableCommandId="exec-show" ParameterId="param-show-verbose" />
+    <ExecutableCommandParameter Id="exec-show:parameter:param-show-workspace" ExecutableCommandId="exec-show" ParameterId="param-show-workspace" />
     <ExecutableCommandParameter Id="exec-steps:parameter:param-steps-operation" ExecutableCommandId="exec-steps" ParameterId="param-steps-operation" />
+    <ExecutableCommandParameter Id="exec-steps:parameter:param-steps-workspace" ExecutableCommandId="exec-steps" ParameterId="param-steps-workspace" />
     <ExecutableCommandParameter Id="exec-validate:parameter:param-validate-operation" ExecutableCommandId="exec-validate" ParameterId="param-validate-operation" />
+    <ExecutableCommandParameter Id="exec-validate:parameter:param-validate-workspace" ExecutableCommandId="exec-validate" ParameterId="param-validate-workspace" />
+    <ExecutableCommandParameter Id="exec-workspaces:parameter:param-workspaces-workspace" ExecutableCommandId="exec-workspaces" ParameterId="param-workspaces-workspace" />
   </ExecutableCommandParameterList>
 </MetaCli>

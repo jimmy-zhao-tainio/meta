@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Meta.Core.Services;
 
-internal static class WorkspaceWriteLock
+public static class WorkspaceWriteLock
 {
     private const string LockFileName = ".meta.lock";
     private const int MaxAcquireAttempts = 3;
@@ -151,7 +151,7 @@ internal static class WorkspaceWriteLock
     }
 }
 
-internal sealed class WorkspaceWriteLockHandle : IDisposable
+public sealed class WorkspaceWriteLockHandle : IDisposable
 {
     private readonly FileStream stream;
     private bool disposed;

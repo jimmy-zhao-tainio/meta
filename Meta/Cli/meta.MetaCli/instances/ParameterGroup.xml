@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <ParameterGroupList>
+    <ParameterGroup Id="group-create-output" ExecutableCommandId="exec-create">
+      <Description>Choose one workspace representation.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>output</Name>
+    </ParameterGroup>
+    <ParameterGroup Id="group-import-csv-target" ExecutableCommandId="exec-import-csv">
+      <Description>Choose one workspace target.</Description>
+      <IsRequired>false</IsRequired>
+      <Name>target</Name>
+    </ParameterGroup>
+    <ParameterGroup Id="group-import-sql-target" ExecutableCommandId="exec-import-sql">
+      <Description>Choose one workspace target.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>target</Name>
+    </ParameterGroup>
+    <ParameterGroup Id="group-workspace-merge-target" ExecutableCommandId="exec-workspace-merge">
+      <Description>Choose one workspace target.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>target</Name>
+    </ParameterGroup>
+  </ParameterGroupList>
+</MetaCli>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <ParameterGroupList>
+    <ParameterGroup Id="group-add-workspace-representation" ExecutableCommandId="exec-add-workspace">
+      <AllowsMultiple>false</AllowsMultiple>
+      <Description>Workspace representation and location.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>representation</Name>
+    </ParameterGroup>
+    <ParameterGroup Id="group-create-output" ExecutableCommandId="exec-create">
+      <Description>Choose one workspace representation.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>output</Name>
+    </ParameterGroup>
+  </ParameterGroupList>
+</MetaCli>

@@ -18,7 +18,10 @@ internal static class Program
                 ApplicationId,
                 setExitCode: code => exitCode = code)
             .UseDefaultHelp()
-            .Bind("exec-new-workspace", RunCreate)
+            .Bind(
+                "exec-create",
+                [MetaCliWorkspace.Create("output", "xml", "csharp", "sql")],
+                RunCreate)
             .Bind("exec-show", RunShow)
             .Bind("exec-add-application", RunAddApplication)
             .Bind("exec-add-command", RunAddCommand)
@@ -28,11 +31,15 @@ internal static class Program
             .Bind("exec-add-value-shape", RunAddValueShape)
             .Bind("exec-add-allowed-value", RunAddAllowedValue)
             .Bind("exec-add-application-option", RunAddApplicationOption)
+            .Bind("exec-remove-application-option", RunRemoveApplicationOption)
+            .Bind("exec-remove-command", RunRemoveCommand)
+            .Bind("exec-remove-option", RunRemoveOption)
             .Bind("exec-add-option", RunAddOption)
             .Bind("exec-add-option-token", RunAddOptionToken)
             .Bind("exec-add-positional", RunAddPositional)
             .Bind("exec-add-parameter-group", RunAddParameterGroup)
-            .Bind("exec-add-parameter-group-member", RunAddParameterGroupMember);
+            .Bind("exec-add-parameter-group-member", RunAddParameterGroupMember)
+            .Bind("exec-set-parameter-group-required", RunSetParameterGroupRequired);
 
         runtime.Run(args);
         return exitCode;
@@ -41,33 +48,36 @@ internal static class Program
     private static string CommandWorkspacePath =>
         Path.Combine(AppContext.BaseDirectory, CommandWorkspaceDirectoryName);
 
-    private static void RunCreate(MetaCliInvocation invocation)
+    private static async Task RunCreate(
+        MetaCliInvocation invocation,
+        MetaCliWorkspaces workspaces)
     {
-        var result = Service.CreateWorkspace(
-            invocation.Required("Path"),
+        var model = Service.CreateWorkspace(
             invocation.Optional("application"),
             invocation.Flag("standard-cli-shapes"),
             invocation.Flag("default-help"));
-        Presenter.WriteInfo($"Created MetaCli workspace: {result.WorkspacePath}");
-        if (result.ApplicationCount > 0)
+        await workspaces.CreateAsync("output", model).ConfigureAwait(false);
+
+        Presenter.WriteInfo($"Created MetaCli workspace: {MetaCliWorkspace.OutputLocation(invocation)}");
+        if (model.ApplicationList.Count > 0)
         {
-            Presenter.WriteInfo($"  applications: {Count(result.ApplicationCount)}");
+            Presenter.WriteInfo($"  applications: {Count(model.ApplicationList.Count)}");
         }
 
-        if (result.ValueShapeCount > 0)
+        if (model.ValueShapeList.Count > 0)
         {
-            Presenter.WriteInfo($"  value shapes: {Count(result.ValueShapeCount)}");
+            Presenter.WriteInfo($"  value shapes: {Count(model.ValueShapeList.Count)}");
         }
 
-        if (result.CommandCount > 0)
+        if (model.CommandList.Count > 0)
         {
-            Presenter.WriteInfo($"  commands: {Count(result.CommandCount)} ({Count(result.ExecutableCommandCount)} runnable)");
+            Presenter.WriteInfo($"  commands: {Count(model.CommandList.Count)} ({Count(model.ExecutableCommandList.Count)} runnable)");
         }
     }
 
-    private static void RunShow(MetaCliInvocation invocation)
+    private static void RunShow(MetaCliInvocation invocation, MetaCliModel model)
     {
-        var result = Service.Show(Workspace(invocation));
+        var result = Service.Show(model);
         Presenter.WriteInfo("MetaCli workspace");
         if (result.Applications.Count == 0)
         {
@@ -122,10 +132,10 @@ internal static class Program
         }
     }
 
-    private static void RunAddApplication(MetaCliInvocation invocation)
+    private static void RunAddApplication(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddApplication(
-            Workspace(invocation),
+            model,
             invocation.Required("id"),
             invocation.Required("name"),
             invocation.Optional("executable-name"),
@@ -134,10 +144,10 @@ internal static class Program
         WriteDone($"Added application {row.Id} ({row.Name}).");
     }
 
-    private static void RunAddCommand(MetaCliInvocation invocation)
+    private static void RunAddCommand(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddCommand(
-            Workspace(invocation),
+            model,
             invocation.Required("id"),
             invocation.Required("application"),
             invocation.Required("name"),
@@ -147,28 +157,28 @@ internal static class Program
         WriteDone($"Added command {MetaCliWorkspaceService.BuildRoute(row)} ({row.Id}).");
     }
 
-    private static void RunAddExecutableCommand(MetaCliInvocation invocation)
+    private static void RunAddExecutableCommand(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddExecutableCommand(
-            Workspace(invocation),
+            model,
             invocation.Required("id"),
             invocation.Required("command"));
         WriteDone($"Made command runnable: {MetaCliWorkspaceService.BuildRoute(row.Command)} ({row.Id}).");
     }
 
-    private static void RunSetDefaultCommand(MetaCliInvocation invocation)
+    private static void RunSetDefaultCommand(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.SetDefaultCommand(
-            Workspace(invocation),
+            model,
             invocation.Required("application"),
             invocation.Required("executable-command"));
         WriteDone($"Set default command for {row.Application.Id}: {row.ExecutableCommand.Command.Name}.");
     }
 
-    private static void RunAddValueArity(MetaCliInvocation invocation)
+    private static void RunAddValueArity(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddValueArity(
-            Workspace(invocation),
+            model,
             invocation.Required("id"),
             invocation.Required("name"),
             invocation.Required("min-value-count"),
@@ -177,10 +187,10 @@ internal static class Program
         WriteDone($"Added value arity {row.Id}: {row.Name} ({row.MinValueCount}..{(row.MaxValueCount ?? "*")}).");
     }
 
-    private static void RunAddValueShape(MetaCliInvocation invocation)
+    private static void RunAddValueShape(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddValueShape(
-            Workspace(invocation),
+            model,
             invocation.Required("id"),
             invocation.Required("name"),
             invocation.Required("value-arity"),
@@ -190,10 +200,10 @@ internal static class Program
         WriteDone($"Added value shape {row.Id}: {row.Name}.");
     }
 
-    private static void RunAddAllowedValue(MetaCliInvocation invocation)
+    private static void RunAddAllowedValue(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddAllowedValue(
-            Workspace(invocation),
+            model,
             invocation.Required("id"),
             invocation.Required("value-shape"),
             invocation.Required("value"),
@@ -201,10 +211,10 @@ internal static class Program
         WriteDone($"Added allowed value {row.Value} for {row.ValueShape.Name}.");
     }
 
-    private static void RunAddOption(MetaCliInvocation invocation)
+    private static void RunAddOption(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddOption(
-            Workspace(invocation),
+            model,
             invocation.Required("parameter-id"),
             invocation.Required("option-id"),
             invocation.Required("executable-command"),
@@ -219,10 +229,10 @@ internal static class Program
         WriteDone($"Added option {row.Parameter.Name} ({invocation.Required("token")}).");
     }
 
-    private static void RunAddApplicationOption(MetaCliInvocation invocation)
+    private static void RunAddApplicationOption(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddApplicationOption(
-            Workspace(invocation),
+            model,
             invocation.Required("parameter-id"),
             invocation.Required("option-id"),
             invocation.Required("application"),
@@ -237,10 +247,31 @@ internal static class Program
         WriteDone($"Added application option {row.Parameter.Name} ({invocation.Required("token")}).");
     }
 
-    private static void RunAddOptionToken(MetaCliInvocation invocation)
+    private static void RunRemoveApplicationOption(MetaCliInvocation invocation, MetaCliModel model)
+    {
+        var row = Service.RemoveApplicationOption(
+            model,
+            invocation.Required("application"),
+            invocation.Required("parameter"));
+        WriteDone($"Removed application option {row.Name}.");
+    }
+
+    private static void RunRemoveCommand(MetaCliInvocation invocation, MetaCliModel model)
+    {
+        var row = Service.RemoveCommand(model, invocation.Required("id"));
+        WriteDone($"Removed command {row.Name}.");
+    }
+
+    private static void RunRemoveOption(MetaCliInvocation invocation, MetaCliModel model)
+    {
+        var row = Service.RemoveOption(model, invocation.Required("parameter"));
+        WriteDone($"Removed option {row.Name}.");
+    }
+
+    private static void RunAddOptionToken(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddOptionToken(
-            Workspace(invocation),
+            model,
             invocation.Required("id"),
             invocation.Required("option"),
             invocation.Required("token"),
@@ -248,10 +279,10 @@ internal static class Program
         WriteDone($"Added option alias {row.Token}.");
     }
 
-    private static void RunAddPositional(MetaCliInvocation invocation)
+    private static void RunAddPositional(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddPositional(
-            Workspace(invocation),
+            model,
             invocation.Required("parameter-id"),
             invocation.Required("positional-id"),
             invocation.Required("executable-command"),
@@ -265,10 +296,10 @@ internal static class Program
         WriteDone($"Added positional argument {row.Parameter.Name}.");
     }
 
-    private static void RunAddParameterGroup(MetaCliInvocation invocation)
+    private static void RunAddParameterGroup(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddParameterGroup(
-            Workspace(invocation),
+            model,
             invocation.Required("id"),
             invocation.Required("executable-command"),
             invocation.Required("name"),
@@ -280,10 +311,10 @@ internal static class Program
         WriteDone($"Added parameter group {row.Name}.");
     }
 
-    private static void RunAddParameterGroupMember(MetaCliInvocation invocation)
+    private static void RunAddParameterGroupMember(MetaCliInvocation invocation, MetaCliModel model)
     {
         var row = Service.AddParameterGroupMember(
-            Workspace(invocation),
+            model,
             invocation.Required("id"),
             invocation.Required("parameter-group"),
             invocation.Required("parameter"),
@@ -291,8 +322,14 @@ internal static class Program
         WriteDone($"Added {row.Parameter.Name} to group {row.ParameterGroup.Name}.");
     }
 
-    private static string Workspace(MetaCliInvocation invocation) =>
-        invocation.Optional("workspace") ?? Environment.CurrentDirectory;
+    private static void RunSetParameterGroupRequired(MetaCliInvocation invocation, MetaCliModel model)
+    {
+        var row = Service.SetParameterGroupRequired(
+            model,
+            invocation.Required("id"),
+            bool.Parse(invocation.Required("required")));
+        WriteDone($"Updated parameter group {row.Name}.");
+    }
 
     private static bool? OptionalBool(MetaCliInvocation invocation, string parameter)
     {

@@ -22,19 +22,50 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-            var entity = RequireEntity(workspace.Model, entityName);
-            ResolveRowById(workspace.State, entityName, id);
-            var operations = BuildUpdateOperations(
-                entity,
-                id,
-                options.SetValues);
-            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
-                    workspace,
+            var resolvedEntityName = await ResolveEntityNameAsync(CurrentWorkspace, entityName)
+                .ConfigureAwait(false);
+            var properties = new HashSet<string>(MetaName.Comparer);
+            await foreach (var property in CurrentWorkspace.ReadPropertiesAsync(resolvedEntityName))
+            {
+                properties.Add(property.Name);
+            }
+
+            var relationshipAliases = new Dictionary<string, string>(MetaName.Comparer);
+            await foreach (var relationship in CurrentWorkspace.ReadRelationshipsAsync(resolvedEntityName))
+            {
+                relationshipAliases[relationship.GetColumnName()] = relationship.GetColumnName();
+                relationshipAliases[relationship.GetRoleOrDefault()] = relationship.GetColumnName();
+            }
+
+            var operations = new List<Operation>(options.SetValues.Count);
+            foreach (var pair in options.SetValues)
+            {
+                if (properties.Contains(pair.Key))
+                {
+                    operations.Add(new Operation.SetProperty(
+                        resolvedEntityName,
+                        id,
+                        pair.Key,
+                        pair.Value));
+                }
+                else if (relationshipAliases.TryGetValue(pair.Key, out var relationshipName))
+                {
+                    var targetId = NormalizeRelationshipInputValue(pair.Value);
+                    operations.Add(string.IsNullOrWhiteSpace(targetId)
+                        ? new Operation.ClearRelationship(resolvedEntityName, id, relationshipName)
+                        : new Operation.SetRelationship(resolvedEntityName, id, relationshipName, targetId));
+                }
+                else
+                {
+                    throw new InvalidOperationException(
+                        $"Field '{pair.Key}' is not a property or relationship on entity '{resolvedEntityName}'.");
+                }
+            }
+
+            return await ExecuteOperationsAsync(
                     operations,
                     commandName: "instance.update",
-                    successMessage: $"updated {BuildEntityInstanceAddress(entityName, id)}")
+                    successMessage: $"updated {BuildEntityInstanceAddress(resolvedEntityName, id)}")
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)

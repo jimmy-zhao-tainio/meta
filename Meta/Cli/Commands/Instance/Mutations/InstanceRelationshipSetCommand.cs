@@ -16,34 +16,47 @@ internal sealed partial class CliRuntime
         }
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-            var fromEntity = RequireEntity(workspace.Model, fromEntityName);
-            var fromRow = ResolveRowById(workspace.State, fromEntityName, fromId);
+            var resolvedFromEntityName = await ResolveEntityNameAsync(
+                    CurrentWorkspace,
+                    fromEntityName)
+                .ConfigureAwait(false);
+            var fromRow = await CurrentWorkspace.ReadRecordAsync(
+                    resolvedFromEntityName,
+                    fromId)
+                .ConfigureAwait(false) ?? throw new InvalidOperationException(
+                    $"Instance with Id '{fromId}' does not exist in entity '{resolvedFromEntityName}'.");
 
-            var toEntityName = options.RelationshipSelector;
+            var selector = options.RelationshipSelector;
             var toId = options.ToId;
-            var relationship = ResolveRelationshipDefinition(fromEntity, toEntityName, out var isAmbiguous);
-            if (isAmbiguous)
+            var matches = new List<RelationshipDefinition>();
+            await foreach (var candidate in CurrentWorkspace.ReadRelationshipsAsync(resolvedFromEntityName))
+            {
+                if (MetaName.Comparer.Equals(candidate.TargetEntityName, selector) ||
+                    MetaName.Comparer.Equals(candidate.GetRoleOrDefault(), selector) ||
+                    MetaName.Comparer.Equals(candidate.GetColumnName(), selector))
+                {
+                    matches.Add(candidate);
+                }
+            }
+
+            if (matches.Count > 1)
             {
                 return PrintDataError(
                     "E_RELATIONSHIP_AMBIGUOUS",
-                    $"Relationship selector '{toEntityName}' is ambiguous on entity '{fromEntityName}'. Use relationship role or column.");
+                    $"Relationship selector '{selector}' is ambiguous on entity '{resolvedFromEntityName}'. Use relationship role or column.");
             }
 
-            if (relationship == null)
+            if (matches.Count == 0)
             {
                 return PrintDataError(
                     "E_RELATIONSHIP_NOT_FOUND",
-                    $"Relationship '{fromEntityName}->{toEntityName}' does not exist.");
+                    $"Relationship '{resolvedFromEntityName}->{selector}' does not exist.");
             }
 
+            var relationship = matches.Single();
             var toRelationshipName = relationship.GetColumnName();
-            var toTargetEntityName = relationship.Entity;
-            RequireEntity(workspace.Model, toTargetEntityName);
-            var targetExists = workspace.Instance.GetOrCreateEntityRecords(toTargetEntityName)
-                .Any(row => string.Equals(row.Id, toId, StringComparison.OrdinalIgnoreCase));
-            if (!targetExists)
+            var toTargetEntityName = relationship.TargetEntityName;
+            if (await CurrentWorkspace.ReadRecordAsync(toTargetEntityName, toId).ConfigureAwait(false) is null)
             {
                 return PrintDataError(
                     "E_ROW_NOT_FOUND",
@@ -51,14 +64,13 @@ internal sealed partial class CliRuntime
             }
 
             var operation = new Operation.SetRelationship(
-                fromEntityName,
+                resolvedFromEntityName,
                 fromRow.Id,
                 toRelationshipName,
                 toId);
 
-            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
-                    workspace,
-                    new[] { operation },
+            return await ExecuteOperationsAsync(
+                    [operation],
                     commandName: "instance.relationship.set",
                     successMessage: "relationship usage updated",
                     successDetails: new[]

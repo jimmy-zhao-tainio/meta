@@ -10,6 +10,71 @@ namespace Meta.Core.Tests;
 public sealed class MetaCSharpReaderTests
 {
     [Fact]
+    public async Task CSharpWorkspace_ExecutesAndPersistsOperations()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "meta-csharp-workspace-tests",
+            Guid.NewGuid().ToString("N"));
+        try
+        {
+            await WriteSourcesAsync(
+                root,
+                MetaCSharpWriter.Write(MetaXmlCodecTests.BuildState()));
+            await using (var workspace = await CSharpWorkspace.OpenAsync(root))
+            {
+                await workspace.ExecuteAsync([
+                    new Operation.SetProperty(
+                        "Node",
+                        "Root",
+                        "RequiredText",
+                        "Changed"),
+                ]);
+            }
+
+            await using var reopened = await CSharpWorkspace.OpenAsync(root);
+            var record = await reopened.ReadRecordAsync("Node", "Root");
+            Assert.NotNull(record);
+            Assert.Equal("Changed", record.Values["RequiredText"]);
+        }
+        finally
+        {
+            DeleteDirectory(root);
+        }
+    }
+
+    [Fact]
+    public async Task CSharpWorkspace_RejectsAStaleWrite()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "meta-csharp-workspace-tests",
+            Guid.NewGuid().ToString("N"));
+        try
+        {
+            await WriteSourcesAsync(
+                root,
+                MetaCSharpWriter.Write(MetaXmlCodecTests.BuildState()));
+            await using var workspace = await CSharpWorkspace.OpenAsync(root);
+            var sourcePath = Directory.GetFiles(root, "*.cs").First();
+            await File.AppendAllTextAsync(sourcePath, "\n");
+
+            await Assert.ThrowsAsync<Meta.Core.Services.WorkspaceConflictException>(
+                async () => await workspace.ExecuteAsync([
+                    new Operation.SetProperty(
+                        "Node",
+                        "Root",
+                        "RequiredText",
+                        "Changed"),
+                ]));
+        }
+        finally
+        {
+            DeleteDirectory(root);
+        }
+    }
+
+    [Fact]
     public void ReadWrite_PreservesSemanticState()
     {
         var state = MetaXmlCodecTests.BuildState();
@@ -182,6 +247,27 @@ public sealed class MetaCSharpReaderTests
                     ? source
                     : item.Value,
                 StringComparer.OrdinalIgnoreCase));
+    }
+
+    private static async Task WriteSourcesAsync(
+        string root,
+        MetaCSharp csharp)
+    {
+        Directory.CreateDirectory(root);
+        foreach (var source in csharp.Sources)
+        {
+            var path = Path.Combine(root, source.Key);
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            await File.WriteAllTextAsync(path, source.Value);
+        }
+    }
+
+    private static void DeleteDirectory(string root)
+    {
+        if (Directory.Exists(root))
+        {
+            Directory.Delete(root, recursive: true);
+        }
     }
 
     private static void AssertCompiles(MetaCSharp csharp)

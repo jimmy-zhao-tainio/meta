@@ -39,7 +39,6 @@ public interface IMetaWeaveService
     Task<WeaveMaterializationResult> MaterializeAsync(
         MetaWeaveModel weaveModel,
         string weaveWorkspaceRootPath,
-        string materializedWorkspaceRootPath,
         string mergedModelName,
         CancellationToken cancellationToken = default);
 }
@@ -158,14 +157,12 @@ public sealed class MetaWeaveService : IMetaWeaveService
     public async Task<WeaveMaterializationResult> MaterializeAsync(
         MetaWeaveModel weaveModel,
         string weaveWorkspaceRootPath,
-        string materializedWorkspaceRootPath,
         string mergedModelName,
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
         ArgumentNullException.ThrowIfNull(weaveModel);
         ArgumentException.ThrowIfNullOrWhiteSpace(weaveWorkspaceRootPath);
-        ArgumentException.ThrowIfNullOrWhiteSpace(materializedWorkspaceRootPath);
         ArgumentException.ThrowIfNullOrWhiteSpace(mergedModelName);
 
         var modelRefs = weaveModel.ModelReferenceList
@@ -236,14 +233,6 @@ public sealed class MetaWeaveService : IMetaWeaveService
             throw new InvalidOperationException($"Merged workspace is invalid: {message}");
         }
 
-        await XmlWorkspaceWriter.WriteMergedAsync(
-                materializedWorkspace,
-                materializedWorkspaceRootPath,
-                modelRefs
-                    .Select(item => referencedWorkspaces[item.Id])
-                    .ToArray(),
-                cancellationToken)
-            .ConfigureAwait(false);
         return new WeaveMaterializationResult(
             materializedWorkspace,
             operations.Count);

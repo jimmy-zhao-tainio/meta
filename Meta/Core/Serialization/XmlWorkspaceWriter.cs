@@ -98,7 +98,6 @@ public static class XmlWorkspaceWriter
                 {
                     var current = await TryOpenAsync(
                             workspace.RootPath,
-                            workspace.LoadOptions,
                             token)
                         .ConfigureAwait(false);
                     var currentFingerprint = current?.Fingerprint ?? string.Empty;
@@ -245,15 +244,13 @@ public static class XmlWorkspaceWriter
 
     private static async Task<OpenedXmlWorkspace?> TryOpenAsync(
         string workspaceRootPath,
-        WorkspaceLoadOptions? loadOptions,
         CancellationToken cancellationToken)
     {
         try
         {
             return await XmlWorkspaceReader.OpenAsync(
                     workspaceRootPath,
-                    cancellationToken,
-                    loadOptions)
+                    cancellationToken)
                 .ConfigureAwait(false);
         }
         catch (FileNotFoundException)

@@ -9,9 +9,7 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(workspace.ContractVersion);
-        var source = CreateWorkspaceSource(workspace.State);
+        var source = CurrentWorkspace;
         var resolvedEntityName = await ResolveEntityNameAsync(source, entityName).ConfigureAwait(false);
         var properties = new List<(string Name, bool Required)>
         {

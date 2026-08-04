@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ParameterList>
-    <Parameter Id="param-command-new-workspace-positional-path" ValueShapeId="shape-path">
+    <Parameter Id="param-add-allowed-value-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-allowed-value-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
-      <Name>Path</Name>
+      <Name>id</Name>
     </Parameter>
-    <Parameter Id="param-command-new-workspace-option-application" ValueShapeId="shape-text">
-      <Name>application</Name>
+    <Parameter Id="param-add-allowed-value-option-value" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value</Name>
     </Parameter>
-    <Parameter Id="param-command-new-workspace-option-standard-cli-shapes" ValueShapeId="shape-flag">
-      <Name>standard-cli-shapes</Name>
+    <Parameter Id="param-add-allowed-value-option-value-shape" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value-shape</Name>
     </Parameter>
-    <Parameter Id="param-command-new-workspace-option-default-help" ValueShapeId="shape-flag">
-      <Name>default-help</Name>
-    </Parameter>
-    <Parameter Id="param-show-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-add-allowed-value-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaCli workspace. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
-    <Parameter Id="param-add-application-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaCli workspace. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
+    <Parameter Id="param-add-application-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-executable-name" ValueShapeId="shape-text">
+      <Name>executable-name</Name>
     </Parameter>
     <Parameter Id="param-add-application-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -30,90 +34,278 @@
       <IsRequired>true</IsRequired>
       <Name>name</Name>
     </Parameter>
-    <Parameter Id="param-add-application-option-executable-name" ValueShapeId="shape-text">
-      <Name>executable-name</Name>
+    <Parameter Id="param-add-application-option-option-application" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>application</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-default-value" ValueShapeId="shape-text">
+      <Name>default-value</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>option-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-parameter-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-repeatable" ValueShapeId="shape-bool">
+      <Name>repeatable</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-required" ValueShapeId="shape-bool">
+      <Name>required</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-token" ValueShapeId="shape-token">
+      <IsRequired>true</IsRequired>
+      <Name>token</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-token-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>token-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-value-shape" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value-shape</Name>
+    </Parameter>
+    <Parameter Id="param-add-application-option-option-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-add-application-option-version" ValueShapeId="shape-text">
       <Name>version</Name>
     </Parameter>
-    <Parameter Id="param-add-application-option-description" ValueShapeId="shape-text">
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-add-command-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-add-application-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaCli workspace. Defaults to the current directory.</Description>
       <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-add-command-option-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>id</Name>
     </Parameter>
     <Parameter Id="param-add-command-option-application" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>application</Name>
     </Parameter>
+    <Parameter Id="param-add-command-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-command-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
     <Parameter Id="param-add-command-option-name" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-command-option-parent-command" ValueShapeId="shape-text">
+      <Name>parent-command</Name>
     </Parameter>
     <Parameter Id="param-add-command-option-token" ValueShapeId="shape-token">
       <IsRequired>true</IsRequired>
       <Name>token</Name>
     </Parameter>
-    <Parameter Id="param-add-command-option-parent-command" ValueShapeId="shape-text">
-      <Name>parent-command</Name>
-    </Parameter>
-    <Parameter Id="param-add-command-option-description" ValueShapeId="shape-text">
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-add-executable-command-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-add-command-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaCli workspace. Defaults to the current directory.</Description>
       <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-add-executable-command-option-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>id</Name>
     </Parameter>
     <Parameter Id="param-add-executable-command-option-command" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>command</Name>
     </Parameter>
-    <Parameter Id="param-set-default-command-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-add-executable-command-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-executable-command-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaCli workspace. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
-    <Parameter Id="param-set-default-command-option-application" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>application</Name>
+    <Parameter Id="param-add-option-option-default-value" ValueShapeId="shape-text">
+      <Name>default-value</Name>
     </Parameter>
-    <Parameter Id="param-set-default-command-option-executable-command" ValueShapeId="shape-text">
+    <Parameter Id="param-add-option-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-executable-command" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>executable-command</Name>
     </Parameter>
-    <Parameter Id="param-add-value-arity-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-add-option-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>option-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-parameter-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-repeatable" ValueShapeId="shape-bool">
+      <Name>repeatable</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-required" ValueShapeId="shape-bool">
+      <Name>required</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-token" ValueShapeId="shape-token">
+      <IsRequired>true</IsRequired>
+      <Name>token</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-token-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>token-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-value-shape" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value-shape</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaCli workspace. Defaults to the current directory.</Description>
       <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-token-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-token-option-option" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>option</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-token-option-previous-token" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>previous-token</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-token-option-token" ValueShapeId="shape-token">
+      <IsRequired>true</IsRequired>
+      <Name>token</Name>
+    </Parameter>
+    <Parameter Id="param-add-option-token-option-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-member-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-member-option-parameter" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-member-option-parameter-group" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter-group</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-member-option-previous-member" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>previous-member</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-member-option-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-allows-multiple" ValueShapeId="shape-bool">
+      <Name>allows-multiple</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-executable-command" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>executable-command</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-member-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>member-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-parameter" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-required" ValueShapeId="shape-bool">
+      <Name>required</Name>
+    </Parameter>
+    <Parameter Id="param-add-parameter-group-option-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-default-value" ValueShapeId="shape-text">
+      <Name>default-value</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-executable-command" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>executable-command</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-parameter-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>parameter-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-positional-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>positional-id</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-previous-argument" ValueShapeId="shape-text">
+      <Name>previous-argument</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-repeatable" ValueShapeId="shape-bool">
+      <Name>repeatable</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-required" ValueShapeId="shape-bool">
+      <Name>required</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-value-shape" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>value-shape</Name>
+    </Parameter>
+    <Parameter Id="param-add-positional-option-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-arity-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
     </Parameter>
     <Parameter Id="param-add-value-arity-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>id</Name>
     </Parameter>
-    <Parameter Id="param-add-value-arity-option-name" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>name</Name>
+    <Parameter Id="param-add-value-arity-option-max-value-count" ValueShapeId="shape-text">
+      <Name>max-value-count</Name>
     </Parameter>
     <Parameter Id="param-add-value-arity-option-min-value-count" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>min-value-count</Name>
     </Parameter>
-    <Parameter Id="param-add-value-arity-option-max-value-count" ValueShapeId="shape-text">
-      <Name>max-value-count</Name>
+    <Parameter Id="param-add-value-arity-option-name" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
     </Parameter>
-    <Parameter Id="param-add-value-arity-option-description" ValueShapeId="shape-text">
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-add-value-shape-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-add-value-arity-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaCli workspace. Defaults to the current directory.</Description>
       <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-shape-option-allows-option-like-value" ValueShapeId="shape-bool">
+      <Name>allows-option-like-value</Name>
+    </Parameter>
+    <Parameter Id="param-add-value-shape-option-description" ValueShapeId="shape-text">
+      <Name>description</Name>
     </Parameter>
     <Parameter Id="param-add-value-shape-option-id" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
@@ -130,230 +322,95 @@
     <Parameter Id="param-add-value-shape-option-value-label" ValueShapeId="shape-text">
       <Name>value-label</Name>
     </Parameter>
-    <Parameter Id="param-add-value-shape-option-allows-option-like-value" ValueShapeId="shape-bool">
-      <Name>allows-option-like-value</Name>
-    </Parameter>
-    <Parameter Id="param-add-value-shape-option-description" ValueShapeId="shape-text">
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-add-allowed-value-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-add-value-shape-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaCli workspace. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
-    <Parameter Id="param-add-allowed-value-option-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>id</Name>
+    <Parameter Id="param-create-application" ValueShapeId="shape-text">
+      <Description>Application name used to seed the workspace.</Description>
+      <Name>application</Name>
     </Parameter>
-    <Parameter Id="param-add-allowed-value-option-value-shape" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>value-shape</Name>
+    <Parameter Id="param-create-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the SQL Server connection string.</Description>
+      <Name>connection-env</Name>
     </Parameter>
-    <Parameter Id="param-add-allowed-value-option-value" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>value</Name>
+    <Parameter Id="param-create-csharp" ValueShapeId="shape-path">
+      <Description>Create a C# workspace at this directory.</Description>
+      <Name>csharp</Name>
     </Parameter>
-    <Parameter Id="param-add-allowed-value-option-description" ValueShapeId="shape-text">
-      <Name>description</Name>
+    <Parameter Id="param-create-default-help" ValueShapeId="shape-flag">
+      <Description>Seed the standard help command.</Description>
+      <Name>default-help</Name>
     </Parameter>
-    <Parameter Id="param-add-application-option-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaCli workspace. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
+    <Parameter Id="param-create-sql" ValueShapeId="shape-path">
+      <Description>Create a SQL workspace described by this directory.</Description>
+      <Name>sql</Name>
     </Parameter>
-    <Parameter Id="param-add-application-option-option-parameter-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>parameter-id</Name>
+    <Parameter Id="param-create-standard-cli-shapes" ValueShapeId="shape-flag">
+      <Description>Seed the standard CLI value shapes.</Description>
+      <Name>standard-cli-shapes</Name>
     </Parameter>
-    <Parameter Id="param-add-application-option-option-option-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>option-id</Name>
+    <Parameter Id="param-create-xml" ValueShapeId="shape-path">
+      <Description>Create an XML workspace at this directory.</Description>
+      <Name>xml</Name>
     </Parameter>
-    <Parameter Id="param-add-application-option-option-application" ValueShapeId="shape-text">
+    <Parameter Id="param-remove-application-option-application" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>application</Name>
     </Parameter>
-    <Parameter Id="param-add-application-option-option-name" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>name</Name>
-    </Parameter>
-    <Parameter Id="param-add-application-option-option-value-shape" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>value-shape</Name>
-    </Parameter>
-    <Parameter Id="param-add-application-option-option-token-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>token-id</Name>
-    </Parameter>
-    <Parameter Id="param-add-application-option-option-token" ValueShapeId="shape-token">
-      <IsRequired>true</IsRequired>
-      <Name>token</Name>
-    </Parameter>
-    <Parameter Id="param-add-application-option-option-required" ValueShapeId="shape-bool">
-      <Name>required</Name>
-    </Parameter>
-    <Parameter Id="param-add-application-option-option-repeatable" ValueShapeId="shape-bool">
-      <Name>repeatable</Name>
-    </Parameter>
-    <Parameter Id="param-add-application-option-option-default-value" ValueShapeId="shape-text">
-      <Name>default-value</Name>
-    </Parameter>
-    <Parameter Id="param-add-application-option-option-description" ValueShapeId="shape-text">
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaCli workspace. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-parameter-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>parameter-id</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-option-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>option-id</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-executable-command" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>executable-command</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-name" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>name</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-value-shape" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>value-shape</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-token-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>token-id</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-token" ValueShapeId="shape-token">
-      <IsRequired>true</IsRequired>
-      <Name>token</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-required" ValueShapeId="shape-bool">
-      <Name>required</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-repeatable" ValueShapeId="shape-bool">
-      <Name>repeatable</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-default-value" ValueShapeId="shape-text">
-      <Name>default-value</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-option-description" ValueShapeId="shape-text">
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-token-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaCli workspace. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-token-option-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>id</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-token-option-option" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>option</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-token-option-token" ValueShapeId="shape-token">
-      <IsRequired>true</IsRequired>
-      <Name>token</Name>
-    </Parameter>
-    <Parameter Id="param-add-option-token-option-previous-token" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>previous-token</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaCli workspace. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-parameter-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>parameter-id</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-positional-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>positional-id</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-executable-command" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>executable-command</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-name" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>name</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-value-shape" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>value-shape</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-previous-argument" ValueShapeId="shape-text">
-      <Name>previous-argument</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-required" ValueShapeId="shape-bool">
-      <Name>required</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-repeatable" ValueShapeId="shape-bool">
-      <Name>repeatable</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-default-value" ValueShapeId="shape-text">
-      <Name>default-value</Name>
-    </Parameter>
-    <Parameter Id="param-add-positional-option-description" ValueShapeId="shape-text">
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-add-parameter-group-option-workspace" ValueShapeId="shape-path">
-      <Description>MetaCli workspace. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-add-parameter-group-option-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>id</Name>
-    </Parameter>
-    <Parameter Id="param-add-parameter-group-option-executable-command" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>executable-command</Name>
-    </Parameter>
-    <Parameter Id="param-add-parameter-group-option-name" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>name</Name>
-    </Parameter>
-    <Parameter Id="param-add-parameter-group-option-member-id" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>member-id</Name>
-    </Parameter>
-    <Parameter Id="param-add-parameter-group-option-parameter" ValueShapeId="shape-text">
+    <Parameter Id="param-remove-application-option-parameter" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>parameter</Name>
     </Parameter>
-    <Parameter Id="param-add-parameter-group-option-required" ValueShapeId="shape-bool">
-      <Name>required</Name>
-    </Parameter>
-    <Parameter Id="param-add-parameter-group-option-allows-multiple" ValueShapeId="shape-bool">
-      <Name>allows-multiple</Name>
-    </Parameter>
-    <Parameter Id="param-add-parameter-group-option-description" ValueShapeId="shape-text">
-      <Name>description</Name>
-    </Parameter>
-    <Parameter Id="param-add-parameter-group-member-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-remove-application-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaCli workspace. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
-    <Parameter Id="param-add-parameter-group-member-option-id" ValueShapeId="shape-text">
+    <Parameter Id="param-remove-command-id" ValueShapeId="shape-text">
+      <Description>Command identifier.</Description>
       <IsRequired>true</IsRequired>
       <Name>id</Name>
     </Parameter>
-    <Parameter Id="param-add-parameter-group-member-option-parameter-group" ValueShapeId="shape-text">
-      <IsRequired>true</IsRequired>
-      <Name>parameter-group</Name>
+    <Parameter Id="param-remove-command-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
-    <Parameter Id="param-add-parameter-group-member-option-parameter" ValueShapeId="shape-text">
+    <Parameter Id="param-remove-option-parameter" ValueShapeId="shape-text">
+      <Description>Option parameter identifier.</Description>
       <IsRequired>true</IsRequired>
       <Name>parameter</Name>
     </Parameter>
-    <Parameter Id="param-add-parameter-group-member-option-previous-member" ValueShapeId="shape-text">
+    <Parameter Id="param-remove-option-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-set-default-command-option-application" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
-      <Name>previous-member</Name>
+      <Name>application</Name>
+    </Parameter>
+    <Parameter Id="param-set-default-command-option-executable-command" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>executable-command</Name>
+    </Parameter>
+    <Parameter Id="param-set-default-command-option-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-set-parameter-group-required-id" ValueShapeId="shape-text">
+      <IsRequired>true</IsRequired>
+      <Name>id</Name>
+    </Parameter>
+    <Parameter Id="param-set-parameter-group-required-option-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-set-parameter-group-required-required" ValueShapeId="shape-bool">
+      <IsRequired>true</IsRequired>
+      <Name>required</Name>
+    </Parameter>
+    <Parameter Id="param-show-option-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaCli workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
   </ParameterList>
 </MetaCli>

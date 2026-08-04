@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <OptionTokenList>
-    <OptionToken Id="token-new-workspace-description" OptionId="opt-new-workspace-description">
+    <OptionToken Id="token-add-operation-workspace" OptionId="opt-add-operation-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-step-workspace" OptionId="opt-add-step-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-workspace-workspace" OptionId="opt-add-workspace-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-connection-env" OptionId="option-create-connection-env">
+      <Token>--connection-env</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-csharp" OptionId="option-create-csharp">
+      <Token>--csharp</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-description" OptionId="option-create-description">
       <Token>--description</Token>
     </OptionToken>
-    <OptionToken Id="token-new-workspace-name" OptionId="opt-new-workspace-name">
+    <OptionToken Id="token-create-name" OptionId="option-create-name">
       <Token>--name</Token>
     </OptionToken>
-    <OptionToken Id="token-new-workspace-root" OptionId="opt-new-workspace-root">
+    <OptionToken Id="token-create-root" OptionId="option-create-root">
       <Token>--root</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-sql" OptionId="option-create-sql">
+      <Token>--sql</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-xml" OptionId="option-create-xml">
+      <Token>--xml</Token>
     </OptionToken>
     <OptionToken Id="token-operation-description" OptionId="opt-operation-description">
       <Token>--description</Token>
@@ -16,14 +37,23 @@
     <OptionToken Id="token-operation-name" OptionId="opt-operation-name">
       <Token>--name</Token>
     </OptionToken>
+    <OptionToken Id="token-operations-workspace" OptionId="opt-operations-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
     <OptionToken Id="token-run-operation" OptionId="opt-run-operation">
       <Token>--operation</Token>
     </OptionToken>
     <OptionToken Id="token-run-verbose" OptionId="opt-run-verbose">
       <Token>--verbose</Token>
     </OptionToken>
+    <OptionToken Id="token-run-workspace" OptionId="opt-run-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
     <OptionToken Id="token-show-verbose" OptionId="opt-show-verbose">
       <Token>--verbose</Token>
+    </OptionToken>
+    <OptionToken Id="token-show-workspace" OptionId="opt-show-workspace">
+      <Token>--workspace</Token>
     </OptionToken>
     <OptionToken Id="token-step-arguments" OptionId="opt-step-arguments">
       <Token>--arguments</Token>
@@ -55,11 +85,17 @@
     <OptionToken Id="token-steps-operation" OptionId="opt-steps-operation">
       <Token>--operation</Token>
     </OptionToken>
+    <OptionToken Id="token-steps-workspace" OptionId="opt-steps-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
     <OptionToken Id="token-validate-operation" OptionId="opt-validate-operation">
       <Token>--operation</Token>
     </OptionToken>
-    <OptionToken Id="token-workspace" OptionId="opt-workspace">
+    <OptionToken Id="token-validate-workspace" OptionId="opt-validate-workspace">
       <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace-csharp-path" OptionId="opt-workspace-csharp-path">
+      <Token>--csharp-path</Token>
     </OptionToken>
     <OptionToken Id="token-workspace-description" OptionId="opt-workspace-description">
       <Token>--description</Token>
@@ -70,8 +106,14 @@
     <OptionToken Id="token-workspace-name" OptionId="opt-workspace-name">
       <Token>--name</Token>
     </OptionToken>
-    <OptionToken Id="token-workspace-path" OptionId="opt-workspace-path">
-      <Token>--path</Token>
+    <OptionToken Id="token-workspace-sql-connection-env" OptionId="opt-workspace-sql-connection-env">
+      <Token>--sql-connection-env</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace-xml-path" OptionId="opt-workspace-xml-path">
+      <Token>--xml-path</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspaces-workspace" OptionId="opt-workspaces-workspace">
+      <Token>--workspace</Token>
     </OptionToken>
   </OptionTokenList>
 </MetaCli>

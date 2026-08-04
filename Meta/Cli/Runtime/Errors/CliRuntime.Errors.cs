@@ -447,7 +447,7 @@ internal sealed partial class CliRuntime
         if (normalized.Contains("generate requires --out", StringComparison.OrdinalIgnoreCase))
         {
             var mode = currentInvocation is null ? "sql" : CommandToken().Trim().ToLowerInvariant();
-            if (mode is not ("sql" or "csharp" or "ssdt"))
+            if (mode is not ("sql" or "csharp"))
             {
                 mode = "sql";
             }
@@ -459,19 +459,6 @@ internal sealed partial class CliRuntime
         {
             var entityName = TryGetEntityFromCurrentCommandArgs() ?? "Cube";
             detailHints.Add($"example: meta query {entityName} --contains Id sample");
-        }
-        else if (normalized.Contains("--new-workspace", StringComparison.OrdinalIgnoreCase) ||
-                 normalized.Contains("import requires --new-workspace", StringComparison.OrdinalIgnoreCase))
-        {
-            var importMode = currentInvocation is null ? "sql" : CommandToken().Trim().ToLowerInvariant();
-            if (string.Equals(importMode, "sql", StringComparison.OrdinalIgnoreCase))
-            {
-                detailHints.Add("example: meta import sql --connection-env META_SQL_DEV dbo --new-workspace .\\ImportedWorkspace");
-            }
-            else if (string.Equals(importMode, "csv", StringComparison.OrdinalIgnoreCase))
-            {
-                detailHints.Add("example: meta import csv .\\landing.csv --entity Landing --new-workspace .\\ImportedWorkspace");
-            }
         }
         var usage = BuildUsageHintForCurrentArgs();
         var next = BuildNextHelpHintForCurrentArgs();
@@ -729,7 +716,7 @@ internal sealed partial class CliRuntime
 
             if (!hints.Any(line => line.StartsWith("Next:", StringComparison.OrdinalIgnoreCase)))
             {
-                hints.Add("Next: meta check");
+                hints.Add("Next: meta status");
             }
         }
 

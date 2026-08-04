@@ -10,11 +10,11 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-            var stats = GraphStatsService.Compute(workspace.Model, options.TopN, options.CycleSampleLimit);
+            var model = await WorkspaceComposition.MaterializeModelAsync(CurrentWorkspace)
+                .ConfigureAwait(false);
+            var stats = GraphStatsService.Compute(model, options.TopN, options.CycleSampleLimit);
 
-            PrintGraphStats(workspace.Model, stats, options.TopN);
+            PrintGraphStats(model, stats, options.TopN);
 
             return 0;
         }

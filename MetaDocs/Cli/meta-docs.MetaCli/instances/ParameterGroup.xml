@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <ParameterGroupList>
+    <ParameterGroup Id="group-author-page-target" ExecutableCommandId="exec-author-page">
+      <Description>Choose one workspace target.</Description>
+      <IsRequired>false</IsRequired>
+      <Name>target</Name>
+    </ParameterGroup>
+    <ParameterGroup Id="group-import-cli-target" ExecutableCommandId="exec-import-cli">
+      <Description>Choose one workspace target.</Description>
+      <IsRequired>false</IsRequired>
+      <Name>target</Name>
+    </ParameterGroup>
+    <ParameterGroup Id="group-import-workspace-model-target" ExecutableCommandId="exec-import-workspace-model">
+      <Description>Choose one workspace target.</Description>
+      <IsRequired>false</IsRequired>
+      <Name>target</Name>
+    </ParameterGroup>
+  </ParameterGroupList>
+</MetaCli>

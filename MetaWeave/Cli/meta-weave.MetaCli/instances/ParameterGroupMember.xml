@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <ParameterGroupMemberList>
+    <ParameterGroupMember Id="member-create-csharp" ParameterGroupId="group-create-output" ParameterId="param-create-csharp" PreviousMemberId="member-create-xml" />
+    <ParameterGroupMember Id="member-create-sql" ParameterGroupId="group-create-output" ParameterId="param-create-sql" PreviousMemberId="member-create-csharp" />
+    <ParameterGroupMember Id="member-create-xml" ParameterGroupId="group-create-output" ParameterId="param-create-xml" />
+    <ParameterGroupMember Id="member-materialize-target-first" ParameterGroupId="group-materialize-target" ParameterId="param-materialize-output-xml" />
+    <ParameterGroupMember Id="member-materialize-target-output-csharp" ParameterGroupId="group-materialize-target" ParameterId="param-materialize-output-csharp" PreviousMemberId="member-materialize-target-first" />
+    <ParameterGroupMember Id="member-materialize-target-output-sql" ParameterGroupId="group-materialize-target" ParameterId="param-materialize-output-sql" PreviousMemberId="member-materialize-target-output-csharp" />
+  </ParameterGroupMemberList>
+</MetaCli>

@@ -1,4 +1,5 @@
 using Meta.Core.Serialization;
+using Meta.Core.Operations;
 
 namespace MetaCli.Core;
 
@@ -6,15 +7,55 @@ public delegate void MetaCliCommandHandler(MetaCliInvocation invocation);
 
 public delegate Task MetaCliAsyncCommandHandler(MetaCliInvocation invocation);
 
+public delegate void MetaCliWorkspaceCommandHandler(
+    MetaCliInvocation invocation,
+    IMetaWorkspace workspace);
+
+public delegate Task MetaCliAsyncWorkspaceCommandHandler(
+    MetaCliInvocation invocation,
+    IMetaWorkspace workspace);
+
 public delegate void MetaCliModelCommandHandler<TModel>(
     MetaCliInvocation invocation,
     TModel model)
-    where TModel : IMetaWorkspaceModel<TModel>;
+    where TModel : class, IMetaWorkspaceModel<TModel>;
 
 public delegate Task MetaCliAsyncModelCommandHandler<TModel>(
     MetaCliInvocation invocation,
     TModel model)
-    where TModel : IMetaWorkspaceModel<TModel>;
+    where TModel : class, IMetaWorkspaceModel<TModel>;
+
+public delegate void MetaCliModelCompletionCommandHandler<TModel>(
+    MetaCliInvocation invocation,
+    TModel model,
+    MetaCliCommandCompletion completion)
+    where TModel : class, IMetaWorkspaceModel<TModel>;
+
+public delegate Task MetaCliAsyncModelCompletionCommandHandler<TModel>(
+    MetaCliInvocation invocation,
+    TModel model,
+    MetaCliCommandCompletion completion)
+    where TModel : class, IMetaWorkspaceModel<TModel>;
+
+public delegate void MetaCliWorkspacesCommandHandler(
+    MetaCliInvocation invocation,
+    MetaCliWorkspaces workspaces);
+
+public delegate Task MetaCliAsyncWorkspacesCommandHandler(
+    MetaCliInvocation invocation,
+    MetaCliWorkspaces workspaces);
+
+public delegate void MetaCliModelWorkspacesCommandHandler<TModel>(
+    MetaCliInvocation invocation,
+    TModel model,
+    MetaCliWorkspaces workspaces)
+    where TModel : class, IMetaWorkspaceModel<TModel>;
+
+public delegate Task MetaCliAsyncModelWorkspacesCommandHandler<TModel>(
+    MetaCliInvocation invocation,
+    TModel model,
+    MetaCliWorkspaces workspaces)
+    where TModel : class, IMetaWorkspaceModel<TModel>;
 
 public delegate int MetaCliRuntimeFailureHandler(MetaCliRuntimeFailure failure);
 
@@ -34,7 +75,7 @@ public enum MetaCliRuntimeFailureKind
 }
 
 public sealed class MetaCliRuntime<TModel>
-    where TModel : IMetaWorkspaceModel<TModel>
+    where TModel : class, IMetaWorkspaceModel<TModel>
 {
     private readonly string commandWorkspacePath;
     private readonly string? applicationId;
@@ -94,6 +135,22 @@ public sealed class MetaCliRuntime<TModel>
         return this;
     }
 
+    public MetaCliRuntime<TModel> Bind(string executableCommandId, MetaCliWorkspaceCommandHandler handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspace(handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> Bind(string executableCommandId, MetaCliAsyncWorkspaceCommandHandler handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspace(handler);
+        return this;
+    }
+
     public MetaCliRuntime<TModel> Bind(string executableCommandId, MetaCliModelCommandHandler<TModel> handler)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
@@ -107,6 +164,120 @@ public sealed class MetaCliRuntime<TModel>
         ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
         ArgumentNullException.ThrowIfNull(handler);
         handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspace(handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> BindReadOnly(
+        string executableCommandId,
+        MetaCliModelCommandHandler<TModel> handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding
+            .WithWorkspace(handler) with { PersistModelChanges = false };
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> BindReadOnly(
+        string executableCommandId,
+        MetaCliAsyncModelCommandHandler<TModel> handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding
+            .WithWorkspace(handler) with { PersistModelChanges = false };
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> Bind(
+        string executableCommandId,
+        MetaCliModelCompletionCommandHandler<TModel> handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspace(handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> Bind(
+        string executableCommandId,
+        MetaCliAsyncModelCompletionCommandHandler<TModel> handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspace(handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> Bind(
+        string executableCommandId,
+        IReadOnlyList<MetaCliWorkspaceParameter> workspaces,
+        MetaCliWorkspacesCommandHandler handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(workspaces);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspaces(
+            workspaces,
+            handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> Bind(
+        string executableCommandId,
+        IReadOnlyList<MetaCliWorkspaceParameter> workspaces,
+        MetaCliAsyncWorkspacesCommandHandler handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(workspaces);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspaces(
+            workspaces,
+            handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> Bind(
+        string executableCommandId,
+        IReadOnlyList<MetaCliWorkspaceParameter> workspaces,
+        MetaCliModelWorkspacesCommandHandler<TModel> handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(workspaces);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspaces(
+            workspaces,
+            handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> Bind(
+        string executableCommandId,
+        IReadOnlyList<MetaCliWorkspaceParameter> workspaces,
+        MetaCliAsyncModelWorkspacesCommandHandler<TModel> handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(workspaces);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding.WithWorkspaces(
+            workspaces,
+            handler);
+        return this;
+    }
+
+    public MetaCliRuntime<TModel> BindTarget(
+        string executableCommandId,
+        IReadOnlyList<MetaCliWorkspaceParameter> workspaces,
+        MetaCliAsyncModelWorkspacesCommandHandler<TModel> handler)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(executableCommandId);
+        ArgumentNullException.ThrowIfNull(workspaces);
+        ArgumentNullException.ThrowIfNull(handler);
+        handlers[executableCommandId.Trim()] = HandlerBinding
+            .WithWorkspaces(workspaces, handler) with
+            {
+                PrimaryWorkspaceOptional = true,
+            };
         return this;
     }
 
@@ -171,18 +342,17 @@ public sealed class MetaCliRuntime<TModel>
 
         try
         {
-            if (handler.WorkspaceHandler is not null || handler.AsyncWorkspaceHandler is not null)
+            if (handler.HasPrimaryWorkspaceHandler)
             {
-                var workspacePath = ResolveWorkspacePath(invocation);
-                var domainModel = TModel.LoadFromXmlWorkspace(workspacePath);
-                if (handler.WorkspaceHandler is not null)
-                {
-                    handler.WorkspaceHandler(invocation, domainModel);
-                }
-                else
-                {
-                    handler.AsyncWorkspaceHandler!(invocation, domainModel).GetAwaiter().GetResult();
-                }
+                ExecuteWorkspaceHandlerAsync(invocation, handler)
+                    .GetAwaiter()
+                    .GetResult();
+            }
+            else if (handler.HasAdditionalWorkspacesHandler)
+            {
+                ExecuteAdditionalWorkspacesHandlerAsync(invocation, handler)
+                    .GetAwaiter()
+                    .GetResult();
             }
             else if (handler.AsyncHandler is not null)
             {
@@ -217,21 +387,218 @@ public sealed class MetaCliRuntime<TModel>
         setExitCode(0);
     }
 
-    private string ResolveWorkspacePath(MetaCliInvocation invocation)
+    private async Task ExecuteWorkspaceHandlerAsync(
+        MetaCliInvocation invocation,
+        HandlerBinding handler)
+    {
+        var hasPrimaryWorkspace = !handler.PrimaryWorkspaceOptional ||
+            HasValue(invocation, workspaceParameter);
+        await using var workspace = hasPrimaryWorkspace
+            ? await MetaCliWorkspaceResolver.OpenAsync(
+                    invocation,
+                    workspaceParameter)
+                .ConfigureAwait(false)
+            : null;
+
+        if (handler.GenericWorkspaceHandler is not null)
+        {
+            if (workspace is null)
+            {
+                throw new InvalidOperationException("This command requires an existing workspace.");
+            }
+
+            handler.GenericWorkspaceHandler(invocation, workspace);
+            return;
+        }
+
+        if (handler.AsyncGenericWorkspaceHandler is not null)
+        {
+            if (workspace is null)
+            {
+                throw new InvalidOperationException("This command requires an existing workspace.");
+            }
+
+            await handler.AsyncGenericWorkspaceHandler(invocation, workspace)
+                .ConfigureAwait(false);
+            return;
+        }
+
+        var baseline = workspace is null
+            ? TypedWorkspaceModelMapper.ToInMemoryWorkspace(TModel.CreateEmpty())
+            : await WorkspaceComposition.MaterializeAsync(workspace)
+                .ConfigureAwait(false);
+        var domainModel = TypedWorkspaceModelMapper.FromInMemoryWorkspace(
+            baseline,
+            static () => TModel.CreateEmpty());
+        var completion = new MetaCliCommandCompletion();
+
+        await using var additionalWorkspaces = await ResolveWorkspacesAsync(
+                invocation,
+                handler.Workspaces)
+            .ConfigureAwait(false);
+
+        if (handler.WorkspaceHandler is not null)
+        {
+            handler.WorkspaceHandler(invocation, domainModel);
+        }
+        else if (handler.AsyncWorkspaceHandler is not null)
+        {
+            await handler.AsyncWorkspaceHandler(invocation, domainModel)
+                .ConfigureAwait(false);
+        }
+        else if (handler.CompletionWorkspaceHandler is not null)
+        {
+            handler.CompletionWorkspaceHandler(invocation, domainModel, completion);
+        }
+        else if (handler.AsyncCompletionWorkspaceHandler is not null)
+        {
+            await handler.AsyncCompletionWorkspaceHandler(invocation, domainModel, completion)
+                .ConfigureAwait(false);
+        }
+        else if (handler.WorkspacesHandler is not null)
+        {
+            handler.WorkspacesHandler(
+                invocation,
+                domainModel,
+                additionalWorkspaces);
+        }
+        else
+        {
+            await handler.AsyncWorkspacesHandler!(
+                    invocation,
+                    domainModel,
+                    additionalWorkspaces)
+                .ConfigureAwait(false);
+        }
+
+        if (!handler.PersistModelChanges || workspace is null)
+        {
+            return;
+        }
+
+        var desired = TypedWorkspaceModelMapper.ToInMemoryWorkspace(
+            domainModel);
+        var operations = WorkspaceSynchronization.PlanInstanceChanges(
+            baseline,
+            desired);
+        if (operations.Count > 0)
+        {
+            await workspace.ExecuteAsync(operations).ConfigureAwait(false);
+        }
+
+        completion.Complete();
+    }
+
+    private static bool HasValue(
+        MetaCliInvocation invocation,
+        string parameter)
     {
         try
         {
-            var value = invocation.Optional(workspaceParameter);
-            if (!string.IsNullOrWhiteSpace(value))
-            {
-                return Path.GetFullPath(value);
-            }
+            return !string.IsNullOrWhiteSpace(invocation.Optional(parameter));
         }
         catch (KeyNotFoundException)
         {
+            return false;
         }
+    }
 
-        return Directory.GetCurrentDirectory();
+    private static async Task ExecuteAdditionalWorkspacesHandlerAsync(
+        MetaCliInvocation invocation,
+        HandlerBinding handler)
+    {
+        await using var workspaces = await ResolveWorkspacesAsync(
+                invocation,
+                handler.Workspaces)
+            .ConfigureAwait(false);
+        if (handler.AdditionalWorkspacesHandler is not null)
+        {
+            handler.AdditionalWorkspacesHandler(invocation, workspaces);
+        }
+        else
+        {
+            await handler.AsyncAdditionalWorkspacesHandler!(
+                    invocation,
+                    workspaces)
+                .ConfigureAwait(false);
+        }
+    }
+
+    private static async Task<MetaCliWorkspaces> ResolveWorkspacesAsync(
+        MetaCliInvocation invocation,
+        IReadOnlyList<MetaCliWorkspaceParameter> parameters)
+    {
+        var opened = new Dictionary<string, IMetaWorkspace>(
+            StringComparer.OrdinalIgnoreCase);
+        var outputs = new Dictionary<string, MetaCliWorkspaceOutput>(
+            StringComparer.OrdinalIgnoreCase);
+        try
+        {
+            foreach (var parameter in parameters)
+            {
+                if (opened.ContainsKey(parameter.Name) ||
+                    outputs.ContainsKey(parameter.Name))
+                {
+                    throw new InvalidOperationException(
+                        $"Workspace parameter '{parameter.Name}' is bound more than once.");
+                }
+
+                if (parameter is MetaCliWorkspaceInput input)
+                {
+                    _ = invocation.Binding(input.Parameter);
+                    opened.Add(
+                        input.Parameter,
+                        await MetaCliWorkspaceResolver.OpenAsync(
+                                invocation,
+                                input.Parameter,
+                                useCurrentDirectoryWhenLocationIsMissing: false)
+                            .ConfigureAwait(false));
+                }
+                else if (parameter is MetaCliWorkspaceTarget target)
+                {
+                    var outputSelected = parameters
+                        .OfType<MetaCliWorkspaceOutput>()
+                        .Any(output =>
+                            HasValue(invocation, output.XmlParameter) ||
+                            HasValue(invocation, output.CSharpParameter) ||
+                            HasValue(invocation, output.SqlParameter));
+                    if (outputSelected)
+                    {
+                        continue;
+                    }
+
+                    opened.Add(
+                        target.Parameter,
+                        await MetaCliWorkspaceResolver.OpenAsync(
+                                invocation,
+                                target.Parameter,
+                                useCurrentDirectoryWhenLocationIsMissing: true)
+                            .ConfigureAwait(false));
+                }
+                else if (parameter is MetaCliWorkspaceOutput output)
+                {
+                    _ = invocation.Binding(output.XmlParameter);
+                    _ = invocation.Binding(output.CSharpParameter);
+                    _ = invocation.Binding(output.SqlParameter);
+                    _ = invocation.Binding(output.ConnectionEnvironmentParameter);
+                    outputs.Add(output.Output, output);
+                }
+                else
+                {
+                    throw new InvalidOperationException(
+                        $"Unsupported workspace parameter '{parameter.Name}'.");
+                }
+            }
+
+            return new MetaCliWorkspaces(invocation, opened, outputs);
+        }
+        catch
+        {
+            await new MetaCliWorkspaces(invocation, opened, outputs)
+                .DisposeAsync()
+                .ConfigureAwait(false);
+            throw;
+        }
     }
 
     private void Fail(MetaCliRuntimeFailure failure)
@@ -252,19 +619,77 @@ public sealed class MetaCliRuntime<TModel>
     private sealed record HandlerBinding(
         MetaCliCommandHandler? Handler,
         MetaCliAsyncCommandHandler? AsyncHandler,
+        MetaCliWorkspaceCommandHandler? GenericWorkspaceHandler,
+        MetaCliAsyncWorkspaceCommandHandler? AsyncGenericWorkspaceHandler,
         MetaCliModelCommandHandler<TModel>? WorkspaceHandler,
-        MetaCliAsyncModelCommandHandler<TModel>? AsyncWorkspaceHandler)
+        MetaCliAsyncModelCommandHandler<TModel>? AsyncWorkspaceHandler,
+        MetaCliModelCompletionCommandHandler<TModel>? CompletionWorkspaceHandler,
+        MetaCliAsyncModelCompletionCommandHandler<TModel>? AsyncCompletionWorkspaceHandler,
+        IReadOnlyList<MetaCliWorkspaceParameter> Workspaces,
+        MetaCliWorkspacesCommandHandler? AdditionalWorkspacesHandler,
+        MetaCliAsyncWorkspacesCommandHandler? AsyncAdditionalWorkspacesHandler,
+        MetaCliModelWorkspacesCommandHandler<TModel>? WorkspacesHandler,
+        MetaCliAsyncModelWorkspacesCommandHandler<TModel>? AsyncWorkspacesHandler)
     {
+        public bool PersistModelChanges { get; init; } = true;
+        public bool PrimaryWorkspaceOptional { get; init; }
+
+        public bool HasPrimaryWorkspaceHandler =>
+            GenericWorkspaceHandler is not null ||
+            AsyncGenericWorkspaceHandler is not null ||
+            WorkspaceHandler is not null ||
+            AsyncWorkspaceHandler is not null ||
+            CompletionWorkspaceHandler is not null ||
+            AsyncCompletionWorkspaceHandler is not null ||
+            WorkspacesHandler is not null ||
+            AsyncWorkspacesHandler is not null;
+
+        public bool HasAdditionalWorkspacesHandler =>
+            AdditionalWorkspacesHandler is not null ||
+            AsyncAdditionalWorkspacesHandler is not null;
+
         public static HandlerBinding WithoutWorkspace(MetaCliCommandHandler handler) =>
-            new(handler, null, null, null);
+            new(handler, null, null, null, null, null, null, null, [], null, null, null, null);
 
         public static HandlerBinding WithoutWorkspace(MetaCliAsyncCommandHandler handler) =>
-            new(null, handler, null, null);
+            new(null, handler, null, null, null, null, null, null, [], null, null, null, null);
+
+        public static HandlerBinding WithWorkspace(MetaCliWorkspaceCommandHandler handler) =>
+            new(null, null, handler, null, null, null, null, null, [], null, null, null, null);
+
+        public static HandlerBinding WithWorkspace(MetaCliAsyncWorkspaceCommandHandler handler) =>
+            new(null, null, null, handler, null, null, null, null, [], null, null, null, null);
 
         public static HandlerBinding WithWorkspace(MetaCliModelCommandHandler<TModel> handler) =>
-            new(null, null, handler, null);
+            new(null, null, null, null, handler, null, null, null, [], null, null, null, null);
 
         public static HandlerBinding WithWorkspace(MetaCliAsyncModelCommandHandler<TModel> handler) =>
-            new(null, null, null, handler);
+            new(null, null, null, null, null, handler, null, null, [], null, null, null, null);
+
+        public static HandlerBinding WithWorkspace(MetaCliModelCompletionCommandHandler<TModel> handler) =>
+            new(null, null, null, null, null, null, handler, null, [], null, null, null, null);
+
+        public static HandlerBinding WithWorkspace(MetaCliAsyncModelCompletionCommandHandler<TModel> handler) =>
+            new(null, null, null, null, null, null, null, handler, [], null, null, null, null);
+
+        public static HandlerBinding WithWorkspaces(
+            IReadOnlyList<MetaCliWorkspaceParameter> workspaces,
+            MetaCliWorkspacesCommandHandler handler) =>
+            new(null, null, null, null, null, null, null, null, workspaces.ToArray(), handler, null, null, null);
+
+        public static HandlerBinding WithWorkspaces(
+            IReadOnlyList<MetaCliWorkspaceParameter> workspaces,
+            MetaCliAsyncWorkspacesCommandHandler handler) =>
+            new(null, null, null, null, null, null, null, null, workspaces.ToArray(), null, handler, null, null);
+
+        public static HandlerBinding WithWorkspaces(
+            IReadOnlyList<MetaCliWorkspaceParameter> workspaces,
+            MetaCliModelWorkspacesCommandHandler<TModel> handler) =>
+            new(null, null, null, null, null, null, null, null, workspaces.ToArray(), null, null, handler, null);
+
+        public static HandlerBinding WithWorkspaces(
+            IReadOnlyList<MetaCliWorkspaceParameter> workspaces,
+            MetaCliAsyncModelWorkspacesCommandHandler<TModel> handler) =>
+            new(null, null, null, null, null, null, null, null, workspaces.ToArray(), null, null, null, handler);
     }
 }

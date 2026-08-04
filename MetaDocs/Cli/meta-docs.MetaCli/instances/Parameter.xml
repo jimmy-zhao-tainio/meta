@@ -15,10 +15,6 @@
       <Description>Navigation label for the page. Defaults to the page title when first authored.</Description>
       <Name>navigation-title</Name>
     </Parameter>
-    <Parameter Id="param-author-page-option-new-workspace" ValueShapeId="shape-path">
-      <Description>New MetaDocs workspace to create.</Description>
-      <Name>new-workspace</Name>
-    </Parameter>
     <Parameter Id="param-author-page-option-parent" ValueShapeId="shape-text">
       <Description>Optional parent subject id.</Description>
       <Name>parent</Name>
@@ -57,11 +53,27 @@
       <Description>Set this page as the default documentation view root.</Description>
       <Name>view-root</Name>
     </Parameter>
-    <Parameter Id="param-author-page-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-author-page-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>Existing MetaDocs workspace to update in place.</Description>
       <Name>workspace</Name>
     </Parameter>
-    <Parameter Id="param-browse-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-author-page-output-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the output SQL workspace connection string.</Description>
+      <Name>output-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-author-page-output-csharp" ValueShapeId="shape-path">
+      <Description>Create the output on the csharp workspace surface.</Description>
+      <Name>output-csharp</Name>
+    </Parameter>
+    <Parameter Id="param-author-page-output-sql" ValueShapeId="shape-path">
+      <Description>Create the output on the sql workspace surface.</Description>
+      <Name>output-sql</Name>
+    </Parameter>
+    <Parameter Id="param-author-page-output-xml" ValueShapeId="shape-path">
+      <Description>Create the output on the xml workspace surface.</Description>
+      <Name>output-xml</Name>
+    </Parameter>
+    <Parameter Id="param-browse-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaDocs workspace to browse. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
@@ -77,17 +89,13 @@
       <Description>Optional documentation view id, name, or title.</Description>
       <Name>view</Name>
     </Parameter>
-    <Parameter Id="param-contents-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-contents-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaDocs workspace to list. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-import-cli-option-application" ValueShapeId="shape-text">
       <Description>Optional MetaCli application id when the source workspace contains more than one application.</Description>
       <Name>application</Name>
-    </Parameter>
-    <Parameter Id="param-import-cli-option-new-workspace" ValueShapeId="shape-path">
-      <Description>New MetaDocs source workspace to create.</Description>
-      <Name>new-workspace</Name>
     </Parameter>
     <Parameter Id="param-import-cli-option-parent-subject" ValueShapeId="shape-text">
       <Description>Optional parent subject id for the imported CLI application.</Description>
@@ -102,9 +110,25 @@
       <IsRequired>true</IsRequired>
       <Name>source-workspace</Name>
     </Parameter>
-    <Parameter Id="param-import-cli-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-import-cli-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>Existing MetaDocs source workspace to refresh in place.</Description>
       <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-import-cli-output-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the output SQL workspace connection string.</Description>
+      <Name>output-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-import-cli-output-csharp" ValueShapeId="shape-path">
+      <Description>Create the output on the csharp workspace surface.</Description>
+      <Name>output-csharp</Name>
+    </Parameter>
+    <Parameter Id="param-import-cli-output-sql" ValueShapeId="shape-path">
+      <Description>Create the output on the sql workspace surface.</Description>
+      <Name>output-sql</Name>
+    </Parameter>
+    <Parameter Id="param-import-cli-output-xml" ValueShapeId="shape-path">
+      <Description>Create the output on the xml workspace surface.</Description>
+      <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-import-workspace-instances-option-display-name" ValueShapeId="shape-text">
       <Description>Optional source display name.</Description>
@@ -123,17 +147,13 @@
       <IsRequired>true</IsRequired>
       <Name>source-workspace</Name>
     </Parameter>
-    <Parameter Id="param-import-workspace-instances-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-import-workspace-instances-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-import-workspace-model-option-display-name" ValueShapeId="shape-text">
       <Description>Optional source display name.</Description>
       <Name>display-name</Name>
-    </Parameter>
-    <Parameter Id="param-import-workspace-model-option-new-workspace" ValueShapeId="shape-path">
-      <Description>New MetaDocs source workspace to create.</Description>
-      <Name>new-workspace</Name>
     </Parameter>
     <Parameter Id="param-import-workspace-model-option-parent-subject" ValueShapeId="shape-text">
       <Description>Optional parent subject id for the imported model subject.</Description>
@@ -148,9 +168,25 @@
       <IsRequired>true</IsRequired>
       <Name>source-workspace</Name>
     </Parameter>
-    <Parameter Id="param-import-workspace-model-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-import-workspace-model-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>Existing MetaDocs source workspace to refresh in place.</Description>
       <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-import-workspace-model-output-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the output SQL workspace connection string.</Description>
+      <Name>output-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-import-workspace-model-output-csharp" ValueShapeId="shape-path">
+      <Description>Create the output on the csharp workspace surface.</Description>
+      <Name>output-csharp</Name>
+    </Parameter>
+    <Parameter Id="param-import-workspace-model-output-sql" ValueShapeId="shape-path">
+      <Description>Create the output on the sql workspace surface.</Description>
+      <Name>output-sql</Name>
+    </Parameter>
+    <Parameter Id="param-import-workspace-model-output-xml" ValueShapeId="shape-path">
+      <Description>Create the output on the xml workspace surface.</Description>
+      <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-include-instance-entity-option-display-name-property" ValueShapeId="shape-text">
       <Description>Optional property used only as the imported instance display name.</Description>
@@ -169,7 +205,7 @@
       <Description>Optional property used only as the imported instance summary.</Description>
       <Name>summary-property</Name>
     </Parameter>
-    <Parameter Id="param-include-instance-entity-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-include-instance-entity-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
@@ -187,7 +223,7 @@
       <Description>Optional model documentation source id this policy applies to. Omit for a global policy.</Description>
       <Name>source-id</Name>
     </Parameter>
-    <Parameter Id="param-include-instance-property-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-include-instance-property-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
@@ -205,7 +241,7 @@
       <Description>Optional model documentation source id this policy applies to. Omit for a global policy.</Description>
       <Name>source-id</Name>
     </Parameter>
-    <Parameter Id="param-include-instance-relationship-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-include-instance-relationship-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>Existing MetaDocs workspace to update in place. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
@@ -215,7 +251,7 @@
       <IsRequired>true</IsRequired>
       <Name>include</Name>
     </Parameter>
-    <Parameter Id="param-merge-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-merge-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>Suite workspace to rebuild. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
@@ -224,7 +260,7 @@
       <IsRequired>true</IsRequired>
       <Name>out</Name>
     </Parameter>
-    <Parameter Id="param-render-site-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-render-site-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaDocs workspace to render. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
@@ -236,7 +272,7 @@
       <Description>Filter results by documentation subject type.</Description>
       <Name>subject-type</Name>
     </Parameter>
-    <Parameter Id="param-search-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-search-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaDocs workspace to search. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
@@ -280,7 +316,7 @@
       <Description>Optional description title. Defaults to the slot.</Description>
       <Name>title</Name>
     </Parameter>
-    <Parameter Id="param-update-description-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-update-description-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaDocs workspace to update. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
@@ -292,7 +328,7 @@
       <Description>Treat warnings as failing diagnostics.</Description>
       <Name>warnings-as-errors</Name>
     </Parameter>
-    <Parameter Id="param-validate-option-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-validate-option-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaDocs workspace to validate. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>

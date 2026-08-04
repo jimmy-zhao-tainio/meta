@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <OptionList>
-    <Option Id="opt-new-workspace-description" ParameterId="param-new-workspace-description" />
-    <Option Id="opt-new-workspace-name" ParameterId="param-new-workspace-name" />
-    <Option Id="opt-new-workspace-root" ParameterId="param-new-workspace-root" />
+    <Option Id="opt-add-operation-workspace" ParameterId="param-add-operation-workspace" />
+    <Option Id="opt-add-step-workspace" ParameterId="param-add-step-workspace" />
+    <Option Id="opt-add-workspace-workspace" ParameterId="param-add-workspace-workspace" />
     <Option Id="opt-operation-description" ParameterId="param-operation-description" />
     <Option Id="opt-operation-name" ParameterId="param-operation-name" />
+    <Option Id="opt-operations-workspace" ParameterId="param-operations-workspace" />
     <Option Id="opt-run-operation" ParameterId="param-run-operation" />
     <Option Id="opt-run-verbose" ParameterId="param-run-verbose" />
+    <Option Id="opt-run-workspace" ParameterId="param-run-workspace" />
     <Option Id="opt-show-verbose" ParameterId="param-show-verbose" />
+    <Option Id="opt-show-workspace" ParameterId="param-show-workspace" />
     <Option Id="opt-step-arguments" ParameterId="param-step-arguments" />
     <Option Id="opt-step-arguments-stdin" ParameterId="param-step-arguments-stdin" />
     <Option Id="opt-step-description" ParameterId="param-step-description" />
@@ -19,11 +22,22 @@
     <Option Id="opt-step-previous-step" ParameterId="param-step-previous-step" />
     <Option Id="opt-step-working-directory" ParameterId="param-step-working-directory" />
     <Option Id="opt-steps-operation" ParameterId="param-steps-operation" />
+    <Option Id="opt-steps-workspace" ParameterId="param-steps-workspace" />
     <Option Id="opt-validate-operation" ParameterId="param-validate-operation" />
-    <Option Id="opt-workspace" ParameterId="param-workspace" />
+    <Option Id="opt-validate-workspace" ParameterId="param-validate-workspace" />
+    <Option Id="opt-workspace-csharp-path" ParameterId="param-workspace-csharp-path" />
     <Option Id="opt-workspace-description" ParameterId="param-workspace-description" />
     <Option Id="opt-workspace-model" ParameterId="param-workspace-model" />
     <Option Id="opt-workspace-name" ParameterId="param-workspace-name" />
-    <Option Id="opt-workspace-path" ParameterId="param-workspace-path" />
+    <Option Id="opt-workspace-sql-connection-env" ParameterId="param-workspace-sql-connection-env" />
+    <Option Id="opt-workspace-xml-path" ParameterId="param-workspace-xml-path" />
+    <Option Id="opt-workspaces-workspace" ParameterId="param-workspaces-workspace" />
+    <Option Id="option-create-connection-env" ParameterId="param-create-connection-env" />
+    <Option Id="option-create-csharp" ParameterId="param-create-csharp" />
+    <Option Id="option-create-description" ParameterId="param-create-description" />
+    <Option Id="option-create-name" ParameterId="param-create-name" />
+    <Option Id="option-create-root" ParameterId="param-create-root" />
+    <Option Id="option-create-sql" ParameterId="param-create-sql" />
+    <Option Id="option-create-xml" ParameterId="param-create-xml" />
   </OptionList>
 </MetaCli>

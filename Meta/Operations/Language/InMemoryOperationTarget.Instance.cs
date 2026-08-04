@@ -10,8 +10,8 @@ internal sealed partial class InMemoryOperationTarget
         var entity = RequireEntity(state, operation.EntityName);
         var id = MetaIdentity.Require(operation.Id, "Record Id.");
         var records = state.Instance.GetOrCreateEntityRecords(entity.Name);
-        if (records.Any(record =>
-                MetaIdentity.Comparer.Equals(record.Id, id)))
+        var index = GetRecordIndex(state, entity.Name);
+        if (index.ContainsKey(id))
         {
             throw new InvalidOperationException(
                 $"Record '{entity.Name}:{id}' already exists.");
@@ -41,6 +41,7 @@ internal sealed partial class InMemoryOperationTarget
         }
 
         records.Add(record);
+        index.Add(record.Id, record);
     }
 
     internal void Apply(
@@ -50,6 +51,7 @@ internal sealed partial class InMemoryOperationTarget
         var entity = RequireEntity(state, operation.EntityName);
         var record = RequireRecord(state, entity, operation.Id);
         GetRecords(state, entity.Name).Remove(record);
+        GetRecordIndex(state, entity.Name).Remove(record.Id);
     }
 
     internal RenameRecordResult Apply(
@@ -59,11 +61,9 @@ internal sealed partial class InMemoryOperationTarget
         var entity = RequireEntity(state, operation.EntityName);
         var record = RequireRecord(state, entity, operation.Id);
         var newId = MetaIdentity.Require(operation.NewId, "New record Id.");
-        var collision = GetRecords(state, entity.Name).FirstOrDefault(
-            candidate =>
-                !ReferenceEquals(candidate, record) &&
-                MetaIdentity.Comparer.Equals(candidate.Id, newId));
-        if (collision != null)
+        var index = GetRecordIndex(state, entity.Name);
+        if (index.TryGetValue(newId, out var collision) &&
+            !ReferenceEquals(collision, record))
         {
             throw new InvalidOperationException(
                 $"Record '{entity.Name}:{newId}' already exists.");
@@ -72,6 +72,8 @@ internal sealed partial class InMemoryOperationTarget
         var oldId = record.Id;
         var relationshipValueCount = 0L;
         record.Id = newId;
+        index.Remove(oldId);
+        index.Add(newId, record);
         foreach (var sourceEntity in state.Model.Entities)
         {
             if (!state.Instance.RecordsByEntity.TryGetValue(

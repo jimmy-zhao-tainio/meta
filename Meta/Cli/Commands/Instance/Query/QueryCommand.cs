@@ -11,9 +11,7 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-            var source = CreateWorkspaceSource(workspace.State);
+            var source = CurrentWorkspace;
             var resolvedEntityName = await ResolveEntityNameAsync(source, entityName).ConfigureAwait(false);
             var maximumRecords = options.Top <= 0 ? 200 : options.Top;
             var conditions = options.Filters

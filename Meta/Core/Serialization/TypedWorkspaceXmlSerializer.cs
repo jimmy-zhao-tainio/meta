@@ -7,7 +7,7 @@ using Meta.Core.Domain;
 
 namespace Meta.Core.Serialization;
 
-public static class TypedWorkspaceXmlSerializer
+public static partial class TypedWorkspaceXmlSerializer
 {
     private const string WorkspaceXmlFileName = "workspace.xml";
     private const string DefaultModelFileRelativePath = "model.xml";

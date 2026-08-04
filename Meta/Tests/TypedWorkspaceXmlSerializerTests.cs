@@ -1,10 +1,47 @@
 using System.Xml.Serialization;
+using Meta.Core.Domain;
 using Meta.Core.Serialization;
 
 namespace Meta.Core.Tests;
 
 public sealed class TypedWorkspaceXmlSerializerTests
 {
+    [Fact]
+    public void TypedWorkspaceModelMapper_RoundTripsScalarsAndReferences()
+    {
+        var target = new Beta { Id = "target", Name = "Target" };
+        var typed = new TestTypedModel
+        {
+            AlphaList =
+            {
+                new Alpha
+                {
+                    Id = "source",
+                    Name = "Source",
+                    Note = string.Empty,
+                    Parent = target,
+                },
+            },
+            BetaList = { target },
+        };
+
+        var semantic = TypedWorkspaceModelMapper.ToInMemoryWorkspace(typed);
+        var source = Assert.Single(semantic.Instance.RecordsByEntity["Alpha"]);
+        Assert.Equal(string.Empty, source.Values["Note"]);
+        Assert.Equal("target", source.RelationshipIds["ParentId"]);
+
+        var restored = TypedWorkspaceModelMapper.FromInMemoryWorkspace(
+            semantic,
+            static () => new TestTypedModel());
+        var restoredSource = Assert.Single(restored.AlphaList);
+        Assert.Same(Assert.Single(restored.BetaList), restoredSource.Parent);
+
+        var roundTripped = TypedWorkspaceModelMapper.ToInMemoryWorkspace(restored);
+        Assert.Null(InMemoryWorkspaceComparer.FindDifference(
+            semantic,
+            roundTripped));
+    }
+
     [Fact]
     public void Save_RejectsIdentityBeyondTheSharedBoundary()
     {
@@ -343,6 +380,10 @@ public sealed class TypedWorkspaceXmlSerializerTests
         public string Id { get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;
+
+        public string? Note { get; set; }
+
+        public Beta? Parent { get; set; }
     }
 
     public sealed class Beta

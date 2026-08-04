@@ -24,6 +24,10 @@ Current boundary:
 - The `meta` CLI, MetaWeave, MetaDocs generic imports, and downstream
   MetaSchema, MetaConvert, MetaSql, MetaDataVault, and MetaTransform consumers
   use the new boundaries.
+- `meta generate` supports SQL and C# artifacts. The unsupported SSDT command,
+  implementation, tests, and generated documentation have been removed.
+- XML workspace open rejects invalid semantic state. Graph diagnostics describe
+  valid workspace topology and do not treat malformed declarations as data.
 - No product model changed in this migration.
 
 ## Verification
@@ -52,14 +56,25 @@ Post-deletion verification passed:
 - MetaDataVault complete project: 55/55
 - MetaTransform conversion tests: 9/9
 
+Unsupported-target correction on 2026-08-04 passed:
+
+- removed the modeled and implemented `meta generate ssdt` surface
+- `meta help generate` exposes only `csharp` and `sql`
+- regenerated MetaDocs contains no current SSDT support claim
+- `Metadata.Framework.sln`: 398/398 tests
+- `git diff --check`: no whitespace errors
+
 MetaConvert forced rebuilds pass with zero warnings. Its Business Data Vault
 projection now omits fully absent optional implementation columns and rejects
 half-specified name/type pairs explicitly.
 
 ## Remaining Work
 
-- Keep artifact-directory generation ownership separate from semantic
-  workspace operations.
+- Make public command execution representation-neutral. The operation and read
+  primitives already cover in-memory, SQL, XML conversion, and C# conversion;
+  the `meta` CLI still selects the XML lifecycle directly.
+- Preserve `GenerationService` as an artifact generator over semantic state,
+  separate from workspace persistence.
 
 ## Constraints
 

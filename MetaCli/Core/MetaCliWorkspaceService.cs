@@ -8,18 +8,11 @@ public sealed class MetaCliWorkspaceService
 {
     public MetaCliModel CreateEmpty() => MetaCliModel.CreateEmpty();
 
-    public MetaCliNewWorkspaceResult CreateWorkspace(
-        string workspacePath,
+    public MetaCliModel CreateWorkspace(
         string? applicationName,
         bool standardCliShapes,
         bool defaultHelp)
     {
-        var fullWorkspacePath = ResolveWorkspacePath(workspacePath);
-        if (Directory.Exists(fullWorkspacePath) && Directory.EnumerateFileSystemEntries(fullWorkspacePath).Any())
-        {
-            throw new InvalidOperationException($"Target directory must be empty: {fullWorkspacePath}");
-        }
-
         var model = CreateEmpty();
         Application? application = null;
         if (!string.IsNullOrWhiteSpace(applicationName))
@@ -75,35 +68,12 @@ public sealed class MetaCliWorkspaceService
             throw new InvalidOperationException(RenderValidationFailure(issues));
         }
 
-        model.SaveToXmlWorkspace(fullWorkspacePath);
-        return new MetaCliNewWorkspaceResult(
-            fullWorkspacePath,
-            model.ApplicationList.Count,
-            model.ValueArityList.Count,
-            model.ValueShapeList.Count,
-            model.AllowedValueList.Count,
-            model.CommandList.Count,
-            model.ExecutableCommandList.Count,
-            model.ParameterList.Count,
-            model.ApplicationParameterList.Count,
-            model.ExecutableCommandParameterList.Count,
-            model.OptionList.Count,
-            model.PositionalArgumentList.Count,
-            model.ParameterGroupList.Count);
+        return model;
     }
 
-    public MetaCliModel Load(string? workspacePath) =>
-        MetaCliModel.LoadFromXmlWorkspace(ResolveWorkspacePath(workspacePath));
-
-    public void Save(MetaCliModel model, string? workspacePath)
+    public MetaCliShowResult Show(MetaCliModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
-        model.SaveToXmlWorkspace(ResolveWorkspacePath(workspacePath));
-    }
-
-    public MetaCliShowResult Show(string? workspacePath)
-    {
-        var model = Load(workspacePath);
         var applications = model.ApplicationList
             .OrderBy(static application => application.Name, StringComparer.OrdinalIgnoreCase)
             .ThenBy(static application => application.Id, StringComparer.Ordinal)
@@ -112,9 +82,6 @@ public sealed class MetaCliWorkspaceService
 
         return new MetaCliShowResult(applications);
     }
-
-    public MetaCliIntegrityResult ValidateIntegrity(string? workspacePath) =>
-        ValidateIntegrity(Load(workspacePath));
 
     public MetaCliIntegrityResult ValidateIntegrity(MetaCliModel model)
     {
@@ -139,13 +106,13 @@ public sealed class MetaCliWorkspaceService
     }
 
     public Application AddApplication(
-        string? workspacePath,
+        MetaCliModel workspace,
         string id,
         string name,
         string? executableName,
         string? version,
         string? description) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.ApplicationList, static item => item.Id, id, "Application");
             var application = new Application
@@ -161,14 +128,14 @@ public sealed class MetaCliWorkspaceService
         });
 
     public Command AddCommand(
-        string? workspacePath,
+        MetaCliModel workspace,
         string id,
         string applicationId,
         string name,
         string token,
         string? parentCommandId,
         string? description) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.CommandList, static item => item.Id, id, "Command");
             var application = RequireById(model.ApplicationList, static item => item.Id, applicationId, "Application");
@@ -194,10 +161,10 @@ public sealed class MetaCliWorkspaceService
         });
 
     public ExecutableCommand AddExecutableCommand(
-        string? workspacePath,
+        MetaCliModel workspace,
         string id,
         string commandId) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.ExecutableCommandList, static item => item.Id, id, "ExecutableCommand");
             var command = RequireById(model.CommandList, static item => item.Id, commandId, "Command");
@@ -211,10 +178,10 @@ public sealed class MetaCliWorkspaceService
         });
 
     public ApplicationDefaultCommand SetDefaultCommand(
-        string? workspacePath,
+        MetaCliModel workspace,
         string applicationId,
         string executableCommandId) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             var application = RequireById(model.ApplicationList, static item => item.Id, applicationId, "Application");
             if (model.ApplicationDefaultCommandList.Any(item => ReferenceEquals(item.Application, application)))
@@ -239,13 +206,13 @@ public sealed class MetaCliWorkspaceService
         });
 
     public ValueArity AddValueArity(
-        string? workspacePath,
+        MetaCliModel workspace,
         string id,
         string name,
         string minValueCount,
         string? maxValueCount,
         string? description) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.ValueArityList, static item => item.Id, id, "ValueArity");
             var arity = new ValueArity
@@ -261,14 +228,14 @@ public sealed class MetaCliWorkspaceService
         });
 
     public ValueShape AddValueShape(
-        string? workspacePath,
+        MetaCliModel workspace,
         string id,
         string name,
         string valueArityId,
         string? valueLabel,
         bool? allowsOptionLikeValue,
         string? description) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.ValueShapeList, static item => item.Id, id, "ValueShape");
             var arity = RequireById(model.ValueArityList, static item => item.Id, valueArityId, "ValueArity");
@@ -286,12 +253,12 @@ public sealed class MetaCliWorkspaceService
         });
 
     public AllowedValue AddAllowedValue(
-        string? workspacePath,
+        MetaCliModel workspace,
         string id,
         string valueShapeId,
         string value,
         string? description) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.AllowedValueList, static item => item.Id, id, "AllowedValue");
             var shape = RequireById(model.ValueShapeList, static item => item.Id, valueShapeId, "ValueShape");
@@ -307,7 +274,7 @@ public sealed class MetaCliWorkspaceService
         });
 
     public Option AddOption(
-        string? workspacePath,
+        MetaCliModel workspace,
         string parameterId,
         string optionId,
         string executableCommandId,
@@ -319,7 +286,7 @@ public sealed class MetaCliWorkspaceService
         bool? repeatable,
         string? defaultValue,
         string? description) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.ParameterList, static item => item.Id, parameterId, "Parameter");
             RequireNewId(model.OptionList, static item => item.Id, optionId, "Option");
@@ -360,7 +327,7 @@ public sealed class MetaCliWorkspaceService
         });
 
     public Option AddApplicationOption(
-        string? workspacePath,
+        MetaCliModel workspace,
         string parameterId,
         string optionId,
         string applicationId,
@@ -372,7 +339,7 @@ public sealed class MetaCliWorkspaceService
         bool? repeatable,
         string? defaultValue,
         string? description) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.ParameterList, static item => item.Id, parameterId, "Parameter");
             RequireNewId(model.OptionList, static item => item.Id, optionId, "Option");
@@ -412,13 +379,142 @@ public sealed class MetaCliWorkspaceService
             return option;
         });
 
+    public Parameter RemoveApplicationOption(
+        MetaCliModel workspace,
+        string applicationId,
+        string parameterId) =>
+        Mutate(workspace, model =>
+        {
+            var application = RequireById(
+                model.ApplicationList,
+                static item => item.Id,
+                applicationId,
+                "Application");
+            var parameter = RequireById(
+                model.ParameterList,
+                static item => item.Id,
+                parameterId,
+                "Parameter");
+            var placement = model.ApplicationParameterList.SingleOrDefault(
+                item => ReferenceEquals(item.Application, application) &&
+                        ReferenceEquals(item.Parameter, parameter)) ??
+                throw new InvalidOperationException(
+                    $"Parameter '{parameter.Id}' is not an application option for '{application.Id}'.");
+            if (model.ExecutableCommandParameterList.Any(
+                    item => ReferenceEquals(item.Parameter, parameter)) ||
+                model.ParameterGroupMemberList.Any(
+                    item => ReferenceEquals(item.Parameter, parameter)) ||
+                model.PositionalArgumentList.Any(
+                    item => ReferenceEquals(item.Parameter, parameter)))
+            {
+                throw new InvalidOperationException(
+                    $"Application option parameter '{parameter.Id}' is also used by a command.");
+            }
+
+            var options = model.OptionList
+                .Where(item => ReferenceEquals(item.Parameter, parameter))
+                .ToArray();
+            if (options.Length != 1)
+            {
+                throw new InvalidOperationException(
+                    $"Application option parameter '{parameter.Id}' must have exactly one option.");
+            }
+
+            var option = options[0];
+            model.OptionTokenList.RemoveAll(
+                item => ReferenceEquals(item.Option, option));
+            model.OptionList.Remove(option);
+            model.ApplicationParameterList.Remove(placement);
+            model.ParameterList.Remove(parameter);
+            return parameter;
+        });
+
+    public Parameter RemoveOption(
+        MetaCliModel workspace,
+        string parameterId) =>
+        Mutate(workspace, model =>
+        {
+            var parameter = RequireById(
+                model.ParameterList,
+                static item => item.Id,
+                parameterId,
+                "Parameter");
+            if (model.ApplicationParameterList.Any(
+                    item => ReferenceEquals(item.Parameter, parameter)))
+            {
+                throw new InvalidOperationException(
+                    $"Parameter '{parameter.Id}' is an application option; use remove-application-option.");
+            }
+
+            var options = model.OptionList
+                .Where(item => ReferenceEquals(item.Parameter, parameter))
+                .ToArray();
+            if (options.Length != 1 ||
+                model.PositionalArgumentList.Any(
+                    item => ReferenceEquals(item.Parameter, parameter)))
+            {
+                throw new InvalidOperationException(
+                    $"Parameter '{parameter.Id}' is not one command option aggregate.");
+            }
+
+            RemoveParameterAggregate(model, parameter);
+            return parameter;
+        });
+
+    public Command RemoveCommand(
+        MetaCliModel workspace,
+        string commandId) =>
+        Mutate(workspace, model =>
+        {
+            var command = RequireById(
+                model.CommandList,
+                static item => item.Id,
+                commandId,
+                "Command");
+            if (model.CommandList.Any(item => ReferenceEquals(item.ParentCommand, command)))
+            {
+                throw new InvalidOperationException(
+                    $"Command '{command.Id}' has child commands and cannot be removed.");
+            }
+
+            var executables = model.ExecutableCommandList
+                .Where(item => ReferenceEquals(item.Command, command))
+                .ToArray();
+            foreach (var executable in executables)
+            {
+                model.ApplicationDefaultCommandList.RemoveAll(
+                    item => ReferenceEquals(item.ExecutableCommand, executable));
+                var groups = model.ParameterGroupList
+                    .Where(item => ReferenceEquals(item.ExecutableCommand, executable))
+                    .ToArray();
+                model.ParameterGroupMemberList.RemoveAll(
+                    item => groups.Contains(item.ParameterGroup));
+                model.ParameterGroupList.RemoveAll(
+                    item => groups.Contains(item));
+
+                var parameters = model.ExecutableCommandParameterList
+                    .Where(item => ReferenceEquals(item.ExecutableCommand, executable))
+                    .Select(static item => item.Parameter)
+                    .ToArray();
+                foreach (var parameter in parameters)
+                {
+                    RemoveParameterAggregate(model, parameter);
+                }
+
+                model.ExecutableCommandList.Remove(executable);
+            }
+
+            model.CommandList.Remove(command);
+            return command;
+        });
+
     public OptionToken AddOptionToken(
-        string? workspacePath,
+        MetaCliModel workspace,
         string id,
         string optionId,
         string tokenValue,
         string previousTokenId) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.OptionTokenList, static item => item.Id, id, "OptionToken");
             var option = RequireById(model.OptionList, static item => item.Id, optionId, "Option");
@@ -440,7 +536,7 @@ public sealed class MetaCliWorkspaceService
         });
 
     public PositionalArgument AddPositional(
-        string? workspacePath,
+        MetaCliModel workspace,
         string parameterId,
         string positionalId,
         string executableCommandId,
@@ -451,7 +547,7 @@ public sealed class MetaCliWorkspaceService
         bool? repeatable,
         string? defaultValue,
         string? description) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.ParameterList, static item => item.Id, parameterId, "Parameter");
             RequireNewId(model.PositionalArgumentList, static item => item.Id, positionalId, "PositionalArgument");
@@ -493,7 +589,7 @@ public sealed class MetaCliWorkspaceService
         });
 
     public ParameterGroup AddParameterGroup(
-        string? workspacePath,
+        MetaCliModel workspace,
         string id,
         string executableCommandId,
         string name,
@@ -502,7 +598,7 @@ public sealed class MetaCliWorkspaceService
         bool? required,
         bool? allowsMultiple,
         string? description) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.ParameterGroupList, static item => item.Id, id, "ParameterGroup");
             RequireNewId(model.ParameterGroupMemberList, static item => item.Id, memberId, "ParameterGroupMember");
@@ -534,12 +630,12 @@ public sealed class MetaCliWorkspaceService
         });
 
     public ParameterGroupMember AddParameterGroupMember(
-        string? workspacePath,
+        MetaCliModel workspace,
         string id,
         string parameterGroupId,
         string parameterId,
         string previousMemberId) =>
-        Mutate(workspacePath, model =>
+        Mutate(workspace, model =>
         {
             RequireNewId(model.ParameterGroupMemberList, static item => item.Id, id, "ParameterGroupMember");
             var group = RequireById(model.ParameterGroupList, static item => item.Id, parameterGroupId, "ParameterGroup");
@@ -565,6 +661,83 @@ public sealed class MetaCliWorkspaceService
             model.ParameterGroupMemberList.Add(member);
             return member;
         });
+
+    public ParameterGroup SetParameterGroupRequired(
+        MetaCliModel workspace,
+        string id,
+        bool required) =>
+        Mutate(workspace, model =>
+        {
+            var group = RequireById(
+                model.ParameterGroupList,
+                static item => item.Id,
+                id,
+                "ParameterGroup");
+            group.IsRequired = BoolText(required);
+            return group;
+        });
+
+    private static void RemoveParameterAggregate(
+        MetaCliModel model,
+        Parameter parameter)
+    {
+        var placements = model.ExecutableCommandParameterList
+            .Where(item => ReferenceEquals(item.Parameter, parameter))
+            .ToArray();
+        if (placements.Length != 1)
+        {
+            throw new InvalidOperationException(
+                $"Parameter '{parameter.Id}' must belong to exactly one executable command.");
+        }
+
+        var groupMembers = model.ParameterGroupMemberList
+            .Where(item => ReferenceEquals(item.Parameter, parameter))
+            .ToArray();
+        foreach (var member in groupMembers)
+        {
+            var group = member.ParameterGroup;
+            var members = model.ParameterGroupMemberList
+                .Where(item => ReferenceEquals(item.ParameterGroup, group))
+                .ToArray();
+            if (members.Length == 1)
+            {
+                model.ParameterGroupMemberList.Remove(member);
+                model.ParameterGroupList.Remove(group);
+                continue;
+            }
+
+            foreach (var next in members.Where(
+                         item => ReferenceEquals(item.PreviousMember, member)))
+            {
+                next.PreviousMember = member.PreviousMember;
+            }
+
+            model.ParameterGroupMemberList.Remove(member);
+        }
+
+        var positionalArguments = model.PositionalArgumentList
+            .Where(item => ReferenceEquals(item.Parameter, parameter))
+            .ToArray();
+        foreach (var argument in positionalArguments)
+        {
+            foreach (var next in model.PositionalArgumentList.Where(
+                         item => ReferenceEquals(item.PreviousArgument, argument)))
+            {
+                next.PreviousArgument = argument.PreviousArgument;
+            }
+
+            model.PositionalArgumentList.Remove(argument);
+        }
+
+        var options = model.OptionList
+            .Where(item => ReferenceEquals(item.Parameter, parameter))
+            .ToArray();
+        model.OptionTokenList.RemoveAll(item => options.Contains(item.Option));
+        model.OptionList.RemoveAll(item => options.Contains(item));
+        model.ExecutableCommandParameterList.RemoveAll(
+            item => ReferenceEquals(item.Parameter, parameter));
+        model.ParameterList.Remove(parameter);
+    }
 
     public static bool ParseBool(string? value, bool defaultValue = false) =>
         string.IsNullOrWhiteSpace(value)
@@ -695,10 +868,9 @@ public sealed class MetaCliWorkspaceService
         return "app-" + normalized;
     }
 
-    private T Mutate<T>(string? workspacePath, Func<MetaCliModel, T> mutate)
+    private T Mutate<T>(MetaCliModel model, Func<MetaCliModel, T> mutate)
     {
-        var fullPath = ResolveWorkspacePath(workspacePath);
-        var model = Load(fullPath);
+        ArgumentNullException.ThrowIfNull(model);
         var result = mutate(model);
         var issues = Validate(model, includeCompleteness: true);
         if (issues.Any(static issue => issue.Severity == MetaCliIssueSeverity.Error))
@@ -706,7 +878,6 @@ public sealed class MetaCliWorkspaceService
             throw new InvalidOperationException(RenderValidationFailure(issues));
         }
 
-        model.SaveToXmlWorkspace(fullPath);
         return result;
     }
 
@@ -1248,8 +1419,12 @@ public sealed class MetaCliWorkspaceService
 
         foreach (var duplicate in model.ParameterGroupMemberList
                      .GroupBy(static member => member.Parameter, ReferenceComparer<Parameter>.Instance)
-                     .Where(static group => group.Count() > 1)
-                     .Select(static group => group.Key))
+                     .SelectMany(parameterGroup => parameterGroup
+                         .GroupBy(
+                             static member => member.ParameterGroup.ExecutableCommand,
+                             ReferenceComparer<ExecutableCommand>.Instance)
+                         .Where(static executableGroup => executableGroup.Count() > 1)
+                         .Select(_ => parameterGroup.Key)))
         {
             AddError(issues, "MCLI083", $"Parameter '{duplicate.Name}' belongs to more than one parameter group.", $"Parameter:{duplicate.Id}");
         }
@@ -1398,6 +1573,9 @@ public sealed class MetaCliWorkspaceService
         ExecutableCommand executableCommand) =>
         model.ExecutableCommandParameterList.Any(item =>
             ReferenceEquals(item.ExecutableCommand, executableCommand) &&
+            ReferenceEquals(item.Parameter, parameter)) ||
+        model.ApplicationParameterList.Any(item =>
+            ReferenceEquals(item.Application, executableCommand.Command.Application) &&
             ReferenceEquals(item.Parameter, parameter));
 
     private static bool HasCommandParentCycle(Command command)

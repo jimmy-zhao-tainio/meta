@@ -1,40 +1,20 @@
 using Meta.Core.Operations;
+using MetaCli.Core;
 
 internal sealed partial class CliRuntime
 {
     async Task<int> WorkspaceMergeAsync(string[] commandArgs)
     {
-        var leftWorkspacePath = Path.GetFullPath(RequiredValue("leftWorkspace"));
-        var rightWorkspacePath = Path.GetFullPath(RequiredValue("rightWorkspace"));
-        var parse = ReadNewWorkspaceAndModelOptions(commandArgs, startIndex: 4);
-        if (!parse.Ok)
-        {
-            return PrintArgumentError(parse.ErrorMessage);
-        }
-
-        var newWorkspacePath = Path.GetFullPath(parse.NewWorkspacePath);
-        if (Directory.Exists(newWorkspacePath) && Directory.EnumerateFileSystemEntries(newWorkspacePath).Any())
-        {
-            return PrintDataError("E_OPERATION", $"target directory '{newWorkspacePath}' must be empty.");
-        }
-
-        var leftWorkspace = await OpenXmlWorkspaceForCommandAsync(
-                leftWorkspacePath)
-            .ConfigureAwait(false);
-        var rightWorkspace = await OpenXmlWorkspaceForCommandAsync(
-                rightWorkspacePath)
-            .ConfigureAwait(false);
+        var leftWorkspace = CurrentWorkspaces.Required("leftWorkspace");
+        var rightWorkspace = CurrentWorkspaces.Required("rightWorkspace");
+        var modelName = RequiredValue("model");
 
         WorkspaceMergePlan mergePlan;
         try
         {
             mergePlan = await services.WorkspaceMergeService.MergeAsync(
-                    new IMetaWorkspaceSource[]
-                    {
-                        CreateWorkspaceSource(leftWorkspace.State),
-                        CreateWorkspaceSource(rightWorkspace.State),
-                    },
-                    new WorkspaceMergeOptions(parse.ModelName))
+                    [leftWorkspace, rightWorkspace],
+                    new WorkspaceMergeOptions(modelName))
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)
@@ -50,33 +30,17 @@ internal sealed partial class CliRuntime
             return PrintOperationValidationFailure("workspace merge", Array.Empty<Operation>(), diagnostics);
         }
 
-        try
-        {
-            await XmlWorkspaceWriter.WriteMergedAsync(
-                    mergePlan.Workspace,
-                    newWorkspacePath,
-                    new[] { leftWorkspace, rightWorkspace })
-                .ConfigureAwait(false);
-        }
-        catch (InvalidOperationException exception)
-        {
-            return PrintDataError("E_OPERATION", exception.Message);
-        }
+        await CurrentWorkspaces.CreateAsync("output", mergePlan.Workspace).ConfigureAwait(false);
 
         var mergeResult = mergePlan.Result;
         presenter.WriteOk(
             "workspace merged",
-            ("Path", newWorkspacePath),
+            ("Path", MetaCliWorkspace.OutputLocation(Invocation, "output-xml", "output-csharp", "output-sql")),
             ("Model", mergeResult.MergedModelName),
             ("SourceWorkspaces", mergeResult.SourceWorkspaceCount.ToString(CultureInfo.InvariantCulture)),
             ("Entities", mergeResult.EntitiesMerged.ToString(CultureInfo.InvariantCulture)),
             ("Rows", mergeResult.RowsMerged.ToString(CultureInfo.InvariantCulture)));
 
         return 0;
-    }
-
-    private (bool Ok, string NewWorkspacePath, string ModelName, string ErrorMessage) ReadNewWorkspaceAndModelOptions(string[] commandArgs, int startIndex)
-    {
-        return (true, RequiredValue("new-workspace"), RequiredValue("model"), string.Empty);
     }
 }

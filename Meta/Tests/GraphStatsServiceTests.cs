@@ -23,9 +23,6 @@ public sealed class GraphStatsServiceTests
 
         Assert.Equal(4, stats.NodeCount);
         Assert.Equal(3, stats.EdgeCount);
-        Assert.Equal(3, stats.UniqueEdgeCount);
-        Assert.Equal(0, stats.DuplicateEdgeCount);
-        Assert.Equal(0, stats.MissingTargetEdgeCount);
         Assert.Equal(2, stats.WeaklyConnectedComponents);
         Assert.Equal(2, stats.RootCount);
         Assert.Equal(2, stats.SinkCount);
@@ -41,24 +38,21 @@ public sealed class GraphStatsServiceTests
     }
 
     [Fact]
-    public void Compute_CycleAndDataQualityIssues_AreReported()
+    public void Compute_OptionalRelationshipCycle_IsReported()
     {
         var model = new GenericModel
         {
             Name = "GraphModel",
         };
 
-        model.Entities.Add(Entity("A", "B", "B"));
+        model.Entities.Add(Entity("A", "B"));
         model.Entities.Add(Entity("B", "A"));
-        model.Entities.Add(Entity("C", "MissingX"));
+        model.Entities.Add(Entity("C"));
 
         var stats = GraphStatsService.Compute(model, topN: 3, cycleSampleLimit: 3);
 
         Assert.Equal(3, stats.NodeCount);
-        Assert.Equal(4, stats.EdgeCount);
-        Assert.Equal(3, stats.UniqueEdgeCount);
-        Assert.Equal(1, stats.DuplicateEdgeCount);
-        Assert.Equal(1, stats.MissingTargetEdgeCount);
+        Assert.Equal(2, stats.EdgeCount);
         Assert.Equal(2, stats.WeaklyConnectedComponents);
         Assert.True(stats.HasCycles);
         Assert.Equal(1, stats.CycleCount);
@@ -80,6 +74,7 @@ public sealed class GraphStatsServiceTests
             entity.Relationships.Add(new GenericRelationship
             {
                 Entity = relationship,
+                IsNullable = true,
             });
         }
 

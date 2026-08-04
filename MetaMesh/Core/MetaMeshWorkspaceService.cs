@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using Meta.Adapters;
+using Meta.Core.Connections;
 
 namespace MetaMesh.Core;
 
@@ -22,23 +24,25 @@ public sealed class MetaMeshWorkspaceService
         return model;
     }
 
-    public MetaMeshShowResult Show(MetaMesh.MetaMeshModel model, string meshWorkspacePath)
+    public MetaMeshShowResult Show(
+        MetaMesh.MetaMeshModel model,
+        MetaMeshWorkspaceContext context)
     {
         ArgumentNullException.ThrowIfNull(model);
-        ArgumentException.ThrowIfNullOrWhiteSpace(meshWorkspacePath);
+        ArgumentNullException.ThrowIfNull(context);
 
         var mesh = RequireMesh(model);
-        var fullMeshWorkspacePath = Path.GetFullPath(meshWorkspacePath);
-        var resolvedRootPath = ResolveMeshRootPath(mesh, fullMeshWorkspacePath);
+        var resolvedRootPath = ResolveMeshRootPath(mesh, context);
+        var workspaces = ResolveWorkspaces(model, resolvedRootPath);
         return new MetaMeshShowResult(
             mesh.Name,
             mesh.RootPath ?? string.Empty,
             resolvedRootPath,
-            model.WorkspaceList
-                .OrderBy(static item => item.Name, StringComparer.OrdinalIgnoreCase)
-                .Select(item => ToWorkspaceSummary(item, fullMeshWorkspacePath, resolvedRootPath))
+            workspaces
+                .OrderBy(static item => item.Workspace.Name, StringComparer.OrdinalIgnoreCase)
+                .Select(ToWorkspaceSummary)
                 .ToArray(),
-            CollectWorkspaceIssues(model, resolvedRootPath),
+            CollectWorkspaceIssues(workspaces),
             model.OperationList
                 .OrderBy(static item => item.Name, StringComparer.OrdinalIgnoreCase)
                 .Select(operation => ToOperationSummary(model, operation))
@@ -48,15 +52,28 @@ public sealed class MetaMeshWorkspaceService
     public MetaMeshWorkspaceSummary AddWorkspace(
         MetaMesh.MetaMeshModel model,
         string name,
-        string path,
+        string? xmlPath,
+        string? csharpPath,
+        string? sqlConnectionEnvironmentVariable,
         string? modelName,
         string? description,
-        string meshWorkspacePath)
+        MetaMeshWorkspaceContext context)
     {
         ArgumentNullException.ThrowIfNull(model);
+        ArgumentNullException.ThrowIfNull(context);
         var mesh = RequireMesh(model);
         var normalizedName = RequiredName(name);
-        var normalizedPath = RequiredName(path);
+        var locations = new[]
+        {
+            (Surface: "xml", Location: NormalizeOptional(xmlPath)),
+            (Surface: "csharp", Location: NormalizeOptional(csharpPath)),
+            (Surface: "sql", Location: NormalizeOptional(sqlConnectionEnvironmentVariable))
+        }.Where(static item => item.Location is not null).ToArray();
+        if (locations.Length != 1)
+        {
+            throw new InvalidOperationException(
+                "A workspace requires exactly one of --xml-path, --csharp-path, or --sql-connection-env.");
+        }
 
         if (model.WorkspaceList.Any(item => string.Equals(item.Name, normalizedName, StringComparison.OrdinalIgnoreCase)))
         {
@@ -68,15 +85,48 @@ public sealed class MetaMeshWorkspaceService
             Id = "workspace:" + NormalizeToken(normalizedName),
             Mesh = mesh,
             Name = normalizedName,
-            Path = normalizedPath,
             ModelName = NormalizeOptional(modelName),
             Description = NormalizeOptional(description)
         };
 
         RequireUniqueId(model.WorkspaceList, workspace.Id, "Workspace");
         model.WorkspaceList.Add(workspace);
-        var resolvedRootPath = ResolveMeshRootPath(mesh, Path.GetFullPath(meshWorkspacePath));
-        return ToWorkspaceSummary(workspace, meshWorkspacePath, resolvedRootPath);
+        switch (locations[0].Surface)
+        {
+            case "xml":
+                var xmlWorkspace = new MetaMesh.XmlWorkspace
+                {
+                    Id = "xml-workspace:" + NormalizeToken(normalizedName),
+                    Workspace = workspace,
+                    Path = locations[0].Location!
+                };
+                RequireUniqueId(model.XmlWorkspaceList, xmlWorkspace.Id, "XmlWorkspace");
+                model.XmlWorkspaceList.Add(xmlWorkspace);
+                break;
+            case "csharp":
+                var csharpWorkspace = new MetaMesh.CSharpWorkspace
+                {
+                    Id = "csharp-workspace:" + NormalizeToken(normalizedName),
+                    Workspace = workspace,
+                    Path = locations[0].Location!
+                };
+                RequireUniqueId(model.CSharpWorkspaceList, csharpWorkspace.Id, "CSharpWorkspace");
+                model.CSharpWorkspaceList.Add(csharpWorkspace);
+                break;
+            case "sql":
+                var sqlWorkspace = new MetaMesh.SqlWorkspace
+                {
+                    Id = "sql-workspace:" + NormalizeToken(normalizedName),
+                    Workspace = workspace,
+                    ConnectionEnvironmentVariable = locations[0].Location!
+                };
+                RequireUniqueId(model.SqlWorkspaceList, sqlWorkspace.Id, "SqlWorkspace");
+                model.SqlWorkspaceList.Add(sqlWorkspace);
+                break;
+        }
+
+        var resolvedRootPath = ResolveMeshRootPath(mesh, context);
+        return ToWorkspaceSummary(ResolveWorkspace(model, workspace, resolvedRootPath));
     }
 
     public MetaMeshOperationSummary AddOperation(
@@ -154,19 +204,18 @@ public sealed class MetaMeshWorkspaceService
     public MetaMeshRunResult RunOperation(
         MetaMesh.MetaMeshModel model,
         string operationName,
-        string meshWorkspacePath,
+        MetaMeshWorkspaceContext context,
         IMetaMeshRunObserver? observer = null,
         bool attachToConsole = false)
     {
         ArgumentNullException.ThrowIfNull(model);
-        ArgumentException.ThrowIfNullOrWhiteSpace(meshWorkspacePath);
+        ArgumentNullException.ThrowIfNull(context);
         var mesh = RequireMesh(model);
         var operation = RequireOperation(model, operationName);
-        var fullMeshWorkspacePath = Path.GetFullPath(meshWorkspacePath);
-        var resolvedRootPath = ResolveMeshRootPath(mesh, fullMeshWorkspacePath);
+        var resolvedRootPath = ResolveMeshRootPath(mesh, context);
         var workspaceTokens = BuildWorkspaceTokens(model, resolvedRootPath);
         var stepResults = new List<MetaMeshRunStepResult>();
-        var plan = BuildRunPlan(model, operation, fullMeshWorkspacePath, resolvedRootPath, workspaceTokens);
+        var plan = BuildRunPlan(model, operation, context, resolvedRootPath, workspaceTokens);
 
         for (var i = 0; i < plan.Steps.Count; i++)
         {
@@ -198,16 +247,15 @@ public sealed class MetaMeshWorkspaceService
     public MetaMeshValidationResult ValidateOperation(
         MetaMesh.MetaMeshModel model,
         string operationName,
-        string meshWorkspacePath)
+        MetaMeshWorkspaceContext context)
     {
         ArgumentNullException.ThrowIfNull(model);
-        ArgumentException.ThrowIfNullOrWhiteSpace(meshWorkspacePath);
+        ArgumentNullException.ThrowIfNull(context);
         var mesh = RequireMesh(model);
         var operation = RequireOperation(model, operationName);
-        var fullMeshWorkspacePath = Path.GetFullPath(meshWorkspacePath);
-        var resolvedRootPath = ResolveMeshRootPath(mesh, fullMeshWorkspacePath);
+        var resolvedRootPath = ResolveMeshRootPath(mesh, context);
         var workspaceTokens = BuildWorkspaceTokens(model, resolvedRootPath);
-        var plan = BuildRunPlan(model, operation, fullMeshWorkspacePath, resolvedRootPath, workspaceTokens);
+        var plan = BuildRunPlan(model, operation, context, resolvedRootPath, workspaceTokens);
         return new MetaMeshValidationResult(
             operation.Name,
             plan.Steps
@@ -222,12 +270,10 @@ public sealed class MetaMeshWorkspaceService
     private static MetaMeshRunPlan BuildRunPlan(
         MetaMesh.MetaMeshModel model,
         MetaMesh.Operation operation,
-        string meshWorkspacePath,
+        MetaMeshWorkspaceContext context,
         string resolvedRootPath,
-        IReadOnlyDictionary<string, string> workspaceTokens)
+        IReadOnlyDictionary<string, ResolvedWorkspace> workspaceTokens)
     {
-        RequireWorkspaceDirectory(meshWorkspacePath, "MetaMesh workspace");
-        RequireDirectoryReadable(meshWorkspacePath, "MetaMesh workspace");
         RequireDirectory(resolvedRootPath, "Mesh root");
 
         var steps = OrderOperationSteps(model, operation, strict: true);
@@ -236,7 +282,14 @@ public sealed class MetaMeshWorkspaceService
             throw new InvalidOperationException($"Operation '{operation.Name}' has no steps.");
         }
 
-        var workspaceIssues = CollectOperationWorkspaceIssues(model, steps, resolvedRootPath);
+        foreach (var step in steps)
+        {
+            ValidateTokens(step.Executable, workspaceTokens);
+            ValidateTokens(step.Arguments, workspaceTokens);
+            ValidateTokens(step.WorkingDirectory, workspaceTokens, requireFileSystemLocation: true);
+        }
+
+        var workspaceIssues = CollectOperationWorkspaceIssues(steps, workspaceTokens);
         if (workspaceIssues.Count > 0)
         {
             throw new MetaMeshWorkspaceIssueException(workspaceIssues);
@@ -245,14 +298,10 @@ public sealed class MetaMeshWorkspaceService
         var plannedSteps = new List<MetaMeshPlannedStep>();
         foreach (var step in steps)
         {
-            ValidateTokens(step.Executable, workspaceTokens);
-            ValidateTokens(step.Arguments, workspaceTokens);
-            ValidateTokens(step.WorkingDirectory, workspaceTokens);
-
-            var executable = ExpandTokens(step.Executable, meshWorkspacePath, resolvedRootPath, workspaceTokens);
-            var arguments = ExpandTokens(step.Arguments ?? string.Empty, meshWorkspacePath, resolvedRootPath, workspaceTokens);
+            var executable = ExpandTokens(step.Executable, context.WorkspaceLocation, resolvedRootPath, workspaceTokens);
+            var arguments = ExpandTokens(step.Arguments ?? string.Empty, context.WorkspaceLocation, resolvedRootPath, workspaceTokens);
             var workingDirectory = ResolveWorkingDirectory(
-                ExpandTokens(step.WorkingDirectory ?? string.Empty, meshWorkspacePath, resolvedRootPath, workspaceTokens),
+                ExpandTokens(step.WorkingDirectory ?? string.Empty, context.WorkspaceLocation, resolvedRootPath, workspaceTokens),
                 resolvedRootPath);
 
             RequireDirectory(workingDirectory, $"Working directory for step '{step.Name}'");
@@ -331,44 +380,79 @@ public sealed class MetaMeshWorkspaceService
     }
 
     private static MetaMeshWorkspaceSummary ToWorkspaceSummary(
-        MetaMesh.Workspace workspace,
-        string meshWorkspacePath,
-        string resolvedRootPath)
+        ResolvedWorkspace workspace)
     {
         return new MetaMeshWorkspaceSummary(
-            workspace.Name,
-            workspace.Path,
-            ResolveWorkspacePath(workspace, resolvedRootPath),
-            workspace.ModelName ?? string.Empty,
-            workspace.Description ?? string.Empty);
+            workspace.Workspace.Name,
+            workspace.Surface,
+            workspace.Location,
+            workspace.ResolvedLocation,
+            workspace.Workspace.ModelName ?? string.Empty,
+            workspace.Workspace.Description ?? string.Empty);
     }
 
     private static IReadOnlyList<MetaMeshWorkspaceIssue> CollectWorkspaceIssues(
-        MetaMesh.MetaMeshModel model,
-        string resolvedRootPath)
+        IReadOnlyList<ResolvedWorkspace> workspaces)
     {
         var issues = new List<MetaMeshWorkspaceIssue>();
-        foreach (var workspace in model.WorkspaceList.OrderBy(static item => item.Name, StringComparer.OrdinalIgnoreCase))
+        foreach (var workspace in workspaces.OrderBy(static item => item.Workspace.Name, StringComparer.OrdinalIgnoreCase))
         {
-            var resolvedPath = ResolveWorkspacePath(workspace, resolvedRootPath);
-            var reason = GetWorkspaceIssueReason(resolvedPath);
+            var reason = GetWorkspaceIssueReason(workspace);
             if (reason is null)
             {
                 continue;
             }
 
             issues.Add(new MetaMeshWorkspaceIssue(
-                workspace.Name,
-                workspace.Path,
-                resolvedPath,
-                workspace.ModelName ?? string.Empty,
+                workspace.Workspace.Name,
+                workspace.Surface,
+                workspace.Location,
+                workspace.ResolvedLocation,
+                workspace.Workspace.ModelName ?? string.Empty,
                 reason));
         }
 
         return issues;
     }
 
-    private static string? GetWorkspaceIssueReason(string path)
+    private static string? GetWorkspaceIssueReason(ResolvedWorkspace workspace)
+    {
+        if (workspace is ResolvedXmlWorkspace xml)
+        {
+            return GetXmlWorkspaceIssueReason(xml.ResolvedLocation);
+        }
+
+        try
+        {
+            if (workspace is ResolvedCSharpWorkspace csharp)
+            {
+                var opened = Meta.Adapters.CSharpWorkspace.OpenAsync(csharp.ResolvedLocation)
+                    .GetAwaiter()
+                    .GetResult();
+                opened.DisposeAsync().AsTask().GetAwaiter().GetResult();
+                return null;
+            }
+
+            if (workspace is ResolvedSqlWorkspace sql)
+            {
+                var connectionString = ConnectionEnvironmentVariableResolver.ResolveRequired(sql.Location);
+                var opened = Meta.Adapters.SqlWorkspace.OpenAsync(connectionString)
+                    .GetAwaiter()
+                    .GetResult();
+                opened.DisposeAsync().AsTask().GetAwaiter().GetResult();
+                return null;
+            }
+        }
+        catch (Exception exception)
+        {
+            return "workspace could not be opened: " + exception.Message;
+        }
+
+        throw new InvalidOperationException(
+            $"Unsupported workspace representation '{workspace.GetType().Name}'.");
+    }
+
+    private static string? GetXmlWorkspaceIssueReason(string path)
     {
         if (!Directory.Exists(path))
         {
@@ -390,39 +474,37 @@ public sealed class MetaMeshWorkspaceService
     }
 
     private static IReadOnlyList<MetaMeshWorkspaceIssue> CollectOperationWorkspaceIssues(
-        MetaMesh.MetaMeshModel model,
         IReadOnlyList<MetaMesh.OperationStep> steps,
-        string resolvedRootPath)
+        IReadOnlyDictionary<string, ResolvedWorkspace> workspaces)
     {
         var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (var step in steps)
         {
             AddWorkspaceTokenNames(names, step.Executable);
+            AddWorkspaceTokenNames(names, step.Arguments);
             AddWorkspaceTokenNames(names, step.WorkingDirectory);
         }
 
         var issues = new List<MetaMeshWorkspaceIssue>();
         foreach (var name in names.OrderBy(static item => item, StringComparer.OrdinalIgnoreCase))
         {
-            var workspace = model.WorkspaceList.FirstOrDefault(item =>
-                string.Equals(item.Name, name, StringComparison.OrdinalIgnoreCase));
-            if (workspace is null)
+            if (!workspaces.TryGetValue(name, out var workspace))
             {
                 continue;
             }
 
-            var resolvedPath = ResolveWorkspacePath(workspace, resolvedRootPath);
-            var reason = GetWorkspaceIssueReason(resolvedPath);
+            var reason = GetWorkspaceIssueReason(workspace);
             if (reason is null)
             {
                 continue;
             }
 
             issues.Add(new MetaMeshWorkspaceIssue(
-                workspace.Name,
-                workspace.Path,
-                resolvedPath,
-                workspace.ModelName ?? string.Empty,
+                workspace.Workspace.Name,
+                workspace.Surface,
+                workspace.Location,
+                workspace.ResolvedLocation,
+                workspace.Workspace.ModelName ?? string.Empty,
                 reason));
         }
 
@@ -436,9 +518,9 @@ public sealed class MetaMeshWorkspaceService
             return;
         }
 
-        foreach (var name in FindWorkspacePathTokens(value))
+        foreach (var token in FindWorkspaceTokens(value))
         {
-            names.Add(name);
+            names.Add(token.Name);
         }
     }
 
@@ -543,20 +625,70 @@ public sealed class MetaMeshWorkspaceService
         }
     }
 
-    private static IReadOnlyDictionary<string, string> BuildWorkspaceTokens(
+    private static IReadOnlyDictionary<string, ResolvedWorkspace> BuildWorkspaceTokens(
         MetaMesh.MetaMeshModel model,
         string resolvedRootPath)
     {
-        var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var workspace in model.WorkspaceList)
+        var result = new Dictionary<string, ResolvedWorkspace>(StringComparer.OrdinalIgnoreCase);
+        foreach (var workspace in ResolveWorkspaces(model, resolvedRootPath))
         {
-            if (!result.TryAdd(workspace.Name, ResolveWorkspacePath(workspace, resolvedRootPath)))
+            if (!result.TryAdd(workspace.Workspace.Name, workspace))
             {
-                throw new InvalidOperationException($"Workspace name '{workspace.Name}' is declared more than once.");
+                throw new InvalidOperationException(
+                    $"Workspace name '{workspace.Workspace.Name}' is declared more than once.");
             }
         }
 
         return result;
+    }
+
+    private static IReadOnlyList<ResolvedWorkspace> ResolveWorkspaces(
+        MetaMesh.MetaMeshModel model,
+        string resolvedRootPath) =>
+        model.WorkspaceList
+            .Select(workspace => ResolveWorkspace(model, workspace, resolvedRootPath))
+            .ToArray();
+
+    private static ResolvedWorkspace ResolveWorkspace(
+        MetaMesh.MetaMeshModel model,
+        MetaMesh.Workspace workspace,
+        string resolvedRootPath)
+    {
+        var xml = model.XmlWorkspaceList
+            .Where(item => ReferenceEquals(item.Workspace, workspace))
+            .ToArray();
+        var csharp = model.CSharpWorkspaceList
+            .Where(item => ReferenceEquals(item.Workspace, workspace))
+            .ToArray();
+        var sql = model.SqlWorkspaceList
+            .Where(item => ReferenceEquals(item.Workspace, workspace))
+            .ToArray();
+        var count = xml.Length + csharp.Length + sql.Length;
+        if (count != 1)
+        {
+            throw new InvalidOperationException(
+                $"Workspace '{workspace.Name}' must have exactly one XML, C#, or SQL representation; found {count}.");
+        }
+
+        if (xml.Length == 1)
+        {
+            return new ResolvedXmlWorkspace(
+                workspace,
+                xml[0].Path,
+                ResolveFileWorkspacePath(xml[0].Path, resolvedRootPath));
+        }
+
+        if (csharp.Length == 1)
+        {
+            return new ResolvedCSharpWorkspace(
+                workspace,
+                csharp[0].Path,
+                ResolveFileWorkspacePath(csharp[0].Path, resolvedRootPath));
+        }
+
+        return new ResolvedSqlWorkspace(
+            workspace,
+            sql[0].ConnectionEnvironmentVariable);
     }
 
     private static MetaMesh.Mesh RequireMesh(MetaMesh.MetaMeshModel model)
@@ -588,24 +720,27 @@ public sealed class MetaMeshWorkspaceService
                ?? throw new InvalidOperationException($"Operation '{operation.Name}' has no step '{normalizedName}'.");
     }
 
-    private static string ResolveMeshRootPath(MetaMesh.Mesh mesh, string meshWorkspacePath)
+    private static string ResolveMeshRootPath(
+        MetaMesh.Mesh mesh,
+        MetaMeshWorkspaceContext context)
     {
+        var basePath = !string.IsNullOrWhiteSpace(context.WorkspaceDirectory)
+            ? Path.GetFullPath(context.WorkspaceDirectory)
+            : Path.GetFullPath(context.CurrentDirectory);
         if (string.IsNullOrWhiteSpace(mesh.RootPath))
         {
-            return Path.GetFullPath(meshWorkspacePath);
+            return basePath;
         }
 
         return Path.IsPathRooted(mesh.RootPath)
             ? Path.GetFullPath(mesh.RootPath)
-            : Path.GetFullPath(Path.Combine(meshWorkspacePath, mesh.RootPath));
+            : Path.GetFullPath(Path.Combine(basePath, mesh.RootPath));
     }
 
-    private static string ResolveWorkspacePath(MetaMesh.Workspace workspace, string resolvedRootPath)
-    {
-        return Path.IsPathRooted(workspace.Path)
-            ? Path.GetFullPath(workspace.Path)
-            : Path.GetFullPath(Path.Combine(resolvedRootPath, workspace.Path));
-    }
+    private static string ResolveFileWorkspacePath(string path, string resolvedRootPath) =>
+        Path.IsPathRooted(path)
+            ? Path.GetFullPath(path)
+            : Path.GetFullPath(Path.Combine(resolvedRootPath, path));
 
     private static string ResolveWorkingDirectory(string workingDirectory, string resolvedRootPath)
     {
@@ -621,15 +756,23 @@ public sealed class MetaMeshWorkspaceService
 
     private static string ExpandTokens(
         string value,
-        string meshWorkspacePath,
+        string meshWorkspaceLocation,
         string resolvedRootPath,
-        IReadOnlyDictionary<string, string> workspacePaths)
+        IReadOnlyDictionary<string, ResolvedWorkspace> workspaces)
     {
-        var result = ReplaceOrdinalIgnoreCase(value, "{mesh.workspace}", meshWorkspacePath);
+        var result = ReplaceOrdinalIgnoreCase(value, "{mesh.workspace}", meshWorkspaceLocation);
         result = ReplaceOrdinalIgnoreCase(result, "{mesh.root}", resolvedRootPath);
-        foreach (var workspace in workspacePaths)
+        foreach (var token in FindWorkspaceTokens(result).ToArray())
         {
-            result = ReplaceOrdinalIgnoreCase(result, "{workspace:" + workspace.Key + ".path}", workspace.Value);
+            var workspace = workspaces[token.Name];
+            var replacement = token.Member switch
+            {
+                "location" => workspace.ResolvedLocation,
+                "surface" => workspace.Surface,
+                _ => throw new InvalidOperationException(
+                    $"Workspace token '{token.Text}' has unsupported member '{token.Member}'.")
+            };
+            result = ReplaceOrdinalIgnoreCase(result, token.Text, replacement);
         }
 
         foreach (var environmentVariable in FindEnvironmentVariableTokens(result))
@@ -645,18 +788,34 @@ public sealed class MetaMeshWorkspaceService
 
     private static void ValidateTokens(
         string? value,
-        IReadOnlyDictionary<string, string> workspacePaths)
+        IReadOnlyDictionary<string, ResolvedWorkspace> workspaces,
+        bool requireFileSystemLocation = false)
     {
         if (string.IsNullOrWhiteSpace(value))
         {
             return;
         }
 
-        foreach (var workspaceName in FindWorkspacePathTokens(value))
+        foreach (var token in FindWorkspaceTokens(value))
         {
-            if (!workspacePaths.ContainsKey(workspaceName))
+            if (!workspaces.TryGetValue(token.Name, out var workspace))
             {
-                throw new InvalidOperationException($"Workspace token '{{workspace:{workspaceName}.path}}' references an undeclared workspace.");
+                throw new InvalidOperationException(
+                    $"Workspace token '{token.Text}' references undeclared workspace '{token.Name}'.");
+            }
+
+            if (token.Member is not ("location" or "surface"))
+            {
+                throw new InvalidOperationException(
+                    $"Workspace token '{token.Text}' must select .location or .surface.");
+            }
+
+            if (requireFileSystemLocation &&
+                token.Member == "location" &&
+                workspace is ResolvedSqlWorkspace)
+            {
+                throw new InvalidOperationException(
+                    $"SQL workspace '{token.Name}' cannot be used as an operation working directory.");
             }
         }
 
@@ -669,10 +828,9 @@ public sealed class MetaMeshWorkspaceService
         }
     }
 
-    private static IEnumerable<string> FindWorkspacePathTokens(string value)
+    private static IEnumerable<WorkspaceToken> FindWorkspaceTokens(string value)
     {
         const string prefix = "{workspace:";
-        const string suffix = ".path}";
         var startIndex = 0;
         while (true)
         {
@@ -683,20 +841,28 @@ public sealed class MetaMeshWorkspaceService
             }
 
             var nameStart = index + prefix.Length;
-            var endIndex = value.IndexOf(suffix, nameStart, StringComparison.OrdinalIgnoreCase);
+            var endIndex = value.IndexOf('}', nameStart);
             if (endIndex < 0)
             {
-                startIndex = nameStart;
-                continue;
+                throw new InvalidOperationException(
+                    $"Workspace token starting at character {index} is not closed.");
             }
 
-            var name = value[nameStart..endIndex].Trim();
+            var selector = value[nameStart..endIndex].Trim();
+            var memberSeparator = selector.LastIndexOf('.');
+            var name = memberSeparator < 0 ? selector : selector[..memberSeparator].Trim();
+            var member = memberSeparator < 0
+                ? string.Empty
+                : selector[(memberSeparator + 1)..].Trim().ToLowerInvariant();
             if (!string.IsNullOrWhiteSpace(name))
             {
-                yield return name;
+                yield return new WorkspaceToken(
+                    name,
+                    member,
+                    value[index..(endIndex + 1)]);
             }
 
-            startIndex = endIndex + suffix.Length;
+            startIndex = endIndex + 1;
         }
     }
 
@@ -801,16 +967,6 @@ public sealed class MetaMeshWorkspaceService
     private static bool ContainsDirectorySeparator(string value) =>
         value.Contains(Path.DirectorySeparatorChar) ||
         value.Contains(Path.AltDirectorySeparatorChar);
-
-    private static void RequireWorkspaceDirectory(string path, string label)
-    {
-        RequireDirectory(path, label);
-        var workspaceFilePath = Path.Combine(path, "workspace.xml");
-        if (!File.Exists(workspaceFilePath))
-        {
-            throw new InvalidOperationException($"{label} '{path}' does not contain workspace.xml.");
-        }
-    }
 
     private static void RequireDirectory(string path, string label)
     {
@@ -962,4 +1118,50 @@ public sealed class MetaMeshWorkspaceService
         string Arguments,
         string WorkingDirectory,
         int ExpectedExitCode);
+
+    private abstract record ResolvedWorkspace(
+        MetaMesh.Workspace Workspace,
+        string Location)
+    {
+        public abstract string Surface { get; }
+
+        public abstract string ResolvedLocation { get; }
+    }
+
+    private sealed record ResolvedXmlWorkspace(
+        MetaMesh.Workspace Workspace,
+        string Location,
+        string Path)
+        : ResolvedWorkspace(Workspace, Location)
+    {
+        public override string Surface => "xml";
+
+        public override string ResolvedLocation => Path;
+    }
+
+    private sealed record ResolvedCSharpWorkspace(
+        MetaMesh.Workspace Workspace,
+        string Location,
+        string Path)
+        : ResolvedWorkspace(Workspace, Location)
+    {
+        public override string Surface => "csharp";
+
+        public override string ResolvedLocation => Path;
+    }
+
+    private sealed record ResolvedSqlWorkspace(
+        MetaMesh.Workspace Workspace,
+        string Location)
+        : ResolvedWorkspace(Workspace, Location)
+    {
+        public override string Surface => "sql";
+
+        public override string ResolvedLocation => Location;
+    }
+
+    private sealed record WorkspaceToken(
+        string Name,
+        string Member,
+        string Text);
 }

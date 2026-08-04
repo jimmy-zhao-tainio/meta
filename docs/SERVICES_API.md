@@ -119,7 +119,7 @@ workspace. `ExportCsvAsync` streams one entity from an
 for the caller to execute and publish.
 
 `ModelSuggestService.Analyze` consumes `InMemoryWorkspace`.
-`GenerationService.GenerateSql`, `GenerateCSharp`, and `GenerateSsdt`
+`GenerationService.GenerateSql` and `GenerateCSharp`
 also consume semantic state; output-directory ownership belongs to those
 artifact generators.
 

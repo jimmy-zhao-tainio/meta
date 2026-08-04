@@ -47,30 +47,36 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(parseResult.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-
-            var entity = workspace.Model.FindEntity(entityName);
+            var model = await WorkspaceComposition.MaterializeModelAsync(CurrentWorkspace)
+                .ConfigureAwait(false);
+            var entity = model.FindEntity(entityName);
             if (entity == null)
             {
                 return PrintDataError("E_ENTITY_NOT_FOUND", $"entity '{entityName}' does not exist.");
             }
 
+            var existingRecords = new List<RecordData>();
+            await foreach (var record in CurrentWorkspace.ReadRecordsAsync(entity.Name))
+            {
+                existingRecords.Add(record);
+            }
+
             var rows = ParseBulkInputRows(input, parseResult.Format);
             var plan = BuildUpsertOperationsFromRows(
-                workspace.State,
                 entity,
+                existingRecords,
                 rows,
                 parseResult.KeyFields,
                 autoId: parseResult.AutoId);
-            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
-                    workspace,
+            var existingIds = existingRecords
+                .Select(record => record.Id)
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+            return await ExecuteOperationsAsync(
                     plan.Operations,
                     commandName: "bulk-insert",
                     successMessage: $"bulk insert {entityName}",
                     successDetails: BuildUpsertSuccessDetails(
-                        workspace.State,
-                        entityName,
+                        existingIds,
                         plan.RowIds))
                 .ConfigureAwait(false);
         }

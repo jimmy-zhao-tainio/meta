@@ -21,12 +21,23 @@ internal static class Program
         Environment.ExitCode = 0;
         var runtime = new MetaCliRuntime<MetaWeaveModel>(CommandWorkspacePath, ApplicationId)
             .UseDefaultHelp()
-            .Bind("exec-new-workspace", RunNewWorkspace)
+            .Bind(
+                "exec-create",
+                [MetaCliWorkspace.Create("output", "xml", "csharp", "sql")],
+                RunCreate)
             .Bind("exec-add-model", RunAddModel)
             .Bind("exec-add-binding", RunAddBinding)
-            .Bind("exec-suggest", RunSuggest)
-            .Bind("exec-check", RunCheck)
-            .Bind("exec-materialize", RunMaterialize);
+            .BindReadOnly("exec-suggest", RunSuggest)
+            .BindReadOnly("exec-check", RunCheck)
+            .Bind(
+                "exec-materialize",
+                [MetaCliWorkspace.Create(
+                    "output",
+                    "output-xml",
+                    "output-csharp",
+                    "output-sql",
+                    "output-connection-env")],
+                RunMaterialize);
 
         runtime.Run(args);
         return Environment.ExitCode;
@@ -35,16 +46,15 @@ internal static class Program
     private static string CommandWorkspacePath =>
         Path.Combine(AppContext.BaseDirectory, CommandWorkspaceDirectoryName);
 
-    private static void RunNewWorkspace(MetaCliInvocation invocation)
+    private static async Task RunCreate(
+        MetaCliInvocation invocation,
+        MetaCliWorkspaces workspaces)
     {
-        var workspacePath = Path.GetFullPath(invocation.Required("path"));
-        if (Directory.Exists(workspacePath) && Directory.EnumerateFileSystemEntries(workspacePath).Any())
-        {
-            throw new InvalidOperationException($"Target directory '{workspacePath}' must be empty.");
-        }
-
-        Directory.CreateDirectory(workspacePath);
-        MetaWeaveModel.CreateEmpty().SaveToXmlWorkspace(workspacePath);
+        var workspacePath = invocation.Optional("xml") ??
+            invocation.Optional("csharp") ??
+            invocation.Optional("sql") ??
+            throw new InvalidOperationException("A workspace output is required.");
+        await workspaces.CreateAsync("output", MetaWeaveModel.CreateEmpty()).ConfigureAwait(false);
 
         Presenter.WriteOk(
             "weave workspace created",
@@ -61,8 +71,6 @@ internal static class Program
             invocation.Required("alias"),
             invocation.Required("model"),
             invocation.Required("workspace-path")).GetAwaiter().GetResult();
-        weaveModel.SaveToXmlWorkspace(workspacePath);
-
         Presenter.WriteOk(
             "weave model reference added",
             ("Workspace", workspacePath),
@@ -84,8 +92,6 @@ internal static class Program
             invocation.Required("target-model"),
             invocation.Required("target-entity"),
             invocation.Required("target-property")).GetAwaiter().GetResult();
-        weaveModel.SaveToXmlWorkspace(workspacePath);
-
         Presenter.WriteOk(
             "weave property binding added",
             ("Workspace", workspacePath),
@@ -152,28 +158,30 @@ internal static class Program
             ("Errors", result.ErrorCount.ToString()));
     }
 
-    private static void RunMaterialize(MetaCliInvocation invocation, MetaWeaveModel weaveModel)
+    private static async Task RunMaterialize(
+        MetaCliInvocation invocation,
+        MetaWeaveModel weaveModel,
+        MetaCliWorkspaces workspaces)
     {
         var weaveWorkspacePath = ResolveWorkspacePath(invocation);
-        var materializedWorkspacePath = Path.GetFullPath(invocation.Required("new-workspace"));
-        if (Directory.Exists(materializedWorkspacePath) && Directory.EnumerateFileSystemEntries(materializedWorkspacePath).Any())
-        {
-            throw new InvalidOperationException($"Target directory '{materializedWorkspacePath}' must be empty.");
-        }
+        var output = MetaCliWorkspace.OutputLocation(
+            invocation,
+            "output-xml",
+            "output-csharp",
+            "output-sql");
 
-        var result = new MetaWeaveService()
+        var result = await new MetaWeaveService()
             .MaterializeAsync(
                 weaveModel,
                 weaveWorkspacePath,
-                materializedWorkspacePath,
                 invocation.Required("model"))
-            .GetAwaiter()
-            .GetResult();
+            .ConfigureAwait(false);
+        await workspaces.CreateAsync("output", result.Workspace).ConfigureAwait(false);
 
         Presenter.WriteOk(
             "weave materialize",
             ("Weave", weaveWorkspacePath),
-            ("Workspace", materializedWorkspacePath),
+            ("Workspace", output),
             ("Model", result.Workspace.Model.Name),
             ("Entities", result.Workspace.Model.Entities.Count.ToString()),
             ("BindingsMaterialized", result.BindingsMaterialized.ToString()));

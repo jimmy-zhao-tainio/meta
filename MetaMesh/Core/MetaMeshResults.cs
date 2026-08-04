@@ -2,15 +2,17 @@ namespace MetaMesh.Core;
 
 public sealed record MetaMeshWorkspaceSummary(
     string Name,
-    string Path,
-    string ResolvedPath,
+    string Surface,
+    string Location,
+    string ResolvedLocation,
     string ModelName,
     string Description);
 
 public sealed record MetaMeshWorkspaceIssue(
     string Name,
-    string Path,
-    string ResolvedPath,
+    string Surface,
+    string Location,
+    string ResolvedLocation,
     string ModelName,
     string Reason);
 

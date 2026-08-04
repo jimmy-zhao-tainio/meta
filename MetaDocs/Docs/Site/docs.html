@@ -621,7 +621,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta bulk-insert &lt;Entity&gt; [--auto-id] [--file &lt;path&gt;] [--from tsv|csv] [--key Field[,Field2...]] [--stdin] [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta bulk-insert &lt;Entity&gt; [--auto-id] [--file &lt;path&gt;] [--from tsv|csv] [--key Field[,Field2...]] [--stdin] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Bulk landing identity</h3>
@@ -672,47 +672,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-app-command-check">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta check</span>
-                <span class="command-summary-text">Check model and instance integrity.</span>
-              </span>
-              <span class="command-counts">2 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta check [--strict] [--workspace &lt;path&gt;]</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--strict</td>
-                      <td></td>
-                      <td></td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -734,7 +696,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta delete &lt;Entity&gt; &lt;Id&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta delete &lt;Entity&gt; &lt;Id&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -748,9 +710,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -772,7 +734,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta deploy sqlserver --connection-env &lt;name&gt; [--database &lt;name&gt;] --scripts &lt;dir&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta deploy sqlserver --connection-env &lt;name&gt; [--database &lt;name&gt;] --scripts &lt;dir&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -804,9 +766,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -828,7 +790,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta export csv &lt;Entity&gt; --out &lt;file&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta export csv &lt;Entity&gt; --out &lt;file&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -848,9 +810,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -872,7 +834,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta generate csharp --out &lt;dir&gt; [--strict] [--tooling] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta generate csharp --out &lt;dir&gt; [--strict] [--tooling] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Generated C# surfaces</h3>
@@ -972,9 +934,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -996,7 +958,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta generate sql --out &lt;dir&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta generate sql --out &lt;dir&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Generated SQL consumables</h3>
@@ -1032,53 +994,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-app-command-generate-ssdt">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta generate ssdt</span>
-                <span class="command-summary-text">Generate SSDT artifacts.</span>
-              </span>
-              <span class="command-counts">3 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta generate ssdt --out &lt;dir&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--out &lt;dir&gt;</td>
-                      <td></td>
-                      <td>&lt;dir&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--strict</td>
-                      <td></td>
-                      <td></td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1100,7 +1018,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta graph inbound &lt;Entity&gt; [--strict] [--top &lt;n&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta graph inbound &lt;Entity&gt; [--strict] [--top &lt;n&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1120,9 +1038,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1144,7 +1062,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta graph stats [--cycles &lt;n&gt;] [--strict] [--top &lt;n&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta graph stats [--cycles &lt;n&gt;] [--strict] [--top &lt;n&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1170,9 +1088,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1194,7 +1112,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta help &lt;command&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta help &lt;command&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1208,9 +1126,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1232,7 +1150,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta import csv &lt;csvFile&gt; --entity &lt;EntityName&gt; [--new-workspace &lt;path&gt;] [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta import csv &lt;csvFile&gt; --entity &lt;EntityName&gt; [--new-workspace &lt;path&gt;] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Id-first CSV landing</h3>
@@ -1266,9 +1184,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1290,7 +1208,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta import sql &lt;schema&gt; --connection-env &lt;name&gt; --new-workspace &lt;path&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta import sql &lt;schema&gt; --connection-env &lt;name&gt; --new-workspace &lt;path&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1316,9 +1234,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1340,7 +1258,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta init &lt;path&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta init &lt;path&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1354,9 +1272,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1378,7 +1296,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta insert &lt;Entity&gt; &lt;Id&gt; [--auto-id] [--set Field=Value] [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta insert &lt;Entity&gt; &lt;Id&gt; [--auto-id] [--set Field=Value] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Row identity</h3>
@@ -1412,9 +1330,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1436,7 +1354,7 @@ foreach (var measure in model.MeasureList)
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance diff &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta instance diff &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">What instance diff does</h3>
@@ -1501,9 +1419,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1525,7 +1443,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance diff-aligned &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; &lt;alignmentWorkspace&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta instance diff-aligned &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; &lt;alignmentWorkspace&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1539,9 +1457,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1563,7 +1481,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance merge &lt;targetWorkspace&gt; &lt;diffWorkspace&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta instance merge &lt;targetWorkspace&gt; &lt;diffWorkspace&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">What instance merge does</h3>
@@ -1656,9 +1574,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1680,7 +1598,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance merge-aligned &lt;targetWorkspace&gt; &lt;diffWorkspace&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta instance merge-aligned &lt;targetWorkspace&gt; &lt;diffWorkspace&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1694,9 +1612,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1718,7 +1636,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance relationship list &lt;FromEntity&gt; &lt;FromId&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta instance relationship list &lt;FromEntity&gt; &lt;FromId&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1732,9 +1650,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1756,7 +1674,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance relationship set &lt;FromEntity&gt; &lt;FromId&gt; [--strict] --to &lt;RelationshipSelector&gt; &lt;ToId&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta instance relationship set &lt;FromEntity&gt; &lt;FromId&gt; [--strict] --to &lt;RelationshipSelector&gt; &lt;ToId&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1776,9 +1694,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1800,7 +1718,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance rename-id &lt;Entity&gt; &lt;OldId&gt; &lt;NewId&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta instance rename-id &lt;Entity&gt; &lt;OldId&gt; &lt;NewId&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1814,9 +1732,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1838,7 +1756,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance update &lt;Entity&gt; &lt;Id&gt; [--set Field=Value] [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta instance update &lt;Entity&gt; &lt;Id&gt; [--set Field=Value] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1858,9 +1776,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1882,7 +1800,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta list entities [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta list entities [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1896,9 +1814,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1920,7 +1838,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta list properties &lt;Entity&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta list properties &lt;Entity&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1934,9 +1852,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1958,7 +1876,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta list relationships &lt;Entity&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta list relationships &lt;Entity&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1972,9 +1890,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1996,7 +1914,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model add-entity &lt;Name&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model add-entity &lt;Name&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2010,9 +1928,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2034,7 +1952,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model add-property &lt;Entity&gt; &lt;Property&gt; [--default-value &lt;Value&gt;] [--required true|false] [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model add-property &lt;Entity&gt; &lt;Property&gt; [--default-value &lt;Value&gt;] [--required true|false] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2060,9 +1978,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2084,7 +2002,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model add-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--default-id &lt;ToId&gt;] [--required true|false] [--role &lt;RoleName&gt;] [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model add-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--default-id &lt;ToId&gt;] [--required true|false] [--role &lt;RoleName&gt;] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2116,9 +2034,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2140,7 +2058,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model drop-entity &lt;Entity&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model drop-entity &lt;Entity&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2154,9 +2072,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2178,7 +2096,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model drop-property &lt;Entity&gt; &lt;Property&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model drop-property &lt;Entity&gt; &lt;Property&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2192,9 +2110,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2216,7 +2134,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model drop-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model drop-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2230,9 +2148,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2254,7 +2172,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model refactor property-to-relationship --lookup &lt;Property&gt; [--preserve-property] [--role &lt;Role&gt;] --source &lt;Entity.Property&gt; [--strict] --target &lt;Entity&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model refactor property-to-relationship --lookup &lt;Property&gt; [--preserve-property] [--role &lt;Role&gt;] --source &lt;Entity.Property&gt; [--strict] --target &lt;Entity&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Atomic relationship promotion</h3>
@@ -2306,9 +2224,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2330,7 +2248,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model refactor relationship-to-property [--property &lt;PropertyName&gt;] [--role &lt;Role&gt;] --source &lt;Entity&gt; [--strict] --target &lt;Entity&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model refactor relationship-to-property [--property &lt;PropertyName&gt;] [--role &lt;Role&gt;] --source &lt;Entity&gt; [--strict] --target &lt;Entity&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Atomic relationship demotion</h3>
@@ -2375,9 +2293,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2399,7 +2317,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model rename-entity &lt;Old&gt; &lt;New&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model rename-entity &lt;Old&gt; &lt;New&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2413,9 +2331,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2437,7 +2355,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model rename-model &lt;Old&gt; &lt;New&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model rename-model &lt;Old&gt; &lt;New&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2451,9 +2369,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2475,7 +2393,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model rename-property &lt;Entity&gt; &lt;Old&gt; &lt;New&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model rename-property &lt;Entity&gt; &lt;Old&gt; &lt;New&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2489,9 +2407,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2507,25 +2425,19 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                 <span class="command-name">meta model rename-relationship</span>
                 <span class="command-summary-text">Rename a relationship role.</span>
               </span>
-              <span class="command-counts">4 options</span>
+              <span class="command-counts">3 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model rename-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--existing-column &lt;value&gt;] [--role &lt;Role&gt;] [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model rename-relationship &lt;FromEntity&gt; &lt;ToEntity&gt; [--role &lt;Role&gt;] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
                 <table>
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
-                    <tr>
-                      <td class="opt">--existing-column &lt;value&gt;</td>
-                      <td>Persisted relationship column to reconcile before the rename.</td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
                     <tr>
                       <td class="opt">--role &lt;Role&gt;</td>
                       <td></td>
@@ -2539,9 +2451,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2563,7 +2475,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model set-property-required &lt;Entity&gt; &lt;Property&gt; [--default-value &lt;Value&gt;] --required true|false [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model set-property-required &lt;Entity&gt; &lt;Property&gt; [--default-value &lt;Value&gt;] --required true|false [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2589,9 +2501,9 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2613,7 +2525,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta model suggest [--explain] [--print-commands] [--show-keys] [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta model suggest [--explain] [--print-commands] [--show-keys] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">CSV import -&gt; suggest -&gt; refactor</h3>
@@ -2678,9 +2590,9 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2702,7 +2614,7 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta query &lt;Entity&gt; [--contains &lt;Field&gt; &lt;Value&gt;] [--equals &lt;Field&gt; &lt;Value&gt;] [--strict] [--top &lt;n&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta query &lt;Entity&gt; [--contains &lt;Field&gt; &lt;Value&gt;] [--equals &lt;Field&gt; &lt;Value&gt;] [--strict] [--top &lt;n&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2734,9 +2646,9 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2758,7 +2670,7 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta status [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta status [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2772,9 +2684,9 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2796,7 +2708,7 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta view entity &lt;Entity&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta view entity &lt;Entity&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2810,9 +2722,9 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2834,7 +2746,7 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta view instance &lt;Entity&gt; &lt;Id&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta view instance &lt;Entity&gt; &lt;Id&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2848,9 +2760,9 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2872,7 +2784,7 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta workspace merge &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; --model &lt;name&gt; --new-workspace &lt;path&gt; [--strict] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta workspace merge &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; --model &lt;name&gt; --new-workspace &lt;path&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2898,9 +2810,9 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -2913,17 +2825,15 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
             <aside class="application-command-rail" aria-label="Command navigation">
               <div class="application-command-rail-header">
                 <h3>Commands</h3>
-                <p>45 commands</p>
+                <p>43 commands</p>
               </div>
               <nav class="application-command-list">
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-bulk-insert" aria-label="Open meta bulk-insert"><code>bulk-insert</code></a>
-                <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-check" aria-label="Open meta check"><code>check</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-delete" aria-label="Open meta delete"><code>delete</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-deploy-sqlserver" aria-label="Open meta deploy sqlserver"><code>deploy sqlserver</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-export-csv" aria-label="Open meta export csv"><code>export csv</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-generate-csharp" aria-label="Open meta generate csharp"><code>generate csharp</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-generate-sql" aria-label="Open meta generate sql"><code>generate sql</code></a>
-                <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-generate-ssdt" aria-label="Open meta generate ssdt"><code>generate ssdt</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-graph-inbound" aria-label="Open meta graph inbound"><code>graph inbound</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-graph-stats" aria-label="Open meta graph stats"><code>graph stats</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-help" aria-label="Open meta help"><code>help</code></a>
@@ -3005,7 +2915,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-allowed-value [--description &lt;value&gt;] --id &lt;value&gt; --value &lt;value&gt; --value-shape &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-allowed-value [--description &lt;value&gt;] --id &lt;value&gt; --value &lt;value&gt; --value-shape &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3037,9 +2947,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3061,7 +2971,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-application [--description &lt;value&gt;] [--executable-name &lt;value&gt;] --id &lt;value&gt; --name &lt;value&gt; [--version &lt;value&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-application [--description &lt;value&gt;] [--executable-name &lt;value&gt;] --id &lt;value&gt; --name &lt;value&gt; [--version &lt;value&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3099,9 +3009,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3123,7 +3033,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-application-option --application &lt;value&gt; [--default-value &lt;value&gt;] [--description &lt;value&gt;] --name &lt;value&gt; --option-id &lt;value&gt; --parameter-id &lt;value&gt; [--repeatable true|false] [--required true|false] --token &lt;token&gt; --token-id &lt;value&gt; --value-shape &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-application-option --application &lt;value&gt; [--default-value &lt;value&gt;] [--description &lt;value&gt;] --name &lt;value&gt; --option-id &lt;value&gt; --parameter-id &lt;value&gt; [--repeatable true|false] [--required true|false] --token &lt;token&gt; --token-id &lt;value&gt; --value-shape &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3197,9 +3107,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3221,7 +3131,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-command --application &lt;value&gt; [--description &lt;value&gt;] --id &lt;value&gt; --name &lt;value&gt; [--parent-command &lt;value&gt;] --token &lt;token&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-command --application &lt;value&gt; [--description &lt;value&gt;] --id &lt;value&gt; --name &lt;value&gt; [--parent-command &lt;value&gt;] --token &lt;token&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3265,9 +3175,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3289,7 +3199,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-executable-command --command &lt;value&gt; --id &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-executable-command --command &lt;value&gt; --id &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3309,9 +3219,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3333,7 +3243,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-option [--default-value &lt;value&gt;] [--description &lt;value&gt;] --executable-command &lt;value&gt; --name &lt;value&gt; --option-id &lt;value&gt; --parameter-id &lt;value&gt; [--repeatable true|false] [--required true|false] --token &lt;token&gt; --token-id &lt;value&gt; --value-shape &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-option [--default-value &lt;value&gt;] [--description &lt;value&gt;] --executable-command &lt;value&gt; --name &lt;value&gt; --option-id &lt;value&gt; --parameter-id &lt;value&gt; [--repeatable true|false] [--required true|false] --token &lt;token&gt; --token-id &lt;value&gt; --value-shape &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3407,9 +3317,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3431,7 +3341,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-option-token --id &lt;value&gt; --option &lt;value&gt; --previous-token &lt;value&gt; --token &lt;token&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-option-token --id &lt;value&gt; --option &lt;value&gt; --previous-token &lt;value&gt; --token &lt;token&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3463,9 +3373,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3487,7 +3397,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-parameter-group [--allows-multiple true|false] [--description &lt;value&gt;] --executable-command &lt;value&gt; --id &lt;value&gt; --member-id &lt;value&gt; --name &lt;value&gt; --parameter &lt;value&gt; [--required true|false] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-parameter-group [--allows-multiple true|false] [--description &lt;value&gt;] --executable-command &lt;value&gt; --id &lt;value&gt; --member-id &lt;value&gt; --name &lt;value&gt; --parameter &lt;value&gt; [--required true|false] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3543,9 +3453,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3567,7 +3477,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-parameter-group-member --id &lt;value&gt; --parameter &lt;value&gt; --parameter-group &lt;value&gt; --previous-member &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-parameter-group-member --id &lt;value&gt; --parameter &lt;value&gt; --parameter-group &lt;value&gt; --previous-member &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3599,9 +3509,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3623,7 +3533,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-positional [--default-value &lt;value&gt;] [--description &lt;value&gt;] --executable-command &lt;value&gt; --name &lt;value&gt; --parameter-id &lt;value&gt; --positional-id &lt;value&gt; [--previous-argument &lt;value&gt;] [--repeatable true|false] [--required true|false] --value-shape &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-positional [--default-value &lt;value&gt;] [--description &lt;value&gt;] --executable-command &lt;value&gt; --name &lt;value&gt; --parameter-id &lt;value&gt; --positional-id &lt;value&gt; [--previous-argument &lt;value&gt;] [--repeatable true|false] [--required true|false] --value-shape &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3691,9 +3601,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3715,7 +3625,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-value-arity [--description &lt;value&gt;] --id &lt;value&gt; [--max-value-count &lt;value&gt;] --min-value-count &lt;value&gt; --name &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-value-arity [--description &lt;value&gt;] --id &lt;value&gt; [--max-value-count &lt;value&gt;] --min-value-count &lt;value&gt; --name &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3753,9 +3663,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3777,7 +3687,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli add-value-shape [--allows-option-like-value true|false] [--description &lt;value&gt;] --id &lt;value&gt; --name &lt;value&gt; --value-arity &lt;value&gt; [--value-label &lt;value&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli add-value-shape [--allows-option-like-value true|false] [--description &lt;value&gt;] --id &lt;value&gt; --name &lt;value&gt; --value-arity &lt;value&gt; [--value-label &lt;value&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3821,9 +3731,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3894,6 +3804,50 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-cli-app-command-remove-application-option">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-cli remove-application-option</span>
+                <span class="command-summary-text">Remove an application-wide option aggregate.</span>
+              </span>
+              <span class="command-counts">3 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-cli remove-application-option --application &lt;value&gt; --parameter &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--application &lt;value&gt;</td>
+                      <td></td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--parameter &lt;value&gt;</td>
+                      <td></td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaCli workspace. Defaults to the current directory.</td>
+                      <td>&lt;workspace&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-cli-app-command-set-default-command">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -3907,7 +3861,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli set-default-command --application &lt;value&gt; --executable-command &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli set-default-command --application &lt;value&gt; --executable-command &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3927,9 +3881,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3951,7 +3905,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli show [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-cli show [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -3959,9 +3913,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaCli workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -3974,7 +3928,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
             <aside class="application-command-rail" aria-label="Command navigation">
               <div class="application-command-rail-header">
                 <h3>Commands</h3>
-                <p>16 commands</p>
+                <p>17 commands</p>
               </div>
               <nav class="application-command-list">
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-add-allowed-value" aria-label="Open meta-cli add-allowed-value"><code>add-allowed-value</code></a>
@@ -3991,6 +3945,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-add-value-shape" aria-label="Open meta-cli add-value-shape"><code>add-value-shape</code></a>
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-help" aria-label="Open meta-cli help"><code>help</code></a>
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-new-workspace" aria-label="Open meta-cli new-workspace"><code>new-workspace</code></a>
+                <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-remove-application-option" aria-label="Open meta-cli remove-application-option"><code>remove-application-option</code></a>
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-set-default-command" aria-label="Open meta-cli set-default-command"><code>set-default-command</code></a>
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-show" aria-label="Open meta-cli show"><code>show</code></a>
               </nav>
@@ -4026,7 +3981,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs author-page --body &lt;value&gt; --id &lt;value&gt; [--navigation-title &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent &lt;value&gt;] [--path &lt;value&gt;] [--slot &lt;value&gt;] [--source-id &lt;value&gt;] [--source-name &lt;value&gt;] [--subject-type &lt;value&gt;] --summary &lt;value&gt; --title &lt;value&gt; [--view-root true|false] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs author-page --body &lt;value&gt; --id &lt;value&gt; [--navigation-title &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent &lt;value&gt;] [--path &lt;value&gt;] [--slot &lt;value&gt;] [--source-id &lt;value&gt;] [--source-name &lt;value&gt;] [--subject-type &lt;value&gt;] --summary &lt;value&gt; --title &lt;value&gt; [--view-root true|false] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4112,9 +4067,9 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>Existing MetaDocs workspace to update in place.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4136,7 +4091,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs browse &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs browse &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Browse CLI and model reference pages</h3>
@@ -4156,9 +4111,9 @@ meta-docs search deploy
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaDocs workspace to browse. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4180,7 +4135,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs contents [--depth &lt;value&gt;] [--view &lt;value&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs contents [--depth &lt;value&gt;] [--view &lt;value&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4200,9 +4155,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaDocs workspace to list. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4242,7 +4197,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs import-cli [--application &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs import-cli [--application &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Refresh CLI reference rows</h3>
@@ -4288,9 +4243,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>Existing MetaDocs source workspace to refresh in place.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4312,7 +4267,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs import-workspace-instances [--display-name &lt;value&gt;] [--model-source-id &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs import-workspace-instances [--display-name &lt;value&gt;] [--model-source-id &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4344,9 +4299,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>Existing MetaDocs workspace to update in place. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4368,7 +4323,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs import-workspace-model [--display-name &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs import-workspace-model [--display-name &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4406,9 +4361,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>Existing MetaDocs source workspace to refresh in place.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4430,7 +4385,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs include-instance-entity [--display-name-property &lt;value&gt;] --entity &lt;value&gt; [--source-id &lt;value&gt;] [--summary-property &lt;value&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs include-instance-entity [--display-name-property &lt;value&gt;] --entity &lt;value&gt; [--source-id &lt;value&gt;] [--summary-property &lt;value&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4462,9 +4417,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>Existing MetaDocs workspace to update in place. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4486,7 +4441,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs include-instance-property --entity &lt;value&gt; --property &lt;value&gt; [--source-id &lt;value&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs include-instance-property --entity &lt;value&gt; --property &lt;value&gt; [--source-id &lt;value&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4512,9 +4467,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>Existing MetaDocs workspace to update in place. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4536,7 +4491,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs include-instance-relationship --entity &lt;value&gt; --relationship &lt;value&gt; [--source-id &lt;value&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs include-instance-relationship --entity &lt;value&gt; --relationship &lt;value&gt; [--source-id &lt;value&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4562,9 +4517,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>Existing MetaDocs workspace to update in place. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4586,7 +4541,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs merge --include &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs merge --include &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4600,9 +4555,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>Suite workspace to rebuild. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4624,7 +4579,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs render-site --out &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs render-site --out &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Render the public docs site</h3>
@@ -4646,9 +4601,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaDocs workspace to render. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4670,7 +4625,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs search &lt;query&gt; [--limit &lt;value&gt;] [--subject-type &lt;value&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs search &lt;query&gt; [--limit &lt;value&gt;] [--subject-type &lt;value&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4690,9 +4645,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaDocs workspace to search. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4714,7 +4669,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs update-description [--body &lt;value&gt;] [--body-stdin] [--cli &lt;value&gt;] [--command &lt;value&gt;] [--model &lt;value&gt;] [--option &lt;token&gt;] [--slot &lt;value&gt;] [--subject &lt;value&gt;] [--title &lt;value&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs update-description [--body &lt;value&gt;] [--body-stdin] [--cli &lt;value&gt;] [--command &lt;value&gt;] [--model &lt;value&gt;] [--option &lt;token&gt;] [--slot &lt;value&gt;] [--subject &lt;value&gt;] [--title &lt;value&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4776,9 +4731,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaDocs workspace to update. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4800,7 +4755,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs validate [--include-description-diagnostics] [--warnings-as-errors] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-docs validate [--include-description-diagnostics] [--warnings-as-errors] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4820,9 +4775,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaDocs workspace to validate. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4868,10 +4823,10 @@ meta-docs search deploy
               <section class="subsection description-block">
                 <h3 class="document-heading">Working with MetaMesh</h3>
                 <div class="markdown-content">
-<p>MetaMesh turns a repository routine into a named, inspectable operation. A mesh lists the workspaces that participate and each operation records the executable steps that should occur, in order. Engineers and agents can inspect the same workspace that is later validated and run.</p>
-<p>Workspace tokens make a step portable across a repository, while environment tokens make external configuration explicit. Before execution begins, MetaMesh resolves every declared workspace, executable, working directory, write requirement, and environment value. That full preflight gives an operation a clear prepared state before it starts changing anything.</p>
-<p>The result is a durable replacement for task-specific wrapper scripts. Documentation regeneration, integration demos, and multi-workspace setup can be replayed as operations with visible inputs, progress, and failures that identify the exact step requiring attention.</p>
-<p>The AdventureWorks full-stack mesh demonstrates the same structure at system scale: 27 declared workspaces and 30 operations synchronize a source schema, build and deploy Data Vault and warehouse layers, bind transforms, author pipelines, infer orchestration, generate Data Quality assets, and deploy a processed Tabular model. MetaMesh owns participation, sequence, preflight, and execution visibility; each product CLI continues to own its domain behavior.</p>
+<p>A MetaMesh workspace names the workspaces that participate in repository work and records executable operations over them. Each declared workspace has one representation: an XML workspace path, a C# workspace path, or a SQL connection environment variable. Operations remain independent of that representation and invoke the product CLI that owns each domain action.</p>
+<p>An operation contains an ordered chain of steps. Workspace tokens let those steps refer to declared inputs without embedding machine-specific paths. Environment tokens make external configuration explicit while keeping connection strings and other values out of the mesh. Before execution begins, MetaMesh resolves the workspaces used by the operation, executable lookup, working-directory access, and required environment variables.</p>
+<p>Documentation regeneration, integration demos, and multi-workspace builds can therefore be inspected, validated, and replayed from the same model. Progress and failures identify the active step while each product CLI continues to own its behavior.</p>
+<p>The AdventureWorks full-stack mesh uses this structure at system scale. Its operations synchronize a source schema, build and deploy Data Vault and warehouse layers, bind transforms, author pipelines, infer orchestration, generate Data Quality assets, and deploy a processed Tabular model.</p>
                 </div>
               </section>
           <details class="card cli-command-card" id="subject-source-cli-meta-mesh-app-command-add-operation">
@@ -4887,7 +4842,7 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh add-operation [--description &lt;value&gt;] --name &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh add-operation [--description &lt;value&gt;] --name &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4907,9 +4862,9 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaMesh workspace location. Defaults to the current directory for XML and C#.</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -4931,12 +4886,12 @@ meta-docs search deploy
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh add-step [--arguments &lt;arguments&gt;] [--arguments-stdin] [--description &lt;value&gt;] --executable &lt;path&gt; [--expected-exit-code &lt;value&gt;] --name &lt;value&gt; --operation &lt;value&gt; [--previous-step &lt;value&gt;] [--working-directory &lt;path&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh add-step [--arguments &lt;arguments&gt;] [--arguments-stdin] [--description &lt;value&gt;] --executable &lt;path&gt; [--expected-exit-code &lt;value&gt;] --name &lt;value&gt; --operation &lt;value&gt; [--previous-step &lt;value&gt;] [--working-directory &lt;path&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Token substitution</h3>
                 <div class="markdown-content">
-<p>Step arguments support <code>{workspace:&lt;name&gt;.path}</code>, which expands to a declared workspace path, and <code>{env:NAME}</code>, which verifies <code>NAME</code> is non-empty and passes the variable name to the child process. Use <code>--arguments-stdin</code> when child arguments contain quotes, SQL, or shell-sensitive text.</p>
+<p>Step arguments can use <code>{workspace:&lt;name&gt;.location}</code> and <code>{workspace:&lt;name&gt;.surface}</code>. <code>.location</code> expands to the resolved path for XML and C# workspaces, and to the connection environment variable name for SQL workspaces. <code>.surface</code> expands to <code>xml</code>, <code>csharp</code>, or <code>sql</code>. <code>{env:NAME}</code> requires <code>NAME</code> to be non-empty and passes the variable name to the child CLI without exposing its value. Use <code>--arguments-stdin</code> when child arguments contain quotes, SQL, or shell-sensitive text.</p>
                 </div>
               </section>
               <section class="subsection description-block">
@@ -5009,9 +4964,9 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaMesh workspace location. Defaults to the current directory for XML and C#.</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5027,19 +4982,25 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
                 <span class="command-name">meta-mesh add-workspace</span>
                 <span class="command-summary-text">Add one declared workspace.</span>
               </span>
-              <span class="command-counts">5 options</span>
+              <span class="command-counts">7 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh add-workspace [--description &lt;value&gt;] [--model &lt;value&gt;] --name &lt;value&gt; --path &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh add-workspace [--csharp-path &lt;path&gt;] [--description &lt;value&gt;] [--model &lt;value&gt;] --name &lt;value&gt; [--sql-connection-env &lt;environment-variable&gt;] [--workspace &lt;workspace&gt;] [--xml-path &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
                 <table>
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
+                    <tr>
+                      <td class="opt">--csharp-path &lt;path&gt;</td>
+                      <td>C# workspace path.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                     <tr>
                       <td class="opt">--description &lt;value&gt;</td>
                       <td>Workspace description.</td>
@@ -5059,14 +5020,20 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--path &lt;path&gt;</td>
-                      <td>Workspace path, absolute or relative to the mesh root.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--sql-connection-env &lt;environment-variable&gt;</td>
+                      <td>Environment variable containing the SQL workspace connection string.</td>
+                      <td>&lt;environment-variable&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaMesh workspace location. Defaults to the current directory for XML and C#.</td>
+                      <td>&lt;workspace&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml-path &lt;path&gt;</td>
+                      <td>XML workspace path.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -5083,27 +5050,13 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
                 <span class="command-name">meta-mesh help</span>
                 <span class="command-summary-text">Show help.</span>
               </span>
-              <span class="command-counts">1 option</span>
+              <span class="command-counts">0 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh help [--workspace &lt;path&gt;]</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <pre><code>meta-mesh help</code></pre>
               </section>
               </div>
             </div>
@@ -5115,19 +5068,25 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
                 <span class="command-name">meta-mesh new-workspace</span>
                 <span class="command-summary-text">Create an empty MetaMesh workspace.</span>
               </span>
-              <span class="command-counts">4 options</span>
+              <span class="command-counts">7 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh new-workspace &lt;path&gt; [--description &lt;value&gt;] [--name &lt;value&gt;] [--root &lt;path&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh new-workspace [--connection-env &lt;environment-variable&gt;] [--description &lt;value&gt;] [--name &lt;value&gt;] [--new-workspace-csharp &lt;path&gt;] [--new-workspace-sql &lt;path&gt;] [--new-workspace-xml &lt;path&gt;] [--root &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
                 <table>
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;environment-variable&gt;</td>
+                      <td>Environment variable containing the SQL workspace connection string.</td>
+                      <td>&lt;environment-variable&gt;</td>
+                      <td>False</td>
+                    </tr>
                     <tr>
                       <td class="opt">--description &lt;value&gt;</td>
                       <td>Mesh description.</td>
@@ -5141,14 +5100,26 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--root &lt;path&gt;</td>
-                      <td>Root path used to resolve relative workspace paths.</td>
+                      <td class="opt">--new-workspace-csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace in this directory.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
+                      <td class="opt">--new-workspace-sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--new-workspace-xml &lt;path&gt;</td>
+                      <td>Create an XML workspace in this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--root &lt;path&gt;</td>
+                      <td>Root path used to resolve relative workspace paths.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -5171,7 +5142,7 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh operations [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh operations [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5179,9 +5150,9 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaMesh workspace location. Defaults to the current directory for XML and C#.</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5203,12 +5174,12 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh run --operation &lt;value&gt; [--verbose] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh run --operation &lt;value&gt; [--verbose] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Preflight</h3>
                 <div class="markdown-content">
-<p env:...="">Run performs validation before starting: ordered step chain, declared workspace paths, executable lookup, working-directory access, and non-empty  variables must all resolve first.</p>
+<p>Before starting, <code>run</code> resolves the ordered step chain, every workspace representation used by the operation, executable lookup, filesystem working directories, and non-empty <code>{env:...}</code> variables. The operation starts only after the complete plan is ready.</p>
                 </div>
               </section>
               <section class="subsection description-block">
@@ -5239,9 +5210,9 @@ meta-mesh run --operation regenerate-public-docs
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaMesh workspace location. Defaults to the current directory for XML and C#.</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5263,7 +5234,7 @@ meta-mesh run --operation regenerate-public-docs
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh show [--verbose] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh show [--verbose] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5277,9 +5248,9 @@ meta-mesh run --operation regenerate-public-docs
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaMesh workspace location. Defaults to the current directory for XML and C#.</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5301,7 +5272,7 @@ meta-mesh run --operation regenerate-public-docs
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh steps --operation &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh steps --operation &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5315,9 +5286,9 @@ meta-mesh run --operation regenerate-public-docs
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaMesh workspace location. Defaults to the current directory for XML and C#.</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5339,7 +5310,7 @@ meta-mesh run --operation regenerate-public-docs
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh validate --operation &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh validate --operation &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Preflight</h3>
@@ -5359,9 +5330,9 @@ meta-mesh run --operation regenerate-public-docs
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaMesh workspace location. Defaults to the current directory for XML and C#.</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5383,7 +5354,7 @@ meta-mesh run --operation regenerate-public-docs
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh workspaces [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh workspaces [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5391,9 +5362,9 @@ meta-mesh run --operation regenerate-public-docs
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
-                      <td>MetaMesh workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaMesh workspace location. Defaults to the current directory for XML and C#.</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5466,7 +5437,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-weave add-binding --name &lt;value&gt; --source-entity &lt;value&gt; --source-model &lt;value&gt; --source-property &lt;value&gt; --target-entity &lt;value&gt; --target-model &lt;value&gt; --target-property &lt;value&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-weave add-binding --name &lt;value&gt; --source-entity &lt;value&gt; --source-model &lt;value&gt; --source-property &lt;value&gt; --target-entity &lt;value&gt; --target-model &lt;value&gt; --target-property &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5516,9 +5487,9 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaWeave workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5540,7 +5511,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-weave add-model --alias &lt;value&gt; --model &lt;value&gt; [--workspace &lt;path&gt;] --workspace-path &lt;path&gt;</code></pre>
+                <pre><code>meta-weave add-model --alias &lt;value&gt; --model &lt;value&gt; [--workspace &lt;workspace&gt;] --workspace-path &lt;path&gt;</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5560,9 +5531,9 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaWeave workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -5590,7 +5561,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-weave check [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-weave check [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5598,9 +5569,9 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaWeave workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5640,7 +5611,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-weave materialize --model &lt;value&gt; --new-workspace &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-weave materialize --model &lt;value&gt; --new-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5660,9 +5631,9 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaWeave workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5702,7 +5673,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-weave suggest [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-weave suggest [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5710,9 +5681,9 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--workspace &lt;path&gt;</td>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td>MetaWeave workspace. Defaults to the current directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -5768,9 +5739,9 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                   </tr>
                   <tr>
                     <td><a href="#model-metamesh" data-panel-link="model-metamesh">MetaMesh</a></td>
-                    <td>4</td>
-                    <td>15</td>
-                    <td>4</td>
+                    <td>7</td>
+                    <td>17</td>
+                    <td>7</td>
                   </tr>
                   <tr>
                     <td><a href="#model-metaweave" data-panel-link="model-metaweave">MetaWeave</a></td>
@@ -9196,9 +9167,9 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
             <p class="panel-lead">Describe repository workflows as named workspaces and ordered operation steps so engineers and agents can validate inputs and run repeatable tasks without wrapper scripts.</p>
           </header>
           <div class="summary-row">
-            <span class="pill">4 entities</span>
-            <span class="pill">15 properties</span>
-            <span class="pill">4 relationships</span>
+            <span class="pill">7 entities</span>
+            <span class="pill">17 properties</span>
+            <span class="pill">7 relationships</span>
           </div>
           <div class="card">
             <div class="card-header">
@@ -9209,6 +9180,11 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               <table>
                 <thead><tr><th>Entity</th><th>Properties</th><th>Relationships</th></tr></thead>
                 <tbody>
+                  <tr>
+                    <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-csharpworkspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-csharpworkspace">CSharpWorkspace</a></td>
+                    <td>1</td>
+                    <td>1</td>
+                  </tr>
                   <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-mesh" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-mesh">Mesh</a></td>
                     <td>3</td>
@@ -9225,14 +9201,66 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                     <td>2</td>
                   </tr>
                   <tr>
+                    <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-sqlworkspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-sqlworkspace">SqlWorkspace</a></td>
+                    <td>1</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
                     <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-workspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-workspace">Workspace</a></td>
-                    <td>4</td>
+                    <td>3</td>
+                    <td>1</td>
+                  </tr>
+                  <tr>
+                    <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-xmlworkspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-xmlworkspace">XmlWorkspace</a></td>
+                    <td>1</td>
                     <td>1</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </div>
+          <details class="card model-entity-card" id="subject-source-workspace-model-meta-mesh-entity-csharpworkspace">
+            <summary class="entity-summary">
+              <span class="entity-toggle" aria-hidden="true"></span>
+              <span class="entity-main">
+                <span class="entity-name">CSharpWorkspace</span>
+              </span>
+              <span class="entity-counts">1 property / 1 relationship / 0 references</span>
+            </summary>
+            <div class="entity-body">
+              <div class="entity-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Properties</h4>
+                <table>
+                  <thead><tr><th>Name</th><th>Required</th><th>Nullable</th><th>Description</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td>Path</td>
+                      <td>True</td>
+                      <td>False</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Relationships</h4>
+                <table>
+                  <thead><tr><th>Name</th><th>Target</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr id="subject-source-workspace-model-meta-mesh-entity-csharpworkspace-relationship-workspace-workspace">
+                      <td>Workspace</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-workspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-workspace">Workspace</a></td>
+                      <td></td>
+                      <td>WorkspaceId</td>
+                      <td>True</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card model-entity-card" id="subject-source-workspace-model-meta-mesh-entity-mesh">
             <summary class="entity-summary">
               <span class="entity-toggle" aria-hidden="true"></span>
@@ -9451,13 +9479,55 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <details class="card model-entity-card" id="subject-source-workspace-model-meta-mesh-entity-sqlworkspace">
+            <summary class="entity-summary">
+              <span class="entity-toggle" aria-hidden="true"></span>
+              <span class="entity-main">
+                <span class="entity-name">SqlWorkspace</span>
+              </span>
+              <span class="entity-counts">1 property / 1 relationship / 0 references</span>
+            </summary>
+            <div class="entity-body">
+              <div class="entity-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Properties</h4>
+                <table>
+                  <thead><tr><th>Name</th><th>Required</th><th>Nullable</th><th>Description</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td>ConnectionEnvironmentVariable</td>
+                      <td>True</td>
+                      <td>False</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Relationships</h4>
+                <table>
+                  <thead><tr><th>Name</th><th>Target</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr id="subject-source-workspace-model-meta-mesh-entity-sqlworkspace-relationship-workspace-workspace">
+                      <td>Workspace</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-workspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-workspace">Workspace</a></td>
+                      <td></td>
+                      <td>WorkspaceId</td>
+                      <td>True</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card model-entity-card" id="subject-source-workspace-model-meta-mesh-entity-workspace">
             <summary class="entity-summary">
               <span class="entity-toggle" aria-hidden="true"></span>
               <span class="entity-main">
                 <span class="entity-name">Workspace</span>
               </span>
-              <span class="entity-counts">4 properties / 1 relationship / 0 references</span>
+              <span class="entity-counts">3 properties / 1 relationship / 3 references</span>
             </summary>
             <div class="entity-body">
               <div class="entity-body-inner">
@@ -9484,6 +9554,71 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                       <td>False</td>
                       <td></td>
                     </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Relationships</h4>
+                <table>
+                  <thead><tr><th>Name</th><th>Target</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr id="subject-source-workspace-model-meta-mesh-entity-workspace-relationship-mesh-mesh">
+                      <td>Mesh</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-mesh" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-mesh">Mesh</a></td>
+                      <td></td>
+                      <td>MeshId</td>
+                      <td>True</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Referenced by</h4>
+                <table>
+                  <thead><tr><th>Entity</th><th>Relationship</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-csharpworkspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-csharpworkspace">CSharpWorkspace</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-csharpworkspace-relationship-workspace-workspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-csharpworkspace-relationship-workspace-workspace">Workspace</a></td>
+                      <td></td>
+                      <td>WorkspaceId</td>
+                      <td>True</td>
+                    </tr>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-sqlworkspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-sqlworkspace">SqlWorkspace</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-sqlworkspace-relationship-workspace-workspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-sqlworkspace-relationship-workspace-workspace">Workspace</a></td>
+                      <td></td>
+                      <td>WorkspaceId</td>
+                      <td>True</td>
+                    </tr>
+                    <tr>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-xmlworkspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-xmlworkspace">XmlWorkspace</a></td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-xmlworkspace-relationship-workspace-workspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-xmlworkspace-relationship-workspace-workspace">Workspace</a></td>
+                      <td></td>
+                      <td>WorkspaceId</td>
+                      <td>True</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card model-entity-card" id="subject-source-workspace-model-meta-mesh-entity-xmlworkspace">
+            <summary class="entity-summary">
+              <span class="entity-toggle" aria-hidden="true"></span>
+              <span class="entity-main">
+                <span class="entity-name">XmlWorkspace</span>
+              </span>
+              <span class="entity-counts">1 property / 1 relationship / 0 references</span>
+            </summary>
+            <div class="entity-body">
+              <div class="entity-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Properties</h4>
+                <table>
+                  <thead><tr><th>Name</th><th>Required</th><th>Nullable</th><th>Description</th></tr></thead>
+                  <tbody>
                     <tr>
                       <td>Path</td>
                       <td>True</td>
@@ -9498,11 +9633,11 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                 <table>
                   <thead><tr><th>Name</th><th>Target</th><th>Role</th><th>Column</th><th>Required</th></tr></thead>
                   <tbody>
-                    <tr id="subject-source-workspace-model-meta-mesh-entity-workspace-relationship-mesh-mesh">
-                      <td>Mesh</td>
-                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-mesh" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-mesh">Mesh</a></td>
+                    <tr id="subject-source-workspace-model-meta-mesh-entity-xmlworkspace-relationship-workspace-workspace">
+                      <td>Workspace</td>
+                      <td><a class="entity-ref-link" href="#subject-source-workspace-model-meta-mesh-entity-workspace" data-local-anchor="subject-source-workspace-model-meta-mesh-entity-workspace">Workspace</a></td>
                       <td></td>
-                      <td>MeshId</td>
+                      <td>WorkspaceId</td>
                       <td>True</td>
                     </tr>
                   </tbody>
@@ -12046,19 +12181,25 @@ meta-mesh run --operation process-tabular
                 <span class="command-name">meta-convert schema-to-raw-datavault</span>
                 <span class="command-summary-text">Convert MetaSchema workspace to MetaRawDataVault workspace.</span>
               </span>
-              <span class="command-counts">6 options</span>
+              <span class="command-counts">9 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-convert schema-to-raw-datavault [--ignore-field-name &lt;value&gt;] [--ignore-field-suffix &lt;value&gt;] [--include-views] --new-workspace &lt;path&gt; --source-workspace &lt;path&gt; [--verbose]</code></pre>
+                <pre><code>meta-convert schema-to-raw-datavault [--connection-env &lt;value&gt;] [--ignore-field-name &lt;value&gt;] [--ignore-field-suffix &lt;value&gt;] [--include-views] [--new-workspace-csharp &lt;location&gt;] [--new-workspace-sql &lt;location&gt;] [--new-workspace-xml &lt;location&gt;] --source-workspace &lt;location&gt; [--verbose]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
                 <table>
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
                     <tr>
                       <td class="opt">--ignore-field-name &lt;value&gt;</td>
                       <td>Source field name to ignore. May be repeated.</td>
@@ -12078,15 +12219,27 @@ meta-mesh run --operation process-tabular
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Directory where the MetaRawDataVault workspace will be created.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--new-workspace-csharp &lt;location&gt;</td>
+                      <td>Create a C# workspace in this directory.</td>
+                      <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--source-workspace &lt;path&gt;</td>
+                      <td class="opt">--new-workspace-sql &lt;location&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--new-workspace-xml &lt;location&gt;</td>
+                      <td>Create an XML workspace in this directory.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--source-workspace &lt;location&gt;</td>
                       <td>MetaSchema workspace to convert.</td>
-                      <td>&lt;path&gt;</td>
+                      <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>

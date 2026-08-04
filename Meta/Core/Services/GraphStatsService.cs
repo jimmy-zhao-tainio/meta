@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Meta.Core.Domain;
+using Meta.Core.Operations;
 
 namespace Meta.Core.Services;
 
@@ -9,9 +10,6 @@ public sealed class GraphStatsReport
 {
     public int NodeCount { get; set; }
     public int EdgeCount { get; set; }
-    public int UniqueEdgeCount { get; set; }
-    public int DuplicateEdgeCount { get; set; }
-    public int MissingTargetEdgeCount { get; set; }
     public int WeaklyConnectedComponents { get; set; }
     public int RootCount { get; set; }
     public int SinkCount { get; set; }
@@ -51,6 +49,21 @@ public static class GraphStatsService
             throw new ArgumentOutOfRangeException(nameof(cycleSampleLimit), "cycleSampleLimit must be >= 0.");
         }
 
+        var diagnostics = WorkspaceValidator.Validate(
+            model,
+            new GenericInstance { ModelName = model.Name });
+        if (diagnostics.HasErrors)
+        {
+            var errors = diagnostics.Issues
+                .Where(issue => issue.Severity == IssueSeverity.Error)
+                .Take(5)
+                .Select(issue =>
+                    $"{issue.Code} {issue.Location} - {issue.Message}");
+            throw new InvalidOperationException(
+                "Cannot analyze an invalid model. " +
+                string.Join(" | ", errors));
+        }
+
         var nodeNames = model.Entities
             .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
             .Select(entity => entity.Name)
@@ -78,12 +91,6 @@ public static class GraphStatsService
             }
         }
 
-        var uniqueDeclaredEdgeSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var edge in declaredEdges)
-        {
-            uniqueDeclaredEdgeSet.Add(EdgeKey(edge.Source, edge.Target));
-        }
-
         var adjacency = nodeNames.ToDictionary(
             name => name,
             _ => new SortedSet<string>(StringComparer.OrdinalIgnoreCase),
@@ -91,13 +98,12 @@ public static class GraphStatsService
         var inDegree = nodeNames.ToDictionary(name => name, _ => 0, StringComparer.OrdinalIgnoreCase);
         var outDegree = nodeNames.ToDictionary(name => name, _ => 0, StringComparer.OrdinalIgnoreCase);
 
-        var missingTargetEdgeCount = 0;
         foreach (var edge in declaredEdges)
         {
             if (!nodeSet.Contains(edge.Source) || !nodeSet.Contains(edge.Target))
             {
-                missingTargetEdgeCount++;
-                continue;
+                throw new InvalidOperationException(
+                    $"Graph relationship '{edge.Source}->{edge.Target}' does not resolve to a declared entity.");
             }
 
             if (adjacency[edge.Source].Add(edge.Target))
@@ -123,9 +129,6 @@ public static class GraphStatsService
         {
             NodeCount = nodeNames.Count,
             EdgeCount = declaredEdges.Count,
-            UniqueEdgeCount = uniqueDeclaredEdgeSet.Count,
-            DuplicateEdgeCount = declaredEdges.Count - uniqueDeclaredEdgeSet.Count,
-            MissingTargetEdgeCount = missingTargetEdgeCount,
             WeaklyConnectedComponents = weakComponents,
             RootCount = rootCount,
             SinkCount = sinkCount,
@@ -387,9 +390,5 @@ public static class GraphStatsService
         return false;
     }
 
-    private static string EdgeKey(string source, string target)
-    {
-        return source + "->" + target;
-    }
 }
 

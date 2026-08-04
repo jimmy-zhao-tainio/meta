@@ -1,4 +1,3 @@
-using System.Data;
 using Microsoft.Data.SqlClient;
 using Meta.Core.Domain;
 using Meta.Core.Operations;
@@ -9,135 +8,49 @@ public static class SqlOperations
 {
     public static void Apply(
         string connectionString,
-        string schema,
         params Operation[] operations)
     {
         Apply(
             connectionString,
-            schema,
             (IReadOnlyList<Operation>)operations);
     }
 
     public static void Apply(
         string connectionString,
-        string schema,
         IReadOnlyList<Operation> operations)
     {
-        Execute(connectionString, schema, operations);
+        Execute(connectionString, operations);
     }
 
     public static IReadOnlyList<OperationResult> Execute(
         string connectionString,
-        string schema,
         params Operation[] operations)
     {
         return Execute(
             connectionString,
-            schema,
             (IReadOnlyList<Operation>)operations);
     }
 
     public static IReadOnlyList<OperationResult> Execute(
         string connectionString,
-        string schema,
         IReadOnlyList<Operation> operations)
     {
-        if (string.IsNullOrWhiteSpace(connectionString))
+        var workspace = SqlWorkspace.OpenAsync(connectionString)
+            .GetAwaiter()
+            .GetResult();
+        try
         {
-            throw new ArgumentException(
-                "Connection string is required.",
-                nameof(connectionString));
+            return workspace.ExecuteAsync(operations)
+                .GetAwaiter()
+                .GetResult();
         }
-
-        ArgumentNullException.ThrowIfNull(operations);
-        if (operations.Any(operation => operation == null))
+        finally
         {
-            throw new ArgumentException(
-                "Operations cannot contain null.",
-                nameof(operations));
+            workspace.DisposeAsync()
+                .AsTask()
+                .GetAwaiter()
+                .GetResult();
         }
-
-        if (operations.Count == 0)
-        {
-            return [];
-        }
-
-        var effectiveSchema = string.IsNullOrWhiteSpace(schema)
-            ? "dbo"
-            : MetaName.Require(schema, "Schema name.");
-
-        if (operations.Any(operation => operation is Operation.RenameModel))
-        {
-            if (operations.Count != 1 ||
-                operations[0] is not Operation.RenameModel renameModel)
-            {
-                throw new InvalidOperationException(
-                    "SQL model rename must be applied as one operation because SQL Server database rename cannot participate in a transaction with other workspace operations.");
-            }
-
-            try
-            {
-                var result = SqlOperationTarget.RenameDatabase(
-                    connectionString,
-                    effectiveSchema,
-                    renameModel);
-                return [result];
-            }
-            catch (Exception exception)
-            {
-                throw new MetaOperationException(
-                    0,
-                    renameModel,
-                    exception);
-            }
-        }
-
-        using var connection = new SqlConnection(connectionString);
-        connection.Open();
-        MetaName.Require(connection.Database, "Database name.");
-
-        using var transaction = connection.BeginTransaction(
-            IsolationLevel.Serializable);
-        SqlWorkspaceModelReader.Read(
-            connection,
-            transaction,
-            effectiveSchema);
-        var target = new SqlOperationTarget(
-            connection,
-            transaction,
-            effectiveSchema);
-        var results = new List<OperationResult>(operations.Count);
-
-        for (var index = 0; index < operations.Count; index++)
-        {
-            var operation = operations[index];
-            try
-            {
-                results.Add(operation.ApplyTo(target));
-                if (operation is Operation.ModelOperation or
-                    Operation.RefactorOperation)
-                {
-                    SqlWorkspaceModelReader.Read(
-                        connection,
-                        transaction,
-                        effectiveSchema);
-                }
-            }
-            catch (MetaOperationException)
-            {
-                throw;
-            }
-            catch (Exception exception)
-            {
-                throw new MetaOperationException(
-                    index,
-                    operation,
-                    exception);
-            }
-        }
-
-        transaction.Commit();
-        return results;
     }
 }
 

@@ -53,7 +53,15 @@ internal static class TestWorkspaceFactory
         var instance = InstanceXmlCodec.LoadFromPath(sourceInstancePath, model);
         var workspace = new InMemoryWorkspace(model, instance);
         await XmlWorkspaceWriter.WriteNewAsync(workspace, workspaceRoot).ConfigureAwait(false);
+        WriteXmlWorkspaceDescriptor(workspaceRoot);
         return workspaceRoot;
+    }
+
+    private static void WriteXmlWorkspaceDescriptor(string workspaceRoot)
+    {
+        File.WriteAllText(
+            Path.Combine(workspaceRoot, "workspace.meta"),
+            "workspace\nxml .\n");
     }
 
     private static string GetTestDataPath(string fileName)

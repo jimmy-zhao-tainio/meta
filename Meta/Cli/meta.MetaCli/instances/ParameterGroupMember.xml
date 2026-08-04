@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <ParameterGroupMemberList>
+    <ParameterGroupMember Id="member-create-csharp" ParameterGroupId="group-create-output" ParameterId="param-create-csharp" PreviousMemberId="member-create-xml" />
+    <ParameterGroupMember Id="member-create-sql" ParameterGroupId="group-create-output" ParameterId="param-create-sql" PreviousMemberId="member-create-csharp" />
+    <ParameterGroupMember Id="member-create-xml" ParameterGroupId="group-create-output" ParameterId="param-create-xml" />
+    <ParameterGroupMember Id="member-import-csv-target-first" ParameterGroupId="group-import-csv-target" ParameterId="param-workspace" />
+    <ParameterGroupMember Id="member-import-csv-target-output-csharp" ParameterGroupId="group-import-csv-target" ParameterId="param-import-csv-output-csharp" PreviousMemberId="member-import-csv-target-output-xml" />
+    <ParameterGroupMember Id="member-import-csv-target-output-sql" ParameterGroupId="group-import-csv-target" ParameterId="param-import-csv-output-sql" PreviousMemberId="member-import-csv-target-output-csharp" />
+    <ParameterGroupMember Id="member-import-csv-target-output-xml" ParameterGroupId="group-import-csv-target" ParameterId="param-import-csv-output-xml" PreviousMemberId="member-import-csv-target-first" />
+    <ParameterGroupMember Id="member-import-sql-target-first" ParameterGroupId="group-import-sql-target" ParameterId="param-import-sql-output-xml" />
+    <ParameterGroupMember Id="member-import-sql-target-output-csharp" ParameterGroupId="group-import-sql-target" ParameterId="param-import-sql-output-csharp" PreviousMemberId="member-import-sql-target-first" />
+    <ParameterGroupMember Id="member-import-sql-target-output-sql" ParameterGroupId="group-import-sql-target" ParameterId="param-import-sql-output-sql" PreviousMemberId="member-import-sql-target-output-csharp" />
+    <ParameterGroupMember Id="member-workspace-merge-target-first" ParameterGroupId="group-workspace-merge-target" ParameterId="param-workspace-merge-output-xml" />
+    <ParameterGroupMember Id="member-workspace-merge-target-output-csharp" ParameterGroupId="group-workspace-merge-target" ParameterId="param-workspace-merge-output-csharp" PreviousMemberId="member-workspace-merge-target-first" />
+    <ParameterGroupMember Id="member-workspace-merge-target-output-sql" ParameterGroupId="group-workspace-merge-target" ParameterId="param-workspace-merge-output-sql" PreviousMemberId="member-workspace-merge-target-output-csharp" />
+  </ParameterGroupMemberList>
+</MetaCli>

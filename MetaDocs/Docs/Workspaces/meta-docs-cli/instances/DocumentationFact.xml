@@ -53,7 +53,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs author-page --body &lt;value&gt; --id &lt;value&gt; [--navigation-title &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent &lt;value&gt;] [--path &lt;value&gt;] [--slot &lt;value&gt;] [--source-id &lt;value&gt;] [--source-name &lt;value&gt;] [--subject-type &lt;value&gt;] --summary &lt;value&gt; --title &lt;value&gt; [--view-root true|false] [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs author-page --body &lt;value&gt; --id &lt;value&gt; [--navigation-title &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent &lt;value&gt;] [--path &lt;value&gt;] [--slot &lt;value&gt;] [--source-id &lt;value&gt;] [--source-name &lt;value&gt;] [--subject-type &lt;value&gt;] --summary &lt;value&gt; --title &lt;value&gt; [--view-root true|false] [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:author-page:option:body:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:body" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -1507,8 +1507,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:author-page:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:author-page:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -1519,20 +1519,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:author-page:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:author-page:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:author-page:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:author-page:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:browse:argument:path:fact:cli:allowedvalues" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:browse:argument:path" DocumentationValueTypeId="value-type:string">
       <Name>AllowedValues</Name>
@@ -1641,7 +1641,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:browse:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:browse" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:browse:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:browse" DocumentationValueTypeId="value-type:number">
@@ -1665,8 +1665,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:browse:fact:usage:001" DocumentationFactTypeId="fact-type:usage" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:browse" DocumentationValueTypeId="value-type:string">
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>meta-docs browse &lt;path&gt; [--workspace &lt;path&gt;]</Value>
+      <Status>Changed</Status>
+      <Value>meta-docs browse &lt;path&gt; [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:browse:option:workspace:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:browse:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -1743,8 +1743,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:browse:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:browse:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:browse:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:browse:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -1755,20 +1755,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:browse:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:browse:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:browse:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:browse:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:browse:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:browse:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:contents:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:contents" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -1797,7 +1797,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:contents:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:contents" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>3</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:contents:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:contents" DocumentationValueTypeId="value-type:number">
@@ -1821,8 +1821,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:contents:fact:usage:001" DocumentationFactTypeId="fact-type:usage" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:contents" DocumentationValueTypeId="value-type:string">
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>meta-docs contents [--depth &lt;value&gt;] [--view &lt;value&gt;] [--workspace &lt;path&gt;]</Value>
+      <Status>Changed</Status>
+      <Value>meta-docs contents [--depth &lt;value&gt;] [--view &lt;value&gt;] [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:contents:option:depth:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:contents:option:depth" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -2101,8 +2101,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:contents:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:contents:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:contents:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:contents:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -2113,20 +2113,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:contents:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:contents:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:contents:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:contents:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:contents:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:contents:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:help:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:help" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -2209,7 +2209,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-cli:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>6</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-cli:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli" DocumentationValueTypeId="value-type:number">
@@ -2234,7 +2234,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs import-cli [--application &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs import-cli [--application &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-cli:option:application:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:application" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -2819,8 +2819,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-cli:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-cli:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -2831,20 +2831,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-cli:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-cli:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-cli:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-cli:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-instances:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -2873,7 +2873,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-instances:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>5</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-instances:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances" DocumentationValueTypeId="value-type:number">
@@ -2898,7 +2898,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs import-workspace-instances [--display-name &lt;value&gt;] [--model-source-id &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs import-workspace-instances [--display-name &lt;value&gt;] [--model-source-id &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-instances:option:display-name:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:display-name" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -3381,8 +3381,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -3393,20 +3393,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-instances:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-model:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -3460,7 +3460,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs import-workspace-model [--display-name &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs import-workspace-model [--display-name &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-model:option:display-name:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:display-name" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -4045,8 +4045,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-model:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-model:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -4057,20 +4057,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-model:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-model:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:import-workspace-model:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-entity:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -4099,7 +4099,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-entity:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>5</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-entity:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity" DocumentationValueTypeId="value-type:number">
@@ -4124,7 +4124,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs include-instance-entity [--display-name-property &lt;value&gt;] --entity &lt;value&gt; [--source-id &lt;value&gt;] [--summary-property &lt;value&gt;] [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs include-instance-entity [--display-name-property &lt;value&gt;] --entity &lt;value&gt; [--source-id &lt;value&gt;] [--summary-property &lt;value&gt;] [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-entity:option:display-name-property:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:display-name-property" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -4606,8 +4606,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-entity:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-entity:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -4618,20 +4618,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-entity:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-entity:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-entity:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-entity:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-property:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -4660,7 +4660,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-property:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>4</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-property:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property" DocumentationValueTypeId="value-type:number">
@@ -4685,7 +4685,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs include-instance-property --entity &lt;value&gt; --property &lt;value&gt; [--source-id &lt;value&gt;] [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs include-instance-property --entity &lt;value&gt; --property &lt;value&gt; [--source-id &lt;value&gt;] [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-property:option:entity:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property:option:entity" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -5067,8 +5067,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-property:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-property:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -5079,20 +5079,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-property:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-property:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-property:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-property:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-relationship:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -5121,7 +5121,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-relationship:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>4</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-relationship:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship" DocumentationValueTypeId="value-type:number">
@@ -5146,7 +5146,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs include-instance-relationship --entity &lt;value&gt; --relationship &lt;value&gt; [--source-id &lt;value&gt;] [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs include-instance-relationship --entity &lt;value&gt; --relationship &lt;value&gt; [--source-id &lt;value&gt;] [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-relationship:option:entity:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship:option:entity" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -5528,8 +5528,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -5540,20 +5540,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:include-instance-relationship:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:merge:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:merge" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -5582,7 +5582,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:merge:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:merge" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>2</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:merge:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:merge" DocumentationValueTypeId="value-type:number">
@@ -5607,7 +5607,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs merge --include &lt;path&gt; [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs merge --include &lt;path&gt; [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:merge:option:include:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:merge:option:include" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -5788,8 +5788,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:merge:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:merge:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:merge:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:merge:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -5800,20 +5800,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:merge:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:merge:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:merge:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:merge:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:merge:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:merge:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:render-site:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -5842,7 +5842,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:render-site:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>2</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:render-site:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site" DocumentationValueTypeId="value-type:number">
@@ -5867,7 +5867,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs render-site --out &lt;path&gt; [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs render-site --out &lt;path&gt; [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:render-site:option:out:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site:option:out" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -6047,8 +6047,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:render-site:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:render-site:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -6059,20 +6059,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:render-site:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:render-site:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:render-site:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:render-site:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:search:argument:query:fact:cli:allowedvalues" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:search:argument:query" DocumentationValueTypeId="value-type:string">
       <Name>AllowedValues</Name>
@@ -6181,7 +6181,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:search:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:search" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>3</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:search:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:search" DocumentationValueTypeId="value-type:number">
@@ -6206,7 +6206,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs search &lt;query&gt; [--limit &lt;value&gt;] [--subject-type &lt;value&gt;] [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs search &lt;query&gt; [--limit &lt;value&gt;] [--subject-type &lt;value&gt;] [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:search:option:limit:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:search:option:limit" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -6485,8 +6485,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:search:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:search:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:search:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:search:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -6497,20 +6497,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:search:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:search:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:search:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:search:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:search:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:search:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:update-description:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -6564,7 +6564,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs update-description [--body &lt;value&gt;] [--body-stdin] [--cli &lt;value&gt;] [--command &lt;value&gt;] [--model &lt;value&gt;] [--option &lt;token&gt;] [--slot &lt;value&gt;] [--subject &lt;value&gt;] [--title &lt;value&gt;] [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs update-description [--body &lt;value&gt;] [--body-stdin] [--cli &lt;value&gt;] [--command &lt;value&gt;] [--model &lt;value&gt;] [--option &lt;token&gt;] [--slot &lt;value&gt;] [--subject &lt;value&gt;] [--title &lt;value&gt;] [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:update-description:option:body-stdin:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:body-stdin" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -7550,8 +7550,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:update-description:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:update-description:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -7562,20 +7562,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:update-description:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:update-description:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:update-description:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:update-description:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:validate:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:validate" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -7604,7 +7604,7 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:validate:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:validate" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>3</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:validate:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:validate" DocumentationValueTypeId="value-type:number">
@@ -7629,7 +7629,7 @@
       <Name>001</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
       <Status>Changed</Status>
-      <Value>meta-docs validate [--include-description-diagnostics] [--warnings-as-errors] [--workspace &lt;path&gt;]</Value>
+      <Value>meta-docs validate [--include-description-diagnostics] [--warnings-as-errors] [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:validate:option:include-description-diagnostics:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:validate:option:include-description-diagnostics" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -7906,8 +7906,8 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:validate:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:validate:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:validate:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:validate:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -7918,20 +7918,20 @@
     <DocumentationFact Id="source:cli:meta-docs:app:command:validate:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:validate:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:validate:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:validate:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:command:validate:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app:command:validate:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>87e480ab3f9932b47ce64467ef5aa52c641e6d649249dc69d77f41f4e9dcae0c</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-docs:app:fact:cli:applicationid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-docs:batch:20260720161240898" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectId="source:cli:meta-docs:app" DocumentationValueTypeId="value-type:string">
       <Name>ApplicationId</Name>

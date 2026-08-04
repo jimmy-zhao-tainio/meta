@@ -1,4 +1,5 @@
 using Meta.Core.Connections;
+using Meta.Core.Operations;
 using MetaCli.Core;
 
 internal sealed partial class CliRuntime
@@ -9,6 +10,8 @@ internal sealed partial class CliRuntime
     private const int SupportedContractMinorVersion = 0;
     private string[] args = Array.Empty<string>();
     private MetaCliInvocation? currentInvocation;
+    private IMetaWorkspace? currentWorkspace;
+    private MetaCliWorkspaces? currentWorkspaces;
     private string? globalWorkspacePath;
     private bool globalStrict;
 
@@ -171,6 +174,99 @@ internal sealed partial class CliRuntime
         }
     }
 
+    public async Task ExecuteBoundAsync(
+        MetaCliInvocation invocation,
+        IReadOnlyList<string> cliArgs,
+        MetaCliWorkspaces workspaces,
+        Func<string[], Task<int>> handler)
+    {
+        ArgumentNullException.ThrowIfNull(workspaces);
+        currentWorkspaces = workspaces;
+        currentWorkspace = workspaces.Optional("workspace");
+        try
+        {
+            await ExecuteBoundAsync(invocation, cliArgs, handler)
+                .ConfigureAwait(false);
+        }
+        finally
+        {
+            currentWorkspace = null;
+            currentWorkspaces = null;
+        }
+    }
+
+    public async Task ExecuteBoundAsync(
+        MetaCliInvocation invocation,
+        IReadOnlyList<string> cliArgs,
+        IMetaWorkspace workspace,
+        Func<string[], Task<int>> handler)
+    {
+        ArgumentNullException.ThrowIfNull(workspace);
+        currentWorkspace = workspace;
+        try
+        {
+            await ExecuteBoundAsync(invocation, cliArgs, handler)
+                .ConfigureAwait(false);
+        }
+        finally
+        {
+            currentWorkspace = null;
+        }
+    }
+
+    async Task<int> ExecuteOperationAsync(
+        Operation operation,
+        string commandName,
+        string successMessage,
+        params (string Key, string Value)[] successDetails)
+        => await ExecuteOperationsAsync(
+                [operation],
+                commandName,
+                successMessage,
+                successDetails)
+            .ConfigureAwait(false);
+
+    async Task<int> ExecuteOperationsAsync(
+        IReadOnlyList<Operation> operations,
+        string commandName,
+        string successMessage,
+        IReadOnlyList<(string Key, string Value)>? successDetails = null,
+        Func<IReadOnlyList<OperationResult>, IReadOnlyList<(string Key, string Value)>>? buildSuccessDetails = null,
+        Action<IReadOnlyList<OperationResult>>? writeSuccessOutput = null)
+    {
+        ArgumentNullException.ThrowIfNull(operations);
+        try
+        {
+            var results = await CurrentWorkspace.ExecuteAsync(operations)
+                .ConfigureAwait(false);
+            presenter.WriteOk(
+                successMessage,
+                (buildSuccessDetails != null
+                    ? buildSuccessDetails(results)
+                    : successDetails ?? Array.Empty<(string Key, string Value)>()).ToArray());
+            writeSuccessOutput?.Invoke(results);
+            return 0;
+        }
+        catch (MetaOperationException exception) when (exception.Diagnostics != null)
+        {
+            return PrintOperationValidationFailure(
+                commandName,
+                operations,
+                exception.Diagnostics);
+        }
+        catch (MetaOperationException exception)
+        {
+            var cause = exception.InnerException ?? exception;
+            while (cause is MetaOperationException operationException &&
+                   operationException.InnerException != null)
+            {
+                cause = operationException.InnerException;
+            }
+
+            return PrintDataError("E_OPERATION", cause.Message);
+        }
+    }
+
     async Task<int> ExecuteOperationAsync(
         OpenedXmlWorkspace workspace,
         Operation operation,
@@ -258,6 +354,12 @@ internal sealed partial class CliRuntime
 
     private MetaCliInvocation Invocation =>
         currentInvocation ?? throw new InvalidOperationException("Command invocation has not been parsed.");
+
+    private IMetaWorkspace CurrentWorkspace =>
+        currentWorkspace ?? throw new InvalidOperationException("Command does not have an opened workspace.");
+
+    private MetaCliWorkspaces CurrentWorkspaces =>
+        currentWorkspaces ?? throw new InvalidOperationException("Command does not have bound workspaces.");
 
     private string WorkspacePath() =>
         OptionalValue("workspace", DefaultWorkspacePath());
@@ -408,27 +510,6 @@ internal sealed partial class CliRuntime
         ReadWorkspaceOnlyOptions(string[] commandArgs, int startIndex)
     {
         return (true, WorkspacePath(), string.Empty);
-    }
-
-    (bool Ok, string NewWorkspacePath, string ErrorMessage)
-        ReadRequiredNewWorkspaceOption(string[] commandArgs, int startIndex)
-    {
-        return (true, RequiredValue("new-workspace"), string.Empty);
-    }
-
-    (bool Ok, string EntityName, bool UseNewWorkspace, string WorkspacePath, string NewWorkspacePath, string ErrorMessage)
-        ReadImportCsvOptions(string[] commandArgs, int startIndex)
-    {
-        var entityName = RequiredValue("entity").Trim();
-        var workspacePath = WorkspacePath();
-        var newWorkspacePath = OptionalValue("new-workspace");
-        if (!string.IsNullOrWhiteSpace(newWorkspacePath) && IsPresent("workspace"))
-        {
-            return (false, entityName, false, workspacePath, newWorkspacePath,
-                "Error: use either --workspace <path> or --new-workspace <path>, not both.");
-        }
-
-        return (true, entityName, !string.IsNullOrWhiteSpace(newWorkspacePath), workspacePath, newWorkspacePath, string.Empty);
     }
 
     (bool Ok, string WorkspacePath, string ErrorMessage)

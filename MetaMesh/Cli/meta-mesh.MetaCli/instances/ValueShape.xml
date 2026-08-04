@@ -10,6 +10,11 @@
       <Name>Boolean</Name>
       <ValueLabel>true|false</ValueLabel>
     </ValueShape>
+    <ValueShape Id="shape-environment-variable" ValueArityId="arity-one">
+      <Description>Environment variable containing a connection string.</Description>
+      <Name>EnvironmentVariable</Name>
+      <ValueLabel>&lt;environment-variable&gt;</ValueLabel>
+    </ValueShape>
     <ValueShape Id="shape-flag" ValueArityId="arity-none">
       <Name>Flag</Name>
     </ValueShape>
@@ -26,6 +31,12 @@
       <AllowsOptionLikeValue>true</AllowsOptionLikeValue>
       <Name>Token</Name>
       <ValueLabel>&lt;token&gt;</ValueLabel>
+    </ValueShape>
+    <ValueShape Id="shape-workspace-location" ValueArityId="arity-one">
+      <AllowsOptionLikeValue>true</AllowsOptionLikeValue>
+      <Description>Workspace path or SQL connection environment variable.</Description>
+      <Name>WorkspaceLocation</Name>
+      <ValueLabel>&lt;workspace&gt;</ValueLabel>
     </ValueShape>
   </ValueShapeList>
 </MetaCli>

@@ -12,25 +12,21 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var loadOptions = string.IsNullOrWhiteSpace(commandOptions.ExistingColumnName)
-                ? null
-                : new WorkspaceLoadOptions(
-                    new[]
-                    {
-                        new RelationshipColumnRecovery(
-                            commandOptions.SourceEntityName,
-                            commandOptions.TargetEntityName,
-                            commandOptions.ExistingColumnName),
-                    });
-            var workspace = await OpenXmlWorkspaceForCommandAsync(commandOptions.WorkspacePath, loadOptions).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            var sourceEntityName = await ResolveEntityNameAsync(
+                    CurrentWorkspace,
+                    commandOptions.SourceEntityName)
+                .ConfigureAwait(false);
+            var matchingRelationships = new List<RelationshipDefinition>();
+            await foreach (var candidate in CurrentWorkspace.ReadRelationshipsAsync(sourceEntityName))
+            {
+                if (MetaName.Comparer.Equals(
+                        candidate.TargetEntityName,
+                        commandOptions.TargetEntityName))
+                {
+                    matchingRelationships.Add(candidate);
+                }
+            }
 
-            var fromEntity = workspace.Model.FindEntity(commandOptions.SourceEntityName) ??
-                throw new InvalidOperationException(
-                    $"Entity '{commandOptions.SourceEntityName}' does not exist.");
-            var matchingRelationships = fromEntity.Relationships
-                .Where(item => string.Equals(item.Entity, commandOptions.TargetEntityName, StringComparison.OrdinalIgnoreCase))
-                .ToList();
             if (matchingRelationships.Count > 1)
             {
                 return PrintDataError(
@@ -48,13 +44,12 @@ internal sealed partial class CliRuntime
 
             var currentRole = relationship.Role ?? string.Empty;
             var operation = new Operation.RenameRelationship(
-                fromEntity.Name,
+                sourceEntityName,
                 relationship.GetColumnName(),
                 commandOptions.NewRole);
 
-            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
-                    workspace,
-                    new[] { operation },
+            return await ExecuteOperationsAsync(
+                    [operation],
                     "model rename-relationship",
                     "relationship renamed",
                     buildSuccessDetails: results =>
@@ -62,8 +57,6 @@ internal sealed partial class CliRuntime
                         var result = (RenameRelationshipResult)results.Single();
                         return new (string Key, string Value)[]
                         {
-                            ("Workspace", workspace.RootPath),
-                            ("Model", workspace.Model.Name),
                             ("From", result.SourceEntityName + "." + result.OldName),
                             ("To", result.SourceEntityName + "." + result.NewName),
                             ("Target", result.TargetEntityName),
@@ -71,9 +64,6 @@ internal sealed partial class CliRuntime
                             ("NewRole", string.Equals(result.NewName, result.TargetEntityName + "Id", StringComparison.OrdinalIgnoreCase)
                                 ? "(none)"
                                 : commandOptions.NewRole),
-                            ("Existing column", string.IsNullOrWhiteSpace(commandOptions.ExistingColumnName)
-                                ? "(model)"
-                                : commandOptions.ExistingColumnName),
                             ("Rows touched", result.RelationshipValueCount.ToString()),
                         };
                     })
@@ -90,9 +80,7 @@ internal sealed partial class CliRuntime
     {
         var sourceEntityName = RequiredValue("FromEntity").Trim();
         var targetEntityName = RequiredValue("ToEntity").Trim();
-        var workspacePath = WorkspacePath();
         var newRole = OptionalValue("role").Trim();
-        var existingColumnName = OptionalValue("existing-column").Trim();
         if (string.IsNullOrWhiteSpace(sourceEntityName) || string.IsNullOrWhiteSpace(targetEntityName))
         {
             return (false, default, "Error: missing required arguments <FromEntity> <ToEntity>.");
@@ -103,23 +91,14 @@ internal sealed partial class CliRuntime
             return (false, default, "Error: --role must use identifier pattern [A-Za-z_][A-Za-z0-9_]*.");
         }
 
-        if (!string.IsNullOrWhiteSpace(existingColumnName) && !ModelNamePattern.IsMatch(existingColumnName))
-        {
-            return (false, default, "Error: --existing-column must use identifier pattern [A-Za-z_][A-Za-z0-9_]*.");
-        }
-
         return (true, new RenameRelationshipCommandOptions(
-            WorkspacePath: workspacePath,
             SourceEntityName: sourceEntityName,
             TargetEntityName: targetEntityName,
-            NewRole: newRole,
-            ExistingColumnName: existingColumnName), string.Empty);
+            NewRole: newRole), string.Empty);
     }
 
     readonly record struct RenameRelationshipCommandOptions(
-        string WorkspacePath,
         string SourceEntityName,
         string TargetEntityName,
-        string NewRole,
-        string ExistingColumnName);
+        string NewRole);
 }

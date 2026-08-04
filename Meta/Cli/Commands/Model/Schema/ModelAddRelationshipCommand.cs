@@ -4,37 +4,34 @@ internal sealed partial class CliRuntime
     {
         var fromEntity = RequiredValue("FromEntity");
         var toEntity = RequiredValue("ToEntity");
-        var options = ReadModelAddRelationshipOptions(commandArgs, startIndex: 4);
-        if (!options.Ok)
-        {
-            return PrintArgumentError(options.ErrorMessage);
-        }
+        var role = OptionalValue("role");
+        var defaultId = OptionalValue("default-id");
+        var required = !IsPresent("required") || bool.Parse(RequiredValue("required"));
 
-        var relationshipColumnName = (string.IsNullOrWhiteSpace(options.Role) ? toEntity : options.Role) + "Id";
-        var requiredText = options.Required ? "required" : "optional";
+        var relationshipColumnName = (string.IsNullOrWhiteSpace(role) ? toEntity : role) + "Id";
+        var requiredText = required ? "required" : "optional";
         var successDetails = new List<(string Key, string Value)>
         {
             ("From", fromEntity),
             ("To", toEntity),
             ("Name", $"{relationshipColumnName} ({requiredText})"),
         };
-        if (!string.IsNullOrWhiteSpace(options.DefaultId))
+        if (!string.IsNullOrWhiteSpace(defaultId))
         {
-            successDetails.Add(("DefaultId", options.DefaultId));
+            successDetails.Add(("DefaultId", defaultId));
         }
 
         return await ExecuteOperationAsync(
-                options.WorkspacePath,
-                () => new Operation.AddRelationship(
+                new Operation.AddRelationship(
                     fromEntity,
                     toEntity,
-                    string.IsNullOrWhiteSpace(options.Role)
+                    string.IsNullOrWhiteSpace(role)
                         ? null
-                        : options.Role,
-                    options.Required,
-                    string.IsNullOrWhiteSpace(options.DefaultId)
+                        : role,
+                    required,
+                    string.IsNullOrWhiteSpace(defaultId)
                         ? null
-                        : options.DefaultId),
+                        : defaultId),
                 "model add-relationship",
                 "relationship added",
                 successDetails.ToArray())

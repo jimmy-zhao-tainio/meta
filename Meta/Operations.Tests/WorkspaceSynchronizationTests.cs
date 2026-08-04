@@ -6,6 +6,26 @@ namespace Meta.Operations.Tests;
 public sealed class WorkspaceSynchronizationTests
 {
     [Fact]
+    public void PlanCreation_ComposesOrdinaryOperationsFromAnEmptyModel()
+    {
+        var desired = BuildWorkspace();
+        var empty = new InMemoryWorkspace(
+            new GenericModel { Name = desired.Model.Name },
+            new GenericInstance { ModelName = desired.Model.Name });
+
+        var operations = WorkspaceSynchronization.PlanCreation(
+            desired,
+            desired.Model.Name);
+        var result = InMemoryOperations.Apply(empty, operations);
+
+        Assert.Contains(operations, operation => operation is Operation.AddEntity);
+        Assert.Contains(operations, operation => operation is Operation.AddProperty);
+        Assert.Contains(operations, operation => operation is Operation.AddRelationship);
+        Assert.Contains(operations, operation => operation is Operation.InsertRecord);
+        Assert.Null(InMemoryWorkspaceComparer.FindDifference(desired, result));
+    }
+
+    [Fact]
     public void PlanInstanceChanges_ComposesAReferentiallyValidTransition()
     {
         var current = BuildWorkspace();

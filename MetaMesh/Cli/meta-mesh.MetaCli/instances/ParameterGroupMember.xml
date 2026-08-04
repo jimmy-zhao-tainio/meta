@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaCli>
+  <ParameterGroupMemberList>
+    <ParameterGroupMember Id="member-add-workspace-representation-csharp" ParameterGroupId="group-add-workspace-representation" ParameterId="param-workspace-csharp-path" PreviousMemberId="member-add-workspace-representation-xml" />
+    <ParameterGroupMember Id="member-add-workspace-representation-sql" ParameterGroupId="group-add-workspace-representation" ParameterId="param-workspace-sql-connection-env" PreviousMemberId="member-add-workspace-representation-csharp" />
+    <ParameterGroupMember Id="member-add-workspace-representation-xml" ParameterGroupId="group-add-workspace-representation" ParameterId="param-workspace-xml-path" />
+    <ParameterGroupMember Id="member-create-csharp" ParameterGroupId="group-create-output" ParameterId="param-create-csharp" PreviousMemberId="member-create-xml" />
+    <ParameterGroupMember Id="member-create-sql" ParameterGroupId="group-create-output" ParameterId="param-create-sql" PreviousMemberId="member-create-csharp" />
+    <ParameterGroupMember Id="member-create-xml" ParameterGroupId="group-create-output" ParameterId="param-create-xml" />
+  </ParameterGroupMemberList>
+</MetaCli>

@@ -1,6 +1,7 @@
 using System.Text;
 using System.Security.Cryptography;
 using Meta.Core.Domain;
+using Meta.Core.Operations;
 using Meta.Core.Serialization;
 using MetaDocs;
 
@@ -19,10 +20,38 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(sourceWorkspacePath);
 
-        var openedWorkspace = await XmlWorkspaceReader.OpenAsync(
-            sourceWorkspacePath,
-            cancellationToken).ConfigureAwait(false);
-        var workspace = openedWorkspace.State;
+        await using var openedWorkspace = await XmlWorkspaceReader.OpenAsync(
+                sourceWorkspacePath,
+                cancellationToken)
+            .ConfigureAwait(false);
+        return await ImportWorkspaceInstancesAsync(
+                model,
+                openedWorkspace,
+                Path.GetFullPath(sourceWorkspacePath),
+                sourceId,
+                modelSourceId,
+                displayName,
+                cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    public async Task<MetaDocsWorkspaceInstanceImportResult> ImportWorkspaceInstancesAsync(
+        MetaDocsModel model,
+        IMetaWorkspaceSource sourceWorkspace,
+        string sourceReference,
+        string sourceId = "",
+        string modelSourceId = "",
+        string displayName = "",
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentNullException.ThrowIfNull(sourceWorkspace);
+        ArgumentException.ThrowIfNullOrWhiteSpace(sourceReference);
+
+        var workspace = await WorkspaceComposition.MaterializeAsync(
+                sourceWorkspace,
+                cancellationToken)
+            .ConfigureAwait(false);
         var modelName = string.IsNullOrWhiteSpace(workspace.Model.Name) ? "Model" : workspace.Model.Name;
         var normalizedDisplayName = string.IsNullOrWhiteSpace(displayName)
             ? modelName
@@ -45,7 +74,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             normalizedSourceId,
             "WorkspaceInstances",
             normalizedDisplayName + " instances",
-            Path.GetFullPath(sourceWorkspacePath),
+            sourceReference,
             ComputeSourceFingerprint(workspace),
             "MetaDocs.WorkspaceInstances",
             "1");
@@ -54,7 +83,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             $"{normalizedSourceId}:instances",
             "WorkspaceInstances",
             "Workspace",
-            openedWorkspace.RootPath,
+            sourceReference,
             normalizedDisplayName + " instances",
             $"{normalizedDisplayName}.Instances",
             "Selected workspace instances.",

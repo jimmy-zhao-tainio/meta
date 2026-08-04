@@ -1,41 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ExecutableCommandParameterList>
-    <ExecutableCommandParameter Id="exec-new-workspace:parameter:param-new-workspace-path" ExecutableCommandId="exec-new-workspace" ParameterId="param-new-workspace-path">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-model:parameter:param-add-model-workspace" ExecutableCommandId="exec-add-model" ParameterId="param-add-model-workspace">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-model:parameter:param-add-model-alias" ExecutableCommandId="exec-add-model" ParameterId="param-add-model-alias">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-model:parameter:param-add-model-model" ExecutableCommandId="exec-add-model" ParameterId="param-add-model-model">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-model:parameter:param-add-model-workspace-path" ExecutableCommandId="exec-add-model" ParameterId="param-add-model-workspace-path">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-workspace" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-workspace">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-name" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-name">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-source-model" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-source-model">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-source-entity" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-source-entity">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-source-property" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-source-property">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-target-model" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-target-model">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-target-entity" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-target-entity">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-target-property" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-target-property">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-suggest:parameter:param-suggest-workspace" ExecutableCommandId="exec-suggest" ParameterId="param-suggest-workspace">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-check:parameter:param-check-workspace" ExecutableCommandId="exec-check" ParameterId="param-check-workspace">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-materialize:parameter:param-materialize-workspace" ExecutableCommandId="exec-materialize" ParameterId="param-materialize-workspace">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-materialize:parameter:param-materialize-new-workspace" ExecutableCommandId="exec-materialize" ParameterId="param-materialize-new-workspace">
-    </ExecutableCommandParameter>
-    <ExecutableCommandParameter Id="exec-materialize:parameter:param-materialize-model" ExecutableCommandId="exec-materialize" ParameterId="param-materialize-model">
-    </ExecutableCommandParameter>
+    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-name" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-name" />
+    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-source-entity" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-source-entity" />
+    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-source-model" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-source-model" />
+    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-source-property" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-source-property" />
+    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-target-entity" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-target-entity" />
+    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-target-model" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-target-model" />
+    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-target-property" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-target-property" />
+    <ExecutableCommandParameter Id="exec-add-binding:parameter:param-add-binding-workspace" ExecutableCommandId="exec-add-binding" ParameterId="param-add-binding-workspace" />
+    <ExecutableCommandParameter Id="exec-add-model:parameter:param-add-model-alias" ExecutableCommandId="exec-add-model" ParameterId="param-add-model-alias" />
+    <ExecutableCommandParameter Id="exec-add-model:parameter:param-add-model-model" ExecutableCommandId="exec-add-model" ParameterId="param-add-model-model" />
+    <ExecutableCommandParameter Id="exec-add-model:parameter:param-add-model-workspace" ExecutableCommandId="exec-add-model" ParameterId="param-add-model-workspace" />
+    <ExecutableCommandParameter Id="exec-add-model:parameter:param-add-model-workspace-path" ExecutableCommandId="exec-add-model" ParameterId="param-add-model-workspace-path" />
+    <ExecutableCommandParameter Id="exec-check:parameter:param-check-workspace" ExecutableCommandId="exec-check" ParameterId="param-check-workspace" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-connection-env" ExecutableCommandId="exec-create" ParameterId="param-create-connection-env" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-csharp" ExecutableCommandId="exec-create" ParameterId="param-create-csharp" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-sql" ExecutableCommandId="exec-create" ParameterId="param-create-sql" />
+    <ExecutableCommandParameter Id="exec-create:parameter:param-create-xml" ExecutableCommandId="exec-create" ParameterId="param-create-xml" />
+    <ExecutableCommandParameter Id="exec-materialize:parameter:param-materialize-model" ExecutableCommandId="exec-materialize" ParameterId="param-materialize-model" />
+    <ExecutableCommandParameter Id="exec-materialize:parameter:param-materialize-output-connection-env" ExecutableCommandId="exec-materialize" ParameterId="param-materialize-output-connection-env" />
+    <ExecutableCommandParameter Id="exec-materialize:parameter:param-materialize-output-csharp" ExecutableCommandId="exec-materialize" ParameterId="param-materialize-output-csharp" />
+    <ExecutableCommandParameter Id="exec-materialize:parameter:param-materialize-output-sql" ExecutableCommandId="exec-materialize" ParameterId="param-materialize-output-sql" />
+    <ExecutableCommandParameter Id="exec-materialize:parameter:param-materialize-output-xml" ExecutableCommandId="exec-materialize" ParameterId="param-materialize-output-xml" />
+    <ExecutableCommandParameter Id="exec-materialize:parameter:param-materialize-workspace" ExecutableCommandId="exec-materialize" ParameterId="param-materialize-workspace" />
+    <ExecutableCommandParameter Id="exec-suggest:parameter:param-suggest-workspace" ExecutableCommandId="exec-suggest" ParameterId="param-suggest-workspace" />
   </ExecutableCommandParameterList>
 </MetaCli>

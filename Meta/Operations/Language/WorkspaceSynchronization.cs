@@ -2,6 +2,45 @@ namespace Meta.Core.Operations;
 
 public static class WorkspaceSynchronization
 {
+    public static IReadOnlyList<Operation> PlanCreation(
+        InMemoryWorkspace desired,
+        string destinationModelName)
+    {
+        ArgumentNullException.ThrowIfNull(desired);
+        var modelName = MetaName.Require(
+            destinationModelName,
+            "Destination model name.");
+        EnsureValid(desired, "Desired metadata is invalid.");
+        if (!MetaName.Comparer.Equals(desired.Model.Name, modelName))
+        {
+            throw new InvalidOperationException(
+                $"Destination model '{modelName}' does not match workspace model '{desired.Model.Name}'.");
+        }
+
+        var operations = new List<Operation>();
+        operations.AddRange(desired.Model.Entities.Select(
+            entity => new Operation.AddEntity(entity.Name)));
+        operations.AddRange(desired.Model.Entities.SelectMany(
+            entity => entity.Properties.Select(
+                property => new Operation.AddProperty(
+                    entity.Name,
+                    property.Name,
+                    !property.IsNullable))));
+        operations.AddRange(desired.Model.Entities.SelectMany(
+            entity => entity.Relationships.Select(
+                relationship => new Operation.AddRelationship(
+                    entity.Name,
+                    relationship.Entity,
+                    relationship.Role,
+                    !relationship.IsNullable))));
+
+        var empty = new InMemoryWorkspace(
+            desired.Model.Clone(),
+            new GenericInstance { ModelName = desired.Model.Name });
+        operations.AddRange(PlanInstanceChanges(empty, desired));
+        return operations;
+    }
+
     public static IReadOnlyList<Operation> PlanInstanceChanges(
         InMemoryWorkspace current,
         InMemoryWorkspace desired)

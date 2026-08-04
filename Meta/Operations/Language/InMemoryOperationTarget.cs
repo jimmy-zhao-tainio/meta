@@ -107,6 +107,8 @@ public static class InMemoryOperations
 internal sealed partial class InMemoryOperationTarget : IOperationTarget
 {
     private readonly InMemoryWorkspace _workspace;
+    private readonly Dictionary<string, Dictionary<string, GenericRecord>> _recordIndexes =
+        new(MetaName.Comparer);
 
     public InMemoryOperationTarget(InMemoryWorkspace workspace)
     {
@@ -115,8 +117,20 @@ internal sealed partial class InMemoryOperationTarget : IOperationTarget
 
     RenameModelResult IOperationTarget.Apply(Operation.RenameModel operation) => Apply(_workspace, operation);
     OperationResult IOperationTarget.Apply(Operation.AddEntity operation) => Complete(operation, Apply);
-    OperationResult IOperationTarget.Apply(Operation.RemoveEntity operation) => Complete(operation, Apply);
-    RenameEntityResult IOperationTarget.Apply(Operation.RenameEntity operation) => Apply(_workspace, operation);
+    OperationResult IOperationTarget.Apply(Operation.RemoveEntity operation)
+    {
+        var result = Complete(operation, Apply);
+        _recordIndexes.Remove(operation.Name);
+        return result;
+    }
+
+    RenameEntityResult IOperationTarget.Apply(Operation.RenameEntity operation)
+    {
+        var result = Apply(_workspace, operation);
+        _recordIndexes.Remove(result.OldName);
+        _recordIndexes.Remove(result.NewName);
+        return result;
+    }
     OperationResult IOperationTarget.Apply(Operation.AddProperty operation) => Complete(operation, Apply);
     OperationResult IOperationTarget.Apply(Operation.RemoveProperty operation) => Complete(operation, Apply);
     OperationResult IOperationTarget.Apply(Operation.RenameProperty operation) => Complete(operation, Apply);
@@ -185,17 +199,32 @@ internal sealed partial class InMemoryOperationTarget : IOperationTarget
                    $"Relationship '{entity.Name}.{requiredName}' does not exist.");
     }
 
-    private static GenericRecord RequireRecord(
+    private GenericRecord RequireRecord(
         InMemoryWorkspace state,
         GenericEntity entity,
         string id)
     {
         var requiredId = MetaIdentity.Require(id, "Record Id.");
-        var records = GetRecords(state, entity.Name);
-        return records.FirstOrDefault(record =>
-                   MetaIdentity.Comparer.Equals(record.Id, requiredId)) ??
+        return GetRecordIndex(state, entity.Name)
+                   .GetValueOrDefault(requiredId) ??
                throw new InvalidOperationException(
                    $"Record '{entity.Name}:{requiredId}' does not exist.");
+    }
+
+    private Dictionary<string, GenericRecord> GetRecordIndex(
+        InMemoryWorkspace state,
+        string entityName)
+    {
+        if (_recordIndexes.TryGetValue(entityName, out var index))
+        {
+            return index;
+        }
+
+        index = GetRecords(state, entityName).ToDictionary(
+            static record => record.Id,
+            MetaIdentity.Comparer);
+        _recordIndexes.Add(entityName, index);
+        return index;
     }
 
     private static List<GenericRecord> GetRecords(

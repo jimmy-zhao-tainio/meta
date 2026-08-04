@@ -21,34 +21,6 @@ internal static class SqlGenerationArtifacts
         return DdlSqlServerRenderer.RenderData(BuildDdlDatabase(state));
     }
 
-    public static string BuildPostDeployScript()
-    {
-        return NormalizeNewlines(
-            "-- Deterministic post-deploy script\n" +
-            ":r .\\Data.sql\n");
-    }
-
-    public static string BuildSqlProjectFile(GenericModel model)
-    {
-        ArgumentNullException.ThrowIfNull(model);
-        var projectName = string.IsNullOrWhiteSpace(model.Name)
-            ? "MetadataModel"
-            : model.Name;
-        var xml =
-            "<Project DefaultTargets=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">\n" +
-            "  <PropertyGroup>\n" +
-            $"    <Name>{EscapeXml(projectName)}</Name>\n" +
-            "    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>\n" +
-            "    <ModelCollation>1033,CI</ModelCollation>\n" +
-            "  </PropertyGroup>\n" +
-            "  <ItemGroup>\n" +
-            "    <Build Include=\"Schema.sql\" />\n" +
-            "    <PostDeploy Include=\"PostDeploy.sql\" />\n" +
-            "  </ItemGroup>\n" +
-            "</Project>\n";
-        return NormalizeNewlines(xml);
-    }
-
     private static DdlDatabase BuildDdlDatabase(InMemoryWorkspace state)
     {
         var database = new DdlDatabase();
@@ -254,18 +226,4 @@ internal static class SqlGenerationArtifacts
         return "N'" + value.Replace("'", "''", StringComparison.Ordinal) + "'";
     }
 
-    private static string EscapeXml(string value)
-    {
-        return value
-            .Replace("&", "&amp;", StringComparison.Ordinal)
-            .Replace("<", "&lt;", StringComparison.Ordinal)
-            .Replace(">", "&gt;", StringComparison.Ordinal)
-            .Replace("\"", "&quot;", StringComparison.Ordinal)
-            .Replace("'", "&apos;", StringComparison.Ordinal);
-    }
-
-    private static string NormalizeNewlines(string value)
-    {
-        return value.Replace("\r\n", "\n", StringComparison.Ordinal).Replace("\r", "\n", StringComparison.Ordinal);
-    }
 }

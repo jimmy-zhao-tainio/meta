@@ -55,7 +55,6 @@ public sealed class FullCycleRandomizedTests
         var sqlOutB = Path.Combine(Path.GetTempPath(), "metadata-fullcycle-tests", Guid.NewGuid().ToString("N"), "sql-b");
         var csOutA = Path.Combine(Path.GetTempPath(), "metadata-fullcycle-tests", Guid.NewGuid().ToString("N"), "cs-a");
         var csOutB = Path.Combine(Path.GetTempPath(), "metadata-fullcycle-tests", Guid.NewGuid().ToString("N"), "cs-b");
-        var ssdtOut = Path.Combine(Path.GetTempPath(), "metadata-fullcycle-tests", Guid.NewGuid().ToString("N"), "ssdt");
 
         try
         {
@@ -83,12 +82,6 @@ public sealed class FullCycleRandomizedTests
             var csharpManifestB = GenerationService.GenerateCSharp(loaded.State, csOutB);
             AssertEquivalent(csharpManifestA, csharpManifestB);
 
-            var ssdtManifest = GenerationService.GenerateSsdt(loaded.State, ssdtOut);
-            Assert.Equal(4, ssdtManifest.FileHashes.Count);
-            Assert.True(File.Exists(Path.Combine(ssdtOut, "Schema.sql")));
-            Assert.True(File.Exists(Path.Combine(ssdtOut, "Data.sql")));
-            Assert.True(File.Exists(Path.Combine(ssdtOut, "PostDeploy.sql")));
-            Assert.True(File.Exists(Path.Combine(ssdtOut, "Metadata.sqlproj")));
         }
         finally
         {
@@ -98,7 +91,6 @@ public sealed class FullCycleRandomizedTests
             DeleteDirectoryIfExists(Path.GetDirectoryName(sqlOutB)!);
             DeleteDirectoryIfExists(Path.GetDirectoryName(csOutA)!);
             DeleteDirectoryIfExists(Path.GetDirectoryName(csOutB)!);
-            DeleteDirectoryIfExists(Path.GetDirectoryName(ssdtOut)!);
         }
     }
 

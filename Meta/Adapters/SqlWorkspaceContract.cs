@@ -4,6 +4,8 @@ namespace Meta.Adapters;
 
 internal static class SqlWorkspaceContract
 {
+    public const string Schema = "dbo";
+
     public const string CaseInsensitiveCollation =
         "Latin1_General_100_CI_AS_SC";
 

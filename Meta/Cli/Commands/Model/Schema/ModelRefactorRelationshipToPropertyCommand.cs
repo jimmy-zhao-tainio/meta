@@ -15,17 +15,14 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(commandOptions.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
             var operation = new Operation.RelationshipToProperty(
                 refactorOptions.SourceEntityName,
                 refactorOptions.TargetEntityName,
                 refactorOptions.Role,
                 refactorOptions.PropertyName);
 
-            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
-                    workspace,
-                    new[] { operation },
+            return await ExecuteOperationsAsync(
+                    [operation],
                     "model refactor relationship-to-property",
                     "refactor relationship-to-property",
                     buildSuccessDetails: results =>
@@ -33,8 +30,6 @@ internal sealed partial class CliRuntime
                         var result = (RelationshipToPropertyResult)results.Single();
                         return new (string Key, string Value)[]
                         {
-                            ("Workspace", workspace.RootPath),
-                            ("Model", workspace.Model.Name),
                             ("Source", refactorOptions.SourceEntityName),
                             ("Target", refactorOptions.TargetEntityName),
                             ("Role", string.IsNullOrWhiteSpace(refactorOptions.Role) ? "(none)" : refactorOptions.Role),

@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Model name="MetaMesh">
   <EntityList>
+    <Entity name="CSharpWorkspace">
+      <PropertyList>
+        <Property name="Path" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Workspace" />
+      </RelationshipList>
+    </Entity>
     <Entity name="Mesh">
       <PropertyList>
         <Property name="Description" isRequired="false" />
@@ -31,15 +39,30 @@
         <Relationship entity="OperationStep" role="PreviousStep" isRequired="false" />
       </RelationshipList>
     </Entity>
+    <Entity name="SqlWorkspace">
+      <PropertyList>
+        <Property name="ConnectionEnvironmentVariable" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Workspace" />
+      </RelationshipList>
+    </Entity>
     <Entity name="Workspace">
       <PropertyList>
         <Property name="Description" isRequired="false" />
         <Property name="ModelName" isRequired="false" />
         <Property name="Name" />
-        <Property name="Path" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="Mesh" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="XmlWorkspace">
+      <PropertyList>
+        <Property name="Path" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Workspace" />
       </RelationshipList>
     </Entity>
   </EntityList>

@@ -57,21 +57,6 @@ public sealed record MetaCliIssue(
     string Message,
     string Location);
 
-public sealed record MetaCliNewWorkspaceResult(
-    string WorkspacePath,
-    int ApplicationCount,
-    int ValueArityCount,
-    int ValueShapeCount,
-    int AllowedValueCount,
-    int CommandCount,
-    int ExecutableCommandCount,
-    int ParameterCount,
-    int ApplicationParameterCount,
-    int ExecutableCommandParameterCount,
-    int OptionCount,
-    int PositionalArgumentCount,
-    int ParameterGroupCount);
-
 public enum MetaCliIssueSeverity
 {
     Error,

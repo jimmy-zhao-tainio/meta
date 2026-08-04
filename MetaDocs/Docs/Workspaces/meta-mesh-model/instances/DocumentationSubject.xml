@@ -8,7 +8,28 @@
       <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
       <Status>Current</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:mesh" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh">
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:csharpworkspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh">
+      <DisplayName>CSharpWorkspace</DisplayName>
+      <DisplayPath>MetaMesh.CSharpWorkspace</DisplayPath>
+      <NativeId>CSharpWorkspace</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:csharpworkspace:property:path" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:csharpworkspace">
+      <DisplayName>Path</DisplayName>
+      <DisplayPath>MetaMesh.CSharpWorkspace.Path</DisplayPath>
+      <NativeId>Path</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:csharpworkspace:relationship:workspace-workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:csharpworkspace">
+      <DisplayName>Workspace</DisplayName>
+      <DisplayPath>MetaMesh.CSharpWorkspace.Workspace</DisplayPath>
+      <NativeId>Workspace:Workspace</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:mesh" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:csharpworkspace">
       <DisplayName>Mesh</DisplayName>
       <DisplayPath>MetaMesh.Mesh</DisplayPath>
       <NativeId>Mesh</NativeId>
@@ -127,7 +148,28 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep">
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:sqlworkspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep">
+      <DisplayName>SqlWorkspace</DisplayName>
+      <DisplayPath>MetaMesh.SqlWorkspace</DisplayPath>
+      <NativeId>SqlWorkspace</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:sqlworkspace:property:connectionenvironmentvariable" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:sqlworkspace">
+      <DisplayName>ConnectionEnvironmentVariable</DisplayName>
+      <DisplayPath>MetaMesh.SqlWorkspace.ConnectionEnvironmentVariable</DisplayPath>
+      <NativeId>ConnectionEnvironmentVariable</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:sqlworkspace:relationship:workspace-workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:sqlworkspace">
+      <DisplayName>Workspace</DisplayName>
+      <DisplayPath>MetaMesh.SqlWorkspace.Workspace</DisplayPath>
+      <NativeId>Workspace:Workspace</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:sqlworkspace">
       <DisplayName>Workspace</DisplayName>
       <DisplayPath>MetaMesh.Workspace</DisplayPath>
       <NativeId>Workspace</NativeId>
@@ -155,17 +197,31 @@
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace:property:path" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:workspace" PreviousSubjectId="source:workspace-model:meta-mesh:entity:workspace:property:name">
-      <DisplayName>Path</DisplayName>
-      <DisplayPath>MetaMesh.Workspace.Path</DisplayPath>
-      <NativeId>Path</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace:relationship:mesh-mesh" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:workspace">
       <DisplayName>Mesh</DisplayName>
       <DisplayPath>MetaMesh.Workspace.Mesh</DisplayPath>
       <NativeId>Mesh:Mesh</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:xmlworkspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:workspace">
+      <DisplayName>XmlWorkspace</DisplayName>
+      <DisplayPath>MetaMesh.XmlWorkspace</DisplayPath>
+      <NativeId>XmlWorkspace</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:xmlworkspace:property:path" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:xmlworkspace">
+      <DisplayName>Path</DisplayName>
+      <DisplayPath>MetaMesh.XmlWorkspace.Path</DisplayPath>
+      <NativeId>Path</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:xmlworkspace:relationship:workspace-workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:xmlworkspace">
+      <DisplayName>Workspace</DisplayName>
+      <DisplayPath>MetaMesh.XmlWorkspace.Workspace</DisplayPath>
+      <NativeId>Workspace:Workspace</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>

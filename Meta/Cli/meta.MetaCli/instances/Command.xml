@@ -6,10 +6,10 @@
       <Name>bulk-insert</Name>
       <Token>bulk-insert</Token>
     </Command>
-    <Command Id="cmd-check" ApplicationId="app-meta">
-      <Description>Check model and instance integrity.</Description>
-      <Name>check</Name>
-      <Token>check</Token>
+    <Command Id="cmd-create" ApplicationId="app-meta">
+      <Description>Create a metadata workspace.</Description>
+      <Name>create</Name>
+      <Token>create</Token>
     </Command>
     <Command Id="cmd-delete" ApplicationId="app-meta">
       <Description>Delete one instance.</Description>
@@ -51,11 +51,6 @@
       <Name>sql</Name>
       <Token>sql</Token>
     </Command>
-    <Command Id="cmd-generate-ssdt" ApplicationId="app-meta" ParentCommandId="cmd-generate">
-      <Description>Generate SSDT artifacts.</Description>
-      <Name>ssdt</Name>
-      <Token>ssdt</Token>
-    </Command>
     <Command Id="cmd-graph" ApplicationId="app-meta">
       <Description>Graph stats and inbound relationships.</Description>
       <Name>graph</Name>
@@ -90,11 +85,6 @@
       <Description>Import SQL metadata into a new workspace.</Description>
       <Name>sql</Name>
       <Token>sql</Token>
-    </Command>
-    <Command Id="cmd-init" ApplicationId="app-meta">
-      <Description>Initialize a metadata workspace.</Description>
-      <Name>init</Name>
-      <Token>init</Token>
     </Command>
     <Command Id="cmd-insert" ApplicationId="app-meta">
       <Description>Insert one instance.</Description>

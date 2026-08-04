@@ -3,6 +3,56 @@ namespace Meta.Core.Operations;
 
 public static class WorkspaceComposition
 {
+    public static async Task<GenericModel> MaterializeModelAsync(
+        IMetaWorkspaceSource source,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(source);
+        var modelName = MetaName.Require(
+            await source.ReadModelNameAsync(cancellationToken)
+                .ConfigureAwait(false),
+            "Model name.");
+        var workspace = new InMemoryWorkspace(
+            new GenericModel { Name = modelName },
+            new GenericInstance { ModelName = modelName });
+        var target = new InMemoryOperationTarget(workspace);
+        var entityNames = new List<string>();
+        await foreach (var entityName in source.ReadEntityNamesAsync(cancellationToken))
+        {
+            entityNames.Add(MetaName.Require(entityName, "Entity name."));
+        }
+
+        foreach (var entityName in entityNames)
+        {
+            Apply(new Operation.AddEntity(entityName), target);
+        }
+
+        foreach (var entityName in entityNames)
+        {
+            await foreach (var property in source.ReadPropertiesAsync(entityName, cancellationToken))
+            {
+                Apply(new Operation.AddProperty(entityName, property.Name, property.IsRequired), target);
+            }
+        }
+
+        foreach (var entityName in entityNames)
+        {
+            await foreach (var relationship in source.ReadRelationshipsAsync(entityName, cancellationToken))
+            {
+                Apply(
+                    new Operation.AddRelationship(
+                        entityName,
+                        relationship.TargetEntityName,
+                        relationship.Role,
+                        relationship.IsRequired),
+                    target);
+            }
+        }
+
+        EnsureValid(workspace);
+        return workspace.Model;
+    }
+
     public static async Task<InMemoryWorkspace> MaterializeAsync(
         IMetaWorkspaceSource source,
         CancellationToken cancellationToken = default)

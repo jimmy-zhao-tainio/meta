@@ -48,6 +48,7 @@ internal sealed partial class CliRuntime
         }
 
         await services.ExportService.ExportXmlAsync(diff.DiffWorkspace, diffPath).ConfigureAwait(false);
+        MetaCli.Core.MetaCliWorkspace.DescribeXml(diffPath);
         presenter.WriteInfo(diff.HasDifferences
             ? "Instance diff-aligned: differences found."
             : "Instance diff-aligned: no differences.");

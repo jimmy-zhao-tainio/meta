@@ -910,7 +910,37 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-cli:app" PreviousSubjectId="source:cli:meta-cli:app:command:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:remove-application-option" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-cli:app" PreviousSubjectId="source:cli:meta-cli:app:command:new-workspace">
+      <DisplayName>meta-cli remove-application-option</DisplayName>
+      <DisplayPath>meta-cli remove-application-option</DisplayPath>
+      <NativeId>exec-remove-application-option</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Remove an application-wide option aggregate.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:remove-application-option:option:application" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-cli:app:command:remove-application-option">
+      <DisplayName>--application</DisplayName>
+      <DisplayPath>meta-cli remove-application-option --application</DisplayPath>
+      <NativeId>option-remove-application-option-application</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:remove-application-option:option:parameter" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-cli:app:command:remove-application-option" PreviousSubjectId="source:cli:meta-cli:app:command:remove-application-option:option:application">
+      <DisplayName>--parameter</DisplayName>
+      <DisplayPath>meta-cli remove-application-option --parameter</DisplayPath>
+      <NativeId>option-remove-application-option-parameter</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:remove-application-option:option:workspace" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-cli:app:command:remove-application-option" PreviousSubjectId="source:cli:meta-cli:app:command:remove-application-option:option:parameter">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-cli remove-application-option --workspace</DisplayPath>
+      <NativeId>option-remove-application-option-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-cli:app" PreviousSubjectId="source:cli:meta-cli:app:command:remove-application-option">
       <DisplayName>meta-cli set-default-command</DisplayName>
       <DisplayPath>meta-cli set-default-command</DisplayPath>
       <NativeId>exec-set-default-command</NativeId>

@@ -19,25 +19,14 @@ internal sealed partial class CliRuntime
 
                 try
                 {
-                    var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-                    PrintContractCompatibilityWarning(workspace.ContractVersion);
-                    var diagnostics = WorkspaceValidator.Validate(
-                        workspace.Model,
-                        workspace.Instance);
-                    if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
-                    {
-                        return PrintOperationValidationFailure("export", Array.Empty<Operation>(), diagnostics);
-                    }
-
                     var entityName = RequiredValue("Entity");
                     await services.ExportService.ExportCsvAsync(
-                            new InMemoryWorkspaceSource(workspace.State),
+                            CurrentWorkspace,
                             entityName,
                             options.OutputPath)
                         .ConfigureAwait(false);
                     presenter.WriteOk(
                         "exported csv",
-                        ("Workspace", workspace.RootPath),
                         ("Entity", entityName),
                         ("Out", Path.GetFullPath(options.OutputPath)));
                     return 0;

@@ -152,22 +152,22 @@ public sealed class MetaCliParser
 
         if (commandTokenIndexes.Count == 0)
         {
-            if (arguments.Count == 0)
+            var defaultCommand = model.ApplicationDefaultCommandList
+                .SingleOrDefault(item => ReferenceEquals(item.Application, application));
+            if (arguments.Count == 0 || LooksLikeOption(arguments[0]))
             {
-                var defaultCommand = model.ApplicationDefaultCommandList
-                    .SingleOrDefault(item => ReferenceEquals(item.Application, application));
                 return defaultCommand is null
-                    ? CommandMatch.Failure(MetaCliParseErrorCode.CommandMissing, "No command was provided.")
+                    ? CommandMatch.Failure(
+                        arguments.Count == 0
+                            ? MetaCliParseErrorCode.CommandMissing
+                            : MetaCliParseErrorCode.UnknownOption,
+                        arguments.Count == 0
+                            ? "No command was provided."
+                            : $"Option '{arguments[0]}' is not recognized.")
                     : CommandMatch.Success(defaultCommand.ExecutableCommand, Array.Empty<int>());
             }
 
-            var first = arguments[0];
-            if (LooksLikeOption(first))
-            {
-                return CommandMatch.Failure(MetaCliParseErrorCode.UnknownOption, $"Option '{first}' is not recognized.");
-            }
-
-            return CommandMatch.Failure(MetaCliParseErrorCode.CommandNotFound, $"Unknown command '{first}'.");
+            return CommandMatch.Failure(MetaCliParseErrorCode.CommandNotFound, $"Unknown command '{arguments[0]}'.");
         }
 
         var route = current is null ? string.Empty : DisplayRoute(current);

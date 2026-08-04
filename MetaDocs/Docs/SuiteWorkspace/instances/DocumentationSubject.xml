@@ -2783,7 +2783,37 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-cli:app" PreviousSubjectId="source:cli:meta-cli:app:command:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:remove-application-option" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-cli:app" PreviousSubjectId="source:cli:meta-cli:app:command:new-workspace">
+      <DisplayName>meta-cli remove-application-option</DisplayName>
+      <DisplayPath>meta-cli remove-application-option</DisplayPath>
+      <NativeId>exec-remove-application-option</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Remove an application-wide option aggregate.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:remove-application-option:option:application" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-cli:app:command:remove-application-option">
+      <DisplayName>--application</DisplayName>
+      <DisplayPath>meta-cli remove-application-option --application</DisplayPath>
+      <NativeId>option-remove-application-option-application</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:remove-application-option:option:parameter" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-cli:app:command:remove-application-option" PreviousSubjectId="source:cli:meta-cli:app:command:remove-application-option:option:application">
+      <DisplayName>--parameter</DisplayName>
+      <DisplayPath>meta-cli remove-application-option --parameter</DisplayPath>
+      <NativeId>option-remove-application-option-parameter</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:remove-application-option:option:workspace" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-cli:app:command:remove-application-option" PreviousSubjectId="source:cli:meta-cli:app:command:remove-application-option:option:parameter">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-cli remove-application-option --workspace</DisplayPath>
+      <NativeId>option-remove-application-option-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaCli workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-cli:app:command:set-default-command" DocumentationSourceId="source:cli:meta-cli" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-cli:app" PreviousSubjectId="source:cli:meta-cli:app:command:remove-application-option">
       <DisplayName>meta-cli set-default-command</DisplayName>
       <DisplayPath>meta-cli set-default-command</DisplayPath>
       <NativeId>exec-set-default-command</NativeId>
@@ -3045,7 +3075,15 @@
       <Status>New</Status>
       <Summary>Convert MetaSchema workspace to MetaRawDataVault workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:ignore-field-name" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:connection-env" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --connection-env</DisplayPath>
+      <NativeId>opt-schema-to-raw-datavault-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the SQL workspace connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:ignore-field-name" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:connection-env">
       <DisplayName>--ignore-field-name</DisplayName>
       <DisplayPath>meta-convert schema-to-raw-datavault --ignore-field-name</DisplayPath>
       <NativeId>opt-schema-to-raw-datavault-ignore-field-name</NativeId>
@@ -3069,15 +3107,31 @@
       <Status>New</Status>
       <Summary>Include source views.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:include-views">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta-convert schema-to-raw-datavault --new-workspace</DisplayPath>
-      <NativeId>opt-schema-to-raw-datavault-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:include-views">
+      <DisplayName>--new-workspace-csharp</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --new-workspace-csharp</DisplayPath>
+      <NativeId>opt-schema-to-raw-datavault-new-workspace-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Directory where the MetaRawDataVault workspace will be created.</Summary>
+      <Summary>Create a C# workspace in this directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:source-workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-csharp">
+      <DisplayName>--new-workspace-sql</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --new-workspace-sql</DisplayPath>
+      <NativeId>opt-schema-to-raw-datavault-new-workspace-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a SQL workspace described by this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-sql">
+      <DisplayName>--new-workspace-xml</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --new-workspace-xml</DisplayPath>
+      <NativeId>opt-schema-to-raw-datavault-new-workspace-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create an XML workspace in this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:source-workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-xml">
       <DisplayName>--source-workspace</DisplayName>
       <DisplayPath>meta-convert schema-to-raw-datavault --source-workspace</DisplayPath>
       <NativeId>opt-schema-to-raw-datavault-source-workspace</NativeId>
@@ -3092,6 +3146,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Print conversion summary.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:parameter-group:new-workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault">
+      <DisplayName>new-workspace</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault group new-workspace</DisplayPath>
+      <NativeId>group-schema-to-raw-datavault-new-workspace</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose new-workspace-csharp or new-workspace-sql or new-workspace-xml.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault">
       <DisplayName>meta-convert sql-to-transform-script</DisplayName>
@@ -7379,10 +7441,10 @@
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-operation:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-operation" PreviousSubjectId="source:cli:meta-mesh:app:command:add-operation:option:name">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh add-operation --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
+      <NativeId>opt-add-operation-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+      <Status>Changed</Status>
+      <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:add-operation">
       <DisplayName>meta-mesh add-step</DisplayName>
@@ -7467,10 +7529,10 @@
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-step:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-step" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step:option:working-directory">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh add-step --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
+      <NativeId>opt-add-step-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+      <Status>Changed</Status>
+      <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:add-step">
       <DisplayName>meta-mesh add-workspace</DisplayName>
@@ -7480,7 +7542,15 @@
       <Status>New</Status>
       <Summary>Add one declared workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:csharp-path" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace">
+      <DisplayName>--csharp-path</DisplayName>
+      <DisplayPath>meta-mesh add-workspace --csharp-path</DisplayPath>
+      <NativeId>opt-workspace-csharp-path</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>C# workspace path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:csharp-path">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-mesh add-workspace --description</DisplayPath>
       <NativeId>opt-workspace-description</NativeId>
@@ -7504,21 +7574,37 @@
       <Status>New</Status>
       <Summary>Declared workspace name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:path" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:name">
-      <DisplayName>--path</DisplayName>
-      <DisplayPath>meta-mesh add-workspace --path</DisplayPath>
-      <NativeId>opt-workspace-path</NativeId>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:sql-connection-env" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:name">
+      <DisplayName>--sql-connection-env</DisplayName>
+      <DisplayPath>meta-mesh add-workspace --sql-connection-env</DisplayPath>
+      <NativeId>opt-workspace-sql-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Workspace path, absolute or relative to the mesh root.</Summary>
+      <Summary>Environment variable containing the SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:path">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:sql-connection-env">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh add-workspace --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
+      <NativeId>opt-add-workspace-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>Changed</Status>
+      <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:option:xml-path" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace:option:workspace">
+      <DisplayName>--xml-path</DisplayName>
+      <DisplayPath>meta-mesh add-workspace --xml-path</DisplayPath>
+      <NativeId>opt-workspace-xml-path</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+      <Summary>XML workspace path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:add-workspace:parameter-group:representation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-mesh:app:command:add-workspace">
+      <DisplayName>representation</DisplayName>
+      <DisplayPath>meta-mesh add-workspace group representation</DisplayPath>
+      <NativeId>group-add-workspace-representation</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Workspace representation and location.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:help" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace">
       <DisplayName>meta-mesh help</DisplayName>
@@ -7528,14 +7614,6 @@
       <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:help:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:help">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh help --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:help">
       <DisplayName>meta-mesh new-workspace</DisplayName>
       <DisplayPath>meta-mesh new-workspace</DisplayPath>
@@ -7544,15 +7622,15 @@
       <Status>New</Status>
       <Summary>Create an empty MetaMesh workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace">
-      <DisplayName>&lt;path&gt;</DisplayName>
-      <DisplayPath>meta-mesh new-workspace &lt;path&gt;</DisplayPath>
-      <NativeId>pos-new-workspace-path</NativeId>
-      <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:connection-env" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta-mesh new-workspace --connection-env</DisplayPath>
+      <NativeId>opt-new-workspace-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Empty target directory for the MetaMesh workspace.</Summary>
+      <Summary>Environment variable containing the SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:connection-env">
       <DisplayName>--description</DisplayName>
       <DisplayPath>meta-mesh new-workspace --description</DisplayPath>
       <NativeId>opt-new-workspace-description</NativeId>
@@ -7568,7 +7646,31 @@
       <Status>New</Status>
       <Summary>Mesh name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:root" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:name">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-csharp" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:name">
+      <DisplayName>--new-workspace-csharp</DisplayName>
+      <DisplayPath>meta-mesh new-workspace --new-workspace-csharp</DisplayPath>
+      <NativeId>opt-new-workspace-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a C# workspace in this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-sql" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-csharp">
+      <DisplayName>--new-workspace-sql</DisplayName>
+      <DisplayPath>meta-mesh new-workspace --new-workspace-sql</DisplayPath>
+      <NativeId>opt-new-workspace-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a SQL workspace described by this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-xml" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-sql">
+      <DisplayName>--new-workspace-xml</DisplayName>
+      <DisplayPath>meta-mesh new-workspace --new-workspace-xml</DisplayPath>
+      <NativeId>opt-new-workspace-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create an XML workspace in this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:root" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-xml">
       <DisplayName>--root</DisplayName>
       <DisplayPath>meta-mesh new-workspace --root</DisplayPath>
       <NativeId>opt-new-workspace-root</NativeId>
@@ -7576,13 +7678,13 @@
       <Status>New</Status>
       <Summary>Root path used to resolve relative workspace paths.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:root">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:parameter-group:representation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace">
+      <DisplayName>representation</DisplayName>
+      <DisplayPath>meta-mesh new-workspace group representation</DisplayPath>
+      <NativeId>group-new-workspace-representation</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
       <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+      <Summary>Workspace representation to create.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:operations" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace">
       <DisplayName>meta-mesh operations</DisplayName>
@@ -7595,10 +7697,10 @@
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:operations:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:operations">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh operations --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
+      <NativeId>opt-operations-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+      <Status>Changed</Status>
+      <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:run" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:operations">
       <DisplayName>meta-mesh run</DisplayName>
@@ -7627,10 +7729,10 @@
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:run:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:run" PreviousSubjectId="source:cli:meta-mesh:app:command:run:option:verbose">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh run --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
+      <NativeId>opt-run-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+      <Status>Changed</Status>
+      <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:show" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:run">
       <DisplayName>meta-mesh show</DisplayName>
@@ -7651,10 +7753,10 @@
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:show:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:show" PreviousSubjectId="source:cli:meta-mesh:app:command:show:option:verbose">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh show --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
+      <NativeId>opt-show-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+      <Status>Changed</Status>
+      <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:steps" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:show">
       <DisplayName>meta-mesh steps</DisplayName>
@@ -7675,10 +7777,10 @@
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:steps:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:steps" PreviousSubjectId="source:cli:meta-mesh:app:command:steps:option:operation">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh steps --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
+      <NativeId>opt-steps-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+      <Status>Changed</Status>
+      <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:steps">
       <DisplayName>meta-mesh validate</DisplayName>
@@ -7699,10 +7801,10 @@
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:validate" PreviousSubjectId="source:cli:meta-mesh:app:command:validate:option:operation">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh validate --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
+      <NativeId>opt-validate-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+      <Status>Changed</Status>
+      <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:workspaces" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:validate">
       <DisplayName>meta-mesh workspaces</DisplayName>
@@ -7715,18 +7817,10 @@
     <DocumentationSubject Id="source:cli:meta-mesh:app:command:workspaces:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:workspaces">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-mesh workspaces --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-mesh --workspace</DisplayPath>
-      <NativeId>opt-workspace</NativeId>
+      <NativeId>opt-workspaces-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>MetaMesh workspace. Defaults to the current directory.</Summary>
+      <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-multi-dimensional:app" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:cliapplication" ParentSubjectId="public:meta-bi:cli">
       <DisplayName>meta-multi-dimensional</DisplayName>
@@ -14696,29 +14790,7 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:check" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:bulk-insert">
-      <DisplayName>meta check</DisplayName>
-      <DisplayPath>meta check</DisplayPath>
-      <NativeId>exec-check</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Check model and instance integrity.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:check:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:check">
-      <DisplayName>--strict</DisplayName>
-      <DisplayPath>meta check --strict</DisplayPath>
-      <NativeId>option-strict</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:check:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:check" PreviousSubjectId="source:cli:meta:app:command:check:option:strict">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta check --workspace</DisplayPath>
-      <NativeId>option-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:delete" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:check">
+    <DocumentationSubject Id="source:cli:meta:app:command:delete" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:bulk-insert">
       <DisplayName>meta delete</DisplayName>
       <DisplayPath>meta delete</DisplayPath>
       <NativeId>exec-delete</NativeId>
@@ -14898,36 +14970,7 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-ssdt" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:generate-sql">
-      <DisplayName>meta generate ssdt</DisplayName>
-      <DisplayPath>meta generate ssdt</DisplayPath>
-      <NativeId>exec-generate-ssdt</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Generate SSDT artifacts.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-ssdt:option:out" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-ssdt">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta generate ssdt --out</DisplayPath>
-      <NativeId>option-generate-ssdt-out</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-ssdt:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-ssdt" PreviousSubjectId="source:cli:meta:app:command:generate-ssdt:option:out">
-      <DisplayName>--strict</DisplayName>
-      <DisplayPath>meta generate ssdt --strict</DisplayPath>
-      <NativeId>option-strict</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-ssdt:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-ssdt" PreviousSubjectId="source:cli:meta:app:command:generate-ssdt:option:strict">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta generate ssdt --workspace</DisplayPath>
-      <NativeId>option-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:generate-ssdt">
+    <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:generate-sql">
       <DisplayName>meta graph inbound</DisplayName>
       <DisplayPath>meta graph inbound</DisplayPath>
       <NativeId>exec-graph-inbound</NativeId>
@@ -16099,15 +16142,7 @@
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:existing-column" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-relationship">
-      <DisplayName>--existing-column</DisplayName>
-      <DisplayPath>meta model rename-relationship --existing-column</DisplayPath>
-      <NativeId>option-model-rename-relationship-existing-column</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Persisted relationship column to reconcile before the rename.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:role" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-relationship" PreviousSubjectId="source:cli:meta:app:command:model-rename-relationship:option:existing-column">
+    <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:role" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-relationship">
       <DisplayName>--role</DisplayName>
       <DisplayPath>meta model rename-relationship --role</DisplayPath>
       <NativeId>option-model-rename-relationship-role</NativeId>
@@ -24836,7 +24871,28 @@
       <SourceTypeName>Workspace</SourceTypeName>
       <Status>Changed</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:mesh" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh">
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:csharpworkspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh">
+      <DisplayName>CSharpWorkspace</DisplayName>
+      <DisplayPath>MetaMesh.CSharpWorkspace</DisplayPath>
+      <NativeId>CSharpWorkspace</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:csharpworkspace:property:path" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:csharpworkspace">
+      <DisplayName>Path</DisplayName>
+      <DisplayPath>MetaMesh.CSharpWorkspace.Path</DisplayPath>
+      <NativeId>Path</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:csharpworkspace:relationship:workspace-workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:csharpworkspace">
+      <DisplayName>Workspace</DisplayName>
+      <DisplayPath>MetaMesh.CSharpWorkspace.Workspace</DisplayPath>
+      <NativeId>Workspace:Workspace</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:mesh" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:csharpworkspace">
       <DisplayName>Mesh</DisplayName>
       <DisplayPath>MetaMesh.Mesh</DisplayPath>
       <NativeId>Mesh</NativeId>
@@ -24955,7 +25011,28 @@
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep">
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:sqlworkspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:operationstep">
+      <DisplayName>SqlWorkspace</DisplayName>
+      <DisplayPath>MetaMesh.SqlWorkspace</DisplayPath>
+      <NativeId>SqlWorkspace</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:sqlworkspace:property:connectionenvironmentvariable" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:sqlworkspace">
+      <DisplayName>ConnectionEnvironmentVariable</DisplayName>
+      <DisplayPath>MetaMesh.SqlWorkspace.ConnectionEnvironmentVariable</DisplayPath>
+      <NativeId>ConnectionEnvironmentVariable</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:sqlworkspace:relationship:workspace-workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:sqlworkspace">
+      <DisplayName>Workspace</DisplayName>
+      <DisplayPath>MetaMesh.SqlWorkspace.Workspace</DisplayPath>
+      <NativeId>Workspace:Workspace</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:sqlworkspace">
       <DisplayName>Workspace</DisplayName>
       <DisplayPath>MetaMesh.Workspace</DisplayPath>
       <NativeId>Workspace</NativeId>
@@ -24983,17 +25060,31 @@
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace:property:path" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:workspace" PreviousSubjectId="source:workspace-model:meta-mesh:entity:workspace:property:name">
-      <DisplayName>Path</DisplayName>
-      <DisplayPath>MetaMesh.Workspace.Path</DisplayPath>
-      <NativeId>Path</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:workspace:relationship:mesh-mesh" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:workspace">
       <DisplayName>Mesh</DisplayName>
       <DisplayPath>MetaMesh.Workspace.Mesh</DisplayPath>
       <NativeId>Mesh:Mesh</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:xmlworkspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-mesh:model:metamesh" PreviousSubjectId="source:workspace-model:meta-mesh:entity:workspace">
+      <DisplayName>XmlWorkspace</DisplayName>
+      <DisplayPath>MetaMesh.XmlWorkspace</DisplayPath>
+      <NativeId>XmlWorkspace</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:xmlworkspace:property:path" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-mesh:entity:xmlworkspace">
+      <DisplayName>Path</DisplayName>
+      <DisplayPath>MetaMesh.XmlWorkspace.Path</DisplayPath>
+      <NativeId>Path</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-mesh:entity:xmlworkspace:relationship:workspace-workspace" DocumentationSourceId="source:workspace-model:meta-mesh" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-mesh:entity:xmlworkspace">
+      <DisplayName>Workspace</DisplayName>
+      <DisplayPath>MetaMesh.XmlWorkspace.Workspace</DisplayPath>
+      <NativeId>Workspace:Workspace</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>

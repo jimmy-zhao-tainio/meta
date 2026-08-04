@@ -206,30 +206,6 @@ public sealed class GenerationServiceTests
     }
 
     [Fact]
-    public async Task GenerateSsdt_WritesExpectedFiles()
-    {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
-        var output = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "ssdt");
-
-        try
-        {
-            var manifest = GenerationService.GenerateSsdt(workspace.State, output);
-
-            Assert.True(File.Exists(Path.Combine(output, "Schema.sql")));
-            Assert.True(File.Exists(Path.Combine(output, "Data.sql")));
-            Assert.True(File.Exists(Path.Combine(output, "PostDeploy.sql")));
-            Assert.True(File.Exists(Path.Combine(output, "Metadata.sqlproj")));
-            Assert.Equal(4, manifest.FileHashes.Count);
-        }
-        finally
-        {
-            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
-            DeleteDirectoryIfExists(Path.GetDirectoryName(output)!);
-        }
-    }
-
-    [Fact]
     public async Task GenerateCSharp_IsDeterministicAcrossRuns()
     {
         var services = new ServiceCollection();

@@ -12,9 +12,7 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-            var source = CreateWorkspaceSource(workspace.State);
+            var source = CurrentWorkspace;
             var resolvedEntityName = await ResolveEntityNameAsync(source, fromEntityName).ConfigureAwait(false);
             var row = await source.ReadRecordAsync(resolvedEntityName, fromId).ConfigureAwait(false) ??
                       throw new InvalidOperationException(

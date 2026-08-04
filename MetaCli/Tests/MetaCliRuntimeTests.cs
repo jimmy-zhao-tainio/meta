@@ -1,9 +1,120 @@
+using Meta.Adapters;
+using Meta.Core.Domain;
+using Meta.Core.Operations;
+using Meta.Core.Serialization;
 using MetaCli.Core;
 
 namespace MetaCli.Tests;
 
 public sealed class MetaCliRuntimeTests
 {
+    [Fact]
+    public async Task Runtime_OpensDescriptorAndCreatesSelectedWorkspace()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(
+            CreateWorkspaceCopyRuntimeModel());
+        var sourcePath = temp.SaveDomainModel("Source.MetaCli");
+        var outputPath = Path.Combine(temp.Path, "Output.CSharp");
+        var error = new StringWriter();
+        var exitCode = -1;
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .Bind(
+                "exec-copy-workspace",
+                [
+                    MetaCliWorkspace.Open("source-workspace"),
+                    MetaCliWorkspace.Create(
+                        "output",
+                        "output-xml",
+                        "output-csharp",
+                        "output-sql"),
+                ],
+                async (MetaCliInvocation _, MetaCliWorkspaces workspaces) =>
+                {
+                    var source = await WorkspaceComposition.MaterializeAsync(
+                        workspaces.Required("source-workspace"));
+                    await workspaces.CreateAsync("output", source);
+                });
+
+        runtime.Run(
+            "copy-workspace",
+            "--source-workspace", sourcePath,
+            "--output-csharp", outputPath);
+
+        Assert.Equal(0, exitCode);
+        Assert.Equal(string.Empty, error.ToString());
+        await using var created = await CSharpWorkspace.OpenAsync(outputPath);
+        var actual = await WorkspaceComposition.MaterializeAsync(created);
+        await using var source = await XmlWorkspaceReader.OpenAsync(sourcePath);
+        var expected = await WorkspaceComposition.MaterializeAsync(source);
+        Assert.Null(InMemoryWorkspaceComparer.FindDifference(expected, actual));
+    }
+
+    [Fact]
+    public void Runtime_RequiresWorkspaceDescriptor()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(
+            CreateWorkspaceCopyRuntimeModel());
+        var sourcePath = temp.SaveDomainModel("Source.MetaCli");
+        var error = new StringWriter();
+        var exitCode = -1;
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .Bind(
+                "exec-copy-workspace",
+                [MetaCliWorkspace.Open("source-workspace")],
+                (MetaCliInvocation _, MetaCliWorkspaces _) => { });
+
+        File.Delete(Path.Combine(sourcePath, "workspace.meta"));
+        runtime.Run("copy-workspace", "--source-workspace", sourcePath);
+
+        Assert.Equal(4, exitCode);
+        Assert.Contains(
+            "Workspace descriptor",
+            error.ToString());
+    }
+
+    [Fact]
+    public void Runtime_ProvidesOpenedWorkspaceToGenericHandler()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var domainWorkspace = temp.SaveDomainModel("Domain.MetaCli");
+        var exitCode = -1;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: new StringWriter(),
+                setExitCode: code => exitCode = code)
+            .Bind(
+                "exec-add-property",
+                async (MetaCliInvocation _, IMetaWorkspace workspace) =>
+                {
+                    await workspace.ExecuteAsync([
+                        new Operation.SetProperty(
+                            "Application",
+                            "app-domain",
+                            "Name",
+                            "changed"),
+                    ]);
+                });
+
+        runtime.Run("model", "add-property", "--workspace", domainWorkspace, "Customer", "Name");
+
+        Assert.Equal(0, exitCode);
+        Assert.Equal(
+            "changed",
+            MetaCliModel.LoadFromXmlWorkspace(domainWorkspace)
+                .ApplicationList.Single(application => application.Id == "app-domain")
+                .Name);
+    }
+
     [Fact]
     public void Runtime_LoadsCommandSurfaceAndDomainWorkspaceForWorkspaceHandler()
     {
@@ -23,6 +134,11 @@ public sealed class MetaCliRuntimeTests
             {
                 invocation = command;
                 handlerModel = domainModel;
+                domainModel.ApplicationList.Add(new Application
+                {
+                    Id = "app-added-by-handler",
+                    Name = "added",
+                });
             });
 
         runtime.Run("model", "add-property", "--workspace", domainWorkspace, "Customer", "Name");
@@ -31,10 +147,99 @@ public sealed class MetaCliRuntimeTests
         Assert.Equal(string.Empty, error.ToString());
         Assert.NotNull(handlerModel);
         Assert.Contains(handlerModel.ApplicationList, application => application.Id == "app-domain");
+        Assert.Contains(
+            MetaCliModel.LoadFromXmlWorkspace(domainWorkspace).ApplicationList,
+            application => application.Id == "app-added-by-handler");
         Assert.NotNull(invocation);
         Assert.Equal("model add-property", invocation.CommandRoute);
         Assert.Equal("Customer", invocation.Required("Entity"));
         Assert.Equal("Name", invocation.Required("Property"));
+    }
+
+    [Fact]
+    public void Runtime_CompletesCommandAfterWorkspacePersistence()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var domainWorkspace = temp.SaveDomainModel("Domain.MetaCli");
+        var exitCode = -1;
+        string? persistedNameAtCompletion = null;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: new StringWriter(),
+                setExitCode: code => exitCode = code)
+            .Bind(
+                "exec-add-property",
+                (MetaCliInvocation _, MetaCliModel domainModel, MetaCliCommandCompletion completion) =>
+                {
+                    domainModel.ApplicationList.Single().Name = "changed";
+                    completion.OnSucceeded(() =>
+                        persistedNameAtCompletion = MetaCliModel
+                            .LoadFromXmlWorkspace(domainWorkspace)
+                            .ApplicationList.Single().Name);
+                });
+
+        runtime.Run("model", "add-property", "--workspace", domainWorkspace, "Customer", "Name");
+
+        Assert.Equal(0, exitCode);
+        Assert.Equal("changed", persistedNameAtCompletion);
+    }
+
+    [Fact]
+    public void Runtime_DoesNotCompleteCommandWhenWorkspacePersistenceFails()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var domainWorkspace = temp.SaveDomainModel("Domain.MetaCli");
+        var error = new StringWriter();
+        var exitCode = -1;
+        var completed = false;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .Bind(
+                "exec-add-property",
+                (MetaCliInvocation _, MetaCliModel domainModel, MetaCliCommandCompletion completion) =>
+                {
+                    domainModel.ApplicationList.Single().Name = null!;
+                    completion.OnSucceeded(() => completed = true);
+                });
+
+        runtime.Run("model", "add-property", "--workspace", domainWorkspace, "Customer", "Name");
+
+        Assert.Equal(4, exitCode);
+        Assert.False(completed);
+        Assert.Equal(
+            "domain",
+            MetaCliModel.LoadFromXmlWorkspace(domainWorkspace).ApplicationList.Single().Name);
+    }
+
+    [Fact]
+    public void Runtime_ReadOnlyBindingDoesNotPersistModelChanges()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var domainWorkspace = temp.SaveDomainModel("Domain.MetaCli");
+        var exitCode = -1;
+
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: new StringWriter(),
+                setExitCode: code => exitCode = code)
+            .BindReadOnly(
+                "exec-add-property",
+                (MetaCliInvocation _, MetaCliModel domainModel) =>
+                    domainModel.ApplicationList.Single().Name = "discarded");
+
+        runtime.Run("model", "add-property", "--workspace", domainWorkspace, "Customer", "Name");
+
+        Assert.Equal(0, exitCode);
+        Assert.Equal(
+            "domain",
+            MetaCliModel.LoadFromXmlWorkspace(domainWorkspace).ApplicationList.Single().Name);
     }
 
     [Fact]
@@ -193,7 +398,7 @@ public sealed class MetaCliRuntimeTests
                 commandWorkspace,
                 error: error,
                 setExitCode: code => exitCode = code)
-            .Bind("exec-add-property", static (_, _) => { });
+            .Bind("exec-add-property", static (MetaCliInvocation _, MetaCliModel _) => { });
 
         runtime.Run("model", "add-property", "--workspace", Path.Combine(temp.Path, "Missing.MetaCli"), "Customer", "Name");
 
@@ -250,7 +455,7 @@ public sealed class MetaCliRuntimeTests
         AssertRunFails(commandWorkspace, 2, "Option '--workspace' was provided more than once.", "model", "add-property", "--workspace", "Demo.Meta", "--workspace", "Other.Meta", "Customer", "Name");
         AssertRunFails(commandWorkspace, 2, "Option '--workspace' requires a value.", "model", "add-property", "--workspace");
         AssertRunSucceeds(commandWorkspace, "model", "add-property", "Customer", "--workspace", "Demo.Meta", "Name");
-        AssertRunFails(commandWorkspace, 2, "Unexpected argument 'Two.MetaCli'.", "new-workspace", "One.MetaCli", "Two.MetaCli");
+        AssertRunFails(commandWorkspace, 2, "Unexpected argument 'Two.MetaCli'.", "create", "One.MetaCli", "Two.MetaCli");
     }
 
     [Fact]
@@ -270,7 +475,7 @@ public sealed class MetaCliRuntimeTests
             Assert.Equal(string.Empty, result.Error);
             Assert.Contains("demo <command> [options]", result.Output);
             Assert.Contains("model", result.Output);
-            Assert.Contains("new-workspace", result.Output);
+            Assert.Contains("create", result.Output);
             Assert.Contains("Next: demo help <command>", result.Output);
         }
     }
@@ -496,10 +701,10 @@ public sealed class MetaCliRuntimeTests
             model.ApplicationDefaultCommandList.Add(new ApplicationDefaultCommand { Id = "app-demo:default", Application = app, ExecutableCommand = helpExecutable });
         }
 
-        var newWorkspaceCommand = AddCommand(model, app, "cmd-new-workspace", "new-workspace", "new-workspace", null);
-        var newWorkspaceExecutable = AddExecutable(model, "exec-new-workspace", newWorkspaceCommand);
-        var newWorkspacePath = AddParameter(model, newWorkspaceExecutable, "param-new-workspace", "Path", path, required: true);
-        model.PositionalArgumentList.Add(new PositionalArgument { Id = "pos-new-workspace", Parameter = newWorkspacePath });
+        var createCommand = AddCommand(model, app, "cmd-create", "create", "create", null);
+        var createExecutable = AddExecutable(model, "exec-create", createCommand);
+        var createPath = AddParameter(model, createExecutable, "param-create-path", "Path", path, required: true);
+        model.PositionalArgumentList.Add(new PositionalArgument { Id = "pos-create-path", Parameter = createPath });
 
         var modelCommand = AddCommand(model, app, "cmd-model", "model", "model", null);
         var addPropertyCommand = AddCommand(model, app, "cmd-add-property", "add-property", "add-property", modelCommand);
@@ -522,6 +727,28 @@ public sealed class MetaCliRuntimeTests
         model.ParameterGroupMemberList.Add(idMember);
         model.ParameterGroupMemberList.Add(new ParameterGroupMember { Id = "group-id-choice-auto", ParameterGroup = group, Parameter = autoIdParameter, PreviousMember = idMember });
 
+        return model;
+    }
+
+    private static MetaCliModel CreateWorkspaceCopyRuntimeModel()
+    {
+        var model = CreateRuntimeModel();
+        var app = model.ApplicationList.Single(application => application.Id == "app-demo");
+        var path = model.ValueShapeList.Single(shape => shape.Id == "shape-path");
+
+        var command = AddCommand(
+            model,
+            app,
+            "cmd-copy-workspace",
+            "copy-workspace",
+            "copy-workspace",
+            null);
+        var executable = AddExecutable(model, "exec-copy-workspace", command);
+        AddOption(model, executable, "param-source-workspace", "option-source-workspace", "token-source-workspace", "source-workspace", path, "--source-workspace", required: true);
+        AddOption(model, executable, "param-copy-output-xml", "option-copy-output-xml", "token-copy-output-xml", "output-xml", path, "--output-xml");
+        AddOption(model, executable, "param-copy-output-csharp", "option-copy-output-csharp", "token-copy-output-csharp", "output-csharp", path, "--output-csharp");
+        AddOption(model, executable, "param-copy-output-sql", "option-copy-output-sql", "token-copy-output-sql", "output-sql", path, "--output-sql");
+        AddOption(model, executable, "param-copy-connection-env", "option-copy-connection-env", "token-copy-connection-env", "connection-env", path, "--connection-env");
         return model;
     }
 
@@ -695,6 +922,7 @@ public sealed class MetaCliRuntimeTests
         {
             var workspace = System.IO.Path.Combine(Path, "CommandSurface.MetaCli");
             model.SaveToXmlWorkspace(workspace);
+            File.WriteAllText(System.IO.Path.Combine(workspace, "workspace.meta"), "workspace\nxml .\n");
             return workspace;
         }
 
@@ -709,6 +937,7 @@ public sealed class MetaCliRuntimeTests
                 ExecutableName = "domain",
             });
             model.SaveToXmlWorkspace(workspace);
+            File.WriteAllText(System.IO.Path.Combine(workspace, "workspace.meta"), "workspace\nxml .\n");
             return workspace;
         }
 

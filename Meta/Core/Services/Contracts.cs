@@ -6,22 +6,6 @@ using Meta.Core.Operations;
 
 namespace Meta.Core.Services;
 
-public readonly record struct RelationshipColumnRecovery(
-    string SourceEntityName,
-    string TargetEntityName,
-    string ExistingColumnName);
-
-public sealed class WorkspaceLoadOptions
-{
-    public WorkspaceLoadOptions(IReadOnlyList<RelationshipColumnRecovery> relationshipColumnRecoveries)
-    {
-        RelationshipColumnRecoveries = relationshipColumnRecoveries ??
-            throw new ArgumentNullException(nameof(relationshipColumnRecoveries));
-    }
-
-    public IReadOnlyList<RelationshipColumnRecovery> RelationshipColumnRecoveries { get; }
-}
-
 public readonly record struct WorkspaceMergeOptions(
     string MergedModelName);
 

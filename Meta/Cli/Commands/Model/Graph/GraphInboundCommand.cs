@@ -11,24 +11,27 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-            RequireEntity(workspace.Model, targetEntityName);
-
-            var inboundAll = workspace.Model.Entities
-                .SelectMany(fromEntity => fromEntity.Relationships
-                    .Where(relationship => string.Equals(relationship.Entity, targetEntityName, StringComparison.OrdinalIgnoreCase))
-                    .Select(_ => new
+            var resolvedTargetEntityName = await ResolveEntityNameAsync(CurrentWorkspace, targetEntityName)
+                .ConfigureAwait(false);
+            var inboundAll = new List<(string FromEntity, string ToEntity)>();
+            await foreach (var fromEntity in CurrentWorkspace.ReadEntityNamesAsync())
+            {
+                await foreach (var relationship in CurrentWorkspace.ReadRelationshipsAsync(fromEntity))
+                {
+                    if (MetaName.Comparer.Equals(relationship.TargetEntityName, resolvedTargetEntityName))
                     {
-                        FromEntity = fromEntity.Name,
-                        ToEntity = targetEntityName,
-                    }))
+                        inboundAll.Add((fromEntity, resolvedTargetEntityName));
+                    }
+                }
+            }
+
+            inboundAll = inboundAll
                 .OrderBy(item => item.FromEntity, StringComparer.OrdinalIgnoreCase)
                 .ThenBy(item => item.ToEntity, StringComparer.OrdinalIgnoreCase)
                 .ToList();
             var inbound = inboundAll.Take(options.Top).ToList();
 
-            presenter.WriteInfo($"Inbound relationships: {targetEntityName} ({inboundAll.Count.ToString(CultureInfo.InvariantCulture)})");
+            presenter.WriteInfo($"Inbound relationships: {resolvedTargetEntityName} ({inboundAll.Count.ToString(CultureInfo.InvariantCulture)})");
             presenter.WriteTable(
                 new[] { "FromEntity", "ToEntity" },
                 inbound

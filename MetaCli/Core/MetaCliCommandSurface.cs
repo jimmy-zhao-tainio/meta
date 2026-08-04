@@ -154,6 +154,32 @@ public sealed class MetaCliCommandSurface
                 .ToArray();
     }
 
+    public IReadOnlyList<ParameterGroup> ParameterGroups(ExecutableCommand executableCommand)
+    {
+        ArgumentNullException.ThrowIfNull(executableCommand);
+
+        return model.ParameterGroupList
+            .Where(group => ReferenceEquals(group.ExecutableCommand, executableCommand))
+            .OrderBy(static group => group.Name, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(static group => group.Id, StringComparer.Ordinal)
+            .ToArray();
+    }
+
+    public IReadOnlyList<ParameterGroupMember> OrderedParameterGroupMembers(ParameterGroup group)
+    {
+        ArgumentNullException.ThrowIfNull(group);
+
+        var members = model.ParameterGroupMemberList
+            .Where(member => ReferenceEquals(member.ParameterGroup, group))
+            .ToArray();
+        return TryOrderChain(members, static member => member.PreviousMember, out var ordered)
+            ? ordered
+            : members
+                .OrderBy(static member => member.Parameter.Name, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(static member => member.Id, StringComparer.Ordinal)
+                .ToArray();
+    }
+
     public string Route(Command command)
     {
         ArgumentNullException.ThrowIfNull(command);
@@ -195,7 +221,13 @@ public sealed class MetaCliCommandSurface
         ArgumentNullException.ThrowIfNull(executableCommand);
 
         var parts = new List<string> { ExecutableName(application), Route(executableCommand.Command) };
-        foreach (var positional in OrderedPositionals(executableCommand))
+        var groups = ParameterGroups(executableCommand);
+        var groupedParameters = groups
+            .SelectMany(OrderedParameterGroupMembers)
+            .Select(static member => member.Parameter)
+            .ToHashSet(ReferenceComparer<Parameter>.Instance);
+        foreach (var positional in OrderedPositionals(executableCommand)
+                     .Where(positional => !groupedParameters.Contains(positional.Parameter)))
         {
             var parameter = positional.Parameter;
             parts.Add(IsTrue(parameter.IsRequired)
@@ -205,13 +237,44 @@ public sealed class MetaCliCommandSurface
 
         foreach (var option in EffectiveParameters(executableCommand)
             .Select(parameter => (Parameter: parameter, Token: PrimaryOptionToken(parameter)))
-            .Where(option => option.Token is not null))
+            .Where(option => option.Token is not null && !groupedParameters.Contains(option.Parameter)))
         {
             var label = option.Token!.Token + ValueLabel(option.Parameter);
             parts.Add(IsTrue(option.Parameter.IsRequired) ? label : $"[{label}]");
         }
 
+        foreach (var group in groups)
+        {
+            var choices = OrderedParameterGroupMembers(group)
+                .Select(member => ParameterUsageLabel(executableCommand, member.Parameter))
+                .ToArray();
+            if (choices.Length == 0)
+            {
+                continue;
+            }
+
+            var label = "(" + string.Join(" | ", choices) + ")";
+            parts.Add(IsTrue(group.IsRequired) ? label : $"[{label}]");
+        }
+
         return string.Join(" ", parts);
+    }
+
+    private string ParameterUsageLabel(
+        ExecutableCommand executableCommand,
+        Parameter parameter)
+    {
+        var positional = OrderedPositionals(executableCommand)
+            .Any(argument => ReferenceEquals(argument.Parameter, parameter));
+        if (positional)
+        {
+            return $"<{parameter.Name}>";
+        }
+
+        var token = PrimaryOptionToken(parameter)
+                    ?? throw new InvalidOperationException(
+                        $"Parameter group member '{parameter.Name}' is neither positional nor an option.");
+        return token.Token + ValueLabel(parameter);
     }
 
     public static string ValueLabel(Parameter parameter)

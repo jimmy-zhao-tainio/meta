@@ -10,7 +10,7 @@ public static class MetaSqlReader
         string schema,
         CancellationToken cancellationToken = default)
     {
-        await using var source = await SqlWorkspaceSource.OpenAsync(
+        await using var source = await SqlSchemaSource.OpenAsync(
                 connectionString,
                 schema,
                 cancellationToken)

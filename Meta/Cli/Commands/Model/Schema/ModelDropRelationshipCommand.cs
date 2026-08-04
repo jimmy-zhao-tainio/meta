@@ -4,45 +4,46 @@ internal sealed partial class CliRuntime
     {
         var fromEntityName = RequiredValue("FromEntity");
         var toEntityName = RequiredValue("ToEntity");
-        var options = ReadMutatingCommonOptions(commandArgs, startIndex: 4);
-        if (!options.Ok)
-        {
-            return PrintArgumentError(options.ErrorMessage);
-        }
-
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-            var fromEntity = workspace.Model.FindEntity(fromEntityName) ??
-                throw new InvalidOperationException(
-                    $"Entity '{fromEntityName}' does not exist.");
-            var relationship = ResolveRelationshipDefinition(fromEntity, toEntityName, out var isAmbiguous);
-            if (isAmbiguous)
+            var resolvedFromEntityName = await ResolveEntityNameAsync(CurrentWorkspace, fromEntityName)
+                .ConfigureAwait(false);
+            var matches = new List<RelationshipDefinition>();
+            await foreach (var candidate in CurrentWorkspace.ReadRelationshipsAsync(resolvedFromEntityName))
+            {
+                if (MetaName.Comparer.Equals(candidate.TargetEntityName, toEntityName) ||
+                    MetaName.Comparer.Equals(candidate.GetRoleOrDefault(), toEntityName) ||
+                    MetaName.Comparer.Equals(candidate.GetColumnName(), toEntityName))
+                {
+                    matches.Add(candidate);
+                }
+            }
+
+            if (matches.Count > 1)
             {
                 return PrintDataError(
                     "E_RELATIONSHIP_AMBIGUOUS",
                     $"Relationship selector '{toEntityName}' is ambiguous on entity '{fromEntityName}'. Use relationship role or column.");
             }
 
-            if (relationship == null)
+            if (matches.Count == 0)
             {
                 return PrintDataError(
                     "E_RELATIONSHIP_NOT_FOUND",
                     $"Relationship '{fromEntityName}->{toEntityName}' does not exist.");
             }
 
+            var relationship = matches.Single();
             var relationshipName = relationship.GetColumnName();
-            var targetEntityName = relationship.Entity;
+            var targetEntityName = relationship.TargetEntityName;
 
             return await ExecuteOperationAsync(
-                    workspace,
                     new Operation.RemoveRelationship(
-                        fromEntityName,
+                        resolvedFromEntityName,
                         relationshipName),
                     "model drop-relationship",
                     "relationship removed",
-                    ("From", fromEntityName),
+                    ("From", resolvedFromEntityName),
                     ("To", targetEntityName),
                     ("Name", relationshipName))
                 .ConfigureAwait(false);

@@ -56,7 +56,8 @@ public sealed class MetaDocsRuntimeTests
     {
         var repoRoot = FindRepositoryRoot();
         var commandWorkspace = Path.Combine(repoRoot, "MetaDocs", "Cli", "meta-docs.MetaCli");
-        var integrity = new MetaCliWorkspaceService().ValidateIntegrity(commandWorkspace);
+        var commandModel = MetaCliModel.LoadFromXmlWorkspace(commandWorkspace, searchUpward: false);
+        var integrity = new MetaCliWorkspaceService().ValidateIntegrity(commandModel);
 
         Assert.False(
             integrity.HasErrors,
@@ -77,7 +78,9 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains("Next: meta-docs browse", appHelp.Output);
         Assert.DoesNotContain("import-command-prose", appHelp.Output);
 
-        var rootBrowse = RunCli("browse");
+        var rootBrowse = RunCli(
+            "browse",
+            Path.Combine(repoRoot, "MetaDocs", "Docs", "SuiteWorkspace"));
         Assert.Equal(0, rootBrowse.ExitCode);
         AssertBrowseHasNoRouteNoise(rootBrowse.Output);
         Assert.Contains("meta-docs browse cli", rootBrowse.Output);
@@ -88,12 +91,16 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains("Refresh CLI reference documentation", commandHelp.Output);
         Assert.Contains("authored descriptions", commandHelp.Output);
         Assert.Contains("--source-workspace <path>", commandHelp.Output);
-        Assert.Contains("--new-workspace <path>", commandHelp.Output);
+        Assert.Contains("--output-xml <path>", commandHelp.Output);
 
         var modelImportHelp = RunCli("help import-workspace-model");
         Assert.Equal(0, modelImportHelp.ExitCode);
         Assert.Contains("Refresh model reference documentation", modelImportHelp.Output);
         Assert.Contains("authored descriptions", modelImportHelp.Output);
+
+        var instanceImportHelp = RunCli("help import-workspace-instances");
+        Assert.Equal(0, instanceImportHelp.ExitCode);
+        Assert.Contains("--source-workspace <path>", instanceImportHelp.Output);
 
         var mergeHelp = RunCli("help merge");
         Assert.Equal(0, mergeHelp.ExitCode);
@@ -149,6 +156,7 @@ public sealed class MetaDocsRuntimeTests
             new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), parentSubjectId: reference.MetaCli.Id);
             AddModelSubject(model, "MetaDocs", reference.MetaModels);
             model.SaveToXmlWorkspace(root);
+            File.WriteAllText(Path.Combine(root, "workspace.meta"), "workspace\nxml .\n");
 
             var rootBrowse = RunCli("browse", root);
             Assert.Equal(0, rootBrowse.ExitCode);
@@ -237,9 +245,10 @@ public sealed class MetaDocsRuntimeTests
             var authored = MetaDocsModel.CreateEmpty();
             var reference = AddPublicReferenceTree(authored);
             authored.SaveToXmlWorkspace(authoredWorkspace);
+            File.WriteAllText(Path.Combine(authoredWorkspace, "workspace.meta"), "workspace\nxml .\n");
 
             var import = RunCli(
-                $"import-workspace-model --source-workspace {QuoteArgument(sourceWorkspace)} --new-workspace {QuoteArgument(docsWorkspace)} --source-id source:workspace-model:sample --display-name SampleDocs --parent-subject {reference.MetaModels.Id}");
+                $"import-workspace-model --source-workspace {QuoteArgument(sourceWorkspace)} --output-xml {QuoteArgument(docsWorkspace)} --source-id source:workspace-model:sample --display-name SampleDocs --parent-subject {reference.MetaModels.Id}");
             Assert.Equal(0, import.ExitCode);
             Assert.Contains("Refreshed model docs: SampleModel (2 entity subject(s)).", import.Output);
 
@@ -302,6 +311,7 @@ public sealed class MetaDocsRuntimeTests
             var reference = AddPublicReferenceTree(model);
             new MetaDocsCliImporter().ImportApplication(model, CreateMetaSqlApp(), parentSubjectId: reference.MetaBiCli.Id);
             model.SaveToXmlWorkspace(docsWorkspace);
+            File.WriteAllText(Path.Combine(docsWorkspace, "workspace.meta"), "workspace\nxml .\n");
 
             const string markdown = """
                 Apply a deploy manifest after source and live fingerprint validation.
@@ -376,6 +386,7 @@ public sealed class MetaDocsRuntimeTests
                 "MetaDocs");
             AddLowLevelDeployProperty(model);
             model.SaveToXmlWorkspace(root);
+            File.WriteAllText(Path.Combine(root, "workspace.meta"), "workspace\nxml .\n");
 
             var rootBrowse = RunCli("browse", root);
             Assert.Equal(0, rootBrowse.ExitCode);
@@ -620,6 +631,7 @@ public sealed class MetaDocsRuntimeTests
             var batch = Assert.Single(model.DocumentationImportBatchList);
             var importedAt = Assert.Single(model.DocumentationSourceList, row => IsSourceType(row, "MetaCliWorkspace")).ImportedAt;
             model.SaveToXmlWorkspace(root);
+            File.WriteAllText(Path.Combine(root, "workspace.meta"), "workspace\nxml .\n");
 
             var reloaded = MetaDocsModel.LoadFromXmlWorkspace(root, searchUpward: false);
             var subjectStatuses = reloaded.DocumentationSubjectList.ToDictionary(row => row.Id, row => row.Status);

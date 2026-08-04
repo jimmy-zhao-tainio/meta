@@ -1,3 +1,4 @@
+using Meta.Core.Operations;
 using MetaCli.Core;
 
 internal sealed partial class CliRuntime
@@ -9,53 +10,60 @@ internal sealed partial class CliRuntime
         ArgumentNullException.ThrowIfNull(runtime);
         ArgumentNullException.ThrowIfNull(arguments);
 
-        Register("exec-init", InitWorkspaceAsync);
-        Register("exec-status", StatusWorkspaceAsync);
-        Register("exec-workspace-merge", WorkspaceMergeAsync);
+        runtime.Bind(
+            "exec-create",
+            [MetaCliWorkspace.Create("output", "xml", "csharp", "sql")],
+            (invocation, workspaces) => ExecuteBoundAsync(
+                invocation,
+                arguments,
+                commandArgs => CreateWorkspaceAsync(commandArgs, workspaces)));
+        RegisterWorkspace("exec-status", StatusWorkspaceAsync);
+        RegisterOutput(
+            "exec-workspace-merge",
+            [MetaCliWorkspace.Open("leftWorkspace"), MetaCliWorkspace.Open("rightWorkspace")],
+            WorkspaceMergeAsync);
 
-        Register("exec-check", CheckWorkspaceAsync);
-        Register("exec-graph-stats", GraphStatsAsync);
-        Register("exec-graph-inbound", GraphInboundAsync);
-        Register("exec-list-entities", ListEntitiesAsync);
-        Register("exec-list-properties", ListPropertiesAsync);
-        Register("exec-list-relationships", ListRelationshipsAsync);
-        Register("exec-view-entity", ViewEntityAsync);
-        Register("exec-view-instance", ViewInstanceAsync);
+        RegisterWorkspace("exec-graph-stats", GraphStatsAsync);
+        RegisterWorkspace("exec-graph-inbound", GraphInboundAsync);
+        RegisterWorkspace("exec-list-entities", ListEntitiesAsync);
+        RegisterWorkspace("exec-list-properties", ListPropertiesAsync);
+        RegisterWorkspace("exec-list-relationships", ListRelationshipsAsync);
+        RegisterWorkspace("exec-view-entity", ViewEntityAsync);
+        RegisterWorkspace("exec-view-instance", ViewInstanceAsync);
 
-        Register("exec-model-add-entity", ModelAddEntityAsync);
-        Register("exec-model-rename-model", ModelRenameModelAsync);
-        Register("exec-model-rename-entity", ModelRenameEntityAsync);
-        Register("exec-model-add-property", ModelAddPropertyAsync);
-        Register("exec-model-rename-property", ModelRenamePropertyAsync);
-        Register("exec-model-set-property-required", ModelSetPropertyRequiredAsync);
-        Register("exec-model-rename-relationship", ModelRenameRelationshipAsync);
-        Register("exec-model-add-relationship", ModelAddRelationshipAsync);
-        Register("exec-model-refactor-property-to-relationship", ModelRefactorPropertyToRelationshipAsync);
-        Register("exec-model-refactor-relationship-to-property", ModelRefactorRelationshipToPropertyAsync);
-        Register("exec-model-drop-property", ModelDropPropertyAsync);
-        Register("exec-model-drop-relationship", ModelDropRelationshipAsync);
-        Register("exec-model-drop-entity", ModelDropEntityAsync);
-        Register("exec-model-suggest", ModelSuggestAsync);
+        RegisterWorkspace("exec-model-add-entity", ModelAddEntityAsync);
+        RegisterWorkspace("exec-model-rename-model", ModelRenameModelAsync);
+        RegisterWorkspace("exec-model-rename-entity", ModelRenameEntityAsync);
+        RegisterWorkspace("exec-model-add-property", ModelAddPropertyAsync);
+        RegisterWorkspace("exec-model-rename-property", ModelRenamePropertyAsync);
+        RegisterWorkspace("exec-model-set-property-required", ModelSetPropertyRequiredAsync);
+        RegisterWorkspace("exec-model-rename-relationship", ModelRenameRelationshipAsync);
+        RegisterWorkspace("exec-model-add-relationship", ModelAddRelationshipAsync);
+        RegisterWorkspace("exec-model-refactor-property-to-relationship", ModelRefactorPropertyToRelationshipAsync);
+        RegisterWorkspace("exec-model-refactor-relationship-to-property", ModelRefactorRelationshipToPropertyAsync);
+        RegisterWorkspace("exec-model-drop-property", ModelDropPropertyAsync);
+        RegisterWorkspace("exec-model-drop-relationship", ModelDropRelationshipAsync);
+        RegisterWorkspace("exec-model-drop-entity", ModelDropEntityAsync);
+        RegisterWorkspace("exec-model-suggest", ModelSuggestAsync);
 
-        Register("exec-insert", InsertAsync);
-        Register("exec-delete", DeleteAsync);
-        Register("exec-query", QueryAsync);
-        Register("exec-bulk-insert", BulkInsertAsync);
+        RegisterWorkspace("exec-insert", InsertAsync);
+        RegisterWorkspace("exec-delete", DeleteAsync);
+        RegisterWorkspace("exec-query", QueryAsync);
+        RegisterWorkspace("exec-bulk-insert", BulkInsertAsync);
         Register("exec-instance-diff", InstanceDiffAsync);
         Register("exec-instance-merge", InstanceMergeAsync);
         Register("exec-instance-diff-aligned", InstanceDiffAlignedAsync);
         Register("exec-instance-merge-aligned", InstanceMergeAlignedAsync);
-        Register("exec-instance-update", InstanceUpdateAsync);
-        Register("exec-instance-rename-id", InstanceRenameIdAsync);
-        Register("exec-instance-relationship-set", InstanceRelationshipSetAsync);
-        Register("exec-instance-relationship-list", InstanceRelationshipListAsync);
+        RegisterWorkspace("exec-instance-update", InstanceUpdateAsync);
+        RegisterWorkspace("exec-instance-rename-id", InstanceRenameIdAsync);
+        RegisterWorkspace("exec-instance-relationship-set", InstanceRelationshipSetAsync);
+        RegisterWorkspace("exec-instance-relationship-list", InstanceRelationshipListAsync);
 
-        Register("exec-import-sql", ImportAsync);
-        Register("exec-import-csv", ImportAsync);
-        Register("exec-export-csv", ExportAsync);
-        Register("exec-generate-sql", GenerateAsync);
-        Register("exec-generate-csharp", GenerateAsync);
-        Register("exec-generate-ssdt", GenerateAsync);
+        RegisterOutput("exec-import-sql", [], ImportAsync);
+        RegisterOutput("exec-import-csv", [MetaCliWorkspace.Target("workspace")], ImportAsync);
+        RegisterWorkspace("exec-export-csv", ExportAsync);
+        RegisterWorkspace("exec-generate-sql", GenerateAsync);
+        RegisterWorkspace("exec-generate-csharp", GenerateAsync);
         Register("exec-deploy-sqlserver", DeployAsync);
 
         void Register(string executableCommandId, Func<string[], Task<int>> handler)
@@ -63,6 +71,40 @@ internal sealed partial class CliRuntime
             runtime.Bind(
                 executableCommandId,
                 invocation => ExecuteBoundAsync(invocation, arguments, handler));
+        }
+
+        void RegisterWorkspace(string executableCommandId, Func<string[], Task<int>> handler)
+        {
+            runtime.Bind(
+                executableCommandId,
+                (MetaCliInvocation invocation, IMetaWorkspace workspace) => ExecuteBoundAsync(
+                    invocation,
+                    arguments,
+                    workspace,
+                    handler));
+        }
+
+        void RegisterOutput(
+            string executableCommandId,
+            IReadOnlyList<MetaCliWorkspaceParameter> inputs,
+            Func<string[], Task<int>> handler)
+        {
+            var workspaces = inputs
+                .Append(MetaCliWorkspace.Create(
+                    "output",
+                    "output-xml",
+                    "output-csharp",
+                    "output-sql",
+                    "output-connection-env"))
+                .ToArray();
+            runtime.Bind(
+                executableCommandId,
+                workspaces,
+                (invocation, boundWorkspaces) => ExecuteBoundAsync(
+                    invocation,
+                    arguments,
+                    boundWorkspaces,
+                    handler));
         }
     }
 }

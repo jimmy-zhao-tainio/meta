@@ -6,6 +6,22 @@ namespace Meta.Operations.Tests;
 public sealed class WorkspaceCompositionTests
 {
     [Fact]
+    public async Task MaterializeModel_ComposesStructureWithoutReadingRecords()
+    {
+        var workspace = BuildWorkspace();
+        var source = new StructureOnlySource(
+            new InMemoryWorkspaceSource(workspace));
+
+        var result = await WorkspaceComposition.MaterializeModelAsync(source);
+
+        Assert.Equal(workspace.Model.Name, result.Name);
+        Assert.Equal(
+            workspace.Model.Entities.Select(entity => entity.Name),
+            result.Entities.Select(entity => entity.Name));
+        Assert.False(source.RecordsRead);
+    }
+
+    [Fact]
     public async Task Materialize_ComposesPrimitiveReadsAndMutationOperations()
     {
         var source = BuildWorkspace();
@@ -128,6 +144,39 @@ public sealed class WorkspaceCompositionTests
         Assert.Equal("person-a", person!.Id);
         Assert.Equal("Alice", person.Values["Name"]);
         Assert.Null(await source.ReadRecordAsync("Person", "missing"));
+    }
+
+    private sealed class StructureOnlySource(IMetaWorkspaceSource source) : IMetaWorkspaceSource
+    {
+        public bool RecordsRead { get; private set; }
+
+        public ValueTask<string> ReadModelNameAsync(CancellationToken cancellationToken = default) =>
+            source.ReadModelNameAsync(cancellationToken);
+
+        public IAsyncEnumerable<string> ReadEntityNamesAsync(CancellationToken cancellationToken = default) =>
+            source.ReadEntityNamesAsync(cancellationToken);
+
+        public IAsyncEnumerable<PropertyDefinition> ReadPropertiesAsync(string entityName, CancellationToken cancellationToken = default) =>
+            source.ReadPropertiesAsync(entityName, cancellationToken);
+
+        public IAsyncEnumerable<RelationshipDefinition> ReadRelationshipsAsync(string entityName, CancellationToken cancellationToken = default) =>
+            source.ReadRelationshipsAsync(entityName, cancellationToken);
+
+        public async IAsyncEnumerable<RecordData> ReadRecordsAsync(string entityName, [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            RecordsRead = true;
+            await Task.CompletedTask;
+            yield break;
+        }
+
+        public ValueTask<long> CountRecordsAsync(string entityName, CancellationToken cancellationToken = default) =>
+            source.CountRecordsAsync(entityName, cancellationToken);
+
+        public ValueTask<RecordQueryResult> QueryRecordsAsync(string entityName, RecordQuery query, CancellationToken cancellationToken = default) =>
+            source.QueryRecordsAsync(entityName, query, cancellationToken);
+
+        public ValueTask<RecordData?> ReadRecordAsync(string entityName, string id, CancellationToken cancellationToken = default) =>
+            source.ReadRecordAsync(entityName, id, cancellationToken);
     }
 
     private static async Task<List<T>> CollectAsync<T>(

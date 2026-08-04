@@ -23,13 +23,9 @@ internal sealed partial class CliRuntime
     }
 
     IReadOnlyList<(string Key, string Value)> BuildUpsertSuccessDetails(
-        InMemoryWorkspace workspace,
-        string entityName,
+        IReadOnlySet<string> existingIds,
         IReadOnlyList<string> rowIds)
     {
-        var existingIds = workspace.Instance.GetOrCreateEntityRecords(entityName)
-            .Select(record => record.Id)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
         var inserted = rowIds.Count(id => !existingIds.Contains(id));
         var updated = rowIds.Count - inserted;
         return new[]
@@ -140,20 +136,16 @@ internal sealed partial class CliRuntime
     }
 
     Operation.InsertRecord BuildInsertRecordOperation(
-        InMemoryWorkspace workspace,
         GenericEntity entity,
         IReadOnlyDictionary<string, string> setValues,
-        string? explicitId)
+        string? id)
     {
-        var id = !string.IsNullOrWhiteSpace(explicitId)
-            ? explicitId.Trim()
-            : GenerateNextId(workspace, entity.Name);
-
-        if (workspace.Instance.GetOrCreateEntityRecords(entity.Name)
-            .Any(row => string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase)))
+        if (string.IsNullOrWhiteSpace(id))
         {
-            throw new InvalidOperationException($"Cannot create '{entity.Name}' with Id '{id}' because it already exists.");
+            throw new InvalidOperationException($"Cannot create '{entity.Name}' with an empty Id.");
         }
+
+        id = id.Trim();
 
         var propertyNames = entity.Properties.Select(property => property.Name)
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
@@ -335,38 +327,4 @@ internal sealed partial class CliRuntime
         return aliases;
     }
 
-    string GenerateNextId(InMemoryWorkspace workspace, string entityName)
-    {
-        var records = workspace.Instance.GetOrCreateEntityRecords(entityName);
-        var ids = records
-            .Select(row => row.Id)
-            .Where(value => !string.IsNullOrWhiteSpace(value))
-            .Select(value => value.Trim())
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-        var numericIds = ids
-            .Select(value => long.TryParse(value, out var parsed) ? parsed : (long?)null)
-            .Where(value => value.HasValue)
-            .Select(value => value!.Value)
-            .ToList();
-
-        if (numericIds.Count > 0)
-        {
-            var next = numericIds.Max() + 1;
-            while (ids.Contains(next.ToString()))
-            {
-                next++;
-            }
-
-            return next.ToString();
-        }
-
-        var candidate = 1L;
-        while (ids.Contains(candidate.ToString()))
-        {
-            candidate++;
-        }
-
-        return candidate.ToString();
-    }
 }

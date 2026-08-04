@@ -52,16 +52,17 @@ public sealed class MetaCliModelTests
     public void Cli_HelpShowsCurrentAuthoringSurfaceAndDoesNotExposeDeletedConcepts()
     {
         var result = RunCli("help");
-        var newWorkspace = RunCli("new-workspace --help");
+        var create = RunCli("create --help");
 
         Assert.Equal(0, result.ExitCode);
-        Assert.Equal(0, newWorkspace.ExitCode);
+        Assert.Equal(0, create.ExitCode);
         Assert.Contains("meta-cli <command> [options]", result.Output);
-        Assert.Contains("new-workspace", result.Output);
-        Assert.Contains("--standard-cli-shapes", newWorkspace.Output);
-        Assert.Contains("--default-help", newWorkspace.Output);
+        Assert.Contains("create", result.Output);
+        Assert.Contains("--standard-cli-shapes", create.Output);
+        Assert.Contains("--default-help", create.Output);
         Assert.DoesNotContain("from-syntax", result.Output);
         Assert.Contains("add-application-option", result.Output);
+        Assert.Contains("remove-application-option", result.Output);
         Assert.Contains("add-option-token", result.Output);
         Assert.Contains("add-parameter-group-member", result.Output);
         Assert.DoesNotContain("add-root-command", result.Output);
@@ -100,24 +101,24 @@ public sealed class MetaCliModelTests
 
         AssertWorkspacePreservesProviderIntegrity(workspace);
 
-        var newWorkspaceHelp = RunCli("new-workspace --help");
-        Assert.Equal(0, newWorkspaceHelp.ExitCode);
-        Assert.DoesNotContain("--workspace <path>", newWorkspaceHelp.Output);
+        var createHelp = RunCli("create --help");
+        Assert.Equal(0, createHelp.ExitCode);
 
         var showHelp = RunCli("show --help");
         Assert.Equal(0, showHelp.ExitCode);
-        Assert.Contains("--workspace <path>", showHelp.Output);
+        Assert.Contains("--workspace <workspace>", showHelp.Output);
+        Assert.DoesNotContain("--workspace-surface", showHelp.Output);
     }
 
     [Fact]
-    public void Cli_NewWorkspaceCanSeedStandardCliDefaults()
+    public void Cli_CreateCanSeedStandardCliDefaults()
     {
         var root = Path.Combine(Path.GetTempPath(), "meta-cli-seed-", Guid.NewGuid().ToString("N"));
         var workspace = Path.Combine(root, "Demo.MetaCli");
 
         try
         {
-            var result = RunCli($"new-workspace \"{workspace}\" --application demo --standard-cli-shapes --default-help");
+            var result = RunCli($"create --xml \"{workspace}\" --application demo --standard-cli-shapes --default-help");
 
             Assert.Equal(0, result.ExitCode);
             Assert.Contains("Created MetaCli workspace", result.Output);
@@ -201,7 +202,7 @@ public sealed class MetaCliModelTests
         var workspace = Path.Combine(root, "Demo.MetaCli");
         try
         {
-            AssertCommandSucceeds($"new-workspace \"{workspace}\" --application demo --standard-cli-shapes --default-help");
+            AssertCommandSucceeds($"create --xml \"{workspace}\" --application demo --standard-cli-shapes --default-help");
             AssertWorkspacePreservesProviderIntegrity(workspace);
 
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-value-shape --id shape-visibility --name Visibility --value-arity arity-one --value-label \"<visibility>\"", workspace);
@@ -211,9 +212,9 @@ public sealed class MetaCliModelTests
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-application-option --parameter-id param-workspace --option-id option-workspace --application app-demo --name workspace --value-shape shape-path --token-id token-workspace --token --workspace", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-option-token --id token-workspace-short --option option-workspace --token -w --previous-token token-workspace", workspace);
 
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-new-workspace --application app-demo --name new-workspace --token new-workspace", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-executable-command --id exec-new-workspace --command cmd-new-workspace", workspace);
-            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-positional --parameter-id param-new-workspace --positional-id pos-new-workspace --executable-command exec-new-workspace --name Path --value-shape shape-path --required true", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-publish --application app-demo --name publish --token publish", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-executable-command --id exec-publish --command cmd-publish", workspace);
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-positional --parameter-id param-publish-path --positional-id pos-publish-path --executable-command exec-publish --name Path --value-shape shape-path --required true", workspace);
 
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-model --application app-demo --name model --token model", workspace);
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-add-property --application app-demo --name add-property --token add-property --parent-command cmd-model", workspace);
@@ -236,7 +237,7 @@ public sealed class MetaCliModelTests
             Assert.Contains("MetaCli workspace", show.Output);
             Assert.Contains("application: demo (app-demo)", show.Output);
             Assert.Contains("command surface:", show.Output);
-            Assert.Contains("new-workspace [runnable]", show.Output);
+            Assert.Contains("publish [runnable]", show.Output);
             Assert.Contains("help [default, runnable]", show.Output);
             Assert.Contains("model add-property [runnable]", show.Output);
             Assert.DoesNotContain("Application:", show.Output);
@@ -248,6 +249,7 @@ public sealed class MetaCliModelTests
             Assert.Equal("exec-add-property", model.ExecutableCommandList.Single(command => ReferenceEquals(command.Command, addProperty)).Id);
             Assert.Contains(model.ApplicationParameterList, scoped => scoped.Parameter.Id == "param-workspace");
             Assert.Contains(model.ExecutableCommandParameterList, scoped => scoped.Parameter.Id == "param-visibility" && scoped.ExecutableCommand.Id == "exec-add-property");
+
             Assert.Contains(model.OptionTokenList, token => token.Id == "token-workspace" && token.Option.Id == "option-workspace" && token.PreviousToken is null);
             Assert.Contains(model.OptionTokenList, token => token.Id == "token-workspace-short" && token.Option.Id == "option-workspace" && token.PreviousToken?.Id == "token-workspace");
             Assert.Same(
@@ -257,6 +259,16 @@ public sealed class MetaCliModelTests
                 model.ParameterGroupMemberList.Single(member => member.Id == "group-id-choice-id"),
                 model.ParameterGroupMemberList.Single(member => member.Id == "group-id-choice-auto").PreviousMember);
             Assert.DoesNotContain(model.GetType().GetProperties(), property => property.Name.Contains("ParserPolicy", StringComparison.Ordinal));
+
+            AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity(
+                "remove-application-option --application app-demo --parameter param-workspace",
+                workspace);
+            model = MetaCliModel.LoadFromXmlWorkspace(
+                workspace,
+                searchUpward: false);
+            Assert.DoesNotContain(
+                model.ParameterList,
+                parameter => parameter.Id == "param-workspace");
         }
         finally
         {
@@ -276,7 +288,7 @@ public sealed class MetaCliModelTests
             var addOption = RunCli("add-option --parameter-id param-workspace --option-id option-workspace --executable-command exec-show --name workspace --value-shape shape-path", workspace);
 
             Assert.Equal(2, addOption.ExitCode);
-            Assert.Contains("Required parameter 'token-id' was not provided.", addOption.Output);
+            Assert.Contains("Required parameter 'token' was not provided.", addOption.Output);
 
             AssertWorkspacePreservesProviderIntegrity(workspace);
             var model = MetaCliModel.LoadFromXmlWorkspace(workspace, searchUpward: false);
@@ -297,7 +309,7 @@ public sealed class MetaCliModelTests
         var workspace = Path.Combine(root, "Duplicate.MetaCli");
         try
         {
-            AssertCommandSucceeds($"new-workspace \"{workspace}\"");
+            AssertCommandSucceeds($"create --xml \"{workspace}\"");
             AssertCommandSucceeds("add-application --id app-demo --name demo", workspace);
 
             var duplicate = RunCli("add-application --id app-demo --name demo2", workspace);
@@ -399,7 +411,7 @@ public sealed class MetaCliModelTests
 
     private static void CreateMinimalExecutableCommand(string workspace)
     {
-        AssertCommandSucceeds($"new-workspace \"{workspace}\" --application demo --standard-cli-shapes");
+        AssertCommandSucceeds($"create --xml \"{workspace}\" --application demo --standard-cli-shapes");
         AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-command --id cmd-show --application app-demo --name show --token show", workspace);
         AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity("add-executable-command --id exec-show --command cmd-show", workspace);
     }
@@ -443,7 +455,8 @@ public sealed class MetaCliModelTests
 
     private static void AssertWorkspacePreservesProviderIntegrity(string workspace)
     {
-        var integrity = new MetaCliWorkspaceService().ValidateIntegrity(workspace);
+        var model = MetaCliModel.LoadFromXmlWorkspace(workspace);
+        var integrity = new MetaCliWorkspaceService().ValidateIntegrity(model);
         Assert.False(
             integrity.HasErrors,
             string.Join(Environment.NewLine, integrity.Issues.Select(issue => $"{issue.Code}: {issue.Message} ({issue.Location})")));

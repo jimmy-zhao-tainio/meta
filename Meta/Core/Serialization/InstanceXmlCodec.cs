@@ -12,8 +12,7 @@ public static class InstanceXmlCodec
 {
     public static GenericInstance LoadFromPath(
         string instancePath,
-        GenericModel model,
-        InstanceXmlLoadOptions? loadOptions = null)
+        GenericModel model)
     {
         if (string.IsNullOrWhiteSpace(instancePath))
         {
@@ -28,7 +27,7 @@ public static class InstanceXmlCodec
             ModelName = model.Name ?? string.Empty,
         };
 
-        MergeDocument(instance, document, model, loadOptions);
+        MergeDocument(instance, document, model);
         if (string.IsNullOrWhiteSpace(instance.ModelName))
         {
             instance.ModelName = model.Name ?? string.Empty;
@@ -39,8 +38,7 @@ public static class InstanceXmlCodec
 
     public static GenericInstance LoadFromPaths(
         IReadOnlyCollection<string> shardPaths,
-        GenericModel model,
-        InstanceXmlLoadOptions? loadOptions = null)
+        GenericModel model)
     {
         ArgumentNullException.ThrowIfNull(shardPaths);
         ArgumentNullException.ThrowIfNull(model);
@@ -53,11 +51,7 @@ public static class InstanceXmlCodec
         foreach (var path in shardPaths)
         {
             var document = XDocument.Load(path, LoadOptions.None);
-            MergeDocument(
-                instance,
-                document,
-                model,
-                loadOptions: loadOptions);
+            MergeDocument(instance, document, model);
         }
 
         if (string.IsNullOrWhiteSpace(instance.ModelName))
@@ -71,22 +65,19 @@ public static class InstanceXmlCodec
     public static void MergeDocument(
         GenericInstance instance,
         XDocument document,
-        GenericModel model,
-        InstanceXmlLoadOptions? loadOptions = null)
+        GenericModel model)
     {
         MergeDocumentAndGetRecordIdentities(
             instance,
             document,
-            model,
-            loadOptions);
+            model);
     }
 
     internal static IReadOnlyList<InstanceRecordIdentity>
         MergeDocumentAndGetRecordIdentities(
         GenericInstance instance,
         XDocument document,
-        GenericModel model,
-        InstanceXmlLoadOptions? loadOptions = null)
+        GenericModel model)
     {
         ArgumentNullException.ThrowIfNull(instance);
         ArgumentNullException.ThrowIfNull(document);
@@ -120,11 +111,7 @@ public static class InstanceXmlCodec
                         $"Instance XML list '{listName}' contains unexpected row element '{rowElement.Name.LocalName}'. Expected '{entityName}'.");
                 }
 
-                var record = ParseRecord(
-                    entityName,
-                    modelEntity,
-                    rowElement,
-                    loadOptions);
+                var record = ParseRecord(entityName, modelEntity, rowElement);
                 records.Add(record);
                 loadedRecords.Add(new InstanceRecordIdentity(
                     entityName,
@@ -292,8 +279,7 @@ public static class InstanceXmlCodec
     private static GenericRecord ParseRecord(
         string entityName,
         GenericEntity modelEntity,
-        XElement rowElement,
-        InstanceXmlLoadOptions? loadOptions)
+        XElement rowElement)
     {
         var id = (string?)rowElement.Attribute("Id");
         if (string.IsNullOrWhiteSpace(id))
@@ -318,10 +304,7 @@ public static class InstanceXmlCodec
             .ToDictionary(property => property.Name, StringComparer.OrdinalIgnoreCase);
         var relationshipByName = modelEntity.Relationships
             .ToDictionary(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase);
-        var relationshipByAttributeName = BuildRelationshipByAttributeName(
-            modelEntity,
-            relationshipByName,
-            loadOptions);
+        var relationshipByAttributeName = relationshipByName;
 
         foreach (var attribute in rowElement.Attributes())
         {
@@ -394,60 +377,6 @@ public static class InstanceXmlCodec
         }
 
         return record;
-    }
-
-    private static Dictionary<string, GenericRelationship> BuildRelationshipByAttributeName(
-        GenericEntity modelEntity,
-        IReadOnlyDictionary<string, GenericRelationship> relationshipByName,
-        InstanceXmlLoadOptions? loadOptions)
-    {
-        var result = relationshipByName.ToDictionary(
-            item => item.Key,
-            item => item.Value,
-            StringComparer.OrdinalIgnoreCase);
-        if (loadOptions == null)
-        {
-            return result;
-        }
-
-        foreach (var alias in loadOptions.RelationshipColumnAliases.Where(item =>
-                     string.Equals(item.EntityName, modelEntity.Name, StringComparison.OrdinalIgnoreCase)))
-        {
-            var attributeName = alias.AttributeName?.Trim() ?? string.Empty;
-            var relationshipColumnName = alias.RelationshipColumnName?.Trim() ?? string.Empty;
-            if (string.IsNullOrWhiteSpace(attributeName) || string.IsNullOrWhiteSpace(relationshipColumnName))
-            {
-                throw new InvalidDataException(
-                    $"Relationship column recovery for entity '{modelEntity.Name}' requires both an attribute and a relationship column.");
-            }
-
-            if (string.Equals(attributeName, "Id", StringComparison.OrdinalIgnoreCase))
-            {
-                throw new InvalidDataException(
-                    $"Relationship column recovery for entity '{modelEntity.Name}' cannot use the identity attribute 'Id'.");
-            }
-
-            if (!relationshipByName.TryGetValue(relationshipColumnName, out var relationship))
-            {
-                throw new InvalidDataException(
-                    $"Relationship column recovery for entity '{modelEntity.Name}' targets unknown relationship '{relationshipColumnName}'.");
-            }
-
-            if (result.TryGetValue(attributeName, out var existingRelationship))
-            {
-                if (!ReferenceEquals(existingRelationship, relationship))
-                {
-                    throw new InvalidDataException(
-                        $"Relationship column recovery for entity '{modelEntity.Name}' maps attribute '{attributeName}' to both '{existingRelationship.GetColumnName()}' and '{relationship.GetColumnName()}'.");
-                }
-
-                continue;
-            }
-
-            result.Add(attributeName, relationship);
-        }
-
-        return result;
     }
 
     private static Dictionary<string, GenericEntity> BuildEntityByContainerLookup(GenericModel model)

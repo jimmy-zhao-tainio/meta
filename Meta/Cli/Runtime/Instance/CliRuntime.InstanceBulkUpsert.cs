@@ -1,8 +1,8 @@
 internal sealed partial class CliRuntime
 {
     BulkUpsertPlan BuildUpsertOperationsFromRows(
-        InMemoryWorkspace workspace,
         GenericEntity entity,
+        IReadOnlyList<RecordData> existingRecords,
         IReadOnlyList<Dictionary<string, string>> rows,
         IReadOnlyList<string> keyFields,
         bool autoId = false)
@@ -26,7 +26,7 @@ internal sealed partial class CliRuntime
             }
         }
 
-        var reservedIds = workspace.Instance.GetOrCreateEntityRecords(entity.Name)
+        var reservedIds = existingRecords
             .Select(record => record.Id)
             .Where(id => !string.IsNullOrWhiteSpace(id))
             .Select(id => id.Trim())
@@ -42,7 +42,7 @@ internal sealed partial class CliRuntime
             }
         }
 
-        var existingIds = workspace.Instance.GetOrCreateEntityRecords(entity.Name)
+        var existingIds = existingRecords
             .Select(record => record.Id)
             .Where(id => !string.IsNullOrWhiteSpace(id))
             .Select(id => id.Trim())
@@ -65,7 +65,7 @@ internal sealed partial class CliRuntime
                 }
                 else if (keyFields.Count > 0)
                 {
-                    id = ResolveIdByKeys(workspace, entity, keyFields, row);
+                    id = ResolveIdByKeys(existingRecords, entity, keyFields, row);
                 }
                 else
                 {
@@ -247,7 +247,7 @@ internal sealed partial class CliRuntime
     }
 
     string ResolveIdByKeys(
-        InMemoryWorkspace workspace,
+        IReadOnlyList<RecordData> existingRecords,
         GenericEntity entity,
         IReadOnlyList<string> keyFields,
         IReadOnlyDictionary<string, string> row)
@@ -269,7 +269,7 @@ internal sealed partial class CliRuntime
             keyValues
                 .OrderBy(pair => pair.Key, StringComparer.OrdinalIgnoreCase)
                 .Select(pair => $"{pair.Key.ToLowerInvariant()}={pair.Value.ToLowerInvariant()}"));
-        var candidates = workspace.Instance.GetOrCreateEntityRecords(entity.Name)
+        var candidates = existingRecords
             .Where(record => keyValues.All(pair =>
                 string.Equals(GetRecordFieldValue(record, pair.Key), pair.Value, StringComparison.OrdinalIgnoreCase)))
             .Select(record => record.Id)
@@ -314,7 +314,7 @@ internal sealed partial class CliRuntime
                    $"Field '{fieldName}' does not exist on entity '{entity.Name}'.");
     }
 
-    string GetRecordFieldValue(GenericRecord record, string field)
+    string GetRecordFieldValue(RecordData record, string field)
     {
         if (string.Equals(field, "Id", StringComparison.OrdinalIgnoreCase))
         {

@@ -8,13 +8,13 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(workspace.ContractVersion);
-        var report = ModelSuggestService.Analyze(workspace.State);
+        var workspace = await WorkspaceComposition.MaterializeAsync(CurrentWorkspace)
+            .ConfigureAwait(false);
+        var report = ModelSuggestService.Analyze(workspace);
 
         PrintModelSuggestReport(
             report,
-            workspace.RootPath,
+            options.WorkspacePath,
             options.ShowKeys,
             options.Explain,
             options.PrintCommands);

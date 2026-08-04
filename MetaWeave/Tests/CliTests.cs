@@ -27,7 +27,7 @@ public sealed class CliTests
         var result = RunCli("check --help");
 
         Assert.Equal(0, result.ExitCode);
-        Assert.Contains("--workspace <path>", result.Output);
+        Assert.Contains("--workspace <workspace>", result.Output);
     }
 
     [Fact]
@@ -36,7 +36,7 @@ public sealed class CliTests
         var result = RunCli("suggest --help");
 
         Assert.Equal(0, result.ExitCode);
-        Assert.Contains("--workspace <path>", result.Output);
+        Assert.Contains("--workspace <workspace>", result.Output);
     }
 
     [Fact]
@@ -51,7 +51,7 @@ public sealed class CliTests
         }
 
         var commandHelp = RunCli("help check");
-        Assert.Contains("--workspace <path>", commandHelp.Output);
+        Assert.Contains("--workspace <workspace>", commandHelp.Output);
     }
 
     [Fact]
@@ -69,9 +69,9 @@ public sealed class CliTests
     }
 
     [Fact]
-    public void NewWorkspace_Help_DoesNotShowWorkspaceOption()
+    public void Create_Help_DoesNotShowWorkspaceOption()
     {
-        var result = RunCli("new-workspace --help");
+        var result = RunCli("create --help");
 
         Assert.Equal(0, result.ExitCode);
         Assert.DoesNotContain("--workspace <path>", result.Output);
@@ -85,7 +85,7 @@ public sealed class CliTests
         Directory.CreateDirectory(root);
         try
         {
-            Assert.Equal(0, RunCli($"new-workspace \"{metaWeavePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{metaWeavePath}\"").ExitCode);
 
             var check = RunCli("check", workingDirectory: metaWeavePath);
 
@@ -114,7 +114,7 @@ public sealed class CliTests
             var referenceAPath = CreateReferenceWorkspace(root, "ReferenceA");
             var referenceBPath = CreateReferenceWorkspace(root, "ReferenceB");
 
-            Assert.Equal(0, RunCli($"new-workspace \"{metaWeavePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{metaWeavePath}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleReferenceBindingCatalog --workspace-path \"{sourcePath}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias ReferenceA --model SampleReferenceCatalog --workspace-path \"{referenceAPath}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias ReferenceB --model SampleReferenceCatalog --workspace-path \"{referenceBPath}\"").ExitCode);
@@ -149,7 +149,7 @@ public sealed class CliTests
                 ("SourceReferenceTypeId", new[] { "type:string", "type:int", "type:string" }));
             var referencePath = CreateReferenceWorkspace(root, "Reference");
 
-            Assert.Equal(0, RunCli($"new-workspace \"{metaWeavePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{metaWeavePath}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleReferenceBindingCatalog --workspace-path \"{sourcePath}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Reference --model SampleReferenceCatalog --workspace-path \"{referencePath}\"").ExitCode);
 
@@ -173,7 +173,7 @@ public sealed class CliTests
         Directory.CreateDirectory(root);
         try
         {
-            var init = RunCli($"new-workspace \"{metaWeavePath}\"");
+            var init = RunCli($"create --xml \"{metaWeavePath}\"");
             Assert.Equal(0, init.ExitCode);
 
             var addSource = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleSourceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleSourceCatalog")}\"");
@@ -207,7 +207,7 @@ public sealed class CliTests
         Directory.CreateDirectory(root);
         try
         {
-            var init = RunCli($"new-workspace \"{metaWeavePath}\"");
+            var init = RunCli($"create --xml \"{metaWeavePath}\"");
             Assert.Equal(0, init.ExitCode);
 
             var addModel = RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleSourceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleReferenceCatalog")}\"");
@@ -231,7 +231,7 @@ public sealed class CliTests
         Directory.CreateDirectory(root);
         try
         {
-            Assert.Equal(0, RunCli($"new-workspace \"{metaWeavePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{metaWeavePath}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Source --model SampleSourceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleSourceCatalog")}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Reference --model SampleReferenceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleReferenceCatalog")}\"").ExitCode);
 
@@ -274,7 +274,7 @@ public sealed class CliTests
         Directory.CreateDirectory(root);
         try
         {
-            var materialize = RunCli($"materialize --workspace \"{GetFixtureWorkspacePath("Weave-Attribute-ReferenceType")}\" --new-workspace \"{mergedPath}\" --model AttributeReferenceTypeMaterialized");
+            var materialize = RunCli($"materialize --workspace \"{GetFixtureWorkspacePath("Weave-Attribute-ReferenceType")}\" --output-xml \"{mergedPath}\" --model AttributeReferenceTypeMaterialized");
             Assert.Equal(0, materialize.ExitCode);
             Assert.Contains("Ok", materialize.Output);
 
@@ -310,7 +310,7 @@ public sealed class CliTests
         Directory.CreateDirectory(root);
         try
         {
-            var materialize = RunCli($"materialize --workspace \"{GetFixtureWorkspacePath("Weave-Mapping-ReferenceType")}\" --new-workspace \"{mergedPath}\" --model MappingReferenceTypeMaterialized");
+            var materialize = RunCli($"materialize --workspace \"{GetFixtureWorkspacePath("Weave-Mapping-ReferenceType")}\" --output-xml \"{mergedPath}\" --model MappingReferenceTypeMaterialized");
             Assert.Equal(0, materialize.ExitCode);
             Assert.Contains("Ok", materialize.Output);
 
@@ -341,11 +341,11 @@ public sealed class CliTests
         Directory.CreateDirectory(root);
         try
         {
-            Assert.Equal(0, RunCli($"new-workspace \"{metaWeavePath}\"").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{metaWeavePath}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Left --model SampleReferenceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleReferenceCatalog")}\"").ExitCode);
             Assert.Equal(0, RunCli($"add-model --workspace \"{metaWeavePath}\" --alias Right --model SampleReferenceCatalog --workspace-path \"{GetFixtureWorkspacePath("SampleReferenceCatalog")}\"").ExitCode);
 
-            var materialize = RunCli($"materialize --workspace \"{metaWeavePath}\" --new-workspace \"{Path.Combine(root, "Merged")}\" --model DuplicateEntities");
+            var materialize = RunCli($"materialize --workspace \"{metaWeavePath}\" --output-xml \"{Path.Combine(root, "Merged")}\" --model DuplicateEntities");
             Assert.Equal(4, materialize.ExitCode);
             Assert.Contains("entity 'ReferenceType' already exists", materialize.Output);
         }

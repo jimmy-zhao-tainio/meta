@@ -32,21 +32,19 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(parseResult.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-            var entity = RequireEntity(workspace.Model, entityName);
+            var model = await WorkspaceComposition.MaterializeModelAsync(CurrentWorkspace)
+                .ConfigureAwait(false);
+            var entity = RequireEntity(model, entityName);
             var resolvedId = parseResult.AutoId
-                ? GenerateNextAutoId(workspace.State, entityName)
+                ? await GenerateNextAutoIdAsync(CurrentWorkspace, entity.Name).ConfigureAwait(false)
                 : explicitId;
 
             var operation = BuildInsertRecordOperation(
-                workspace.State,
                 entity,
                 parseResult.SetValues,
                 resolvedId);
-            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
-                    workspace,
-                    new[] { operation },
+            return await ExecuteOperationsAsync(
+                    [operation],
                     commandName: "insert",
                     successMessage: $"created {BuildEntityInstanceAddress(entityName, operation.Id)}",
                     successDetails: BuildRowPreviewDetails(entity, operation.Values))
@@ -58,12 +56,13 @@ internal sealed partial class CliRuntime
         }
     }
 
-    string GenerateNextAutoId(InMemoryWorkspace workspace, string entityName)
+    async Task<string> GenerateNextAutoIdAsync(
+        IMetaWorkspaceSource workspace,
+        string entityName)
     {
-        var rows = workspace.Instance.GetOrCreateEntityRecords(entityName);
         var numericIds = new List<long>();
 
-        foreach (var row in rows)
+        await foreach (var row in workspace.ReadRecordsAsync(entityName))
         {
             var id = row.Id?.Trim() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(id))

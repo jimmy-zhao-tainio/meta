@@ -3,50 +3,45 @@ internal sealed partial class CliRuntime
     async Task<int> ModelDropEntityAsync(string[] commandArgs)
     {
         var entityName = RequiredValue("Entity");
-        var options = ReadMutatingCommonOptions(commandArgs, startIndex: 3);
-        if (!options.Ok)
-        {
-            return PrintArgumentError(options.ErrorMessage);
-        }
-
         try
         {
-            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-            if (workspace.Model.FindEntity(entityName) == null)
+            var resolvedEntityName = await ResolveEntityNameAsync(CurrentWorkspace, entityName)
+                .ConfigureAwait(false);
+            var rowCount = await CurrentWorkspace.CountRecordsAsync(resolvedEntityName)
+                .ConfigureAwait(false);
+            if (rowCount > 0)
             {
-                throw new InvalidOperationException(
-                    $"Entity '{entityName}' does not exist.");
-            }
-
-            var rows = workspace.Instance.GetOrCreateEntityRecords(entityName);
-            if (rows.Count > 0)
-            {
-                var firstRow = rows
-                    .OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase)
-                    .First();
+                var firstRow = await CurrentWorkspace.QueryRecordsAsync(
+                        resolvedEntityName,
+                        new RecordQuery(1))
+                    .ConfigureAwait(false);
                 return PrintFormattedError(
                     "E_ENTITY_NOT_EMPTY",
-                    $"Cannot drop entity {entityName}",
+                    $"Cannot drop entity {resolvedEntityName}",
                     exitCode: 4,
                     where: BuildWhere(
-                        ("entity", entityName),
-                        ("rows", rows.Count.ToString(CultureInfo.InvariantCulture))),
+                        ("entity", resolvedEntityName),
+                        ("rows", rowCount.ToString(CultureInfo.InvariantCulture))),
                     hints: new[]
                     {
-                        $"{entityName} has {rows.Count.ToString(CultureInfo.InvariantCulture)} instances.",
-                        $"Next: meta view instance {entityName} {QuoteInstanceId(firstRow.Id)}",
+                        $"{resolvedEntityName} has {rowCount.ToString(CultureInfo.InvariantCulture)} instances.",
+                        $"Next: meta view instance {resolvedEntityName} {QuoteInstanceId(firstRow.Records[0].Id)}",
                     });
             }
 
-            var inboundRelationships = workspace.Model.Entities
-                .SelectMany(fromEntity => fromEntity.Relationships
-                    .Where(relationship => string.Equals(relationship.Entity, entityName, StringComparison.OrdinalIgnoreCase))
-                    .Select(_ => new
+            var inboundRelationships = new List<(string FromEntity, string ToEntity)>();
+            await foreach (var fromEntity in CurrentWorkspace.ReadEntityNamesAsync())
+            {
+                await foreach (var relationship in CurrentWorkspace.ReadRelationshipsAsync(fromEntity))
+                {
+                    if (MetaName.Comparer.Equals(relationship.TargetEntityName, resolvedEntityName))
                     {
-                        FromEntity = fromEntity.Name,
-                        ToEntity = entityName,
-                    }))
+                        inboundRelationships.Add((fromEntity, resolvedEntityName));
+                    }
+                }
+            }
+
+            inboundRelationships = inboundRelationships
                 .OrderBy(item => item.FromEntity, StringComparer.OrdinalIgnoreCase)
                 .ThenBy(item => item.ToEntity, StringComparer.OrdinalIgnoreCase)
                 .ToList();
@@ -54,11 +49,11 @@ internal sealed partial class CliRuntime
             {
                 return PrintFormattedErrorWithTable(
                     code: "E_ENTITY_HAS_INBOUND_RELATIONSHIPS",
-                    message: $"Entity '{entityName}' has inbound relationships.",
+                    message: $"Entity '{resolvedEntityName}' has inbound relationships.",
                     exitCode: 4,
                     where: new[]
                     {
-                        ("entity", entityName),
+                        ("entity", resolvedEntityName),
                         ("inboundRelationships", inboundRelationships.Count.ToString(CultureInfo.InvariantCulture)),
                     },
                     hints: new[]
@@ -79,11 +74,10 @@ internal sealed partial class CliRuntime
             }
 
             return await ExecuteOperationAsync(
-                    workspace,
-                    new Operation.RemoveEntity(entityName),
+                    new Operation.RemoveEntity(resolvedEntityName),
                     "model drop-entity",
                     "entity removed",
-                    ("Entity", entityName))
+                    ("Entity", resolvedEntityName))
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)

@@ -28,7 +28,7 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-binding:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>8</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-binding:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding" DocumentationValueTypeId="value-type:number">
@@ -52,8 +52,8 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-binding:fact:usage:001" DocumentationFactTypeId="fact-type:usage" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding" DocumentationValueTypeId="value-type:string">
       <Name>001</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>meta-weave add-binding --name &lt;value&gt; --source-entity &lt;value&gt; --source-model &lt;value&gt; --source-property &lt;value&gt; --target-entity &lt;value&gt; --target-model &lt;value&gt; --target-property &lt;value&gt; [--workspace &lt;path&gt;]</Value>
+      <Status>Changed</Status>
+      <Value>meta-weave add-binding --name &lt;value&gt; --source-entity &lt;value&gt; --source-model &lt;value&gt; --source-property &lt;value&gt; --target-entity &lt;value&gt; --target-model &lt;value&gt; --target-property &lt;value&gt; [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-binding:option:name:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:name" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -844,8 +844,8 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-binding:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-binding:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -856,20 +856,20 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-binding:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-binding:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-binding:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-model:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -898,7 +898,7 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-model:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>4</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-model:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model" DocumentationValueTypeId="value-type:number">
@@ -922,8 +922,8 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-model:fact:usage:001" DocumentationFactTypeId="fact-type:usage" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model" DocumentationValueTypeId="value-type:string">
       <Name>001</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>meta-weave add-model --alias &lt;value&gt; --model &lt;value&gt; [--workspace &lt;path&gt;] --workspace-path &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>meta-weave add-model --alias &lt;value&gt; --model &lt;value&gt; [--workspace &lt;workspace&gt;] --workspace-path &lt;path&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-model:option:alias:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model:option:alias" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -1307,8 +1307,8 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-model:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-model:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -1319,20 +1319,20 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-model:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-model:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:add-model:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:check:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:check" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -1361,7 +1361,7 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:check:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:check" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:check:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:check" DocumentationValueTypeId="value-type:number">
@@ -1385,8 +1385,8 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:check:fact:usage:001" DocumentationFactTypeId="fact-type:usage" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:check" DocumentationValueTypeId="value-type:string">
       <Name>001</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>meta-weave check [--workspace &lt;path&gt;]</Value>
+      <Status>Changed</Status>
+      <Value>meta-weave check [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:check:option:workspace:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:check:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -1463,8 +1463,8 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:check:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:check:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:check:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:check:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -1475,20 +1475,20 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:check:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:check:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:check:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:check:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:check:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:check:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:help:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:help" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -1571,7 +1571,7 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:materialize:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>3</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:materialize:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize" DocumentationValueTypeId="value-type:number">
@@ -1595,8 +1595,8 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:materialize:fact:usage:001" DocumentationFactTypeId="fact-type:usage" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize" DocumentationValueTypeId="value-type:string">
       <Name>001</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>meta-weave materialize --model &lt;value&gt; --new-workspace &lt;path&gt; [--workspace &lt;path&gt;]</Value>
+      <Status>Changed</Status>
+      <Value>meta-weave materialize --model &lt;value&gt; --new-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:materialize:option:model:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:model" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -1878,8 +1878,8 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:materialize:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:materialize:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -1890,20 +1890,20 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:materialize:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:materialize:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:materialize:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:new-workspace:argument:path:fact:cli:allowedvalues" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:new-workspace:argument:path" DocumentationValueTypeId="value-type:string">
       <Name>AllowedValues</Name>
@@ -2067,7 +2067,7 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:suggest:fact:cli:optioncount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest" DocumentationValueTypeId="value-type:number">
       <Name>OptionCount</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
+      <Status>Changed</Status>
       <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:suggest:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest" DocumentationValueTypeId="value-type:number">
@@ -2091,8 +2091,8 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:suggest:fact:usage:001" DocumentationFactTypeId="fact-type:usage" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest" DocumentationValueTypeId="value-type:string">
       <Name>001</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>meta-weave suggest [--workspace &lt;path&gt;]</Value>
+      <Status>Changed</Status>
+      <Value>meta-weave suggest [--workspace &lt;workspace&gt;]</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:suggest:option:workspace:fact:cli:aliases" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Aliases</Name>
@@ -2169,8 +2169,8 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:suggest:option:workspace:fact:cli:syntax" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>Syntax</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>--workspace &lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>--workspace &lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:suggest:option:workspace:fact:cli:valuearity" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueArity</Name>
@@ -2181,20 +2181,20 @@
     <DocumentationFact Id="source:cli:meta-weave:app:command:suggest:option:workspace:fact:cli:valuename" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueName</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>&lt;path&gt;</Value>
+      <Status>Changed</Status>
+      <Value>&lt;workspace&gt;</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:suggest:option:workspace:fact:cli:valueshape" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShape</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>Path</Value>
+      <Status>Changed</Status>
+      <Value>WorkspaceLocation</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:command:suggest:option:workspace:fact:cli:valueshapeid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest:option:workspace" DocumentationValueTypeId="value-type:string">
       <Name>ValueShapeId</Name>
       <SourceFingerprint>a934aacef44e8adaf673aebd4e7bd0c7497919102e326dfe04832aed2e6b0dcf</SourceFingerprint>
-      <Status>New</Status>
-      <Value>shape-path</Value>
+      <Status>Changed</Status>
+      <Value>shape-workspace-location</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-weave:app:fact:cli:applicationid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-weave:batch:20260701172655484" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectId="source:cli:meta-weave:app" DocumentationValueTypeId="value-type:string">
       <Name>ApplicationId</Name>

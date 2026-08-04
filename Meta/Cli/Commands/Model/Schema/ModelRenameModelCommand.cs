@@ -6,41 +6,19 @@ internal sealed partial class CliRuntime
 
     async Task<int> ModelRenameModelAsync(string[] commandArgs)
     {
-        var options = ReadModelRenameModelOptions(commandArgs, startIndex: 2);
-        if (!options.Ok)
+        var oldModelName = RequiredValue("Old").Trim();
+        var newModelName = RequiredValue("New").Trim();
+        if (!RenameModelNamePattern.IsMatch(newModelName))
         {
-            return PrintArgumentError(options.ErrorMessage);
+            return PrintArgumentError("Error: <New> must use identifier pattern [A-Za-z_][A-Za-z0-9_]*.");
         }
 
         return await ExecuteOperationAsync(
-                options.WorkspacePath,
-                () => new Operation.RenameModel(
-                    options.OldModelName,
-                    options.NewModelName),
+                new Operation.RenameModel(oldModelName, newModelName),
                 "model rename-model",
                 "model renamed",
-                ("Workspace", Path.GetFullPath(options.WorkspacePath)),
-                ("From", options.OldModelName),
-                ("To", options.NewModelName))
+                ("From", oldModelName),
+                ("To", newModelName))
             .ConfigureAwait(false);
-    }
-
-    (bool Ok, string OldModelName, string NewModelName, string WorkspacePath, string ErrorMessage)
-        ReadModelRenameModelOptions(string[] commandArgs, int startIndex)
-    {
-        var oldModelName = RequiredValue("Old").Trim();
-        var newModelName = RequiredValue("New").Trim();
-        var workspacePath = WorkspacePath();
-        if (string.IsNullOrWhiteSpace(oldModelName) || string.IsNullOrWhiteSpace(newModelName))
-        {
-            return (false, string.Empty, string.Empty, string.Empty, "Error: missing required arguments <Old> <New>.");
-        }
-
-        if (!RenameModelNamePattern.IsMatch(newModelName))
-        {
-            return (false, string.Empty, string.Empty, string.Empty, "Error: <New> must use identifier pattern [A-Za-z_][A-Za-z0-9_]*.");
-        }
-
-        return (true, oldModelName, newModelName, workspacePath, string.Empty);
     }
 }

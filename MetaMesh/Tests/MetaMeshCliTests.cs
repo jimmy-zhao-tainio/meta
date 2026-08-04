@@ -20,7 +20,7 @@ public sealed class MetaMeshCliTests
         Assert.Contains("add-step", result.Output);
         Assert.Contains("run", result.Output);
         Assert.Contains("show", result.Output);
-        Assert.Contains("new-workspace", result.Output);
+        Assert.Contains("create", result.Output);
     }
 
     [Fact]
@@ -29,12 +29,44 @@ public sealed class MetaMeshCliTests
         var result = RunCli("add-step --help");
 
         Assert.Equal(0, result.ExitCode);
-        Assert.Contains("--workspace <path>", result.Output);
+        Assert.Contains("--workspace <workspace>", result.Output);
+        Assert.DoesNotContain("--workspace-surface", result.Output);
         Assert.Contains("--operation <value>", result.Output);
         Assert.Contains("--executable <path>", result.Output);
         Assert.Contains("--arguments <arguments>", result.Output);
         Assert.Contains("--arguments-stdin", result.Output);
         Assert.Contains("--expected-exit-code <value>", result.Output);
+    }
+
+    [Fact]
+    public void AddWorkspace_HelpAndParserRequireExactlyOneRepresentation()
+    {
+        var help = RunCli("add-workspace --help");
+
+        Assert.Equal(0, help.ExitCode);
+        Assert.Contains(
+            "(--xml-path <path> | --csharp-path <path> | --sql-connection-env <environment-variable>)",
+            help.Output);
+
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-representation", Guid.NewGuid().ToString("N"));
+        var meshPath = Path.Combine(root, "Docs.MetaMesh");
+        try
+        {
+            Assert.Equal(0, RunCli($"create --xml \"{meshPath}\" --name Docs --root .").ExitCode);
+
+            var missing = RunCli($"add-workspace --workspace \"{meshPath}\" --name docs");
+            Assert.NotEqual(0, missing.ExitCode);
+            Assert.Contains("Parameter group 'representation' requires one of", missing.Output);
+
+            var multiple = RunCli(
+                $"add-workspace --workspace \"{meshPath}\" --name docs --xml-path . --csharp-path .");
+            Assert.NotEqual(0, multiple.ExitCode);
+            Assert.Contains("Parameter group 'representation' accepts only one member", multiple.Output);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
     }
 
     [Fact]
@@ -51,7 +83,20 @@ public sealed class MetaMeshCliTests
         var commandHelp = RunCli("help run");
         Assert.Contains("meta-mesh run", commandHelp.Output);
         Assert.Contains("--operation <value>", commandHelp.Output);
-        Assert.Contains("--workspace <path>", commandHelp.Output);
+        Assert.Contains("--workspace <workspace>", commandHelp.Output);
+        Assert.DoesNotContain("--workspace-surface", commandHelp.Output);
+    }
+
+    [Fact]
+    public void Create_Help_DeclaresItsOutputSurfaceWithoutAnInputWorkspace()
+    {
+        var result = RunCli("help create");
+
+        Assert.Equal(0, result.ExitCode);
+        Assert.Contains("--xml <path>", result.Output);
+        Assert.Contains("--csharp <path>", result.Output);
+        Assert.Contains("--sql <path>", result.Output);
+        Assert.DoesNotContain("--workspace <workspace>", result.Output);
     }
 
     [Fact]
@@ -61,20 +106,20 @@ public sealed class MetaMeshCliTests
         var meshPath = Path.Combine(root, "Docs.MetaMesh");
         try
         {
-            var create = RunCli($"new-workspace \"{meshPath}\" --name Docs --root .");
+            var create = RunCli($"create --xml \"{meshPath}\" --name Docs --root .");
             Assert.Equal(0, create.ExitCode);
 
-            var workspace = RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path . --model MetaDocs");
+            var workspace = RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --xml-path . --model MetaDocs");
             Assert.Equal(0, workspace.ExitCode);
 
             var operation = RunCli($"add-operation --workspace \"{meshPath}\" --name refresh-docs --description \"Refresh docs\"");
             Assert.Equal(0, operation.ExitCode);
 
-            var step = RunCli($"add-step --workspace \"{meshPath}\" --operation refresh-docs --name echo --executable cmd.exe --arguments \"/c echo hello {{workspace:docs.path}}\"");
+            var step = RunCli($"add-step --workspace \"{meshPath}\" --operation refresh-docs --name echo --executable cmd.exe --arguments \"/c echo hello {{workspace:docs.location}}\"");
             Assert.Equal(0, step.ExitCode);
             Assert.Contains("Ok", step.Output);
             Assert.DoesNotContain("Operations:", step.Output);
-            Assert.DoesNotContain("cmd.exe /c echo hello {workspace:docs.path}", step.Output);
+            Assert.DoesNotContain("cmd.exe /c echo hello {workspace:docs.location}", step.Output);
 
             var show = RunCli($"show --workspace \"{meshPath}\"");
             Assert.Equal(0, show.ExitCode);
@@ -83,7 +128,7 @@ public sealed class MetaMeshCliTests
             Assert.Contains("Operations: 1", show.Output);
             Assert.Contains("Run `meta-mesh operations`", show.Output);
             Assert.DoesNotContain("refresh-docs", show.Output);
-            Assert.DoesNotContain("cmd.exe /c echo hello {workspace:docs.path}", show.Output);
+            Assert.DoesNotContain("cmd.exe /c echo hello {workspace:docs.location}", show.Output);
 
             var workspaces = RunCli($"workspaces --workspace \"{meshPath}\"");
             Assert.Equal(0, workspaces.ExitCode);
@@ -93,13 +138,13 @@ public sealed class MetaMeshCliTests
             Assert.Equal(0, operations.ExitCode);
             Assert.Contains("refresh-docs", operations.Output);
             Assert.Contains("1 step", operations.Output);
-            Assert.DoesNotContain("cmd.exe /c echo hello {workspace:docs.path}", operations.Output);
+            Assert.DoesNotContain("cmd.exe /c echo hello {workspace:docs.location}", operations.Output);
 
             var steps = RunCli($"steps --workspace \"{meshPath}\" --operation refresh-docs");
             Assert.Equal(0, steps.ExitCode);
             Assert.Contains("Operation: refresh-docs", steps.Output);
             Assert.Contains("1. echo", steps.Output);
-            Assert.Contains("cmd.exe /c echo hello {workspace:docs.path}", steps.Output);
+            Assert.Contains("cmd.exe /c echo hello {workspace:docs.location}", steps.Output);
 
             var validate = RunCli($"validate --workspace \"{meshPath}\" --operation refresh-docs");
             Assert.Equal(0, validate.ExitCode);
@@ -111,7 +156,7 @@ public sealed class MetaMeshCliTests
             Assert.Equal(0, verboseShow.ExitCode);
             Assert.Contains("Workspaces:", verboseShow.Output);
             Assert.Contains("Operations:", verboseShow.Output);
-            Assert.Contains("cmd.exe /c echo hello {workspace:docs.path}", verboseShow.Output);
+            Assert.Contains("cmd.exe /c echo hello {workspace:docs.location}", verboseShow.Output);
 
             var run = RunCli($"run --workspace \"{meshPath}\" --operation refresh-docs");
             Assert.Equal(0, run.ExitCode);
@@ -136,8 +181,215 @@ public sealed class MetaMeshCliTests
             var model = global::MetaMesh.MetaMeshModel.LoadFromXmlWorkspace(meshPath, searchUpward: false);
             Assert.Equal("Docs", Assert.Single(model.MeshList).Name);
             Assert.Contains(model.WorkspaceList, item => item.Name == "docs" && item.ModelName == "MetaDocs");
+            Assert.Contains(model.XmlWorkspaceList, item => item.Workspace.Name == "docs" && item.Path == ".");
             Assert.Contains(model.OperationList, item => item.Name == "refresh-docs");
             Assert.Contains(model.OperationStepList, item => item.Name == "echo" && item.Executable == "cmd.exe");
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Authoring_CreatesMutatesAndReadsCSharpMeshWorkspace()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-csharp", Guid.NewGuid().ToString("N"));
+        var meshPath = Path.Combine(root, "Docs.MetaMesh");
+        try
+        {
+            var create = RunCli(
+                $"create --csharp \"{meshPath}\" --name Docs --root .");
+            Assert.Equal(0, create.ExitCode);
+
+            var workspace = RunCli(
+                $"add-workspace --workspace \"{meshPath}\" --name self --csharp-path . --model MetaMesh");
+            Assert.Equal(0, workspace.ExitCode);
+
+            var add = RunCli(
+                $"add-operation --workspace \"{meshPath}\" --name refresh-docs --description \"Refresh docs\"");
+            Assert.Equal(0, add.ExitCode);
+
+            var step = RunCli(
+                $"add-step --workspace \"{meshPath}\" --operation refresh-docs --name record-workspace --executable cmd.exe --arguments \"/c echo {{workspace:self.surface}} {{workspace:self.location}}>workspace.txt\"");
+            Assert.Equal(0, step.ExitCode);
+
+            var operations = RunCli(
+                $"operations --workspace \"{meshPath}\"");
+            Assert.Equal(0, operations.ExitCode);
+            Assert.Contains("refresh-docs", operations.Output);
+            Assert.Contains("1 step", operations.Output);
+
+            var workspaces = RunCli(
+                $"workspaces --workspace \"{meshPath}\"");
+            Assert.Equal(0, workspaces.ExitCode);
+            Assert.Contains("self (MetaMesh) - ok", workspaces.Output);
+            Assert.Contains("C# workspace", workspaces.Output);
+
+            var validate = RunCli(
+                $"validate --workspace \"{meshPath}\" --operation refresh-docs");
+            Assert.Equal(0, validate.ExitCode);
+
+            var run = RunCli(
+                $"run --workspace \"{meshPath}\" --operation refresh-docs");
+            Assert.Equal(0, run.ExitCode);
+            var recorded = File.ReadAllText(Path.Combine(meshPath, "workspace.txt"));
+            Assert.Contains("csharp", recorded);
+            Assert.Contains(meshPath, recorded, StringComparison.OrdinalIgnoreCase);
+
+            Assert.True(File.Exists(Path.Combine(meshPath, "MetaMesh.cs")));
+            Assert.True(File.Exists(Path.Combine(meshPath, "Mesh.cs")));
+            Assert.True(File.Exists(Path.Combine(meshPath, "Operation.cs")));
+            Assert.False(File.Exists(Path.Combine(meshPath, "workspace.xml")));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Validation_UsesCurrentDirectoryForNonFileSystemMeshWorkspace()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-sql-context", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        try
+        {
+            var service = new MetaMesh.Core.MetaMeshWorkspaceService();
+            var model = service.CreateEmpty("SqlMesh", null, null);
+            service.AddOperation(model, "echo", null);
+            service.AddStep(model, "echo", "say-hello", "cmd.exe", "/c echo hello", null, null, null, null);
+
+            var result = service.ValidateOperation(
+                model,
+                "echo",
+                new MetaMesh.Core.MetaMeshWorkspaceContext(
+                    "META_MESH_TEST_SQL",
+                    WorkspaceDirectory: null,
+                    CurrentDirectory: root));
+
+            Assert.Equal("echo", result.OperationName);
+            Assert.Single(result.Steps);
+            Assert.Equal(root, result.Steps[0].WorkingDirectory);
+            Assert.False(File.Exists(Path.Combine(root, "workspace.xml")));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Show_ReportsMissingSqlWorkspaceEnvironmentWithoutOpeningAConnection()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-sql-child", Guid.NewGuid().ToString("N"));
+        var environmentVariable = "META_MESH_TEST_" + Guid.NewGuid().ToString("N").ToUpperInvariant();
+        Directory.CreateDirectory(root);
+        try
+        {
+            var service = new MetaMesh.Core.MetaMeshWorkspaceService();
+            var model = service.CreateEmpty("SqlChild", null, null);
+            var mesh = Assert.Single(model.MeshList);
+            var workspace = new global::MetaMesh.Workspace
+            {
+                Id = "workspace:sql",
+                Mesh = mesh,
+                Name = "sql"
+            };
+            model.WorkspaceList.Add(workspace);
+            model.SqlWorkspaceList.Add(new global::MetaMesh.SqlWorkspace
+            {
+                Id = "sql-workspace:sql",
+                Workspace = workspace,
+                ConnectionEnvironmentVariable = environmentVariable
+            });
+
+            var result = service.Show(
+                model,
+                new MetaMesh.Core.MetaMeshWorkspaceContext(root, root, root));
+
+            var summary = Assert.Single(result.Workspaces);
+            Assert.Equal("sql", summary.Surface);
+            Assert.Equal(environmentVariable, summary.Location);
+            var issue = Assert.Single(result.WorkspaceIssues);
+            Assert.Contains(environmentVariable, issue.Reason);
+            Assert.DoesNotContain("Server=", issue.Reason, StringComparison.OrdinalIgnoreCase);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Show_RejectsWorkspaceWithoutExactlyOneRepresentation()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-missing-representation", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        try
+        {
+            var service = new MetaMesh.Core.MetaMeshWorkspaceService();
+            var model = service.CreateEmpty("MissingRepresentation", null, null);
+            model.WorkspaceList.Add(new global::MetaMesh.Workspace
+            {
+                Id = "workspace:missing",
+                Mesh = Assert.Single(model.MeshList),
+                Name = "missing"
+            });
+
+            var exception = Assert.Throws<InvalidOperationException>(() => service.Show(
+                model,
+                new MetaMesh.Core.MetaMeshWorkspaceContext(root, root, root)));
+
+            Assert.Contains("must have exactly one XML, C#, or SQL representation; found 0", exception.Message);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public void Validation_RejectsSqlWorkspaceAsWorkingDirectory()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-sql-working-directory", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        try
+        {
+            var service = new MetaMesh.Core.MetaMeshWorkspaceService();
+            var model = service.CreateEmpty("SqlWorkingDirectory", null, null);
+            var mesh = Assert.Single(model.MeshList);
+            var workspace = new global::MetaMesh.Workspace
+            {
+                Id = "workspace:sql",
+                Mesh = mesh,
+                Name = "sql"
+            };
+            model.WorkspaceList.Add(workspace);
+            model.SqlWorkspaceList.Add(new global::MetaMesh.SqlWorkspace
+            {
+                Id = "sql-workspace:sql",
+                Workspace = workspace,
+                ConnectionEnvironmentVariable = "META_MESH_SQL_WORKING_DIRECTORY"
+            });
+            service.AddOperation(model, "run", null);
+            service.AddStep(
+                model,
+                "run",
+                "invalid-working-directory",
+                "cmd.exe",
+                null,
+                "{workspace:sql.location}",
+                null,
+                null,
+                null);
+
+            var exception = Assert.Throws<InvalidOperationException>(() => service.ValidateOperation(
+                model,
+                "run",
+                new MetaMesh.Core.MetaMeshWorkspaceContext(root, root, root)));
+
+            Assert.Contains("SQL workspace 'sql' cannot be used as an operation working directory", exception.Message);
         }
         finally
         {
@@ -153,7 +405,7 @@ public sealed class MetaMeshCliTests
         const string childArguments = "/c echo \"hello quoted child cli\"";
         try
         {
-            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{meshPath}\" --name Docs --root .").ExitCode);
             Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name stdin-arguments").ExitCode);
 
             var add = RunCli(
@@ -182,8 +434,8 @@ public sealed class MetaMeshCliTests
         var meshPath = Path.Combine(root, "Docs.MetaMesh");
         try
         {
-            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
-            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path . --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --xml-path . --model MetaDocs").ExitCode);
             Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name expected-exit").ExitCode);
             Assert.Equal(
                 0,
@@ -215,8 +467,8 @@ public sealed class MetaMeshCliTests
         var markerPath = Path.Combine(meshPath, "marker.txt");
         try
         {
-            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
-            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path . --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --xml-path . --model MetaDocs").ExitCode);
             Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name preflight").ExitCode);
             Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name touch --executable cmd.exe --arguments \"/c echo touched>marker.txt\"").ExitCode);
             Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name missing --executable definitely-not-a-metamesh-executable --previous-step touch").ExitCode);
@@ -250,8 +502,8 @@ public sealed class MetaMeshCliTests
         {
             Environment.SetEnvironmentVariable(variableName, null);
 
-            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
-            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path . --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --xml-path . --model MetaDocs").ExitCode);
             Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name env").ExitCode);
             Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation env --name echo --executable cmd.exe --arguments \"/c echo {{env:{variableName}}}\"").ExitCode);
 
@@ -279,8 +531,8 @@ public sealed class MetaMeshCliTests
         {
             Environment.SetEnvironmentVariable(variableName, secretValue);
 
-            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
-            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path . --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --xml-path . --model MetaDocs").ExitCode);
             Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name env").ExitCode);
             Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation env --name echo --executable cmd.exe --arguments \"/c echo {{env:{variableName}}}\"").ExitCode);
 
@@ -305,9 +557,9 @@ public sealed class MetaMeshCliTests
         var markerPath = Path.Combine(meshPath, "marker.txt");
         try
         {
-            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
-            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path MissingDocs --model MetaDocs").ExitCode);
-            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name pipeline --path MissingPipeline --model MetaPipeline").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --xml-path MissingDocs --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name pipeline --xml-path MissingPipeline --model MetaPipeline").ExitCode);
             Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name preflight").ExitCode);
             Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name touch --executable cmd.exe --arguments \"/c echo touched>marker.txt\"").ExitCode);
 
@@ -344,11 +596,11 @@ public sealed class MetaMeshCliTests
         var markerPath = Path.Combine(meshPath, "marker.txt");
         try
         {
-            Assert.Equal(0, RunCli($"new-workspace \"{meshPath}\" --name Docs --root .").ExitCode);
-            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --path MissingDocs --model MetaDocs").ExitCode);
+            Assert.Equal(0, RunCli($"create --xml \"{meshPath}\" --name Docs --root .").ExitCode);
+            Assert.Equal(0, RunCli($"add-workspace --workspace \"{meshPath}\" --name docs --xml-path MissingDocs --model MetaDocs").ExitCode);
             Assert.Equal(0, RunCli($"add-operation --workspace \"{meshPath}\" --name preflight").ExitCode);
             Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name touch --executable cmd.exe --arguments \"/c echo touched>marker.txt\"").ExitCode);
-            Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name missing-workspace --executable cmd.exe --arguments \"/c echo unreachable\" --working-directory \"{{workspace:docs.path}}\" --previous-step touch").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{meshPath}\" --operation preflight --name missing-workspace --executable cmd.exe --arguments \"/c echo unreachable\" --working-directory \"{{workspace:docs.location}}\" --previous-step touch").ExitCode);
 
             var run = RunCli($"run --workspace \"{meshPath}\" --operation preflight");
 
@@ -371,7 +623,7 @@ public sealed class MetaMeshCliTests
         var meshPath = Path.Combine(root, "Mesh");
         try
         {
-            var create = RunCli($"new-workspace --name CurrentDirectoryMesh \"{meshPath}\"");
+            var create = RunCli($"create --xml \"{meshPath}\" --name CurrentDirectoryMesh");
             Assert.Equal(0, create.ExitCode);
 
             var show = RunCli("show", workingDirectory: meshPath);

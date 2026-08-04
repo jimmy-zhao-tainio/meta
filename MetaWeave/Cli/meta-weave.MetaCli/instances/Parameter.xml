@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ParameterList>
-    <Parameter Id="param-new-workspace-path" ValueShapeId="shape-path">
-      <Description>Empty target directory for the new MetaWeave workspace.</Description>
+    <Parameter Id="param-add-binding-name" ValueShapeId="shape-text">
+      <Description>Binding name.</Description>
       <IsRequired>true</IsRequired>
-      <Name>path</Name>
+      <Name>name</Name>
     </Parameter>
-    <Parameter Id="param-add-model-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-add-binding-source-entity" ValueShapeId="shape-text">
+      <Description>Source entity name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>source-entity</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-source-model" ValueShapeId="shape-text">
+      <Description>Source model alias.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>source-model</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-source-property" ValueShapeId="shape-text">
+      <Description>Source property name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>source-property</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-target-entity" ValueShapeId="shape-text">
+      <Description>Target entity name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>target-entity</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-target-model" ValueShapeId="shape-text">
+      <Description>Target model alias.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>target-model</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-target-property" ValueShapeId="shape-text">
+      <Description>Target property name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>target-property</Name>
+    </Parameter>
+    <Parameter Id="param-add-binding-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaWeave workspace. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
@@ -20,71 +50,63 @@
       <IsRequired>true</IsRequired>
       <Name>model</Name>
     </Parameter>
+    <Parameter Id="param-add-model-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-add-model-workspace-path" ValueShapeId="shape-path">
       <Description>Referenced model workspace path.</Description>
       <IsRequired>true</IsRequired>
       <Name>workspace-path</Name>
     </Parameter>
-    <Parameter Id="param-add-binding-workspace" ValueShapeId="shape-path">
+    <Parameter Id="param-check-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaWeave workspace. Defaults to the current directory.</Description>
       <Name>workspace</Name>
     </Parameter>
-    <Parameter Id="param-add-binding-name" ValueShapeId="shape-text">
-      <Description>Binding name.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>name</Name>
+    <Parameter Id="param-create-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the SQL Server connection string.</Description>
+      <Name>connection-env</Name>
     </Parameter>
-    <Parameter Id="param-add-binding-source-model" ValueShapeId="shape-text">
-      <Description>Source model alias.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>source-model</Name>
+    <Parameter Id="param-create-csharp" ValueShapeId="shape-path">
+      <Description>Create a C# workspace at this directory.</Description>
+      <Name>csharp</Name>
     </Parameter>
-    <Parameter Id="param-add-binding-source-entity" ValueShapeId="shape-text">
-      <Description>Source entity name.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>source-entity</Name>
+    <Parameter Id="param-create-sql" ValueShapeId="shape-path">
+      <Description>Create a SQL workspace described by this directory.</Description>
+      <Name>sql</Name>
     </Parameter>
-    <Parameter Id="param-add-binding-source-property" ValueShapeId="shape-text">
-      <Description>Source property name.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>source-property</Name>
-    </Parameter>
-    <Parameter Id="param-add-binding-target-model" ValueShapeId="shape-text">
-      <Description>Target model alias.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>target-model</Name>
-    </Parameter>
-    <Parameter Id="param-add-binding-target-entity" ValueShapeId="shape-text">
-      <Description>Target entity name.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>target-entity</Name>
-    </Parameter>
-    <Parameter Id="param-add-binding-target-property" ValueShapeId="shape-text">
-      <Description>Target property name.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>target-property</Name>
-    </Parameter>
-    <Parameter Id="param-suggest-workspace" ValueShapeId="shape-path">
-      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-check-workspace" ValueShapeId="shape-path">
-      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-materialize-workspace" ValueShapeId="shape-path">
-      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
-    </Parameter>
-    <Parameter Id="param-materialize-new-workspace" ValueShapeId="shape-path">
-      <Description>Empty target directory for the materialized workspace.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>new-workspace</Name>
+    <Parameter Id="param-create-xml" ValueShapeId="shape-path">
+      <Description>Create an XML workspace at this directory.</Description>
+      <Name>xml</Name>
     </Parameter>
     <Parameter Id="param-materialize-model" ValueShapeId="shape-text">
       <Description>Materialized model name.</Description>
       <IsRequired>true</IsRequired>
       <Name>model</Name>
+    </Parameter>
+    <Parameter Id="param-materialize-output-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the output SQL workspace connection string.</Description>
+      <Name>output-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-materialize-output-csharp" ValueShapeId="shape-path">
+      <Description>Create the output on the csharp workspace surface.</Description>
+      <Name>output-csharp</Name>
+    </Parameter>
+    <Parameter Id="param-materialize-output-sql" ValueShapeId="shape-path">
+      <Description>Create the output on the sql workspace surface.</Description>
+      <Name>output-sql</Name>
+    </Parameter>
+    <Parameter Id="param-materialize-output-xml" ValueShapeId="shape-path">
+      <Description>Create the output on the xml workspace surface.</Description>
+      <Name>output-xml</Name>
+    </Parameter>
+    <Parameter Id="param-materialize-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-suggest-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaWeave workspace. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
     </Parameter>
   </ParameterList>
 </MetaCli>

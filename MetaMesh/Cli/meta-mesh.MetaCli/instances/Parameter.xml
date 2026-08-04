@@ -1,22 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ParameterList>
-    <Parameter Id="param-new-workspace-description" ValueShapeId="shape-text">
+    <Parameter Id="param-add-operation-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-step-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-add-workspace-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-create-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the SQL Server connection string.</Description>
+      <Name>connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-create-csharp" ValueShapeId="shape-path">
+      <Description>Create a C# workspace at this directory.</Description>
+      <Name>csharp</Name>
+    </Parameter>
+    <Parameter Id="param-create-description" ValueShapeId="shape-text">
       <Description>Mesh description.</Description>
       <Name>description</Name>
     </Parameter>
-    <Parameter Id="param-new-workspace-name" ValueShapeId="shape-text">
+    <Parameter Id="param-create-name" ValueShapeId="shape-text">
       <Description>Mesh name.</Description>
       <Name>name</Name>
     </Parameter>
-    <Parameter Id="param-new-workspace-path" ValueShapeId="shape-path">
-      <Description>Empty target directory for the MetaMesh workspace.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>path</Name>
-    </Parameter>
-    <Parameter Id="param-new-workspace-root" ValueShapeId="shape-path">
-      <Description>Root path used to resolve relative workspace paths.</Description>
+    <Parameter Id="param-create-root" ValueShapeId="shape-path">
+      <Description>Mesh root path.</Description>
       <Name>root</Name>
+    </Parameter>
+    <Parameter Id="param-create-sql" ValueShapeId="shape-path">
+      <Description>Create a SQL workspace described by this directory.</Description>
+      <Name>sql</Name>
+    </Parameter>
+    <Parameter Id="param-create-xml" ValueShapeId="shape-path">
+      <Description>Create an XML workspace at this directory.</Description>
+      <Name>xml</Name>
     </Parameter>
     <Parameter Id="param-operation-description" ValueShapeId="shape-text">
       <Description>Operation description.</Description>
@@ -27,6 +50,10 @@
       <IsRequired>true</IsRequired>
       <Name>name</Name>
     </Parameter>
+    <Parameter Id="param-operations-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-run-operation" ValueShapeId="shape-text">
       <Description>Operation name.</Description>
       <IsRequired>true</IsRequired>
@@ -36,9 +63,17 @@
       <Description>Attach child processes to the current console and show their native output.</Description>
       <Name>verbose</Name>
     </Parameter>
+    <Parameter Id="param-run-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-show-verbose" ValueShapeId="shape-flag">
       <Description>Show workspace paths and step commands.</Description>
       <Name>verbose</Name>
+    </Parameter>
+    <Parameter Id="param-show-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
+      <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-step-arguments" ValueShapeId="shape-arguments">
       <Description>Arguments passed to the executable.</Description>
@@ -84,14 +119,22 @@
       <IsRequired>true</IsRequired>
       <Name>operation</Name>
     </Parameter>
+    <Parameter Id="param-steps-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-validate-operation" ValueShapeId="shape-text">
       <Description>Operation name.</Description>
       <IsRequired>true</IsRequired>
       <Name>operation</Name>
     </Parameter>
-    <Parameter Id="param-workspace" ValueShapeId="shape-path">
-      <Description>MetaMesh workspace. Defaults to the current directory.</Description>
+    <Parameter Id="param-validate-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
       <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-workspace-csharp-path" ValueShapeId="shape-path">
+      <Description>C# workspace path.</Description>
+      <Name>csharp-path</Name>
     </Parameter>
     <Parameter Id="param-workspace-description" ValueShapeId="shape-text">
       <Description>Workspace description.</Description>
@@ -106,10 +149,17 @@
       <IsRequired>true</IsRequired>
       <Name>name</Name>
     </Parameter>
-    <Parameter Id="param-workspace-path" ValueShapeId="shape-path">
-      <Description>Workspace path, absolute or relative to the mesh root.</Description>
-      <IsRequired>true</IsRequired>
-      <Name>path</Name>
+    <Parameter Id="param-workspace-sql-connection-env" ValueShapeId="shape-environment-variable">
+      <Description>Environment variable containing the SQL workspace connection string.</Description>
+      <Name>sql-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-workspace-xml-path" ValueShapeId="shape-path">
+      <Description>XML workspace path.</Description>
+      <Name>xml-path</Name>
+    </Parameter>
+    <Parameter Id="param-workspaces-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
+      <Name>workspace</Name>
     </Parameter>
   </ParameterList>
 </MetaCli>

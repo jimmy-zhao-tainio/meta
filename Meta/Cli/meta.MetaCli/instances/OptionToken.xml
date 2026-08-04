@@ -16,6 +16,18 @@
     <OptionToken Id="token-bulk-insert-stdin" OptionId="option-bulk-insert-stdin">
       <Token>--stdin</Token>
     </OptionToken>
+    <OptionToken Id="token-create-connection-env" OptionId="option-create-connection-env">
+      <Token>--connection-env</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-csharp" OptionId="option-create-csharp">
+      <Token>--csharp</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-sql" OptionId="option-create-sql">
+      <Token>--sql</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-xml" OptionId="option-create-xml">
+      <Token>--xml</Token>
+    </OptionToken>
     <OptionToken Id="token-deploy-sqlserver-connection-env" OptionId="option-deploy-sqlserver-connection-env">
       <Token>--connection-env</Token>
     </OptionToken>
@@ -37,9 +49,6 @@
     <OptionToken Id="token-generate-sql-out" OptionId="option-generate-sql-out">
       <Token>--out</Token>
     </OptionToken>
-    <OptionToken Id="token-generate-ssdt-out" OptionId="option-generate-ssdt-out">
-      <Token>--out</Token>
-    </OptionToken>
     <OptionToken Id="token-graph-inbound-top" OptionId="option-graph-inbound-top">
       <Token>--top</Token>
     </OptionToken>
@@ -52,14 +61,32 @@
     <OptionToken Id="token-import-csv-entity" OptionId="option-import-csv-entity">
       <Token>--entity</Token>
     </OptionToken>
-    <OptionToken Id="token-import-csv-new-workspace" OptionId="option-import-csv-new-workspace">
-      <Token>--new-workspace</Token>
+    <OptionToken Id="token-import-csv-output-connection-env" OptionId="option-import-csv-output-connection-env">
+      <Token>--output-connection-env</Token>
+    </OptionToken>
+    <OptionToken Id="token-import-csv-output-csharp" OptionId="option-import-csv-output-csharp">
+      <Token>--output-csharp</Token>
+    </OptionToken>
+    <OptionToken Id="token-import-csv-output-sql" OptionId="option-import-csv-output-sql">
+      <Token>--output-sql</Token>
+    </OptionToken>
+    <OptionToken Id="token-import-csv-output-xml" OptionId="option-import-csv-output-xml">
+      <Token>--output-xml</Token>
     </OptionToken>
     <OptionToken Id="token-import-sql-connection-env" OptionId="option-import-sql-connection-env">
       <Token>--connection-env</Token>
     </OptionToken>
-    <OptionToken Id="token-import-sql-new-workspace" OptionId="option-import-sql-new-workspace">
-      <Token>--new-workspace</Token>
+    <OptionToken Id="token-import-sql-output-connection-env" OptionId="option-import-sql-output-connection-env">
+      <Token>--output-connection-env</Token>
+    </OptionToken>
+    <OptionToken Id="token-import-sql-output-csharp" OptionId="option-import-sql-output-csharp">
+      <Token>--output-csharp</Token>
+    </OptionToken>
+    <OptionToken Id="token-import-sql-output-sql" OptionId="option-import-sql-output-sql">
+      <Token>--output-sql</Token>
+    </OptionToken>
+    <OptionToken Id="token-import-sql-output-xml" OptionId="option-import-sql-output-xml">
+      <Token>--output-xml</Token>
     </OptionToken>
     <OptionToken Id="token-insert-auto-id" OptionId="option-insert-auto-id">
       <Token>--auto-id</Token>
@@ -115,9 +142,6 @@
     <OptionToken Id="token-model-refactor-relationship-to-property-target" OptionId="option-model-refactor-relationship-to-property-target">
       <Token>--target</Token>
     </OptionToken>
-    <OptionToken Id="token-model-rename-relationship-existing-column" OptionId="option-model-rename-relationship-existing-column">
-      <Token>--existing-column</Token>
-    </OptionToken>
     <OptionToken Id="token-model-rename-relationship-role" OptionId="option-model-rename-relationship-role">
       <Token>--role</Token>
     </OptionToken>
@@ -154,8 +178,17 @@
     <OptionToken Id="token-workspace-merge-model" OptionId="option-workspace-merge-model">
       <Token>--model</Token>
     </OptionToken>
-    <OptionToken Id="token-workspace-merge-new-workspace" OptionId="option-workspace-merge-new-workspace">
-      <Token>--new-workspace</Token>
+    <OptionToken Id="token-workspace-merge-output-connection-env" OptionId="option-workspace-merge-output-connection-env">
+      <Token>--output-connection-env</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace-merge-output-csharp" OptionId="option-workspace-merge-output-csharp">
+      <Token>--output-csharp</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace-merge-output-sql" OptionId="option-workspace-merge-output-sql">
+      <Token>--output-sql</Token>
+    </OptionToken>
+    <OptionToken Id="token-workspace-merge-output-xml" OptionId="option-workspace-merge-output-xml">
+      <Token>--output-xml</Token>
     </OptionToken>
   </OptionTokenList>
 </MetaCli>

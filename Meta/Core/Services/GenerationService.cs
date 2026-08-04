@@ -169,23 +169,4 @@ public static partial class GenerationService
         return sources;
     }
 
-    public static GenerationManifest GenerateSsdt(
-        InMemoryWorkspace state,
-        string outputDirectory)
-    {
-        ArgumentNullException.ThrowIfNull(state);
-        var sql = MetaSqlWriter.Write(state);
-        var outputRoot = GenerationOutputWriter.PrepareDirectory(outputDirectory);
-        GenerationOutputWriter.WriteText(
-            Path.Combine(outputRoot, "Schema.sql"),
-            sql.Schema);
-        GenerationOutputWriter.WriteText(
-            Path.Combine(outputRoot, "Data.sql"),
-            sql.Data);
-        GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "PostDeploy.sql"), SqlGenerationArtifacts.BuildPostDeployScript());
-        GenerationOutputWriter.WriteText(
-            Path.Combine(outputRoot, "Metadata.sqlproj"),
-            SqlGenerationArtifacts.BuildSqlProjectFile(state.Model));
-        return GenerationOutputWriter.BuildManifest(outputRoot);
-    }
 }

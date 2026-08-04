@@ -15,6 +15,82 @@ namespace Meta.Core.Tests;
 public sealed class SqlXmlIsomorphicRoundTripTests
 {
     [Fact]
+    public async Task SqlWorkspace_CreateBuildsANewDatabaseThroughPrimitiveOperations()
+    {
+        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
+        if (string.IsNullOrWhiteSpace(baseConnectionString))
+        {
+            throw new InvalidOperationException(
+                "SQL workspace creation verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
+        }
+
+        var databaseName = "MetaCreate" + Guid.NewGuid().ToString("N")[..16];
+        try
+        {
+            var connectionString = new SqlConnectionStringBuilder(
+                baseConnectionString)
+            {
+                InitialCatalog = databaseName,
+            }.ConnectionString;
+            var expected = BuildRefactorWorkspace(databaseName);
+
+            await SqlWorkspace.CreateAsync(connectionString, expected);
+
+            await using var created = await SqlWorkspace.OpenAsync(
+                connectionString);
+            var actual = await WorkspaceComposition.MaterializeAsync(created);
+            Assert.Null(InMemoryWorkspaceComparer.FindDifference(
+                expected,
+                actual));
+        }
+        finally
+        {
+            await DropDatabaseIfExistsAsync(
+                baseConnectionString,
+                databaseName);
+        }
+    }
+
+    [Fact]
+    public async Task SqlWorkspace_CreateRejectsAnExistingDatabase()
+    {
+        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
+        if (string.IsNullOrWhiteSpace(baseConnectionString))
+        {
+            throw new InvalidOperationException(
+                "SQL workspace creation verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
+        }
+
+        var databaseName = "MetaExists" + Guid.NewGuid().ToString("N")[..16];
+        try
+        {
+            await RecreateDatabaseFromSqlAsync(
+                baseConnectionString,
+                databaseName,
+                string.Empty,
+                string.Empty);
+            var connectionString = new SqlConnectionStringBuilder(
+                baseConnectionString)
+            {
+                InitialCatalog = databaseName,
+            }.ConnectionString;
+
+            var exception = await Assert.ThrowsAsync<InvalidOperationException>(
+                () => SqlWorkspace.CreateAsync(
+                    connectionString,
+                    BuildRefactorWorkspace(databaseName)));
+
+            Assert.Contains("already exists", exception.Message);
+        }
+        finally
+        {
+            await DropDatabaseIfExistsAsync(
+                baseConnectionString,
+                databaseName);
+        }
+    }
+
+    [Fact]
     public async Task RefactorOperations_AreEquivalentInMemoryAndInSql()
     {
         var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
@@ -50,7 +126,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 promote);
             var sqlPromotion = SqlOperations.Execute(
                 connectionString,
-                "dbo",
                 promote);
             Assert.Equal(
                 Assert.IsType<PropertyToRelationshipResult>(
@@ -63,9 +138,8 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             Assert.Null(InMemoryWorkspaceComparer.FindDifference(
                 expectedPromotion.Workspace,
                 promotedFromSql));
-            await using (var promotedSource = await SqlWorkspaceSource.OpenAsync(
-                             connectionString,
-                             "dbo"))
+            await using (var promotedSource = await SqlWorkspace.OpenAsync(
+                             connectionString))
             {
                 var related = await promotedSource.QueryRecordsAsync(
                     "Order",
@@ -87,7 +161,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 demote);
             var sqlDemotion = SqlOperations.Execute(
                 connectionString,
-                "dbo",
                 demote);
             Assert.Equal(
                 Assert.IsType<RelationshipToPropertyResult>(
@@ -118,7 +191,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
     }
 
     [Fact]
-    public async Task SqlWorkspaceSource_CountAndQueryMatchInMemorySource()
+    public async Task SqlWorkspace_CountAndQueryMatchInMemorySource()
     {
         var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
         if (string.IsNullOrWhiteSpace(baseConnectionString))
@@ -151,9 +224,8 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 InitialCatalog = databaseName,
             }.ConnectionString;
             var expectedSource = new InMemoryWorkspaceSource(workspace);
-            await using var actualSource = await SqlWorkspaceSource.OpenAsync(
-                connectionString,
-                "dbo");
+            await using var actualSource = await SqlWorkspace.OpenAsync(
+                connectionString);
 
             Assert.Equal(
                 await expectedSource.CountRecordsAsync("Order"),
@@ -234,7 +306,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 "Id");
             var expected = InMemoryOperations.Apply(source, promote);
 
-            SqlOperations.Apply(connectionString, "dbo", promote);
+            SqlOperations.Apply(connectionString, promote);
             var actual = await MetaSqlReader.ReadAsync(
                 connectionString,
                 "dbo");
@@ -250,7 +322,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 "Order",
                 "Warehouse");
             expected = InMemoryOperations.Apply(expected, demote);
-            SqlOperations.Apply(connectionString, "dbo", demote);
+            SqlOperations.Apply(connectionString, demote);
             actual = await MetaSqlReader.ReadAsync(
                 connectionString,
                 "dbo");
@@ -300,7 +372,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             var exception = Assert.Throws<MetaOperationException>(() =>
                 SqlOperations.Apply(
                     connectionString,
-                    "dbo",
                     operation));
             Assert.Contains("would create a cycle", exception.InnerException!.Message);
             var unchanged = await MetaSqlReader.ReadAsync(
@@ -367,7 +438,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             var expected = InMemoryOperations.Apply(source, operation);
             SqlOperations.Apply(
                 databaseConnectionString,
-                "dbo",
                 operation);
 
             var reloaded = await MetaSqlReader.ReadAsync(
@@ -521,7 +591,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
 
             var actualResults = SqlOperations.Execute(
                 databaseConnectionString,
-                "dbo",
                 operations);
 
             var actual = await MetaSqlReader.ReadAsync(
@@ -532,9 +601,8 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 actual));
             Assert.Equal(expected.Results, actualResults);
 
-            await using var sourceReader = await SqlWorkspaceSource.OpenAsync(
-                databaseConnectionString,
-                "dbo");
+            await using var sourceReader = await SqlWorkspace.OpenAsync(
+                databaseConnectionString);
             var record = await sourceReader.ReadRecordAsync(
                 "Item",
                 "OFFSPRING");
@@ -581,7 +649,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 }.ConnectionString;
             var results = SqlOperations.Execute(
                 originalConnectionString,
-                "dbo",
                 new Operation.RenameModel(originalName, renamedName));
             Assert.Equal(
                 new RenameModelResult(originalName, renamedName),
@@ -647,9 +714,8 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 }.ConnectionString;
 
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(
-                () => SqlWorkspaceSource.OpenAsync(
-                    connectionString,
-                    "dbo"));
+                () => SqlWorkspace.OpenAsync(
+                    connectionString));
 
             Assert.Contains("entity.member.collision", exception.Message);
         }
@@ -687,9 +753,8 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 }.ConnectionString;
 
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(
-                () => SqlWorkspaceSource.OpenAsync(
-                    connectionString,
-                    "dbo"));
+                () => SqlWorkspace.OpenAsync(
+                    connectionString));
 
             Assert.Contains(expectedMessage, exception.Message);
             Assert.Contains(
@@ -858,9 +923,8 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                     InitialCatalog = databaseName,
                 }.ConnectionString;
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(
-                () => SqlWorkspaceSource.OpenAsync(
-                    connectionString,
-                    "dbo"));
+                () => SqlWorkspace.OpenAsync(
+                    connectionString));
 
             Assert.Contains("<Role>Id", exception.Message);
         }
@@ -901,9 +965,8 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                     InitialCatalog = databaseName,
                 }.ConnectionString;
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(
-                () => SqlWorkspaceSource.OpenAsync(
-                    connectionString,
-                    "dbo"));
+                () => SqlWorkspace.OpenAsync(
+                    connectionString));
 
             Assert.Contains("must use NVARCHAR(MAX)", exception.Message);
         }
@@ -943,9 +1006,8 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                     InitialCatalog = databaseName,
                 }.ConnectionString;
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(
-                () => SqlWorkspaceSource.OpenAsync(
-                    connectionString,
-                    "dbo"));
+                () => SqlWorkspace.OpenAsync(
+                    connectionString));
 
             Assert.Contains("single-column primary key", exception.Message);
         }
@@ -986,7 +1048,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             var exception = Assert.Throws<MetaOperationException>(() =>
                 SqlOperations.Apply(
                     connectionString,
-                    "dbo",
                     new Operation.AddRelationship(
                         "Node",
                         "Node",
@@ -1038,7 +1099,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             Assert.Throws<MetaOperationException>(() =>
                 SqlOperations.Apply(
                     databaseConnectionString,
-                    "dbo",
                     new Operation.AddProperty(
                         "Node",
                         "Transient",
