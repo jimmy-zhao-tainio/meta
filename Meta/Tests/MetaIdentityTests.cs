@@ -29,6 +29,21 @@ public sealed class MetaIdentityTests
     }
 
     [Fact]
+    public void Identity_AcceptsPrintableAsciiAndRejectsOtherCharacters()
+    {
+        for (var character = ' '; character <= '~'; character++)
+        {
+            Assert.True(
+                MetaIdentity.IsValid($"A{character}Z"),
+                $"Printable ASCII character {(int)character} should be accepted.");
+        }
+
+        Assert.False(MetaIdentity.IsValid("tab\tcharacter"));
+        Assert.False(MetaIdentity.IsValid("greek-\u03c3"));
+        Assert.False(MetaIdentity.IsValid("sharp-\u00df"));
+    }
+
+    [Fact]
     public void Name_EnforcesTheOneHundredTwentyEightCharacterBoundary()
     {
         Assert.Equal(128, MetaName.MaximumLength);

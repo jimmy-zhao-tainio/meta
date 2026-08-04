@@ -274,6 +274,49 @@ public sealed class MetaCliRuntimeTests
     }
 
     [Fact]
+    public void Runtime_TargetBindingPersistsToCurrentDirectoryWhenOutputIsOmitted()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateTargetRuntimeModel());
+        temp.SaveDomainModel(".");
+        var exitCode = -1;
+        var error = new StringWriter();
+        var previousCurrentDirectory = Directory.GetCurrentDirectory();
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .BindTarget(
+                "exec-add-property",
+                [MetaCliWorkspace.Create(
+                    "output",
+                    "output-xml",
+                    "output-csharp",
+                    "output-sql")],
+                (MetaCliInvocation _, MetaCliModel model, MetaCliWorkspaces _) =>
+                {
+                    model.ApplicationList.Single().Name = "updated";
+                    return Task.CompletedTask;
+                });
+
+        try
+        {
+            Directory.SetCurrentDirectory(temp.Path);
+            runtime.Run("model", "add-property", "Customer", "Name");
+        }
+        finally
+        {
+            Directory.SetCurrentDirectory(previousCurrentDirectory);
+        }
+
+        Assert.True(exitCode == 0, error.ToString());
+        Assert.Equal(
+            "updated",
+            MetaCliModel.LoadFromXmlWorkspace(temp.Path)
+                .ApplicationList.Single().Name);
+    }
+
+    [Fact]
     public void Runtime_CanDispatchCommandWithoutDomainWorkspace()
     {
         using var temp = TempDirectory.Create();
@@ -749,6 +792,51 @@ public sealed class MetaCliRuntimeTests
         AddOption(model, executable, "param-copy-output-csharp", "option-copy-output-csharp", "token-copy-output-csharp", "output-csharp", path, "--output-csharp");
         AddOption(model, executable, "param-copy-output-sql", "option-copy-output-sql", "token-copy-output-sql", "output-sql", path, "--output-sql");
         AddOption(model, executable, "param-copy-connection-env", "option-copy-connection-env", "token-copy-connection-env", "connection-env", path, "--connection-env");
+        return model;
+    }
+
+    private static MetaCliModel CreateTargetRuntimeModel()
+    {
+        var model = CreateRuntimeModel();
+        var executable = model.ExecutableCommandList.Single(
+            item => item.Id == "exec-add-property");
+        var path = model.ValueShapeList.Single(shape => shape.Id == "shape-path");
+        AddOption(
+            model,
+            executable,
+            "param-target-output-xml",
+            "option-target-output-xml",
+            "token-target-output-xml",
+            "output-xml",
+            path,
+            "--output-xml");
+        AddOption(
+            model,
+            executable,
+            "param-target-output-csharp",
+            "option-target-output-csharp",
+            "token-target-output-csharp",
+            "output-csharp",
+            path,
+            "--output-csharp");
+        AddOption(
+            model,
+            executable,
+            "param-target-output-sql",
+            "option-target-output-sql",
+            "token-target-output-sql",
+            "output-sql",
+            path,
+            "--output-sql");
+        AddOption(
+            model,
+            executable,
+            "param-target-connection-env",
+            "option-target-connection-env",
+            "token-target-connection-env",
+            "connection-env",
+            path,
+            "--connection-env");
         return model;
     }
 

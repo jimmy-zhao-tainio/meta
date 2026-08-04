@@ -392,7 +392,8 @@ public sealed class MetaCliRuntime<TModel>
         HandlerBinding handler)
     {
         var hasPrimaryWorkspace = !handler.PrimaryWorkspaceOptional ||
-            HasValue(invocation, workspaceParameter);
+            HasValue(invocation, workspaceParameter) ||
+            !HasSelectedOutput(invocation, handler.Workspaces);
         await using var workspace = hasPrimaryWorkspace
             ? await MetaCliWorkspaceResolver.OpenAsync(
                     invocation,
@@ -503,6 +504,16 @@ public sealed class MetaCliRuntime<TModel>
         }
     }
 
+    private static bool HasSelectedOutput(
+        MetaCliInvocation invocation,
+        IReadOnlyList<MetaCliWorkspaceParameter> parameters) =>
+        parameters
+            .OfType<MetaCliWorkspaceOutput>()
+            .Any(output =>
+                HasValue(invocation, output.XmlParameter) ||
+                HasValue(invocation, output.CSharpParameter) ||
+                HasValue(invocation, output.SqlParameter));
+
     private static async Task ExecuteAdditionalWorkspacesHandlerAsync(
         MetaCliInvocation invocation,
         HandlerBinding handler)
@@ -556,13 +567,7 @@ public sealed class MetaCliRuntime<TModel>
                 }
                 else if (parameter is MetaCliWorkspaceTarget target)
                 {
-                    var outputSelected = parameters
-                        .OfType<MetaCliWorkspaceOutput>()
-                        .Any(output =>
-                            HasValue(invocation, output.XmlParameter) ||
-                            HasValue(invocation, output.CSharpParameter) ||
-                            HasValue(invocation, output.SqlParameter));
-                    if (outputSelected)
+                    if (HasSelectedOutput(invocation, parameters))
                     {
                         continue;
                     }

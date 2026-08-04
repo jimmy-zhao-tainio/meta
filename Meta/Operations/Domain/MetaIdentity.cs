@@ -3,6 +3,8 @@ namespace Meta.Core.Domain;
 public static class MetaIdentity
 {
     public const int MaximumLength = 450;
+    private const char FirstAllowedCharacter = ' ';
+    private const char LastAllowedCharacter = '~';
 
     public static StringComparer Comparer { get; } =
         StringComparer.OrdinalIgnoreCase;
@@ -30,6 +32,16 @@ public static class MetaIdentity
         {
             error = $"Identity cannot exceed {MaximumLength} characters.";
             return false;
+        }
+
+        foreach (var character in value)
+        {
+            if (character < FirstAllowedCharacter ||
+                character > LastAllowedCharacter)
+            {
+                error = "Identity can contain only printable ASCII characters.";
+                return false;
+            }
         }
 
         error = string.Empty;
