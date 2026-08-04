@@ -1,5 +1,5 @@
 using Meta.Core.Domain;
-using Meta.Core.Services;
+using Meta.Core.Serialization;
 using MetaWeaveModel = global::MetaWeave.MetaWeaveModel;
 using WeaveModelReference = global::MetaWeave.ModelReference;
 using WeavePropertyBinding = global::MetaWeave.PropertyBinding;
@@ -45,18 +45,6 @@ public interface IMetaWeaveSuggestService
 
 public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
 {
-    private readonly IWorkspaceService _workspaceService;
-
-    public MetaWeaveSuggestService()
-        : this(new WorkspaceService())
-    {
-    }
-
-    public MetaWeaveSuggestService(IWorkspaceService workspaceService)
-    {
-        _workspaceService = workspaceService ?? throw new ArgumentNullException(nameof(workspaceService));
-    }
-
     public async Task<WeaveSuggestResult> SuggestAsync(
         MetaWeaveModel weaveModel,
         string weaveWorkspaceRootPath,
@@ -85,7 +73,9 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                          .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
                          .ThenBy(item => item.Name, StringComparer.Ordinal))
             {
-                var sourceRows = sourceModel.Workspace.Instance.GetOrCreateEntityRecords(sourceEntity.Name)
+                var sourceRows = MetaWeaveWorkspaceData.ReadRecords(
+                        sourceModel.Workspace,
+                        sourceEntity.Name)
                     .OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase)
                     .ThenBy(item => item.Id, StringComparer.Ordinal)
                     .ToList();
@@ -241,7 +231,11 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
         {
             var path = RequireValue(modelReference.WorkspacePath, $"ModelReference '{modelReference.Id}' WorkspacePath");
             var resolvedPath = ResolveWorkspacePath(weaveWorkspaceRootPath, path);
-            var workspace = await _workspaceService.LoadAsync(resolvedPath, searchUpward: false, cancellationToken).ConfigureAwait(false);
+            var openedWorkspace = await XmlWorkspaceReader.OpenAsync(
+                    resolvedPath,
+                    cancellationToken)
+                .ConfigureAwait(false);
+            var workspace = openedWorkspace.State;
             var modelName = RequireValue(modelReference.ModelName, $"ModelReference '{modelReference.Id}' ModelName");
             if (!string.Equals(workspace.Model.Name, modelName, StringComparison.Ordinal))
             {
@@ -271,7 +265,7 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
             .ThenBy(item => item.InferredRole, StringComparer.Ordinal)
             .ToList();
 
-    private static IEnumerable<TargetCandidate> EnumerateTargetCandidates(Workspace workspace, string sourcePropertyName)
+    private static IEnumerable<TargetCandidate> EnumerateTargetCandidates(InMemoryWorkspace workspace, string sourcePropertyName)
     {
         var allowImplicitId = sourcePropertyName.EndsWith("Id", StringComparison.OrdinalIgnoreCase) &&
                               !string.Equals(sourcePropertyName, "Id", StringComparison.OrdinalIgnoreCase);
@@ -280,7 +274,9 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
                      .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
                      .ThenBy(item => item.Name, StringComparer.Ordinal))
         {
-            var rows = workspace.Instance.GetOrCreateEntityRecords(entity.Name)
+            var rows = MetaWeaveWorkspaceData.ReadRecords(
+                    workspace,
+                    entity.Name)
                 .OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase)
                 .ThenBy(item => item.Id, StringComparer.Ordinal)
                 .ToList();
@@ -530,7 +526,7 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
         WeaveModelReference Reference,
         string Alias,
         string ModelName,
-        Workspace Workspace);
+        InMemoryWorkspace Workspace);
 
     private sealed record TargetCandidate(
         string EntityName,

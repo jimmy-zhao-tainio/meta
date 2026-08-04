@@ -1,23 +1,15 @@
-using System.Reflection;
-using System.Globalization;
-using System.Xml.Linq;
 using Meta.Core.Domain;
 using Meta.Core.Operations;
-using Meta.Core.Serialization;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Services;
 
 public sealed partial class InstanceDiffService : IInstanceDiffService
 {
     private const string InstanceDiffEqualModelName = "InstanceDiffModelEqual";
-    private const string InstanceDiffEqualWorkspaceResourceName = "Meta.Core.Workspaces.InstanceDiff.Equal.workspace.xml";
     private const string InstanceDiffEqualModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Equal.model.xml";
     private const string InstanceDiffAlignedModelName = "InstanceDiffModelAligned";
-    private const string InstanceDiffAlignedWorkspaceResourceName = "Meta.Core.Workspaces.InstanceDiff.Aligned.workspace.xml";
     private const string InstanceDiffAlignedModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Aligned.model.xml";
     private const string InstanceDiffAlignmentModelName = "InstanceDiffModelAlignment";
-    private const string InstanceDiffAlignmentWorkspaceResourceName = "Meta.Core.Workspaces.InstanceDiff.Alignment.workspace.xml";
     private const string InstanceDiffAlignmentModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Alignment.model.xml";
 
     private const string DiffEntityName = "Diff";
@@ -45,17 +37,14 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
 
     private static readonly Lazy<InstanceDiffWorkspaceDefinition> InstanceDiffEqualWorkspaceDefinition =
         new(() => LoadWorkspaceDefinition(
-            InstanceDiffEqualWorkspaceResourceName,
             InstanceDiffEqualModelResourceName,
             InstanceDiffEqualModelName));
     private static readonly Lazy<InstanceDiffWorkspaceDefinition> InstanceDiffAlignedWorkspaceDefinition =
         new(() => LoadWorkspaceDefinition(
-            InstanceDiffAlignedWorkspaceResourceName,
             InstanceDiffAlignedModelResourceName,
             InstanceDiffAlignedModelName));
     private static readonly Lazy<InstanceDiffWorkspaceDefinition> InstanceDiffAlignmentWorkspaceDefinition =
         new(() => LoadWorkspaceDefinition(
-            InstanceDiffAlignmentWorkspaceResourceName,
             InstanceDiffAlignmentModelResourceName,
             InstanceDiffAlignmentModelName));
 
@@ -128,33 +117,25 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         IReadOnlyCollection<string> RightPropertySet,
         IReadOnlyDictionary<string, string> RightValueByEntityMapRowPropertyMapKey);
 
-    private sealed record InstanceDiffWorkspaceDefinition(
-        MetaWorkspaceConfig WorkspaceConfig,
-        GenericModel Model);
+    private sealed record InstanceDiffWorkspaceDefinition(GenericModel Model);
 
     public InstanceDiffBuildResult BuildEqualDiffWorkspace(
-        Workspace leftWorkspace,
-        Workspace rightWorkspace,
-        string rightWorkspacePath)
+        InMemoryWorkspace leftWorkspace,
+        InMemoryWorkspace rightWorkspace)
     {
         ArgumentNullException.ThrowIfNull(leftWorkspace);
         ArgumentNullException.ThrowIfNull(rightWorkspace);
-        ArgumentException.ThrowIfNullOrWhiteSpace(rightWorkspacePath);
-
-        return BuildEqualInstanceDiffWorkspace(leftWorkspace, rightWorkspace, rightWorkspacePath);
+        return BuildEqualInstanceDiffWorkspace(leftWorkspace, rightWorkspace);
     }
 
     public InstanceDiffBuildResult BuildAlignedDiffWorkspace(
-        Workspace leftWorkspace,
-        Workspace rightWorkspace,
-        Workspace alignmentWorkspace,
-        string rightWorkspacePath)
+        InMemoryWorkspace leftWorkspace,
+        InMemoryWorkspace rightWorkspace,
+        InMemoryWorkspace alignmentWorkspace)
     {
         ArgumentNullException.ThrowIfNull(leftWorkspace);
         ArgumentNullException.ThrowIfNull(rightWorkspace);
         ArgumentNullException.ThrowIfNull(alignmentWorkspace);
-        ArgumentException.ThrowIfNullOrWhiteSpace(rightWorkspacePath);
-
         var alignment = ParseAlignmentCatalog(
             alignmentWorkspace,
             InstanceDiffAlignmentModelName,
@@ -176,13 +157,12 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
             leftWorkspace,
             rightWorkspace,
             alignmentWorkspace,
-            alignment,
-            rightWorkspacePath);
+            alignment);
     }
 
-    public void ApplyEqualDiffWorkspace(
-        Workspace targetWorkspace,
-        Workspace diffWorkspace)
+    public IReadOnlyList<Operation> PlanEqualDiffMerge(
+        InMemoryWorkspace targetWorkspace,
+        InMemoryWorkspace diffWorkspace)
     {
         ArgumentNullException.ThrowIfNull(targetWorkspace);
         ArgumentNullException.ThrowIfNull(diffWorkspace);
@@ -196,20 +176,27 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
                 "instance merge precondition failed: target does not match the diff left snapshot.");
         }
 
-        ApplyEqualRightSnapshotToWorkspace(targetWorkspace, diffData);
+        var current = targetWorkspace;
+        var desired = current.Clone();
+        ApplyEqualRightSnapshotToWorkspace(desired, diffData);
+        var operations = WorkspaceSynchronization.PlanInstanceChanges(
+            current,
+            desired);
 
-        var postSnapshot = BuildWorkspaceSnapshotForEqualDiff(targetWorkspace, diffData);
+        var postSnapshot = BuildWorkspaceSnapshotForEqualDiff(desired, diffData);
         if (!postSnapshot.RowSet.SetEquals(diffData.RightRowSet) ||
             !postSnapshot.PropertySet.SetEquals(diffData.RightPropertySet))
         {
             throw new InvalidOperationException(
                 "instance merge postcondition failed: target does not match the diff right snapshot.");
         }
+
+        return operations;
     }
 
-    public void ApplyAlignedDiffWorkspace(
-        Workspace targetWorkspace,
-        Workspace diffWorkspace)
+    public IReadOnlyList<Operation> PlanAlignedDiffMerge(
+        InMemoryWorkspace targetWorkspace,
+        InMemoryWorkspace diffWorkspace)
     {
         ArgumentNullException.ThrowIfNull(targetWorkspace);
         ArgumentNullException.ThrowIfNull(diffWorkspace);
@@ -230,15 +217,22 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
                 "instance merge-aligned precondition failed: target does not match the diff left snapshot.");
         }
 
-        ApplyAlignedRightSnapshotToWorkspace(targetWorkspace, diffData);
+        var current = targetWorkspace;
+        var desired = current.Clone();
+        ApplyAlignedRightSnapshotToWorkspace(desired, diffData);
+        var operations = WorkspaceSynchronization.PlanInstanceChanges(
+            current,
+            desired);
 
-        var postSnapshot = BuildWorkspaceSnapshotForAlignedDiff(targetWorkspace, diffData.Alignment);
+        var postSnapshot = BuildWorkspaceSnapshotForAlignedDiff(desired, diffData.Alignment);
         if (!postSnapshot.RowSet.SetEquals(diffData.RightRowSet) ||
             !postSnapshot.PropertySet.SetEquals(diffData.RightPropertySet))
         {
             throw new InvalidOperationException(
                 "instance merge-aligned postcondition failed: target does not match the diff right snapshot.");
         }
+
+        return operations;
     }
 
 }

@@ -22,25 +22,17 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            var entity = RequireEntity(workspace, entityName);
-            ResolveRowById(workspace, entityName, id);
-            var patches = new List<RowPatch>
-            {
-                BuildRowPatchForUpdate(entity, id, options.SetValues),
-            };
-            var operation = new WorkspaceOp
-            {
-                Type = WorkspaceOpTypes.BulkUpsertRows,
-                EntityName = entityName,
-                RowPatches = patches,
-            };
-
-            BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
-            return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
+            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            var entity = RequireEntity(workspace.Model, entityName);
+            ResolveRowById(workspace.State, entityName, id);
+            var operations = BuildUpdateOperations(
+                entity,
+                id,
+                options.SetValues);
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
                     workspace,
-                    new[] { operation },
+                    operations,
                     commandName: "instance.update",
                     successMessage: $"updated {BuildEntityInstanceAddress(entityName, id)}")
                 .ConfigureAwait(false);

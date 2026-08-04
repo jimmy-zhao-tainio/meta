@@ -6,20 +6,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Meta.Core.Domain;
+using Meta.Core.Operations;
+using Meta.Core.Serialization;
 using Meta.Core.Services;
 
 namespace Meta.Adapters;
 
 public sealed class ExportService : IExportService
 {
-    private readonly IWorkspaceService _workspaceService;
-
-    public ExportService(IWorkspaceService workspaceService)
-    {
-        _workspaceService = workspaceService ?? throw new ArgumentNullException(nameof(workspaceService));
-    }
-
-    public async Task ExportXmlAsync(Workspace workspace, string outputDirectory, CancellationToken cancellationToken = default)
+    private static readonly UTF8Encoding Utf8NoBom =
+        new(encoderShouldEmitUTF8Identifier: false);
+    public async Task ExportXmlAsync(InMemoryWorkspace workspace, string outputDirectory, CancellationToken cancellationToken = default)
     {
         if (workspace == null)
         {
@@ -31,31 +28,18 @@ public sealed class ExportService : IExportService
             throw new ArgumentException("Output directory is required.", nameof(outputDirectory));
         }
 
-        var clone = new Workspace
-        {
-            WorkspaceRootPath = outputDirectory,
-            MetadataRootPath = string.Empty,
-            WorkspaceConfig = workspace.WorkspaceConfig,
-            Model = workspace.Model,
-            Instance = workspace.Instance,
-            Diagnostics = workspace.Diagnostics,
-            IsDirty = workspace.IsDirty,
-        };
-        await _workspaceService.SaveAsync(clone, cancellationToken).ConfigureAwait(false);
+        await XmlWorkspaceWriter.WriteNewAsync(workspace, outputDirectory, cancellationToken).ConfigureAwait(false);
     }
 
     public async Task ExportCsvAsync(
-        Workspace workspace,
+        IMetaWorkspaceSource source,
         string entityName,
         string outputPath,
         CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (workspace == null)
-        {
-            throw new ArgumentNullException(nameof(workspace));
-        }
+        ArgumentNullException.ThrowIfNull(source);
 
         if (string.IsNullOrWhiteSpace(entityName))
         {
@@ -67,18 +51,26 @@ public sealed class ExportService : IExportService
             throw new ArgumentException("CSV output path is required.", nameof(outputPath));
         }
 
-        var entity = workspace.Model.FindEntity(entityName)
-            ?? throw new InvalidOperationException($"Entity '{entityName}' does not exist.");
+        var resolvedEntityName = await ResolveEntityNameAsync(
+                source,
+                entityName,
+                cancellationToken)
+            .ConfigureAwait(false);
+        var relationshipColumns = new List<string>();
+        await foreach (var relationship in source.ReadRelationshipsAsync(
+                           resolvedEntityName,
+                           cancellationToken))
+        {
+            relationshipColumns.Add(relationship.GetColumnName());
+        }
 
-        var relationshipColumns = entity.Relationships
-            .Select(relationship => relationship.GetColumnName())
-            .ToList();
-        var propertyColumns = entity.Properties
-            .Select(property => property.Name)
-            .ToList();
-        var rows = workspace.Instance.GetOrCreateEntityRecords(entity.Name)
-            .OrderBy(row => row.Id, StringComparer.Ordinal)
-            .ToList();
+        var propertyColumns = new List<string>();
+        await foreach (var property in source.ReadPropertiesAsync(
+                           resolvedEntityName,
+                           cancellationToken))
+        {
+            propertyColumns.Add(property.Name);
+        }
 
         var fullOutputPath = Path.GetFullPath(outputPath);
         var outputDirectory = Path.GetDirectoryName(fullOutputPath);
@@ -87,10 +79,21 @@ public sealed class ExportService : IExportService
             Directory.CreateDirectory(outputDirectory);
         }
 
-        var builder = new StringBuilder();
-        WriteCsvRow(builder, new[] { "Id" }.Concat(relationshipColumns).Concat(propertyColumns));
+        await using var writer = new StreamWriter(
+            fullOutputPath,
+            append: false,
+            Utf8NoBom);
+        await WriteCsvRowAsync(
+                writer,
+                new[] { "Id" }
+                    .Concat(relationshipColumns)
+                    .Concat(propertyColumns),
+                cancellationToken)
+            .ConfigureAwait(false);
 
-        foreach (var row in rows)
+        await foreach (var row in source.ReadRecordsAsync(
+                           resolvedEntityName,
+                           cancellationToken))
         {
             var values = new List<string>(1 + relationshipColumns.Count + propertyColumns.Count)
             {
@@ -100,16 +103,39 @@ public sealed class ExportService : IExportService
                 row.RelationshipIds.TryGetValue(name, out var relationshipId) ? relationshipId : string.Empty));
             values.AddRange(propertyColumns.Select(name =>
                 row.Values.TryGetValue(name, out var value) ? value : string.Empty));
-            WriteCsvRow(builder, values);
+            await WriteCsvRowAsync(
+                    writer,
+                    values,
+                    cancellationToken)
+                .ConfigureAwait(false);
         }
-
-        await File.WriteAllTextAsync(fullOutputPath, builder.ToString(), Encoding.UTF8, cancellationToken).ConfigureAwait(false);
     }
 
-    private static void WriteCsvRow(StringBuilder builder, IEnumerable<string> values)
+    private static async Task<string> ResolveEntityNameAsync(
+        IMetaWorkspaceSource source,
+        string entityName,
+        CancellationToken cancellationToken)
     {
-        builder.AppendJoin(",", values.Select(EscapeCsv));
-        builder.AppendLine();
+        await foreach (var candidate in source.ReadEntityNamesAsync(
+                           cancellationToken))
+        {
+            if (MetaName.Comparer.Equals(candidate, entityName))
+            {
+                return candidate;
+            }
+        }
+
+        throw new InvalidOperationException(
+            $"Entity '{entityName}' does not exist.");
+    }
+
+    private static Task WriteCsvRowAsync(
+        TextWriter writer,
+        IEnumerable<string> values,
+        CancellationToken cancellationToken)
+    {
+        var line = string.Join(",", values.Select(EscapeCsv));
+        return writer.WriteLineAsync(line.AsMemory(), cancellationToken);
     }
 
     private static string EscapeCsv(string? value)

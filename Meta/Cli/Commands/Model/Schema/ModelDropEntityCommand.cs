@@ -11,9 +11,13 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            RequireEntity(workspace, entityName);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            if (workspace.Model.FindEntity(entityName) == null)
+            {
+                throw new InvalidOperationException(
+                    $"Entity '{entityName}' does not exist.");
+            }
 
             var rows = workspace.Instance.GetOrCreateEntityRecords(entityName);
             if (rows.Count > 0)
@@ -74,14 +78,9 @@ internal sealed partial class CliRuntime
                         .ToList());
             }
 
-            var operation = new WorkspaceOp
-            {
-                Type = WorkspaceOpTypes.DeleteEntity,
-                EntityName = entityName,
-            };
             return await ExecuteOperationAsync(
-                    options.WorkspacePath,
-                    operation,
+                    workspace,
+                    new Operation.RemoveEntity(entityName),
                     "model drop-entity",
                     "entity removed",
                     ("Entity", entityName))

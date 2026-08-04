@@ -9,25 +9,27 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-        var entity = workspace.Model.FindEntity(entityName);
-        if (entity == null)
+        var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+        PrintContractCompatibilityWarning(workspace.ContractVersion);
+        var source = CreateWorkspaceSource(workspace.State);
+        var resolvedEntityName = await ResolveEntityNameAsync(source, entityName).ConfigureAwait(false);
+        var relationships = new List<RelationshipDefinition>();
+        await foreach (var relationship in source.ReadRelationshipsAsync(resolvedEntityName))
         {
-            return PrintDataError("E_ENTITY_NOT_FOUND", $"Entity '{entityName}' does not exist.");
+            relationships.Add(relationship);
         }
 
-        var refs = entity.Relationships
+        var refs = relationships
             .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
-            .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(relationship => relationship.TargetEntityName, StringComparer.OrdinalIgnoreCase)
             .Select(relationship => new
             {
                 Name = relationship.GetColumnName(),
-                Target = relationship.Entity,
+                Target = relationship.TargetEntityName,
             })
             .ToList();
 
-        presenter.WriteInfo($"Relationships: {entity.Name} ({refs.Count})");
+        presenter.WriteInfo($"Relationships: {resolvedEntityName} ({refs.Count})");
         presenter.WriteInfo("Required: (n/a)");
         presenter.WriteTable(
             new[] { "Name", "Target" },

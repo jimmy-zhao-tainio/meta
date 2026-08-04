@@ -6,6 +6,38 @@ namespace Meta.Core.Tests;
 public sealed class TypedWorkspaceXmlSerializerTests
 {
     [Fact]
+    public void Save_RejectsIdentityBeyondTheSharedBoundary()
+    {
+        var tempRoot = CreateTempRoot();
+        try
+        {
+            var model = new TestTypedModel
+            {
+                AlphaList =
+                {
+                    new Alpha
+                    {
+                        Id = new string('x', Meta.Core.Domain.MetaIdentity.MaximumLength + 1),
+                        Name = "Too long",
+                    },
+                },
+            };
+
+            var exception = Assert.Throws<InvalidOperationException>(
+                () => TypedWorkspaceXmlSerializer.Save(model, Path.Combine(tempRoot, "workspace")));
+
+            Assert.Contains(
+                Meta.Core.Domain.MetaIdentity.MaximumLength.ToString(),
+                exception.Message,
+                StringComparison.Ordinal);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(tempRoot);
+        }
+    }
+
+    [Fact]
     public void Save_UnchangedWorkspace_DoesNotRewriteModelOrShards()
     {
         var tempRoot = CreateTempRoot();

@@ -1,5 +1,5 @@
 using Meta.Core.Domain;
-using Meta.Core.Services;
+using Meta.Core.Serialization;
 using MetaWeaveModel = global::MetaWeave.MetaWeaveModel;
 using WeaveModelReference = global::MetaWeave.ModelReference;
 using WeavePropertyBinding = global::MetaWeave.PropertyBinding;
@@ -31,18 +31,6 @@ public interface IMetaWeaveAuthoringService
 
 public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
 {
-    private readonly IWorkspaceService _workspaceService;
-
-    public MetaWeaveAuthoringService()
-        : this(new WorkspaceService())
-    {
-    }
-
-    public MetaWeaveAuthoringService(IWorkspaceService workspaceService)
-    {
-        _workspaceService = workspaceService ?? throw new ArgumentNullException(nameof(workspaceService));
-    }
-
     public async Task AddModelReferenceAsync(
         MetaWeaveModel weaveModel,
         string weaveWorkspaceRootPath,
@@ -58,7 +46,10 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
         RequireNonEmpty(workspacePath, nameof(workspacePath));
 
         var resolvedWorkspacePath = Path.GetFullPath(workspacePath);
-        var referencedWorkspace = await _workspaceService.LoadAsync(resolvedWorkspacePath, searchUpward: false, cancellationToken).ConfigureAwait(false);
+        var referencedWorkspace = await XmlWorkspaceReader.OpenAsync(
+                resolvedWorkspacePath,
+                cancellationToken)
+            .ConfigureAwait(false);
         if (!string.Equals(referencedWorkspace.Model.Name, modelName, StringComparison.Ordinal))
         {
             throw new InvalidOperationException(
@@ -182,7 +173,7 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
         return relativePath.Replace('/', Path.DirectorySeparatorChar);
     }
 
-    private async Task<Workspace> LoadReferencedWorkspaceAsync(
+    private static async Task<InMemoryWorkspace> LoadReferencedWorkspaceAsync(
         string weaveWorkspaceRootPath,
         WeaveModelReference modelReference,
         CancellationToken cancellationToken)
@@ -190,17 +181,20 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
         var configuredPath = RequireValue(modelReference.WorkspacePath, $"ModelReference '{modelReference.Id}' WorkspacePath");
         var expectedModelName = RequireValue(modelReference.ModelName, $"ModelReference '{modelReference.Id}' ModelName");
         var resolvedPath = ResolveWorkspacePath(weaveWorkspaceRootPath, configuredPath);
-        var referencedWorkspace = await _workspaceService.LoadAsync(resolvedPath, searchUpward: false, cancellationToken).ConfigureAwait(false);
+        var referencedWorkspace = await XmlWorkspaceReader.OpenAsync(
+                resolvedPath,
+                cancellationToken)
+            .ConfigureAwait(false);
         if (!string.Equals(referencedWorkspace.Model.Name, expectedModelName, StringComparison.Ordinal))
         {
             throw new InvalidOperationException(
                 $"ModelReference alias '{RequireValue(modelReference.Alias, $"ModelReference '{modelReference.Id}' Alias")}' expected model '{expectedModelName}' but workspace '{resolvedPath}' contained '{referencedWorkspace.Model.Name}'.");
         }
 
-        return referencedWorkspace;
+        return referencedWorkspace.State;
     }
 
-    private static void ValidateBindingEndpoint(Workspace workspace, string entityName, string propertyName, bool allowId, string bindingSide)
+    private static void ValidateBindingEndpoint(InMemoryWorkspace workspace, string entityName, string propertyName, bool allowId, string bindingSide)
     {
         var entity = workspace.Model.FindEntity(entityName)
             ?? throw new InvalidOperationException(

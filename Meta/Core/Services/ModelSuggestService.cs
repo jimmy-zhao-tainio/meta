@@ -9,7 +9,6 @@ namespace Meta.Core.Services;
 
 public sealed class ModelSuggestReport
 {
-    public string WorkspaceRootPath { get; set; } = string.Empty;
     public string ModelName { get; set; } = string.Empty;
     public List<BusinessKeyCandidate> BusinessKeys { get; } = new();
     public List<LookupRelationshipSuggestion> EligibleRelationshipSuggestions { get; } = new();
@@ -94,7 +93,7 @@ internal sealed class ClassifiedImplicitLookupSuggestion
 
 public static class ModelSuggestService
 {
-    public static ModelSuggestReport Analyze(Workspace workspace)
+    public static ModelSuggestReport Analyze(InMemoryWorkspace workspace)
     {
         ArgumentNullException.ThrowIfNull(workspace);
 
@@ -113,7 +112,6 @@ public static class ModelSuggestService
 
         var report = new ModelSuggestReport
         {
-            WorkspaceRootPath = workspace.WorkspaceRootPath ?? string.Empty,
             ModelName = model.Name ?? string.Empty,
         };
         report.BusinessKeys.AddRange(businessKeys);
@@ -123,7 +121,7 @@ public static class ModelSuggestService
     }
 
     public static LookupRelationshipSuggestion AnalyzeLookupRelationship(
-        Workspace workspace,
+        InMemoryWorkspace workspace,
         string sourceEntityName,
         string sourcePropertyName,
         string targetEntityName,
@@ -194,7 +192,7 @@ public static class ModelSuggestService
             allowExistingRelationship);
     }
 
-    private static List<PropertyProfile> BuildPropertyProfiles(Workspace workspace)
+    private static List<PropertyProfile> BuildPropertyProfiles(InMemoryWorkspace workspace)
     {
         var model = workspace.Model ?? throw new InvalidDataException("Workspace model is missing.");
         var instance = workspace.Instance;
@@ -223,7 +221,7 @@ public static class ModelSuggestService
         return result;
     }
 
-    private static Dictionary<string, PropertyProfile> BuildImplicitIdProfiles(Workspace workspace)
+    private static Dictionary<string, PropertyProfile> BuildImplicitIdProfiles(InMemoryWorkspace workspace)
     {
         var model = workspace.Model ?? throw new InvalidDataException("Workspace model is missing.");
         var instance = workspace.Instance;
@@ -410,7 +408,7 @@ public static class ModelSuggestService
     }
 
     private static List<LookupRelationshipSuggestion> BuildLookupRelationshipCandidates(
-        Workspace workspace,
+        InMemoryWorkspace workspace,
         IReadOnlyList<PropertyProfile> profiles,
         IReadOnlyDictionary<string, PropertyProfile> implicitIdProfiles)
     {
@@ -449,7 +447,7 @@ public static class ModelSuggestService
     }
 
     private static List<WeakLookupRelationshipSuggestion> BuildWeakLookupRelationshipCandidates(
-        Workspace workspace,
+        InMemoryWorkspace workspace,
         IReadOnlyList<PropertyProfile> profiles,
         IReadOnlyDictionary<string, PropertyProfile> implicitIdProfiles)
     {
@@ -501,7 +499,7 @@ public static class ModelSuggestService
     }
 
     private static List<ClassifiedImplicitLookupSuggestion> BuildImplicitLookupCandidatesForSource(
-        Workspace workspace,
+        InMemoryWorkspace workspace,
         GenericModel model,
         PropertyProfile source,
         IReadOnlyDictionary<string, PropertyProfile> implicitIdProfiles)
@@ -567,7 +565,7 @@ public static class ModelSuggestService
     }
 
     private static LookupRelationshipSuggestion BuildLookupRelationshipSuggestion(
-        Workspace workspace,
+        InMemoryWorkspace workspace,
         PropertyProfile source,
         PropertyProfile target,
         string? role,

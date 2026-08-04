@@ -1,11 +1,11 @@
 using Meta.Adapters;
 using Meta.Core.Domain;
-using MetaWorkspace = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
+using Meta.Core.Operations;
 
 public sealed class InstanceDiffServiceTests
 {
     [Fact]
-    public void BuildEqualDiffWorkspace_AndApplyEqualDiffWorkspace_RoundTripsToRightSnapshot()
+    public void BuildEqualDiffWorkspace_AndPlanEqualDiffMerge_RoundTripsToRightSnapshot()
     {
         var left = CreateWorkspace(
             modelName: "PeopleModel",
@@ -22,7 +22,7 @@ public sealed class InstanceDiffServiceTests
             });
 
         var services = new ServiceCollection();
-        var diff = services.InstanceDiffService.BuildEqualDiffWorkspace(left, right, @".\RightWorkspace");
+        var diff = services.InstanceDiffService.BuildEqualDiffWorkspace(left, right);
 
         Assert.True(diff.HasDifferences);
         Assert.Equal(1, diff.LeftRowCount);
@@ -35,9 +35,14 @@ public sealed class InstanceDiffServiceTests
                 ("1", new Dictionary<string, string> { ["Name"] = "Alice", ["Age"] = "30" }),
             });
 
-        services.InstanceDiffService.ApplyEqualDiffWorkspace(target, diff.DiffWorkspace);
+        var operations = services.InstanceDiffService.PlanEqualDiffMerge(
+            target,
+            diff.DiffWorkspace);
+        var applied = InMemoryOperations.Apply(
+            target,
+            operations);
 
-        var targetRows = target.Instance.GetOrCreateEntityRecords("Person")
+        var targetRows = applied.Instance.GetOrCreateEntityRecords("Person")
             .OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase)
             .ToList();
         Assert.Equal(2, targetRows.Count);
@@ -47,39 +52,35 @@ public sealed class InstanceDiffServiceTests
         Assert.Equal("2", targetRows[1].Id);
         Assert.Equal("Bob", targetRows[1].Values["Name"]);
         Assert.Equal("40", targetRows[1].Values["Age"]);
+        Assert.Single(target.Instance.GetOrCreateEntityRecords("Person"));
     }
 
-    private static Workspace CreateWorkspace(
+    private static InMemoryWorkspace CreateWorkspace(
         string modelName,
         IEnumerable<(string Id, Dictionary<string, string> Values)> rows)
     {
-        var workspace = new Workspace
+        var model = new GenericModel
         {
-            WorkspaceRootPath = @"C:\temp\meta-instance-diff-test",
-            MetadataRootPath = @"C:\temp\meta-instance-diff-test\metadata",
-            WorkspaceConfig = MetaWorkspace.CreateDefault(),
-            Model = new GenericModel
+            Name = modelName,
+            Entities =
             {
-                Name = modelName,
-                Entities =
+                new GenericEntity
                 {
-                    new GenericEntity
+                    Name = "Person",
+                    Properties =
                     {
-                        Name = "Person",
-                        Properties =
-                        {
-                            new GenericProperty { Name = "Name", IsNullable = false },
-                            new GenericProperty { Name = "Age", IsNullable = false },
-                        },
+                        new GenericProperty { Name = "Name", IsNullable = false },
+                        new GenericProperty { Name = "Age", IsNullable = false },
                     },
                 },
             },
-            Instance = new GenericInstance
+        };
+        var workspace = new InMemoryWorkspace(
+            model,
+            new GenericInstance
             {
                 ModelName = modelName,
-            },
-            IsDirty = true,
-        };
+            });
 
         var entityRows = workspace.Instance.GetOrCreateEntityRecords("Person");
         foreach (var row in rows)

@@ -30,7 +30,7 @@ Default exclusions used for audit searches:
 | `IExportService.ExportXmlAsync` | `ExportService` | used by import flows to write workspaces | service docs | workspace/reconcile tests | actively used by CLI/runtime | keep |
 | `IExportService.ExportCSharpAsync` | removed from current working tree | none; CLI uses `GenerationService.GenerateCSharp` | removed from service docs | removed adapter-only test | stale/deprecated | remove |
 | `IExportService.ExportSqlAsync` | removed from current working tree | none | removed from service docs | removed stale test | stale/deprecated | remove |
-| `IOperationService.Execute`, `Undo`, `Redo`, `CanUndo`, `CanRedo` | `OperationService` | CLI mutation flows and tests | service docs | operation tests | actively used by CLI/runtime | keep |
+| `IOperationService.Execute`, `Undo`, `Redo`, `CanUndo`, `CanRedo` | Removed | Historical CLI mutation path | superseded by `Meta.Operations` | deleted with legacy operation tests | no remaining consumer | removed during operations migration |
 | `IModelRefactorService` methods | `ModelRefactorService` | model refactor commands | service docs | refactor tests | actively used by CLI/runtime | keep |
 | `IInstanceRefactorService.RenameInstanceId` | `InstanceRefactorService` | instance rename-id command | service docs | CLI/service tests | actively used by CLI/runtime | keep |
 | `IInstanceDiffService` build/apply methods | `InstanceDiffService` | instance diff/merge commands | service docs | diff tests | actively used by CLI/runtime | keep |

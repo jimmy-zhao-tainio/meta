@@ -5,24 +5,12 @@ internal sealed partial class CliRuntime
         return string.IsNullOrWhiteSpace(globalWorkspacePath) ? Environment.CurrentDirectory : globalWorkspacePath;
     }
 
-    bool HasWorkspaceOverrideInInvocation()
-    {
-        if (currentInvocation is not null)
-        {
-            return IsPresent("workspace");
-        }
-
-        return args.Any(arg => string.Equals(arg, "--workspace", StringComparison.OrdinalIgnoreCase));
-    }
-
-    async Task<Workspace> LoadWorkspaceForCommandAsync(
+    Task<OpenedXmlWorkspace> OpenXmlWorkspaceForCommandAsync(
         string workspacePath,
-        WorkspaceLoadOptions? loadOptions = null)
-    {
-        return await services.WorkspaceService
-            .LoadAsync(workspacePath, loadOptions: loadOptions)
-            .ConfigureAwait(false);
-    }
+        WorkspaceLoadOptions? loadOptions = null) =>
+        XmlWorkspaceReader.OpenAsync(
+            workspacePath,
+            loadOptions: loadOptions);
 
     string ResolveCSharpOutputDirectory(string outputPath)
     {
@@ -124,15 +112,16 @@ internal sealed partial class CliRuntime
         }
     }
 
-    Workspace? TryLoadWorkspaceForHints()
+    InMemoryWorkspace? TryOpenWorkspaceForHints()
     {
         try
         {
             var path = ResolveWorkspacePathForHints();
-            return services.WorkspaceService
-                .LoadAsync(path)
+            return XmlWorkspaceReader
+                .OpenAsync(path)
                 .GetAwaiter()
-                .GetResult();
+                .GetResult()
+                .State;
         }
         catch
         {
@@ -140,7 +129,7 @@ internal sealed partial class CliRuntime
         }
     }
 
-    IReadOnlyList<GenericRecord> GetEntityRows(Workspace? workspace, string entityName)
+    IReadOnlyList<GenericRecord> GetEntityRows(InMemoryWorkspace? workspace, string entityName)
     {
         if (workspace == null || string.IsNullOrWhiteSpace(entityName))
         {

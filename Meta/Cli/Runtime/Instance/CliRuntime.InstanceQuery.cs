@@ -1,6 +1,25 @@
 internal sealed partial class CliRuntime
 {
-    void PrintSelectedRecord(string entityName, GenericRecord record)
+    static IMetaWorkspaceSource CreateWorkspaceSource(InMemoryWorkspace workspace) =>
+        new InMemoryWorkspaceSource(workspace);
+
+    static async Task<string> ResolveEntityNameAsync(
+        IMetaWorkspaceSource source,
+        string entityName)
+    {
+        await foreach (var candidate in source.ReadEntityNamesAsync())
+        {
+            if (MetaName.Comparer.Equals(candidate, entityName))
+            {
+                return candidate;
+            }
+        }
+
+        throw new InvalidOperationException(
+            $"Entity '{entityName}' does not exist.");
+    }
+
+    void PrintSelectedRecord(string entityName, RecordData record)
     {
         presenter.WriteInfo($"Instance: {BuildEntityInstanceAddress(entityName, record.Id)}");
         var rows = new List<IReadOnlyList<string>>();
@@ -20,16 +39,24 @@ internal sealed partial class CliRuntime
         presenter.WriteTable(new[] { "Field", "Value" }, rows);
     }
 
-    void PrintQueryResult(Workspace workspace, string entityName, string whereExpression, IReadOnlyList<GenericRecord> rows, int top)
+    void PrintQueryResult(
+        string entityName,
+        string whereExpression,
+        RecordQueryResult result,
+        IReadOnlyCollection<PropertyDefinition> properties)
     {
         presenter.WriteInfo($"Query: {entityName}");
         presenter.WriteInfo($"Filter: {whereExpression}");
-        presenter.WriteInfo($"Matches: {rows.Count.ToString(CultureInfo.InvariantCulture)}");
+        presenter.WriteInfo($"Matches: {result.TotalCount.ToString(CultureInfo.InvariantCulture)}");
 
-        var limit = top <= 0 ? 200 : top;
-        var previewColumns = ResolveQueryPreviewColumns(workspace, entityName);
+        var previewColumns = new List<string> { "Id" };
+        previewColumns.AddRange(properties
+            .OrderBy(property => property.IsRequired ? 0 : 1)
+            .ThenBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
+            .Take(2)
+            .Select(property => property.Name));
         var previewRows = new List<IReadOnlyList<string>>();
-        foreach (var row in rows.Take(limit))
+        foreach (var row in result.Records)
         {
             var cells = new List<string>();
             foreach (var column in previewColumns)
@@ -48,9 +75,10 @@ internal sealed partial class CliRuntime
 
         presenter.WriteTable(previewColumns, previewRows);
 
-        if (rows.Count > limit)
+        if (result.TotalCount > result.Records.Count)
         {
-            presenter.WriteInfo($"InstancesTruncated: {(rows.Count - limit).ToString(CultureInfo.InvariantCulture)}");
+            presenter.WriteInfo(
+                $"InstancesTruncated: {(result.TotalCount - result.Records.Count).ToString(CultureInfo.InvariantCulture)}");
         }
     }
 
@@ -74,89 +102,9 @@ internal sealed partial class CliRuntime
             }));
     }
 
-    IReadOnlyList<GenericRecord> QueryRows(Workspace workspace, string entityName, IReadOnlyList<(string Mode, string Field, string Value)> filters)
+    void PrintGraphStats(GenericModel model, GraphStatsReport stats, int topN)
     {
-        if (workspace == null)
-        {
-            throw new ArgumentNullException(nameof(workspace));
-        }
-
-        var entity = RequireEntity(workspace, entityName);
-        IEnumerable<GenericRecord> rows = workspace.Instance.GetOrCreateEntityRecords(entityName);
-        if (filters is { Count: > 0 })
-        {
-            foreach (var filter in filters)
-            {
-                var resolvedField = ResolveQueryField(entity, filter.Field);
-                rows = rows.Where(row => QueryFilterMatches(row, resolvedField, filter));
-            }
-        }
-
-        return rows
-            .OrderBy(row => row.Id, StringComparer.OrdinalIgnoreCase)
-            .ToList();
-    }
-
-    string ResolveQueryField(GenericEntity entity, string fieldName)
-    {
-        if (string.Equals(fieldName, "Id", StringComparison.OrdinalIgnoreCase))
-        {
-            return "Id";
-        }
-
-        var property = entity.Properties
-            .FirstOrDefault(item => string.Equals(item.Name, fieldName, StringComparison.OrdinalIgnoreCase));
-        if (property != null)
-        {
-            return property.Name;
-        }
-
-        var relationship = entity.Relationships
-            .FirstOrDefault(item =>
-                string.Equals(item.GetRoleOrDefault(), fieldName, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(item.GetColumnName(), fieldName, StringComparison.OrdinalIgnoreCase));
-        if (relationship != null)
-        {
-            return relationship.GetColumnName();
-        }
-
-        throw new InvalidOperationException($"Field '{fieldName}' does not exist on entity '{entity.Name}'.");
-    }
-
-    bool QueryFilterMatches(GenericRecord row, string resolvedField, (string Mode, string Field, string Value) filter)
-    {
-        var fieldValue = GetQueryFieldValue(row, resolvedField);
-        if (string.Equals(filter.Mode, "contains", StringComparison.OrdinalIgnoreCase))
-        {
-            return fieldValue.IndexOf(filter.Value ?? string.Empty, StringComparison.OrdinalIgnoreCase) >= 0;
-        }
-
-        return string.Equals(fieldValue, filter.Value ?? string.Empty, StringComparison.OrdinalIgnoreCase);
-    }
-
-    string GetQueryFieldValue(GenericRecord row, string fieldName)
-    {
-        if (string.Equals(fieldName, "Id", StringComparison.OrdinalIgnoreCase))
-        {
-            return row.Id ?? string.Empty;
-        }
-
-        if (row.Values.TryGetValue(fieldName, out var value))
-        {
-            return value ?? string.Empty;
-        }
-
-        if (row.RelationshipIds.TryGetValue(fieldName, out var relationshipValue))
-        {
-            return relationshipValue ?? string.Empty;
-        }
-
-        return string.Empty;
-    }
-
-    void PrintGraphStats(Workspace workspace, GraphStatsReport stats, int topN)
-    {
-        presenter.WriteInfo($"Graph: {workspace.Model.Name}");
+        presenter.WriteInfo($"Graph: {model.Name}");
         presenter.WriteInfo($"Nodes: {stats.NodeCount.ToString(CultureInfo.InvariantCulture)}");
         presenter.WriteInfo(
             $"Edges: declared={stats.EdgeCount.ToString(CultureInfo.InvariantCulture)} unique={stats.UniqueEdgeCount.ToString(CultureInfo.InvariantCulture)} dup={stats.DuplicateEdgeCount.ToString(CultureInfo.InvariantCulture)} missingTarget={stats.MissingTargetEdgeCount.ToString(CultureInfo.InvariantCulture)}");
@@ -199,23 +147,4 @@ internal sealed partial class CliRuntime
         }
     }
 
-    IReadOnlyList<string> ResolveQueryPreviewColumns(Workspace workspace, string entityName)
-    {
-        var entity = workspace.Model.FindEntity(entityName);
-        if (entity == null)
-        {
-            return new[] { "Id" };
-        }
-
-        var columns = new List<string> { "Id" };
-        var additional = entity.Properties
-            .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
-            .OrderBy(property => property.IsNullable ? 1 : 0)
-            .ThenBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
-            .Take(2)
-            .Select(property => property.Name)
-            .ToList();
-        columns.AddRange(additional);
-        return columns;
-    }
 }

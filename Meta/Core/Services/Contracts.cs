@@ -6,18 +6,6 @@ using Meta.Core.Operations;
 
 namespace Meta.Core.Services;
 
-public interface IWorkspaceService
-{
-    Task<Workspace> LoadAsync(
-        string workspaceRootPath,
-        bool searchUpward = false,
-        CancellationToken cancellationToken = default,
-        WorkspaceLoadOptions? loadOptions = null);
-    Task SaveAsync(Workspace workspace, CancellationToken cancellationToken = default);
-    Task SaveAsync(Workspace workspace, string? expectedFingerprint, CancellationToken cancellationToken = default);
-    string CalculateHash(Workspace workspace);
-}
-
 public readonly record struct RelationshipColumnRecovery(
     string SourceEntityName,
     string TargetEntityName,
@@ -43,76 +31,47 @@ public readonly record struct WorkspaceMergeResult(
     int RowsMerged,
     string MergedModelName);
 
+public readonly record struct WorkspaceMergePlan(
+    InMemoryWorkspace Workspace,
+    WorkspaceMergeResult Result);
+
 public interface IWorkspaceMergeService
 {
-    WorkspaceMergeResult MergeInto(
-        Workspace targetWorkspace,
-        IReadOnlyList<Workspace> sourceWorkspaces,
-        WorkspaceMergeOptions options);
-}
-
-public interface IValidationService
-{
-    WorkspaceDiagnostics Validate(Workspace workspace);
+    Task<WorkspaceMergePlan> MergeAsync(
+        IReadOnlyList<IMetaWorkspaceSource> sourceWorkspaces,
+        WorkspaceMergeOptions options,
+        CancellationToken cancellationToken = default);
 }
 
 public interface IImportService
 {
-    Task<Workspace> ImportSqlAsync(string connectionString, string schema, CancellationToken cancellationToken = default);
-    Task<Workspace> ImportCsvAsync(
+    Task<InMemoryWorkspace> ImportSqlAsync(string connectionString, string schema, CancellationToken cancellationToken = default);
+    Task<InMemoryWorkspace> ImportCsvAsync(
         string csvPath,
         string entityName,
         CancellationToken cancellationToken = default);
+    CsvImportPlan PlanCsvImport(
+        InMemoryWorkspace targetWorkspace,
+        InMemoryWorkspace importedWorkspace);
 }
+
+public readonly record struct CsvImportPlan(
+    string EntityName,
+    int RowCount,
+    IReadOnlyList<Operation> Operations);
 
 public interface IExportService
 {
-    Task ExportXmlAsync(Workspace workspace, string outputDirectory, CancellationToken cancellationToken = default);
-    Task ExportCsvAsync(Workspace workspace, string entityName, string outputPath, CancellationToken cancellationToken = default);
-}
-
-public interface IOperationService
-{
-    void Execute(Workspace workspace, WorkspaceOp operation);
-    bool CanUndo(Workspace workspace);
-    bool CanRedo(Workspace workspace);
-    void Undo(Workspace workspace);
-    void Redo(Workspace workspace);
-}
-
-public interface IModelRefactorService
-{
-    RenameModelRefactorResult RenameModel(
-        Workspace workspace,
-        RenameModelRefactorOptions options);
-
-    RenameEntityRefactorResult RenameEntity(
-        Workspace workspace,
-        RenameEntityRefactorOptions options);
-
-    RenameRelationshipRefactorResult RenameRelationship(
-        Workspace workspace,
-        RenameRelationshipRefactorOptions options);
-
-    PropertyToRelationshipRefactorResult RefactorPropertyToRelationship(
-        Workspace workspace,
-        PropertyToRelationshipRefactorOptions options);
-
-    RelationshipToPropertyRefactorResult RefactorRelationshipToProperty(
-        Workspace workspace,
-        RelationshipToPropertyRefactorOptions options);
-}
-
-public interface IInstanceRefactorService
-{
-    RenameInstanceIdRefactorResult RenameInstanceId(
-        Workspace workspace,
-        RenameInstanceIdRefactorOptions options);
+    Task ExportXmlAsync(InMemoryWorkspace workspace, string outputDirectory, CancellationToken cancellationToken = default);
+    Task ExportCsvAsync(
+        IMetaWorkspaceSource source,
+        string entityName,
+        string outputPath,
+        CancellationToken cancellationToken = default);
 }
 
 public readonly record struct InstanceDiffBuildResult(
-    Workspace DiffWorkspace,
-    string DiffWorkspacePath,
+    InMemoryWorkspace DiffWorkspace,
     bool HasDifferences,
     int LeftRowCount,
     int RightRowCount,
@@ -124,21 +83,19 @@ public readonly record struct InstanceDiffBuildResult(
 public interface IInstanceDiffService
 {
     InstanceDiffBuildResult BuildEqualDiffWorkspace(
-        Workspace leftWorkspace,
-        Workspace rightWorkspace,
-        string rightWorkspacePath);
+        InMemoryWorkspace leftWorkspace,
+        InMemoryWorkspace rightWorkspace);
 
     InstanceDiffBuildResult BuildAlignedDiffWorkspace(
-        Workspace leftWorkspace,
-        Workspace rightWorkspace,
-        Workspace alignmentWorkspace,
-        string rightWorkspacePath);
+        InMemoryWorkspace leftWorkspace,
+        InMemoryWorkspace rightWorkspace,
+        InMemoryWorkspace alignmentWorkspace);
 
-    void ApplyEqualDiffWorkspace(
-        Workspace targetWorkspace,
-        Workspace diffWorkspace);
+    IReadOnlyList<Operation> PlanEqualDiffMerge(
+        InMemoryWorkspace targetWorkspace,
+        InMemoryWorkspace diffWorkspace);
 
-    void ApplyAlignedDiffWorkspace(
-        Workspace targetWorkspace,
-        Workspace diffWorkspace);
+    IReadOnlyList<Operation> PlanAlignedDiffMerge(
+        InMemoryWorkspace targetWorkspace,
+        InMemoryWorkspace diffWorkspace);
 }

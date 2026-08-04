@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Meta.Core.Ddl;
 using Meta.Core.Domain;
+using Meta.Core.Serialization;
 
 namespace Meta.Core.Services;
 
 internal static class SqlGenerationArtifacts
 {
-    public static string BuildSchema(Workspace workspace)
+    private const string IdentityCollation = "Latin1_General_100_CI_AS_SC";
+
+    public static string BuildSchema(InMemoryWorkspace state)
     {
-        return DdlSqlServerRenderer.RenderSchema(BuildDdlDatabase(workspace));
+        return DdlSqlServerRenderer.RenderSchema(BuildDdlDatabase(state));
     }
 
-    public static string BuildData(Workspace workspace)
+    public static string BuildData(InMemoryWorkspace state)
     {
-        return DdlSqlServerRenderer.RenderData(BuildDdlDatabase(workspace));
+        return DdlSqlServerRenderer.RenderData(BuildDdlDatabase(state));
     }
 
     public static string BuildPostDeployScript()
@@ -25,11 +28,12 @@ internal static class SqlGenerationArtifacts
             ":r .\\Data.sql\n");
     }
 
-    public static string BuildSqlProjectFile(Workspace workspace)
+    public static string BuildSqlProjectFile(GenericModel model)
     {
-        var projectName = string.IsNullOrWhiteSpace(workspace.Model.Name)
+        ArgumentNullException.ThrowIfNull(model);
+        var projectName = string.IsNullOrWhiteSpace(model.Name)
             ? "MetadataModel"
-            : workspace.Model.Name;
+            : model.Name;
         var xml =
             "<Project DefaultTargets=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">\n" +
             "  <PropertyGroup>\n" +
@@ -45,10 +49,10 @@ internal static class SqlGenerationArtifacts
         return NormalizeNewlines(xml);
     }
 
-    private static DdlDatabase BuildDdlDatabase(Workspace workspace)
+    private static DdlDatabase BuildDdlDatabase(InMemoryWorkspace state)
     {
         var database = new DdlDatabase();
-        var entities = workspace.Model.Entities
+        var entities = state.Model.Entities
             .Where(entity => !string.IsNullOrWhiteSpace(entity.Name))
             .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
             .ToList();
@@ -61,7 +65,7 @@ internal static class SqlGenerationArtifacts
                 Name = entity.Name,
                 PrimaryKey = new DdlPrimaryKeyConstraint
                 {
-                    Name = $"PK_{entity.Name}",
+                    Name = SqlWorkspaceNames.PrimaryKey(entity.Name),
                     IsClustered = true,
                 },
             };
@@ -69,7 +73,7 @@ internal static class SqlGenerationArtifacts
             table.Columns.Add(new DdlColumn
             {
                 Name = "Id",
-                DataType = "NVARCHAR(128)",
+                DataType = $"NVARCHAR({MetaIdentity.MaximumLength}) COLLATE {IdentityCollation}",
                 IsNullable = false,
             });
 
@@ -93,13 +97,16 @@ internal static class SqlGenerationArtifacts
                 table.Columns.Add(new DdlColumn
                 {
                     Name = relationshipName,
-                    DataType = "NVARCHAR(128)",
+                    DataType = $"NVARCHAR({MetaIdentity.MaximumLength}) COLLATE {IdentityCollation}",
                     IsNullable = relationship.IsNullable,
                 });
 
                 var foreignKey = new DdlForeignKeyConstraint
                 {
-                    Name = $"FK_{entity.Name}_{relationship.Entity}_{relationshipName}",
+                    Name = SqlWorkspaceNames.ForeignKey(
+                        entity.Name,
+                        relationship.Entity,
+                        relationshipName),
                     ReferencedSchema = "dbo",
                     ReferencedTableName = relationship.Entity,
                 };
@@ -111,9 +118,9 @@ internal static class SqlGenerationArtifacts
             database.Tables.Add(table);
         }
 
-        foreach (var entity in GetEntitiesInRequiredDependencyOrder(workspace.Model))
+        foreach (var entity in GetEntitiesInRequiredDependencyOrder(state.Model))
         {
-            if (!workspace.Instance.RecordsByEntity.TryGetValue(entity.Name, out var records))
+            if (!state.Instance.RecordsByEntity.TryGetValue(entity.Name, out var records))
             {
                 continue;
             }

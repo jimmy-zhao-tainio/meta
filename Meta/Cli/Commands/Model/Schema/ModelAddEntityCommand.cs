@@ -9,15 +9,9 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var operation = new WorkspaceOp
-        {
-            Type = WorkspaceOpTypes.AddEntity,
-            EntityName = entityName,
-        };
-
         return await ExecuteOperationAsync(
                 options.WorkspacePath,
-                operation,
+                () => new Operation.AddEntity(entityName),
                 "model add-entity",
                 "entity created",
                 ("Entity", entityName))

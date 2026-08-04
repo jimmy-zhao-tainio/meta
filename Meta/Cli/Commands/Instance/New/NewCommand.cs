@@ -32,28 +32,24 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await LoadWorkspaceForCommandAsync(parseResult.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            var entity = RequireEntity(workspace, entityName);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(parseResult.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            var entity = RequireEntity(workspace.Model, entityName);
             var resolvedId = parseResult.AutoId
-                ? GenerateNextAutoId(workspace, entityName)
+                ? GenerateNextAutoId(workspace.State, entityName)
                 : explicitId;
 
-            var rowPatch = BuildRowPatchForCreate(workspace, entity, parseResult.SetValues, resolvedId);
-            var operation = new WorkspaceOp
-            {
-                Type = WorkspaceOpTypes.BulkUpsertRows,
-                EntityName = entityName,
-                RowPatches = { rowPatch },
-            };
-
-            BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
-            return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
+            var operation = BuildInsertRecordOperation(
+                workspace.State,
+                entity,
+                parseResult.SetValues,
+                resolvedId);
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
                     workspace,
                     new[] { operation },
                     commandName: "insert",
-                    successMessage: $"created {BuildEntityInstanceAddress(entityName, rowPatch.Id)}",
-                    successDetails: BuildRowPreviewDetails(entity, rowPatch))
+                    successMessage: $"created {BuildEntityInstanceAddress(entityName, operation.Id)}",
+                    successDetails: BuildRowPreviewDetails(entity, operation.Values))
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)
@@ -62,7 +58,7 @@ internal sealed partial class CliRuntime
         }
     }
 
-    string GenerateNextAutoId(Workspace workspace, string entityName)
+    string GenerateNextAutoId(InMemoryWorkspace workspace, string entityName)
     {
         var rows = workspace.Instance.GetOrCreateEntityRecords(entityName);
         var numericIds = new List<long>();

@@ -1,6 +1,4 @@
-using Meta.Core.Domain;
 using Meta.Core.Operations;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 internal sealed partial class CliRuntime
 {
@@ -20,40 +18,52 @@ internal sealed partial class CliRuntime
             return PrintDataError("E_OPERATION", $"target directory '{newWorkspacePath}' must be empty.");
         }
 
-        var leftWorkspace = await services.WorkspaceService.LoadAsync(leftWorkspacePath, searchUpward: false).ConfigureAwait(false);
-        var rightWorkspace = await services.WorkspaceService.LoadAsync(rightWorkspacePath, searchUpward: false).ConfigureAwait(false);
+        var leftWorkspace = await OpenXmlWorkspaceForCommandAsync(
+                leftWorkspacePath)
+            .ConfigureAwait(false);
+        var rightWorkspace = await OpenXmlWorkspaceForCommandAsync(
+                rightWorkspacePath)
+            .ConfigureAwait(false);
 
-        var mergedWorkspace = new Meta.Core.Domain.Workspace
-        {
-            WorkspaceRootPath = newWorkspacePath,
-            MetadataRootPath = newWorkspacePath,
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = new GenericModel { Name = parse.ModelName },
-            Instance = new GenericInstance { ModelName = parse.ModelName },
-            IsDirty = true,
-        };
-
-        WorkspaceMergeResult mergeResult;
+        WorkspaceMergePlan mergePlan;
         try
         {
-            mergeResult = services.WorkspaceMergeService.MergeInto(
-                mergedWorkspace,
-                new[] { leftWorkspace, rightWorkspace },
-                new WorkspaceMergeOptions(parse.ModelName));
+            mergePlan = await services.WorkspaceMergeService.MergeAsync(
+                    new IMetaWorkspaceSource[]
+                    {
+                        CreateWorkspaceSource(leftWorkspace.State),
+                        CreateWorkspaceSource(rightWorkspace.State),
+                    },
+                    new WorkspaceMergeOptions(parse.ModelName))
+                .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)
         {
             return PrintDataError("E_OPERATION", exception.Message);
         }
 
-        var diagnostics = services.ValidationService.Validate(mergedWorkspace);
-        mergedWorkspace.Diagnostics = diagnostics;
+        var diagnostics = WorkspaceValidator.Validate(
+            mergePlan.Workspace.Model,
+            mergePlan.Workspace.Instance);
         if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
         {
-            return PrintOperationValidationFailure("workspace merge", Array.Empty<WorkspaceOp>(), diagnostics);
+            return PrintOperationValidationFailure("workspace merge", Array.Empty<Operation>(), diagnostics);
         }
 
-        await services.WorkspaceService.SaveAsync(mergedWorkspace).ConfigureAwait(false);
+        try
+        {
+            await XmlWorkspaceWriter.WriteMergedAsync(
+                    mergePlan.Workspace,
+                    newWorkspacePath,
+                    new[] { leftWorkspace, rightWorkspace })
+                .ConfigureAwait(false);
+        }
+        catch (InvalidOperationException exception)
+        {
+            return PrintDataError("E_OPERATION", exception.Message);
+        }
+
+        var mergeResult = mergePlan.Result;
         presenter.WriteOk(
             "workspace merged",
             ("Path", newWorkspacePath),

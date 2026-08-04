@@ -8,20 +8,33 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-        var rowsByEntity = workspace.Instance.RecordsByEntity;
-
-        var entities = workspace.Model.Entities
-            .OrderBy(entity => entity.Name, StringComparer.OrdinalIgnoreCase)
-            .Select(entity => new
+        var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+        PrintContractCompatibilityWarning(workspace.ContractVersion);
+        var source = CreateWorkspaceSource(workspace.State);
+        var entities = new List<(string Name, long Rows, int Properties, int Relationships)>();
+        await foreach (var entityName in source.ReadEntityNamesAsync())
+        {
+            var propertyCount = 0;
+            await foreach (var _ in source.ReadPropertiesAsync(entityName))
             {
-                Name = entity.Name,
-                Properties = entity.Properties.Count,
-                Relationships = entity.Relationships.Count,
-                Rows = rowsByEntity.TryGetValue(entity.Name, out var rows) ? rows.Count : 0,
-            })
-            .ToList();
+                propertyCount++;
+            }
+
+            var relationshipCount = 0;
+            await foreach (var _ in source.ReadRelationshipsAsync(entityName))
+            {
+                relationshipCount++;
+            }
+
+            entities.Add((
+                entityName,
+                await source.CountRecordsAsync(entityName).ConfigureAwait(false),
+                propertyCount,
+                relationshipCount));
+        }
+
+        entities.Sort((left, right) =>
+            StringComparer.OrdinalIgnoreCase.Compare(left.Name, right.Name));
 
         presenter.WriteInfo($"Entities ({entities.Count}):");
         presenter.WriteTable(

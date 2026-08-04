@@ -1,6 +1,4 @@
 using Meta.Core.Domain;
-using Meta.Core.Operations;
-using Meta.Core.Services;
 
 internal sealed partial class CliRuntime
 {
@@ -15,59 +13,45 @@ internal sealed partial class CliRuntime
         var commandOptions = options.Options;
         var refactorOptions = commandOptions.Refactor;
 
-        Workspace? workspace = null;
-        WorkspaceSnapshot? before = null;
         try
         {
-            workspace = await LoadWorkspaceForCommandAsync(commandOptions.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            before = WorkspaceSnapshotCloner.Capture(workspace);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(commandOptions.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            var operation = new Operation.RelationshipToProperty(
+                refactorOptions.SourceEntityName,
+                refactorOptions.TargetEntityName,
+                refactorOptions.Role,
+                refactorOptions.PropertyName);
 
-            var result = services.ModelRefactorService.RefactorRelationshipToProperty(workspace, refactorOptions);
-            ApplyImplicitNormalization(workspace);
-
-            var diagnostics = services.ValidationService.Validate(workspace);
-            workspace.Diagnostics = diagnostics;
-            if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-                return PrintOperationValidationFailure(
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
+                    workspace,
+                    new[] { operation },
                     "model refactor relationship-to-property",
-                    Array.Empty<WorkspaceOp>(),
-                    diagnostics);
-            }
-
-            await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
-
-            presenter.WriteOk(
-                "refactor relationship-to-property",
-                ("Workspace", Path.GetFullPath(workspace.WorkspaceRootPath)),
-                ("Model", workspace.Model.Name),
-                ("Source", result.SourceEntityName),
-                ("Target", result.TargetEntityName),
-                ("Role", string.IsNullOrWhiteSpace(result.Role) ? "(none)" : result.Role),
-                ("Property", result.PropertyName));
-            presenter.WriteInfo($"Rows rewritten: {result.RowsRewritten}");
-            presenter.WriteInfo("Relationship removed: yes");
-            return 0;
+                    "refactor relationship-to-property",
+                    buildSuccessDetails: results =>
+                    {
+                        var result = (RelationshipToPropertyResult)results.Single();
+                        return new (string Key, string Value)[]
+                        {
+                            ("Workspace", workspace.RootPath),
+                            ("Model", workspace.Model.Name),
+                            ("Source", refactorOptions.SourceEntityName),
+                            ("Target", refactorOptions.TargetEntityName),
+                            ("Role", string.IsNullOrWhiteSpace(refactorOptions.Role) ? "(none)" : refactorOptions.Role),
+                            ("Property", result.PropertyName),
+                        };
+                    },
+                    writeSuccessOutput: results =>
+                    {
+                        var result = (RelationshipToPropertyResult)results.Single();
+                        presenter.WriteInfo($"Rows rewritten: {result.SourceRecordCount}");
+                        presenter.WriteInfo("Relationship removed: yes");
+                    })
+                .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)
         {
-            if (workspace != null && before != null)
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-            }
-
             return PrintDataError("E_OPERATION", exception.Message);
-        }
-        catch
-        {
-            if (workspace != null && before != null)
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-            }
-
-            throw;
         }
     }
 
@@ -92,7 +76,7 @@ internal sealed partial class CliRuntime
 
         var options = new RelationshipToPropertyCommandOptions(
             WorkspacePath: workspacePath,
-            Refactor: new RelationshipToPropertyRefactorOptions(
+            Refactor: new RelationshipToPropertyOptions(
                 SourceEntityName: source,
                 TargetEntityName: target,
                 Role: role,
@@ -103,5 +87,11 @@ internal sealed partial class CliRuntime
 
     readonly record struct RelationshipToPropertyCommandOptions(
         string WorkspacePath,
-        RelationshipToPropertyRefactorOptions Refactor);
+        RelationshipToPropertyOptions Refactor);
+
+    readonly record struct RelationshipToPropertyOptions(
+        string SourceEntityName,
+        string TargetEntityName,
+        string Role,
+        string PropertyName);
 }

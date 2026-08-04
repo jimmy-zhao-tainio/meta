@@ -1,55 +1,115 @@
-using Meta.Adapters;
 using Meta.Core.Domain;
+using Meta.Core.Operations;
+using Meta.Core.Serialization;
 using Meta.Core.Services;
-using MetaWorkspaceGenerated = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Tests;
 
 public sealed class WorkspaceMergeServiceTests
 {
     [Fact]
-    public void MergeInto_MergesDistinctWorkspaces()
+    public async Task Merge_MergesDistinctWorkspaces()
     {
         var service = new WorkspaceMergeService();
         var left = CreateWorkspace("Left", "Alpha", "1");
         var right = CreateWorkspace("Right", "Beta", "2");
-        var target = CreateTargetWorkspace("Merged", "MergedModel");
-
-        var result = service.MergeInto(
-            target,
-            new[] { left, right },
+        var plan = await service.MergeAsync(
+            new IMetaWorkspaceSource[]
+            {
+                new InMemoryWorkspaceSource(left),
+                new InMemoryWorkspaceSource(right),
+            },
             new WorkspaceMergeOptions("MergedModel"));
+        var result = plan.Result;
 
         Assert.Equal(2, result.SourceWorkspaceCount);
         Assert.Equal(2, result.EntitiesMerged);
         Assert.Equal(2, result.RowsMerged);
-        Assert.Equal("MergedModel", target.Model.Name);
-        Assert.NotNull(target.Model.FindEntity("Alpha"));
-        Assert.NotNull(target.Model.FindEntity("Beta"));
-        Assert.Single(target.Instance.GetOrCreateEntityRecords("Alpha"));
-        Assert.Single(target.Instance.GetOrCreateEntityRecords("Beta"));
+        Assert.Equal("MergedModel", plan.Workspace.Model.Name);
+        Assert.NotNull(plan.Workspace.Model.FindEntity("Alpha"));
+        Assert.NotNull(plan.Workspace.Model.FindEntity("Beta"));
+        Assert.Single(plan.Workspace.Instance.GetOrCreateEntityRecords("Alpha"));
+        Assert.Single(plan.Workspace.Instance.GetOrCreateEntityRecords("Beta"));
     }
 
     [Fact]
-    public void MergeInto_Fails_WhenEntityNamesCollide()
+    public async Task Merge_Fails_WhenEntityNamesCollide()
     {
         var service = new WorkspaceMergeService();
         var left = CreateWorkspace("Left", "Thing", "1");
         var right = CreateWorkspace("Right", "Thing", "2");
-        var target = CreateTargetWorkspace("Merged", "MergedModel");
-
-        var error = Assert.Throws<InvalidOperationException>(() =>
-            service.MergeInto(
-                target,
-                new[] { left, right },
+        var error = await Assert.ThrowsAsync<InvalidOperationException>(() =>
+            service.MergeAsync(
+                new IMetaWorkspaceSource[]
+                {
+                    new InMemoryWorkspaceSource(left),
+                    new InMemoryWorkspaceSource(right),
+                },
                 new WorkspaceMergeOptions("MergedModel")));
 
         Assert.Contains("entity 'Thing' already exists", error.Message);
     }
 
-    private static Workspace CreateWorkspace(string rootName, string entityName, string rowId)
+    [Fact]
+    public async Task MergeXml_ComposesSemanticsAndPreservesXmlShardLayout()
     {
-        var root = Path.Combine(Path.GetTempPath(), "workspace-merge-tests", Guid.NewGuid().ToString("N"), rootName);
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "workspace-merge-tests",
+            Guid.NewGuid().ToString("N"));
+        var leftPath = Path.Combine(root, "left");
+        var rightPath = Path.Combine(root, "right");
+        var mergedPath = Path.Combine(root, "merged");
+
+        try
+        {
+            var left = CreateWorkspace("Left", "Alpha", "1");
+            var right = CreateWorkspace("Right", "Beta", "2");
+            await XmlWorkspaceWriter.WriteNewAsync(
+                left,
+                leftPath);
+            await XmlWorkspaceWriter.WriteNewAsync(
+                right,
+                rightPath);
+
+            var openedLeft = await XmlWorkspaceReader.OpenAsync(leftPath);
+            var openedRight = await XmlWorkspaceReader.OpenAsync(rightPath);
+            var service = new WorkspaceMergeService();
+            var plan = await service.MergeAsync(
+                new IMetaWorkspaceSource[]
+                {
+                    new InMemoryWorkspaceSource(openedLeft.State),
+                    new InMemoryWorkspaceSource(openedRight.State),
+                },
+                new WorkspaceMergeOptions("MergedModel"));
+
+            await XmlWorkspaceWriter.WriteMergedAsync(
+                plan.Workspace,
+                mergedPath,
+                new[] { openedLeft, openedRight });
+
+            var merged = await XmlWorkspaceReader.OpenAsync(mergedPath);
+            Assert.Equal("MergedModel", merged.Model.Name);
+            Assert.NotNull(merged.Model.FindEntity("Alpha"));
+            Assert.NotNull(merged.Model.FindEntity("Beta"));
+            Assert.Single(merged.Instance.GetOrCreateEntityRecords("Alpha"));
+            Assert.Single(merged.Instance.GetOrCreateEntityRecords("Beta"));
+            Assert.True(File.Exists(
+                Path.Combine(mergedPath, "instances", "Alpha.xml")));
+            Assert.True(File.Exists(
+                Path.Combine(mergedPath, "instances", "Beta.xml")));
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
+    }
+
+    private static InMemoryWorkspace CreateWorkspace(string rootName, string entityName, string rowId)
+    {
         var model = new GenericModel
         {
             Name = rootName + "Model",
@@ -70,33 +130,10 @@ public sealed class WorkspaceMergeServiceTests
         var row = new GenericRecord
         {
             Id = rowId,
-            SourceShardFileName = entityName + ".xml",
         };
         row.Values["Name"] = entityName + rowId;
         instance.GetOrCreateEntityRecords(entityName).Add(row);
 
-        return new Workspace
-        {
-            WorkspaceRootPath = root,
-            MetadataRootPath = Path.Combine(root, "metadata"),
-            WorkspaceConfig = MetaWorkspaceGenerated.CreateDefault(),
-            Model = model,
-            Instance = instance,
-            IsDirty = true,
-        };
-    }
-
-    private static Workspace CreateTargetWorkspace(string rootName, string modelName)
-    {
-        var root = Path.Combine(Path.GetTempPath(), "workspace-merge-tests", Guid.NewGuid().ToString("N"), rootName);
-        return new Workspace
-        {
-            WorkspaceRootPath = root,
-            MetadataRootPath = Path.Combine(root, "metadata"),
-            WorkspaceConfig = MetaWorkspaceGenerated.CreateDefault(),
-            Model = new GenericModel { Name = modelName },
-            Instance = new GenericInstance { ModelName = modelName },
-            IsDirty = true,
-        };
+        return new InMemoryWorkspace(model, instance);
     }
 }

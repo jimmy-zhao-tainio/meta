@@ -3,165 +3,157 @@ using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Meta.Core.Domain;
+using Meta.Core.Operations;
 
 namespace Meta.Adapters;
 
 internal static class SqlServerImportReader
 {
-    public static async Task<List<string>> LoadTableNamesAsync(
+    private const string TextComparisonCollation =
+        SqlWorkspaceContract.CaseInsensitiveCollation;
+    private const string DeterministicOrderCollation =
+        "Latin1_General_100_BIN2";
+
+    public static async IAsyncEnumerable<RecordData> StreamRowsAsync(
         SqlConnection connection,
+        SqlTransaction transaction,
         string schema,
-        CancellationToken cancellationToken)
+        GenericEntity entity,
+        [EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        var tables = new List<string>();
-        await using var command = connection.CreateCommand();
-        command.CommandText = """
-                              SELECT TABLE_NAME
-                              FROM INFORMATION_SCHEMA.TABLES
-                              WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_SCHEMA = @schema
-                              ORDER BY TABLE_NAME;
-                              """;
-        command.Parameters.Add(new SqlParameter("@schema", SqlDbType.NVarChar, 128) { Value = schema });
-
-        await using var reader = await command.ExecuteReaderAsync(cancellationToken).ConfigureAwait(false);
-        while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
+        await foreach (var record in StreamRowsCoreAsync(
+                           connection,
+                           transaction,
+                           schema,
+                           entity,
+                           filterId: null,
+                           cancellationToken).ConfigureAwait(false))
         {
-            tables.Add(reader.GetString(0));
+            yield return record;
         }
-
-        return tables;
     }
 
-    public static async Task<List<SqlServerColumnRow>> LoadColumnsAsync(
+    public static async Task<RecordData?> ReadRowAsync(
         SqlConnection connection,
+        SqlTransaction transaction,
         string schema,
-        string tableName,
+        GenericEntity entity,
+        string id,
         CancellationToken cancellationToken)
     {
-        var columns = new List<SqlServerColumnRow>();
-        await using var command = connection.CreateCommand();
-        command.CommandText = """
-                              SELECT COLUMN_NAME, IS_NULLABLE
-                              FROM INFORMATION_SCHEMA.COLUMNS
-                              WHERE TABLE_SCHEMA = @schema AND TABLE_NAME = @table
-                              ORDER BY ORDINAL_POSITION;
-                              """;
-        command.Parameters.Add(new SqlParameter("@schema", SqlDbType.NVarChar, 128) { Value = schema });
-        command.Parameters.Add(new SqlParameter("@table", SqlDbType.NVarChar, 128) { Value = tableName });
-
-        await using var reader = await command.ExecuteReaderAsync(cancellationToken).ConfigureAwait(false);
-        while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
+        await foreach (var record in StreamRowsCoreAsync(
+                           connection,
+                           transaction,
+                           schema,
+                           entity,
+                           id,
+                           cancellationToken).ConfigureAwait(false))
         {
-            columns.Add(new SqlServerColumnRow
-            {
-                Name = reader.GetString(0),
-                IsNullable = string.Equals(reader.GetString(1), "YES", StringComparison.OrdinalIgnoreCase),
-            });
+            return record;
         }
 
-        return columns;
+        return null;
     }
 
-    public static async Task<List<SqlServerRelationshipRow>> LoadRelationshipsAsync(
+    public static async Task<long> CountRowsAsync(
         SqlConnection connection,
-        string schema,
-        CancellationToken cancellationToken)
-    {
-        var relationships = new List<SqlServerRelationshipRow>();
-        await using var command = connection.CreateCommand();
-        command.CommandText = """
-                              SELECT
-                                  fk.name AS ConstraintName,
-                                  srcTable.name AS SourceTable,
-                                  srcColumn.name AS SourceColumn,
-                                  dstTable.name AS TargetTable,
-                                  dstColumn.name AS TargetColumn,
-                                  fkc.constraint_column_id AS ConstraintColumnId,
-                                  srcColumn.is_nullable AS IsNullable
-                              FROM sys.foreign_keys fk
-                              INNER JOIN sys.foreign_key_columns fkc
-                                  ON fk.object_id = fkc.constraint_object_id
-                              INNER JOIN sys.tables srcTable
-                                  ON srcTable.object_id = fk.parent_object_id
-                              INNER JOIN sys.schemas srcSchema
-                                  ON srcSchema.schema_id = srcTable.schema_id
-                              INNER JOIN sys.columns srcColumn
-                                  ON srcColumn.object_id = fkc.parent_object_id
-                                  AND srcColumn.column_id = fkc.parent_column_id
-                              INNER JOIN sys.tables dstTable
-                                  ON dstTable.object_id = fk.referenced_object_id
-                              INNER JOIN sys.schemas dstSchema
-                                  ON dstSchema.schema_id = dstTable.schema_id
-                              INNER JOIN sys.columns dstColumn
-                                  ON dstColumn.object_id = fkc.referenced_object_id
-                                  AND dstColumn.column_id = fkc.referenced_column_id
-                              WHERE srcSchema.name = @schema
-                                AND dstSchema.name = @schema
-                              ORDER BY fk.name, fkc.constraint_column_id;
-                              """;
-        command.Parameters.Add(new SqlParameter("@schema", SqlDbType.NVarChar, 128) { Value = schema });
-
-        await using var reader = await command.ExecuteReaderAsync(cancellationToken).ConfigureAwait(false);
-        while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
-        {
-            relationships.Add(new SqlServerRelationshipRow
-            {
-                ConstraintName = reader.GetString(0),
-                SourceTable = reader.GetString(1),
-                SourceColumn = reader.GetString(2),
-                TargetTable = reader.GetString(3),
-                TargetColumn = reader.GetString(4),
-                ConstraintColumnId = reader.GetInt32(5),
-                IsNullable = reader.GetBoolean(6),
-            });
-        }
-
-        var grouped = relationships
-            .GroupBy(item => item.ConstraintName, StringComparer.OrdinalIgnoreCase)
-            .OrderBy(group => group.Key, StringComparer.OrdinalIgnoreCase)
-            .ToList();
-        var normalized = new List<SqlServerRelationshipRow>(grouped.Count);
-        foreach (var group in grouped)
-        {
-            if (group.Count() != 1)
-            {
-                var sample = group.First();
-                throw new InvalidOperationException(
-                    $"Composite foreign key '{group.Key}' on '{sample.SourceTable}' is not supported.");
-            }
-
-            normalized.Add(group.Single());
-        }
-
-        return normalized;
-    }
-
-    public static async Task<List<GenericRecord>> LoadRowsAsync(
-        SqlConnection connection,
+        SqlTransaction transaction,
         string schema,
         GenericEntity entity,
         CancellationToken cancellationToken)
     {
-        var rows = new List<GenericRecord>();
-        var seenIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        var tableName = EscapeSqlIdentifier(entity.Name);
-        var schemaName = EscapeSqlIdentifier(schema);
-
         await using var command = connection.CreateCommand();
-        command.CommandText = $"SELECT * FROM [{schemaName}].[{tableName}] ORDER BY [Id];";
+        command.Transaction = transaction;
+        command.CommandText =
+            $"SELECT COUNT_BIG(1) FROM [{EscapeSqlIdentifier(schema)}].[{EscapeSqlIdentifier(entity.Name)}];";
+        var count = await command.ExecuteScalarAsync(cancellationToken)
+            .ConfigureAwait(false);
+        return Convert.ToInt64(count, CultureInfo.InvariantCulture);
+    }
 
-        await using var reader = await command.ExecuteReaderAsync(cancellationToken).ConfigureAwait(false);
-        var columnNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        for (var i = 0; i < reader.FieldCount; i++)
+    public static async Task<RecordQueryResult> QueryRowsAsync(
+        SqlConnection connection,
+        SqlTransaction transaction,
+        string schema,
+        GenericEntity entity,
+        RecordQuery query,
+        CancellationToken cancellationToken)
+    {
+        await using var command = connection.CreateCommand();
+        command.Transaction = transaction;
+        var predicate = BuildQueryPredicate(entity, query, command);
+        command.Parameters.Add(new SqlParameter(
+            "@maximumRecords",
+            SqlDbType.Int)
         {
-            columnNames.Add(reader.GetName(i));
+            Value = query.MaximumRecords,
+        });
+        command.CommandText =
+            $"SELECT TOP (@maximumRecords) COUNT_BIG(1) OVER() AS [__MetaTotalCount], {string.Join(", ", SelectedColumns(entity))} " +
+            $"FROM [{EscapeSqlIdentifier(schema)}].[{EscapeSqlIdentifier(entity.Name)}]{predicate} " +
+            $"ORDER BY [Id] COLLATE {DeterministicOrderCollation};";
+
+        await using var reader = await command.ExecuteReaderAsync(
+                cancellationToken)
+            .ConfigureAwait(false);
+        var columnOrdinals = ReadColumnOrdinals(reader, firstDataOrdinal: 1);
+        var records = new List<RecordData>();
+        long totalCount = 0;
+        while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
+        {
+            if (records.Count == 0)
+            {
+                totalCount = reader.GetInt64(0);
+            }
+
+            records.Add(ReadCurrentRecord(
+                reader,
+                schema,
+                entity,
+                columnOrdinals));
         }
 
-        if (!columnNames.Contains("Id"))
+        return new RecordQueryResult(totalCount, records);
+    }
+
+    private static async IAsyncEnumerable<RecordData> StreamRowsCoreAsync(
+        SqlConnection connection,
+        SqlTransaction transaction,
+        string schema,
+        GenericEntity entity,
+        string? filterId,
+        [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        var tableName = EscapeSqlIdentifier(entity.Name);
+        var schemaName = EscapeSqlIdentifier(schema);
+        await using var command = connection.CreateCommand();
+        command.Transaction = transaction;
+        command.CommandText = filterId == null
+            ? $"SELECT {string.Join(", ", SelectedColumns(entity))} " +
+              $"FROM [{schemaName}].[{tableName}] " +
+              $"ORDER BY [Id] COLLATE {DeterministicOrderCollation};"
+            : $"SELECT {string.Join(", ", SelectedColumns(entity))} " +
+              $"FROM [{schemaName}].[{tableName}] WHERE [Id] = @id;";
+        if (filterId != null)
+        {
+            command.Parameters.Add(new SqlParameter(
+                "@id",
+                SqlDbType.NVarChar,
+                MetaIdentity.MaximumLength)
+            {
+                Value = filterId,
+            });
+        }
+
+        await using var reader = await command.ExecuteReaderAsync(cancellationToken).ConfigureAwait(false);
+        var columnOrdinals = ReadColumnOrdinals(reader, firstDataOrdinal: 0);
+
+        if (!columnOrdinals.ContainsKey("Id"))
         {
             throw new InvalidOperationException(
                 $"Table '{schema}.{entity.Name}' does not include required column 'Id'.");
@@ -169,85 +161,188 @@ internal static class SqlServerImportReader
 
         while (await reader.ReadAsync(cancellationToken).ConfigureAwait(false))
         {
-            if (reader["Id"] is DBNull)
-            {
-                throw new InvalidOperationException($"Table '{schema}.{entity.Name}' contains null Id values.");
-            }
+            yield return ReadCurrentRecord(
+                reader,
+                schema,
+                entity,
+                columnOrdinals);
+        }
+    }
 
-            var id = NormalizeIdentity(Convert.ToString(reader["Id"], CultureInfo.InvariantCulture));
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                throw new InvalidOperationException($"Table '{schema}.{entity.Name}' contains empty Id values.");
-            }
-
-            if (!seenIds.Add(id))
-            {
-                throw new InvalidOperationException($"Table '{schema}.{entity.Name}' contains duplicate Id '{id}'.");
-            }
-
-            var record = new GenericRecord
-            {
-                Id = id,
-            };
-
-            foreach (var property in entity.Properties
-                         .Where(item => !string.Equals(item.Name, "Id", StringComparison.OrdinalIgnoreCase)))
-            {
-                if (!columnNames.Contains(property.Name))
-                {
-                    continue;
-                }
-
-                var value = reader[property.Name];
-                if (value is DBNull)
-                {
-                    continue;
-                }
-
-                var textValue = Convert.ToString(value, CultureInfo.InvariantCulture);
-                if (textValue == null)
-                {
-                    continue;
-                }
-
-                record.Values[property.Name] = textValue;
-            }
-
-            foreach (var relationship in entity.Relationships)
-            {
-                var columnName = relationship.GetColumnName();
-                if (!columnNames.Contains(columnName))
-                {
-                    throw new InvalidOperationException(
-                        $"Table '{schema}.{entity.Name}' is missing relationship column '{columnName}'.");
-                }
-
-                var relationshipValue = reader[columnName];
-                if (relationshipValue is DBNull)
-                {
-                    if (relationship.IsNullable)
-                    {
-                        continue;
-                    }
-
-                    throw new InvalidOperationException(
-                        $"Table '{schema}.{entity.Name}' has null relationship value for '{columnName}' on row '{id}'.");
-                }
-
-                var relationshipId = NormalizeIdentity(Convert.ToString(relationshipValue, CultureInfo.InvariantCulture));
-                if (string.IsNullOrWhiteSpace(relationshipId))
-                {
-                    throw new InvalidOperationException(
-                        $"Table '{schema}.{entity.Name}' has empty relationship value for '{columnName}' on row '{id}'.");
-                }
-
-                record.RelationshipIds[relationship.GetColumnName()] = relationshipId;
-            }
-
-            rows.Add(record);
+    private static string BuildQueryPredicate(
+        GenericEntity entity,
+        RecordQuery query,
+        SqlCommand command)
+    {
+        if (query.Conditions.Count == 0)
+        {
+            return string.Empty;
         }
 
-        return rows;
+        var predicates = new List<string>();
+        for (var index = 0; index < query.Conditions.Count; index++)
+        {
+            var condition = query.Conditions[index];
+            var column = $"[{EscapeSqlIdentifier(ResolveField(entity, condition.FieldName))}]";
+            var parameterName = $"@condition{index}";
+            command.Parameters.Add(new SqlParameter(
+                parameterName,
+                SqlDbType.NVarChar,
+                -1)
+            {
+                Value = condition.Value,
+            });
+            predicates.Add(condition switch
+            {
+                RecordCondition.Equal =>
+                    $"COALESCE({column}, N'') COLLATE {TextComparisonCollation} = {parameterName} COLLATE {TextComparisonCollation}",
+                RecordCondition.Contains =>
+                    $"CHARINDEX({parameterName} COLLATE {TextComparisonCollation}, COALESCE({column}, N'') COLLATE {TextComparisonCollation}) > 0",
+                _ => throw new InvalidOperationException(
+                    $"Unsupported record condition '{condition.GetType().Name}'."),
+            });
+        }
+
+        return " WHERE " + string.Join(" AND ", predicates);
+    }
+
+    private static string ResolveField(
+        GenericEntity entity,
+        string fieldName)
+    {
+        if (MetaName.Comparer.Equals(fieldName, "Id"))
+        {
+            return "Id";
+        }
+
+        var property = entity.Properties.FirstOrDefault(candidate =>
+            MetaName.Comparer.Equals(candidate.Name, fieldName));
+        if (property != null)
+        {
+            return property.Name;
+        }
+
+        var relationship = entity.Relationships.FirstOrDefault(candidate =>
+            MetaName.Comparer.Equals(
+                candidate.GetRoleOrDefault(),
+                fieldName) ||
+            MetaName.Comparer.Equals(candidate.GetColumnName(), fieldName));
+        return relationship?.GetColumnName() ??
+               throw new InvalidOperationException(
+                   $"Field '{fieldName}' does not exist on entity '{entity.Name}'.");
+    }
+
+    private static IEnumerable<string> SelectedColumns(GenericEntity entity) =>
+        new[] { "Id" }
+            .Concat(entity.Properties.Select(property => property.Name))
+            .Concat(entity.Relationships.Select(
+                relationship => relationship.GetColumnName()))
+            .Distinct(MetaName.Comparer)
+            .Select(name => $"[{EscapeSqlIdentifier(name)}]");
+
+    private static IReadOnlyDictionary<string, int> ReadColumnOrdinals(
+        SqlDataReader reader,
+        int firstDataOrdinal)
+    {
+        var columnOrdinals = new Dictionary<string, int>(MetaName.Comparer);
+        for (var index = firstDataOrdinal; index < reader.FieldCount; index++)
+        {
+            var name = reader.GetName(index);
+            if (!columnOrdinals.TryAdd(name, index))
+            {
+                throw new InvalidOperationException(
+                    $"SQL result contains duplicate data column '{name}'.");
+            }
+        }
+
+        return columnOrdinals;
+    }
+
+    private static RecordData ReadCurrentRecord(
+        SqlDataReader reader,
+        string schema,
+        GenericEntity entity,
+        IReadOnlyDictionary<string, int> columnOrdinals)
+    {
+        if (!columnOrdinals.TryGetValue("Id", out var idOrdinal))
+        {
+            throw new InvalidOperationException(
+                $"Table '{schema}.{entity.Name}' does not include required column 'Id'.");
+        }
+
+        if (reader.IsDBNull(idOrdinal))
+        {
+            throw new InvalidOperationException(
+                $"Table '{schema}.{entity.Name}' contains null Id values.");
+        }
+
+        var id = Convert.ToString(
+            reader.GetValue(idOrdinal),
+            CultureInfo.InvariantCulture);
+        if (!MetaIdentity.TryValidate(id, out var identityError))
+        {
+            throw new InvalidOperationException(
+                $"Table '{schema}.{entity.Name}' contains invalid Id '{id}'. {identityError}");
+        }
+
+        var values = new Dictionary<string, string>(MetaName.Comparer);
+        var relationshipIds = new Dictionary<string, string>(MetaName.Comparer);
+        foreach (var property in entity.Properties)
+        {
+            if (!columnOrdinals.TryGetValue(
+                    property.Name,
+                    out var propertyOrdinal) ||
+                reader.IsDBNull(propertyOrdinal))
+            {
+                continue;
+            }
+
+            var textValue = Convert.ToString(
+                reader.GetValue(propertyOrdinal),
+                CultureInfo.InvariantCulture);
+            if (textValue != null)
+            {
+                values[property.Name] = textValue;
+            }
+        }
+
+        foreach (var relationship in entity.Relationships)
+        {
+            var columnName = relationship.GetColumnName();
+            if (!columnOrdinals.TryGetValue(
+                    columnName,
+                    out var relationshipOrdinal))
+            {
+                throw new InvalidOperationException(
+                    $"Table '{schema}.{entity.Name}' is missing relationship column '{columnName}'.");
+            }
+
+            if (reader.IsDBNull(relationshipOrdinal))
+            {
+                if (relationship.IsNullable)
+                {
+                    continue;
+                }
+
+                throw new InvalidOperationException(
+                    $"Table '{schema}.{entity.Name}' has null relationship value for '{columnName}' on row '{id}'.");
+            }
+
+            var relationshipId = Convert.ToString(
+                reader.GetValue(relationshipOrdinal),
+                CultureInfo.InvariantCulture);
+            if (!MetaIdentity.TryValidate(
+                    relationshipId,
+                    out var relationshipIdentityError))
+            {
+                throw new InvalidOperationException(
+                    $"Table '{schema}.{entity.Name}' has invalid relationship value '{relationshipId}' for '{columnName}' on row '{id}'. {relationshipIdentityError}");
+            }
+
+            relationshipIds[columnName] = relationshipId!;
+        }
+
+        return new RecordData(id!, values, relationshipIds);
     }
 
     private static string EscapeSqlIdentifier(string value)
@@ -255,25 +350,4 @@ internal static class SqlServerImportReader
         return value.Replace("]", "]]", StringComparison.Ordinal);
     }
 
-    private static string NormalizeIdentity(string? value)
-    {
-        return value?.Trim() ?? string.Empty;
-    }
-}
-
-internal sealed class SqlServerColumnRow
-{
-    public string Name { get; set; } = string.Empty;
-    public bool IsNullable { get; set; }
-}
-
-internal sealed class SqlServerRelationshipRow
-{
-    public string ConstraintName { get; set; } = string.Empty;
-    public string SourceTable { get; set; } = string.Empty;
-    public string SourceColumn { get; set; } = string.Empty;
-    public string TargetTable { get; set; } = string.Empty;
-    public string TargetColumn { get; set; } = string.Empty;
-    public int ConstraintColumnId { get; set; }
-    public bool IsNullable { get; set; }
 }

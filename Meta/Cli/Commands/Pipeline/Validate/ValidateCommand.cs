@@ -8,12 +8,12 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
+        var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+        PrintContractCompatibilityWarning(workspace.ContractVersion);
 
-        var diagnostics = services.ValidationService.Validate(workspace);
-
-        workspace.Diagnostics = diagnostics;
+        var diagnostics = WorkspaceValidator.Validate(
+            workspace.Model,
+            workspace.Instance);
 
         if (diagnostics.ErrorCount == 0 && diagnostics.WarningCount == 0)
         {

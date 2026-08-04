@@ -1,8 +1,8 @@
 using System.Linq;
 using Meta.Core.Domain;
-using Meta.Core.Services;
+using Meta.Core.Operations;
+using Meta.Core.Serialization;
 using MetaWeave.Core;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 using MetaWeaveModel = global::MetaWeave.MetaWeaveModel;
 
 namespace MetaWeave.Tests;
@@ -34,14 +34,13 @@ public sealed class SuggestServiceTests
                 "SampleReferenceBindingCatalog",
                 ("ReferenceTypeId", new[] { "type:string", "type:int", "type:string" }));
 
-            var workspaceService = new WorkspaceService();
             var weaveWorkspacePath = Path.Combine(root, "Weave");
             var weaveWorkspace = MetaWeaveModel.CreateEmpty();
-            var authoringService = new MetaWeaveAuthoringService(workspaceService);
+            var authoringService = new MetaWeaveAuthoringService();
             await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "Source", "SampleReferenceBindingCatalog", sourcePath);
             await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "Reference", "SampleReferenceCatalog", referencePath);
 
-            var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace, weaveWorkspacePath);
+            var result = await new MetaWeaveSuggestService().SuggestAsync(weaveWorkspace, weaveWorkspacePath);
 
             Assert.Single(result.Suggestions);
             Assert.Empty(result.WeakSuggestions);
@@ -71,14 +70,13 @@ public sealed class SuggestServiceTests
                 ("SourceReferenceTypeId", new[] { "type:string", "type:int", "type:string" }),
                 ("TargetReferenceTypeId", new[] { "type:int", "type:decimal", "type:int" }));
 
-            var workspaceService = new WorkspaceService();
             var weaveWorkspacePath = Path.Combine(root, "Weave");
             var weaveWorkspace = MetaWeaveModel.CreateEmpty();
-            var authoringService = new MetaWeaveAuthoringService(workspaceService);
+            var authoringService = new MetaWeaveAuthoringService();
             await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "Source", "SampleReferenceBindingCatalog", sourcePath);
             await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "Reference", "SampleReferenceCatalog", referencePath);
 
-            var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace, weaveWorkspacePath);
+            var result = await new MetaWeaveSuggestService().SuggestAsync(weaveWorkspace, weaveWorkspacePath);
 
             Assert.Empty(result.Suggestions);
             Assert.Equal(2, result.WeakSuggestionCount);
@@ -115,15 +113,14 @@ public sealed class SuggestServiceTests
                 "SampleReferenceBindingCatalog",
                 ("ReferenceTypeId", new[] { "type:string", "type:int", "type:string" }));
 
-            var workspaceService = new WorkspaceService();
             var weaveWorkspacePath = Path.Combine(root, "Weave");
             var weaveWorkspace = MetaWeaveModel.CreateEmpty();
-            var authoringService = new MetaWeaveAuthoringService(workspaceService);
+            var authoringService = new MetaWeaveAuthoringService();
             await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "Source", "SampleReferenceBindingCatalog", sourcePath);
             await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "ReferenceA", "SampleReferenceCatalog", referenceAPath);
             await authoringService.AddModelReferenceAsync(weaveWorkspace, weaveWorkspacePath, "ReferenceB", "SampleReferenceCatalog", referenceBPath);
 
-            var result = await new MetaWeaveSuggestService(workspaceService).SuggestAsync(weaveWorkspace, weaveWorkspacePath);
+            var result = await new MetaWeaveSuggestService().SuggestAsync(weaveWorkspace, weaveWorkspacePath);
 
             Assert.Empty(result.Suggestions);
             var weak = Assert.Single(result.WeakSuggestions);
@@ -174,36 +171,33 @@ public sealed class SuggestServiceTests
     private static string CreateReferenceWorkspace(string root, string folderName)
     {
         var path = Path.Combine(root, folderName);
-        var workspace = new Workspace
+        var model = new GenericModel
         {
-            WorkspaceRootPath = path,
-            MetadataRootPath = Path.Combine(path, "metadata"),
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = new GenericModel
+            Name = "SampleReferenceCatalog",
+            Entities =
             {
-                Name = "SampleReferenceCatalog",
-                Entities =
+                new GenericEntity
                 {
-                    new GenericEntity
+                    Name = "ReferenceType",
+                    Properties =
                     {
-                        Name = "ReferenceType",
-                        Properties =
-                        {
-                            new GenericProperty { Name = "Name", IsNullable = false },
-                        },
+                        new GenericProperty { Name = "Name", IsNullable = false },
                     },
                 },
             },
-            Instance = new GenericInstance
-            {
-                ModelName = "SampleReferenceCatalog",
-            },
-            IsDirty = true,
         };
-        AddRow(workspace.Instance, "ReferenceType", "type:decimal", ("Name", "decimal"));
-        AddRow(workspace.Instance, "ReferenceType", "type:int", ("Name", "int"));
-        AddRow(workspace.Instance, "ReferenceType", "type:string", ("Name", "string"));
-        new WorkspaceService().SaveAsync(workspace).GetAwaiter().GetResult();
+        var instance = new GenericInstance
+        {
+            ModelName = "SampleReferenceCatalog",
+        };
+        AddRow(instance, "ReferenceType", "type:decimal", ("Name", "decimal"));
+        AddRow(instance, "ReferenceType", "type:int", ("Name", "int"));
+        AddRow(instance, "ReferenceType", "type:string", ("Name", "string"));
+        XmlWorkspaceWriter.WriteNewAsync(
+                new InMemoryWorkspace(model, instance),
+                path)
+            .GetAwaiter()
+            .GetResult();
         return path;
     }
 
@@ -220,21 +214,14 @@ public sealed class SuggestServiceTests
             entity.Properties.Add(new GenericProperty { Name = propertySet.PropertyName, IsNullable = false });
         }
 
-        var workspace = new Workspace
+        var model = new GenericModel
         {
-            WorkspaceRootPath = path,
-            MetadataRootPath = Path.Combine(path, "metadata"),
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = new GenericModel
-            {
-                Name = modelName,
-                Entities = { entity },
-            },
-            Instance = new GenericInstance
-            {
-                ModelName = modelName,
-            },
-            IsDirty = true,
+            Name = modelName,
+            Entities = { entity },
+        };
+        var instance = new GenericInstance
+        {
+            ModelName = modelName,
         };
 
         var rowCount = propertySets.Max(item => item.Values.Length);
@@ -249,10 +236,14 @@ public sealed class SuggestServiceTests
                 values.Add((propertySet.PropertyName, propertySet.Values[index]));
             }
 
-            AddRow(workspace.Instance, "Mapping", $"mapping:{index + 1}", values.ToArray());
+            AddRow(instance, "Mapping", $"mapping:{index + 1}", values.ToArray());
         }
 
-        new WorkspaceService().SaveAsync(workspace).GetAwaiter().GetResult();
+        XmlWorkspaceWriter.WriteNewAsync(
+                new InMemoryWorkspace(model, instance),
+                path)
+            .GetAwaiter()
+            .GetResult();
         return path;
     }
 

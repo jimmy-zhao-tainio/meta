@@ -1,436 +1,137 @@
-# C# Tooling Services API
+# C# Services API
 
-This page documents the supported C# service surface for building tooling on top of `meta` without going through the CLI command parser.
+This page describes the supported C# surfaces for operating on Meta workspaces
+without invoking a CLI.
 
-Scope:
-- `Meta.Core.Services` contracts and core implementations
-- `Meta.Adapters` composition and import/export adapters
-- deterministic usage patterns for load -> validate -> mutate -> save
+## Assemblies
 
-## Assembly map
+- `Meta.Operations` owns representation-neutral model and instance state,
+  reads, constraints, validation, and operations.
+- `Meta.Core` owns XML workspace serialization and higher-level algorithms
+  composed from the operation language.
+- `Meta.Adapters` owns SQL and C# representation adapters plus import and
+  export services.
 
-- `Meta.Core`:
-  - domain types (`Workspace`, `GenericModel`, `GenericInstance`, `GenericEntity`, `GenericRecord`)
-  - core service contracts and implementations in `Meta.Core.Services`
-- `Meta.Adapters`:
-  - `ServiceCollection` composition root
-  - `ImportService` / `ExportService` adapter implementations
+## XML Workspaces
 
-## Quick start
+`XmlWorkspaceReader` opens one exact XML workspace path. It returns an
+`OpenedXmlWorkspace`, which carries the semantic state, the physical XML
+layout, and the baseline fingerprint needed for safe publication.
 
 ```csharp
-using Meta.Adapters;
-using Meta.Core.Services;
+using Meta.Core.Operations;
+using Meta.Core.Serialization;
 
-var services = new ServiceCollection();
-var workspace = await services.WorkspaceService.LoadAsync(@".\Workspace");
-var diagnostics = services.ValidationService.Validate(workspace);
-if (diagnostics.HasErrors)
-{
-    throw new InvalidOperationException("Workspace has validation errors.");
-}
+var opened = await XmlWorkspaceReader.OpenAsync(@".\Workspace");
+
+var execution = InMemoryOperations.Execute(
+    opened.State,
+    new Operation.AddEntity("Order"),
+    new Operation.AddProperty(
+        "Order",
+        "OrderNumber",
+        IsRequired: true));
+
+await XmlWorkspaceWriter.WriteAsync(
+    opened,
+    execution.Workspace,
+    execution.Results);
 ```
 
-## Composition root (`Meta.Adapters`)
+`XmlWorkspaceWriter.WriteAsync` validates the candidate, checks that the
+workspace has not changed since it was opened, preserves XML configuration and
+shard layout, applies XML-specific rename effects, and publishes atomically.
 
-`Meta.Adapters.ServiceCollection` wires the default concrete services:
+Use `XmlWorkspaceWriter.WriteNewAsync` when creating a new XML workspace from
+semantic state. Use `WriteMergedAsync` when publishing a semantic merge while
+preserving compatible source layouts.
 
-- `IWorkspaceService WorkspaceService`
-- `IValidationService ValidationService`
+XML loading never searches parent directories.
+
+## Semantic Operations
+
+`InMemoryWorkspace` contains only a `GenericModel` and `GenericInstance`.
+`InMemoryOperations.Execute` applies a batch atomically and returns a separate
+candidate plus structured results. Rejected batches do not alter the input.
+
+```csharp
+var execution = InMemoryOperations.Execute(
+    workspace,
+    new Operation.InsertRecord(
+        "Order",
+        "order-1",
+        new Dictionary<string, string>
+        {
+            ["OrderNumber"] = "SO-001",
+        }));
+```
+
+Operation construction enforces the common Meta name and identity language.
+Execution enforces model and referential integrity independently of the storage
+surface.
+
+## Reads
+
+`IMetaWorkspaceSource` is the common read contract. An
+`InMemoryWorkspaceSource` adapts in-memory state. `SqlWorkspaceSource`
+implements the same reads directly in SQL so bounded queries and record streams
+do not require loading all instance rows.
+
+The source contract includes model name, entity names, properties,
+relationships, record streams, record lookup, counts, and bounded typed
+queries.
+
+## SQL Workspaces
+
+`SqlWorkspaceSource` reads a SQL-backed Meta workspace under one coherent
+transaction. `SqlOperations` applies the common operation language directly
+through SQL DDL and DML; ordinary SQL reads and mutations do not materialize
+instance tables in memory.
+
+Full conversion to XML or C# intentionally materializes semantic state by
+composing the common reads.
+
+## Import And Export
+
+`Meta.Adapters.ServiceCollection` provides:
+
 - `IImportService ImportService`
 - `IExportService ExportService`
-- `IOperationService OperationService`
-- `IModelRefactorService ModelRefactorService`
-- `IInstanceRefactorService InstanceRefactorService`
 - `IInstanceDiffService InstanceDiffService`
 - `IWorkspaceMergeService WorkspaceMergeService`
+- `SqlServerDeploymentService SqlServerDeploymentService`
 
-Use this when you want a single default object graph for tooling code.
+`IImportService` returns `InMemoryWorkspace` for SQL and CSV imports.
+Existing-workspace CSV import returns an operation plan rather than mutating its
+target.
 
-## Core service contracts (`Meta.Core.Services`)
+`IExportService.ExportXmlAsync` writes an `InMemoryWorkspace` as a new XML
+workspace. `ExportCsvAsync` streams one entity from an
+`IMetaWorkspaceSource`.
 
-### `IWorkspaceService`
+## Higher-Level Algorithms
 
-```csharp
-Task<Workspace> LoadAsync(string workspaceRootPath, bool searchUpward = true, CancellationToken cancellationToken = default);
-Task SaveAsync(Workspace workspace, CancellationToken cancellationToken = default);
-Task SaveAsync(Workspace workspace, string? expectedFingerprint, CancellationToken cancellationToken = default);
-string CalculateHash(Workspace workspace);
-```
+`IWorkspaceMergeService.MergeAsync` reads semantic sources and returns a
+`WorkspaceMergePlan` containing merged state and counts.
 
-Behavior:
-- `LoadAsync` resolves a workspace from the provided path (upward search by default).
-- `SaveAsync` is validation-gated and atomic at workspace level.
-- `SaveAsync(... expectedFingerprint ...)` enforces optimistic concurrency.
-- `CalculateHash` returns deterministic workspace content hash.
+`IInstanceDiffService` builds equal or aligned diff workspaces from
+`InMemoryWorkspace` values. Its merge methods return ordinary operation plans
+for the caller to execute and publish.
 
-### `IValidationService`
+`ModelSuggestService.Analyze` consumes `InMemoryWorkspace`.
+`GenerationService.GenerateSql`, `GenerateCSharp`, and `GenerateSsdt`
+also consume semantic state; output-directory ownership belongs to those
+artifact generators.
 
-```csharp
-WorkspaceDiagnostics Validate(Workspace workspace);
-```
+## Failure Model
 
-Behavior:
-- validates model + instance invariants
-- returns errors/warnings as diagnostics (no mutation)
+- Invalid semantic operations throw `MetaOperationException`.
+- Validation returns structured `WorkspaceDiagnostics`.
+- Publishing a stale opened XML workspace throws `WorkspaceConflictException`
+  with expected and actual fingerprints.
+- Representation adapters reject structures they cannot carry without
+  semantic loss.
 
-### `IWorkspaceMergeService`
-
-```csharp
-WorkspaceMergeResult MergeInto(
-    Workspace targetWorkspace,
-    IReadOnlyList<Workspace> sourceWorkspaces,
-    WorkspaceMergeOptions options);
-```
-
-`WorkspaceMergeOptions`:
-- `MergedModelName`
-
-Behavior:
-- merges full model + instance from multiple workspaces into a target workspace object
-- fail-only on collisions/incompatible config
-
-### `IOperationService`
-
-```csharp
-void Execute(Workspace workspace, WorkspaceOp operation);
-bool CanUndo(Workspace workspace);
-bool CanRedo(Workspace workspace);
-void Undo(Workspace workspace);
-void Redo(Workspace workspace);
-```
-
-Behavior:
-- operation execution with in-memory undo/redo history per workspace instance
-- no persistence by itself (call `IWorkspaceService.SaveAsync` explicitly)
-
-### `IModelRefactorService`
-
-```csharp
-RenameModelRefactorResult RenameModel(Workspace workspace, RenameModelRefactorOptions options);
-RenameEntityRefactorResult RenameEntity(Workspace workspace, RenameEntityRefactorOptions options);
-RenameRelationshipRefactorResult RenameRelationship(Workspace workspace, RenameRelationshipRefactorOptions options);
-PropertyToRelationshipRefactorResult RefactorPropertyToRelationship(Workspace workspace, PropertyToRelationshipRefactorOptions options);
-RelationshipToPropertyRefactorResult RefactorRelationshipToProperty(Workspace workspace, RelationshipToPropertyRefactorOptions options);
-```
-
-Option records:
-- `RenameModelRefactorOptions(OldModelName, NewModelName)`
-- `RenameEntityRefactorOptions(OldEntityName, NewEntityName)`
-- `RenameRelationshipRefactorOptions(SourceEntityName, TargetEntityName, CurrentRole, NewRole)`
-- `PropertyToRelationshipRefactorOptions(SourceEntityName, SourcePropertyName, TargetEntityName, LookupPropertyName, Role, DropSourceProperty, RequireSourceReuse = true)`
-- `RelationshipToPropertyRefactorOptions(SourceEntityName, TargetEntityName, Role, PropertyName)`
-
-Behavior:
-- atomic in-memory refactor operations
-- fail-only on precondition collisions/invalid state
-- marks workspace dirty; caller persists explicitly
-
-### `IInstanceRefactorService`
-
-```csharp
-RenameInstanceIdRefactorResult RenameInstanceId(
-    Workspace workspace,
-    RenameInstanceIdRefactorOptions options);
-```
-
-`RenameInstanceIdRefactorOptions(EntityName, OldId, NewId)`
-
-Behavior:
-- renames row Id and rewrites inbound relationship usages referencing that Id
-- fail-only on collisions/missing entity or row
-
-### `IInstanceDiffService`
-
-```csharp
-InstanceDiffBuildResult BuildEqualDiffWorkspace(
-    Workspace leftWorkspace,
-    Workspace rightWorkspace,
-    string rightWorkspacePath);
-
-InstanceDiffBuildResult BuildAlignedDiffWorkspace(
-    Workspace leftWorkspace,
-    Workspace rightWorkspace,
-    Workspace alignmentWorkspace,
-    string rightWorkspacePath);
-
-void ApplyEqualDiffWorkspace(
-    Workspace targetWorkspace,
-    Workspace diffWorkspace);
-
-void ApplyAlignedDiffWorkspace(
-    Workspace targetWorkspace,
-    Workspace diffWorkspace);
-```
-
-`InstanceDiffBuildResult`:
-
-```csharp
-InstanceDiffBuildResult(
-    Workspace DiffWorkspace,
-    string DiffWorkspacePath,
-    bool HasDifferences,
-    int LeftRowCount,
-    int RightRowCount,
-    int LeftPropertyCount,
-    int RightPropertyCount,
-    int LeftNotInRightCount,
-    int RightNotInLeftCount);
-```
-
-Behavior:
-- builds the sanctioned diff workspace used by `meta instance diff`
-- supports both equal-model diff and aligned-model diff
-- applies a sanctioned diff workspace back onto a target workspace for merge flows
-- fails on diff/merge precondition mismatches with explicit `InvalidOperationException` messages
-
-### `IImportService` (implemented in `Meta.Adapters`)
-
-```csharp
-Task<Workspace> ImportSqlAsync(string connectionString, string schema, CancellationToken cancellationToken = default);
-Task<Workspace> ImportCsvAsync(string csvPath, string entityName, CancellationToken cancellationToken = default);
-```
-
-Behavior:
-- returns in-memory workspace; caller chooses where/when to save
-- CSV import is Id-first (`Id` column required, case-insensitive header match)
-
-### `IExportService` (implemented in `Meta.Adapters`)
-
-```csharp
-Task ExportXmlAsync(Workspace workspace, string outputDirectory, CancellationToken cancellationToken = default);
-Task ExportCsvAsync(Workspace workspace, string entityName, string outputPath, CancellationToken cancellationToken = default);
-```
-
-Behavior:
-- filesystem export wrappers over `WorkspaceService` / `GenerationService`
-
-## Static analysis/generation services
-
-### `ModelSuggestService` (static)
-
-```csharp
-ModelSuggestReport Analyze(Workspace workspace);
-LookupRelationshipSuggestion AnalyzeLookupRelationship(
-    Workspace workspace,
-    string sourceEntityName,
-    string sourcePropertyName,
-    string targetEntityName,
-    string targetPropertyName,
-    string? role = null,
-    bool allowSourcePropertyReplacement = true,
-    bool requireSourceReuse = true);
-```
-
-Use this for read-only structural suggestion analysis in tooling flows. Strong suggestions require one exact eligible target; weak suggestions capture role-style suffix matches and cases where one source property still matches more than one eligible target.
-
-### `GenerationService` (static)
-
-```csharp
-GenerationManifest GenerateSql(Workspace workspace, string outputDirectory);
-GenerationManifest GenerateCSharp(Workspace workspace, string outputDirectory, bool includeTooling = false);
-GenerationManifest GenerateSsdt(Workspace workspace, string outputDirectory);
-```
-
-`GenerateCSharp(... includeTooling: true)` emits optional `<ModelName>.Tooling.cs` helper surface.
-
-### `GraphStatsService` (static)
-
-```csharp
-GraphStatsReport Compute(GenericModel model, int topN = 10, int cycleSampleLimit = 10);
-```
-
-Model-level graph diagnostics (in/out degree, SCC/cycle, roots/sinks, component counts).
-
-### `NormalizationService` (static)
-
-```csharp
-IReadOnlyList<WorkspaceOp> BuildNormalizeOperations(Workspace workspace, NormalizeOptions? options = null);
-```
-
-Generates deterministic cleanup operations; execute with `IOperationService`.
-
-## Error model
-
-Typical failures throw `InvalidOperationException` with explicit precondition messages.
-
-Optimistic save mismatch throws `WorkspaceConflictException`:
-
-- `ExpectedFingerprint`
-- `ActualFingerprint`
-
-## Recommended tooling workflow
-
-```csharp
-using Meta.Adapters;
-using Meta.Core.Services;
-
-var services = new ServiceCollection();
-
-var workspace = await services.WorkspaceService.LoadAsync(@".\Workspace");
-var beforeHash = services.WorkspaceService.CalculateHash(workspace);
-
-var diagnostics = services.ValidationService.Validate(workspace);
-if (diagnostics.HasErrors)
-{
-    throw new InvalidOperationException("Fix validation errors before mutation.");
-}
-
-// Example: model refactor
-var refactorResult = services.ModelRefactorService.RefactorPropertyToRelationship(
-    workspace,
-    new PropertyToRelationshipRefactorOptions(
-        SourceEntityName: "Order",
-        SourcePropertyName: "WarehouseId",
-        TargetEntityName: "Warehouse",
-        LookupPropertyName: "Id",
-        Role: "",
-        DropSourceProperty: true,
-        RequireSourceReuse: true));
-
-// Validate post-change
-var postDiagnostics = services.ValidationService.Validate(workspace);
-if (postDiagnostics.HasErrors)
-{
-    throw new InvalidOperationException("Refactor introduced validation errors.");
-}
-
-// Persist with optimistic concurrency
-await services.WorkspaceService.SaveAsync(workspace, expectedFingerprint: beforeHash);
-```
-
-## Notes for generated tooling users
-
-- Generated consumer POCOs are dependency-free.
-- Generated optional tooling file (`--tooling`) uses `Meta.Adapters.ServiceCollection` and these services under the hood.
-- For custom tools, prefer calling services directly for explicit control over validation, refactor sequencing, and save boundaries.
-
-## CLI to Services API mapping
-
-This maps CLI surfaces to the primary C# service entrypoints used today.
-
-| CLI command family | Primary C# API path |
-|---|---|
-| `meta init` | `WorkspaceService.SaveAsync(...)` with newly created `Workspace` object |
-| `meta status` | `WorkspaceService.LoadAsync(...)` |
-| `meta check` | `WorkspaceService.LoadAsync(...)` + `ValidationService.Validate(...)` |
-| `meta list ...`, `meta view ...`, `meta query ...` | `WorkspaceService.LoadAsync(...)` then in-memory domain traversal |
-| `meta model add-entity/add-property/add-relationship/drop-*`, `meta instance update`, `meta instance relationship set`, `meta delete`, `meta insert`, `meta bulk-insert` | `OperationService.Execute(...)` over `WorkspaceOp` + `NormalizationService.BuildNormalizeOperations(...)` + `ValidationService.Validate(...)` + `WorkspaceService.SaveAsync(...)` |
-| `meta model rename-model/rename-entity/rename-relationship` | `ModelRefactorService` + `ValidationService.Validate(...)` + `WorkspaceService.SaveAsync(...)` |
-| `meta model refactor property-to-relationship` | `ModelRefactorService.RefactorPropertyToRelationship(...)` + validate + save |
-| `meta model refactor relationship-to-property` | `ModelRefactorService.RefactorRelationshipToProperty(...)` + validate + save |
-| `meta instance rename-id` | `InstanceRefactorService.RenameInstanceId(...)` + validate + save |
-| `meta model suggest` | `ModelSuggestService.Analyze(...)` |
-| `meta graph stats` | `GraphStatsService.Compute(...)` |
-| `meta workspace merge` | `WorkspaceMergeService.MergeInto(...)` + `ValidationService.Validate(...)` + `WorkspaceService.SaveAsync(...)` |
-| `meta import sql` | `ImportService.ImportSqlAsync(...)` + validate + `ExportService.ExportXmlAsync(...)` |
-| `meta import csv` | `ImportService.ImportCsvAsync(...)`; for existing workspace import path, CLI upserts into loaded workspace then validates and saves |
-| `meta export csv` | `ExportService.ExportCsvAsync(...)` |
-| `meta generate sql/csharp/ssdt` | `GenerationService.GenerateSql/GenerateCSharp/GenerateSsdt` |
-| `meta instance diff/merge` and aligned variants | `InstanceDiffService.BuildEqualDiffWorkspace/BuildAlignedDiffWorkspace` and `ApplyEqualDiffWorkspace/ApplyAlignedDiffWorkspace` |
-
-Practical rule for non-CLI tooling:
-- use `ServiceCollection` and call services directly when the service contract exists
-- diff/merge now has a dedicated `IInstanceDiffService`; tooling should use that instead of mirroring CLI support code
-
-## MetaWeave Services
-
-### `MetaWeaveSuggestService`
-
-```csharp
-Task<WeaveSuggestResult> SuggestAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default);
-```
-
-Example CLI output from the sanctioned weak role weave workspace:
-
-```text
-Ok
-
-Binding suggestions
-  (none)
-
-Weak binding suggestions
-  1) Source.Mapping.SourceReferenceTypeId -> Reference.ReferenceType.Id (role: SourceReferenceType)
-```
-
-### `MetaWeaveAuthoringService`
-
-```csharp
-Task AddModelReferenceAsync(Workspace weaveWorkspace, string alias, string modelName, string workspacePath, CancellationToken cancellationToken = default);
-Task AddPropertyBindingAsync(
-    Workspace weaveWorkspace,
-    string name,
-    string sourceModelAlias,
-    string sourceEntity,
-    string sourceProperty,
-    string targetModelAlias,
-    string targetEntity,
-    string targetProperty,
-    CancellationToken cancellationToken = default);
-```
-
-### `MetaWeaveService`
-
-```csharp
-Task<WeaveCheckResult> CheckAsync(Workspace weaveWorkspace, CancellationToken cancellationToken = default);
-Task<Workspace> MaterializeAsync(Workspace weaveWorkspace, string materializedWorkspaceRootPath, string mergedModelName, CancellationToken cancellationToken = default);
-```
-
-### Additional CLI to Services API mappings
-
-| CLI command family | Primary C# API path |
-|---|---|
-| `meta-weave add-model` | `MetaWeaveAuthoringService.AddModelReferenceAsync(...)` |
-| `meta-weave add-binding` | `MetaWeaveAuthoringService.AddPropertyBindingAsync(...)` |
-| `meta-weave suggest` | `MetaWeaveSuggestService.SuggestAsync(...)` |
-| `meta-weave check` | `MetaWeaveService.CheckAsync(...)` |
-| `meta-weave materialize` | `MetaWeaveService.MaterializeAsync(...)` |
-
-## ModelSuggestService Example
-
-Example CLI output from the sanctioned Suggest demo workspace:
-
-```text
-Ok
-
-Relationship suggestions
-  1) Order.ProductId -> Product (lookup: Product.Id)
-  2) Order.SupplierId -> Supplier (lookup: Supplier.Id)
-  3) Order.WarehouseId -> Warehouse (lookup: Warehouse.Id)
-
-Weak relationship suggestions
-  (none)
-```
-
-Role-style weak example:
-
-```text
-Ok
-
-Relationship suggestions
-  (none)
-
-Weak relationship suggestions
-  1) Order.SourceProductId -> Product (lookup: Product.Id, role: SourceProduct)
-```
-
-Ambiguous weak example:
-
-```text
-Ok
-
-Relationship suggestions
-  (none)
-
-Weak relationship suggestions
-  1) Mapping.ReferenceTypeId -> ReferenceType (lookup: ReferenceType.Id)
-  2) Mapping.ReferenceTypeId -> Type (lookup: Type.Id, role: ReferenceType)
-```
-
-
-
-
-
-## SqlServerDeploymentService
-
-Implemented in `Meta.Adapters`. Deploys generated `.sql` files to SQL Server in deterministic file-name order, supports `GO` batch separators, and can optionally create/use a target database before applying scripts.
+The old mutable `Workspace` object and `WorkspaceService` compatibility
+shell no longer exist. Callers choose a representation adapter explicitly and
+keep semantic work separate from persistence.

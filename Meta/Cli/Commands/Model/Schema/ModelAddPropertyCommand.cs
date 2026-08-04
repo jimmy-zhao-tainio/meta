@@ -8,18 +8,6 @@ internal sealed partial class CliRuntime
         string? defaultValue = IsPresent("default-value") ? RequiredValue("default-value") : null;
         var workspacePath = WorkspacePath();
 
-        var operation = new WorkspaceOp
-        {
-            Type = WorkspaceOpTypes.AddProperty,
-            EntityName = entityName,
-            Property = new GenericProperty
-            {
-                Name = propertyName,
-                IsNullable = !required,
-            },
-            PropertyDefaultValue = defaultValue,
-        };
-
         var requiredText = required ? "required" : "optional";
         var successDetails = new List<(string Key, string Value)>
         {
@@ -33,7 +21,11 @@ internal sealed partial class CliRuntime
 
         return await ExecuteOperationAsync(
                 workspacePath,
-                operation,
+                () => new Operation.AddProperty(
+                    entityName,
+                    propertyName,
+                    required,
+                    defaultValue),
                 "model add-property",
                 "property added",
                 successDetails.ToArray())

@@ -12,21 +12,30 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            var fromEntity = RequireEntity(workspace, fromEntityName);
-            var row = ResolveRowById(workspace, fromEntityName, fromId);
-            var relationshipRows = fromEntity.Relationships
+            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            var source = CreateWorkspaceSource(workspace.State);
+            var resolvedEntityName = await ResolveEntityNameAsync(source, fromEntityName).ConfigureAwait(false);
+            var row = await source.ReadRecordAsync(resolvedEntityName, fromId).ConfigureAwait(false) ??
+                      throw new InvalidOperationException(
+                          $"Instance with Id '{fromId}' does not exist in entity '{resolvedEntityName}'.");
+            var relationships = new List<RelationshipDefinition>();
+            await foreach (var relationship in source.ReadRelationshipsAsync(resolvedEntityName))
+            {
+                relationships.Add(relationship);
+            }
+
+            var relationshipRows = relationships
                 .OrderBy(relationship => relationship.GetColumnName(), StringComparer.OrdinalIgnoreCase)
-                .ThenBy(relationship => relationship.Entity, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(relationship => relationship.TargetEntityName, StringComparer.OrdinalIgnoreCase)
                 .Where(relationship =>
                     row.RelationshipIds.TryGetValue(relationship.GetColumnName(), out var relationshipId) &&
                     !string.IsNullOrWhiteSpace(relationshipId))
                 .Select(item => new
                 {
                     Relationship = item.GetColumnName(),
-                    ToEntity = item.Entity,
-                    ToInstance = BuildEntityInstanceAddress(item.Entity, row.RelationshipIds[item.GetColumnName()]),
+                    ToEntity = item.TargetEntityName,
+                    ToInstance = BuildEntityInstanceAddress(item.TargetEntityName, row.RelationshipIds[item.GetColumnName()]),
                 })
                 .ToList();
 
@@ -38,7 +47,7 @@ internal sealed partial class CliRuntime
             }
 
             presenter.WriteInfo("Relationships");
-            presenter.WriteInfo($"  FromInstance: {BuildEntityInstanceAddress(fromEntityName, row.Id)}");
+            presenter.WriteInfo($"  FromInstance: {BuildEntityInstanceAddress(resolvedEntityName, row.Id)}");
             presenter.WriteTable(
                 new[] { "Relationship", "ToEntity", "ToInstance" },
                 relationshipRows

@@ -146,16 +146,18 @@ internal sealed partial class CliRuntime
 
     async Task<int> ExecuteOperationAsync(
         string workspacePath,
-        WorkspaceOp operation,
+        Func<Operation> createOperation,
         string commandName,
         string successMessage,
         params (string Key, string Value)[] successDetails)
     {
         try
         {
-            var workspace = await LoadWorkspaceForCommandAsync(workspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
+            ArgumentNullException.ThrowIfNull(createOperation);
+            var operation = createOperation();
+            var workspace = await OpenXmlWorkspaceForCommandAsync(workspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
                     workspace,
                     new[] { operation },
                     commandName,
@@ -169,76 +171,88 @@ internal sealed partial class CliRuntime
         }
     }
 
-    async Task<int> ExecuteOperationsAgainstLoadedWorkspaceAsync(
-        Workspace workspace,
-        IReadOnlyList<WorkspaceOp> operations,
+    async Task<int> ExecuteOperationAsync(
+        OpenedXmlWorkspace workspace,
+        Operation operation,
         string commandName,
         string successMessage,
-        IReadOnlyList<(string Key, string Value)>? successDetails = null)
+        params (string Key, string Value)[] successDetails)
     {
-        if (workspace == null)
-        {
-            throw new ArgumentNullException(nameof(workspace));
-        }
-
-        if (operations == null)
-        {
-            throw new ArgumentNullException(nameof(operations));
-        }
-
-        var before = WorkspaceSnapshotCloner.Capture(workspace);
-        try
-        {
-            foreach (var operation in operations)
-            {
-                services.OperationService.Execute(workspace, operation);
-            }
-
-            ApplyImplicitNormalization(workspace);
-        }
-        catch
-        {
-            WorkspaceSnapshotCloner.Restore(workspace, before);
-            throw;
-        }
-
-        var diagnostics = services.ValidationService.Validate(workspace);
-        workspace.Diagnostics = diagnostics;
-        if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
-        {
-            WorkspaceSnapshotCloner.Restore(workspace, before);
-            return PrintOperationValidationFailure(commandName, operations, diagnostics);
-        }
-
-        await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
-        var details = new List<(string Key, string Value)>();
-        if (successDetails is { Count: > 0 })
-        {
-            details.AddRange(successDetails);
-        }
-
-        presenter.WriteOk(successMessage, details.ToArray());
-
-        if (diagnostics.WarningCount > 0)
-        {
-            presenter.WriteInfo(
-                $"Validation: warnings={diagnostics.WarningCount.ToString(CultureInfo.InvariantCulture)}, total={diagnostics.Issues.Count.ToString(CultureInfo.InvariantCulture)} (no errors)");
-        }
-
-        return 0;
+        ArgumentNullException.ThrowIfNull(workspace);
+        ArgumentNullException.ThrowIfNull(operation);
+        return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
+                workspace,
+                new[] { operation },
+                commandName,
+                successMessage,
+                successDetails)
+            .ConfigureAwait(false);
     }
 
-    void ApplyImplicitNormalization(Workspace workspace)
+    async Task<int> ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
+        OpenedXmlWorkspace workspace,
+        IReadOnlyList<Operation> operations,
+        string commandName,
+        string successMessage,
+        IReadOnlyList<(string Key, string Value)>? successDetails = null,
+        Func<IReadOnlyList<OperationResult>, IReadOnlyList<(string Key, string Value)>>? buildSuccessDetails = null,
+        Action<IReadOnlyList<OperationResult>>? writeSuccessOutput = null)
     {
-        var normalizeOps = NormalizationService.BuildNormalizeOperations(
-            workspace,
-            new NormalizeOptions
-            {
-                DropUnknown = false,
-            });
-        foreach (var normalizeOp in normalizeOps)
+        ArgumentNullException.ThrowIfNull(workspace);
+        ArgumentNullException.ThrowIfNull(operations);
+        try
         {
-            services.OperationService.Execute(workspace, normalizeOp);
+            var applied = InMemoryOperations.Execute(
+                workspace.State,
+                operations);
+            var diagnostics = WorkspaceValidator.Validate(
+                applied.Workspace.Model,
+                applied.Workspace.Instance);
+            if (diagnostics.HasErrors ||
+                (globalStrict && diagnostics.WarningCount > 0))
+            {
+                return PrintOperationValidationFailure(
+                    commandName,
+                    operations,
+                    diagnostics);
+            }
+
+            await XmlWorkspaceWriter.WriteAsync(
+                    workspace,
+                    applied.Workspace,
+                    applied.Results)
+                .ConfigureAwait(false);
+            presenter.WriteOk(
+                successMessage,
+                (buildSuccessDetails != null
+                    ? buildSuccessDetails(applied.Results)
+                    : successDetails ?? Array.Empty<(string Key, string Value)>()).ToArray());
+            writeSuccessOutput?.Invoke(applied.Results);
+            if (diagnostics.WarningCount > 0)
+            {
+                presenter.WriteInfo(
+                    $"Validation: warnings={diagnostics.WarningCount.ToString(CultureInfo.InvariantCulture)}, total={diagnostics.Issues.Count.ToString(CultureInfo.InvariantCulture)} (no errors)");
+            }
+
+            return 0;
+        }
+        catch (MetaOperationException exception) when (exception.Diagnostics != null)
+        {
+            return PrintOperationValidationFailure(
+                commandName,
+                operations,
+                exception.Diagnostics);
+        }
+        catch (MetaOperationException exception)
+        {
+            var cause = exception.InnerException ?? exception;
+            while (cause is MetaOperationException operationException &&
+                   operationException.InnerException != null)
+            {
+                cause = operationException.InnerException;
+            }
+
+            return PrintDataError("E_OPERATION", cause.Message);
         }
     }
 

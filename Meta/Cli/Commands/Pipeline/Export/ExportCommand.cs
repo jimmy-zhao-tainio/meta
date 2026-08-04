@@ -19,20 +19,25 @@ internal sealed partial class CliRuntime
 
                 try
                 {
-                    var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-                    PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-                    var diagnostics = services.ValidationService.Validate(workspace);
-                    workspace.Diagnostics = diagnostics;
+                    var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+                    PrintContractCompatibilityWarning(workspace.ContractVersion);
+                    var diagnostics = WorkspaceValidator.Validate(
+                        workspace.Model,
+                        workspace.Instance);
                     if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
                     {
-                        return PrintOperationValidationFailure("export", Array.Empty<Meta.Core.Operations.WorkspaceOp>(), diagnostics);
+                        return PrintOperationValidationFailure("export", Array.Empty<Operation>(), diagnostics);
                     }
 
                     var entityName = RequiredValue("Entity");
-                    await services.ExportService.ExportCsvAsync(workspace, entityName, options.OutputPath).ConfigureAwait(false);
+                    await services.ExportService.ExportCsvAsync(
+                            new InMemoryWorkspaceSource(workspace.State),
+                            entityName,
+                            options.OutputPath)
+                        .ConfigureAwait(false);
                     presenter.WriteOk(
                         "exported csv",
-                        ("Workspace", Path.GetFullPath(workspace.WorkspaceRootPath)),
+                        ("Workspace", workspace.RootPath),
                         ("Entity", entityName),
                         ("Out", Path.GetFullPath(options.OutputPath)));
                     return 0;

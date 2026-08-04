@@ -161,8 +161,7 @@ internal static class Program
             throw new InvalidOperationException($"Target directory '{materializedWorkspacePath}' must be empty.");
         }
 
-        var workspaceService = new WorkspaceService();
-        var materializedWorkspace = new MetaWeaveService(workspaceService, new WorkspaceMergeService())
+        var result = new MetaWeaveService()
             .MaterializeAsync(
                 weaveModel,
                 weaveWorkspacePath,
@@ -171,16 +170,13 @@ internal static class Program
             .GetAwaiter()
             .GetResult();
 
-        Directory.CreateDirectory(materializedWorkspacePath);
-        workspaceService.SaveAsync(materializedWorkspace).GetAwaiter().GetResult();
-
         Presenter.WriteOk(
             "weave materialize",
             ("Weave", weaveWorkspacePath),
             ("Workspace", materializedWorkspacePath),
-            ("Model", materializedWorkspace.Model.Name),
-            ("Entities", materializedWorkspace.Model.Entities.Count.ToString()),
-            ("BindingsMaterialized", weaveModel.PropertyBindingList.Count.ToString()));
+            ("Model", result.Workspace.Model.Name),
+            ("Entities", result.Workspace.Model.Entities.Count.ToString()),
+            ("BindingsMaterialized", result.BindingsMaterialized.ToString()));
     }
 
     private static string ResolveWorkspacePath(MetaCliInvocation invocation)

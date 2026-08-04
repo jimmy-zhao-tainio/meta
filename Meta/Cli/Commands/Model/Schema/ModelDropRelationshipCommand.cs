@@ -12,9 +12,11 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            var fromEntity = RequireEntity(workspace, fromEntityName);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            var fromEntity = workspace.Model.FindEntity(fromEntityName) ??
+                throw new InvalidOperationException(
+                    $"Entity '{fromEntityName}' does not exist.");
             var relationship = ResolveRelationshipDefinition(fromEntity, toEntityName, out var isAmbiguous);
             if (isAmbiguous)
             {
@@ -33,15 +35,11 @@ internal sealed partial class CliRuntime
             var relationshipName = relationship.GetColumnName();
             var targetEntityName = relationship.Entity;
 
-            var operation = new WorkspaceOp
-            {
-                Type = WorkspaceOpTypes.DeleteRelationship,
-                EntityName = fromEntityName,
-                RelatedEntity = relationshipName,
-            };
             return await ExecuteOperationAsync(
-                    options.WorkspacePath,
-                    operation,
+                    workspace,
+                    new Operation.RemoveRelationship(
+                        fromEntityName,
+                        relationshipName),
                     "model drop-relationship",
                     "relationship removed",
                     ("From", fromEntityName),

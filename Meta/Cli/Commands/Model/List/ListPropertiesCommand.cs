@@ -9,30 +9,25 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-        var entity = workspace.Model.FindEntity(entityName);
-        if (entity == null)
+        var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+        PrintContractCompatibilityWarning(workspace.ContractVersion);
+        var source = CreateWorkspaceSource(workspace.State);
+        var resolvedEntityName = await ResolveEntityNameAsync(source, entityName).ConfigureAwait(false);
+        var properties = new List<(string Name, bool Required)>
         {
-            return PrintDataError("E_ENTITY_NOT_FOUND", $"Entity '{entityName}' does not exist.");
+            ("Id", true),
+        };
+        await foreach (var property in source.ReadPropertiesAsync(resolvedEntityName))
+        {
+            properties.Add((property.Name, property.IsRequired));
         }
 
-        var properties = entity.Properties
-            .Where(property => !string.Equals(property.Name, "Id", StringComparison.OrdinalIgnoreCase))
-            .OrderBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
-            .Select(property => new
-            {
-                Name = property.Name,
-                Required = !property.IsNullable,
-            })
+        properties = properties
+            .OrderBy(property => MetaName.Comparer.Equals(property.Name, "Id") ? 0 : 1)
+            .ThenBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
             .ToList();
-        properties.Insert(0, new
-        {
-            Name = "Id",
-            Required = true,
-        });
 
-        presenter.WriteInfo($"Properties: {entity.Name}");
+        presenter.WriteInfo($"Properties: {resolvedEntityName}");
         presenter.WriteTable(
             new[] { "Name", "Required" },
             properties

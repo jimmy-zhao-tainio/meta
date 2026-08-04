@@ -10,5 +10,6 @@ global using System.Xml;
 global using Meta.Adapters;
 global using Meta.Core.Domain;
 global using Meta.Core.Operations;
+global using Meta.Core.Serialization;
 global using Meta.Core.Services;
 global using Microsoft.Data.SqlClient;

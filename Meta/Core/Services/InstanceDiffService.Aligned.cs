@@ -1,10 +1,4 @@
-using System.Reflection;
-using System.Globalization;
-using System.Xml.Linq;
 using Meta.Core.Domain;
-using Meta.Core.Operations;
-using Meta.Core.Serialization;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Services;
 
@@ -19,8 +13,8 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private static void CopyRowsByEntityWithIdentity(
-        Workspace source,
-        Workspace destination,
+        InMemoryWorkspace source,
+        InMemoryWorkspace destination,
         string entityName,
         IdentityAllocator identityAllocator,
         IDictionary<string, Dictionary<string, string>> idMapByEntity,
@@ -89,27 +83,27 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private static AlignmentCatalog ParseAlignmentCatalog(
-        Workspace alignmentWorkspace,
+        InMemoryWorkspace alignmentWorkspace,
         string expectedModelName,
         string expectedModelSignature)
     {
         if (!string.Equals(alignmentWorkspace.Model.Name, expectedModelName, StringComparison.OrdinalIgnoreCase))
         {
             throw new InvalidOperationException(
-                $"workspace '{alignmentWorkspace.WorkspaceRootPath}' is not an {expectedModelName} workspace.");
+                $"workspace is not an {expectedModelName} workspace.");
         }
 
         if (!IsModelContract(alignmentWorkspace.Model, expectedModelSignature))
         {
             throw new InvalidOperationException(
-                $"workspace '{alignmentWorkspace.WorkspaceRootPath}' does not match the fixed {expectedModelName} model contract.");
+                $"workspace does not match the fixed {expectedModelName} model contract.");
         }
 
         var alignmentRows = BuildRecordMap(alignmentWorkspace, AlignmentEntityName);
         if (alignmentRows.Count != 1)
         {
             throw new InvalidOperationException(
-                $"workspace '{alignmentWorkspace.WorkspaceRootPath}' must contain exactly one '{AlignmentEntityName}' row.");
+                $"workspace must contain exactly one '{AlignmentEntityName}' row.");
         }
 
         var alignmentRow = alignmentRows.Values.Single();
@@ -322,7 +316,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private void ValidateWorkspaceMatchesAlignment(
-        Workspace workspace,
+        InMemoryWorkspace workspace,
         string expectedModelName,
         IReadOnlyDictionary<string, string> entityNameById,
         IReadOnlyDictionary<string, string> propertyNameById,
@@ -368,8 +362,8 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private AlignedSideData BuildAlignedSideData(
-        Workspace sourceWorkspace,
-        Workspace diffWorkspace,
+        InMemoryWorkspace sourceWorkspace,
+        InMemoryWorkspace diffWorkspace,
         AlignmentCatalog alignment,
         bool leftSide,
         IdentityAllocator identityAllocator)
@@ -472,14 +466,12 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private InstanceDiffBuildResult BuildAlignedInstanceDiffWorkspace(
-        Workspace leftWorkspace,
-        Workspace rightWorkspace,
-        Workspace alignmentWorkspace,
-        AlignmentCatalog alignment,
-        string rightWorkspacePath)
+        InMemoryWorkspace leftWorkspace,
+        InMemoryWorkspace rightWorkspace,
+        InMemoryWorkspace alignmentWorkspace,
+        AlignmentCatalog alignment)
     {
-        var diffWorkspacePath = ResolveInstanceDiffOutputPath(rightWorkspacePath, "instance-diff-aligned");
-        var diffWorkspace = CreateWorkspaceFromDefinition(InstanceDiffAlignedWorkspaceDefinition.Value, diffWorkspacePath);
+        var diffWorkspace = CreateWorkspaceFromDefinition(InstanceDiffAlignedWorkspaceDefinition.Value);
         var identityAllocator = new IdentityAllocator();
         var idMapByEntity = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
         var includedPropertyMapIds = alignment.PropertyMapById.Keys.ToHashSet(StringComparer.OrdinalIgnoreCase);
@@ -658,7 +650,6 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
 
         return new InstanceDiffBuildResult(
             DiffWorkspace: diffWorkspace,
-            DiffWorkspacePath: diffWorkspacePath,
             HasDifferences: hasDifferences,
             LeftRowCount: leftSide.RowCount,
             RightRowCount: rightSide.RowCount,
@@ -668,7 +659,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
             RightNotInLeftCount: rightNotInLeft.Count);
     }
 
-    private AlignedDiffData ParseAlignedDiffWorkspace(Workspace diffWorkspace)
+    private AlignedDiffData ParseAlignedDiffWorkspace(InMemoryWorkspace diffWorkspace)
     {
         var alignment = ParseAlignmentCatalog(
             diffWorkspace,
@@ -766,7 +757,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         IReadOnlyDictionary<string, (string EntityMapId, string EntityInstanceIdentifier)> RowIdentityByRowInstanceId);
 
     private static ParsedAlignedSideRows ParseAlignedSideRows(
-        Workspace diffWorkspace,
+        InMemoryWorkspace diffWorkspace,
         string rowEntityName,
         string entityIdPropertyName,
         AlignmentCatalog alignment,
@@ -809,7 +800,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         IReadOnlyDictionary<string, string> ValueByEntityMapRowPropertyMapKey);
 
     private static ParsedAlignedSideProperties ParseAlignedSideProperties(
-        Workspace diffWorkspace,
+        InMemoryWorkspace diffWorkspace,
         string propertyEntityName,
         string rowInstanceIdPropertyName,
         string propertyIdPropertyName,
@@ -891,7 +882,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private static void ValidateAlignedNotInRows(
-        Workspace diffWorkspace,
+        InMemoryWorkspace diffWorkspace,
         string notInEntityName,
         string propertyInstanceIdFieldName,
         IReadOnlyDictionary<string, string> propertyInstanceIdByTupleKey,
@@ -921,7 +912,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private static void ValidateAlignedEntityNotInRows(
-        Workspace diffWorkspace,
+        InMemoryWorkspace diffWorkspace,
         string notInEntityName,
         string entityInstanceIdFieldName,
         IReadOnlyDictionary<string, string> entityInstanceIdByRowKey,
@@ -955,7 +946,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         HashSet<string> PropertySet,
         Dictionary<string, string> ValueByEntityMapRowPropertyMapKey)
         BuildWorkspaceSnapshotForAlignedDiff(
-            Workspace workspace,
+            InMemoryWorkspace workspace,
             AlignmentCatalog alignment)
     {
         var rowSet = new HashSet<string>(StringComparer.Ordinal);
@@ -972,8 +963,8 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
                     $"EntityMap '{entityMapId}' references missing ModelLeftEntity '{leftEntityId}'.");
             }
 
-            var entity = RequireEntity(workspace, entityName);
-            var rows = BuildRecordMap(workspace, entityName);
+            var entity = RequireEntity(workspace.Model, entityName);
+            var rows = BuildRecordMap(workspace.Instance, entityName);
             foreach (var row in rows.Values.OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase))
             {
                 rowSet.Add(CreateAlignedRowKey(entityMapId, row.Id));
@@ -1009,7 +1000,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private void ApplyAlignedRightSnapshotToWorkspace(
-        Workspace targetWorkspace,
+        InMemoryWorkspace targetWorkspace,
         AlignedDiffData diffData)
     {
         var alignment = diffData.Alignment;
@@ -1022,7 +1013,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
                 continue;
             }
 
-            var entity = RequireEntity(targetWorkspace, entityName);
+            var entity = RequireEntity(targetWorkspace.Model, entityName);
             var rows = targetWorkspace.Instance.GetOrCreateEntityRecords(entityName);
             var rightRowIds = diffData.RightRowSet
                 .Select(key =>

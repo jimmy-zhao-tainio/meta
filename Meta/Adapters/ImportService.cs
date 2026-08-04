@@ -3,136 +3,25 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 using Meta.Core.Domain;
+using Meta.Core.Operations;
 using Meta.Core.Services;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Adapters;
 
 public sealed class ImportService : IImportService
 {
-    private const int MaxIdentifierLength = 128;
-    private static readonly Regex IdentifierPattern = new(
-        "^[A-Za-z_][A-Za-z0-9_]*$",
-        RegexOptions.CultureInvariant | RegexOptions.Compiled);
-
-    private readonly IWorkspaceService _workspaceService;
-
-    public ImportService(IWorkspaceService workspaceService)
+    public Task<InMemoryWorkspace> ImportSqlAsync(string connectionString, string schema, CancellationToken cancellationToken = default)
     {
-        _workspaceService = workspaceService ?? throw new ArgumentNullException(nameof(workspaceService));
+        return MetaSqlReader.ReadAsync(
+            connectionString,
+            schema,
+            cancellationToken);
     }
 
-    public async Task<Workspace> ImportSqlAsync(string connectionString, string schema, CancellationToken cancellationToken = default)
-    {
-        cancellationToken.ThrowIfCancellationRequested();
-
-        if (string.IsNullOrWhiteSpace(connectionString))
-        {
-            throw new ArgumentException("Connection string is required.", nameof(connectionString));
-        }
-
-        var effectiveSchema = string.IsNullOrWhiteSpace(schema) ? "dbo" : schema.Trim();
-        ValidateIdentifier(effectiveSchema, "Schema name");
-
-        var workspace = new Workspace
-        {
-            WorkspaceRootPath = Path.Combine(Path.GetTempPath(), "metadata-studio-import", Guid.NewGuid().ToString("N")),
-            MetadataRootPath = string.Empty,
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = new GenericModel(),
-            Instance = new GenericInstance(),
-            IsDirty = true,
-        };
-
-        using var connection = new SqlConnection(connectionString);
-        await connection.OpenAsync(cancellationToken).ConfigureAwait(false);
-
-        workspace.Model.Name = connection.Database ?? "MetadataModel";
-        ValidateIdentifier(workspace.Model.Name, "Database name");
-        workspace.Instance.ModelName = workspace.Model.Name;
-
-        var entityLookup = new Dictionary<string, GenericEntity>(StringComparer.OrdinalIgnoreCase);
-        foreach (var tableName in await SqlServerImportReader.LoadTableNamesAsync(connection, effectiveSchema, cancellationToken).ConfigureAwait(false))
-        {
-            ValidateIdentifier(tableName, "Table name");
-            if (entityLookup.ContainsKey(tableName))
-            {
-                throw new InvalidOperationException($"Duplicate table name '{tableName}' in schema '{effectiveSchema}'.");
-            }
-
-            var entity = new GenericEntity
-            {
-                Name = tableName,
-            };
-
-            workspace.Model.Entities.Add(entity);
-            entityLookup[tableName] = entity;
-        }
-
-        foreach (var entity in workspace.Model.Entities)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            var columns = await SqlServerImportReader.LoadColumnsAsync(connection, effectiveSchema, entity.Name, cancellationToken).ConfigureAwait(false);
-            ApplyEntityColumns(entity, columns);
-        }
-
-        var relationships = await SqlServerImportReader.LoadRelationshipsAsync(connection, effectiveSchema, cancellationToken).ConfigureAwait(false);
-        foreach (var relationship in relationships)
-        {
-            if (!entityLookup.TryGetValue(relationship.SourceTable, out var sourceEntity) ||
-                !entityLookup.TryGetValue(relationship.TargetTable, out var targetEntity))
-            {
-                continue;
-            }
-
-            if (!string.Equals(relationship.TargetColumn, "Id", StringComparison.OrdinalIgnoreCase))
-            {
-                throw new InvalidOperationException(
-                    $"Foreign key '{relationship.ConstraintName}' on '{sourceEntity.Name}.{relationship.SourceColumn}' must reference '{targetEntity.Name}.Id'.");
-            }
-
-            var sourceColumnName = relationship.SourceColumn.Trim();
-            ValidateIdentifier(sourceColumnName, $"Foreign key column on table '{sourceEntity.Name}'");
-            if (!sourceColumnName.EndsWith("Id", StringComparison.OrdinalIgnoreCase) || sourceColumnName.Length <= 2)
-            {
-                throw new InvalidOperationException(
-                    $"Foreign key '{relationship.ConstraintName}' on '{sourceEntity.Name}.{relationship.SourceColumn}' must use an '<Role>Id' column name.");
-            }
-
-            var role = sourceColumnName[..^2];
-            if (sourceEntity.Relationships.Any(item =>
-                    string.Equals(item.GetRoleOrDefault(), role, StringComparison.OrdinalIgnoreCase)))
-            {
-                throw new InvalidOperationException(
-                    $"Table '{sourceEntity.Name}' has duplicate relationship role '{role}'.");
-            }
-
-            sourceEntity.Relationships.Add(new GenericRelationship
-            {
-                Entity = targetEntity.Name,
-                Role = string.Equals(role, targetEntity.Name, StringComparison.OrdinalIgnoreCase)
-                    ? string.Empty
-                    : role,
-                IsNullable = relationship.IsNullable,
-            });
-        }
-
-        foreach (var entity in workspace.Model.Entities)
-        {
-            NormalizeRelationshipProperties(entity);
-            var rows = await SqlServerImportReader.LoadRowsAsync(connection, effectiveSchema, entity, cancellationToken).ConfigureAwait(false);
-            workspace.Instance.RecordsByEntity[entity.Name] = rows;
-        }
-
-        return workspace;
-    }
-
-    public async Task<Workspace> ImportCsvAsync(
+    public async Task<InMemoryWorkspace> ImportCsvAsync(
         string csvPath,
         string entityName,
         CancellationToken cancellationToken = default)
@@ -193,21 +82,15 @@ public sealed class ImportService : IImportService
             dataRows.Add(row);
         }
 
-        var workspace = new Workspace
-        {
-            WorkspaceRootPath = Path.Combine(Path.GetTempPath(), "metadata-studio-import", Guid.NewGuid().ToString("N")),
-            MetadataRootPath = string.Empty,
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = new GenericModel
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = modelName,
             },
-            Instance = new GenericInstance
+            new GenericInstance
             {
                 ModelName = modelName,
-            },
-            IsDirty = true,
-        };
+            });
 
         var entity = new GenericEntity
         {
@@ -232,11 +115,17 @@ public sealed class ImportService : IImportService
         for (var rowIndex = 0; rowIndex < dataRows.Count; rowIndex++)
         {
             var dataRow = dataRows[rowIndex];
-            var recordId = NormalizeIdentity(CsvImportSupport.GetCellValue(dataRow, idColumnIndex));
+            var recordId = CsvImportSupport.GetCellValue(dataRow, idColumnIndex);
             if (string.IsNullOrWhiteSpace(recordId))
             {
                 throw new InvalidOperationException(
                     $"CSV row {rowIndex + 2} is missing required Id value from column '{header[idColumnIndex]}'.");
+            }
+
+            if (!MetaIdentity.TryValidate(recordId, out var identityError))
+            {
+                throw new InvalidOperationException(
+                    $"CSV row {rowIndex + 2} has invalid Id value in column '{header[idColumnIndex]}'. {identityError}");
             }
 
             if (!ids.Add(recordId))
@@ -267,77 +156,298 @@ public sealed class ImportService : IImportService
         return workspace;
     }
 
-    private static void ApplyEntityColumns(GenericEntity entity, IReadOnlyCollection<SqlServerColumnRow> columns)
+    public CsvImportPlan PlanCsvImport(
+        InMemoryWorkspace targetWorkspace,
+        InMemoryWorkspace importedWorkspace)
     {
-        var properties = new List<GenericProperty>();
-        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var column in columns)
-        {
-            ValidateIdentifier(column.Name, $"Column name on table '{entity.Name}'");
-            if (!seen.Add(column.Name))
-            {
-                throw new InvalidOperationException($"Duplicate column '{column.Name}' on table '{entity.Name}'.");
-            }
+        ArgumentNullException.ThrowIfNull(targetWorkspace);
+        ArgumentNullException.ThrowIfNull(importedWorkspace);
 
-            if (string.Equals(column.Name, "Id", StringComparison.OrdinalIgnoreCase))
+        var importedEntity = importedWorkspace.Model.Entities.Single();
+        var importedRows = importedWorkspace.Instance.RecordsByEntity[importedEntity.Name];
+        var existingEntity = targetWorkspace.Model.FindEntity(importedEntity.Name);
+        var operations = existingEntity == null
+            ? PlanNewEntityImport(importedEntity, importedRows)
+            : PlanExistingEntityImport(
+                targetWorkspace,
+                existingEntity,
+                importedEntity,
+                importedRows);
+
+        return new CsvImportPlan(
+            importedEntity.Name,
+            importedRows.Count,
+            operations);
+    }
+
+    private static IReadOnlyList<Operation> PlanNewEntityImport(
+        GenericEntity importedEntity,
+        IReadOnlyList<GenericRecord> importedRows)
+    {
+        var operations = new List<Operation>
+        {
+            new Operation.AddEntity(importedEntity.Name),
+        };
+
+        operations.AddRange(importedEntity.Properties.Select(property =>
+            new Operation.AddProperty(
+                importedEntity.Name,
+                property.Name,
+                IsRequired: !property.IsNullable)));
+        operations.AddRange(importedRows
+            .OrderBy(record => record.Id, MetaIdentity.Comparer)
+            .Select(record => new Operation.InsertRecord(
+                importedEntity.Name,
+                record.Id,
+                record.Values)));
+        return operations;
+    }
+
+    private static IReadOnlyList<Operation> PlanExistingEntityImport(
+        InMemoryWorkspace targetWorkspace,
+        GenericEntity existingEntity,
+        GenericEntity importedEntity,
+        IReadOnlyList<GenericRecord> importedRows)
+    {
+        var existingPropertiesByName = existingEntity.Properties
+            .ToDictionary(item => item.Name, MetaName.Comparer);
+        var existingRelationshipsByName = existingEntity.Relationships
+            .ToDictionary(item => item.GetColumnName(), MetaName.Comparer);
+        foreach (var importedProperty in importedEntity.Properties)
+        {
+            if (existingPropertiesByName.ContainsKey(importedProperty.Name) ||
+                existingRelationshipsByName.ContainsKey(importedProperty.Name))
             {
                 continue;
             }
 
-            properties.Add(new GenericProperty
-            {
-                Name = column.Name,
-                IsNullable = column.IsNullable,
-            });
-        }
-
-        if (!seen.Contains("Id"))
-        {
-            throw new InvalidOperationException($"Table '{entity.Name}' must contain required column 'Id'.");
-        }
-
-        entity.Properties.Clear();
-        entity.Properties.AddRange(properties);
-    }
-
-    private static void NormalizeRelationshipProperties(GenericEntity entity)
-    {
-        if (entity.Relationships.Count == 0 || entity.Properties.Count == 0)
-        {
-            return;
-        }
-
-        var relationshipColumns = entity.Relationships
-            .Where(item => !string.IsNullOrWhiteSpace(item.Entity))
-            .Select(item => item.GetColumnName())
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-        entity.Properties.RemoveAll(property =>
-            relationshipColumns.Contains(property.Name));
-    }
-
-    private static void ValidateIdentifier(string value, string label)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-        {
-            throw new InvalidOperationException($"{label} is required.");
-        }
-
-        if (value.Length > MaxIdentifierLength)
-        {
-            throw new InvalidOperationException($"{label} '{value}' exceeds max length {MaxIdentifierLength}.");
-        }
-
-        if (!IdentifierPattern.IsMatch(value))
-        {
             throw new InvalidOperationException(
-                $"{label} '{value}' is invalid. Use [A-Za-z_][A-Za-z0-9_]* and max length {MaxIdentifierLength}.");
+                $"CSV column '{importedProperty.Name}' does not match existing property or relationship on entity '{existingEntity.Name}'.");
         }
+
+        var existingRows = targetWorkspace.Instance.GetOrCreateEntityRecords(existingEntity.Name);
+        var rowsById = existingRows.ToDictionary(item => item.Id, MetaIdentity.Comparer);
+        ValidateCsvImportPreflight(
+            existingEntity,
+            importedEntity,
+            importedRows,
+            rowsById);
+
+        var importedIds = importedRows
+            .Select(record => record.Id)
+            .ToHashSet(MetaIdentity.Comparer);
+        var operations = new List<Operation>();
+        var deferredRelationships = new List<Operation>();
+
+        foreach (var importedRow in importedRows.OrderBy(record => record.Id, MetaIdentity.Comparer))
+        {
+            if (!rowsById.ContainsKey(importedRow.Id))
+            {
+                var values = importedEntity.Properties
+                    .Where(property => existingPropertiesByName.ContainsKey(property.Name))
+                    .Where(property => importedRow.Values.ContainsKey(property.Name))
+                    .ToDictionary(
+                        property => existingPropertiesByName[property.Name].Name,
+                        property => importedRow.Values[property.Name],
+                        MetaName.Comparer);
+                var requiredRelationships = importedEntity.Properties
+                    .Where(property => existingRelationshipsByName.TryGetValue(
+                        property.Name,
+                        out var relationship) &&
+                        !relationship.IsNullable)
+                    .ToDictionary(
+                        property => existingRelationshipsByName[property.Name].GetColumnName(),
+                        property => importedRow.Values[property.Name],
+                        MetaName.Comparer);
+
+                operations.Add(new Operation.InsertRecord(
+                    existingEntity.Name,
+                    importedRow.Id,
+                    values,
+                    requiredRelationships));
+            }
+            else
+            {
+                foreach (var importedProperty in importedEntity.Properties)
+                {
+                    var name = importedProperty.Name;
+                    var hasValue = importedRow.Values.TryGetValue(name, out var value);
+                    if (existingPropertiesByName.TryGetValue(name, out var property))
+                    {
+                        operations.Add(hasValue && !string.IsNullOrWhiteSpace(value)
+                            ? new Operation.SetProperty(
+                                existingEntity.Name,
+                                importedRow.Id,
+                                property.Name,
+                                value)
+                            : new Operation.ClearProperty(
+                                existingEntity.Name,
+                                importedRow.Id,
+                                property.Name));
+                        continue;
+                    }
+
+                    var relationship = existingRelationshipsByName[name];
+                    if (!hasValue || string.IsNullOrWhiteSpace(value))
+                    {
+                        operations.Add(new Operation.ClearRelationship(
+                            existingEntity.Name,
+                            importedRow.Id,
+                            relationship.GetColumnName()));
+                        continue;
+                    }
+
+                    AddRelationshipOperation(
+                        operations,
+                        deferredRelationships,
+                        targetWorkspace,
+                        existingEntity,
+                        importedRow.Id,
+                        relationship,
+                        value,
+                        importedIds);
+                }
+            }
+
+            foreach (var importedProperty in importedEntity.Properties)
+            {
+                if (!existingRelationshipsByName.TryGetValue(
+                        importedProperty.Name,
+                        out var relationship) ||
+                    !relationship.IsNullable ||
+                    !importedRow.Values.TryGetValue(importedProperty.Name, out var value) ||
+                    string.IsNullOrWhiteSpace(value) ||
+                    rowsById.ContainsKey(importedRow.Id))
+                {
+                    continue;
+                }
+
+                AddRelationshipOperation(
+                    operations,
+                    deferredRelationships,
+                    targetWorkspace,
+                    existingEntity,
+                    importedRow.Id,
+                    relationship,
+                    value,
+                    importedIds);
+            }
+        }
+
+        operations.AddRange(deferredRelationships);
+        return operations;
     }
 
-    private static string NormalizeIdentity(string? value)
+    private static void AddRelationshipOperation(
+        ICollection<Operation> operations,
+        ICollection<Operation> deferredRelationships,
+        InMemoryWorkspace targetWorkspace,
+        GenericEntity sourceEntity,
+        string sourceId,
+        GenericRelationship relationship,
+        string targetId,
+        IReadOnlySet<string> importedIds)
     {
-        return value?.Trim() ?? string.Empty;
+        var operation = new Operation.SetRelationship(
+            sourceEntity.Name,
+            sourceId,
+            relationship.GetColumnName(),
+            targetId);
+        var targetWillBeImported = MetaName.Comparer.Equals(
+                                       relationship.Entity,
+                                       sourceEntity.Name) &&
+                                   importedIds.Contains(targetId) &&
+                                   !targetWorkspace.Instance.GetOrCreateEntityRecords(relationship.Entity)
+                                       .Any(record => MetaIdentity.Comparer.Equals(record.Id, targetId));
+        (targetWillBeImported ? deferredRelationships : operations).Add(operation);
+    }
+
+    private static void ValidateCsvImportPreflight(
+        GenericEntity existingEntity,
+        GenericEntity importedEntity,
+        IReadOnlyList<GenericRecord> importedRows,
+        IReadOnlyDictionary<string, GenericRecord> rowsById)
+    {
+        var existingPropertiesByName = existingEntity.Properties
+            .ToDictionary(item => item.Name, MetaName.Comparer);
+        var existingRelationshipsByName = existingEntity.Relationships
+            .ToDictionary(item => item.GetColumnName(), MetaName.Comparer);
+        var importedColumnNames = importedEntity.Properties
+            .Select(item => item.Name)
+            .ToHashSet(MetaName.Comparer);
+
+        foreach (var importedRow in importedRows.OrderBy(record => record.Id, MetaIdentity.Comparer))
+        {
+            var isExistingRow = rowsById.ContainsKey(importedRow.Id);
+
+            foreach (var importedProperty in importedEntity.Properties)
+            {
+                var name = importedProperty.Name;
+                var hasValue = importedRow.Values.TryGetValue(name, out var value);
+                var isBlank = !hasValue || string.IsNullOrWhiteSpace(value);
+
+                if (existingRelationshipsByName.TryGetValue(name, out var existingRelationship))
+                {
+                    if (!existingRelationship.IsNullable && isBlank)
+                    {
+                        throw new InvalidOperationException(
+                            $"CSV row '{importedRow.Id}' leaves required relationship '{name}' blank on entity '{existingEntity.Name}'.");
+                    }
+
+                    continue;
+                }
+
+                if (existingPropertiesByName.TryGetValue(name, out var existingProperty) &&
+                    !existingProperty.IsNullable &&
+                    isBlank)
+                {
+                    throw new InvalidOperationException(
+                        $"CSV row '{importedRow.Id}' leaves required property '{name}' blank on entity '{existingEntity.Name}'.");
+                }
+            }
+
+            if (isExistingRow)
+            {
+                continue;
+            }
+
+            foreach (var requiredProperty in existingEntity.Properties
+                         .Where(item => !item.IsNullable)
+                         .OrderBy(item => item.Name, MetaName.Comparer))
+            {
+                if (!importedColumnNames.Contains(requiredProperty.Name))
+                {
+                    throw new InvalidOperationException(
+                        $"CSV row '{importedRow.Id}' cannot create new '{existingEntity.Name}' because required property '{requiredProperty.Name}' is missing from the import columns.");
+                }
+
+                if (!importedRow.Values.TryGetValue(requiredProperty.Name, out var propertyValue) ||
+                    string.IsNullOrWhiteSpace(propertyValue))
+                {
+                    throw new InvalidOperationException(
+                        $"CSV row '{importedRow.Id}' leaves required property '{requiredProperty.Name}' blank on entity '{existingEntity.Name}'.");
+                }
+            }
+
+            foreach (var requiredRelationshipName in existingEntity.Relationships
+                         .Where(item => !item.IsNullable)
+                         .Select(item => item.GetColumnName())
+                         .OrderBy(name => name, MetaName.Comparer))
+            {
+                if (!importedColumnNames.Contains(requiredRelationshipName))
+                {
+                    throw new InvalidOperationException(
+                        $"CSV row '{importedRow.Id}' cannot create new '{existingEntity.Name}' because required relationship '{requiredRelationshipName}' is missing from the import columns.");
+                }
+
+                if (!importedRow.Values.TryGetValue(requiredRelationshipName, out var relationshipValue) ||
+                    string.IsNullOrWhiteSpace(relationshipValue))
+                {
+                    throw new InvalidOperationException(
+                        $"CSV row '{importedRow.Id}' leaves required relationship '{requiredRelationshipName}' blank on entity '{existingEntity.Name}'.");
+                }
+            }
+        }
     }
 
 }

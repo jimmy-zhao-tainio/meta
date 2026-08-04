@@ -11,9 +11,9 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            RequireEntity(workspace, targetEntityName);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            RequireEntity(workspace.Model, targetEntityName);
 
             var inboundAll = workspace.Model.Entities
                 .SelectMany(fromEntity => fromEntity.Relationships

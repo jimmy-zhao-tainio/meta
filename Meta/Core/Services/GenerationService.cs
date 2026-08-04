@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Meta.Core.Domain;
+using Meta.Core.Operations;
+using Meta.Core.Serialization;
 
 namespace Meta.Core.Services;
 
@@ -15,70 +17,85 @@ public sealed class GenerationManifest
 
 public static partial class GenerationService
 {
-    public static GenerationManifest GenerateSql(Workspace workspace, string outputDirectory)
+    public static GenerationManifest GenerateSql(
+        InMemoryWorkspace state,
+        string outputDirectory)
     {
-        if (workspace == null)
-        {
-            throw new ArgumentNullException(nameof(workspace));
-        }
-
-        var schema = SqlGenerationArtifacts.BuildSchema(workspace);
-        var data = SqlGenerationArtifacts.BuildData(workspace);
+        ArgumentNullException.ThrowIfNull(state);
+        var sql = MetaSqlWriter.Write(state);
         var outputRoot = GenerationOutputWriter.PrepareDirectory(outputDirectory);
-        GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "schema.sql"), schema);
-        GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "data.sql"), data);
+        GenerationOutputWriter.WriteText(
+            Path.Combine(outputRoot, "schema.sql"),
+            sql.Schema);
+        GenerationOutputWriter.WriteText(
+            Path.Combine(outputRoot, "data.sql"),
+            sql.Data);
 
         return GenerationOutputWriter.BuildManifest(outputRoot);
     }
 
     public static GenerationManifest GenerateCSharp(
-        Workspace workspace,
+        InMemoryWorkspace state,
         string outputDirectory,
-        bool includeTooling = false)
+        bool includeTooling = false,
+        string? sourceWorkspacePath = null)
     {
-        if (workspace == null)
-        {
-            throw new ArgumentNullException(nameof(workspace));
-        }
+        ArgumentNullException.ThrowIfNull(state);
 
         var outputRoot = GenerationOutputWriter.PrepareDirectory(outputDirectory);
-        var namespaceName = ResolveModelNamespaceName(workspace.Model.Name);
-        var modelTypeName = includeTooling
-            ? ResolveToolingModelTypeName(workspace.Model)
-            : ResolveConsumerModelTypeName(workspace.Model);
+        if (!includeTooling)
+        {
+            foreach (var source in BuildCSharpSources(state))
+            {
+                GenerationOutputWriter.WriteText(
+                    Path.Combine(outputRoot, source.Key),
+                    source.Value);
+            }
+
+            return GenerationOutputWriter.BuildManifest(outputRoot);
+        }
+
+        var namespaceName = ResolveModelNamespaceName(state.Model.Name);
+        var modelTypeName = ResolveToolingModelTypeName(state.Model);
         var modelFileName = modelTypeName + ".cs";
         GenerationOutputWriter.WriteText(
             Path.Combine(outputRoot, modelFileName),
-            includeTooling
-                ? BuildCSharpToolingModelTypedSerializer(workspace, modelTypeName, namespaceName)
-                : BuildCSharpConsumerModel(workspace, modelTypeName, namespaceName));
+            BuildCSharpToolingModelTypedSerializer(
+                state,
+                modelTypeName,
+                namespaceName,
+                sourceWorkspacePath));
         var emittedFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             modelFileName,
         };
 
-        if (includeTooling)
+        var toolingFileName = namespaceName + ".Tooling.cs";
+        if (!emittedFiles.Add(toolingFileName))
         {
-            var toolingFileName = namespaceName + ".Tooling.cs";
-            if (!emittedFiles.Add(toolingFileName))
-            {
-                throw new InvalidOperationException(
-                    $"Cannot generate C# tooling output because file name collides on '{toolingFileName}'.");
-            }
-
-            GenerationOutputWriter.WriteText(Path.Combine(outputRoot, toolingFileName), BuildCSharpTooling(modelTypeName, namespaceName, workspace.WorkspaceRootPath));
-
-            const string modelXmlFileName = "model.xml";
-            if (!emittedFiles.Add(modelXmlFileName))
-            {
-                throw new InvalidOperationException(
-                    $"Cannot generate C# tooling output because file name collides on '{modelXmlFileName}'.");
-            }
-
-            GenerationOutputWriter.WriteText(Path.Combine(outputRoot, modelXmlFileName), BuildModelXml(workspace.Model));
+            throw new InvalidOperationException(
+                $"Cannot generate C# tooling output because file name collides on '{toolingFileName}'.");
         }
 
-        foreach (var entity in workspace.Model.Entities
+        GenerationOutputWriter.WriteText(
+            Path.Combine(outputRoot, toolingFileName),
+            BuildCSharpTooling(
+                modelTypeName,
+                namespaceName,
+                sourceWorkspacePath));
+
+        const string modelXmlFileName = "model.xml";
+        if (!emittedFiles.Add(modelXmlFileName))
+        {
+            throw new InvalidOperationException(
+                $"Cannot generate C# tooling output because file name collides on '{modelXmlFileName}'.");
+        }
+
+        GenerationOutputWriter.WriteText(
+            Path.Combine(outputRoot, modelXmlFileName),
+            BuildModelXml(state.Model));
+
+        foreach (var entity in state.Model.Entities
                      .Where(item => !string.IsNullOrWhiteSpace(item.Name))
                      .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase))
         {
@@ -94,27 +111,81 @@ public static partial class GenerationService
                 BuildCSharpEntity(
                     entity,
                     namespaceName,
-                    workspace.WorkspaceRootPath,
+                    sourceWorkspacePath,
                     requiresTooling: includeTooling));
         }
 
         return GenerationOutputWriter.BuildManifest(outputRoot);
     }
 
-    public static GenerationManifest GenerateSsdt(Workspace workspace, string outputDirectory)
+    internal static IReadOnlyDictionary<string, string> BuildCSharpSources(
+        InMemoryWorkspace state)
     {
-        if (workspace == null)
+        ArgumentNullException.ThrowIfNull(state);
+        var diagnostics = WorkspaceValidator.Validate(
+            state.Model,
+            state.Instance);
+        if (diagnostics.HasErrors)
         {
-            throw new ArgumentNullException(nameof(workspace));
+            var errors = diagnostics.Issues
+                .Where(issue => issue.Severity == IssueSeverity.Error)
+                .Take(5)
+                .Select(issue =>
+                    $"{issue.Code} {issue.Location} - {issue.Message}");
+            throw new InvalidOperationException(
+                "Cannot write C# for invalid metadata. " +
+                string.Join(" | ", errors));
         }
 
-        var schema = SqlGenerationArtifacts.BuildSchema(workspace);
-        var data = SqlGenerationArtifacts.BuildData(workspace);
+        var namespaceName = ResolveModelNamespaceName(state.Model.Name);
+        var modelTypeName = ResolveConsumerModelTypeName(state.Model);
+        var sources = new Dictionary<string, string>(
+            StringComparer.OrdinalIgnoreCase)
+        {
+            [modelTypeName + ".cs"] = BuildCSharpConsumerModel(
+                state,
+                modelTypeName,
+                namespaceName),
+        };
+
+        foreach (var entity in state.Model.Entities
+                     .OrderBy(item => item.Name, MetaName.Comparer)
+                     .ThenBy(item => item.Name, StringComparer.Ordinal))
+        {
+            var fileName = entity.Name + ".cs";
+            if (!sources.TryAdd(
+                    fileName,
+                    BuildCSharpEntity(
+                        entity,
+                        namespaceName,
+                        workspacePath: null,
+                        requiresTooling: false)))
+            {
+                throw new InvalidOperationException(
+                    $"Cannot write C# because file name '{fileName}' is duplicated.");
+            }
+        }
+
+        return sources;
+    }
+
+    public static GenerationManifest GenerateSsdt(
+        InMemoryWorkspace state,
+        string outputDirectory)
+    {
+        ArgumentNullException.ThrowIfNull(state);
+        var sql = MetaSqlWriter.Write(state);
         var outputRoot = GenerationOutputWriter.PrepareDirectory(outputDirectory);
-        GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "Schema.sql"), schema);
-        GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "Data.sql"), data);
+        GenerationOutputWriter.WriteText(
+            Path.Combine(outputRoot, "Schema.sql"),
+            sql.Schema);
+        GenerationOutputWriter.WriteText(
+            Path.Combine(outputRoot, "Data.sql"),
+            sql.Data);
         GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "PostDeploy.sql"), SqlGenerationArtifacts.BuildPostDeployScript());
-        GenerationOutputWriter.WriteText(Path.Combine(outputRoot, "Metadata.sqlproj"), SqlGenerationArtifacts.BuildSqlProjectFile(workspace));
+        GenerationOutputWriter.WriteText(
+            Path.Combine(outputRoot, "Metadata.sqlproj"),
+            SqlGenerationArtifacts.BuildSqlProjectFile(state.Model));
         return GenerationOutputWriter.BuildManifest(outputRoot);
     }
 }

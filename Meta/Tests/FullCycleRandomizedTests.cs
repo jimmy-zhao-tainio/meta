@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Meta.Adapters;
 using Meta.Core.Domain;
+using Meta.Core.Operations;
+using Meta.Core.Serialization;
 using Meta.Core.Services;
 using Xunit.Abstractions;
 
@@ -43,8 +44,9 @@ public sealed class FullCycleRandomizedTests
         Assert.True(generated.MinPropertyCountPerEntity < generated.MaxPropertyCountPerEntity,
             "Expected randomized property counts across entities.");
 
-        var services = new ServiceCollection();
-        var preSaveDiagnostics = services.ValidationService.Validate(generated.Workspace);
+        var preSaveDiagnostics = WorkspaceValidator.Validate(
+            generated.Workspace.Model,
+            generated.Workspace.Instance);
         Assert.False(preSaveDiagnostics.HasErrors, BuildDiagnosticsMessage(preSaveDiagnostics));
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-fullcycle-tests", Guid.NewGuid().ToString("N"));
@@ -57,35 +59,31 @@ public sealed class FullCycleRandomizedTests
 
         try
         {
-            generated.Workspace.WorkspaceRootPath = tempRoot;
-            generated.Workspace.MetadataRootPath = Path.Combine(tempRoot, "metadata");
-            var hashBeforeSave = services.WorkspaceService.CalculateHash(generated.Workspace);
-
-            await services.WorkspaceService.SaveAsync(generated.Workspace);
-            var loaded = await services.WorkspaceService.LoadAsync(tempRoot);
-
-            var hashAfterLoad = services.WorkspaceService.CalculateHash(loaded);
-            Assert.Equal(hashBeforeSave, hashAfterLoad);
+            await XmlWorkspaceWriter.WriteNewAsync(generated.Workspace, tempRoot);
+            var loaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            var hashAfterLoad = loaded.Fingerprint;
             Assert.Equal(entityCount, loaded.Model.Entities.Count);
             Assert.Equal(generated.TotalRows, loaded.Instance.RecordsByEntity.Values.Sum(rows => rows.Count));
 
-            var postLoadDiagnostics = services.ValidationService.Validate(loaded);
+            var postLoadDiagnostics = WorkspaceValidator.Validate(
+                loaded.Model,
+                loaded.Instance);
             Assert.False(postLoadDiagnostics.HasErrors, BuildDiagnosticsMessage(postLoadDiagnostics));
 
-            await services.ExportService.ExportXmlAsync(loaded, exportRoot);
-            var exportedLoaded = await services.WorkspaceService.LoadAsync(exportRoot);
-            var exportedHash = services.WorkspaceService.CalculateHash(exportedLoaded);
+            await XmlWorkspaceWriter.WriteNewAsync(loaded.State, exportRoot);
+            var exportedLoaded = await XmlWorkspaceReader.OpenAsync(exportRoot);
+            var exportedHash = exportedLoaded.Fingerprint;
             Assert.Equal(hashAfterLoad, exportedHash);
 
-            var sqlManifestA = GenerationService.GenerateSql(loaded, sqlOutA);
-            var sqlManifestB = GenerationService.GenerateSql(loaded, sqlOutB);
+            var sqlManifestA = GenerationService.GenerateSql(loaded.State, sqlOutA);
+            var sqlManifestB = GenerationService.GenerateSql(loaded.State, sqlOutB);
             AssertEquivalent(sqlManifestA, sqlManifestB);
 
-            var csharpManifestA = GenerationService.GenerateCSharp(loaded, csOutA);
-            var csharpManifestB = GenerationService.GenerateCSharp(loaded, csOutB);
+            var csharpManifestA = GenerationService.GenerateCSharp(loaded.State, csOutA);
+            var csharpManifestB = GenerationService.GenerateCSharp(loaded.State, csOutB);
             AssertEquivalent(csharpManifestA, csharpManifestB);
 
-            var ssdtManifest = GenerationService.GenerateSsdt(loaded, ssdtOut);
+            var ssdtManifest = GenerationService.GenerateSsdt(loaded.State, ssdtOut);
             Assert.Equal(4, ssdtManifest.FileHashes.Count);
             Assert.True(File.Exists(Path.Combine(ssdtOut, "Schema.sql")));
             Assert.True(File.Exists(Path.Combine(ssdtOut, "Data.sql")));
@@ -120,17 +118,15 @@ public sealed class FullCycleRandomizedTests
 
         var random = new Random(seed);
         var modelName = "RandomModel_" + seed;
-        var workspace = new Workspace
-        {
-            Model = new GenericModel
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = modelName,
             },
-            Instance = new GenericInstance
+            new GenericInstance
             {
                 ModelName = modelName,
-            },
-        };
+            });
 
         var depthBucketCount = Math.Min(entityCount, random.Next(8, 20));
         var entitiesByDepth = Enumerable.Range(0, depthBucketCount)
@@ -298,7 +294,7 @@ public sealed class FullCycleRandomizedTests
 
     private sealed class GeneratedWorkspace
     {
-        public Workspace Workspace { get; set; } = new();
+        public required InMemoryWorkspace Workspace { get; init; }
         public int MaxDepth { get; set; }
         public int TotalRelationships { get; set; }
         public int TotalRows { get; set; }

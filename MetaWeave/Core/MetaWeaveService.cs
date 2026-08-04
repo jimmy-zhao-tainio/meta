@@ -1,7 +1,7 @@
 using Meta.Core.Domain;
 using Meta.Core.Operations;
+using Meta.Core.Serialization;
 using Meta.Core.Services;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 using MetaWeaveModel = global::MetaWeave.MetaWeaveModel;
 using WeaveModelReference = global::MetaWeave.ModelReference;
 using WeavePropertyBinding = global::MetaWeave.PropertyBinding;
@@ -25,6 +25,10 @@ public sealed record WeaveCheckResult(
     public int SourceRowCount => Bindings.Sum(binding => binding.SourceRows);
 }
 
+public sealed record WeaveMaterializationResult(
+    InMemoryWorkspace Workspace,
+    int BindingsMaterialized);
+
 public interface IMetaWeaveService
 {
     Task<WeaveCheckResult> CheckAsync(
@@ -32,7 +36,7 @@ public interface IMetaWeaveService
         string weaveWorkspaceRootPath,
         CancellationToken cancellationToken = default);
 
-    Task<Workspace> MaterializeAsync(
+    Task<WeaveMaterializationResult> MaterializeAsync(
         MetaWeaveModel weaveModel,
         string weaveWorkspaceRootPath,
         string materializedWorkspaceRootPath,
@@ -42,17 +46,15 @@ public interface IMetaWeaveService
 
 public sealed class MetaWeaveService : IMetaWeaveService
 {
-    private readonly IWorkspaceService _workspaceService;
     private readonly IWorkspaceMergeService _workspaceMergeService;
 
     public MetaWeaveService()
-        : this(new WorkspaceService(), new WorkspaceMergeService())
+        : this(new WorkspaceMergeService())
     {
     }
 
-    public MetaWeaveService(IWorkspaceService workspaceService, IWorkspaceMergeService workspaceMergeService)
+    public MetaWeaveService(IWorkspaceMergeService workspaceMergeService)
     {
-        _workspaceService = workspaceService ?? throw new ArgumentNullException(nameof(workspaceService));
         _workspaceMergeService = workspaceMergeService ?? throw new ArgumentNullException(nameof(workspaceMergeService));
     }
 
@@ -65,14 +67,24 @@ public sealed class MetaWeaveService : IMetaWeaveService
         ArgumentNullException.ThrowIfNull(weaveModel);
         ArgumentException.ThrowIfNullOrWhiteSpace(weaveWorkspaceRootPath);
 
+        var loadedModels = await LoadReferencedWorkspacesAsync(
+                weaveModel.ModelReferenceList,
+                weaveWorkspaceRootPath,
+                cancellationToken)
+            .ConfigureAwait(false);
+        return CheckBindings(weaveModel, loadedModels);
+    }
+
+    private static WeaveCheckResult CheckBindings(
+        MetaWeaveModel weaveModel,
+        IReadOnlyDictionary<string, OpenedXmlWorkspace> loadedModels)
+    {
         var modelRefs = weaveModel.ModelReferenceList
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
         var propertyBindings = weaveModel.PropertyBindingList
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
-
-        var loadedModels = await LoadReferencedWorkspacesAsync(modelRefs, weaveWorkspaceRootPath, cancellationToken).ConfigureAwait(false);
         var modelRefById = modelRefs.ToDictionary(record => RequireValue(record.Id, "ModelReference Id"), StringComparer.Ordinal);
 
         var results = new List<WeaveBindingResult>();
@@ -80,8 +92,8 @@ public sealed class MetaWeaveService : IMetaWeaveService
         {
             var sourceModelRef = RequireModelReference(binding.SourceModel, binding, "source", modelRefById);
             var targetModelRef = RequireModelReference(binding.TargetModel, binding, "target", modelRefById);
-            var sourceWorkspace = loadedModels[sourceModelRef.Id];
-            var targetWorkspace = loadedModels[targetModelRef.Id];
+            var sourceWorkspace = loadedModels[sourceModelRef.Id].State;
+            var targetWorkspace = loadedModels[targetModelRef.Id].State;
             var sourceEntityName = RequireValue(binding.SourceEntity, $"PropertyBinding '{binding.Id}' SourceEntity");
             var sourcePropertyName = RequireValue(binding.SourceProperty, $"PropertyBinding '{binding.Id}' SourceProperty");
             var targetEntityName = RequireValue(binding.TargetEntity, $"PropertyBinding '{binding.Id}' TargetEntity");
@@ -103,9 +115,13 @@ public sealed class MetaWeaveService : IMetaWeaveService
                 throw new InvalidOperationException($"PropertyBinding '{binding.Id}' target property '{targetEntityName}.{targetPropertyName}' was not found in model '{targetWorkspace.Model.Name}'.");
             }
 
-            var targetRows = targetWorkspace.Instance.GetOrCreateEntityRecords(targetEntityName);
+            var targetRows = MetaWeaveWorkspaceData.ReadRecords(
+                targetWorkspace,
+                targetEntityName);
             var targetIndex = BuildTargetIndex(targetRows, targetPropertyName, binding.Id, targetEntityName);
-            var sourceRows = sourceWorkspace.Instance.GetOrCreateEntityRecords(sourceEntityName)
+            var sourceRows = MetaWeaveWorkspaceData.ReadRecords(
+                    sourceWorkspace,
+                    sourceEntityName)
                 .OrderBy(record => record.Id, StringComparer.Ordinal)
                 .ToList();
             var errors = new List<string>();
@@ -139,7 +155,7 @@ public sealed class MetaWeaveService : IMetaWeaveService
         return new WeaveCheckResult(results);
     }
 
-    public async Task<Workspace> MaterializeAsync(
+    public async Task<WeaveMaterializationResult> MaterializeAsync(
         MetaWeaveModel weaveModel,
         string weaveWorkspaceRootPath,
         string materializedWorkspaceRootPath,
@@ -152,12 +168,6 @@ public sealed class MetaWeaveService : IMetaWeaveService
         ArgumentException.ThrowIfNullOrWhiteSpace(materializedWorkspaceRootPath);
         ArgumentException.ThrowIfNullOrWhiteSpace(mergedModelName);
 
-        var check = await CheckAsync(weaveModel, weaveWorkspaceRootPath, cancellationToken).ConfigureAwait(false);
-        if (check.HasErrors)
-        {
-            throw new InvalidOperationException("Weave check failed. Run 'meta-weave check' and fix the reported errors before materialize.");
-        }
-
         var modelRefs = weaveModel.ModelReferenceList
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
@@ -165,49 +175,59 @@ public sealed class MetaWeaveService : IMetaWeaveService
             .OrderBy(record => record.Id, StringComparer.Ordinal)
             .ToList();
 
-        var referencedWorkspaces = await LoadReferencedWorkspacesAsync(modelRefs, weaveWorkspaceRootPath, cancellationToken).ConfigureAwait(false);
-        var mergedWorkspace = CreateWorkspaceShell(materializedWorkspaceRootPath, mergedModelName);
-        _workspaceMergeService.MergeInto(
-            mergedWorkspace,
-            modelRefs.Select(item => referencedWorkspaces[item.Id]).ToArray(),
-            new WorkspaceMergeOptions(mergedModelName));
+        var referencedWorkspaces = await LoadReferencedWorkspacesAsync(
+                modelRefs,
+                weaveWorkspaceRootPath,
+                cancellationToken)
+            .ConfigureAwait(false);
+        var check = CheckBindings(weaveModel, referencedWorkspaces);
+        if (check.HasErrors)
+        {
+            throw new InvalidOperationException("Weave check failed. Run 'meta-weave check' and fix the reported errors before materialize.");
+        }
 
-        var beforeBindings = WorkspaceSnapshotCloner.Capture(mergedWorkspace);
+        var mergePlan = await _workspaceMergeService.MergeAsync(
+                modelRefs
+                    .Select(item => (IMetaWorkspaceSource)new InMemoryWorkspaceSource(
+                        referencedWorkspaces[item.Id].State))
+                    .ToArray(),
+                new WorkspaceMergeOptions(mergedModelName),
+                cancellationToken)
+            .ConfigureAwait(false);
+        var materializedWorkspace = mergePlan.Workspace;
 
         var modelRefById = modelRefs.ToDictionary(record => RequireValue(record.Id, "ModelReference Id"), StringComparer.Ordinal);
-        var refactorService = new ModelRefactorService();
-        try
+        var operations = new List<Operation>(propertyBindings.Count);
+        foreach (var binding in propertyBindings)
         {
-            foreach (var binding in propertyBindings)
-            {
-                _ = RequireModelReference(binding.SourceModel, binding, "source", modelRefById);
-                _ = RequireModelReference(binding.TargetModel, binding, "target", modelRefById);
+            _ = RequireModelReference(binding.SourceModel, binding, "source", modelRefById);
+            _ = RequireModelReference(binding.TargetModel, binding, "target", modelRefById);
 
-                var sourceEntity = RequireValue(binding.SourceEntity, $"PropertyBinding '{binding.Id}' SourceEntity");
-                var sourceProperty = RequireValue(binding.SourceProperty, $"PropertyBinding '{binding.Id}' SourceProperty");
-                var targetEntity = RequireValue(binding.TargetEntity, $"PropertyBinding '{binding.Id}' TargetEntity");
-                var targetProperty = RequireValue(binding.TargetProperty, $"PropertyBinding '{binding.Id}' TargetProperty");
-                var role = DeriveMaterializedRole(sourceProperty, targetEntity);
+            var sourceEntity = RequireValue(binding.SourceEntity, $"PropertyBinding '{binding.Id}' SourceEntity");
+            var sourceProperty = RequireValue(binding.SourceProperty, $"PropertyBinding '{binding.Id}' SourceProperty");
+            var targetEntity = RequireValue(binding.TargetEntity, $"PropertyBinding '{binding.Id}' TargetEntity");
+            var targetProperty = RequireValue(binding.TargetProperty, $"PropertyBinding '{binding.Id}' TargetProperty");
+            var role = DeriveMaterializedRole(sourceProperty, targetEntity);
 
-                refactorService.RefactorPropertyToRelationship(
-                    mergedWorkspace,
-                    new PropertyToRelationshipRefactorOptions(
-                        SourceEntityName: sourceEntity,
-                        SourcePropertyName: sourceProperty,
-                        TargetEntityName: targetEntity,
-                        LookupPropertyName: targetProperty,
-                        Role: role,
-                        DropSourceProperty: true,
-                        RequireSourceReuse: false));
-            }
-        }
-        catch
-        {
-            WorkspaceSnapshotCloner.Restore(mergedWorkspace, beforeBindings);
-            throw;
+            operations.Add(new Operation.PropertyToRelationship(
+                sourceEntity,
+                sourceProperty,
+                targetEntity,
+                targetProperty,
+                role));
         }
 
-        var validation = new ValidationService().Validate(mergedWorkspace);
+        if (operations.Count > 0)
+        {
+            var execution = InMemoryOperations.Execute(
+                materializedWorkspace,
+                operations);
+            materializedWorkspace = execution.Workspace;
+        }
+
+        var validation = WorkspaceValidator.Validate(
+            materializedWorkspace.Model,
+            materializedWorkspace.Instance);
         if (validation.HasErrors)
         {
             var message = string.Join(" ", validation.Issues
@@ -216,22 +236,34 @@ public sealed class MetaWeaveService : IMetaWeaveService
             throw new InvalidOperationException($"Merged workspace is invalid: {message}");
         }
 
-        mergedWorkspace.IsDirty = true;
-        return mergedWorkspace;
+        await XmlWorkspaceWriter.WriteMergedAsync(
+                materializedWorkspace,
+                materializedWorkspaceRootPath,
+                modelRefs
+                    .Select(item => referencedWorkspaces[item.Id])
+                    .ToArray(),
+                cancellationToken)
+            .ConfigureAwait(false);
+        return new WeaveMaterializationResult(
+            materializedWorkspace,
+            operations.Count);
     }
 
-    private async Task<Dictionary<string, Workspace>> LoadReferencedWorkspacesAsync(
+    private static async Task<Dictionary<string, OpenedXmlWorkspace>> LoadReferencedWorkspacesAsync(
         IReadOnlyCollection<WeaveModelReference> modelRefs,
         string weaveWorkspaceRootPath,
         CancellationToken cancellationToken)
     {
-        var loadedModels = new Dictionary<string, Workspace>(StringComparer.Ordinal);
+        var loadedModels = new Dictionary<string, OpenedXmlWorkspace>(StringComparer.Ordinal);
         foreach (var modelRef in modelRefs)
         {
             var id = RequireValue(modelRef.Id, "ModelReference Id");
             var path = RequireValue(modelRef.WorkspacePath, $"ModelReference '{id}' WorkspacePath");
             var resolvedPath = ResolveWorkspacePath(weaveWorkspaceRootPath, path);
-            var loaded = await _workspaceService.LoadAsync(resolvedPath, searchUpward: false, cancellationToken).ConfigureAwait(false);
+            var loaded = await XmlWorkspaceReader.OpenAsync(
+                    resolvedPath,
+                    cancellationToken)
+                .ConfigureAwait(false);
             var expectedModelName = RequireValue(modelRef.ModelName, $"ModelReference '{id}' ModelName");
             if (!string.Equals(loaded.Model.Name, expectedModelName, StringComparison.Ordinal))
             {
@@ -314,20 +346,6 @@ public sealed class MetaWeaveService : IMetaWeaveService
         }
 
         return value;
-    }
-
-    private static Workspace CreateWorkspaceShell(string workspaceRootPath, string mergedModelName)
-    {
-        var rootPath = Path.GetFullPath(workspaceRootPath);
-        return new Workspace
-        {
-            WorkspaceRootPath = rootPath,
-            MetadataRootPath = rootPath,
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = new GenericModel { Name = mergedModelName },
-            Instance = new GenericInstance { ModelName = mergedModelName },
-            IsDirty = true,
-        };
     }
 
     private static string DeriveMaterializedRole(string sourcePropertyName, string targetEntityName)

@@ -2,22 +2,12 @@ internal sealed partial class CliRuntime
 {
     private static string ResolveModelXmlPath(
         string workspacePath,
-        Meta.Core.Domain.Workspace workspace)
+        OpenedXmlWorkspace workspace)
     {
-        var workspaceRoot = workspace.WorkspaceRootPath;
-        var metadataRoot = workspace.MetadataRootPath;
-        var config = workspace.WorkspaceConfig;
-        var layout = config.WorkspaceLayout.FirstOrDefault();
-        var configuredModelPath = layout?.ModelFilePath ?? string.Empty;
-        var normalizedRelative = string.IsNullOrWhiteSpace(configuredModelPath)
-            ? "model.xml"
-            : configuredModelPath.Replace('/', System.IO.Path.DirectorySeparatorChar);
         var candidates = new[]
         {
-            System.IO.Path.IsPathRooted(normalizedRelative)
-                ? normalizedRelative
-                : System.IO.Path.Combine(workspaceRoot, normalizedRelative),
-            System.IO.Path.Combine(workspaceRoot, "model.xml"),
+            workspace.ModelFilePath,
+            System.IO.Path.Combine(workspace.RootPath, "model.xml"),
         };
 
         var match = candidates.FirstOrDefault(System.IO.File.Exists);
@@ -32,9 +22,9 @@ internal sealed partial class CliRuntime
 
     private bool AreModelXmlFilesByteIdentical(
         string leftWorkspacePath,
-        Meta.Core.Domain.Workspace leftWorkspace,
+        OpenedXmlWorkspace leftWorkspace,
         string rightWorkspacePath,
-        Meta.Core.Domain.Workspace rightWorkspace,
+        OpenedXmlWorkspace rightWorkspace,
         out string leftModelPath,
         out string rightModelPath)
     {
@@ -43,5 +33,18 @@ internal sealed partial class CliRuntime
         var leftBytes = System.IO.File.ReadAllBytes(leftModelPath);
         var rightBytes = System.IO.File.ReadAllBytes(rightModelPath);
         return leftBytes.AsSpan().SequenceEqual(rightBytes);
+    }
+
+    private static string ResolveInstanceDiffOutputPath(string rightWorkspacePath, string suffix)
+    {
+        var rightFullPath = System.IO.Path.GetFullPath(rightWorkspacePath);
+        var parent = System.IO.Directory.GetParent(rightFullPath)?.FullName ?? Environment.CurrentDirectory;
+        var rightName = System.IO.Path.GetFileName(rightFullPath);
+        if (string.IsNullOrWhiteSpace(rightName))
+        {
+            rightName = "workspace";
+        }
+
+        return System.IO.Path.Combine(parent, $"{rightName}.{suffix}");
     }
 }

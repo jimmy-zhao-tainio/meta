@@ -10,12 +10,15 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-        RequireEntity(workspace, entityName);
-        var row = ResolveRowById(workspace, entityName, id);
+        var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+        PrintContractCompatibilityWarning(workspace.ContractVersion);
+        var source = CreateWorkspaceSource(workspace.State);
+        var resolvedEntityName = await ResolveEntityNameAsync(source, entityName).ConfigureAwait(false);
+        var row = await source.ReadRecordAsync(resolvedEntityName, id).ConfigureAwait(false) ??
+                  throw new InvalidOperationException(
+                      $"Instance with Id '{id}' does not exist in entity '{resolvedEntityName}'.");
 
-        PrintSelectedRecord(entityName, row);
+        PrintSelectedRecord(resolvedEntityName, row);
         return 0;
     }
 }

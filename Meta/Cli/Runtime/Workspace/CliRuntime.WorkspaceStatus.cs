@@ -2,7 +2,7 @@ using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 internal sealed partial class CliRuntime
 {
-    void PrintWorkspaceSummary(Workspace workspace)
+    void PrintWorkspaceSummary(OpenedXmlWorkspace workspace)
     {
         var entityCount = workspace.Model.Entities.Count;
         var rowCount = workspace.Instance.RecordsByEntity.Values.Sum(records => records.Count);
@@ -12,8 +12,8 @@ internal sealed partial class CliRuntime
             "Workspace",
             new[]
             {
-                ("Path", workspace.WorkspaceRootPath),
-                ("Metadata", workspace.MetadataRootPath),
+                ("Path", workspace.RootPath),
+                ("Metadata", workspace.RootPath),
             });
         presenter.WriteKeyValueBlock(
             "Model",
@@ -34,29 +34,22 @@ internal sealed partial class CliRuntime
             "Contract",
             new[]
             {
-                ("Version", MetaWorkspaceConfig.GetContractVersion(workspace.WorkspaceConfig)),
+                ("Version", workspace.ContractVersion),
             });
     }
 
-    (long ModelBytes, long InstanceBytes) CalculateWorkspaceDataSizes(Workspace workspace)
+    (long ModelBytes, long InstanceBytes) CalculateWorkspaceDataSizes(OpenedXmlWorkspace workspace)
     {
         var modelPath = ResolveFirstExistingPath(new[]
         {
-            ResolveWorkspaceConfigPathFromWorkspaceRoot(
-                workspace,
-                MetaWorkspaceConfig.GetModelFile(workspace.WorkspaceConfig),
-                "model.xml"),
-            Path.Combine(workspace.MetadataRootPath, "model.xml"),
-            Path.Combine(workspace.WorkspaceRootPath, "model.xml"),
+            workspace.ModelFilePath,
+            Path.Combine(workspace.RootPath, "model.xml"),
         });
 
         var modelBytes = GetFileSize(modelPath);
 
         var instanceBytes = 0L;
-        var shardDirectory = ResolveWorkspaceConfigPathFromWorkspaceRoot(
-            workspace,
-            MetaWorkspaceConfig.GetInstanceDir(workspace.WorkspaceConfig),
-            "instances");
+        var shardDirectory = workspace.InstanceDirectoryPath;
         if (Directory.Exists(shardDirectory))
         {
             var shardFiles = Directory.GetFiles(shardDirectory, "*.xml");
@@ -72,15 +65,6 @@ internal sealed partial class CliRuntime
         }
 
         return (modelBytes, instanceBytes);
-    }
-
-    string ResolveWorkspaceConfigPathFromWorkspaceRoot(Workspace workspace, string? configuredPath, string fallbackRelativePath)
-    {
-        var value = string.IsNullOrWhiteSpace(configuredPath) ? fallbackRelativePath : configuredPath.Trim();
-        var normalized = value.Replace('/', Path.DirectorySeparatorChar);
-        return Path.IsPathRooted(normalized)
-            ? Path.GetFullPath(normalized)
-            : Path.GetFullPath(Path.Combine(workspace.WorkspaceRootPath, normalized));
     }
 
     string ResolveFirstExistingPath(IEnumerable<string> candidates)
@@ -152,7 +136,12 @@ internal sealed partial class CliRuntime
 
     void PrintContractCompatibilityWarning(Meta.Core.WorkspaceConfig.Generated.MetaWorkspace workspaceConfig)
     {
-        var contractVersion = MetaWorkspaceConfig.GetContractVersion(workspaceConfig);
+        PrintContractCompatibilityWarning(
+            MetaWorkspaceConfig.GetContractVersion(workspaceConfig));
+    }
+
+    void PrintContractCompatibilityWarning(string contractVersion)
+    {
         if (!MetaWorkspaceConfig.TryParseContractVersion(contractVersion, out var major, out var minor))
         {
             return;
@@ -175,63 +164,12 @@ internal sealed partial class CliRuntime
     (string WorkspaceRootPath, string MetadataRootPath) ResolveWorkspaceFilesystemContext(string workspacePath)
     {
         var absolutePath = Path.GetFullPath(workspacePath);
-        return HasWorkspaceOverrideInInvocation()
-            ? ResolveWorkspaceFilesystemContextWithoutSearch(absolutePath)
-            : DiscoverWorkspaceFilesystemContext(absolutePath);
-    }
-
-    (string WorkspaceRootPath, string MetadataRootPath) DiscoverWorkspaceFilesystemContext(string startPath)
-    {
-        var current = Directory.Exists(startPath)
-            ? Path.GetFullPath(startPath)
-            : Path.GetFullPath(Path.GetDirectoryName(startPath) ?? startPath);
-
-        while (!string.IsNullOrWhiteSpace(current))
+        if (string.Equals(Path.GetFileName(absolutePath), "instances", StringComparison.OrdinalIgnoreCase))
         {
-            var metadataRoot = current;
-            var workspaceXml = Path.Combine(current, "workspace.xml");
-            if (File.Exists(workspaceXml) || IsWorkspaceMetadataCandidate(metadataRoot))
-            {
-                return (current, metadataRoot);
-            }
-
-            var parent = Directory.GetParent(current);
-            if (parent == null)
-            {
-                break;
-            }
-
-            current = parent.FullName;
+            var workspaceRoot = Directory.GetParent(absolutePath)?.FullName ?? absolutePath;
+            return (workspaceRoot, workspaceRoot);
         }
 
-        throw new FileNotFoundException($"Could not find workspace starting from '{startPath}'.");
-    }
-
-    (string WorkspaceRootPath, string MetadataRootPath) ResolveWorkspaceFilesystemContextWithoutSearch(string workspacePath)
-    {
-        if (string.Equals(Path.GetFileName(workspacePath), "instances", StringComparison.OrdinalIgnoreCase))
-        {
-            var workspaceRoot = Directory.GetParent(workspacePath)?.FullName ?? workspacePath;
-            if (IsWorkspaceMetadataCandidate(workspacePath) || Directory.Exists(workspacePath))
-            {
-                return (workspaceRoot, workspaceRoot);
-            }
-        }
-
-        var metadataRoot = workspacePath;
-        if (IsWorkspaceMetadataCandidate(metadataRoot) || Directory.Exists(metadataRoot))
-        {
-            return (workspacePath, metadataRoot);
-        }
-
-        throw new FileNotFoundException($"Could not find workspace under '{workspacePath}'.");
-    }
-
-    bool IsWorkspaceMetadataCandidate(string metadataRootPath)
-    {
-        var workspaceRootPath = Directory.GetParent(metadataRootPath)?.FullName ?? metadataRootPath;
-        return File.Exists(Path.Combine(workspaceRootPath, "workspace.xml")) ||
-               File.Exists(Path.Combine(metadataRootPath, "model.xml")) ||
-               Directory.Exists(Path.Combine(metadataRootPath, "instances"));
+        return (absolutePath, absolutePath);
     }
 }

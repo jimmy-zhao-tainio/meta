@@ -16,10 +16,10 @@ internal sealed partial class CliRuntime
         }
         try
         {
-            var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            var fromEntity = RequireEntity(workspace, fromEntityName);
-            var fromRow = ResolveRowById(workspace, fromEntityName, fromId);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            var fromEntity = RequireEntity(workspace.Model, fromEntityName);
+            var fromRow = ResolveRowById(workspace.State, fromEntityName, fromId);
 
             var toEntityName = options.RelationshipSelector;
             var toId = options.ToId;
@@ -40,7 +40,7 @@ internal sealed partial class CliRuntime
 
             var toRelationshipName = relationship.GetColumnName();
             var toTargetEntityName = relationship.Entity;
-            RequireEntity(workspace, toTargetEntityName);
+            RequireEntity(workspace.Model, toTargetEntityName);
             var targetExists = workspace.Instance.GetOrCreateEntityRecords(toTargetEntityName)
                 .Any(row => string.Equals(row.Id, toId, StringComparison.OrdinalIgnoreCase));
             if (!targetExists)
@@ -50,17 +50,13 @@ internal sealed partial class CliRuntime
                     $"Instance with Id '{toId}' does not exist in entity '{toTargetEntityName}'.");
             }
 
-            var operation = new WorkspaceOp
-            {
-                Type = WorkspaceOpTypes.BulkUpsertRows,
-                EntityName = fromEntityName,
-                RowPatches =
-                {
-                    BuildRelationshipUsageRewritePatch(fromRow, toRelationshipName, toId),
-                },
-            };
+            var operation = new Operation.SetRelationship(
+                fromEntityName,
+                fromRow.Id,
+                toRelationshipName,
+                toId);
 
-            return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
                     workspace,
                     new[] { operation },
                     commandName: "instance.relationship.set",

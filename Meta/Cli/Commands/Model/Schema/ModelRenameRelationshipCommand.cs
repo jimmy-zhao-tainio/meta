@@ -1,6 +1,3 @@
-using Meta.Core.Operations;
-using Meta.Core.Services;
-
 internal sealed partial class CliRuntime
 {
     async Task<int> ModelRenameRelationshipAsync(string[] commandArgs)
@@ -13,8 +10,6 @@ internal sealed partial class CliRuntime
 
         var commandOptions = options.Options;
 
-        Workspace? workspace = null;
-        WorkspaceSnapshot? before = null;
         try
         {
             var loadOptions = string.IsNullOrWhiteSpace(commandOptions.ExistingColumnName)
@@ -27,10 +22,12 @@ internal sealed partial class CliRuntime
                             commandOptions.TargetEntityName,
                             commandOptions.ExistingColumnName),
                     });
-            workspace = await LoadWorkspaceForCommandAsync(commandOptions.WorkspacePath, loadOptions).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(commandOptions.WorkspacePath, loadOptions).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
 
-            var fromEntity = RequireEntity(workspace, commandOptions.SourceEntityName);
+            var fromEntity = workspace.Model.FindEntity(commandOptions.SourceEntityName) ??
+                throw new InvalidOperationException(
+                    $"Entity '{commandOptions.SourceEntityName}' does not exist.");
             var matchingRelationships = fromEntity.Relationships
                 .Where(item => string.Equals(item.Entity, commandOptions.TargetEntityName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
@@ -50,60 +47,41 @@ internal sealed partial class CliRuntime
             }
 
             var currentRole = relationship.Role ?? string.Empty;
-            before = WorkspaceSnapshotCloner.Capture(workspace);
+            var operation = new Operation.RenameRelationship(
+                fromEntity.Name,
+                relationship.GetColumnName(),
+                commandOptions.NewRole);
 
-            var result = services.ModelRefactorService.RenameRelationship(
-                workspace,
-                new RenameRelationshipRefactorOptions(
-                    commandOptions.SourceEntityName,
-                    commandOptions.TargetEntityName,
-                    currentRole,
-                    commandOptions.NewRole));
-            ApplyImplicitNormalization(workspace);
-
-            var diagnostics = services.ValidationService.Validate(workspace);
-            workspace.Diagnostics = diagnostics;
-            if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-                return PrintOperationValidationFailure(
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
+                    workspace,
+                    new[] { operation },
                     "model rename-relationship",
-                    Array.Empty<WorkspaceOp>(),
-                    diagnostics);
-            }
-
-            await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
-
-            presenter.WriteOk(
-                "relationship renamed",
-                ("Workspace", Path.GetFullPath(workspace.WorkspaceRootPath)),
-                ("Model", workspace.Model.Name),
-                ("From", commandOptions.SourceEntityName + "." + result.OldUsageName),
-                ("To", commandOptions.SourceEntityName + "." + result.NewUsageName),
-                ("Target", result.TargetEntityName),
-                ("OldRole", string.IsNullOrWhiteSpace(currentRole) ? "(none)" : result.OldRole),
-                ("NewRole", string.Equals(result.NewUsageName, result.TargetEntityName + "Id", StringComparison.OrdinalIgnoreCase) ? "(none)" : result.NewRole),
-                ("Existing column", string.IsNullOrWhiteSpace(commandOptions.ExistingColumnName) ? "(model)" : commandOptions.ExistingColumnName),
-                ("Rows touched", result.RowsTouched.ToString()));
-            return 0;
+                    "relationship renamed",
+                    buildSuccessDetails: results =>
+                    {
+                        var result = (RenameRelationshipResult)results.Single();
+                        return new (string Key, string Value)[]
+                        {
+                            ("Workspace", workspace.RootPath),
+                            ("Model", workspace.Model.Name),
+                            ("From", result.SourceEntityName + "." + result.OldName),
+                            ("To", result.SourceEntityName + "." + result.NewName),
+                            ("Target", result.TargetEntityName),
+                            ("OldRole", string.IsNullOrWhiteSpace(currentRole) ? "(none)" : currentRole),
+                            ("NewRole", string.Equals(result.NewName, result.TargetEntityName + "Id", StringComparison.OrdinalIgnoreCase)
+                                ? "(none)"
+                                : commandOptions.NewRole),
+                            ("Existing column", string.IsNullOrWhiteSpace(commandOptions.ExistingColumnName)
+                                ? "(model)"
+                                : commandOptions.ExistingColumnName),
+                            ("Rows touched", result.RelationshipValueCount.ToString()),
+                        };
+                    })
+                .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)
         {
-            if (workspace != null && before != null)
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-            }
-
             return PrintDataError("E_OPERATION", exception.Message);
-        }
-        catch
-        {
-            if (workspace != null && before != null)
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-            }
-
-            throw;
         }
     }
 

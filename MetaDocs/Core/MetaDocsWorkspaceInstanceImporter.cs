@@ -1,15 +1,13 @@
 using System.Text;
 using System.Security.Cryptography;
 using Meta.Core.Domain;
-using Meta.Core.Services;
+using Meta.Core.Serialization;
 using MetaDocs;
 
 namespace MetaDocs.Core;
 
 public sealed class MetaDocsWorkspaceInstanceImporter
 {
-    private readonly WorkspaceService workspaceService = new();
-
     public async Task<MetaDocsWorkspaceInstanceImportResult> ImportWorkspaceInstancesAsync(
         MetaDocsModel model,
         string sourceWorkspacePath,
@@ -21,10 +19,10 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(sourceWorkspacePath);
 
-        var workspace = await workspaceService.LoadAsync(
+        var openedWorkspace = await XmlWorkspaceReader.OpenAsync(
             sourceWorkspacePath,
-            searchUpward: false,
             cancellationToken).ConfigureAwait(false);
+        var workspace = openedWorkspace.State;
         var modelName = string.IsNullOrWhiteSpace(workspace.Model.Name) ? "Model" : workspace.Model.Name;
         var normalizedDisplayName = string.IsNullOrWhiteSpace(displayName)
             ? modelName
@@ -56,7 +54,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             $"{normalizedSourceId}:instances",
             "WorkspaceInstances",
             "Workspace",
-            workspace.WorkspaceRootPath,
+            openedWorkspace.RootPath,
             normalizedDisplayName + " instances",
             $"{normalizedDisplayName}.Instances",
             "Selected workspace instances.",
@@ -179,11 +177,6 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             previousInstance);
         session.UpsertFact(subject, "Instance", "EntityName", entity.Name);
         session.UpsertFact(subject, "Instance", "NativeId", record.Id);
-        if (!string.IsNullOrWhiteSpace(record.SourceShardFileName))
-        {
-            session.UpsertFact(subject, "Instance", "SourceShard", record.SourceShardFileName);
-        }
-
         return subject;
     }
 
@@ -356,7 +349,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             : $"{sourceDisplayName}.{sourcePath}";
     }
 
-    private static string ComputeSourceFingerprint(Workspace workspace)
+    private static string ComputeSourceFingerprint(InMemoryWorkspace workspace)
     {
         var builder = new StringBuilder();
         builder.Append(workspace.Model.ComputeContractSignature());

@@ -8,12 +8,13 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-        var report = ModelSuggestService.Analyze(workspace);
+        var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+        PrintContractCompatibilityWarning(workspace.ContractVersion);
+        var report = ModelSuggestService.Analyze(workspace.State);
 
         PrintModelSuggestReport(
             report,
+            workspace.RootPath,
             options.ShowKeys,
             options.Explain,
             options.PrintCommands);
@@ -28,6 +29,7 @@ internal sealed partial class CliRuntime
 
     void PrintModelSuggestReport(
         ModelSuggestReport report,
+        string workspacePath,
         bool showKeys,
         bool explain,
         bool printCommands)
@@ -42,7 +44,7 @@ internal sealed partial class CliRuntime
         }
         if (printCommands)
         {
-            PrintSuggestedCommandSection(report.WorkspaceRootPath, report.EligibleRelationshipSuggestions);
+            PrintSuggestedCommandSection(workspacePath, report.EligibleRelationshipSuggestions);
         }
 
         if (showKeys)

@@ -10,16 +10,6 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var operation = new WorkspaceOp
-        {
-            Type = WorkspaceOpTypes.AddRelationship,
-            EntityName = fromEntity,
-            RelatedEntity = toEntity,
-            RelatedRole = options.Role,
-            RelatedDefaultId = options.DefaultId,
-            IsNullable = !options.Required,
-        };
-
         var relationshipColumnName = (string.IsNullOrWhiteSpace(options.Role) ? toEntity : options.Role) + "Id";
         var requiredText = options.Required ? "required" : "optional";
         var successDetails = new List<(string Key, string Value)>
@@ -35,7 +25,16 @@ internal sealed partial class CliRuntime
 
         return await ExecuteOperationAsync(
                 options.WorkspacePath,
-                operation,
+                () => new Operation.AddRelationship(
+                    fromEntity,
+                    toEntity,
+                    string.IsNullOrWhiteSpace(options.Role)
+                        ? null
+                        : options.Role,
+                    options.Required,
+                    string.IsNullOrWhiteSpace(options.DefaultId)
+                        ? null
+                        : options.DefaultId),
                 "model add-relationship",
                 "relationship added",
                 successDetails.ToArray())

@@ -1,6 +1,4 @@
 using System.Text.RegularExpressions;
-using Meta.Core.Operations;
-using Meta.Core.Services;
 
 internal sealed partial class CliRuntime
 {
@@ -17,60 +15,48 @@ internal sealed partial class CliRuntime
         var commandOptions = options.Options;
         var refactorOptions = commandOptions.Refactor;
 
-        Workspace? workspace = null;
-        WorkspaceSnapshot? before = null;
         try
         {
-            workspace = await LoadWorkspaceForCommandAsync(commandOptions.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            before = WorkspaceSnapshotCloner.Capture(workspace);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(commandOptions.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            var operation = new Operation.PropertyToRelationship(
+                refactorOptions.SourceEntityName,
+                refactorOptions.SourcePropertyName,
+                refactorOptions.TargetEntityName,
+                refactorOptions.LookupPropertyName,
+                refactorOptions.Role,
+                PreserveProperty: !refactorOptions.DropSourceProperty);
 
-            var result = services.ModelRefactorService.RefactorPropertyToRelationship(workspace, refactorOptions);
-            ApplyImplicitNormalization(workspace);
-
-            var diagnostics = services.ValidationService.Validate(workspace);
-            workspace.Diagnostics = diagnostics;
-            if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-                return PrintOperationValidationFailure(
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
+                    workspace,
+                    new[] { operation },
                     "model refactor property-to-relationship",
-                    Array.Empty<WorkspaceOp>(),
-                    diagnostics);
-            }
-
-            await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
-
-            presenter.WriteOk(
-                "refactor property-to-relationship",
-                ("Workspace", Path.GetFullPath(workspace.WorkspaceRootPath)),
-                ("Model", workspace.Model.Name),
-                ("Source", result.SourceAddress),
-                ("Target", result.TargetEntityName),
-                ("Lookup", result.LookupAddress),
-                ("Role", string.IsNullOrWhiteSpace(result.Role) ? "(none)" : result.Role),
-                ("Preserve property", refactorOptions.DropSourceProperty ? "no" : "yes"));
-            presenter.WriteInfo($"Rows rewritten: {result.RowsRewritten}");
-            presenter.WriteInfo($"Property dropped: {(result.PropertyDropped ? "yes" : "no")}");
-            return 0;
+                    "refactor property-to-relationship",
+                    buildSuccessDetails: results =>
+                    {
+                        var result = (PropertyToRelationshipResult)results.Single();
+                        return new (string Key, string Value)[]
+                        {
+                            ("Workspace", workspace.RootPath),
+                            ("Model", workspace.Model.Name),
+                            ("Source", refactorOptions.SourceEntityName + "." + refactorOptions.SourcePropertyName),
+                            ("Target", refactorOptions.TargetEntityName),
+                            ("Lookup", refactorOptions.TargetEntityName + "." + refactorOptions.LookupPropertyName),
+                            ("Role", string.IsNullOrWhiteSpace(refactorOptions.Role) ? "(none)" : refactorOptions.Role),
+                            ("Preserve property", result.PropertyRemoved ? "no" : "yes"),
+                        };
+                    },
+                    writeSuccessOutput: results =>
+                    {
+                        var result = (PropertyToRelationshipResult)results.Single();
+                        presenter.WriteInfo($"Rows rewritten: {result.SourceRecordCount}");
+                        presenter.WriteInfo($"Property dropped: {(result.PropertyRemoved ? "yes" : "no")}");
+                    })
+                .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)
         {
-            if (workspace != null && before != null)
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-            }
-
             return PrintDataError("E_OPERATION", exception.Message);
-        }
-        catch
-        {
-            if (workspace != null && before != null)
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-            }
-
-            throw;
         }
     }
 
@@ -99,7 +85,7 @@ internal sealed partial class CliRuntime
 
         var options = new PropertyToRelationshipCommandOptions(
             WorkspacePath: workspacePath,
-            Refactor: new PropertyToRelationshipRefactorOptions(
+            Refactor: new PropertyToRelationshipOptions(
                 SourceEntityName: sourceEntityName,
                 SourcePropertyName: sourcePropertyName,
                 TargetEntityName: target,
@@ -112,5 +98,13 @@ internal sealed partial class CliRuntime
 
     readonly record struct PropertyToRelationshipCommandOptions(
         string WorkspacePath,
-        PropertyToRelationshipRefactorOptions Refactor);
+        PropertyToRelationshipOptions Refactor);
+
+    readonly record struct PropertyToRelationshipOptions(
+        string SourceEntityName,
+        string SourcePropertyName,
+        string TargetEntityName,
+        string LookupPropertyName,
+        string Role,
+        bool DropSourceProperty);
 }

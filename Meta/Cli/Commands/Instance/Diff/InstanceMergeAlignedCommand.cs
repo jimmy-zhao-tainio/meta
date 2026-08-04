@@ -5,35 +5,26 @@ internal sealed partial class CliRuntime
         var targetPath = Path.GetFullPath(RequiredValue("targetWorkspace"));
         var diffWorkspacePath = Path.GetFullPath(RequiredValue("diffWorkspace"));
 
-        var targetWorkspace = await services.WorkspaceService.LoadAsync(targetPath, searchUpward: false).ConfigureAwait(false);
-        var diffWorkspace = await services.WorkspaceService.LoadAsync(diffWorkspacePath, searchUpward: false).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(targetWorkspace.WorkspaceConfig);
-        PrintContractCompatibilityWarning(diffWorkspace.WorkspaceConfig);
+        var targetWorkspace = await OpenXmlWorkspaceForCommandAsync(targetPath).ConfigureAwait(false);
+        var diffWorkspace = await OpenXmlWorkspaceForCommandAsync(diffWorkspacePath).ConfigureAwait(false);
+        PrintContractCompatibilityWarning(targetWorkspace.ContractVersion);
+        PrintContractCompatibilityWarning(diffWorkspace.ContractVersion);
 
-        var before = WorkspaceSnapshotCloner.Capture(targetWorkspace);
         try
         {
-            services.InstanceDiffService.ApplyAlignedDiffWorkspace(targetWorkspace, diffWorkspace);
-            ApplyImplicitNormalization(targetWorkspace);
-
-            var diagnostics = services.ValidationService.Validate(targetWorkspace);
-            targetWorkspace.Diagnostics = diagnostics;
-            if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
-            {
-                WorkspaceSnapshotCloner.Restore(targetWorkspace, before);
-                return PrintOperationValidationFailure("instance merge-aligned", Array.Empty<WorkspaceOp>(), diagnostics);
-            }
-
-            await services.WorkspaceService.SaveAsync(targetWorkspace).ConfigureAwait(false);
-            presenter.WriteOk(
-                "instance merge-aligned applied",
-                ("Target", targetPath));
-
-            return 0;
+            var operations = services.InstanceDiffService.PlanAlignedDiffMerge(
+                targetWorkspace.State,
+                diffWorkspace.State);
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
+                    targetWorkspace,
+                    operations,
+                    "instance merge-aligned",
+                    "instance merge-aligned applied",
+                    new[] { ("Target", targetPath) })
+                .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)
         {
-            WorkspaceSnapshotCloner.Restore(targetWorkspace, before);
             if (string.Equals(
                     exception.Message,
                     "instance merge-aligned precondition failed: target does not match the diff left snapshot.",

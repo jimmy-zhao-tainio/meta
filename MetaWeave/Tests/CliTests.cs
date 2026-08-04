@@ -2,7 +2,8 @@
 using System.Diagnostics;
 using System.Linq;
 using Meta.Core.Domain;
-using Meta.Core.Services;
+using Meta.Core.Operations;
+using Meta.Core.Serialization;
 
 namespace MetaWeave.Tests;
 
@@ -188,7 +189,7 @@ public sealed class CliTests
             Assert.Equal(0, check.ExitCode);
             Assert.Contains("Ok", check.Output);
 
-            var weave = await new WorkspaceService().LoadAsync(metaWeavePath, searchUpward: false);
+            var weave = await XmlWorkspaceReader.OpenAsync(metaWeavePath);
             Assert.Equal(2, weave.Instance.GetOrCreateEntityRecords("ModelReference").Count);
             Assert.Single(weave.Instance.GetOrCreateEntityRecords("PropertyBinding"));
         }
@@ -213,7 +214,7 @@ public sealed class CliTests
             Assert.Equal(4, addModel.ExitCode);
             Assert.Contains("contained model 'SampleReferenceCatalog', not 'SampleSourceCatalog'", addModel.Output);
 
-            var weave = await new WorkspaceService().LoadAsync(metaWeavePath, searchUpward: false);
+            var weave = await XmlWorkspaceReader.OpenAsync(metaWeavePath);
             Assert.Empty(weave.Instance.GetOrCreateEntityRecords("ModelReference"));
         }
         finally
@@ -238,7 +239,7 @@ public sealed class CliTests
             Assert.Equal(4, addBinding.ExitCode);
             Assert.Contains("source property 'Attribute.MissingTypeId' was not found", addBinding.Output);
 
-            var weave = await new WorkspaceService().LoadAsync(metaWeavePath, searchUpward: false);
+            var weave = await XmlWorkspaceReader.OpenAsync(metaWeavePath);
             Assert.Empty(weave.Instance.GetOrCreateEntityRecords("PropertyBinding"));
         }
         finally
@@ -277,8 +278,10 @@ public sealed class CliTests
             Assert.Equal(0, materialize.ExitCode);
             Assert.Contains("Ok", materialize.Output);
 
-            var workspace = await new WorkspaceService().LoadAsync(mergedPath, searchUpward: false);
-            var diagnostics = new ValidationService().Validate(workspace);
+            var workspace = await XmlWorkspaceReader.OpenAsync(mergedPath);
+            var diagnostics = WorkspaceValidator.Validate(
+                workspace.Model,
+                workspace.Instance);
             Assert.False(diagnostics.HasErrors);
 
             var attributeEntity = workspace.Model.FindEntity("Attribute");
@@ -311,8 +314,10 @@ public sealed class CliTests
             Assert.Equal(0, materialize.ExitCode);
             Assert.Contains("Ok", materialize.Output);
 
-            var workspace = await new WorkspaceService().LoadAsync(mergedPath, searchUpward: false);
-            var diagnostics = new ValidationService().Validate(workspace);
+            var workspace = await XmlWorkspaceReader.OpenAsync(mergedPath);
+            var diagnostics = WorkspaceValidator.Validate(
+                workspace.Model,
+                workspace.Instance);
             Assert.False(diagnostics.HasErrors);
 
             var mappingEntity = workspace.Model.FindEntity("Mapping");
@@ -353,36 +358,33 @@ public sealed class CliTests
     private static string CreateReferenceWorkspace(string root, string folderName)
     {
         var path = Path.Combine(root, folderName);
-        var workspace = new Workspace
+        var model = new GenericModel
         {
-            WorkspaceRootPath = path,
-            MetadataRootPath = Path.Combine(path, "metadata"),
-            WorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace.CreateDefault(),
-            Model = new GenericModel
+            Name = "SampleReferenceCatalog",
+            Entities =
             {
-                Name = "SampleReferenceCatalog",
-                Entities =
+                new GenericEntity
                 {
-                    new GenericEntity
+                    Name = "ReferenceType",
+                    Properties =
                     {
-                        Name = "ReferenceType",
-                        Properties =
-                        {
-                            new GenericProperty { Name = "Name", IsNullable = false },
-                        },
+                        new GenericProperty { Name = "Name", IsNullable = false },
                     },
                 },
             },
-            Instance = new GenericInstance
-            {
-                ModelName = "SampleReferenceCatalog",
-            },
-            IsDirty = true,
         };
-        AddRow(workspace.Instance, "ReferenceType", "type:decimal", ("Name", "decimal"));
-        AddRow(workspace.Instance, "ReferenceType", "type:int", ("Name", "int"));
-        AddRow(workspace.Instance, "ReferenceType", "type:string", ("Name", "string"));
-        new WorkspaceService().SaveAsync(workspace).GetAwaiter().GetResult();
+        var instance = new GenericInstance
+        {
+            ModelName = "SampleReferenceCatalog",
+        };
+        AddRow(instance, "ReferenceType", "type:decimal", ("Name", "decimal"));
+        AddRow(instance, "ReferenceType", "type:int", ("Name", "int"));
+        AddRow(instance, "ReferenceType", "type:string", ("Name", "string"));
+        XmlWorkspaceWriter.WriteNewAsync(
+                new InMemoryWorkspace(model, instance),
+                path)
+            .GetAwaiter()
+            .GetResult();
         return path;
     }
 
@@ -399,21 +401,14 @@ public sealed class CliTests
             entity.Properties.Add(new GenericProperty { Name = propertySet.PropertyName, IsNullable = false });
         }
 
-        var workspace = new Workspace
+        var model = new GenericModel
         {
-            WorkspaceRootPath = path,
-            MetadataRootPath = Path.Combine(path, "metadata"),
-            WorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace.CreateDefault(),
-            Model = new GenericModel
-            {
-                Name = modelName,
-                Entities = { entity },
-            },
-            Instance = new GenericInstance
-            {
-                ModelName = modelName,
-            },
-            IsDirty = true,
+            Name = modelName,
+            Entities = { entity },
+        };
+        var instance = new GenericInstance
+        {
+            ModelName = modelName,
         };
 
         var rowCount = propertySets.Max(item => item.Values.Length);
@@ -428,10 +423,14 @@ public sealed class CliTests
                 values.Add((propertySet.PropertyName, propertySet.Values[index]));
             }
 
-            AddRow(workspace.Instance, "Mapping", $"mapping:{index + 1}", values.ToArray());
+            AddRow(instance, "Mapping", $"mapping:{index + 1}", values.ToArray());
         }
 
-        new WorkspaceService().SaveAsync(workspace).GetAwaiter().GetResult();
+        XmlWorkspaceWriter.WriteNewAsync(
+                new InMemoryWorkspace(model, instance),
+                path)
+            .GetAwaiter()
+            .GetResult();
         return path;
     }
 

@@ -2,9 +2,7 @@ using System.Reflection;
 using System.Globalization;
 using System.Xml.Linq;
 using Meta.Core.Domain;
-using Meta.Core.Operations;
 using Meta.Core.Serialization;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Services;
 
@@ -127,9 +125,12 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
             EscapeCanonicalPart(propertyMapId));
     }
 
-    private static GenericEntity RequireEntity(Workspace workspace, string entityName)
+    private static GenericEntity RequireEntity(InMemoryWorkspace workspace, string entityName)
+        => RequireEntity(workspace.Model, entityName);
+
+    private static GenericEntity RequireEntity(GenericModel model, string entityName)
     {
-        var entity = workspace.Model.FindEntity(entityName);
+        var entity = model.FindEntity(entityName);
         if (entity == null)
         {
             throw new InvalidOperationException($"Entity '{entityName}' does not exist.");
@@ -138,43 +139,28 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         return entity;
     }
 
-    private Workspace CreateWorkspaceFromDefinition(InstanceDiffWorkspaceDefinition definition, string workspaceRootPath)
+    private InMemoryWorkspace CreateWorkspaceFromDefinition(InstanceDiffWorkspaceDefinition definition)
     {
         var model = definition.Model.Clone();
-        return new Workspace
-        {
-            WorkspaceRootPath = workspaceRootPath,
-            MetadataRootPath = workspaceRootPath,
-            WorkspaceConfig = MetaWorkspaceConfig.Normalize(definition.WorkspaceConfig, workspaceRootPath),
-            Model = model,
-            Instance = new GenericInstance
+        return new InMemoryWorkspace(
+            model,
+            new GenericInstance
             {
                 ModelName = model.Name,
-            },
-            IsDirty = true,
-        };
+            });
     }
 
     private static InstanceDiffWorkspaceDefinition LoadWorkspaceDefinition(
-        string workspaceResourceName,
         string modelResourceName,
         string expectedModelName)
     {
         var assembly = typeof(InstanceDiffService).Assembly;
-        using var workspaceStream = assembly.GetManifestResourceStream(workspaceResourceName);
-        if (workspaceStream == null)
-        {
-            throw new InvalidOperationException($"Embedded workspace '{workspaceResourceName}' was not found.");
-        }
-
         using var modelStream = assembly.GetManifestResourceStream(modelResourceName);
         if (modelStream == null)
         {
             throw new InvalidOperationException($"Embedded model '{modelResourceName}' was not found.");
         }
 
-        var workspaceDocument = XDocument.Load(workspaceStream, LoadOptions.None);
-        var workspaceConfig = MetaWorkspaceConfig.Load(workspaceDocument, workspaceResourceName);
         var modelDocument = XDocument.Load(modelStream, LoadOptions.None);
         var model = ModelXmlCodec.Load(modelDocument);
         if (!string.Equals(model.Name, expectedModelName, StringComparison.Ordinal))
@@ -183,7 +169,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
                 $"Workspace '{modelResourceName}' model name must be '{expectedModelName}', found '{model.Name}'.");
         }
 
-        return new InstanceDiffWorkspaceDefinition(workspaceConfig, model);
+        return new InstanceDiffWorkspaceDefinition(model);
     }
 
     private static bool IsModelContract(GenericModel model, string expectedSignature)
@@ -195,7 +181,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private static GenericRecord AddDiffRecord(
-        Workspace workspace,
+        InMemoryWorkspace workspace,
         string entityName,
         string id,
         IReadOnlyDictionary<string, string?> values)
@@ -297,9 +283,12 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         return false;
     }
 
-    private static IReadOnlyDictionary<string, GenericRecord> BuildRecordMap(Workspace workspace, string entityName)
+    private static IReadOnlyDictionary<string, GenericRecord> BuildRecordMap(InMemoryWorkspace workspace, string entityName)
+        => BuildRecordMap(workspace.Instance, entityName);
+
+    private static IReadOnlyDictionary<string, GenericRecord> BuildRecordMap(GenericInstance instance, string entityName)
     {
-        if (!workspace.Instance.RecordsByEntity.TryGetValue(entityName, out var rows))
+        if (!instance.RecordsByEntity.TryGetValue(entityName, out var rows))
         {
             return new Dictionary<string, GenericRecord>(StringComparer.OrdinalIgnoreCase);
         }
@@ -319,63 +308,6 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         }
 
         return map;
-    }
-
-    private string ResolveModelXmlPath(string workspacePath, Workspace workspace)
-    {
-        var workspaceRoot = !string.IsNullOrWhiteSpace(workspace.WorkspaceRootPath)
-            ? Path.GetFullPath(workspace.WorkspaceRootPath)
-            : Path.GetFullPath(workspacePath);
-        var metadataRoot = !string.IsNullOrWhiteSpace(workspace.MetadataRootPath)
-            ? Path.GetFullPath(workspace.MetadataRootPath)
-            : Path.Combine(workspaceRoot, "metadata");
-        var modelRelativePath = MetaWorkspaceConfig.GetModelFile(workspace.WorkspaceConfig);
-        var normalizedRelative = modelRelativePath.Replace('/', Path.DirectorySeparatorChar);
-        var candidates = new[]
-        {
-            Path.IsPathRooted(normalizedRelative)
-                ? normalizedRelative
-                : Path.Combine(workspaceRoot, normalizedRelative),
-            Path.Combine(metadataRoot, "model.xml"),
-            Path.Combine(workspaceRoot, "model.xml"),
-        };
-
-        var match = candidates.FirstOrDefault(File.Exists);
-        if (string.IsNullOrWhiteSpace(match))
-        {
-            throw new FileNotFoundException(
-                $"Could not resolve model.xml for workspace '{workspacePath}'.");
-        }
-
-        return Path.GetFullPath(match);
-    }
-
-    private bool AreModelXmlFilesByteIdentical(
-        string leftWorkspacePath,
-        Workspace leftWorkspace,
-        string rightWorkspacePath,
-        Workspace rightWorkspace,
-        out string leftModelPath,
-        out string rightModelPath)
-    {
-        leftModelPath = ResolveModelXmlPath(leftWorkspacePath, leftWorkspace);
-        rightModelPath = ResolveModelXmlPath(rightWorkspacePath, rightWorkspace);
-        var leftBytes = File.ReadAllBytes(leftModelPath);
-        var rightBytes = File.ReadAllBytes(rightModelPath);
-        return leftBytes.AsSpan().SequenceEqual(rightBytes);
-    }
-
-    private string ResolveInstanceDiffOutputPath(string rightWorkspacePath, string suffix)
-    {
-        var rightFull = Path.GetFullPath(rightWorkspacePath);
-        var parent = Directory.GetParent(rightFull)?.FullName ?? Environment.CurrentDirectory;
-        var rightName = Path.GetFileName(rightFull);
-        if (string.IsNullOrWhiteSpace(rightName))
-        {
-            rightName = "workspace";
-        }
-
-        return Path.Combine(parent, $"{rightName}.{suffix}");
     }
 
     private static bool TryGetPropertyLikeValue(GenericEntity entity, GenericRecord row, string propertyName, out string value)

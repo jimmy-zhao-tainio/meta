@@ -4,12 +4,15 @@ using Meta.Core.Domain;
 
 namespace Meta.Core.Serialization;
 
+internal readonly record struct InstanceRecordIdentity(
+    string EntityName,
+    string RecordId);
+
 public static class InstanceXmlCodec
 {
     public static GenericInstance LoadFromPath(
         string instancePath,
         GenericModel model,
-        string sourceShardFileName = "",
         InstanceXmlLoadOptions? loadOptions = null)
     {
         if (string.IsNullOrWhiteSpace(instancePath))
@@ -25,7 +28,7 @@ public static class InstanceXmlCodec
             ModelName = model.Name ?? string.Empty,
         };
 
-        MergeDocument(instance, document, model, sourceShardFileName, loadOptions);
+        MergeDocument(instance, document, model, loadOptions);
         if (string.IsNullOrWhiteSpace(instance.ModelName))
         {
             instance.ModelName = model.Name ?? string.Empty;
@@ -54,7 +57,6 @@ public static class InstanceXmlCodec
                 instance,
                 document,
                 model,
-                sourceShardFileName: Path.GetFileName(path),
                 loadOptions: loadOptions);
         }
 
@@ -70,7 +72,20 @@ public static class InstanceXmlCodec
         GenericInstance instance,
         XDocument document,
         GenericModel model,
-        string sourceShardFileName = "",
+        InstanceXmlLoadOptions? loadOptions = null)
+    {
+        MergeDocumentAndGetRecordIdentities(
+            instance,
+            document,
+            model,
+            loadOptions);
+    }
+
+    internal static IReadOnlyList<InstanceRecordIdentity>
+        MergeDocumentAndGetRecordIdentities(
+        GenericInstance instance,
+        XDocument document,
+        GenericModel model,
         InstanceXmlLoadOptions? loadOptions = null)
     {
         ArgumentNullException.ThrowIfNull(instance);
@@ -84,6 +99,7 @@ public static class InstanceXmlCodec
         }
 
         var entityByContainer = BuildEntityByContainerLookup(model);
+        var loadedRecords = new List<InstanceRecordIdentity>();
 
         foreach (var listElement in root.Elements())
         {
@@ -104,9 +120,19 @@ public static class InstanceXmlCodec
                         $"Instance XML list '{listName}' contains unexpected row element '{rowElement.Name.LocalName}'. Expected '{entityName}'.");
                 }
 
-                records.Add(ParseRecord(entityName, modelEntity, rowElement, sourceShardFileName, loadOptions));
+                var record = ParseRecord(
+                    entityName,
+                    modelEntity,
+                    rowElement,
+                    loadOptions);
+                records.Add(record);
+                loadedRecords.Add(new InstanceRecordIdentity(
+                    entityName,
+                    record.Id));
             }
         }
+
+        return loadedRecords;
     }
 
     public static XDocument BuildDocument(
@@ -189,12 +215,9 @@ public static class InstanceXmlCodec
 
         foreach (var record in records.OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase))
         {
-            var recordId = NormalizeIdentity(record.Id);
-            if (!IsValidIdentity(recordId))
-            {
-                throw new InvalidOperationException(
-                    $"Cannot write entity '{entityName}' row with invalid Id '{record.Id}'.");
-            }
+            var recordId = MetaIdentity.Require(
+                record.Id,
+                $"Cannot write entity '{entityName}' row with Id '{record.Id}'.");
 
             var recordElement = new XElement(entityName, new XAttribute("Id", recordId));
 
@@ -221,12 +244,9 @@ public static class InstanceXmlCodec
                         $"Entity '{entityName}' row '{recordId}' is missing required relationship '{relationshipName}'.");
                 }
 
-                var normalizedRelationshipId = NormalizeIdentity(relationshipId);
-                if (!IsValidIdentity(normalizedRelationshipId))
-                {
-                    throw new InvalidOperationException(
-                        $"Entity '{entityName}' row '{recordId}' has invalid relationship '{relationshipName}' value '{relationshipId}'.");
-                }
+                var normalizedRelationshipId = MetaIdentity.Require(
+                    relationshipId,
+                    $"Entity '{entityName}' row '{recordId}' has invalid relationship '{relationshipName}' value '{relationshipId}'.");
 
                 recordElement.Add(new XAttribute(relationshipName, normalizedRelationshipId));
             }
@@ -273,20 +293,24 @@ public static class InstanceXmlCodec
         string entityName,
         GenericEntity modelEntity,
         XElement rowElement,
-        string sourceShardFileName,
         InstanceXmlLoadOptions? loadOptions)
     {
-        var id = NormalizeIdentity((string?)rowElement.Attribute("Id"));
-        if (!IsValidIdentity(id))
+        var id = (string?)rowElement.Attribute("Id");
+        if (string.IsNullOrWhiteSpace(id))
         {
             throw new InvalidDataException(
                 $"Entity '{entityName}' row is missing valid Id.");
         }
 
+        if (!MetaIdentity.TryValidate(id, out var identityError))
+        {
+            throw new InvalidDataException(
+                $"Entity '{entityName}' row has invalid Id. {identityError}");
+        }
+
         var record = new GenericRecord
         {
             Id = id!,
-            SourceShardFileName = NormalizeShardFileName(sourceShardFileName, entityName),
         };
 
         var propertyByName = modelEntity.Properties
@@ -309,11 +333,11 @@ public static class InstanceXmlCodec
 
             if (relationshipByAttributeName.TryGetValue(attributeName, out var relationship))
             {
-                var relationshipId = NormalizeIdentity(attribute.Value);
-                if (!IsValidIdentity(relationshipId))
+                var relationshipId = attribute.Value;
+                if (!MetaIdentity.TryValidate(relationshipId, out var relationshipIdentityError))
                 {
                     throw new InvalidDataException(
-                        $"Entity '{entityName}' row '{record.Id}' has invalid relationship '{relationship.GetColumnName()}' value '{attribute.Value}'.");
+                        $"Entity '{entityName}' row '{record.Id}' has invalid relationship '{relationship.GetColumnName()}' value '{attribute.Value}'. {relationshipIdentityError}");
                 }
 
                 if (!record.RelationshipIds.TryAdd(relationship.GetColumnName(), relationshipId))
@@ -442,37 +466,6 @@ public static class InstanceXmlCodec
         return lookup;
     }
 
-    private static string NormalizeShardFileName(string? shardFileName, string entityName)
-    {
-        var trimmed = (shardFileName ?? string.Empty).Trim();
-        if (string.IsNullOrWhiteSpace(trimmed))
-        {
-            return entityName + ".xml";
-        }
-
-        var leafName = Path.GetFileName(trimmed);
-        if (string.IsNullOrWhiteSpace(leafName))
-        {
-            return entityName + ".xml";
-        }
-
-        if (!leafName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
-        {
-            return leafName + ".xml";
-        }
-
-        return leafName;
-    }
-
-    private static string NormalizeIdentity(string? value)
-    {
-        return value?.Trim() ?? string.Empty;
-    }
-
-    private static bool IsValidIdentity(string? value)
-    {
-        return !string.IsNullOrWhiteSpace(NormalizeIdentity(value));
-    }
 }
 
 

@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using Meta.Core.Domain;
 using Meta.Core.Services;
-using DomainWorkspace = Meta.Core.Domain.Workspace;
 
 namespace Meta.Core.Tests;
 
@@ -298,7 +297,7 @@ public sealed class ModelSuggestServiceTests
                string.Equals(suggestion.TargetLookup.PropertyName, targetProperty, StringComparison.OrdinalIgnoreCase);
     }
 
-    private static DomainWorkspace BuildDemoWorkspace()
+    private static InMemoryWorkspace BuildDemoWorkspace()
     {
         var workspace = CreateWorkspaceSkeleton();
         AddEntity(workspace.Model, "Product", "ProductName", "ProductGroup");
@@ -339,21 +338,17 @@ public sealed class ModelSuggestServiceTests
         return workspace;
     }
 
-    private static DomainWorkspace CreateWorkspaceSkeleton()
+    private static InMemoryWorkspace CreateWorkspaceSkeleton()
     {
-        return new DomainWorkspace
-        {
-            WorkspaceRootPath = "C:\\test\\workspace",
-            MetadataRootPath = "C:\\test\\workspace\\metadata",
-            Model = new GenericModel
+        return new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = "SuggestModel",
             },
-            Instance = new GenericInstance
+            new GenericInstance
             {
                 ModelName = "SuggestModel",
-            },
-        };
+            });
     }
 
     private static void AddEntity(GenericModel model, string entityName, params string[] properties)

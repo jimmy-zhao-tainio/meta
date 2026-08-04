@@ -3,14 +3,15 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Meta.Adapters;
+using Meta.Core.Operations;
+using Meta.Core.Serialization;
 
 namespace Meta.Core.Tests;
 
 public sealed class ListNamingTests
 {
     [Fact]
-    public async Task WorkspaceService_UsesEntityListContainers_ForModelAndInstance()
+    public async Task XmlWorkspace_UsesEntityListContainers_ForModelAndInstance()
     {
         var root = Path.Combine(Path.GetTempPath(), "metadata-list-tests", Guid.NewGuid().ToString("N"));
         var metadataRoot = root;
@@ -65,8 +66,7 @@ public sealed class ListNamingTests
                 </ListModel>
                 """);
 
-            var services = new ServiceCollection();
-            var workspace = await services.WorkspaceService.LoadAsync(root, searchUpward: false);
+            var workspace = await XmlWorkspaceReader.OpenAsync(root);
 
             var cube = workspace.Model.FindEntity("Cube");
             var person = workspace.Model.FindEntity("Person");
@@ -75,7 +75,10 @@ public sealed class ListNamingTests
             Assert.Equal("CubeList", cube!.GetListName());
             Assert.Equal("PersonList", person!.GetListName());
 
-            await services.WorkspaceService.SaveAsync(workspace);
+            await XmlWorkspaceWriter.WriteAsync(
+                workspace,
+                workspace.State.Clone(),
+                Array.Empty<OperationResult>());
 
             var savedModel = XDocument.Load(Path.Combine(metadataRoot, "model.xml"));
             var cubeEntity = savedModel.Root!.Element("EntityList")!.Elements("Entity")

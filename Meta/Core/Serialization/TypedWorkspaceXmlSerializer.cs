@@ -520,8 +520,7 @@ public static class TypedWorkspaceXmlSerializer
                 foreach (var relationship in entityMap.RelationshipProperties)
                 {
                     pendingRow.RelationshipValues.TryGetValue(relationship, out var targetId);
-                    var normalizedTargetId = NormalizeIdentity(targetId);
-                    if (string.IsNullOrEmpty(normalizedTargetId))
+                    if (string.IsNullOrWhiteSpace(targetId))
                     {
                         if (relationship.IsRequired)
                         {
@@ -533,11 +532,17 @@ public static class TypedWorkspaceXmlSerializer
                         continue;
                     }
 
-                    var targetIndex = indexes[relationship.TargetEntityName];
-                    if (!targetIndex.TryGetValue(normalizedTargetId, out var target))
+                    if (!MetaIdentity.TryValidate(targetId, out var identityError))
                     {
                         throw new InvalidDataException(
-                            $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, pendingRow.Row)}' points to missing Id '{normalizedTargetId}'.");
+                            $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, pendingRow.Row)}' has invalid target Id '{targetId}'. {identityError}");
+                    }
+
+                    var targetIndex = indexes[relationship.TargetEntityName];
+                    if (!targetIndex.TryGetValue(targetId, out var target))
+                    {
+                        throw new InvalidDataException(
+                            $"Relationship '{entityMap.EntityName}.{relationship.Name}' on row '{entityMap.EntityName}:{GetId(entityMap, pendingRow.Row)}' points to missing Id '{targetId}'.");
                     }
 
                     relationship.Property.SetValue(pendingRow.Row, target);
@@ -906,23 +911,18 @@ public static class TypedWorkspaceXmlSerializer
 
     private static string GetId(EntityMap entityMap, object row)
     {
-        return NormalizeIdentity(entityMap.IdProperty.GetValue(row) as string);
+        return entityMap.IdProperty.GetValue(row) as string ?? string.Empty;
     }
 
     private static string GetRequiredId(EntityMap entityMap, object row, string errorMessage)
     {
         var id = GetId(entityMap, row);
-        if (string.IsNullOrEmpty(id))
+        if (!MetaIdentity.TryValidate(id, out var identityError))
         {
-            throw new InvalidOperationException(errorMessage);
+            throw new InvalidOperationException($"{errorMessage} {identityError}");
         }
 
         return id;
-    }
-
-    private static string NormalizeIdentity(string? value)
-    {
-        return value?.Trim() ?? string.Empty;
     }
 
     private sealed class ModelMap

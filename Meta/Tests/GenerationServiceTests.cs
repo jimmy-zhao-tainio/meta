@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using Meta.Adapters;
 using Meta.Core.Domain;
+using Meta.Core.Serialization;
 using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
@@ -13,20 +14,24 @@ public sealed class GenerationServiceTests
     public async Task GenerateSql_IsDeterministicAcrossRuns()
     {
         var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var outputA = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "a");
         var outputB = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "b");
 
         try
         {
-            var manifestA = GenerationService.GenerateSql(workspace, outputA);
-            var manifestB = GenerationService.GenerateSql(workspace, outputB);
+            var manifestA = GenerationService.GenerateSql(workspace.State, outputA);
+            var manifestB = GenerationService.GenerateSql(workspace.State, outputB);
 
             AssertEquivalent(manifestA, manifestB);
             Assert.True(File.Exists(Path.Combine(outputA, "schema.sql")));
             Assert.True(File.Exists(Path.Combine(outputA, "data.sql")));
             var schemaText = await File.ReadAllTextAsync(Path.Combine(outputA, "schema.sql"));
             Assert.Contains("NVARCHAR(MAX)", schemaText, StringComparison.Ordinal);
+            Assert.Contains(
+                $"[Id] NVARCHAR({MetaIdentity.MaximumLength}) COLLATE Latin1_General_100_CI_AS_SC NOT NULL",
+                schemaText,
+                StringComparison.Ordinal);
         }
         finally
         {
@@ -44,17 +49,15 @@ public sealed class GenerationServiceTests
             "metadata-gen-tests",
             Guid.NewGuid().ToString("N"),
             "required-order");
-        var workspace = new Workspace
-        {
-            Model = new GenericModel
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = "RequiredRelationshipOrder",
             },
-            Instance = new GenericInstance
+            new GenericInstance
             {
                 ModelName = "RequiredRelationshipOrder",
-            },
-        };
+            });
         var child = new GenericEntity { Name = "AChild" };
         child.Relationships.Add(new GenericRelationship { Entity = "ZParent" });
         workspace.Model.Entities.Add(child);
@@ -106,7 +109,7 @@ public sealed class GenerationServiceTests
             var data = await File.ReadAllTextAsync(Path.Combine(output, "data.sql"));
 
             Assert.Contains(
-                "[PreviousStepId] NVARCHAR(128) NULL",
+                $"[PreviousStepId] NVARCHAR({MetaIdentity.MaximumLength}) COLLATE Latin1_General_100_CI_AS_SC NULL",
                 schema,
                 StringComparison.Ordinal);
             Assert.Contains(
@@ -179,17 +182,15 @@ public sealed class GenerationServiceTests
             "metadata-gen-tests",
             Guid.NewGuid().ToString("N"),
             "required-cycle");
-        var workspace = new Workspace
-        {
-            Model = new GenericModel
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = "RequiredRelationshipCycle",
             },
-            Instance = new GenericInstance
+            new GenericInstance
             {
                 ModelName = "RequiredRelationshipCycle",
-            },
-        };
+            });
         var first = new GenericEntity { Name = "First" };
         first.Relationships.Add(new GenericRelationship { Entity = "Second" });
         var second = new GenericEntity { Name = "Second" };
@@ -208,12 +209,12 @@ public sealed class GenerationServiceTests
     public async Task GenerateSsdt_WritesExpectedFiles()
     {
         var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var output = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "ssdt");
 
         try
         {
-            var manifest = GenerationService.GenerateSsdt(workspace, output);
+            var manifest = GenerationService.GenerateSsdt(workspace.State, output);
 
             Assert.True(File.Exists(Path.Combine(output, "Schema.sql")));
             Assert.True(File.Exists(Path.Combine(output, "Data.sql")));
@@ -232,15 +233,14 @@ public sealed class GenerationServiceTests
     public async Task GenerateCSharp_IsDeterministicAcrossRuns()
     {
         var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var outputA = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "a");
         var outputB = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "b");
 
         try
         {
-            var manifestA = GenerationService.GenerateCSharp(workspace, outputA);
-            var manifestB = GenerationService.GenerateCSharp(workspace, outputB);
-            var headerWorkspacePath = ResolveHeaderWorkspacePath(workspace);
+            var manifestA = GenerationService.GenerateCSharp(workspace.State, outputA);
+            var manifestB = GenerationService.GenerateCSharp(workspace.State, outputB);
 
             AssertEquivalent(manifestA, manifestB);
             Assert.True(File.Exists(Path.Combine(outputA, workspace.Model.Name + ".cs")));
@@ -248,11 +248,9 @@ public sealed class GenerationServiceTests
             var modelText = await File.ReadAllTextAsync(Path.Combine(outputA, workspace.Model.Name + ".cs"));
             var entityText = await File.ReadAllTextAsync(Path.Combine(outputA, "Cube.cs"));
             Assert.Contains("// <auto-generated>", modelText, StringComparison.Ordinal);
-            Assert.Contains($"Source workspace: {headerWorkspacePath}", modelText, StringComparison.Ordinal);
-            Assert.Contains($"meta generate csharp --workspace \"{headerWorkspacePath}\" --out <dir>", modelText, StringComparison.Ordinal);
+            Assert.DoesNotContain("Source workspace:", modelText, StringComparison.Ordinal);
             Assert.Contains("// <auto-generated>", entityText, StringComparison.Ordinal);
-            Assert.Contains($"Source workspace: {headerWorkspacePath}", entityText, StringComparison.Ordinal);
-            Assert.Contains($"meta generate csharp --workspace \"{headerWorkspacePath}\" --out <dir>", entityText, StringComparison.Ordinal);
+            Assert.DoesNotContain("Source workspace:", entityText, StringComparison.Ordinal);
             Assert.Contains($"public static partial class {workspace.Model.Name}", modelText, StringComparison.Ordinal);
             Assert.Contains("public static IReadOnlyList<Measure> MeasureList", modelText, StringComparison.Ordinal);
             Assert.Contains("MeasureName = \"number_of_things\"", modelText, StringComparison.Ordinal);
@@ -272,13 +270,17 @@ public sealed class GenerationServiceTests
     public async Task GenerateCSharp_WithTooling_EmitsToolingFile()
     {
         var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var output = Path.Combine(Path.GetTempPath(), "metadata-gen-tests", Guid.NewGuid().ToString("N"), "tooling");
 
         try
         {
-            var manifest = GenerationService.GenerateCSharp(workspace, output, includeTooling: true);
-            var headerWorkspacePath = ResolveHeaderWorkspacePath(workspace);
+            var manifest = GenerationService.GenerateCSharp(
+                workspace.State,
+                output,
+                includeTooling: true,
+                sourceWorkspacePath: workspace.RootPath);
+            var headerWorkspacePath = ResolveHeaderWorkspacePath(workspace.RootPath);
             var modelFile = workspace.Model.Name + "Model.cs";
             var toolingFile = workspace.Model.Name + ".Tooling.cs";
             var modelXmlFile = "model.xml";
@@ -356,8 +358,6 @@ public sealed class GenerationServiceTests
             Assert.DoesNotContain("LoadWorkspaceAsync", toolingCode, StringComparison.Ordinal);
             Assert.DoesNotContain("SaveWorkspaceAsync", toolingCode, StringComparison.Ordinal);
             Assert.DoesNotContain("ImportSqlAsync", toolingCode, StringComparison.Ordinal);
-            Assert.DoesNotContain("Task<Workspace>", toolingCode, StringComparison.Ordinal);
-            Assert.DoesNotContain("Workspace workspace", toolingCode, StringComparison.Ordinal);
         }
         finally
         {
@@ -369,9 +369,8 @@ public sealed class GenerationServiceTests
     [Fact]
     public void GenerateCSharp_ModelAndEntityNameCollision_UsesModelSuffixForFacade()
     {
-        var workspace = new Workspace
-        {
-            Model =
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = "Architecture",
                 Entities =
@@ -386,11 +385,10 @@ public sealed class GenerationServiceTests
                     },
                 },
             },
-            Instance =
+            new GenericInstance
             {
                 ModelName = "Architecture",
-            },
-        };
+            });
         workspace.Instance.GetOrCreateEntityRecords("Architecture").Add(new GenericRecord
         {
             Id = "1",
@@ -404,8 +402,12 @@ public sealed class GenerationServiceTests
 
         try
         {
-            var manifest = GenerationService.GenerateCSharp(workspace, output, includeTooling: true);
-            var headerWorkspacePath = ResolveHeaderWorkspacePath(workspace);
+            var manifest = GenerationService.GenerateCSharp(
+                workspace,
+                output,
+                includeTooling: true,
+                sourceWorkspacePath: null);
+            var headerWorkspacePath = ResolveHeaderWorkspacePath(string.Empty);
             var modelPath = Path.Combine(output, "ArchitectureModel.cs");
             var toolingPath = Path.Combine(output, "Architecture.Tooling.cs");
             var entityPath = Path.Combine(output, "Architecture.cs");
@@ -466,7 +468,11 @@ public sealed class GenerationServiceTests
 
         try
         {
-            GenerationService.GenerateCSharp(workspace, output, includeTooling: true);
+            GenerationService.GenerateCSharp(
+                workspace,
+                output,
+                includeTooling: true,
+                sourceWorkspacePath: null);
 
             var customerCode = File.ReadAllText(Path.Combine(output, "Customer.cs"));
             var orderCode = File.ReadAllText(Path.Combine(output, "Order.cs"));
@@ -505,7 +511,11 @@ public sealed class GenerationServiceTests
         try
         {
             Directory.CreateDirectory(projectRoot);
-            GenerationService.GenerateCSharp(workspace, projectRoot, includeTooling: true);
+            GenerationService.GenerateCSharp(
+                workspace,
+                projectRoot,
+                includeTooling: true,
+                sourceWorkspacePath: null);
             File.WriteAllText(Path.Combine(projectRoot, "Program.cs"), BuildGeneratedOrderingProgramCode());
             File.WriteAllText(Path.Combine(projectRoot, "GeneratedRuntime.csproj"), BuildGeneratedRuntimeProjectFile());
 
@@ -530,7 +540,11 @@ public sealed class GenerationServiceTests
         try
         {
             Directory.CreateDirectory(projectRoot);
-            GenerationService.GenerateCSharp(workspace, projectRoot, includeTooling: true);
+            GenerationService.GenerateCSharp(
+                workspace,
+                projectRoot,
+                includeTooling: true,
+                sourceWorkspacePath: null);
             File.WriteAllText(Path.Combine(projectRoot, "Sales.Extensions.cs"), BuildSalesExtensionsCode());
             File.WriteAllText(Path.Combine(projectRoot, "Program.cs"), BuildSalesRuntimeProgramCode());
             File.WriteAllText(Path.Combine(projectRoot, "GeneratedRuntime.csproj"), BuildGeneratedRuntimeProjectFile());
@@ -547,22 +561,20 @@ public sealed class GenerationServiceTests
         }
     }
 
-    private static Workspace BuildOptionalSameEntityWorkspace(
+    private static InMemoryWorkspace BuildOptionalSameEntityWorkspace(
         string entityName,
         string relationshipRole,
         params (string Id, string? RelationshipTargetId)[] rows)
     {
-        var workspace = new Workspace
-        {
-            Model = new GenericModel
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = "OptionalPreviousStep",
             },
-            Instance = new GenericInstance
+            new GenericInstance
             {
                 ModelName = "OptionalPreviousStep",
-            },
-        };
+            });
         var entity = new GenericEntity { Name = entityName };
         entity.Relationships.Add(new GenericRelationship
         {
@@ -607,18 +619,17 @@ public sealed class GenerationServiceTests
         Assert.Equal(left.CombinedHash, right.CombinedHash);
     }
 
-    private static string ResolveHeaderWorkspacePath(Workspace workspace)
+    private static string ResolveHeaderWorkspacePath(string workspaceRootPath)
     {
-        return string.IsNullOrWhiteSpace(workspace.WorkspaceRootPath)
+        return string.IsNullOrWhiteSpace(workspaceRootPath)
             ? ".\\<workspace>"
-            : $".\\{Path.GetFileName(Path.GetFullPath(workspace.WorkspaceRootPath).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))}";
+            : $".\\{Path.GetFileName(Path.GetFullPath(workspaceRootPath).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar))}";
     }
 
-    private static Workspace CreateSalesWorkspace()
+    private static InMemoryWorkspace CreateSalesWorkspace()
     {
-        var workspace = new Workspace
-        {
-            Model =
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = "Sales",
                 Entities =
@@ -680,11 +691,10 @@ public sealed class GenerationServiceTests
                     },
                 },
             },
-            Instance =
+            new GenericInstance
             {
                 ModelName = "Sales",
-            },
-        };
+            });
 
         return workspace;
     }

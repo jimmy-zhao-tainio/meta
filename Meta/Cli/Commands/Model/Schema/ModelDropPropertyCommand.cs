@@ -10,16 +10,9 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var operation = new WorkspaceOp
-        {
-            Type = WorkspaceOpTypes.DeleteProperty,
-            EntityName = entityName,
-            PropertyName = propertyName,
-        };
-
         return await ExecuteOperationAsync(
                 options.WorkspacePath,
-                operation,
+                () => new Operation.RemoveProperty(entityName, propertyName),
                 "model drop-property",
                 "property removed",
                 ("Entity", entityName),

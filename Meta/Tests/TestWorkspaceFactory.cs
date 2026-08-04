@@ -1,10 +1,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Meta.Adapters;
 using Meta.Core.Domain;
 using Meta.Core.Serialization;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Tests;
 
@@ -25,10 +23,10 @@ internal static class TestWorkspaceFactory
             "metadata-studio-tests");
     }
 
-    public static async Task<(Workspace Workspace, string RootPath)> LoadCanonicalSampleWorkspaceAsync(ServiceCollection services)
+    public static async Task<(OpenedXmlWorkspace Workspace, string RootPath)> LoadCanonicalSampleWorkspaceAsync()
     {
         var rootPath = await CreateTempCanonicalWorkspaceFromCanonicalSampleAsync().ConfigureAwait(false);
-        var workspace = await services.WorkspaceService.LoadAsync(rootPath).ConfigureAwait(false);
+        var workspace = await XmlWorkspaceReader.OpenAsync(rootPath).ConfigureAwait(false);
         return (workspace, rootPath);
     }
 
@@ -51,19 +49,10 @@ internal static class TestWorkspaceFactory
     private static async Task<string> CreateWorkspaceFromContractFilesAsync(string sourceModelPath, string sourceInstancePath, string rootPrefix)
     {
         var workspaceRoot = CreateTempRoot(rootPrefix);
-        var services = new ServiceCollection();
         var model = ModelXmlCodec.LoadFromPath(sourceModelPath);
-        var instance = InstanceXmlCodec.LoadFromPath(sourceInstancePath, model, sourceShardFileName: string.Empty);
-        var workspace = new Workspace
-        {
-            WorkspaceRootPath = workspaceRoot,
-            MetadataRootPath = Path.Combine(workspaceRoot, "metadata"),
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = model,
-            Instance = instance,
-            IsDirty = true,
-        };
-        await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
+        var instance = InstanceXmlCodec.LoadFromPath(sourceInstancePath, model);
+        var workspace = new InMemoryWorkspace(model, instance);
+        await XmlWorkspaceWriter.WriteNewAsync(workspace, workspaceRoot).ConfigureAwait(false);
         return workspaceRoot;
     }
 

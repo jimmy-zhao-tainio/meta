@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Meta.Adapters;
 using Meta.Core.Domain;
+using Meta.Core.Serialization;
 using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
@@ -698,6 +699,60 @@ public sealed partial class CliStrictModeTests
         var result = await RunCliAsync("workspace", "migrate");
         Assert.Equal(1, result.ExitCode);
         Assert.Contains("Unknown command 'workspace", result.CombinedOutput, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task WorkspaceMerge_WritesAReadableMergedWorkspace()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "meta-cli-workspace-merge-tests",
+            Guid.NewGuid().ToString("N"));
+        var left = Path.Combine(root, "left");
+        var right = Path.Combine(root, "right");
+        var merged = Path.Combine(root, "merged");
+
+        try
+        {
+            Assert.Equal(0, (await RunCliAsync("init", left)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("init", right)).ExitCode);
+            Assert.Equal(
+                0,
+                (await RunCliAsync(
+                    "model",
+                    "add-entity",
+                    "Alpha",
+                    "--workspace",
+                    left)).ExitCode);
+            Assert.Equal(
+                0,
+                (await RunCliAsync(
+                    "model",
+                    "add-entity",
+                    "Beta",
+                    "--workspace",
+                    right)).ExitCode);
+
+            var result = await RunCliAsync(
+                "workspace",
+                "merge",
+                left,
+                right,
+                "--model",
+                "MergedModel",
+                "--new-workspace",
+                merged);
+
+            Assert.True(result.ExitCode == 0, result.CombinedOutput);
+            var opened = await XmlWorkspaceReader.OpenAsync(merged);
+            Assert.Equal("MergedModel", opened.Model.Name);
+            Assert.NotNull(opened.Model.FindEntity("Alpha"));
+            Assert.NotNull(opened.Model.FindEntity("Beta"));
+        }
+        finally
+        {
+            DeleteDirectorySafe(root);
+        }
     }
 
     [Fact]
@@ -1982,7 +2037,7 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("requires --default-id", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("requires a target for existing records", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
             Assert.Contains("Cube.SystemId", result.CombinedOutput, StringComparison.Ordinal);
         }
         finally
@@ -2112,7 +2167,7 @@ public sealed partial class CliStrictModeTests
             var warehouseDocument = XDocument.Load(warehousePath);
             var warehouses = warehouseDocument.Descendants("Warehouse").ToList();
             Assert.True(warehouses.Count >= 2);
-            warehouses[1].SetAttributeValue("Id", "WH-001");
+            warehouses[1].Element("WarehouseName")?.SetValue("Seattle Main");
             warehouseDocument.Save(warehousePath);
             CopyDirectory(workspaceRoot, expectedWorkspace);
 
@@ -2125,12 +2180,15 @@ public sealed partial class CliStrictModeTests
                 "--target",
                 "Warehouse",
                 "--lookup",
-                "Id",
+                "WarehouseName",
                 "--workspace",
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("Target lookup key is not unique.", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains(
+                "Target lookup 'Warehouse.WarehouseName' contains duplicate value 'Seattle Main'.",
+                result.CombinedOutput,
+                StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
@@ -2170,7 +2228,7 @@ public sealed partial class CliStrictModeTests
 
             Assert.Equal(4, result.ExitCode);
             Assert.Contains(
-                "Source contains null/blank; required relationship cannot be created.",
+                "Required property 'Order.WarehouseId' is missing or empty at record 'ORD-001'.",
                 result.CombinedOutput,
                 StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
@@ -2292,8 +2350,10 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("Source values not fully resolvable against target key.", result.CombinedOutput, StringComparison.Ordinal);
-            Assert.Contains("WH-404", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains(
+                "Value 'WH-404' from 'Order.WarehouseId' does not resolve through 'Warehouse.Id'.",
+                result.CombinedOutput,
+                StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
@@ -2385,7 +2445,12 @@ public sealed partial class CliStrictModeTests
             var orderDocument = XDocument.Load(orderPath);
             foreach (var row in orderDocument.Descendants("Order"))
             {
-                row.SetAttributeValue("WarehouseRefId", "WH-404");
+                var sourceWarehouseId = row.Element("WarehouseId")?.Value;
+                row.SetAttributeValue(
+                    "WarehouseRefId",
+                    string.Equals(sourceWarehouseId, "WH-002", StringComparison.Ordinal)
+                        ? "WH-001"
+                        : "WH-002");
             }
             orderDocument.Save(orderPath);
             CopyDirectory(workspaceRoot, expectedWorkspace);
@@ -2406,7 +2471,10 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("Existing relationship value conflicts with source value.", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains(
+                "Existing relationship 'Order.WarehouseRefId' conflicts at record",
+                result.CombinedOutput,
+                StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
@@ -2472,8 +2540,8 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("Cycle detected from entity 'A'.", result.CombinedOutput, StringComparison.Ordinal);
-            Assert.Contains("Cycle detected from entity 'B'.", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Required relationship cycle detected from entity 'A'.", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Required relationship cycle detected from entity 'B'.", result.CombinedOutput, StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
@@ -2810,7 +2878,7 @@ public sealed partial class CliStrictModeTests
 
             Assert.Equal(4, result.ExitCode);
             Assert.Contains(
-                "Cannot demote relationship 'Order.WarehouseId' to property 'SupplierId' because row 'ORD-001' already contains 'SupplierId'.",
+                "Property 'Order.SupplierId' already exists.",
                 result.CombinedOutput,
                 StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
@@ -2932,7 +3000,10 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("row 'System:1' already contains relationship 'PlatformTypeId'", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains(
+                "Relationship 'System.PlatformType' conflicts with an existing member.",
+                result.CombinedOutput,
+                StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
@@ -3100,7 +3171,10 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("property 'System.PrimarySystemTypeId' already exists", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains(
+                "Relationship 'System.PrimarySystemType' conflicts with an existing member.",
+                result.CombinedOutput,
+                StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
@@ -3198,7 +3272,7 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("because it already exists", result.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Record 'Cube:2' already exists.", result.CombinedOutput, StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
         finally
@@ -3276,7 +3350,7 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("requires --default-value", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("requires a value for existing records", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
             Assert.Contains("Cube.Category", result.CombinedOutput, StringComparison.Ordinal);
         }
         finally
@@ -3320,6 +3394,107 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
+    public async Task ModelDropEntity_RemovesEmptyEntity()
+    {
+        var workspaceRoot = Path.Combine(
+            Path.GetTempPath(),
+            "metadata-studio-tests",
+            Guid.NewGuid().ToString("N"));
+        try
+        {
+            Assert.Equal(0, (await RunCliAsync("init", workspaceRoot)).ExitCode);
+            Assert.Equal(
+                0,
+                (await RunCliAsync(
+                    "model",
+                    "add-entity",
+                    "Temporary",
+                    "--workspace",
+                    workspaceRoot)).ExitCode);
+
+            var result = await RunCliAsync(
+                "model",
+                "drop-entity",
+                "Temporary",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
+            Assert.DoesNotContain(
+                model.Descendants("Entity"),
+                entity => string.Equals(
+                    (string?)entity.Attribute("name"),
+                    "Temporary",
+                    StringComparison.OrdinalIgnoreCase));
+            Assert.Equal(
+                0,
+                (await RunCliAsync("check", "--workspace", workspaceRoot)).ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelDropProperty_RemovesModelPropertyAndInstanceValues()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            Assert.Equal(
+                0,
+                (await RunCliAsync(
+                    "model",
+                    "add-property",
+                    "Cube",
+                    "Category",
+                    "--required",
+                    "false",
+                    "--default-value",
+                    "General",
+                    "--workspace",
+                    workspaceRoot)).ExitCode);
+
+            var result = await RunCliAsync(
+                "model",
+                "drop-property",
+                "Cube",
+                "Category",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
+            var cube = model
+                .Descendants("Entity")
+                .Single(element => string.Equals(
+                    (string?)element.Attribute("name"),
+                    "Cube",
+                    StringComparison.OrdinalIgnoreCase));
+            Assert.DoesNotContain(
+                cube.Descendants("Property"),
+                property => string.Equals(
+                    (string?)property.Attribute("name"),
+                    "Category",
+                    StringComparison.OrdinalIgnoreCase));
+            Assert.All(
+                LoadEntityRows(workspaceRoot, "Cube"),
+                row => Assert.Null(row.Element("Category")));
+
+            Assert.Equal(
+                0,
+                (await RunCliAsync("check", "--workspace", workspaceRoot)).ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
     public async Task ModelSetPropertyRequired_RequiresDefaultValue_WhenExistingRowsAreMissingValues()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();
@@ -3351,7 +3526,7 @@ public sealed partial class CliStrictModeTests
                 workspaceRoot);
 
             Assert.Equal(4, result.ExitCode);
-            Assert.Contains("requires --default-value", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("requires a value for existing records", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
             Assert.Contains("Cube.Category", result.CombinedOutput, StringComparison.Ordinal);
             AssertDirectoryBytesEqual(expectedWorkspace, workspaceRoot);
         }
@@ -3461,6 +3636,50 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
+    public async Task ModelSetPropertyRequired_TreatsExplicitEmptyTextAsPresent()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            Assert.Equal(
+                0,
+                (await RunCliAsync(
+                    "model",
+                    "add-property",
+                    "Cube",
+                    "Category",
+                    "--required",
+                    "false",
+                    "--default-value",
+                    string.Empty,
+                    "--workspace",
+                    workspaceRoot)).ExitCode);
+
+            var result = await RunCliAsync(
+                "model",
+                "set-property-required",
+                "Cube",
+                "Category",
+                "--required",
+                "true",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            Assert.All(
+                LoadEntityRows(workspaceRoot, "Cube"),
+                row => Assert.Equal(string.Empty, row.Element("Category")?.Value));
+            Assert.Equal(
+                0,
+                (await RunCliAsync("check", "--workspace", workspaceRoot)).ExitCode);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
     public async Task ModelSetPropertyRequired_RejectsDefaultValue_WhenSettingOptional()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();
@@ -3480,6 +3699,66 @@ public sealed partial class CliStrictModeTests
 
             Assert.Equal(1, result.ExitCode);
             Assert.Contains("--default-value is only valid with --required true", result.CombinedOutput, StringComparison.Ordinal);
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task ModelRenameProperty_RewritesModelAndInstanceValues()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            var before = LoadEntityRows(workspaceRoot, "Cube")
+                .ToDictionary(
+                    row => row.Attribute("Id")!.Value,
+                    row => row.Element("Purpose")?.Value,
+                    StringComparer.OrdinalIgnoreCase);
+
+            var result = await RunCliAsync(
+                "model",
+                "rename-property",
+                "Cube",
+                "Purpose",
+                "BusinessPurpose",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.Equal(0, result.ExitCode);
+            var model = XDocument.Load(Path.Combine(workspaceRoot, "model.xml"));
+            var cube = model
+                .Descendants("Entity")
+                .Single(element => string.Equals(
+                    (string?)element.Attribute("name"),
+                    "Cube",
+                    StringComparison.OrdinalIgnoreCase));
+            Assert.DoesNotContain(
+                cube.Descendants("Property"),
+                property => string.Equals(
+                    (string?)property.Attribute("name"),
+                    "Purpose",
+                    StringComparison.OrdinalIgnoreCase));
+            Assert.Contains(
+                cube.Descendants("Property"),
+                property => string.Equals(
+                    (string?)property.Attribute("name"),
+                    "BusinessPurpose",
+                    StringComparison.OrdinalIgnoreCase));
+
+            foreach (var row in LoadEntityRows(workspaceRoot, "Cube"))
+            {
+                Assert.Null(row.Element("Purpose"));
+                Assert.Equal(
+                    before[row.Attribute("Id")!.Value],
+                    row.Element("BusinessPurpose")?.Value);
+            }
+
+            Assert.Equal(
+                0,
+                (await RunCliAsync("check", "--workspace", workspaceRoot)).ExitCode);
         }
         finally
         {
@@ -3661,6 +3940,86 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
+    public async Task InstanceUpdate_PreservesEmptyPropertyAndClearsOptionalRelationship()
+    {
+        var workspaceRoot = CreateTempWorkspaceFromSamples();
+        try
+        {
+            Assert.Equal(0, (await RunCliAsync(
+                "model",
+                "add-entity",
+                "Step",
+                "--workspace",
+                workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync(
+                "model",
+                "add-property",
+                "Step",
+                "Name",
+                "--required",
+                "false",
+                "--workspace",
+                workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync(
+                "model",
+                "add-relationship",
+                "Step",
+                "Step",
+                "--role",
+                "PreviousStep",
+                "--required",
+                "false",
+                "--workspace",
+                workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync(
+                "insert",
+                "Step",
+                "First",
+                "--set",
+                "Name=First",
+                "--workspace",
+                workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync(
+                "insert",
+                "Step",
+                "Second",
+                "--set",
+                "Name=Second",
+                "--set",
+                "PreviousStepId=First",
+                "--workspace",
+                workspaceRoot)).ExitCode);
+
+            var update = await RunCliAsync(
+                "instance",
+                "update",
+                "Step",
+                "Second",
+                "--set",
+                "Name=",
+                "--set",
+                "PreviousStepId=",
+                "--workspace",
+                workspaceRoot);
+
+            Assert.True(update.ExitCode == 0, update.CombinedOutput);
+            var workspace = await XmlWorkspaceReader.OpenAsync(workspaceRoot);
+            var second = workspace.Instance.GetOrCreateEntityRecords("Step")
+                .Single(record => string.Equals(
+                    record.Id,
+                    "Second",
+                    StringComparison.OrdinalIgnoreCase));
+            Assert.True(second.Values.TryGetValue("Name", out var name));
+            Assert.Equal(string.Empty, name);
+            Assert.False(second.RelationshipIds.ContainsKey("PreviousStepId"));
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
     public async Task RowRelationship_Clear_IsNotExposed()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();
@@ -3740,7 +4099,7 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
-    public async Task BulkInsert_AllowsBlankOptionalRelationship()
+    public async Task BulkInsert_ResolvesForwardOptionalRelationshipAndAllowsBlankValue()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();
         try
@@ -3773,7 +4132,7 @@ public sealed partial class CliStrictModeTests
             var tsvPath = Path.Combine(workspaceRoot, "steps.tsv");
             await File.WriteAllTextAsync(
                 tsvPath,
-                "Id\tCubeId\tPreviousStepId\nFirst\t1\t\nSecond\t1\tFirst\n");
+                "Id\tCubeId\tPreviousStepId\nSecond\t1\tFirst\nFirst\t1\t\n");
 
             var result = await RunCliAsync(
                 "bulk-insert",
@@ -3788,7 +4147,7 @@ public sealed partial class CliStrictModeTests
 
             Assert.True(result.ExitCode == 0, result.CombinedOutput);
 
-            var workspace = await new WorkspaceService().LoadAsync(workspaceRoot, searchUpward: false);
+            var workspace = await XmlWorkspaceReader.OpenAsync(workspaceRoot);
             var stepsById = workspace.Instance.GetOrCreateEntityRecords("Step")
                 .ToDictionary(row => row.Id, StringComparer.OrdinalIgnoreCase);
             Assert.Equal("1", stepsById["First"].RelationshipIds["CubeId"]);
@@ -5562,13 +5921,10 @@ public sealed partial class CliStrictModeTests
             Path.Combine(metadataRoot, "model.xml"),
             overwrite: true);
 
-        var services = new ServiceCollection();
-        var workspace = await services.WorkspaceService
-            .LoadAsync(workspaceRoot, searchUpward: false)
+        var openedWorkspace = await XmlWorkspaceReader
+            .OpenAsync(workspaceRoot)
             .ConfigureAwait(false);
-        workspace.WorkspaceRootPath = workspaceRoot;
-        workspace.MetadataRootPath = metadataRoot;
-        workspace.IsDirty = true;
+        var workspace = openedWorkspace.State.Clone();
         workspace.Instance.ModelName = workspace.Model.Name;
 
         AddRow("Model", "1", ("Name", modelLeftName));
@@ -5620,7 +5976,7 @@ public sealed partial class CliStrictModeTests
                 ("ModelRightPropertyId", rightPropertyId));
         }
 
-        await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
+        await XmlWorkspaceWriter.WriteNewAsync(workspace, workspaceRoot).ConfigureAwait(false);
 
         void AddRow(
             string entityName,
@@ -5791,7 +6147,10 @@ public sealed partial class CliStrictModeTests
             .Single(element => string.Equals((string?)element.Attribute("name"), "System", StringComparison.OrdinalIgnoreCase));
         var properties = systemEntity.Element("PropertyList");
         Assert.NotNull(properties);
-        properties!.Add(new XElement("Property", new XAttribute("name", "PrimarySystemTypeId")));
+        properties!.Add(new XElement(
+            "Property",
+            new XAttribute("name", "PrimarySystemTypeId"),
+            new XAttribute("isRequired", "false")));
         modelDocument.Save(modelPath);
 
         return root;

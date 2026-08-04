@@ -2,6 +2,7 @@
 
 Internal NuGet packages for the `meta` foundation:
 
+- `Meta.Operations`
 - `Meta.Core`
 - `Meta.Adapters`
 - `MetaWeave.Core`

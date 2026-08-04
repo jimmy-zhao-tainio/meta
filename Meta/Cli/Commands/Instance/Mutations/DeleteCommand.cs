@@ -12,19 +12,14 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            RequireEntity(workspace, entityName);
-            ResolveRowById(workspace, entityName, id);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            RequireEntity(workspace.Model, entityName);
+            ResolveRowById(workspace.State, entityName, id);
 
-            var operation = new WorkspaceOp
-            {
-                Type = WorkspaceOpTypes.DeleteRows,
-                EntityName = entityName,
-                Ids = new List<string> { id },
-            };
+            var operation = new Operation.DeleteRecord(entityName, id);
 
-            return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
                     workspace,
                     new[] { operation },
                     commandName: "delete",

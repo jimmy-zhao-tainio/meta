@@ -9,26 +9,26 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        var workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-        var entity = RequireEntity(workspace, entityName);
-        var rowCount = workspace.Instance.RecordsByEntity.TryGetValue(entity.Name, out var rows) ? rows.Count : 0;
-        var properties = entity.Properties
-            .Where(item => !string.Equals(item.Name, "Id", StringComparison.OrdinalIgnoreCase))
-            .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
-            .Select(item => new
-            {
-                name = item.Name,
-                isRequired = !item.IsNullable,
-            })
-            .ToList();
-        properties.Insert(0, new
+        var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+        PrintContractCompatibilityWarning(workspace.ContractVersion);
+        var source = CreateWorkspaceSource(workspace.State);
+        var resolvedEntityName = await ResolveEntityNameAsync(source, entityName).ConfigureAwait(false);
+        var rowCount = await source.CountRecordsAsync(resolvedEntityName).ConfigureAwait(false);
+        var properties = new List<(string Name, bool IsRequired)>
         {
-            name = "Id",
-            isRequired = true,
-        });
+            ("Id", true),
+        };
+        await foreach (var property in source.ReadPropertiesAsync(resolvedEntityName))
+        {
+            properties.Add((property.Name, property.IsRequired));
+        }
 
-        presenter.WriteInfo($"Entity: {entity.Name}");
+        properties = properties
+            .OrderBy(property => MetaName.Comparer.Equals(property.Name, "Id") ? 0 : 1)
+            .ThenBy(property => property.Name, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        presenter.WriteInfo($"Entity: {resolvedEntityName}");
         presenter.WriteInfo($"Rows: {rowCount.ToString(CultureInfo.InvariantCulture)}");
 
         presenter.WriteInfo("Properties:");
@@ -37,15 +37,18 @@ internal sealed partial class CliRuntime
             properties
                 .Select(property => (IReadOnlyList<string>)new[]
                 {
-                    property.name,
-                    property.isRequired ? "required" : "optional",
+                    property.Name,
+                    property.IsRequired ? "required" : "optional",
                 })
                 .ToList());
 
-        var relationships = entity.Relationships
-            .OrderBy(item => item.Entity, StringComparer.OrdinalIgnoreCase)
-            .Select(item => item.Entity)
-            .ToList();
+        var relationships = new List<string>();
+        await foreach (var relationship in source.ReadRelationshipsAsync(resolvedEntityName))
+        {
+            relationships.Add(relationship.TargetEntityName);
+        }
+
+        relationships.Sort(StringComparer.OrdinalIgnoreCase);
         presenter.WriteInfo($"Relationships: {relationships.Count.ToString(CultureInfo.InvariantCulture)}");
         presenter.WriteInfo("RelationshipTargets:");
         if (relationships.Count == 0)

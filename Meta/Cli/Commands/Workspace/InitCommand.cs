@@ -15,23 +15,17 @@ internal sealed partial class CliRuntime
             return 0;
         }
 
-        var workspace = new Workspace
-        {
-            WorkspaceRootPath = workspaceRoot,
-            MetadataRootPath = metadataRoot,
-            WorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace.CreateDefault(),
-            Model = new GenericModel
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = "MetadataModel",
             },
-            Instance = new GenericInstance
+            new GenericInstance
             {
                 ModelName = "MetadataModel",
-            },
-            IsDirty = true,
-        };
+            });
 
-        await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
+        await XmlWorkspaceWriter.WriteNewAsync(workspace, workspaceRoot).ConfigureAwait(false);
         presenter.WriteOk(
             "workspace initialized",
             ("Path", workspaceRoot));

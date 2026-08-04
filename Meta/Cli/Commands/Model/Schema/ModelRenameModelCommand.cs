@@ -1,6 +1,4 @@
 using System.Text.RegularExpressions;
-using Meta.Core.Operations;
-using Meta.Core.Services;
 
 internal sealed partial class CliRuntime
 {
@@ -14,58 +12,17 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        Workspace? workspace = null;
-        WorkspaceSnapshot? before = null;
-        try
-        {
-            workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            before = WorkspaceSnapshotCloner.Capture(workspace);
-
-            var result = services.ModelRefactorService.RenameModel(
-                workspace,
-                new RenameModelRefactorOptions(options.OldModelName, options.NewModelName));
-
-            ApplyImplicitNormalization(workspace);
-
-            var diagnostics = services.ValidationService.Validate(workspace);
-            workspace.Diagnostics = diagnostics;
-            if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-                return PrintOperationValidationFailure(
-                    "model rename-model",
-                    Array.Empty<WorkspaceOp>(),
-                    diagnostics);
-            }
-
-            await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
-
-            presenter.WriteOk(
+        return await ExecuteOperationAsync(
+                options.WorkspacePath,
+                () => new Operation.RenameModel(
+                    options.OldModelName,
+                    options.NewModelName),
+                "model rename-model",
                 "model renamed",
-                ("Workspace", Path.GetFullPath(workspace.WorkspaceRootPath)),
-                ("From", result.OldModelName),
-                ("To", result.NewModelName));
-            return 0;
-        }
-        catch (InvalidOperationException exception)
-        {
-            if (workspace != null && before != null)
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-            }
-
-            return PrintDataError("E_OPERATION", exception.Message);
-        }
-        catch
-        {
-            if (workspace != null && before != null)
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-            }
-
-            throw;
-        }
+                ("Workspace", Path.GetFullPath(options.WorkspacePath)),
+                ("From", options.OldModelName),
+                ("To", options.NewModelName))
+            .ConfigureAwait(false);
     }
 
     (bool Ok, string OldModelName, string NewModelName, string WorkspacePath, string ErrorMessage)

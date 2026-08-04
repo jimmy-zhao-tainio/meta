@@ -5,11 +5,9 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Meta.Adapters;
 using Meta.Core.Domain;
 using Meta.Core.Serialization;
 using Meta.Core.Services;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Tests;
 
@@ -19,15 +17,14 @@ public sealed class DeterminismGoldenTests
     [Fact]
     public async Task XmlCanonicalOutput_IsDeterministic()
     {
-        var services = new ServiceCollection();
-        var workspace = await LoadCanonicalSampleWorkspaceAsync(services);
+        var workspace = LoadCanonicalSampleWorkspace();
         var outputA = Path.Combine(Path.GetTempPath(), "metadata-golden-tests", Guid.NewGuid().ToString("N"), "a");
         var outputB = Path.Combine(Path.GetTempPath(), "metadata-golden-tests", Guid.NewGuid().ToString("N"), "b");
 
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, outputA);
-            await services.ExportService.ExportXmlAsync(workspace, outputB);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, outputA);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, outputB);
 
             var manifestA = BuildWorkspaceXmlManifest(outputA);
             var manifestB = BuildWorkspaceXmlManifest(outputB);
@@ -43,10 +40,9 @@ public sealed class DeterminismGoldenTests
     }
 
     [Fact]
-    public async Task SqlGeneration_IsDeterministic()
+    public void SqlGeneration_IsDeterministic()
     {
-        var services = new ServiceCollection();
-        var workspace = await LoadCanonicalSampleWorkspaceAsync(services);
+        var workspace = LoadCanonicalSampleWorkspace();
         var outputA = Path.Combine(Path.GetTempPath(), "metadata-golden-tests", Guid.NewGuid().ToString("N"), "sql-a");
         var outputB = Path.Combine(Path.GetTempPath(), "metadata-golden-tests", Guid.NewGuid().ToString("N"), "sql-b");
 
@@ -69,10 +65,9 @@ public sealed class DeterminismGoldenTests
     }
 
     [Fact]
-    public async Task CSharpGeneration_IsDeterministic()
+    public void CSharpGeneration_IsDeterministic()
     {
-        var services = new ServiceCollection();
-        var workspace = await LoadCanonicalSampleWorkspaceAsync(services);
+        var workspace = LoadCanonicalSampleWorkspace();
         var outputA = Path.Combine(Path.GetTempPath(), "metadata-golden-tests", Guid.NewGuid().ToString("N"), "cs-a");
         var outputB = Path.Combine(Path.GetTempPath(), "metadata-golden-tests", Guid.NewGuid().ToString("N"), "cs-b");
 
@@ -199,27 +194,18 @@ public sealed class DeterminismGoldenTests
         throw new InvalidOperationException("Could not locate repository root from test base directory.");
     }
 
-    private static Task<Workspace> LoadCanonicalSampleWorkspaceAsync(ServiceCollection services)
+    private static InMemoryWorkspace LoadCanonicalSampleWorkspace()
     {
-        _ = services;
-        return Task.FromResult(LoadWorkspaceFromContractFiles(
+        return LoadWorkspaceFromContractFiles(
             Path.Combine(FindRepositoryRoot(), "Meta", "Tests", "TestData", "SampleModel.xml"),
-            Path.Combine(FindRepositoryRoot(), "Meta", "Tests", "TestData", "SampleInstance.xml")));
+            Path.Combine(FindRepositoryRoot(), "Meta", "Tests", "TestData", "SampleInstance.xml"));
     }
 
-    private static Workspace LoadWorkspaceFromContractFiles(string modelPath, string instancePath)
+    private static InMemoryWorkspace LoadWorkspaceFromContractFiles(string modelPath, string instancePath)
     {
         var model = ModelXmlCodec.LoadFromPath(modelPath);
-        var instance = InstanceXmlCodec.LoadFromPath(instancePath, model, sourceShardFileName: string.Empty);
-        return new Workspace
-        {
-            WorkspaceRootPath = "memory",
-            MetadataRootPath = "memory",
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = model,
-            Instance = instance,
-            IsDirty = false,
-        };
+        var instance = InstanceXmlCodec.LoadFromPath(instancePath, model);
+        return new InMemoryWorkspace(model, instance);
     }
 
     private sealed class DirectoryManifest

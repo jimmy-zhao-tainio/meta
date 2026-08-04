@@ -1,10 +1,4 @@
-using System.Reflection;
-using System.Globalization;
-using System.Xml.Linq;
 using Meta.Core.Domain;
-using Meta.Core.Operations;
-using Meta.Core.Serialization;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Services;
 
@@ -12,7 +6,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
 {
     private (string ModelId, IReadOnlyDictionary<string, EqualEntityCatalog> CatalogByName) BuildEqualEntityCatalog(
         GenericModel model,
-        Workspace diffWorkspace,
+        InMemoryWorkspace diffWorkspace,
         IdentityAllocator identityAllocator)
     {
         var modelId = identityAllocator.NextId(ModelEntityName);
@@ -85,8 +79,8 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private EqualSideData BuildEqualSideData(
-        Workspace sourceWorkspace,
-        Workspace diffWorkspace,
+        InMemoryWorkspace sourceWorkspace,
+        InMemoryWorkspace diffWorkspace,
         IReadOnlyDictionary<string, EqualEntityCatalog> catalogByEntityName,
         bool leftSide,
         string diffId,
@@ -169,12 +163,10 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private InstanceDiffBuildResult BuildEqualInstanceDiffWorkspace(
-        Workspace leftWorkspace,
-        Workspace rightWorkspace,
-        string rightWorkspacePath)
+        InMemoryWorkspace leftWorkspace,
+        InMemoryWorkspace rightWorkspace)
     {
-        var diffWorkspacePath = ResolveInstanceDiffOutputPath(rightWorkspacePath, "instance-diff");
-        var diffWorkspace = CreateWorkspaceFromDefinition(InstanceDiffEqualWorkspaceDefinition.Value, diffWorkspacePath);
+        var diffWorkspace = CreateWorkspaceFromDefinition(InstanceDiffEqualWorkspaceDefinition.Value);
         var identityAllocator = new IdentityAllocator();
 
         var (modelId, catalogByEntityName) = BuildEqualEntityCatalog(leftWorkspace.Model, diffWorkspace, identityAllocator);
@@ -315,7 +307,6 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
 
         return new InstanceDiffBuildResult(
             DiffWorkspace: diffWorkspace,
-            DiffWorkspacePath: diffWorkspacePath,
             HasDifferences: hasDifferences,
             LeftRowCount: leftSide.RowCount,
             RightRowCount: rightSide.RowCount,
@@ -325,25 +316,25 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
             RightNotInLeftCount: rightNotInLeft.Count);
     }
 
-    private static EqualDiffData ParseEqualDiffWorkspace(Workspace diffWorkspace)
+    private static EqualDiffData ParseEqualDiffWorkspace(InMemoryWorkspace diffWorkspace)
     {
         if (!string.Equals(diffWorkspace.Model.Name, InstanceDiffEqualModelName, StringComparison.OrdinalIgnoreCase))
         {
             throw new InvalidOperationException(
-                $"workspace '{diffWorkspace.WorkspaceRootPath}' is not an {InstanceDiffEqualModelName} workspace.");
+                $"workspace is not an {InstanceDiffEqualModelName} workspace.");
         }
 
         if (!IsModelContract(diffWorkspace.Model, InstanceDiffEqualModelSignature.Value))
         {
             throw new InvalidOperationException(
-                $"workspace '{diffWorkspace.WorkspaceRootPath}' does not match the fixed {InstanceDiffEqualModelName} model contract.");
+                $"workspace does not match the fixed {InstanceDiffEqualModelName} model contract.");
         }
 
         var diffRows = BuildRecordMap(diffWorkspace, DiffEntityName);
         if (diffRows.Count != 1)
         {
             throw new InvalidOperationException(
-                $"workspace '{diffWorkspace.WorkspaceRootPath}' must contain exactly one '{DiffEntityName}' row.");
+                $"workspace must contain exactly one '{DiffEntityName}' row.");
         }
 
         var diffRow = diffRows.Values.Single();
@@ -536,7 +527,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         IReadOnlyDictionary<string, (string EntityId, string EntityInstanceIdentifier)> RowIdentityByRowInstanceId);
 
     private static ParsedSideRows ParseSideRows(
-        Workspace diffWorkspace,
+        InMemoryWorkspace diffWorkspace,
         string rowEntityName,
         string entityIdPropertyName,
         IReadOnlyDictionary<string, GenericRecord> entityRowsById,
@@ -579,7 +570,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         IReadOnlyDictionary<string, string> ValueByEntityRowPropertyKey);
 
     private static ParsedEqualSideProperties ParseEqualSideProperties(
-        Workspace diffWorkspace,
+        InMemoryWorkspace diffWorkspace,
         string propertyEntityName,
         string rowInstanceIdPropertyName,
         string propertyIdPropertyName,
@@ -648,7 +639,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private static void ValidateEqualEntityNotInRows(
-        Workspace diffWorkspace,
+        InMemoryWorkspace diffWorkspace,
         string notInEntityName,
         string entityInstanceIdFieldName,
         IReadOnlyDictionary<string, string> entityInstanceIdByRowKey,
@@ -678,7 +669,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private static void ValidateEqualNotInRows(
-        Workspace diffWorkspace,
+        InMemoryWorkspace diffWorkspace,
         string notInEntityName,
         string propertyInstanceIdFieldName,
         IReadOnlyDictionary<string, string> propertyInstanceIdByTupleKey,
@@ -720,7 +711,7 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
 
     private (HashSet<string> RowSet, HashSet<string> PropertySet, Dictionary<string, string> ValueByEntityRowPropertyKey)
         BuildWorkspaceSnapshotForEqualDiff(
-            Workspace workspace,
+            InMemoryWorkspace workspace,
             EqualDiffData diffData)
     {
         var rowSet = new HashSet<string>(StringComparer.Ordinal);
@@ -730,8 +721,8 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
         foreach (var catalog in diffData.EntityCatalogByName.Values.OrderBy(item => item.EntityName, StringComparer.OrdinalIgnoreCase))
         {
             var entityName = catalog.EntityName;
-            var entity = RequireEntity(workspace, entityName);
-            var rows = BuildRecordMap(workspace, entityName);
+            var entity = RequireEntity(workspace.Model, entityName);
+            var rows = BuildRecordMap(workspace.Instance, entityName);
             foreach (var row in rows.Values.OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase))
             {
                 rowSet.Add(CreateEntityInstanceKey(catalog.EntityId, row.Id));
@@ -758,13 +749,13 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     }
 
     private void ApplyEqualRightSnapshotToWorkspace(
-        Workspace targetWorkspace,
+        InMemoryWorkspace targetWorkspace,
         EqualDiffData diffData)
     {
         foreach (var catalog in diffData.EntityCatalogByName.Values.OrderBy(item => item.EntityName, StringComparer.OrdinalIgnoreCase))
         {
             var entityName = catalog.EntityName;
-            var entity = RequireEntity(targetWorkspace, entityName);
+            var entity = RequireEntity(targetWorkspace.Model, entityName);
             var rightRowsForEntity = diffData.RightRowSet
                 .Select(key =>
                 {

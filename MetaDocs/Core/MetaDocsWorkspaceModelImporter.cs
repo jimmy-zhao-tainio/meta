@@ -1,5 +1,5 @@
 using Meta.Core.Domain;
-using Meta.Core.Services;
+using Meta.Core.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using MetaDocs;
@@ -8,8 +8,6 @@ namespace MetaDocs.Core;
 
 public sealed class MetaDocsWorkspaceModelImporter
 {
-    private readonly WorkspaceService workspaceService = new();
-
     public async Task<DocumentationSubject> ImportWorkspaceModelAsync(
         MetaDocsModel model,
         string sourceWorkspacePath,
@@ -21,10 +19,10 @@ public sealed class MetaDocsWorkspaceModelImporter
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(sourceWorkspacePath);
 
-        var workspace = await workspaceService.LoadAsync(
+        var openedWorkspace = await XmlWorkspaceReader.OpenAsync(
             sourceWorkspacePath,
-            searchUpward: false,
             cancellationToken).ConfigureAwait(false);
+        var workspace = openedWorkspace.State;
         var modelName = string.IsNullOrWhiteSpace(workspace.Model.Name) ? "Model" : workspace.Model.Name;
         var normalizedDisplayName = string.IsNullOrWhiteSpace(displayName)
             ? modelName
@@ -47,13 +45,13 @@ public sealed class MetaDocsWorkspaceModelImporter
             $"{normalizedSourceId}:workspace",
             "Workspace",
             "Workspace",
-            workspace.WorkspaceRootPath,
+            openedWorkspace.RootPath,
             normalizedDisplayName,
             normalizedDisplayName,
             string.Empty,
             null,
             null);
-        session.UpsertFact(workspaceSubject, "Workspace", "RootPath", workspace.WorkspaceRootPath);
+        session.UpsertFact(workspaceSubject, "Workspace", "RootPath", openedWorkspace.RootPath);
         session.UpsertFact(workspaceSubject, "Workspace", "ModelName", modelName);
         session.EnsureViewNode(workspaceSubject, normalizedDisplayName);
 

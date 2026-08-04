@@ -28,12 +28,12 @@ internal sealed partial class CliRuntime
                     var importedFromSql = await services.ImportService
                         .ImportSqlAsync(connectionString, sqlOptions.Schema)
                         .ConfigureAwait(false);
-                    ApplyImplicitNormalization(importedFromSql);
-                    var sqlDiagnostics = services.ValidationService.Validate(importedFromSql);
-                    importedFromSql.Diagnostics = sqlDiagnostics;
+                    var sqlDiagnostics = WorkspaceValidator.Validate(
+                        importedFromSql.Model,
+                        importedFromSql.Instance);
                     if (sqlDiagnostics.HasErrors || (globalStrict && sqlDiagnostics.WarningCount > 0))
                     {
-                        return PrintOperationValidationFailure("import", Array.Empty<WorkspaceOp>(), sqlDiagnostics);
+                        return PrintOperationValidationFailure("import", Array.Empty<Operation>(), sqlDiagnostics);
                     }
                     await services.ExportService.ExportXmlAsync(importedFromSql, workspacePath).ConfigureAwait(false);
                     presenter.WriteOk(
@@ -64,12 +64,12 @@ internal sealed partial class CliRuntime
                             return targetValidation;
                         }
 
-                        ApplyImplicitNormalization(importedFromCsv);
-                        var csvDiagnostics = services.ValidationService.Validate(importedFromCsv);
-                        importedFromCsv.Diagnostics = csvDiagnostics;
+                        var csvDiagnostics = WorkspaceValidator.Validate(
+                            importedFromCsv.Model,
+                            importedFromCsv.Instance);
                         if (csvDiagnostics.HasErrors || (globalStrict && csvDiagnostics.WarningCount > 0))
                         {
-                            return PrintOperationValidationFailure("import", Array.Empty<WorkspaceOp>(), csvDiagnostics);
+                            return PrintOperationValidationFailure("import", Array.Empty<Operation>(), csvDiagnostics);
                         }
 
                         await services.ExportService.ExportXmlAsync(importedFromCsv, workspacePath).ConfigureAwait(false);
@@ -83,41 +83,26 @@ internal sealed partial class CliRuntime
                     }
 
                     workspacePath = csvOptions.WorkspacePath;
-                    var workspaceForCsv = await LoadWorkspaceForCommandAsync(workspacePath).ConfigureAwait(false);
-                    PrintContractCompatibilityWarning(workspaceForCsv.WorkspaceConfig);
+                    var workspaceForCsv = await OpenXmlWorkspaceForCommandAsync(workspacePath).ConfigureAwait(false);
+                    PrintContractCompatibilityWarning(workspaceForCsv.ContractVersion);
                     var importedForMerge = await services.ImportService
                         .ImportCsvAsync(csvFile, csvOptions.EntityName)
                         .ConfigureAwait(false);
-                    var importedEntityForMerge = importedForMerge.Model.Entities.Single();
-                    var importedRowsForMerge = importedForMerge.Instance.RecordsByEntity[importedEntityForMerge.Name];
-                    var existingEntity = workspaceForCsv.Model.FindEntity(importedEntityForMerge.Name);
-
-                    if (existingEntity == null)
-                    {
-                        workspaceForCsv.Model.Entities.Add(importedEntityForMerge);
-                        workspaceForCsv.Instance.RecordsByEntity[importedEntityForMerge.Name] = importedRowsForMerge;
-                    }
-                    else
-                    {
-                        MergeCsvImportIntoExistingEntity(existingEntity, workspaceForCsv, importedEntityForMerge, importedRowsForMerge);
-                    }
-                    ApplyImplicitNormalization(workspaceForCsv);
-
-                    var workspaceCsvDiagnostics = services.ValidationService.Validate(workspaceForCsv);
-                    workspaceForCsv.Diagnostics = workspaceCsvDiagnostics;
-                    if (workspaceCsvDiagnostics.HasErrors || (globalStrict && workspaceCsvDiagnostics.WarningCount > 0))
-                    {
-                        return PrintOperationValidationFailure("import", Array.Empty<WorkspaceOp>(), workspaceCsvDiagnostics);
-                    }
-
-                    await services.WorkspaceService.SaveAsync(workspaceForCsv).ConfigureAwait(false);
-                    presenter.WriteOk(
-                        "imported csv",
-                        ("Workspace", Path.GetFullPath(workspaceForCsv.WorkspaceRootPath)),
-                        ("Entity", importedEntityForMerge.Name),
-                        ("Rows", importedRowsForMerge.Count.ToString()));
-
-                    return 0;
+                    var csvImportPlan = services.ImportService.PlanCsvImport(
+                        workspaceForCsv.State,
+                        importedForMerge);
+                    return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
+                            workspaceForCsv,
+                            csvImportPlan.Operations,
+                            commandName: "import csv",
+                            successMessage: "imported csv",
+                            successDetails: new[]
+                            {
+                                ("Workspace", workspaceForCsv.RootPath),
+                                ("Entity", csvImportPlan.EntityName),
+                                ("Rows", csvImportPlan.RowCount.ToString()),
+                            })
+                        .ConfigureAwait(false);
                 default:
                     return PrintUsageError("Usage: import <sql|csv> ...");
             }
@@ -138,168 +123,5 @@ internal sealed partial class CliRuntime
         return (true, RequiredValue("connection-env"), RequiredValue("schema"), RequiredValue("new-workspace"), string.Empty);
     }
 
-    private static void MergeCsvImportIntoExistingEntity(
-        GenericEntity existingEntity,
-        Workspace workspace,
-        GenericEntity importedEntity,
-        IReadOnlyList<GenericRecord> importedRows)
-    {
-        var existingPropertyNames = existingEntity.Properties
-            .Select(item => item.Name)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-        var existingRelationshipNames = existingEntity.Relationships
-            .Select(item => item.GetColumnName())
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-        foreach (var importedProperty in importedEntity.Properties)
-        {
-            var name = importedProperty.Name;
-            if (existingPropertyNames.Contains(name) || existingRelationshipNames.Contains(name))
-            {
-                continue;
-            }
-
-            throw new InvalidOperationException(
-                $"CSV column '{name}' does not match existing property or relationship on entity '{existingEntity.Name}'.");
-        }
-
-        var existingRows = workspace.Instance.GetOrCreateEntityRecords(existingEntity.Name);
-        var rowsById = existingRows.ToDictionary(item => item.Id, StringComparer.OrdinalIgnoreCase);
-        ValidateCsvImportPreflight(existingEntity, importedEntity, importedRows, rowsById);
-
-        foreach (var importedRow in importedRows
-                     .OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase)
-                     .ThenBy(item => item.Id, StringComparer.Ordinal))
-        {
-            if (!rowsById.TryGetValue(importedRow.Id, out var targetRow))
-            {
-                targetRow = new GenericRecord
-                {
-                    Id = importedRow.Id,
-                };
-                existingRows.Add(targetRow);
-                rowsById[targetRow.Id] = targetRow;
-            }
-
-            foreach (var importedProperty in importedEntity.Properties)
-            {
-                var name = importedProperty.Name;
-                var hasValue = importedRow.Values.TryGetValue(name, out var value);
-
-                if (existingRelationshipNames.Contains(name))
-                {
-                    if (!hasValue || string.IsNullOrWhiteSpace(value))
-                    {
-                        targetRow.RelationshipIds.Remove(name);
-                    }
-                    else
-                    {
-                        targetRow.RelationshipIds[name] = value;
-                    }
-
-                    continue;
-                }
-
-                if (!hasValue || string.IsNullOrWhiteSpace(value))
-                {
-                    targetRow.Values.Remove(name);
-                }
-                else
-                {
-                    targetRow.Values[name] = value;
-                }
-            }
-        }
-    }
-
-    private static void ValidateCsvImportPreflight(
-        GenericEntity existingEntity,
-        GenericEntity importedEntity,
-        IReadOnlyList<GenericRecord> importedRows,
-        IReadOnlyDictionary<string, GenericRecord> rowsById)
-    {
-        var existingPropertiesByName = existingEntity.Properties
-            .ToDictionary(item => item.Name, StringComparer.OrdinalIgnoreCase);
-        var existingRelationshipsByName = existingEntity.Relationships
-            .ToDictionary(item => item.GetColumnName(), StringComparer.OrdinalIgnoreCase);
-        var importedColumnNames = importedEntity.Properties
-            .Select(item => item.Name)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-        foreach (var importedRow in importedRows
-                     .OrderBy(item => item.Id, StringComparer.OrdinalIgnoreCase)
-                     .ThenBy(item => item.Id, StringComparer.Ordinal))
-        {
-            var isExistingRow = rowsById.ContainsKey(importedRow.Id);
-
-            foreach (var importedProperty in importedEntity.Properties)
-            {
-                var name = importedProperty.Name;
-                var hasValue = importedRow.Values.TryGetValue(name, out var value);
-                var isBlank = !hasValue || string.IsNullOrWhiteSpace(value);
-
-                if (existingRelationshipsByName.TryGetValue(name, out var existingRelationship))
-                {
-                    if (!existingRelationship.IsNullable && isBlank)
-                    {
-                        throw new InvalidOperationException(
-                            $"CSV row '{importedRow.Id}' leaves required relationship '{name}' blank on entity '{existingEntity.Name}'.");
-                    }
-
-                    continue;
-                }
-
-                if (existingPropertiesByName.TryGetValue(name, out var existingProperty) &&
-                    !existingProperty.IsNullable &&
-                    isBlank)
-                {
-                    throw new InvalidOperationException(
-                        $"CSV row '{importedRow.Id}' leaves required property '{name}' blank on entity '{existingEntity.Name}'.");
-                }
-            }
-
-            if (isExistingRow)
-            {
-                continue;
-            }
-
-            foreach (var requiredProperty in existingEntity.Properties
-                         .Where(item => !item.IsNullable)
-                         .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase))
-            {
-                if (!importedColumnNames.Contains(requiredProperty.Name))
-                {
-                    throw new InvalidOperationException(
-                        $"CSV row '{importedRow.Id}' cannot create new '{existingEntity.Name}' because required property '{requiredProperty.Name}' is missing from the import columns.");
-                }
-
-                if (!importedRow.Values.TryGetValue(requiredProperty.Name, out var propertyValue) ||
-                    string.IsNullOrWhiteSpace(propertyValue))
-                {
-                    throw new InvalidOperationException(
-                        $"CSV row '{importedRow.Id}' leaves required property '{requiredProperty.Name}' blank on entity '{existingEntity.Name}'.");
-                }
-            }
-
-            foreach (var requiredRelationshipName in existingEntity.Relationships
-                         .Where(item => !item.IsNullable)
-                         .Select(item => item.GetColumnName())
-                         .OrderBy(name => name, StringComparer.OrdinalIgnoreCase))
-            {
-                if (!importedColumnNames.Contains(requiredRelationshipName))
-                {
-                    throw new InvalidOperationException(
-                        $"CSV row '{importedRow.Id}' cannot create new '{existingEntity.Name}' because required relationship '{requiredRelationshipName}' is missing from the import columns.");
-                }
-
-                if (!importedRow.Values.TryGetValue(requiredRelationshipName, out var relationshipValue) ||
-                    string.IsNullOrWhiteSpace(relationshipValue))
-                {
-                    throw new InvalidOperationException(
-                        $"CSV row '{importedRow.Id}' leaves required relationship '{requiredRelationshipName}' blank on entity '{existingEntity.Name}'.");
-                }
-            }
-        }
-    }
 }
 

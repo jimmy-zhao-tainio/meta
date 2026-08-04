@@ -269,17 +269,16 @@ internal sealed partial class CliRuntime
 
     int PrintOperationValidationFailure(
         string commandName,
-        IReadOnlyList<WorkspaceOp> operations,
+        IReadOnlyList<Operation> operations,
         WorkspaceDiagnostics diagnostics)
     {
         var headline = BuildOperationValidationHeadline(commandName, operations, diagnostics);
-        PrintHumanFailure(headline, BuildHumanValidationBlockers(commandName, operations, diagnostics));
+        PrintHumanFailure(headline, BuildHumanValidationBlockers(commandName, diagnostics));
         return 4;
     }
 
     IReadOnlyList<string> BuildHumanValidationBlockers(
         string commandName,
-        IReadOnlyList<WorkspaceOp> operations,
         WorkspaceDiagnostics diagnostics)
     {
         var orderedIssues = diagnostics.Issues
@@ -379,37 +378,27 @@ internal sealed partial class CliRuntime
 
     string BuildOperationValidationHeadline(
         string commandName,
-        IReadOnlyList<WorkspaceOp> operations,
+        IReadOnlyList<Operation> operations,
         WorkspaceDiagnostics diagnostics)
     {
         if (string.Equals(commandName, "delete", StringComparison.OrdinalIgnoreCase))
         {
-            var deleteOp = operations
-                .FirstOrDefault(op => string.Equals(op.Type, WorkspaceOpTypes.DeleteRows, StringComparison.OrdinalIgnoreCase));
-            if (!string.IsNullOrWhiteSpace(deleteOp?.EntityName))
+            var deleteOperations = operations
+                .OfType<Operation.DeleteRecord>()
+                .ToList();
+            if (deleteOperations.Count == 1)
             {
-                var targetId = deleteOp.Ids?
-                    .Where(value => !string.IsNullOrWhiteSpace(value))
-                    .Select(value => value.Trim())
-                    .Distinct(StringComparer.OrdinalIgnoreCase)
-                    .ToList();
-                if (targetId is { Count: 1 })
-                {
-                    return $"Cannot delete {BuildEntityInstanceAddress(deleteOp.EntityName, targetId[0])}";
-                }
-
-                return $"Cannot delete {deleteOp.EntityName}";
+                var operation = deleteOperations[0];
+                return $"Cannot delete {BuildEntityInstanceAddress(operation.EntityName, operation.Id)}";
             }
-        }
 
-        if (string.Equals(commandName, "model drop-entity", StringComparison.OrdinalIgnoreCase))
-        {
-            var targetEntity = operations
-                .FirstOrDefault(op => string.Equals(op.Type, WorkspaceOpTypes.DeleteEntity, StringComparison.OrdinalIgnoreCase))
-                ?.EntityName;
-            if (!string.IsNullOrWhiteSpace(targetEntity))
+            var entityNames = deleteOperations
+                .Select(operation => operation.EntityName)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+            if (entityNames.Count == 1)
             {
-                return $"Cannot drop entity {targetEntity}";
+                return $"Cannot delete {entityNames[0]}";
             }
         }
 
@@ -600,7 +589,7 @@ internal sealed partial class CliRuntime
     int PrintDataError(string code, string message)
     {
         var normalized = NormalizeErrorMessage(message);
-        var workspace = TryLoadWorkspaceForHints();
+        var workspace = TryOpenWorkspaceForHints();
         var where = string.Empty;
         var hints = new List<string>();
         IReadOnlyList<string> suggestions = Array.Empty<string>();

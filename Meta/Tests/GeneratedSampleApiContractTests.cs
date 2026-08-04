@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Meta.Adapters;
+using Meta.Core.Serialization;
 using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
@@ -10,14 +10,13 @@ public sealed class GeneratedSampleApiContractTests
     [Fact]
     public async Task GeneratedCSharp_FromCanonicalSample_UsesStaticFacadeAndReferenceRelationships()
     {
-        var services = new ServiceCollection();
         var workspaceRoot = await TestWorkspaceFactory.CreateTempCanonicalWorkspaceFromCanonicalSampleAsync();
         var outputRoot = Path.Combine(Path.GetTempPath(), "metadata-generated-sample-api", Guid.NewGuid().ToString("N"));
 
         try
         {
-            var workspace = await services.WorkspaceService.LoadAsync(workspaceRoot);
-            GenerationService.GenerateCSharp(workspace, outputRoot);
+            var workspace = await XmlWorkspaceReader.OpenAsync(workspaceRoot);
+            GenerationService.GenerateCSharp(workspace.State, outputRoot);
 
             var modelPath = Path.Combine(outputRoot, "EnterpriseBIPlatform.cs");
             var entityPath = Path.Combine(outputRoot, "Measure.cs");

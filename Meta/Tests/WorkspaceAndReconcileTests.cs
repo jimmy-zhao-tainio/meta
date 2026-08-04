@@ -3,27 +3,70 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Meta.Adapters;
 using Meta.Core.Domain;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
+using Meta.Core.Operations;
+using Meta.Core.Serialization;
+using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
 
-public sealed class WorkspaceServiceTests
+public sealed class XmlWorkspaceTests
 {
+    [Fact]
+    public async Task OpenedXmlWorkspace_RejectsCommitAfterExternalChange()
+    {
+        var (original, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
+        var tempRoot = Path.Combine(
+            Path.GetTempPath(),
+            "metadata-studio-tests",
+            Guid.NewGuid().ToString("N"));
+        try
+        {
+            await XmlWorkspaceWriter.WriteNewAsync(original.State, tempRoot);
+            var opened = await XmlWorkspaceReader.OpenAsync(tempRoot);
+
+            var external = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            var externalCandidate = InMemoryOperations.Execute(
+                external.State,
+                new Operation.AddEntity("External"));
+            await XmlWorkspaceWriter.WriteAsync(
+                external,
+                externalCandidate.Workspace,
+                externalCandidate.Results);
+
+            var candidate = InMemoryOperations.Execute(
+                opened.State,
+                new Operation.AddEntity("Candidate"));
+            await Assert.ThrowsAsync<WorkspaceConflictException>(() =>
+                XmlWorkspaceWriter.WriteAsync(
+                    opened,
+                    candidate.Workspace,
+                    candidate.Results));
+
+            Assert.Null(opened.Model.FindEntity("Candidate"));
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            Assert.NotNull(reloaded.Model.FindEntity("External"));
+            Assert.Null(reloaded.Model.FindEntity("Candidate"));
+        }
+        finally
+        {
+            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
+            TestWorkspaceFactory.DeleteDirectorySafe(tempRoot);
+        }
+    }
+
     [Fact]
     public async Task WorkspaceHash_IsStable_AfterRoundTripSaveLoad()
     {
-        var services = new ServiceCollection();
-        var (original, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
-        var originalHash = services.WorkspaceService.CalculateHash(original);
+        var (original, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
+        var originalHash = original.Fingerprint;
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(original, tempRoot);
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot);
-            var reloadedHash = services.WorkspaceService.CalculateHash(reloaded);
+            await XmlWorkspaceWriter.WriteNewAsync(original.State, tempRoot);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            var reloadedHash = reloaded.Fingerprint;
 
             Assert.Equal(originalHash, reloadedHash);
         }
@@ -40,14 +83,13 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Save_WritesWorkspaceConfigAndShardedInstances()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var expectedRows = workspace.Instance.RecordsByEntity.Values.Sum(records => records.Count);
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
 
             var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
             var modelPath = Path.Combine(tempRoot, "model.xml");
@@ -57,10 +99,10 @@ public sealed class WorkspaceServiceTests
             Assert.True(Directory.Exists(instanceDir), "instance shard directory should exist after save.");
             Assert.True(Directory.GetFiles(instanceDir, "*.xml").Length > 0, "instance shard directory should contain XML files.");
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             var reloadedRows = reloaded.Instance.RecordsByEntity.Values.Sum(records => records.Count);
             Assert.Equal(expectedRows, reloadedRows);
-            Assert.Equal("1.0", MetaWorkspaceConfig.GetContractVersion(reloaded.WorkspaceConfig));
+            Assert.Equal("1.0", reloaded.ContractVersion);
         }
         finally
         {
@@ -75,12 +117,11 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Save_WritesLfTerminatedXml()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
 
             var xmlPaths = Directory.GetFiles(tempRoot, "*.xml", SearchOption.AllDirectories);
             Assert.NotEmpty(xmlPaths);
@@ -106,19 +147,17 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Load_MissingWorkspaceConfig_UsesDefaultWorkspaceConfig()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
             var workspaceXmlPath = Path.Combine(tempRoot, "workspace.xml");
             Assert.True(File.Exists(workspaceXmlPath));
             File.Delete(workspaceXmlPath);
 
-            var loaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
-            Assert.NotNull(loaded.WorkspaceConfig);
-            Assert.Equal("1.0", MetaWorkspaceConfig.GetContractVersion(loaded.WorkspaceConfig));
+            var loaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            Assert.Equal("1.0", loaded.ContractVersion);
             Assert.False(File.Exists(workspaceXmlPath), "workspace.xml should not be auto-created when loading defaults.");
         }
         finally
@@ -134,26 +173,21 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Load_MissingWorkspaceConfig_UsesCanonicalRootLayout()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            workspace.WorkspaceRootPath = tempRoot;
-            workspace.MetadataRootPath = tempRoot;
-            workspace.WorkspaceConfig.WorkspaceLayout[0].ModelFilePath = "model.xml";
-            workspace.WorkspaceConfig.WorkspaceLayout[0].InstanceDirPath = "instances";
-            await services.WorkspaceService.SaveAsync(workspace);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
 
             var workspaceXmlPath = Path.Combine(tempRoot, "workspace.xml");
             Assert.True(File.Exists(workspaceXmlPath));
             File.Delete(workspaceXmlPath);
 
-            var loaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
-            Assert.Equal(Path.GetFullPath(tempRoot), Path.GetFullPath(loaded.MetadataRootPath));
+            var loaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            Assert.Equal(Path.GetFullPath(tempRoot), loaded.RootPath);
             Assert.NotEmpty(loaded.Instance.RecordsByEntity);
-            Assert.Equal("model.xml", MetaWorkspaceConfig.GetModelFile(loaded.WorkspaceConfig));
-            Assert.Equal("instances", MetaWorkspaceConfig.GetInstanceDir(loaded.WorkspaceConfig));
+            Assert.Equal(Path.Combine(tempRoot, "model.xml"), loaded.ModelFilePath);
+            Assert.Equal(Path.Combine(tempRoot, "instances"), loaded.InstanceDirectoryPath);
         }
         finally
         {
@@ -168,31 +202,44 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Load_AndSave_PreservesSplitEntityShardLayout()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
             SplitEntityShard(tempRoot, "Cube", "Cube.part-a.xml", "Cube.part-b.xml");
 
-            var splitLoaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var instanceDir = Path.Combine(tempRoot, "instances");
+            var originalPartA = ReadRecordIds(
+                Path.Combine(instanceDir, "Cube.part-a.xml"),
+                "Cube");
+            var originalPartB = ReadRecordIds(
+                Path.Combine(instanceDir, "Cube.part-b.xml"),
+                "Cube");
+            var splitLoaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             var cubeRows = splitLoaded.Instance.GetOrCreateEntityRecords("Cube");
             Assert.NotEmpty(cubeRows);
-            Assert.All(
-                cubeRows,
-                row => Assert.Contains(
-                    row.SourceShardFileName,
-                    new[] { "Cube.part-a.xml", "Cube.part-b.xml" }));
 
-            await services.WorkspaceService.SaveAsync(splitLoaded);
+            await XmlWorkspaceWriter.WriteAsync(
+                splitLoaded,
+                splitLoaded.State.Clone(),
+                Array.Empty<OperationResult>());
 
-            var instanceDir = Path.Combine(tempRoot, "instances");
             Assert.True(File.Exists(Path.Combine(instanceDir, "Cube.part-a.xml")));
             Assert.True(File.Exists(Path.Combine(instanceDir, "Cube.part-b.xml")));
             Assert.False(File.Exists(Path.Combine(instanceDir, "Cube.xml")));
+            Assert.Equal(
+                originalPartA,
+                ReadRecordIds(
+                    Path.Combine(instanceDir, "Cube.part-a.xml"),
+                    "Cube"));
+            Assert.Equal(
+                originalPartB,
+                ReadRecordIds(
+                    Path.Combine(instanceDir, "Cube.part-b.xml"),
+                    "Cube"));
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             Assert.Equal(
                 splitLoaded.Instance.GetOrCreateEntityRecords("Cube").Count,
                 reloaded.Instance.GetOrCreateEntityRecords("Cube").Count);
@@ -207,22 +254,35 @@ public sealed class WorkspaceServiceTests
         }
     }
 
+    private static string[] ReadRecordIds(
+        string path,
+        string entityName)
+    {
+        return XDocument.Load(path)
+            .Descendants(entityName)
+            .Select(element => (string?)element.Attribute("Id"))
+            .Where(id => id != null)
+            .Select(id => id!)
+            .OrderBy(id => id, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(id => id, StringComparer.Ordinal)
+            .ToArray();
+    }
+
     [Fact]
     public async Task Save_NewRowsGoToPrimarySplitShardForEntity()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
             SplitEntityShard(tempRoot, "Cube", "Cube.part-a.xml", "Cube.part-b.xml");
 
-            var splitLoaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
-            splitLoaded.Instance.GetOrCreateEntityRecords("Cube").Add(new GenericRecord
+            var splitLoaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            var candidate = splitLoaded.State.Clone();
+            candidate.Instance.GetOrCreateEntityRecords("Cube").Add(new GenericRecord
             {
                 Id = "999",
-                SourceShardFileName = string.Empty,
                 Values =
                 {
                     ["CubeName"] = "Split Layout Insert",
@@ -231,7 +291,10 @@ public sealed class WorkspaceServiceTests
                 },
             });
 
-            await services.WorkspaceService.SaveAsync(splitLoaded);
+            await XmlWorkspaceWriter.WriteAsync(
+                splitLoaded,
+                candidate,
+                Array.Empty<OperationResult>());
 
             var primaryShard = XDocument.Load(Path.Combine(tempRoot, "instances", "Cube.part-a.xml"));
             var secondaryShard = XDocument.Load(Path.Combine(tempRoot, "instances", "Cube.part-b.xml"));
@@ -256,21 +319,16 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Load_DoesNotDiscoverWorkspaceRoot_FromNestedDirectory()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
             var nestedPath = Path.Combine(tempRoot, "a", "b", "c");
             Directory.CreateDirectory(nestedPath);
 
             await Assert.ThrowsAsync<FileNotFoundException>(async () =>
-                await services.WorkspaceService.LoadAsync(nestedPath));
-
-            var exception = await Assert.ThrowsAsync<NotSupportedException>(async () =>
-                await services.WorkspaceService.LoadAsync(nestedPath, searchUpward: true));
-            Assert.Contains("does not search parent directories", exception.Message, StringComparison.Ordinal);
+                await XmlWorkspaceReader.OpenAsync(nestedPath));
         }
         finally
         {
@@ -285,12 +343,11 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Load_Fails_ForUnsupportedContractMajorVersion()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
             var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
             var workspaceConfig = XDocument.Load(workspaceConfigPath);
             workspaceConfig
@@ -300,7 +357,7 @@ public sealed class WorkspaceServiceTests
             workspaceConfig.Save(workspaceConfigPath);
 
             var exception = await Assert.ThrowsAsync<InvalidDataException>(async () =>
-                await services.WorkspaceService.LoadAsync(tempRoot));
+                await XmlWorkspaceReader.OpenAsync(tempRoot));
             Assert.Contains("Unsupported contract major version", exception.Message, StringComparison.OrdinalIgnoreCase);
         }
         finally
@@ -316,12 +373,11 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Load_AllowsNewerMinorContractVersion()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
             var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
             var workspaceConfig = XDocument.Load(workspaceConfigPath);
             workspaceConfig
@@ -330,8 +386,8 @@ public sealed class WorkspaceServiceTests
                 .Value = "1.7";
             workspaceConfig.Save(workspaceConfigPath);
 
-            var loaded = await services.WorkspaceService.LoadAsync(tempRoot);
-            Assert.Equal("1.7", MetaWorkspaceConfig.GetContractVersion(loaded.WorkspaceConfig));
+            var loaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            Assert.Equal("1.7", loaded.ContractVersion);
         }
         finally
         {
@@ -346,23 +402,18 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Save_RejectsInvalidWorkspace()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = new Meta.Core.Domain.Workspace
-            {
-                WorkspaceRootPath = tempRoot,
-                MetadataRootPath = Path.Combine(tempRoot, "metadata"),
-                Model = new Meta.Core.Domain.GenericModel
+            var workspace = new InMemoryWorkspace(
+                new GenericModel
                 {
                     Name = "MetadataModel",
                 },
-                Instance = new Meta.Core.Domain.GenericInstance
+                new GenericInstance
                 {
                     ModelName = "MetadataModel",
-                },
-            };
+                });
 
             var invalidEntity = new Meta.Core.Domain.GenericEntity
             {
@@ -371,7 +422,7 @@ public sealed class WorkspaceServiceTests
             workspace.Model.Entities.Add(invalidEntity);
 
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-                await services.WorkspaceService.SaveAsync(workspace));
+                await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot));
 
             Assert.Contains("validation failed", exception.Message, StringComparison.OrdinalIgnoreCase);
         }
@@ -387,12 +438,11 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Load_RejectsWorkspaceConfigPathsOutsideWorkspaceRoot()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
             var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
             var workspaceConfig = XDocument.Load(workspaceConfigPath);
             var workspaceLayout = workspaceConfig.Descendants("WorkspaceLayout").Single();
@@ -400,32 +450,7 @@ public sealed class WorkspaceServiceTests
             workspaceConfig.Save(workspaceConfigPath);
 
             var exception = await Assert.ThrowsAsync<InvalidDataException>(async () =>
-                await services.WorkspaceService.LoadAsync(tempRoot));
-            Assert.Contains("outside workspace root", exception.Message, StringComparison.OrdinalIgnoreCase);
-        }
-        finally
-        {
-            TestWorkspaceFactory.DeleteDirectorySafe(sampleRoot);
-            if (Directory.Exists(tempRoot))
-            {
-                Directory.Delete(tempRoot, recursive: true);
-            }
-        }
-    }
-
-    [Fact]
-    public async Task Save_RejectsWorkspaceConfigPathsOutsideWorkspaceRoot()
-    {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
-        var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
-        try
-        {
-            workspace.WorkspaceRootPath = tempRoot;
-            MetaWorkspaceConfig.SetInstanceDir(workspace.WorkspaceConfig, "../outside-instance");
-
-            var exception = await Assert.ThrowsAsync<InvalidDataException>(async () =>
-                await services.WorkspaceService.SaveAsync(workspace));
+                await XmlWorkspaceReader.OpenAsync(tempRoot));
             Assert.Contains("outside workspace root", exception.Message, StringComparison.OrdinalIgnoreCase);
         }
         finally
@@ -441,23 +466,18 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Save_RejectsRelationshipCycles()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = new Meta.Core.Domain.Workspace
-            {
-                WorkspaceRootPath = tempRoot,
-                MetadataRootPath = Path.Combine(tempRoot, "metadata"),
-                Model = new Meta.Core.Domain.GenericModel
+            var workspace = new InMemoryWorkspace(
+                new GenericModel
                 {
                     Name = "MetadataModel",
                 },
-                Instance = new Meta.Core.Domain.GenericInstance
+                new GenericInstance
                 {
                     ModelName = "MetadataModel",
-                },
-            };
+                });
 
             var entityA = new Meta.Core.Domain.GenericEntity
             {
@@ -493,7 +513,7 @@ public sealed class WorkspaceServiceTests
             workspace.Instance.GetOrCreateEntityRecords("EntityB")[0].RelationshipIds["EntityAId"] = "1";
 
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-                await services.WorkspaceService.SaveAsync(workspace));
+                await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot));
 
             Assert.Contains("relationship.cycle", exception.Message, StringComparison.OrdinalIgnoreCase);
         }
@@ -509,17 +529,13 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Save_CleansUpAtomicStagingDirectories()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            workspace.WorkspaceRootPath = tempRoot;
-            workspace.MetadataRootPath = Path.Combine(tempRoot, "metadata");
-
-            await services.WorkspaceService.SaveAsync(workspace);
-            await services.WorkspaceService.SaveAsync(workspace);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
 
             var leftovers = Directory.Exists(tempRoot)
                 ? Directory.GetDirectories(tempRoot, ".__workspace-*")
@@ -543,28 +559,31 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Save_RootWorkspaceConfigWriteFailure_DoesNotPersistMetadataChanges()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            await services.ExportService.ExportXmlAsync(workspace, tempRoot);
-            var persisted = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
-            var originalHash = services.WorkspaceService.CalculateHash(persisted);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
+            var persisted = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            var originalHash = persisted.Fingerprint;
 
-            var cube = persisted.Instance.GetOrCreateEntityRecords("Cube").First();
+            var candidate = persisted.State.Clone();
+            var cube = candidate.Instance.GetOrCreateEntityRecords("Cube").First();
             cube.Values["CubeName"] = "Changed During Failed Save";
 
             var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
             using (var lockedConfig = new FileStream(workspaceConfigPath, FileMode.Open, FileAccess.Read, FileShare.None))
             {
                 await Assert.ThrowsAnyAsync<IOException>(async () =>
-                    await services.WorkspaceService.SaveAsync(persisted));
+                    await XmlWorkspaceWriter.WriteAsync(
+                        persisted,
+                        candidate,
+                        Array.Empty<OperationResult>()));
             }
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
-            var reloadedHash = services.WorkspaceService.CalculateHash(reloaded);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            var reloadedHash = reloaded.Fingerprint;
             Assert.Equal(originalHash, reloadedHash);
         }
         finally
@@ -580,14 +599,11 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Save_RejectsWhenWorkspaceLockIsActive()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            workspace.WorkspaceRootPath = tempRoot;
-            workspace.MetadataRootPath = Path.Combine(tempRoot, "metadata");
             Directory.CreateDirectory(tempRoot);
 
             var process = System.Diagnostics.Process.GetCurrentProcess();
@@ -604,7 +620,7 @@ public sealed class WorkspaceServiceTests
             File.WriteAllText(Path.Combine(tempRoot, ".meta.lock"), lockContent);
 
             var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-                await services.WorkspaceService.SaveAsync(workspace));
+                await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot));
             Assert.Contains("locked", exception.Message, StringComparison.OrdinalIgnoreCase);
         }
         finally
@@ -620,14 +636,11 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Save_RemovesStaleWorkspaceLockAndContinues()
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            workspace.WorkspaceRootPath = tempRoot;
-            workspace.MetadataRootPath = Path.Combine(tempRoot, "metadata");
             Directory.CreateDirectory(tempRoot);
 
             var staleLockContent = string.Join(
@@ -643,7 +656,7 @@ public sealed class WorkspaceServiceTests
             var lockPath = Path.Combine(tempRoot, ".meta.lock");
             File.WriteAllText(lockPath, staleLockContent);
 
-            await services.WorkspaceService.SaveAsync(workspace);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
 
             Assert.False(File.Exists(lockPath), "Stale lock should be removed after successful save.");
             Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.xml")));
@@ -661,18 +674,17 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task SaveLoad_NullableMissingProperty_StaysMissing()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = BuildWorkspaceWithOptionalProperty(tempRoot, includeOptionalProp: false, optionalPropValue: null);
-            await services.WorkspaceService.SaveAsync(workspace);
+            var workspace = BuildWorkspaceWithOptionalProperty(includeOptionalProp: false, optionalPropValue: null);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
             var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
             var shardXml = await File.ReadAllTextAsync(itemShardPath);
             Assert.DoesNotContain("<OptionalProp", shardXml, StringComparison.Ordinal);
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             var row = reloaded.Instance.GetOrCreateEntityRecords("Item").Single();
             Assert.False(row.Values.ContainsKey("OptionalProp"));
         }
@@ -688,12 +700,11 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task SaveLoad_ExplicitEmptyStringProperty_StaysPresent()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = BuildWorkspaceWithOptionalProperty(tempRoot, includeOptionalProp: true, optionalPropValue: string.Empty);
-            await services.WorkspaceService.SaveAsync(workspace);
+            var workspace = BuildWorkspaceWithOptionalProperty(includeOptionalProp: true, optionalPropValue: string.Empty);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
             var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
             var shardDoc = XDocument.Load(itemShardPath);
@@ -701,7 +712,7 @@ public sealed class WorkspaceServiceTests
                 shardDoc.Descendants("OptionalProp"),
                 element => string.Equals(element.Value, string.Empty, StringComparison.Ordinal));
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             var row = reloaded.Instance.GetOrCreateEntityRecords("Item").Single();
             Assert.True(row.Values.ContainsKey("OptionalProp"));
             Assert.Equal(string.Empty, row.Values["OptionalProp"]);
@@ -718,18 +729,17 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task SaveLoad_NullPropertyValue_IsNotSerializedAsEmptyString()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = BuildWorkspaceWithOptionalProperty(tempRoot, includeOptionalProp: true, optionalPropValue: null);
-            await services.WorkspaceService.SaveAsync(workspace);
+            var workspace = BuildWorkspaceWithOptionalProperty(includeOptionalProp: true, optionalPropValue: null);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
             var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
             var shardXml = await File.ReadAllTextAsync(itemShardPath);
             Assert.DoesNotContain("<OptionalProp", shardXml, StringComparison.Ordinal);
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             var row = reloaded.Instance.GetOrCreateEntityRecords("Item").Single();
             Assert.False(row.Values.ContainsKey("OptionalProp"));
         }
@@ -745,12 +755,11 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task SaveLoad_RelationshipSerialization_DoesNotWriteNullOrBlankPlaceholders()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = BuildWorkspaceWithRelationship(tempRoot);
-            await services.WorkspaceService.SaveAsync(workspace);
+            var workspace = BuildWorkspaceWithRelationship();
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
             var childShardPath = Path.Combine(tempRoot, "instances", "Child.xml");
             var childShardXml = await File.ReadAllTextAsync(childShardPath);
@@ -759,7 +768,7 @@ public sealed class WorkspaceServiceTests
             Assert.DoesNotContain("BlankRel", childShardXml, StringComparison.Ordinal);
             Assert.DoesNotContain("Id=\"\" />", childShardXml, StringComparison.Ordinal);
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             var child = reloaded.Instance.GetOrCreateEntityRecords("Child").Single();
             Assert.Equal("1", child.RelationshipIds["ParentId"]);
             Assert.False(child.RelationshipIds.ContainsKey("Ghost"));
@@ -777,18 +786,17 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task SaveLoad_NullableMissingRelationship_StaysMissing()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = BuildWorkspaceWithOptionalRelationship(tempRoot);
-            await services.WorkspaceService.SaveAsync(workspace);
+            var workspace = BuildWorkspaceWithOptionalRelationship();
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
             var childShardPath = Path.Combine(tempRoot, "instances", "Child.xml");
             var childShardXml = await File.ReadAllTextAsync(childShardPath);
             Assert.DoesNotContain("OptionalParentId", childShardXml, StringComparison.Ordinal);
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             var child = reloaded.Instance.GetOrCreateEntityRecords("Child").Single();
             Assert.False(child.RelationshipIds.ContainsKey("OptionalParentId"));
         }
@@ -804,20 +812,19 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task SaveLoad_DoesNotLeaveNullValuesInMemory()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = BuildWorkspaceWithRelationship(tempRoot);
+            var workspace = BuildWorkspaceWithRelationship();
             var item = new GenericRecord
             {
                 Id = "1",
             };
             item.Values["OptionalProp"] = null!;
             workspace.Instance.GetOrCreateEntityRecords("Item").Add(item);
-            await services.WorkspaceService.SaveAsync(workspace);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             foreach (var entityRows in reloaded.Instance.RecordsByEntity.Values)
             {
                 foreach (var row in entityRows)
@@ -846,25 +853,27 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task SaveLoadSave_NullableMissingProperty_RemainsMissingWithoutDrift()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = BuildWorkspaceWithOptionalProperty(tempRoot, includeOptionalProp: false, optionalPropValue: null);
-            await services.WorkspaceService.SaveAsync(workspace);
+            var workspace = BuildWorkspaceWithOptionalProperty(includeOptionalProp: false, optionalPropValue: null);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
             var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
             var firstXml = await File.ReadAllTextAsync(itemShardPath);
             Assert.DoesNotContain("<OptionalProp", firstXml, StringComparison.Ordinal);
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
-            await services.WorkspaceService.SaveAsync(reloaded);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            await XmlWorkspaceWriter.WriteAsync(
+                reloaded,
+                reloaded.State.Clone(),
+                Array.Empty<OperationResult>());
 
             var secondXml = await File.ReadAllTextAsync(itemShardPath);
             Assert.Equal(firstXml, secondXml);
             Assert.DoesNotContain("<OptionalProp", secondXml, StringComparison.Ordinal);
 
-            var loadedAgain = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var loadedAgain = await XmlWorkspaceReader.OpenAsync(tempRoot);
             var row = loadedAgain.Instance.GetOrCreateEntityRecords("Item").Single();
             Assert.False(row.Values.ContainsKey("OptionalProp"));
         }
@@ -880,12 +889,11 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task SaveLoadSave_ExplicitEmptyStringProperty_RemainsExplicitWithoutDrift()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = BuildWorkspaceWithOptionalProperty(tempRoot, includeOptionalProp: true, optionalPropValue: string.Empty);
-            await services.WorkspaceService.SaveAsync(workspace);
+            var workspace = BuildWorkspaceWithOptionalProperty(includeOptionalProp: true, optionalPropValue: string.Empty);
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
             var itemShardPath = Path.Combine(tempRoot, "instances", "Item.xml");
             var firstDoc = XDocument.Load(itemShardPath);
@@ -893,8 +901,11 @@ public sealed class WorkspaceServiceTests
                 firstDoc.Descendants("OptionalProp"),
                 element => string.Equals(element.Value, string.Empty, StringComparison.Ordinal));
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
-            await services.WorkspaceService.SaveAsync(reloaded);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
+            await XmlWorkspaceWriter.WriteAsync(
+                reloaded,
+                reloaded.State.Clone(),
+                Array.Empty<OperationResult>());
 
             var secondDoc = XDocument.Load(itemShardPath);
             Assert.Equal(firstDoc.ToString(SaveOptions.DisableFormatting), secondDoc.ToString(SaveOptions.DisableFormatting));
@@ -902,7 +913,7 @@ public sealed class WorkspaceServiceTests
                 secondDoc.Descendants("OptionalProp"),
                 element => string.Equals(element.Value, string.Empty, StringComparison.Ordinal));
 
-            var loadedAgain = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var loadedAgain = await XmlWorkspaceReader.OpenAsync(tempRoot);
             var row = loadedAgain.Instance.GetOrCreateEntityRecords("Item").Single();
             Assert.True(row.Values.ContainsKey("OptionalProp"));
             Assert.Equal(string.Empty, row.Values["OptionalProp"]);
@@ -919,12 +930,11 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Load_BlankRelationshipAttribute_FailsHard()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = BuildWorkspaceWithRelationship(tempRoot);
-            await services.WorkspaceService.SaveAsync(workspace);
+            var workspace = BuildWorkspaceWithRelationship();
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
             var childShardPath = Path.Combine(tempRoot, "instances", "Child.xml");
             var childShard = XDocument.Load(childShardPath);
@@ -935,7 +945,7 @@ public sealed class WorkspaceServiceTests
             childShard.Save(childShardPath);
 
             await Assert.ThrowsAsync<InvalidDataException>(async () =>
-                await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false));
+                await XmlWorkspaceReader.OpenAsync(tempRoot));
         }
         finally
         {
@@ -946,26 +956,19 @@ public sealed class WorkspaceServiceTests
         }
     }
 
-    private static Workspace BuildWorkspaceWithOptionalProperty(
-        string workspaceRoot,
+    private static InMemoryWorkspace BuildWorkspaceWithOptionalProperty(
         bool includeOptionalProp,
         string? optionalPropValue)
     {
-        var workspace = new Workspace
-        {
-            WorkspaceRootPath = workspaceRoot,
-            MetadataRootPath = Path.Combine(workspaceRoot, "metadata"),
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = new GenericModel
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = "RoundTripModel",
             },
-            Instance = new GenericInstance
+            new GenericInstance
             {
                 ModelName = "RoundTripModel",
-            },
-            IsDirty = true,
-        };
+            });
 
         var item = new GenericEntity
         {
@@ -995,18 +998,17 @@ public sealed class WorkspaceServiceTests
     [Fact]
     public async Task Save_ModelOnlyWorkspace_OmitsInstanceDirectory_AndReloads()
     {
-        var services = new ServiceCollection();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            var workspace = BuildModelOnlyWorkspace(tempRoot);
-            await services.WorkspaceService.SaveAsync(workspace);
+            var workspace = BuildModelOnlyWorkspace();
+            await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
             Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.xml")));
             Assert.True(File.Exists(Path.Combine(tempRoot, "model.xml")));
             Assert.False(Directory.Exists(Path.Combine(tempRoot, "instances")));
 
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot, searchUpward: false);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             Assert.Equal("ModelOnly", reloaded.Model.Name);
             Assert.Equal("ModelOnly", reloaded.Instance.ModelName);
             Assert.Empty(reloaded.Instance.RecordsByEntity);
@@ -1019,23 +1021,17 @@ public sealed class WorkspaceServiceTests
             }
         }
     }
-    private static Workspace BuildModelOnlyWorkspace(string workspaceRoot)
+    private static InMemoryWorkspace BuildModelOnlyWorkspace()
     {
-        var workspace = new Workspace
-        {
-            WorkspaceRootPath = workspaceRoot,
-            MetadataRootPath = Path.Combine(workspaceRoot, "metadata"),
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = new GenericModel
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = "ModelOnly",
             },
-            Instance = new GenericInstance
+            new GenericInstance
             {
                 ModelName = "ModelOnly",
-            },
-            IsDirty = true,
-        };
+            });
 
         workspace.Model.Entities.Add(new GenericEntity
         {
@@ -1094,23 +1090,17 @@ public sealed class WorkspaceServiceTests
         document.Save(Path.Combine(workspaceRoot, "instances", shardFileName));
     }
 
-    private static Workspace BuildWorkspaceWithRelationship(string workspaceRoot)
+    private static InMemoryWorkspace BuildWorkspaceWithRelationship()
     {
-        var workspace = new Workspace
-        {
-            WorkspaceRootPath = workspaceRoot,
-            MetadataRootPath = Path.Combine(workspaceRoot, "metadata"),
-            WorkspaceConfig = MetaWorkspaceConfig.CreateDefault(),
-            Model = new GenericModel
+        var workspace = new InMemoryWorkspace(
+            new GenericModel
             {
                 Name = "RoundTripModel",
             },
-            Instance = new GenericInstance
+            new GenericInstance
             {
                 ModelName = "RoundTripModel",
-            },
-            IsDirty = true,
-        };
+            });
 
         var item = new GenericEntity
         {
@@ -1163,9 +1153,9 @@ public sealed class WorkspaceServiceTests
                bytes[2] == 0xbf;
     }
 
-    private static Workspace BuildWorkspaceWithOptionalRelationship(string workspaceRoot)
+    private static InMemoryWorkspace BuildWorkspaceWithOptionalRelationship()
     {
-        var workspace = BuildWorkspaceWithRelationship(workspaceRoot);
+        var workspace = BuildWorkspaceWithRelationship();
         var child = workspace.Model.Entities.Single(entity => string.Equals(entity.Name, "Child", StringComparison.Ordinal));
         child.Relationships.Add(new GenericRelationship
         {

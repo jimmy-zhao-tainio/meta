@@ -1,6 +1,3 @@
-using Meta.Core.Operations;
-using Meta.Core.Services;
-
 internal sealed partial class CliRuntime
 {
     async Task<int> InstanceRenameIdAsync(string[] commandArgs)
@@ -14,59 +11,81 @@ internal sealed partial class CliRuntime
             return PrintArgumentError(options.ErrorMessage);
         }
 
-        Workspace? workspace = null;
-        WorkspaceSnapshot? before = null;
         try
         {
-            workspace = await LoadWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
-            before = WorkspaceSnapshotCloner.Capture(workspace);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(options.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
+            var rowsTouched = CountRenameRecordRowsTouched(
+                workspace.State,
+                entityName,
+                oldId);
+            var operation = new Operation.RenameRecord(
+                entityName,
+                oldId,
+                newId);
 
-            var result = services.InstanceRefactorService.RenameInstanceId(
-                workspace,
-                new RenameInstanceIdRefactorOptions(entityName, oldId, newId));
-            ApplyImplicitNormalization(workspace);
-
-            var diagnostics = services.ValidationService.Validate(workspace);
-            workspace.Diagnostics = diagnostics;
-            if (diagnostics.HasErrors || (globalStrict && diagnostics.WarningCount > 0))
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-                return PrintOperationValidationFailure(
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
+                    workspace,
+                    new[] { operation },
                     "instance rename-id",
-                    Array.Empty<WorkspaceOp>(),
-                    diagnostics);
-            }
-
-            await services.WorkspaceService.SaveAsync(workspace).ConfigureAwait(false);
-
-            presenter.WriteOk(
-                "instance id renamed",
-                ("Workspace", Path.GetFullPath(workspace.WorkspaceRootPath)),
-                ("Entity", result.EntityName),
-                ("From", result.OldId),
-                ("To", result.NewId),
-                ("Relationships updated", result.RelationshipsUpdated.ToString()),
-                ("Rows touched", result.RowsTouched.ToString()));
-            return 0;
+                    "instance id renamed",
+                    buildSuccessDetails: results =>
+                    {
+                        var result = (RenameRecordResult)results.Single();
+                        return new (string Key, string Value)[]
+                        {
+                            ("Workspace", workspace.RootPath),
+                            ("Entity", result.EntityName),
+                            ("From", result.OldId),
+                            ("To", result.NewId),
+                            ("Relationships updated", result.RelationshipValueCount.ToString()),
+                            ("Rows touched", rowsTouched.ToString()),
+                        };
+                    })
+                .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)
         {
-            if (workspace != null && before != null)
-            {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
-            }
-
             return PrintDataError("E_OPERATION", exception.Message);
         }
-        catch
+
+        static int CountRenameRecordRowsTouched(
+            InMemoryWorkspace workspace,
+            string entityName,
+            string oldId)
         {
-            if (workspace != null && before != null)
+            var touched = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
             {
-                WorkspaceSnapshotCloner.Restore(workspace, before);
+                entityName + "\u001f" + oldId,
+            };
+
+            foreach (var sourceEntity in workspace.Model.Entities)
+            {
+                foreach (var relationship in sourceEntity.Relationships.Where(item =>
+                             MetaName.Comparer.Equals(item.Entity, entityName)))
+                {
+                    if (!workspace.Instance.RecordsByEntity.TryGetValue(
+                            sourceEntity.Name,
+                            out var records))
+                    {
+                        continue;
+                    }
+
+                    var relationshipName = relationship.GetColumnName();
+                    foreach (var record in records)
+                    {
+                        if (record.RelationshipIds.TryGetValue(
+                                relationshipName,
+                                out var targetId) &&
+                            MetaIdentity.Comparer.Equals(targetId, oldId))
+                        {
+                            touched.Add(sourceEntity.Name + "\u001f" + record.Id);
+                        }
+                    }
+                }
             }
 
-            throw;
+            return touched.Count;
         }
     }
 }

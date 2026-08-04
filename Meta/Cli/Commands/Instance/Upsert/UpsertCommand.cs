@@ -47,8 +47,8 @@ internal sealed partial class CliRuntime
 
         try
         {
-            var workspace = await LoadWorkspaceForCommandAsync(parseResult.WorkspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.WorkspaceConfig);
+            var workspace = await OpenXmlWorkspaceForCommandAsync(parseResult.WorkspacePath).ConfigureAwait(false);
+            PrintContractCompatibilityWarning(workspace.ContractVersion);
 
             var entity = workspace.Model.FindEntity(entityName);
             if (entity == null)
@@ -57,23 +57,21 @@ internal sealed partial class CliRuntime
             }
 
             var rows = ParseBulkInputRows(input, parseResult.Format);
-            var operation = BuildUpsertOperationFromRows(
-                workspace,
+            var plan = BuildUpsertOperationsFromRows(
+                workspace.State,
                 entity,
                 rows,
                 parseResult.KeyFields,
-                autoEnsure: false,
                 autoId: parseResult.AutoId);
-            BulkRelationshipResolver.ResolveRelationshipIds(workspace, operation);
-            return await ExecuteOperationsAgainstLoadedWorkspaceAsync(
+            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
                     workspace,
-                    new[] { operation },
+                    plan.Operations,
                     commandName: "bulk-insert",
                     successMessage: $"bulk insert {entityName}",
                     successDetails: BuildUpsertSuccessDetails(
-                        workspace,
+                        workspace.State,
                         entityName,
-                        operation.RowPatches.Select(patch => patch.Id).ToList()))
+                        plan.RowIds))
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)

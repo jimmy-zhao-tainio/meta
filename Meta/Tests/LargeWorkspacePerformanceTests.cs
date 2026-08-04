@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Meta.Adapters;
 using Meta.Core.Domain;
+using Meta.Core.Serialization;
 using Xunit.Abstractions;
 
 namespace Meta.Core.Tests;
@@ -62,15 +62,13 @@ public sealed class LargeWorkspacePerformanceTests
         int maxLoadMs,
         int maxAllocatedMb)
     {
-        var services = new ServiceCollection();
-        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync(services);
+        var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
 
         try
         {
-            MaterializeLargeCubeDataset(workspace, rowCount);
-            workspace.WorkspaceRootPath = tempRoot;
-            workspace.MetadataRootPath = Path.Combine(tempRoot, "metadata");
+            var candidate = workspace.State.Clone();
+            MaterializeLargeCubeDataset(candidate, rowCount);
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
@@ -78,7 +76,7 @@ public sealed class LargeWorkspacePerformanceTests
 
             var allocatedBeforeSave = GC.GetTotalAllocatedBytes(precise: true);
             var saveWatch = Stopwatch.StartNew();
-            await services.WorkspaceService.SaveAsync(workspace);
+            await XmlWorkspaceWriter.WriteNewAsync(candidate, tempRoot);
             saveWatch.Stop();
             var allocatedAfterSave = GC.GetTotalAllocatedBytes(precise: true);
             var saveAllocatedMb = BytesToMb(allocatedAfterSave - allocatedBeforeSave);
@@ -89,7 +87,7 @@ public sealed class LargeWorkspacePerformanceTests
 
             var allocatedBeforeLoad = GC.GetTotalAllocatedBytes(precise: true);
             var loadWatch = Stopwatch.StartNew();
-            var reloaded = await services.WorkspaceService.LoadAsync(tempRoot);
+            var reloaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             loadWatch.Stop();
             var allocatedAfterLoad = GC.GetTotalAllocatedBytes(precise: true);
             var loadAllocatedMb = BytesToMb(allocatedAfterLoad - allocatedBeforeLoad);
@@ -126,7 +124,7 @@ public sealed class LargeWorkspacePerformanceTests
         }
     }
 
-    private static void MaterializeLargeCubeDataset(Workspace workspace, int rowCount)
+    private static void MaterializeLargeCubeDataset(InMemoryWorkspace workspace, int rowCount)
     {
         var cubeEntity = workspace.Model.FindEntity("Cube");
         if (cubeEntity == null)
