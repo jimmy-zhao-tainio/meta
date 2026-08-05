@@ -147,33 +147,6 @@ internal sealed partial class CliRuntime
         }
     }
 
-    async Task<int> ExecuteOperationAsync(
-        string workspacePath,
-        Func<Operation> createOperation,
-        string commandName,
-        string successMessage,
-        params (string Key, string Value)[] successDetails)
-    {
-        try
-        {
-            ArgumentNullException.ThrowIfNull(createOperation);
-            var operation = createOperation();
-            var workspace = await OpenXmlWorkspaceForCommandAsync(workspacePath).ConfigureAwait(false);
-            PrintContractCompatibilityWarning(workspace.ContractVersion);
-            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
-                    workspace,
-                    new[] { operation },
-                    commandName,
-                    successMessage,
-                    successDetails)
-                .ConfigureAwait(false);
-        }
-        catch (InvalidOperationException exception)
-        {
-            return PrintDataError("E_OPERATION", exception.Message);
-        }
-    }
-
     public async Task ExecuteBoundAsync(
         MetaCliInvocation invocation,
         IReadOnlyList<string> cliArgs,
@@ -234,59 +207,19 @@ internal sealed partial class CliRuntime
         Func<IReadOnlyList<OperationResult>, IReadOnlyList<(string Key, string Value)>>? buildSuccessDetails = null,
         Action<IReadOnlyList<OperationResult>>? writeSuccessOutput = null)
     {
-        ArgumentNullException.ThrowIfNull(operations);
-        try
-        {
-            var results = await CurrentWorkspace.ExecuteAsync(operations)
-                .ConfigureAwait(false);
-            presenter.WriteOk(
-                successMessage,
-                (buildSuccessDetails != null
-                    ? buildSuccessDetails(results)
-                    : successDetails ?? Array.Empty<(string Key, string Value)>()).ToArray());
-            writeSuccessOutput?.Invoke(results);
-            return 0;
-        }
-        catch (MetaOperationException exception) when (exception.Diagnostics != null)
-        {
-            return PrintOperationValidationFailure(
-                commandName,
+        return await ExecuteOperationsOnWorkspaceAsync(
+                CurrentWorkspace,
                 operations,
-                exception.Diagnostics);
-        }
-        catch (MetaOperationException exception)
-        {
-            var cause = exception.InnerException ?? exception;
-            while (cause is MetaOperationException operationException &&
-                   operationException.InnerException != null)
-            {
-                cause = operationException.InnerException;
-            }
-
-            return PrintDataError("E_OPERATION", cause.Message);
-        }
-    }
-
-    async Task<int> ExecuteOperationAsync(
-        OpenedXmlWorkspace workspace,
-        Operation operation,
-        string commandName,
-        string successMessage,
-        params (string Key, string Value)[] successDetails)
-    {
-        ArgumentNullException.ThrowIfNull(workspace);
-        ArgumentNullException.ThrowIfNull(operation);
-        return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
-                workspace,
-                new[] { operation },
                 commandName,
                 successMessage,
-                successDetails)
+                successDetails,
+                buildSuccessDetails,
+                writeSuccessOutput)
             .ConfigureAwait(false);
     }
 
-    async Task<int> ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
-        OpenedXmlWorkspace workspace,
+    async Task<int> ExecuteOperationsOnWorkspaceAsync(
+        IMetaWorkspace workspace,
         IReadOnlyList<Operation> operations,
         string commandName,
         string successMessage,
@@ -298,38 +231,14 @@ internal sealed partial class CliRuntime
         ArgumentNullException.ThrowIfNull(operations);
         try
         {
-            var applied = InMemoryOperations.Execute(
-                workspace.State,
-                operations);
-            var diagnostics = WorkspaceValidator.Validate(
-                applied.Workspace.Model,
-                applied.Workspace.Instance);
-            if (diagnostics.HasErrors ||
-                (globalStrict && diagnostics.WarningCount > 0))
-            {
-                return PrintOperationValidationFailure(
-                    commandName,
-                    operations,
-                    diagnostics);
-            }
-
-            await XmlWorkspaceWriter.WriteAsync(
-                    workspace,
-                    applied.Workspace,
-                    applied.Results)
+            var results = await workspace.ExecuteAsync(operations)
                 .ConfigureAwait(false);
             presenter.WriteOk(
                 successMessage,
                 (buildSuccessDetails != null
-                    ? buildSuccessDetails(applied.Results)
+                    ? buildSuccessDetails(results)
                     : successDetails ?? Array.Empty<(string Key, string Value)>()).ToArray());
-            writeSuccessOutput?.Invoke(applied.Results);
-            if (diagnostics.WarningCount > 0)
-            {
-                presenter.WriteInfo(
-                    $"Validation: warnings={diagnostics.WarningCount.ToString(CultureInfo.InvariantCulture)}, total={diagnostics.Issues.Count.ToString(CultureInfo.InvariantCulture)} (no errors)");
-            }
-
+            writeSuccessOutput?.Invoke(results);
             return 0;
         }
         catch (MetaOperationException exception) when (exception.Diagnostics != null)

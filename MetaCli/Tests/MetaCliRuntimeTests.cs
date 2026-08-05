@@ -54,6 +54,28 @@ public sealed class MetaCliRuntimeTests
     }
 
     [Fact]
+    public async Task Runtime_OpensCommandSurfaceThroughCSharpDescriptor()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = await temp.SaveCommandSurfaceCSharpAsync(
+            CreateRuntimeModel());
+        var output = new StringWriter();
+        var error = new StringWriter();
+        var exitCode = -1;
+        var runtime = new MetaCliRuntime<MetaCliModel>(
+                commandWorkspace,
+                error: error,
+                setExitCode: code => exitCode = code)
+            .UseDefaultHelp(output, error);
+
+        runtime.Run("help");
+
+        Assert.Equal(0, exitCode);
+        Assert.Empty(error.ToString());
+        Assert.Contains("Usage:", output.ToString(), StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void Runtime_RequiresWorkspaceDescriptor()
     {
         using var temp = TempDirectory.Create();
@@ -1011,6 +1033,19 @@ public sealed class MetaCliRuntimeTests
             var workspace = System.IO.Path.Combine(Path, "CommandSurface.MetaCli");
             model.SaveToXmlWorkspace(workspace);
             File.WriteAllText(System.IO.Path.Combine(workspace, "workspace.meta"), "workspace\nxml .\n");
+            return workspace;
+        }
+
+        public async Task<string> SaveCommandSurfaceCSharpAsync(MetaCliModel model)
+        {
+            var workspace = System.IO.Path.Combine(Path, "CommandSurfaceCSharp.MetaCli");
+            await CSharpWorkspace.CreateAsync(
+                    TypedWorkspaceModelMapper.ToInMemoryWorkspace(model),
+                    workspace)
+                .ConfigureAwait(false);
+            File.WriteAllText(
+                System.IO.Path.Combine(workspace, "workspace.meta"),
+                "workspace\ncsharp .\n");
             return workspace;
         }
 

@@ -26,7 +26,16 @@ internal static class MetaCliWorkspaceResolver
             directory = Directory.GetCurrentDirectory();
         }
 
-        var descriptor = MetaCliWorkspaceDescriptor.Read(directory);
+        return await OpenAsync(directory, cancellationToken).ConfigureAwait(false);
+    }
+
+    public static async Task<IMetaWorkspace> OpenAsync(
+        string directory,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(directory);
+        var fullDirectory = Path.GetFullPath(directory);
+        var descriptor = MetaCliWorkspaceDescriptor.Read(fullDirectory);
 
         try
         {
@@ -41,7 +50,7 @@ internal static class MetaCliWorkspaceResolver
         catch (Exception exception)
         {
             throw new InvalidOperationException(
-                $"Workspace '{Path.GetFullPath(directory)}' could not be opened. {exception.Message}",
+                $"Workspace '{fullDirectory}' could not be opened. {exception.Message}",
                 exception);
         }
     }

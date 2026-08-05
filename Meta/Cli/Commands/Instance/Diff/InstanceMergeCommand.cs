@@ -1,26 +1,27 @@
+using MetaCli.Core;
+
 internal sealed partial class CliRuntime
 {
     async Task<int> InstanceMergeAsync(string[] commandArgs)
     {
-        var targetPath = Path.GetFullPath(RequiredValue("targetWorkspace"));
-        var diffWorkspacePath = Path.GetFullPath(RequiredValue("diffWorkspace"));
-
-        var targetWorkspace = await OpenXmlWorkspaceForCommandAsync(targetPath).ConfigureAwait(false);
-        var diffWorkspace = await OpenXmlWorkspaceForCommandAsync(diffWorkspacePath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(targetWorkspace.ContractVersion);
-        PrintContractCompatibilityWarning(diffWorkspace.ContractVersion);
+        var targetWorkspace = CurrentWorkspaces.Required("targetWorkspace");
+        var diffWorkspace = await WorkspaceComposition.MaterializeAsync(
+            CurrentWorkspaces.Required("diffWorkspace"))
+            .ConfigureAwait(false);
 
         try
         {
+            var targetState = await WorkspaceComposition.MaterializeAsync(targetWorkspace)
+                .ConfigureAwait(false);
             var operations = services.InstanceDiffService.PlanEqualDiffMerge(
-                targetWorkspace.State,
-                diffWorkspace.State);
-            return await ExecuteOperationsAgainstOpenedXmlWorkspaceAsync(
-                    targetWorkspace,
-                    operations,
-                    "instance merge",
-                    "instance merge applied",
-                    new[] { ("Target", targetPath) })
+                targetState,
+                diffWorkspace);
+            return await ExecuteOperationsOnWorkspaceAsync(
+                targetWorkspace,
+                operations,
+                "instance merge",
+                "instance merge applied",
+                new[] { ("Target", RequiredValue("targetWorkspace")) })
                 .ConfigureAwait(false);
         }
         catch (InvalidOperationException exception)

@@ -16,6 +16,16 @@
       <IsRequired>true</IsRequired>
       <Name>target</Name>
     </ParameterGroup>
+    <ParameterGroup Id="group-instance-diff-aligned-output" ExecutableCommandId="exec-instance-diff-aligned">
+      <Description>Choose one workspace representation for the aligned diff.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>output</Name>
+    </ParameterGroup>
+    <ParameterGroup Id="group-instance-diff-output" ExecutableCommandId="exec-instance-diff">
+      <Description>Choose one workspace representation for the diff.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>output</Name>
+    </ParameterGroup>
     <ParameterGroup Id="group-workspace-merge-target" ExecutableCommandId="exec-workspace-merge">
       <Description>Choose one workspace target.</Description>
       <IsRequired>true</IsRequired>

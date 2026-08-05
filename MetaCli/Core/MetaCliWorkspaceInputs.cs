@@ -22,6 +22,26 @@ public sealed record MetaCliWorkspaceOutput(
 
 public static class MetaCliWorkspace
 {
+    public static Task<IMetaWorkspace> OpenAsync(
+        string directory,
+        CancellationToken cancellationToken = default) =>
+        MetaCliWorkspaceResolver.OpenAsync(directory, cancellationToken);
+
+    public static async Task<MetaCliModel> LoadModelAsync(
+        string directory,
+        CancellationToken cancellationToken = default)
+    {
+        await using var workspace = await OpenAsync(directory, cancellationToken)
+            .ConfigureAwait(false);
+        var state = await WorkspaceComposition.MaterializeAsync(
+                workspace,
+                cancellationToken)
+            .ConfigureAwait(false);
+        return TypedWorkspaceModelMapper.FromInMemoryWorkspace(
+            state,
+            static () => MetaCliModel.CreateEmpty());
+    }
+
     public static string OutputLocation(
         MetaCliInvocation invocation,
         string xmlParameter = "xml",

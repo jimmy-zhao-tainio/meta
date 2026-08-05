@@ -5,9 +5,6 @@ internal sealed partial class CliRuntime
         return string.IsNullOrWhiteSpace(globalWorkspacePath) ? Environment.CurrentDirectory : globalWorkspacePath;
     }
 
-    Task<OpenedXmlWorkspace> OpenXmlWorkspaceForCommandAsync(string workspacePath) =>
-        XmlWorkspaceReader.OpenAsync(workspacePath);
-
     string ResolveCSharpOutputDirectory(string outputPath)
     {
         if (outputPath.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
@@ -56,23 +53,6 @@ internal sealed partial class CliRuntime
         catch
         {
             return string.Empty;
-        }
-    }
-
-    InMemoryWorkspace? TryOpenWorkspaceForHints()
-    {
-        try
-        {
-            var path = ResolveWorkspacePathForHints();
-            return XmlWorkspaceReader
-                .OpenAsync(path)
-                .GetAwaiter()
-                .GetResult()
-                .State;
-        }
-        catch
-        {
-            return null;
         }
     }
 

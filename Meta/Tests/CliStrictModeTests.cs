@@ -4332,9 +4332,8 @@ public sealed partial class CliStrictModeTests
                 rightWorkspace);
 
             Assert.Equal(4, diffResult.ExitCode);
-            Assert.Contains("byte-identical model.xml", diffResult.CombinedOutput, StringComparison.OrdinalIgnoreCase);
-            Assert.Contains("LeftModel:", diffResult.CombinedOutput, StringComparison.Ordinal);
-            Assert.Contains("RightModel:", diffResult.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("matching model contracts", diffResult.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("diff-aligned", diffResult.CombinedOutput, StringComparison.OrdinalIgnoreCase);
         }
         finally
         {
@@ -5601,7 +5600,24 @@ public sealed partial class CliStrictModeTests
             WorkingDirectory = repoRoot,
         };
 
-        foreach (var argument in arguments)
+        var effectiveArguments = arguments.ToList();
+        if (effectiveArguments.Count >= 2 &&
+            string.Equals(effectiveArguments[0], "instance", StringComparison.OrdinalIgnoreCase) &&
+            (string.Equals(effectiveArguments[1], "diff", StringComparison.OrdinalIgnoreCase) ||
+             string.Equals(effectiveArguments[1], "diff-aligned", StringComparison.OrdinalIgnoreCase)) &&
+            !effectiveArguments.Any(argument =>
+                string.Equals(argument, "--output-xml", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(argument, "--output-csharp", StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(argument, "--output-sql", StringComparison.OrdinalIgnoreCase)))
+        {
+            effectiveArguments.Add("--output-xml");
+            effectiveArguments.Add(Path.Combine(
+                Path.GetTempPath(),
+                "metadata-studio-tests",
+                $"{Guid.NewGuid():N}-instance-diff"));
+        }
+
+        foreach (var argument in effectiveArguments)
         {
             startInfo.ArgumentList.Add(argument);
         }
@@ -5910,6 +5926,10 @@ public sealed partial class CliStrictModeTests
         }
 
         await XmlWorkspaceWriter.WriteNewAsync(workspace, workspaceRoot).ConfigureAwait(false);
+        File.WriteAllText(
+            Path.Combine(workspaceRoot, "workspace.meta"),
+            "workspace\nxml .\n",
+            new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
 
         void AddRow(
             string entityName,

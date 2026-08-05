@@ -1,14 +1,13 @@
+using MetaCli.Core;
+
 internal sealed partial class CliRuntime
 {
     async Task<int> InstanceDiffAsync(string[] commandArgs)
     {
-        var leftPath = Path.GetFullPath(RequiredValue("leftWorkspace"));
-        var rightPath = Path.GetFullPath(RequiredValue("rightWorkspace"));
-
-        var leftWorkspace = await OpenXmlWorkspaceForCommandAsync(leftPath).ConfigureAwait(false);
-        var rightWorkspace = await OpenXmlWorkspaceForCommandAsync(rightPath).ConfigureAwait(false);
-        PrintContractCompatibilityWarning(leftWorkspace.ContractVersion);
-        PrintContractCompatibilityWarning(rightWorkspace.ContractVersion);
+        var leftSource = CurrentWorkspaces.Required("leftWorkspace");
+        var rightSource = CurrentWorkspaces.Required("rightWorkspace");
+        var leftWorkspace = await WorkspaceComposition.MaterializeAsync(leftSource).ConfigureAwait(false);
+        var rightWorkspace = await WorkspaceComposition.MaterializeAsync(rightSource).ConfigureAwait(false);
 
         var rightDiagnostics = WorkspaceValidator.Validate(
             rightWorkspace.Model,
@@ -18,16 +17,17 @@ internal sealed partial class CliRuntime
             return PrintOperationValidationFailure("instance diff right workspace", Array.Empty<Operation>(), rightDiagnostics);
         }
 
-        if (!AreModelXmlFilesByteIdentical(leftPath, leftWorkspace, rightPath, rightWorkspace, out var leftModelPath, out var rightModelPath))
+        if (!string.Equals(
+                leftWorkspace.Model.ComputeContractSignature(),
+                rightWorkspace.Model.ComputeContractSignature(),
+                StringComparison.Ordinal))
         {
             return PrintFormattedError(
                 "E_OPERATION",
-                "instance diff requires byte-identical model.xml in left and right workspaces.",
+                "instance diff requires matching model contracts in left and right workspaces.",
                 exitCode: 4,
                 hints: new[]
                 {
-                    $"LeftModel: {leftModelPath}",
-                    $"RightModel: {rightModelPath}",
                     "Next: align models first, or run meta instance diff-aligned <leftWorkspace> <rightWorkspace> <alignmentWorkspace>",
                 });
         }
@@ -36,18 +36,12 @@ internal sealed partial class CliRuntime
         try
         {
             diff = services.InstanceDiffService.BuildEqualDiffWorkspace(
-                leftWorkspace.State,
-                rightWorkspace.State);
+                leftWorkspace,
+                rightWorkspace);
         }
         catch (InvalidOperationException exception)
         {
             return PrintDataError("E_OPERATION", exception.Message);
-        }
-
-        var diffPath = ResolveInstanceDiffOutputPath(rightPath, "instance-diff");
-        if (Directory.Exists(diffPath))
-        {
-            Directory.Delete(diffPath, recursive: true);
         }
 
         var diagnostics = WorkspaceValidator.Validate(
@@ -58,12 +52,11 @@ internal sealed partial class CliRuntime
             return PrintOperationValidationFailure("instance diff", Array.Empty<Operation>(), diagnostics);
         }
 
-        await services.ExportService.ExportXmlAsync(diff.DiffWorkspace, diffPath).ConfigureAwait(false);
-        MetaCli.Core.MetaCliWorkspace.DescribeXml(diffPath);
+        await CurrentWorkspaces.CreateAsync("output", diff.DiffWorkspace).ConfigureAwait(false);
         presenter.WriteInfo(diff.HasDifferences
             ? "Instance diff: differences found."
             : "Instance diff: no differences.");
-        presenter.WriteInfo($"DiffWorkspace: {diffPath}");
+        presenter.WriteInfo($"DiffWorkspace: {MetaCliWorkspace.OutputLocation(Invocation, "output-xml", "output-csharp", "output-sql")}");
         presenter.WriteInfo(
             $"Rows: left={diff.LeftRowCount}, right={diff.RightRowCount}  Properties: left={diff.LeftPropertyCount}, right={diff.RightPropertyCount}");
         presenter.WriteInfo(

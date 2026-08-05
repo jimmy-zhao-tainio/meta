@@ -45,13 +45,6 @@ internal sealed partial class CliRuntime
         }
     }
 
-    bool WorkspaceLooksInitialized(string workspaceRoot, string metadataRoot)
-    {
-        return File.Exists(Path.Combine(workspaceRoot, "workspace.xml")) ||
-               File.Exists(Path.Combine(metadataRoot, "model.xml")) ||
-               Directory.Exists(Path.Combine(metadataRoot, "instances"));
-    }
-
     (string WorkspaceRootPath, string MetadataRootPath) ResolveWorkspaceFilesystemContext(string workspacePath)
     {
         var absolutePath = Path.GetFullPath(workspacePath);

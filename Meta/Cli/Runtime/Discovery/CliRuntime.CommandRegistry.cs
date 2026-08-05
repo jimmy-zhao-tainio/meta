@@ -50,10 +50,26 @@ internal sealed partial class CliRuntime
         RegisterWorkspace("exec-delete", DeleteAsync);
         RegisterWorkspace("exec-query", QueryAsync);
         RegisterWorkspace("exec-bulk-insert", BulkInsertAsync);
-        Register("exec-instance-diff", InstanceDiffAsync);
-        Register("exec-instance-merge", InstanceMergeAsync);
-        Register("exec-instance-diff-aligned", InstanceDiffAlignedAsync);
-        Register("exec-instance-merge-aligned", InstanceMergeAlignedAsync);
+        RegisterOutput(
+            "exec-instance-diff",
+            [MetaCliWorkspace.Open("leftWorkspace"), MetaCliWorkspace.Open("rightWorkspace")],
+            InstanceDiffAsync);
+        RegisterWorkspaces(
+            "exec-instance-merge",
+            [MetaCliWorkspace.Open("targetWorkspace"), MetaCliWorkspace.Open("diffWorkspace")],
+            InstanceMergeAsync);
+        RegisterOutput(
+            "exec-instance-diff-aligned",
+            [
+                MetaCliWorkspace.Open("leftWorkspace"),
+                MetaCliWorkspace.Open("rightWorkspace"),
+                MetaCliWorkspace.Open("alignmentWorkspace"),
+            ],
+            InstanceDiffAlignedAsync);
+        RegisterWorkspaces(
+            "exec-instance-merge-aligned",
+            [MetaCliWorkspace.Open("targetWorkspace"), MetaCliWorkspace.Open("diffWorkspace")],
+            InstanceMergeAlignedAsync);
         RegisterWorkspace("exec-instance-update", InstanceUpdateAsync);
         RegisterWorkspace("exec-instance-rename-id", InstanceRenameIdAsync);
         RegisterWorkspace("exec-instance-relationship-set", InstanceRelationshipSetAsync);
@@ -81,6 +97,21 @@ internal sealed partial class CliRuntime
                     invocation,
                     arguments,
                     workspace,
+                    handler));
+        }
+
+        void RegisterWorkspaces(
+            string executableCommandId,
+            IReadOnlyList<MetaCliWorkspaceParameter> workspaces,
+            Func<string[], Task<int>> handler)
+        {
+            runtime.Bind(
+                executableCommandId,
+                workspaces,
+                (invocation, boundWorkspaces) => ExecuteBoundAsync(
+                    invocation,
+                    arguments,
+                    boundWorkspaces,
                     handler));
         }
 

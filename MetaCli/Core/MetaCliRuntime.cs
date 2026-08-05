@@ -297,7 +297,9 @@ public sealed class MetaCliRuntime<TModel>
 
         try
         {
-            model = MetaCliModel.LoadFromXmlWorkspace(commandWorkspacePath);
+            model = MetaCliWorkspace.LoadModelAsync(commandWorkspacePath)
+                .GetAwaiter()
+                .GetResult();
         }
         catch (Exception exception)
         {

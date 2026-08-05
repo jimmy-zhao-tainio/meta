@@ -576,7 +576,7 @@ internal sealed partial class CliRuntime
     int PrintDataError(string code, string message)
     {
         var normalized = NormalizeErrorMessage(message);
-        var workspace = TryOpenWorkspaceForHints();
+        InMemoryWorkspace? workspace = null;
         var where = string.Empty;
         var hints = new List<string>();
         IReadOnlyList<string> suggestions = Array.Empty<string>();

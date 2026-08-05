@@ -92,7 +92,9 @@ internal sealed partial class CliRuntime
 
         try
         {
-            commandSurfaceModel = MetaCliModel.LoadFromXmlWorkspace(CommandWorkspacePath);
+            commandSurfaceModel = MetaCliWorkspace.LoadModelAsync(CommandWorkspacePath)
+                .GetAwaiter()
+                .GetResult();
             return commandSurfaceModel;
         }
         catch

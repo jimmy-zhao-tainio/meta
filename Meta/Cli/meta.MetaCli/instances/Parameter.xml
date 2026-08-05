@@ -160,6 +160,22 @@
       <IsRequired>true</IsRequired>
       <Name>leftWorkspace</Name>
     </Parameter>
+    <Parameter Id="param-instance-diff-aligned-output-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the SQL output connection string.</Description>
+      <Name>output-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-aligned-output-csharp" ValueShapeId="shape-path">
+      <Description>Create the diff workspace on the C# surface.</Description>
+      <Name>output-csharp</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-aligned-output-sql" ValueShapeId="shape-path">
+      <Description>Create the diff workspace on the SQL surface.</Description>
+      <Name>output-sql</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-aligned-output-xml" ValueShapeId="shape-path">
+      <Description>Create the diff workspace on the XML surface.</Description>
+      <Name>output-xml</Name>
+    </Parameter>
     <Parameter Id="param-instance-diff-aligned-rightworkspace" ValueShapeId="shape-path">
       <IsRequired>true</IsRequired>
       <Name>rightWorkspace</Name>
@@ -167,6 +183,22 @@
     <Parameter Id="param-instance-diff-leftworkspace" ValueShapeId="shape-path">
       <IsRequired>true</IsRequired>
       <Name>leftWorkspace</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-output-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the SQL output connection string.</Description>
+      <Name>output-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-output-csharp" ValueShapeId="shape-path">
+      <Description>Create the diff workspace on the C# surface.</Description>
+      <Name>output-csharp</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-output-sql" ValueShapeId="shape-path">
+      <Description>Create the diff workspace on the SQL surface.</Description>
+      <Name>output-sql</Name>
+    </Parameter>
+    <Parameter Id="param-instance-diff-output-xml" ValueShapeId="shape-path">
+      <Description>Create the diff workspace on the XML surface.</Description>
+      <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-instance-diff-rightworkspace" ValueShapeId="shape-path">
       <IsRequired>true</IsRequired>
