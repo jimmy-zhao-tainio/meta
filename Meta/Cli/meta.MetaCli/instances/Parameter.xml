@@ -25,7 +25,7 @@
       <Name>connection-env</Name>
     </Parameter>
     <Parameter Id="param-create-csharp" ValueShapeId="shape-flag">
-      <Description>Create the destination on the C# workspace surface.</Description>
+      <Description>Create the destination on the selected workspace surface.</Description>
       <IsRepeatable>false</IsRepeatable>
       <IsRequired>false</IsRequired>
       <Name>csharp</Name>
@@ -43,7 +43,7 @@
       <Name>source-workspace</Name>
     </Parameter>
     <Parameter Id="param-create-sql" ValueShapeId="shape-flag">
-      <Description>Create the destination on the SQL workspace surface.</Description>
+      <Description>Create the destination on the selected workspace surface.</Description>
       <IsRepeatable>false</IsRepeatable>
       <IsRequired>false</IsRequired>
       <Name>sql</Name>
@@ -55,7 +55,7 @@
       <Name>with-instances</Name>
     </Parameter>
     <Parameter Id="param-create-xml" ValueShapeId="shape-flag">
-      <Description>Create the destination on the XML workspace surface.</Description>
+      <Description>Create the destination on the selected workspace surface.</Description>
       <IsRepeatable>false</IsRepeatable>
       <IsRequired>false</IsRequired>
       <Name>xml</Name>
@@ -84,17 +84,6 @@
       <Name>Entity</Name>
     </Parameter>
     <Parameter Id="param-export-csv-out" ValueShapeId="shape-file">
-      <IsRequired>true</IsRequired>
-      <Name>out</Name>
-    </Parameter>
-    <Parameter Id="param-generate-csharp-out" ValueShapeId="shape-dir">
-      <IsRequired>true</IsRequired>
-      <Name>out</Name>
-    </Parameter>
-    <Parameter Id="param-generate-csharp-tooling" ValueShapeId="shape-flag">
-      <Name>tooling</Name>
-    </Parameter>
-    <Parameter Id="param-generate-sql-out" ValueShapeId="shape-dir">
       <IsRequired>true</IsRequired>
       <Name>out</Name>
     </Parameter>
@@ -127,15 +116,15 @@
       <Name>output-connection-env</Name>
     </Parameter>
     <Parameter Id="param-import-csv-output-csharp" ValueShapeId="shape-path">
-      <Description>Create the output on the csharp workspace surface.</Description>
+      <Description>Create the output on the selected workspace surface.</Description>
       <Name>output-csharp</Name>
     </Parameter>
     <Parameter Id="param-import-csv-output-sql" ValueShapeId="shape-path">
-      <Description>Create the output on the sql workspace surface.</Description>
+      <Description>Create the output on the selected workspace surface.</Description>
       <Name>output-sql</Name>
     </Parameter>
     <Parameter Id="param-import-csv-output-xml" ValueShapeId="shape-path">
-      <Description>Create the output on the xml workspace surface.</Description>
+      <Description>Create the output on the selected workspace surface.</Description>
       <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-import-sql-connection-env" ValueShapeId="shape-name">
@@ -147,15 +136,15 @@
       <Name>output-connection-env</Name>
     </Parameter>
     <Parameter Id="param-import-sql-output-csharp" ValueShapeId="shape-path">
-      <Description>Create the output on the csharp workspace surface.</Description>
+      <Description>Create the output on the selected workspace surface.</Description>
       <Name>output-csharp</Name>
     </Parameter>
     <Parameter Id="param-import-sql-output-sql" ValueShapeId="shape-path">
-      <Description>Create the output on the sql workspace surface.</Description>
+      <Description>Create the output on the selected workspace surface.</Description>
       <Name>output-sql</Name>
     </Parameter>
     <Parameter Id="param-import-sql-output-xml" ValueShapeId="shape-path">
-      <Description>Create the output on the xml workspace surface.</Description>
+      <Description>Create the output on the selected workspace surface.</Description>
       <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-import-sql-schema" ValueShapeId="shape-text">
@@ -197,7 +186,7 @@
       <Name>output-sql</Name>
     </Parameter>
     <Parameter Id="param-instance-diff-aligned-output-xml" ValueShapeId="shape-path">
-      <Description>Create the diff workspace on the XML surface.</Description>
+      <Description>Create the diff workspace on the selected workspace surface.</Description>
       <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-instance-diff-aligned-rightworkspace" ValueShapeId="shape-path">
@@ -221,7 +210,7 @@
       <Name>output-sql</Name>
     </Parameter>
     <Parameter Id="param-instance-diff-output-xml" ValueShapeId="shape-path">
-      <Description>Create the diff workspace on the XML surface.</Description>
+      <Description>Create the diff workspace on the selected workspace surface.</Description>
       <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-instance-diff-rightworkspace" ValueShapeId="shape-path">
@@ -493,15 +482,15 @@
       <Name>output-connection-env</Name>
     </Parameter>
     <Parameter Id="param-workspace-merge-output-csharp" ValueShapeId="shape-path">
-      <Description>Create the output on the csharp workspace surface.</Description>
+      <Description>Create the output on the selected workspace surface.</Description>
       <Name>output-csharp</Name>
     </Parameter>
     <Parameter Id="param-workspace-merge-output-sql" ValueShapeId="shape-path">
-      <Description>Create the output on the sql workspace surface.</Description>
+      <Description>Create the output on the selected workspace surface.</Description>
       <Name>output-sql</Name>
     </Parameter>
     <Parameter Id="param-workspace-merge-output-xml" ValueShapeId="shape-path">
-      <Description>Create the output on the xml workspace surface.</Description>
+      <Description>Create the output on the selected workspace surface.</Description>
       <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-workspace-merge-rightworkspace" ValueShapeId="shape-path">

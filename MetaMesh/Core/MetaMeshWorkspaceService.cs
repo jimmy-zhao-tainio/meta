@@ -1,5 +1,7 @@
 using System.Diagnostics;
-using Meta.Adapters;
+using Meta.Surfaces;
+using SurfaceCSharpWorkspace = global::Meta.Surfaces.CSharpWorkspace;
+using SurfaceSqlWorkspace = global::Meta.Surfaces.SqlWorkspace;
 using Meta.Core.Connections;
 
 namespace MetaMesh.Core;
@@ -426,7 +428,7 @@ public sealed class MetaMeshWorkspaceService
         {
             if (workspace is ResolvedCSharpWorkspace csharp)
             {
-                var opened = Meta.Adapters.CSharpWorkspace.OpenAsync(csharp.ResolvedLocation)
+                var opened = SurfaceCSharpWorkspace.OpenAsync(csharp.ResolvedLocation)
                     .GetAwaiter()
                     .GetResult();
                 opened.DisposeAsync().AsTask().GetAwaiter().GetResult();
@@ -436,7 +438,7 @@ public sealed class MetaMeshWorkspaceService
             if (workspace is ResolvedSqlWorkspace sql)
             {
                 var connectionString = ConnectionEnvironmentVariableResolver.ResolveRequired(sql.Location);
-                var opened = Meta.Adapters.SqlWorkspace.OpenAsync(connectionString)
+                var opened = SurfaceSqlWorkspace.OpenAsync(connectionString)
                     .GetAwaiter()
                     .GetResult();
                 opened.DisposeAsync().AsTask().GetAwaiter().GetResult();

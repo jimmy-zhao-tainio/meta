@@ -444,17 +444,7 @@ internal sealed partial class CliRuntime
             }
         }
 
-        if (normalized.Contains("generate requires --out", StringComparison.OrdinalIgnoreCase))
-        {
-            var mode = currentInvocation is null ? "sql" : CommandToken().Trim().ToLowerInvariant();
-            if (mode is not ("sql" or "csharp"))
-            {
-                mode = "sql";
-            }
-
-            detailHints.Add($"example: meta generate {mode} --out .\\out\\{mode}");
-        }
-        else if (normalized.Contains("--equals", StringComparison.OrdinalIgnoreCase) ||
+        if (normalized.Contains("--equals", StringComparison.OrdinalIgnoreCase) ||
                  normalized.Contains("--contains", StringComparison.OrdinalIgnoreCase))
         {
             var entityName = TryGetEntityFromCurrentCommandArgs() ?? "Cube";

@@ -489,12 +489,6 @@ internal sealed partial class CliRuntime
         return (true, workspacePath, filters, top, string.Empty);
     }
 
-    (bool Ok, string WorkspacePath, string OutputDirectory, bool IncludeTooling, string ErrorMessage)
-        ReadGenerateOptions(string[] commandArgs, int startIndex)
-    {
-        return (true, WorkspacePath(), RequiredValue("out"), Flag("tooling"), string.Empty);
-    }
-
     (bool Ok, string RelationshipSelector, string ToId, string WorkspacePath, string ErrorMessage)
         ReadInstanceRelationshipSetOptions(string[] commandArgs, int startIndex)
     {

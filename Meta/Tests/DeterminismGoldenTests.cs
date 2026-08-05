@@ -39,56 +39,6 @@ public sealed class DeterminismGoldenTests
         }
     }
 
-    [Fact]
-    public void SqlGeneration_IsDeterministic()
-    {
-        var workspace = LoadCanonicalSampleWorkspace();
-        var outputA = Path.Combine(Path.GetTempPath(), "metadata-golden-tests", Guid.NewGuid().ToString("N"), "sql-a");
-        var outputB = Path.Combine(Path.GetTempPath(), "metadata-golden-tests", Guid.NewGuid().ToString("N"), "sql-b");
-
-        try
-        {
-            GenerationService.GenerateSql(workspace, outputA);
-            GenerationService.GenerateSql(workspace, outputB);
-
-            var manifestA = BuildDirectoryManifest(outputA);
-            var manifestB = BuildDirectoryManifest(outputB);
-
-            AssertManifestEqual(manifestA, manifestB);
-            Assert.NotEmpty(manifestA.FileHashes);
-        }
-        finally
-        {
-            DeleteDirectoryIfExists(Path.GetDirectoryName(outputA)!);
-            DeleteDirectoryIfExists(Path.GetDirectoryName(outputB)!);
-        }
-    }
-
-    [Fact]
-    public void CSharpGeneration_IsDeterministic()
-    {
-        var workspace = LoadCanonicalSampleWorkspace();
-        var outputA = Path.Combine(Path.GetTempPath(), "metadata-golden-tests", Guid.NewGuid().ToString("N"), "cs-a");
-        var outputB = Path.Combine(Path.GetTempPath(), "metadata-golden-tests", Guid.NewGuid().ToString("N"), "cs-b");
-
-        try
-        {
-            GenerationService.GenerateCSharp(workspace, outputA);
-            GenerationService.GenerateCSharp(workspace, outputB);
-
-            var manifestA = BuildDirectoryManifest(outputA);
-            var manifestB = BuildDirectoryManifest(outputB);
-
-            AssertManifestEqual(manifestA, manifestB);
-            Assert.NotEmpty(manifestA.FileHashes);
-        }
-        finally
-        {
-            DeleteDirectoryIfExists(Path.GetDirectoryName(outputA)!);
-            DeleteDirectoryIfExists(Path.GetDirectoryName(outputB)!);
-        }
-    }
-
     private static void AssertManifestEqual(DirectoryManifest expected, DirectoryManifest actual)
     {
         AssertManifestEqual(expected.FileHashes, actual.FileHashes);
@@ -103,24 +53,6 @@ public sealed class DeterminismGoldenTests
             Assert.True(actual.TryGetValue(item.Key, out var actualHash), $"Missing output file '{item.Key}'.");
             Assert.Equal(item.Value, actualHash);
         }
-    }
-
-    private static DirectoryManifest BuildDirectoryManifest(string rootPath)
-    {
-        var root = Path.GetFullPath(rootPath);
-        var fileHashes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var filePath in Directory.GetFiles(root, "*", SearchOption.AllDirectories)
-                     .OrderBy(path => path, StringComparer.OrdinalIgnoreCase))
-        {
-            var relativePath = Path.GetRelativePath(root, filePath).Replace('\\', '/');
-            fileHashes[relativePath] = ComputeFileHash(filePath);
-        }
-
-        return new DirectoryManifest
-        {
-            FileHashes = fileHashes,
-            CombinedHash = ComputeCombinedHash(fileHashes),
-        };
     }
 
     private static DirectoryManifest BuildWorkspaceXmlManifest(string workspaceRoot)

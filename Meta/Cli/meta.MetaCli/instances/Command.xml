@@ -36,21 +36,6 @@
       <Name>csv</Name>
       <Token>csv</Token>
     </Command>
-    <Command Id="cmd-generate" ApplicationId="app-meta">
-      <Description>Generate artifacts from the workspace.</Description>
-      <Name>generate</Name>
-      <Token>generate</Token>
-    </Command>
-    <Command Id="cmd-generate-csharp" ApplicationId="app-meta" ParentCommandId="cmd-generate">
-      <Description>Generate C# artifacts.</Description>
-      <Name>csharp</Name>
-      <Token>csharp</Token>
-    </Command>
-    <Command Id="cmd-generate-sql" ApplicationId="app-meta" ParentCommandId="cmd-generate">
-      <Description>Generate SQL artifacts.</Description>
-      <Name>sql</Name>
-      <Token>sql</Token>
-    </Command>
     <Command Id="cmd-graph" ApplicationId="app-meta">
       <Description>Graph stats and inbound relationships.</Description>
       <Name>graph</Name>

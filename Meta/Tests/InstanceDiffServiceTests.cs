@@ -1,4 +1,4 @@
-using Meta.Adapters;
+using Meta.Integration;
 using Meta.Core.Domain;
 using Meta.Core.Operations;
 

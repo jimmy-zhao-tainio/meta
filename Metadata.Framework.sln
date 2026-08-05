@@ -2,8 +2,6 @@
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meta.Adapters", "Meta\Adapters\Meta.Adapters.csproj", "{79F0E8D3-EDED-4A8C-80D0-4DB5F76CBA7F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meta.Core", "Meta\Core\Meta.Core.csproj", "{BE39DC9D-4AE5-41E7-91B8-0F4A5477E065}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meta.Cli", "Meta\Cli\Meta.Cli.csproj", "{E68BD422-6320-4EB6-967B-31FBA22AB0B2}"
@@ -56,16 +54,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meta.Operations", "Meta\Ope
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meta.Operations.Tests", "Meta\Operations.Tests\Meta.Operations.Tests.csproj", "{F07FF8F4-3FD4-4CA7-9D3F-492476933CDF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meta.Surfaces", "Meta\Surfaces\Meta.Surfaces.csproj", "{786FD43A-A9EC-4B1D-BAA8-0615CE7C0C2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meta.Integration", "Meta\Integration\Meta.Integration.csproj", "{8CD5ADF6-5FAF-4550-B3AD-821C01A6C357}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{79F0E8D3-EDED-4A8C-80D0-4DB5F76CBA7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79F0E8D3-EDED-4A8C-80D0-4DB5F76CBA7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79F0E8D3-EDED-4A8C-80D0-4DB5F76CBA7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79F0E8D3-EDED-4A8C-80D0-4DB5F76CBA7F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE39DC9D-4AE5-41E7-91B8-0F4A5477E065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE39DC9D-4AE5-41E7-91B8-0F4A5477E065}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE39DC9D-4AE5-41E7-91B8-0F4A5477E065}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -150,6 +148,14 @@ Global
 		{F07FF8F4-3FD4-4CA7-9D3F-492476933CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F07FF8F4-3FD4-4CA7-9D3F-492476933CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F07FF8F4-3FD4-4CA7-9D3F-492476933CDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{786FD43A-A9EC-4B1D-BAA8-0615CE7C0C2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{786FD43A-A9EC-4B1D-BAA8-0615CE7C0C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{786FD43A-A9EC-4B1D-BAA8-0615CE7C0C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{786FD43A-A9EC-4B1D-BAA8-0615CE7C0C2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CD5ADF6-5FAF-4550-B3AD-821C01A6C357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CD5ADF6-5FAF-4550-B3AD-821C01A6C357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CD5ADF6-5FAF-4550-B3AD-821C01A6C357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CD5ADF6-5FAF-4550-B3AD-821C01A6C357}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -173,5 +179,7 @@ Global
 		{3F708F24-63F6-42B3-9841-A66465031740} = {CD9EE933-0EBD-4A8A-9EEF-8367D5AF5CFC}
 		{E9760021-9D41-42AA-BF78-88D743F3735E} = {AE58EFCF-C756-48A7-B786-084E959348FD}
 		{F07FF8F4-3FD4-4CA7-9D3F-492476933CDF} = {AE58EFCF-C756-48A7-B786-084E959348FD}
+		{786FD43A-A9EC-4B1D-BAA8-0615CE7C0C2C} = {AE58EFCF-C756-48A7-B786-084E959348FD}
+		{8CD5ADF6-5FAF-4550-B3AD-821C01A6C357} = {AE58EFCF-C756-48A7-B786-084E959348FD}
 	EndGlobalSection
 EndGlobal

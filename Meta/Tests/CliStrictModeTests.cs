@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Meta.Adapters;
+using Meta.Integration;
 using Meta.Core.Domain;
 using Meta.Core.Serialization;
 using Meta.Core.Services;
@@ -95,7 +95,7 @@ public sealed partial class CliStrictModeTests
             var outputs = new[]
             {
                 (await RunCliAsync("view", "entity", "MissingEntity", "--workspace", workspaceRoot)).CombinedOutput,
-                (await RunCliAsync("create", "--xml", nonEmptyImportTarget)).CombinedOutput,
+                (await RunCliAsync("create", "--new-workspace", nonEmptyImportTarget, "--xml")).CombinedOutput,
                 (await RunCliAsync("status", "--workspace", brokenWorkspaceRoot)).CombinedOutput,
             };
 
@@ -170,7 +170,7 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
-    public async Task XmlParseErrors_UseSameEnvelope_InStatusAndGenerate()
+    public async Task XmlParseErrors_UseSameEnvelope_InStatusAndCreate()
     {
         var brokenWorkspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-broken", Guid.NewGuid().ToString("N"));
         var outputRoot = Path.Combine(Path.GetTempPath(), "metadata-generate-out", Guid.NewGuid().ToString("N"));
@@ -186,24 +186,24 @@ public sealed partial class CliStrictModeTests
         try
         {
             var status = await RunCliAsync("status", "--workspace", brokenWorkspaceRoot);
-            var generate = await RunCliAsync(
-                "generate",
-                "sql",
-                "--out",
+            var create = await RunCliAsync(
+                "create",
+                "--new-workspace",
                 outputRoot,
-                "--workspace",
-                brokenWorkspaceRoot);
+                "--source-workspace",
+                brokenWorkspaceRoot,
+                "--xml");
 
             Assert.Equal(4, status.ExitCode);
-            Assert.Equal(4, generate.ExitCode);
+            Assert.Equal(4, create.ExitCode);
 
             Assert.Contains("Cannot parse model.xml.", status.CombinedOutput, StringComparison.Ordinal);
-            Assert.Contains("Cannot parse model.xml.", generate.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Cannot parse model.xml.", create.CombinedOutput, StringComparison.Ordinal);
             Assert.Contains("Location: line 1, position", status.CombinedOutput, StringComparison.Ordinal);
-            Assert.Contains("Location: line 1, position", generate.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Location: line 1, position", create.CombinedOutput, StringComparison.Ordinal);
             Assert.Contains("Next: meta status", status.CombinedOutput, StringComparison.Ordinal);
-            Assert.Contains("Next: meta status", generate.CombinedOutput, StringComparison.Ordinal);
-            Assert.DoesNotContain("Usage:", generate.CombinedOutput, StringComparison.Ordinal);
+            Assert.Contains("Next: meta status", create.CombinedOutput, StringComparison.Ordinal);
+            Assert.DoesNotContain("Usage:", create.CombinedOutput, StringComparison.Ordinal);
         }
         finally
         {
@@ -590,44 +590,6 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
-    public async Task GenerateCSharpHelp_IncludesToolingOption()
-    {
-        InvalidateCliAssemblyCache();
-        var result = await RunCliAsync("generate", "csharp", "--help");
-
-        Assert.Equal(0, result.ExitCode);
-        Assert.Contains("meta generate csharp", result.StdOut, StringComparison.Ordinal);
-        Assert.Contains("--tooling", result.StdOut, StringComparison.Ordinal);
-    }
-
-    [Fact]
-    public async Task GenerateSql_RejectsToolingOption()
-    {
-        InvalidateCliAssemblyCache();
-        var workspaceRoot = CreateTempWorkspaceFromSamples();
-        var outputRoot = Path.Combine(Path.GetTempPath(), "metadata-generate-tests", Guid.NewGuid().ToString("N"));
-        try
-        {
-            var result = await RunCliAsync(
-                "generate",
-                "sql",
-                "--tooling",
-                "--out",
-                outputRoot,
-                "--workspace",
-                workspaceRoot);
-
-            Assert.Equal(1, result.ExitCode);
-            Assert.Contains("Option '--tooling' is not recognized.", result.CombinedOutput, StringComparison.Ordinal);
-        }
-        finally
-        {
-            DeleteDirectorySafe(workspaceRoot);
-            DeleteDirectorySafe(outputRoot);
-        }
-    }
-
-    [Fact]
     public async Task ArgumentError_IncludesUsageAndNext()
     {
         var result = await RunCliAsync("model", "add-entity");
@@ -700,8 +662,8 @@ public sealed partial class CliStrictModeTests
 
         try
         {
-            Assert.Equal(0, (await RunCliAsync("create", "--xml", left)).ExitCode);
-            Assert.Equal(0, (await RunCliAsync("create", "--xml", right)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("create", "--new-workspace", left, "--xml")).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("create", "--new-workspace", right, "--xml")).ExitCode);
             Assert.Equal(
                 0,
                 (await RunCliAsync(
@@ -1897,7 +1859,7 @@ public sealed partial class CliStrictModeTests
         var workspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            Assert.Equal(0, (await RunCliAsync("create", "--xml", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("create", "--new-workspace", workspaceRoot, "--xml")).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-entity", "Parent", "--workspace", workspaceRoot)).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-entity", "Child", "--workspace", workspaceRoot)).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-property", "Child", "Name", "--required", "true", "--workspace", workspaceRoot)).ExitCode);
@@ -1980,7 +1942,7 @@ public sealed partial class CliStrictModeTests
         var workspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            Assert.Equal(0, (await RunCliAsync("create", "--xml", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("create", "--new-workspace", workspaceRoot, "--xml")).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-entity", "FromEntity", "--workspace", workspaceRoot)).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-entity", "ToEntity", "--workspace", workspaceRoot)).ExitCode);
 
@@ -2542,7 +2504,7 @@ public sealed partial class CliStrictModeTests
         var workspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-refactor-one-to-one-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            Assert.Equal(0, (await RunCliAsync("create", "--xml", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("create", "--new-workspace", workspaceRoot, "--xml")).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-entity", "A", "--workspace", workspaceRoot)).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-entity", "B", "--workspace", workspaceRoot)).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-property", "A", "Code", "--workspace", workspaceRoot)).ExitCode);
@@ -2596,7 +2558,7 @@ public sealed partial class CliStrictModeTests
         var workspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-refactor-existing-relationship-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            Assert.Equal(0, (await RunCliAsync("create", "--xml", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("create", "--new-workspace", workspaceRoot, "--xml")).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-entity", "A", "--workspace", workspaceRoot)).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-entity", "B", "--workspace", workspaceRoot)).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-property", "A", "Code", "--workspace", workspaceRoot)).ExitCode);
@@ -3298,7 +3260,7 @@ public sealed partial class CliStrictModeTests
         var workspaceRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
-            Assert.Equal(0, (await RunCliAsync("create", "--xml", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("create", "--new-workspace", workspaceRoot, "--xml")).ExitCode);
             Assert.Equal(0, (await RunCliAsync("model", "add-entity", "Thing", "--workspace", workspaceRoot)).ExitCode);
 
             var addProperty = await RunCliAsync(
@@ -3335,7 +3297,7 @@ public sealed partial class CliStrictModeTests
             Guid.NewGuid().ToString("N"));
         try
         {
-            Assert.Equal(0, (await RunCliAsync("create", "--xml", workspaceRoot)).ExitCode);
+            Assert.Equal(0, (await RunCliAsync("create", "--new-workspace", workspaceRoot, "--xml")).ExitCode);
             Assert.Equal(
                 0,
                 (await RunCliAsync(
@@ -5984,7 +5946,7 @@ public sealed partial class CliStrictModeTests
         var root = Path.Combine(Path.GetTempPath(), "metadata-refactor-cycle-tests", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
 
-        Assert.Equal(0, (await RunCliAsync("create", "--xml", root)).ExitCode);
+        Assert.Equal(0, (await RunCliAsync("create", "--new-workspace", root, "--xml")).ExitCode);
         Assert.Equal(0, (await RunCliAsync("model", "add-entity", "A", "--workspace", root)).ExitCode);
         Assert.Equal(0, (await RunCliAsync("model", "add-entity", "B", "--workspace", root)).ExitCode);
         Assert.Equal(0, (await RunCliAsync("model", "add-property", "A", "Code", "--workspace", root)).ExitCode);

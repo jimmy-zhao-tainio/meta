@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
-using Meta.Adapters;
+using Meta.Surfaces;
 using Meta.Core.Domain;
 using Meta.Core.Operations;
 using Meta.Core.Serialization;
@@ -1128,92 +1128,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         }
     }
 
-    [Fact]
-    public async Task XmlSqlXml_RoundTrip_IsByteIdentical_ForCanonicalMetadata()
-    {
-        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
-        if (string.IsNullOrWhiteSpace(baseConnectionString))
-        {
-            throw new InvalidOperationException(
-                "SQL round-trip verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
-        }
-
-        var repoRoot = FindRepositoryRoot();
-        var sourceInputRoot = Path.Combine(
-            repoRoot,
-            "Samples",
-            "Demos",
-            "EnterpriseBIPlatformTooling",
-            "Workspace");
-        var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-sql-roundtrip", Guid.NewGuid().ToString("N"));
-        var leftWorkspaceRoot = Path.Combine(tempRoot, "left");
-        var rightWorkspaceRoot = Path.Combine(tempRoot, "right");
-        var sqlOutRoot = Path.Combine(tempRoot, "sql");
-        var databaseName = "MetaRt" + Guid.NewGuid().ToString("N")[..20];
-
-        try
-        {
-            Directory.CreateDirectory(tempRoot);
-
-            var services = new ServiceCollection();
-            var openedSource = await XmlWorkspaceReader.OpenAsync(sourceInputRoot);
-            var sourceWorkspace = openedSource.State.Clone();
-
-            // Keep database name and model name aligned so SQL import produces the same model name.
-            sourceWorkspace.Model.Name = databaseName;
-            sourceWorkspace.Instance.ModelName = databaseName;
-            AddOptionalCubePredecessor(sourceWorkspace);
-            await XmlWorkspaceWriter.WriteNewAsync(sourceWorkspace, leftWorkspaceRoot);
-
-            GenerationService.GenerateSql(sourceWorkspace, sqlOutRoot);
-            await RecreateDatabaseFromScriptsAsync(
-                baseConnectionString,
-                databaseName,
-                Path.Combine(sqlOutRoot, "schema.sql"),
-                Path.Combine(sqlOutRoot, "data.sql"));
-
-            var databaseConnectionString = new SqlConnectionStringBuilder(baseConnectionString)
-            {
-                InitialCatalog = databaseName,
-            }.ConnectionString;
-
-            var importedWorkspace = await services.ImportService
-                .ImportSqlAsync(databaseConnectionString, "dbo");
-            await services.ExportService.ExportXmlAsync(
-                importedWorkspace,
-                rightWorkspaceRoot);
-
-            AssertMetadataTreesAreByteIdentical(
-                leftWorkspaceRoot,
-                rightWorkspaceRoot);
-        }
-        finally
-        {
-            await DropDatabaseIfExistsAsync(baseConnectionString, databaseName);
-            DeleteDirectoryIfExists(tempRoot);
-        }
-    }
-
-    private static void AddOptionalCubePredecessor(InMemoryWorkspace workspace)
-    {
-        var cube = workspace.Model.FindEntity("Cube")
-                   ?? throw new InvalidOperationException("Round-trip fixture does not contain the Cube entity.");
-        cube.Relationships.Add(new GenericRelationship
-        {
-            Entity = "Cube",
-            Role = "PreviousCube",
-            IsNullable = true,
-        });
-
-        var cubes = workspace.Instance.GetOrCreateEntityRecords("Cube");
-        if (cubes.Count < 2)
-        {
-            throw new InvalidOperationException("Round-trip fixture requires at least two Cube rows.");
-        }
-
-        cubes[1].RelationshipIds["PreviousCubeId"] = cubes[0].Id;
-    }
-
     private static async Task<string?> ResolveSqlTestConnectionStringAsync()
     {
         var candidates = new List<string>();
@@ -1254,21 +1168,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         {
             return false;
         }
-    }
-
-    private static async Task RecreateDatabaseFromScriptsAsync(
-        string baseConnectionString,
-        string databaseName,
-        string schemaScriptPath,
-        string dataScriptPath)
-    {
-        var schemaScript = await File.ReadAllTextAsync(schemaScriptPath).ConfigureAwait(false);
-        var dataScript = await File.ReadAllTextAsync(dataScriptPath).ConfigureAwait(false);
-        await RecreateDatabaseFromSqlAsync(
-            baseConnectionString,
-            databaseName,
-            schemaScript,
-            dataScript);
     }
 
     private static async Task RecreateDatabaseFromSqlAsync(
@@ -1468,36 +1367,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         }
 
         return batches;
-    }
-
-    private static void AssertMetadataTreesAreByteIdentical(string expectedMetadataRoot, string actualMetadataRoot)
-    {
-        var expected = ReadMetadataFileBytes(expectedMetadataRoot);
-        var actual = ReadMetadataFileBytes(actualMetadataRoot);
-
-        var expectedPaths = expected.Keys.OrderBy(path => path, StringComparer.Ordinal).ToArray();
-        var actualPaths = actual.Keys.OrderBy(path => path, StringComparer.Ordinal).ToArray();
-        Assert.Equal(expectedPaths, actualPaths);
-
-        foreach (var path in expectedPaths)
-        {
-            var expectedBytes = expected[path];
-            var actualBytes = actual[path];
-            Assert.True(
-                expectedBytes.AsSpan().SequenceEqual(actualBytes),
-                $"Metadata file bytes differ for '{path}'.");
-        }
-    }
-
-    private static Dictionary<string, byte[]> ReadMetadataFileBytes(string metadataRoot)
-    {
-        var root = Path.GetFullPath(metadataRoot);
-        return Directory.GetFiles(root, "*", SearchOption.AllDirectories)
-            .OrderBy(path => path, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(
-                path => Path.GetRelativePath(root, path).Replace('\\', '/'),
-                File.ReadAllBytes,
-                StringComparer.Ordinal);
     }
 
     private static string FindRepositoryRoot()

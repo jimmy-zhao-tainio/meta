@@ -16,16 +16,17 @@
       <Title>Models</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence">
-      <Body>A typical path can begin with a live system extracted into `MetaSchema`, then move through explicit data-type policy, vault or dimensional architecture, modeled and bound SQL transforms, generated database assets, data-quality review, pipeline execution, orchestration, and a portable `MetaAnalytics` model projected into Tabular or MultiDimensional form.
+      <Body>A typical path can begin with a live system extracted into `MetaSchema`, then move through explicit data-type policy, vault or dimensional architecture, modeled and bound SQL transforms, database structures and deployment assets, data-quality review, pipeline execution, orchestration, and a portable `MetaAnalytics` model projected into Tabular or MultiDimensional form.
 
-Teams compose the sanctioned workspaces that match their architecture. At every handoff, the input and output remain inspectable model instances instead of disappearing into generator configuration or unstructured deployment scripts.</Body>
+Teams compose the sanctioned workspaces that match their architecture. Each handoff remains an inspectable model instance, with the decisions needed for generation, deployment, and execution represented alongside it.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>EndToEnd</Slot>
       <Title>From source contracts to analytical targets</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:fullstack:a-complete-stack-in-practice" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets">
-      <Body>The architecture is also exercised as one complete system. The checked-in AdventureWorks stack composes 27 workspaces and 30 named operations over a live `AdventureWorks2022` source:
+      <Body>The AdventureWorks stack composes 27 workspaces and 29 named operations over a live `AdventureWorks2022` source:
 
 - synchronize the source schema into `MetaSchema`;
 - generate and deploy Raw and Business Data Vault structures and a dimensional warehouse;
@@ -36,7 +37,7 @@ Teams compose the sanctioned workspaces that match their architecture. At every 
 
 A clean run reconciled 31,465 orders, 121,317 order lines, and 163 quota rows from source through the warehouse. It reproduced total due `123216786.1159`, line sales `109846381.4250`, quota `95714000.0000`, and zero findings across the promoted Data Quality checks. Repeating the complete ETL preserved the modeled Raw, Business, and warehouse row totals. A processed Tabular deployment returned the same analytical values.
 
-After the named create and deploy operations have materialized the stack, execution remains concise:
+After the create and deployment operations have materialized the stack, execution remains concise:
 
 ```powershell
 cd Demos\AdventureWorksBiStackDemo\AdventureWorksBiStackDemo.MetaMesh
@@ -47,7 +48,8 @@ meta-mesh run --operation deploy-tabular
 meta-mesh run --operation process-tabular
 ```
 
-The demo README records the complete build order, local services, environment variables, layer-by-layer execution options, and cleanup operation.</Body>
+The operation names and workspace dependencies are part of the MetaMesh workspace, so the sequence can be inspected and repeated from the model.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>FullStack</Slot>
@@ -84,13 +86,14 @@ Automation therefore follows from explicit contracts. When additional knowledge 
       <Title>Model-driven execution and evidence</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:summary:overview">
-      <Body>SQL is represented as structure rather than carried as an opaque script blob.
+      <Body>SQL has a typed structural representation in the BI stack.
 
 - **`MetaTransformScript`** imports the supported T-SQL surface into a typed syntax graph covering statement roots, query composition, joins, expressions, predicates, grouping, windowing, functions, and bounded mutation statements. The model emits semantically equivalent SQL and proves stability through `SQL -&gt; workspace -&gt; SQL -&gt; workspace` round trips.
 - **`MetaTransformBinding`** resolves modeled source and target identifiers against explicit `MetaSchema` workspaces. It records rowsets, columns, source objects, target objects, and validation links, and checks target shape and data-type compatibility through sanctioned `MetaDataTypeConversion` policy.
 - **`MetaSql`** carries deployable database structure, while `MetaSqlDeployManifest` makes source and live fingerprints, schema changes, destructive approvals, and deployment actions explicit before execution.
 
-That shared understanding lets later layers reason from transform structure and binding evidence instead of reparsing SQL independently or guessing from text.</Body>
+That shared structure lets later layers reason from transform structure and binding evidence instead of reparsing SQL independently or guessing from text.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>SqlSemantics</Slot>
@@ -118,15 +121,16 @@ That shared understanding lets later layers reason from transform structure and 
       <Title>Models</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:cliataglance:meta-cli-at-a-glance" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:workspacecontract:workspace-contract">
-      <Body>`meta` follows the working lifecycle of a metadata workspace:
+      <Body>`meta` provides the commands used to work with a metadata workspace:
 
-- **Create and inspect:** initialize workspaces and inspect their current model and instance state (`init`, `status`).
-- **Explore:** list, view, query, and traverse modeled data (`list`, `view`, `query`, `graph`).
+- **Create:** create an empty workspace or create one from another workspace on XML, SQL, or C# (`create`).
+- **Inspect:** review model and instance state (`status`, `list`, `view`, `query`, `graph`).
 - **Author:** change model definitions and instance data through model-aware commands (`model ...`, `insert`, `delete`, `bulk-insert`, `instance ...`).
-- **Refactor:** analyze candidate relationships and apply atomic model-plus-instance changes (`model suggest`, `model refactor ...`).
-- **Exchange representations:** import source material and generate SQL, C#, and other sanctioned consumables (`import ...`, `generate ...`).
+- **Refactor:** analyze and apply model changes together with the instance changes they require (`model suggest`, `model refactor ...`).
+- **Import:** bring SQL metadata or CSV data into a workspace (`import ...`).
 
-A typical flow starts with a model and instance workspace, uses `meta` to preserve and transform that modeled truth, then emits the native artifacts needed by databases, applications, and downstream generators.</Body>
+Commands use the selected workspace surface for storage and execution.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>CliAtAGlance</Slot>
@@ -155,221 +159,80 @@ Top-level help lists command groups. Command help then narrows the surface to th
       <Slot>CommandGuide</Slot>
       <Title>Command guide</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:example-example-meta-workspace-roundtrip:create-a-workspace-and-emit-sql-c" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:internalpackages:internal-packages">
-      <Body>Create a workspace, add a small model and one row, then emit SQL and C# outputs from the same model and instance graph.
+    <DocumentationNarrative Id="public:meta:overview:narrative:csharprepresentation:c-workspace" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:sqlrepresentation:sql-workspace">
+      <Body>`meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --csharp` creates a C# workspace containing the same model and instance graph. Applications can work with its typed model and instance objects directly.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>CsharpRepresentation</Slot>
+      <Title>C# workspace</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta:overview:narrative:example-example-meta-workspace-roundtrip:create-workspaces-on-each-surface" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:internalpackages:internal-packages">
+      <Body>Create an XML workspace, add a small model and one row, then create SQL and C# workspaces from the same model and instance graph.
 
 ```powershell
-meta init .\Workspace
+meta create --new-workspace .\Workspace --xml
 cd .\Workspace
 meta model rename-model MetadataModel WorkspaceCatalog
 meta model add-entity System
 meta model add-property System SystemName --required true
 meta insert System 1 --set "SystemName=Enterprise Analytics Platform"
 meta status
-meta generate sql --out ..\out\sql
-meta generate csharp --out ..\out\csharp --tooling
+meta create --new-workspace ..\SqlWorkspace --source-workspace . --with-instances --sql
+meta create --new-workspace ..\CsharpWorkspace --source-workspace . --with-instances --csharp
 ```</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta:workspace-roundtrip</Slot>
-      <Title>Create a workspace and emit SQL/C#</Title>
+      <Title>Create workspaces on each surface</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:example-example-meta-xml-sql-csharp-sample:one-sample-across-xml-sql-and-c" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:example-example-meta-workspace-roundtrip:create-a-workspace-and-emit-sql-c">
-      <Body>The same EnterpriseBIPlatform sample can be represented as workspace XML, emitted as SQL, and consumed through generated C# tooling.
+    <DocumentationNarrative Id="public:meta:overview:narrative:example-example-meta-xml-sql-csharp-sample:one-workspace-across-xml-sql-and-c" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:example-example-meta-workspace-roundtrip:create-workspaces-on-each-surface">
+      <Body>The same EnterpriseBIPlatform model and instance graph can move between XML, SQL, and C# workspaces without changing its meaning.
 
-### XML model (model.xml)
+### XML workspace
 
-`model.xml` defines the schema for your metadata workspace: which entities exist, what properties they have, and how entities relate to each other.
+The XML surface stores model and instance data in deterministic workspace files for authoring, review, branching, and merging.
 
-```xml
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;Model name="EnterpriseBIPlatform"&gt;
-  &lt;EntityList&gt;
-    &lt;Entity name="Cube"&gt;
-      &lt;PropertyList&gt;
-        &lt;Property name="CubeName" /&gt;
-        &lt;Property name="Purpose" isRequired="false" /&gt;
-        &lt;Property name="RefreshMode" isRequired="false" /&gt;
-      &lt;/PropertyList&gt;
-    &lt;/Entity&gt;
+### SQL workspace
 
-    &lt;Entity name="Measure"&gt;
-      &lt;PropertyList&gt;
-        &lt;Property name="MeasureName" /&gt;
-        &lt;Property name="MDX" isRequired="false" /&gt;
-      &lt;/PropertyList&gt;
-      &lt;RelationshipList&gt;
-        &lt;Relationship entity="Cube" /&gt;
-      &lt;/RelationshipList&gt;
-    &lt;/Entity&gt;
+`meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --sql` creates a SQL workspace. SQL provides database-native storage, queries, and updates for large instance sets.
 
-    &lt;Entity name="SystemType"&gt;
-      &lt;PropertyList&gt;
-        &lt;Property name="TypeName" /&gt;
-      &lt;/PropertyList&gt;
-    &lt;/Entity&gt;
+### C# workspace
 
-    &lt;Entity name="System"&gt;
-      &lt;PropertyList&gt;
-        &lt;Property name="SystemName" /&gt;
-        &lt;Property name="Version" isRequired="false" /&gt;
-      &lt;/PropertyList&gt;
-      &lt;RelationshipList&gt;
-        &lt;Relationship entity="SystemType" /&gt;
-      &lt;/RelationshipList&gt;
-    &lt;/Entity&gt;
-
-    &lt;Entity name="SystemCube"&gt;
-      &lt;PropertyList&gt;
-        &lt;Property name="ProcessingMode" isRequired="false" /&gt;
-      &lt;/PropertyList&gt;
-      &lt;RelationshipList&gt;
-        &lt;Relationship entity="Cube" /&gt;
-        &lt;Relationship entity="System" /&gt;
-      &lt;/RelationshipList&gt;
-    &lt;/Entity&gt;
-  &lt;/EntityList&gt;
-&lt;/Model&gt;
-```
-
-### XML instance (instances/*.xml)
-
-`instances/*.xml` stores the data for a model. The root element is the model name, each entity's instances are grouped under a deterministic list container element, and relationships are stored as `...Id` attributes on the record.
-
-```xml
-&lt;?xml version="1.0" encoding="utf-8"?&gt;
-&lt;EnterpriseBIPlatform&gt;
-  &lt;CubeList&gt;
-    &lt;Cube Id="1"&gt;
-      &lt;CubeName&gt;Sales Performance&lt;/CubeName&gt;
-      &lt;Purpose&gt;Monthly revenue and margin tracking.&lt;/Purpose&gt;
-      &lt;RefreshMode&gt;Scheduled&lt;/RefreshMode&gt;
-    &lt;/Cube&gt;
-  &lt;/CubeList&gt;
-
-  &lt;MeasureList&gt;
-    &lt;Measure Id="1" CubeId="1"&gt;
-      &lt;MeasureName&gt;Sales Amount&lt;/MeasureName&gt;
-      &lt;MDX&gt;[Measures].[Sales Amount]&lt;/MDX&gt;
-    &lt;/Measure&gt;
-  &lt;/MeasureList&gt;
-
-  &lt;SystemTypeList&gt;
-    &lt;SystemType Id="1"&gt;
-      &lt;TypeName&gt;Internal&lt;/TypeName&gt;
-    &lt;/SystemType&gt;
-  &lt;/SystemTypeList&gt;
-
-  &lt;SystemList&gt;
-    &lt;System Id="1" SystemTypeId="1"&gt;
-      &lt;SystemName&gt;Enterprise Analytics Platform&lt;/SystemName&gt;
-      &lt;Version&gt;2.1&lt;/Version&gt;
-    &lt;/System&gt;
-  &lt;/SystemList&gt;
-
-  &lt;SystemCubeList&gt;
-    &lt;SystemCube Id="1" CubeId="1" SystemId="1"&gt;
-      &lt;ProcessingMode&gt;InMemory&lt;/ProcessingMode&gt;
-    &lt;/SystemCube&gt;
-  &lt;/SystemCubeList&gt;
-&lt;/EnterpriseBIPlatform&gt;
-```
-
-### SQL representation (meta generate sql)
-
-`meta generate sql` emits `schema.sql` and `data.sql` as deterministic SQL consumables (DDL and INSERT scripts).
-
-```sql
-CREATE TABLE [dbo].[Cube] (
-  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [CubeName] NVARCHAR(MAX) NOT NULL,
-  [Purpose] NVARCHAR(MAX) NULL,
-  [RefreshMode] NVARCHAR(MAX) NULL
-);
-
-CREATE TABLE [dbo].[Measure] (
-  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [MeasureName] NVARCHAR(MAX) NOT NULL,
-  [MDX] NVARCHAR(MAX) NULL,
-  [CubeId] INT NOT NULL
-);
-
-CREATE TABLE [dbo].[SystemType] (
-  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [TypeName] NVARCHAR(MAX) NOT NULL
-);
-
-CREATE TABLE [dbo].[System] (
-  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [SystemName] NVARCHAR(MAX) NOT NULL,
-  [Version] NVARCHAR(MAX) NULL,
-  [SystemTypeId] INT NOT NULL
-);
-
-CREATE TABLE [dbo].[SystemCube] (
-  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [ProcessingMode] NVARCHAR(MAX) NULL,
-  [CubeId] INT NOT NULL,
-  [SystemId] INT NOT NULL
-);
-
-ALTER TABLE [dbo].[Measure]
-ADD CONSTRAINT [FK_Measure_Cube_CubeId]
-FOREIGN KEY ([CubeId]) REFERENCES [dbo].[Cube]([Id]);
-
-ALTER TABLE [dbo].[System]
-ADD CONSTRAINT [FK_System_SystemType_SystemTypeId]
-FOREIGN KEY ([SystemTypeId]) REFERENCES [dbo].[SystemType]([Id]);
-
-ALTER TABLE [dbo].[SystemCube]
-ADD CONSTRAINT [FK_SystemCube_Cube_CubeId]
-FOREIGN KEY ([CubeId]) REFERENCES [dbo].[Cube]([Id]);
-
-ALTER TABLE [dbo].[SystemCube]
-ADD CONSTRAINT [FK_SystemCube_System_SystemId]
-FOREIGN KEY ([SystemId]) REFERENCES [dbo].[System]([Id]);
-```
-
-### C# representation (meta generate csharp)
-
-`meta generate csharp --tooling` emits a typed loaded model and model tooling classes for workspace-backed runtime use.
+`meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --csharp` creates a C# workspace. Application code can work with the typed model and instance objects directly:
 
 ```csharp
-using EnterpriseBIPlatform;
 using System;
 using System.Linq;
 
-// Tooling view: fully populated typed model loaded from workspace XML.
-var model = EnterpriseBIPlatformModel.LoadFromXmlWorkspace(
-    @".\Samples\Demos\EnterpriseBIPlatformTooling\Workspace");
-
-foreach (var system in model.SystemList)
+static void PrintSystems(EnterpriseBIPlatformModel model)
 {
-    Console.WriteLine($"{system.SystemName} [{system.SystemType.TypeName}]");
-
-    foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+    foreach (var system in model.SystemList)
     {
-        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
-        Console.WriteLine($"  Cube: {link.Cube.CubeName} (mode: {mode})");
+        Console.WriteLine(system.SystemName + " [" + system.SystemType.TypeName + "]");
+
+        foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+        {
+            var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
+            Console.WriteLine("  Cube: " + link.Cube.CubeName + " (mode: " + mode + ")");
+        }
+    }
+
+    foreach (var measure in model.MeasureList)
+    {
+        Console.WriteLine(measure.Cube.CubeName + "." + measure.MeasureName);
     }
 }
-
-foreach (var measure in model.MeasureList)
-{
-    Console.WriteLine($"{measure.Cube.CubeName}.{measure.MeasureName}");
-}
 ```</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta:xml-sql-csharp-sample</Slot>
-      <Title>One sample across XML, SQL, and C#</Title>
+      <Title>One workspace across XML, SQL, and C#</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:foundations:metadata-foundations" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:repositoryclis:repository-clis">
-      <Body>In this project, metadata is not an annotation around the product. **Metadata is the product model itself.**
-
-- **`model.xml`** declares the schema contract: entities, scalar properties, and relationships.
-- **`instances/*.xml`** carries the instance graph for that model: records, values, and relationship usages.
-- **`workspace.xml`** records workspace-level representation and storage configuration.
+    <DocumentationNarrative Id="public:meta:overview:narrative:foundations:metadata-foundations" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:repositoryclis:foundation-command-line-tools">
+      <Body>Metadata is the model that tools operate on. A model defines entity types, their scalar properties, and their relationships. Instance data supplies the records and references for those definitions. A workspace brings the model and its records together for authoring, inspection, refactoring, and execution.
 
 Core terms:
 
@@ -378,7 +241,8 @@ Core terms:
 - **Property:** a scalar attribute on an entity instance.
 - **Relationship:** a modeled reference from one entity to another.
 - **Instance:** one identified record of an entity.
-- **Workspace:** an on-disk unit containing a model, its instances, and workspace configuration.</Body>
+- **Workspace:** the model and instance data together with the surface-specific storage used to operate on them.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Foundations</Slot>
@@ -429,11 +293,12 @@ Meta\Installer\bin\publish\win-x64-framework-dependent-shared\install-meta.exe
 
 - The document root is the model name, such as `&lt;EnterpriseBIPlatform&gt;`.
 - Each entity's records appear under a deterministic list container such as `&lt;CubeList&gt;` or `&lt;MeasureList&gt;`.
-- Each record uses the singular entity name and has an `Id="..."` attribute.
-- Relationship usages are stored as `...Id` attributes. A relationship to `Cube` becomes `CubeId`; a relationship with `role="SourceCube"` becomes `SourceCubeId`.
+- Each record uses the singular entity name and has an `Id=...` attribute.
+- Relationship usages are stored as `...Id` attributes. A relationship to `Cube` becomes `CubeId`; a relationship with `role=SourceCube` becomes `SourceCubeId`.
 - Scalar properties are child elements. A missing element is unset; an empty element is an explicitly empty string.
 
-These XML conventions are deterministic representation rules. The loaded C# model still carries relationships as object references, while generated SQL carries them as relational keys.</Body>
+These rules define the XML instance representation.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>InstanceXmlContract</Slot>
@@ -461,19 +326,16 @@ Downstream repositories consume packages rather than project references back int
       <Title>Internal packages</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:isomorphism:why-isomorphic-metadata" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:foundations:metadata-foundations">
-      <Body>Isomorphic metadata preserves the **same structure and meaning** across its supported representations instead of translating each representation into a different product model.
+      <Body>The same model and instance graph can be created, operated on, and moved between XML, SQL, and C# workspaces without changing its meaning.
 
-One model can therefore have three native working surfaces, each suited to a different kind of work:
+Choose the surface for the work at hand:
 
-- **XML workspace:** deterministic, reviewable, and git-friendly for authoring and version control.
-- **SQL:** relational and database-native, with keys and constraints carrying integrity where data platforms already work.
-- **C#:** application-native, with strongly typed objects and object references for tools, services, and generated consumers.
+- **XML** is suited to authoring, review, branching, and merging.
+- **SQL** is suited to database-native constraints, queries, and set-based changes to large instance sets.
+- **C#** is suited to typed application and service code.
 
-Because the semantics remain aligned, different producers and consumers can collaborate without rebuilding the model at every boundary:
-
-- analysts and modelers can author and review workspace data;
-- platform engineers can consume SQL and SQL-project outputs;
-- application and tooling engineers can consume generated C# APIs.</Body>
+The surface changes storage and execution. It does not change the model or the records it describes.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Isomorphism</Slot>
@@ -485,98 +347,72 @@ Because the semantics remain aligned, different producers and consumers can coll
 A model has one `&lt;Model name=...&gt;` root and follows a small set of rules:
 
 - `&lt;Entity name=Cube&gt;` defines a record type; every entity has an implicit `Id`.
-- `&lt;PropertyList&gt;` contains scalar text fields. Properties are required by default, and `isRequired=false` makes a property optional.
+- `&lt;PropertyList&gt;` contains scalar text fields. Properties are required by default; `isRequired=false` makes a property optional.
 - `&lt;RelationshipList&gt;` contains references to other entities. Relationships are required by default.
 - A relationship role is used when more than one relationship targets the same entity and the references need distinct meanings.
-- XML instance containers and generated C# root collections use the deterministic `&lt;EntityName&gt;List` convention.
+- XML instance containers use the deterministic `&lt;EntityName&gt;List` convention.
 
-The model contract is intentionally small. Meaning that must survive generation belongs in entities, properties, and relationships rather than in parser conventions or surrounding prose.</Body>
+These rules define the XML model representation.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>ModelXmlContract</Slot>
       <Title>Model XML contract</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:repositoryclis:repository-clis" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:summary:overview">
+    <DocumentationNarrative Id="public:meta:overview:narrative:repositoryclis:foundation-command-line-tools" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:summary:overview">
       <Body>The foundation is delivered through five command-line tools:
 
-- **`meta`** authors and transforms model and instance workspaces, performs model-aware inspection and refactoring, imports external representations, and generates SQL and C# consumables.
-- **`meta-cli`** models command grammars and supplies the shared parser, help, workspace-loading, and handler runtime used by the suite.
+- **`meta`** creates and operates on model and instance workspaces across XML, SQL, and C# surfaces. It authors and inspects models, refactors model and instance data, and imports external metadata.
+- **`meta-cli`** defines command grammars and provides the shared parser, help, workspace access, and handler runtime used by the suite.
 - **`meta-weave`** defines and validates sanctioned property bindings across models, then materializes those bindings when one combined workspace is needed.
-- **`meta-docs`** combines generated reference facts with authored technical documentation, then merges and renders the public reference.
+- **`meta-docs`** combines CLI and model reference data with authored technical documentation, then merges and renders the public reference.
 - **`meta-mesh`** declares the workspaces involved in a repository workflow and the ordered executable steps that operate on them.
 
 BI-specific sanctioned models and command-line tools live in the separate `meta-bi` repository.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>RepositoryClis</Slot>
       <Title>Foundation command-line tools</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta:overview:narrative:sqlrepresentation:sql-workspace" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:repositoryclis:foundation-command-line-tools">
+      <Body>`meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --sql` creates a SQL workspace containing the model and instance graph. SQL provides database-native storage, foreign-key enforcement, queries, and set-based updates for large instance sets.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>SqlRepresentation</Slot>
+      <Title>SQL workspace</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:summary:overview" DocumentationSubjectId="public:meta:overview">
-      <Body>meta defines one metadata model and instance graph with three isomorphic workspace surfaces: XML, SQL, and C#. Each surface carries the same structure and meaning. XML is the file-based, git-friendly surface; SQL is the database-native surface; C# is the typed application surface. The selected workspace surface determines where an operation runs.</Body>
+      <Body>`meta` is the foundation CLI for creating and operating model and instance workspaces. It carries one workspace between XML, SQL, and C# surfaces while preserving the model and its records.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Overview</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:versioncontrol:why-git-matters-for-metadata" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:isomorphism:why-isomorphic-metadata">
-      <Body>A workspace is designed to behave well under version control:
-
-- deterministic writer output keeps diffs stable and reviewable;
-- model and instance changes can be reviewed with the same discipline as source code;
-- branch and merge workflows can carry metadata evolution;
-- refactors remain auditable through before-and-after workspace changes.
-
-The XML writer uses stable ordering, UTF-8 without a byte-order mark, and LF line endings so representation noise does not obscure semantic changes.</Body>
+    <DocumentationNarrative Id="public:meta:overview:narrative:versioncontrol:version-control-friendly-workspaces" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:workspacesurfaces:workspace-surfaces-and-execution">
+      <Body>XML workspaces fit naturally into Git. Model definitions, instance data, and refactors remain structured, so a change can be reviewed as metadata rather than as an opaque file-format rewrite. Stable ordering and consistent encoding keep diffs focused on the change itself.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>VersionControl</Slot>
-      <Title>Why Git matters for metadata</Title>
+      <Title>Version-control friendly workspaces</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:workspacecontract:workspace-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:versioncontrol:why-git-matters-for-metadata">
-      <Body>A workspace is a directory with this baseline shape:
+    <DocumentationNarrative Id="public:meta:overview:narrative:workspacecontract:workspace-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:versioncontrol:version-control-friendly-workspaces">
+      <Body>A workspace is the unit that commands create, inspect, change, and move between surfaces. It contains a model, its instance data, and the storage configuration required by the selected surface.
 
-```text
-workspace.xml
-model.xml
-instances/...
-```
-
-Instance data may be sharded across several files. Loading combines rows for the same entity; saving preserves the existing shard layout and writes new rows to that entity's primary shard.</Body>
+The workspace API keeps those storage details behind one boundary, so a command can work with the metadata without taking ownership of files, tables, or typed object graphs.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>WorkspaceContract</Slot>
       <Title>Workspace contract</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:workspacesurfaces:workspace-surfaces-and-execution" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:example-example-meta-xml-sql-csharp-sample:one-sample-across-xml-sql-and-c">
-      <Body>## Three workspace surfaces
+    <DocumentationNarrative Id="public:meta:overview:narrative:workspacesurfaces:workspace-surfaces-and-execution" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:example-example-meta-xml-sql-csharp-sample:one-workspace-across-xml-sql-and-c">
+      <Body>Commands open a workspace through its selected surface and operate on that workspace through one API. Callers do not need to manage XML files, SQL tables, or C# object graphs as separate product concepts.
 
-A metadata workspace can be stored and operated on as XML, SQL, or C#. These are not three different product models and they are not merely export formats. They are representations of the same model and instance graph.
-
-- **XML** keeps the workspace in deterministic files that can be reviewed, branched, merged, and changed with normal source-control workflows.
-- **SQL** stores the workspace in a database so large instance sets can be queried and changed with database operations.
-- **C#** exposes the workspace as typed application data for tools and services that work naturally in the language.
-
-The model stays the same when a workspace moves between surfaces. A model can be authored on one surface, used by a command on another, and emitted for a third without changing the intended entities, properties, relationships, or records.
-
-## Where commands execute
-
-meta dispatches workspace commands through the selected surface. It does not choose XML as a hidden intermediate representation.
-
-Most inspection and mutation commands use the workspace implementation directly. On an SQL workspace, that means SQL reads and SQL operations; on an XML or C# workspace, it means the corresponding file or typed implementation.
-
-Some commands currently need a complete graph for their algorithm. They materialize that state explicitly:
-
-- meta model suggest
-- meta generate ...
-- meta graph stats
-- meta instance diff
-- meta instance diff-aligned
-- meta instance merge
-- meta instance merge-aligned
-- CSV import when it merges into an existing workspace
-
-Materialization is an execution strategy for those algorithms. It does not create another model or weaken the isomorphism between workspace surfaces.</Body>
+An operation may stay native to its surface when that is useful, such as a set-based SQL update. When an algorithm needs the complete graph, the workspace API can materialize it without changing the model or instance semantics.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>

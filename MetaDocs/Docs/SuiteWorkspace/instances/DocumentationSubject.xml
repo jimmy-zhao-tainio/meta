@@ -7,7 +7,7 @@
       <NativeId>public:meta</NativeId>
       <SourceTypeName>AuthoredPage</SourceTypeName>
       <Status>Current</Status>
-      <Summary>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces and generated tooling.</Summary>
+      <Summary>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="public:meta-bi" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:reference">
       <DisplayName>Meta-BI</DisplayName>
@@ -63,7 +63,7 @@
       <NativeId>public:meta:overview</NativeId>
       <SourceTypeName>AuthoredPage</SourceTypeName>
       <Status>Current</Status>
-      <Summary>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces and generated tooling.</Summary>
+      <Summary>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="public:reference" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referenceroot">
       <DisplayName>meta + meta-bi reference</DisplayName>
@@ -3280,24 +3280,24 @@
       <DisplayPath>meta-convert schema-to-raw-datavault --output-csharp</DisplayPath>
       <NativeId>option-schema-to-raw-datavault-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-convert schema-to-raw-datavault --output-sql</DisplayPath>
       <NativeId>option-schema-to-raw-datavault-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-convert schema-to-raw-datavault --output-xml</DisplayPath>
       <NativeId>option-schema-to-raw-datavault-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:source-workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-xml">
       <DisplayName>--source-workspace</DisplayName>
@@ -3448,24 +3448,24 @@
       <DisplayPath>meta-data-quality from-transform-workspace --output-csharp</DisplayPath>
       <NativeId>option-from-transform-workspace-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:output-sql" DocumentationSourceId="source:cli:meta-data-quality" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace" PreviousSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-data-quality from-transform-workspace --output-sql</DisplayPath>
       <NativeId>option-from-transform-workspace-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:output-xml" DocumentationSourceId="source:cli:meta-data-quality" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace" PreviousSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-data-quality from-transform-workspace --output-xml</DisplayPath>
       <NativeId>option-from-transform-workspace-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-data-quality:app:command:from-transform-workspace:option:transform-workspace" DocumentationSourceId="source:cli:meta-data-quality" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace" PreviousSubjectId="source:cli:meta-data-quality:app:command:from-transform-workspace:option:output-xml">
       <DisplayName>--transform-workspace</DisplayName>
@@ -7119,24 +7119,24 @@
       <DisplayPath>meta-docs author-page --output-csharp</DisplayPath>
       <NativeId>option-author-page-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:output-sql" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-docs author-page --output-sql</DisplayPath>
       <NativeId>option-author-page-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:output-xml" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-docs author-page --output-xml</DisplayPath>
       <NativeId>option-author-page-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:parent" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:output-xml">
       <DisplayName>--parent</DisplayName>
@@ -7333,24 +7333,24 @@
       <DisplayPath>meta-docs import-cli --output-csharp</DisplayPath>
       <NativeId>option-import-cli-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:output-sql" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-cli" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-docs import-cli --output-sql</DisplayPath>
       <NativeId>option-import-cli-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:output-xml" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-cli" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-docs import-cli --output-xml</DisplayPath>
       <NativeId>option-import-cli-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:parent-subject" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-cli" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:output-xml">
       <DisplayName>--parent-subject</DisplayName>
@@ -7469,24 +7469,24 @@
       <DisplayPath>meta-docs import-workspace-model --output-csharp</DisplayPath>
       <NativeId>option-import-workspace-model-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:output-sql" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-docs import-workspace-model --output-sql</DisplayPath>
       <NativeId>option-import-workspace-model-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:output-xml" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-docs import-workspace-model --output-xml</DisplayPath>
       <NativeId>option-import-workspace-model-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:parent-subject" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:output-xml">
       <DisplayName>--parent-subject</DisplayName>
@@ -11193,24 +11193,24 @@
       <DisplayPath>meta-orchestration infer --output-csharp</DisplayPath>
       <NativeId>option-infer-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer:option:output-sql" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:infer" PreviousSubjectId="source:cli:meta-orchestration:app:command:infer:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-orchestration infer --output-sql</DisplayPath>
       <NativeId>option-infer-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer:option:output-xml" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:infer" PreviousSubjectId="source:cli:meta-orchestration:app:command:infer:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-orchestration infer --output-xml</DisplayPath>
       <NativeId>option-infer-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer:option:pipeline-workspace" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:infer" PreviousSubjectId="source:cli:meta-orchestration:app:command:infer:option:output-xml">
       <DisplayName>--pipeline-workspace</DisplayName>
@@ -12071,24 +12071,24 @@
       <DisplayPath>meta-schema extract sqlserver --output-csharp</DisplayPath>
       <NativeId>option-extract-sqlserver-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:output-sql" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-schema extract sqlserver --output-sql</DisplayPath>
       <NativeId>option-extract-sqlserver-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:output-xml" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-schema extract sqlserver --output-xml</DisplayPath>
       <NativeId>option-extract-sqlserver-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-schema:app:command:extract-sqlserver:option:schema" DocumentationSourceId="source:cli:meta-schema" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-schema:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:output-xml">
       <DisplayName>--schema</DisplayName>
@@ -12383,24 +12383,24 @@
       <DisplayPath>meta-sql extract sqlserver --output-csharp</DisplayPath>
       <NativeId>option-extract-sqlserver-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:output-sql" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --output-sql</DisplayPath>
       <NativeId>option-extract-sqlserver-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:output-xml" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --output-xml</DisplayPath>
       <NativeId>option-extract-sqlserver-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:schema" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:output-xml">
       <DisplayName>--schema</DisplayName>
@@ -14735,24 +14735,24 @@
       <DisplayPath>meta-transform-binding bind --output-csharp</DisplayPath>
       <NativeId>option-bind-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:output-sql" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-transform-binding bind --output-sql</DisplayPath>
       <NativeId>option-bind-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:output-xml" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-transform-binding bind --output-xml</DisplayPath>
       <NativeId>option-bind-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:partial-report" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind:option:output-xml">
       <DisplayName>--partial-report</DisplayName>
@@ -14847,24 +14847,24 @@
       <DisplayPath>meta-transform-script from sql-code --output-csharp</DisplayPath>
       <NativeId>option-from-sql-code-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:output-sql" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-code" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-transform-script from sql-code --output-sql</DisplayPath>
       <NativeId>option-from-sql-code-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:output-xml" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-code" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-transform-script from sql-code --output-xml</DisplayPath>
       <NativeId>option-from-sql-code-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-code:option:target" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-code" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:output-xml">
       <DisplayName>--target</DisplayName>
@@ -14911,24 +14911,24 @@
       <DisplayPath>meta-transform-script from sql-file --output-csharp</DisplayPath>
       <NativeId>option-from-sql-file-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:output-sql" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-file" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-transform-script from sql-file --output-sql</DisplayPath>
       <NativeId>option-from-sql-file-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:output-xml" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-file" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-transform-script from sql-file --output-xml</DisplayPath>
       <NativeId>option-from-sql-file-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-file:option:path" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-file" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:output-xml">
       <DisplayName>--path</DisplayName>
@@ -14991,24 +14991,24 @@
       <DisplayPath>meta-transform-script from sql-files --output-csharp</DisplayPath>
       <NativeId>option-from-sql-files-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:output-sql" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-files" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-transform-script from sql-files --output-sql</DisplayPath>
       <NativeId>option-from-sql-files-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:output-xml" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-files" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-transform-script from sql-files --output-xml</DisplayPath>
       <NativeId>option-from-sql-files-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-files:option:report" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-files" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:output-xml">
       <DisplayName>--report</DisplayName>
@@ -15487,24 +15487,24 @@
       <DisplayPath>meta-weave materialize --output-csharp</DisplayPath>
       <NativeId>option-materialize-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:output-sql" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:materialize" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta-weave materialize --output-sql</DisplayPath>
       <NativeId>option-materialize-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:output-xml" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:materialize" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta-weave materialize --output-xml</DisplayPath>
       <NativeId>option-materialize-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:materialize" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:output-xml">
       <DisplayName>--workspace</DisplayName>
@@ -15544,7 +15544,7 @@
       <NativeId>app-meta</NativeId>
       <SourceTypeName>MetaCli.Application</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>Build deterministic metadata workspaces that can be reviewed in XML, projected into SQL, and consumed through typed C# tooling without changing the represented model.</Summary>
+      <Summary>Create and operate on model-first metadata workspaces across XML, SQL, and C# surfaces.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app">
       <DisplayName>meta bulk-insert</DisplayName>
@@ -15631,16 +15631,32 @@
       <DisplayPath>meta create --csharp</DisplayPath>
       <NativeId>option-create-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create a C# workspace at this directory.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the destination on the selected workspace surface.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:create:option:sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:csharp">
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:new-workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:csharp">
+      <DisplayName>--new-workspace</DisplayName>
+      <DisplayPath>meta create --new-workspace</DisplayPath>
+      <NativeId>option-create-new-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Destination workspace directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:source-workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:new-workspace">
+      <DisplayName>--source-workspace</DisplayName>
+      <DisplayPath>meta create --source-workspace</DisplayPath>
+      <NativeId>option-create-source-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Source workspace to copy.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:source-workspace">
       <DisplayName>--sql</DisplayName>
       <DisplayPath>meta create --sql</DisplayPath>
       <NativeId>option-create-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create a SQL workspace described by this directory.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the destination on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:create:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:sql">
       <DisplayName>--strict</DisplayName>
@@ -15649,7 +15665,15 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:create:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:strict">
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:with-instances" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:strict">
+      <DisplayName>--with-instances</DisplayName>
+      <DisplayPath>meta create --with-instances</DisplayPath>
+      <NativeId>option-create-with-instances</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Include instance data from the source workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:with-instances">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta create --workspace</DisplayPath>
       <NativeId>option-workspace</NativeId>
@@ -15661,8 +15685,8 @@
       <DisplayPath>meta create --xml</DisplayPath>
       <NativeId>option-create-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create an XML workspace at this directory.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the destination on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:create:parameter-group:output" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta:app:command:create">
       <DisplayName>output</DisplayName>
@@ -15787,72 +15811,7 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:export-csv">
-      <DisplayName>meta generate csharp</DisplayName>
-      <DisplayPath>meta generate csharp</DisplayPath>
-      <NativeId>exec-generate-csharp</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Generate C# artifacts.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp:option:out" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-csharp">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta generate csharp --out</DisplayPath>
-      <NativeId>option-generate-csharp-out</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-csharp" PreviousSubjectId="source:cli:meta:app:command:generate-csharp:option:out">
-      <DisplayName>--strict</DisplayName>
-      <DisplayPath>meta generate csharp --strict</DisplayPath>
-      <NativeId>option-strict</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp:option:tooling" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-csharp" PreviousSubjectId="source:cli:meta:app:command:generate-csharp:option:strict">
-      <DisplayName>--tooling</DisplayName>
-      <DisplayPath>meta generate csharp --tooling</DisplayPath>
-      <NativeId>option-generate-csharp-tooling</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-csharp" PreviousSubjectId="source:cli:meta:app:command:generate-csharp:option:tooling">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta generate csharp --workspace</DisplayPath>
-      <NativeId>option-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:generate-csharp">
-      <DisplayName>meta generate sql</DisplayName>
-      <DisplayPath>meta generate sql</DisplayPath>
-      <NativeId>exec-generate-sql</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Generate SQL artifacts.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-sql:option:out" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-sql">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta generate sql --out</DisplayPath>
-      <NativeId>option-generate-sql-out</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-sql:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-sql" PreviousSubjectId="source:cli:meta:app:command:generate-sql:option:out">
-      <DisplayName>--strict</DisplayName>
-      <DisplayPath>meta generate sql --strict</DisplayPath>
-      <NativeId>option-strict</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:generate-sql:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-sql" PreviousSubjectId="source:cli:meta:app:command:generate-sql:option:strict">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta generate sql --workspace</DisplayPath>
-      <NativeId>option-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:generate-sql">
+    <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:export-csv">
       <DisplayName>meta graph inbound</DisplayName>
       <DisplayPath>meta graph inbound</DisplayPath>
       <NativeId>exec-graph-inbound</NativeId>
@@ -15988,24 +15947,24 @@
       <DisplayPath>meta import csv --output-csharp</DisplayPath>
       <NativeId>option-import-csv-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:output-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta import csv --output-sql</DisplayPath>
       <NativeId>option-import-csv-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:output-xml" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta import csv --output-xml</DisplayPath>
       <NativeId>option-import-csv-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:output-xml">
       <DisplayName>--strict</DisplayName>
@@ -16064,24 +16023,24 @@
       <DisplayPath>meta import sql --output-csharp</DisplayPath>
       <NativeId>option-import-sql-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:output-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta import sql --output-sql</DisplayPath>
       <NativeId>option-import-sql-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:output-xml" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta import sql --output-xml</DisplayPath>
       <NativeId>option-import-sql-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:output-xml">
       <DisplayName>--strict</DisplayName>
@@ -16221,8 +16180,8 @@
       <DisplayPath>meta instance diff-aligned --output-xml</DisplayPath>
       <NativeId>option-instance-diff-aligned-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the diff workspace on the XML surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the diff workspace on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned" PreviousSubjectId="source:cli:meta:app:command:instance-diff-aligned:option:output-xml">
       <DisplayName>--strict</DisplayName>
@@ -16289,8 +16248,8 @@
       <DisplayPath>meta instance diff --output-xml</DisplayPath>
       <NativeId>option-instance-diff-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the diff workspace on the XML surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the diff workspace on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff" PreviousSubjectId="source:cli:meta:app:command:instance-diff:option:output-xml">
       <DisplayName>--strict</DisplayName>
@@ -17448,24 +17407,24 @@
       <DisplayPath>meta workspace merge --output-csharp</DisplayPath>
       <NativeId>option-workspace-merge-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the csharp workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:output-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:output-csharp">
       <DisplayName>--output-sql</DisplayName>
       <DisplayPath>meta workspace merge --output-sql</DisplayPath>
       <NativeId>option-workspace-merge-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the sql workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:output-xml" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:output-sql">
       <DisplayName>--output-xml</DisplayName>
       <DisplayPath>meta workspace merge --output-xml</DisplayPath>
       <NativeId>option-workspace-merge-output-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create the output on the xml workspace surface.</Summary>
+      <Status>Changed</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:output-xml">
       <DisplayName>--strict</DisplayName>

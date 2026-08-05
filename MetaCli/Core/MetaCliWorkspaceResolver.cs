@@ -1,4 +1,4 @@
-using Meta.Adapters;
+using Meta.Surfaces;
 using Meta.Core.Connections;
 using Meta.Core.Domain;
 using Meta.Core.Operations;
@@ -53,44 +53,6 @@ internal static class MetaCliWorkspaceResolver
                 $"Workspace '{fullDirectory}' could not be opened. {exception.Message}",
                 exception);
         }
-    }
-
-    public static async Task<MetaCliTypedXmlWorkspace<TModel>?> TryOpenTypedXmlAsync<TModel>(
-        MetaCliInvocation invocation,
-        string workspaceParameter,
-        CancellationToken cancellationToken = default)
-        where TModel : class, IMetaWorkspaceModel<TModel>
-    {
-        var directory = Optional(invocation, workspaceParameter);
-        if (string.IsNullOrWhiteSpace(directory))
-        {
-            directory = Directory.GetCurrentDirectory();
-        }
-
-        return await TryOpenTypedXmlAsync<TModel>(
-                directory,
-                cancellationToken)
-            .ConfigureAwait(false);
-    }
-
-    public static async Task<MetaCliTypedXmlWorkspace<TModel>?> TryOpenTypedXmlAsync<TModel>(
-        string directory,
-        CancellationToken cancellationToken = default)
-        where TModel : class, IMetaWorkspaceModel<TModel>
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(directory);
-        var descriptor = MetaCliWorkspaceDescriptor.Read(directory);
-        if (descriptor is not XmlWorkspaceDescriptor xml)
-        {
-            return null;
-        }
-
-        var model = await TModel.LoadFromXmlWorkspaceAsync(
-                xml.Path,
-                searchUpward: false,
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
-        return new MetaCliTypedXmlWorkspace<TModel>(xml.Path, model);
     }
 
     public static async Task CreateAsync(
@@ -198,20 +160,4 @@ internal static class MetaCliWorkspaceResolver
         }
     }
 
-}
-
-internal sealed class MetaCliTypedXmlWorkspace<TModel>
-    where TModel : class, IMetaWorkspaceModel<TModel>
-{
-    public MetaCliTypedXmlWorkspace(string path, TModel model)
-    {
-        Path = path ?? throw new ArgumentNullException(nameof(path));
-        Model = model ?? throw new ArgumentNullException(nameof(model));
-    }
-
-    public string Path { get; }
-    public TModel Model { get; }
-
-    public Task SaveAsync(CancellationToken cancellationToken = default) =>
-        Model.SaveToXmlWorkspaceAsync(Path, cancellationToken);
 }

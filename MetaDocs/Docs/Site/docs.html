@@ -150,7 +150,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
             <a class="entry-card" href="#subject-public-meta-overview" data-panel-link="subject-public-meta-overview">
               <div class="label">Meta</div>
               <h2>Overview</h2>
-              <p>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces and generated tooling.</p>
+              <p>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces.</p>
             </a>
             <a class="entry-card" href="#group-public-meta-cli" data-panel-link="group-public-meta-cli">
               <div class="label">Meta</div>
@@ -183,7 +183,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <h2>meta</h2>
             <div class="panel-lead markdown-content">
-<p>meta defines one metadata model and instance graph with three isomorphic workspace surfaces: XML, SQL, and C#. Each surface carries the same structure and meaning. XML is the file-based, git-friendly surface; SQL is the database-native surface; C# is the typed application surface. The selected workspace surface determines where an operation runs.</p>
+<p><code>meta</code> is the foundation CLI for creating and operating model and instance workspaces. It carries one workspace between XML, SQL, and C# surfaces while preserving the model and its records.</p>
             </div>
           </header>
           <section class="subsection description-block">
@@ -191,10 +191,10 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
             <div class="markdown-content">
 <p>The foundation is delivered through five command-line tools:</p>
 <ul>
-<li><strong><code>meta</code></strong> authors and transforms model and instance workspaces, performs model-aware inspection and refactoring, imports external representations, and generates SQL and C# consumables.</li>
-<li><strong><code>meta-cli</code></strong> models command grammars and supplies the shared parser, help, workspace-loading, and handler runtime used by the suite.</li>
+<li><strong><code>meta</code></strong> creates and operates on model and instance workspaces across XML, SQL, and C# surfaces. It authors and inspects models, refactors model and instance data, and imports external metadata.</li>
+<li><strong><code>meta-cli</code></strong> defines command grammars and provides the shared parser, help, workspace access, and handler runtime used by the suite.</li>
 <li><strong><code>meta-weave</code></strong> defines and validates sanctioned property bindings across models, then materializes those bindings when one combined workspace is needed.</li>
-<li><strong><code>meta-docs</code></strong> combines generated reference facts with authored technical documentation, then merges and renders the public reference.</li>
+<li><strong><code>meta-docs</code></strong> combines CLI and model reference data with authored technical documentation, then merges and renders the public reference.</li>
 <li><strong><code>meta-mesh</code></strong> declares the workspaces involved in a repository workflow and the ordered executable steps that operate on them.</li>
 </ul>
 <p>BI-specific sanctioned models and command-line tools live in the separate <code>meta-bi</code> repository.</p>
@@ -203,12 +203,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <section class="subsection description-block">
             <h3 class="document-heading">Metadata foundations</h3>
             <div class="markdown-content">
-<p>In this project, metadata is not an annotation around the product. <strong>Metadata is the product model itself.</strong></p>
-<ul>
-<li><strong><code>model.xml</code></strong> declares the schema contract: entities, scalar properties, and relationships.</li>
-<li><strong><code>instances/*.xml</code></strong> carries the instance graph for that model: records, values, and relationship usages.</li>
-<li><strong><code>workspace.xml</code></strong> records workspace-level representation and storage configuration.</li>
-</ul>
+<p>Metadata is the model that tools operate on. A model defines entity types, their scalar properties, and their relationships. Instance data supplies the records and references for those definitions. A workspace brings the model and its records together for authoring, inspection, refactoring, and execution.</p>
 <p>Core terms:</p>
 <ul>
 <li><strong>Model:</strong> a named set of entity definitions.</li>
@@ -216,64 +211,47 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
 <li><strong>Property:</strong> a scalar attribute on an entity instance.</li>
 <li><strong>Relationship:</strong> a modeled reference from one entity to another.</li>
 <li><strong>Instance:</strong> one identified record of an entity.</li>
-<li><strong>Workspace:</strong> an on-disk unit containing a model, its instances, and workspace configuration.</li>
+<li><strong>Workspace:</strong> the model and instance data together with the surface-specific storage used to operate on them.</li>
 </ul>
             </div>
           </section>
           <section class="subsection description-block">
             <h3 class="document-heading">Why isomorphic metadata</h3>
             <div class="markdown-content">
-<p>Isomorphic metadata preserves the <strong>same structure and meaning</strong> across its supported representations instead of translating each representation into a different product model.</p>
-<p>One model can therefore have three native working surfaces, each suited to a different kind of work:</p>
+<p>The same model and instance graph can be created, operated on, and moved between XML, SQL, and C# workspaces without changing its meaning.</p>
+<p>Choose the surface for the work at hand:</p>
 <ul>
-<li><strong>XML workspace:</strong> deterministic, reviewable, and git-friendly for authoring and version control.</li>
-<li><strong>SQL:</strong> relational and database-native, with keys and constraints carrying integrity where data platforms already work.</li>
-<li><strong>C#:</strong> application-native, with strongly typed objects and object references for tools, services, and generated consumers.</li>
+<li><strong>XML</strong> is suited to authoring, review, branching, and merging.</li>
+<li><strong>SQL</strong> is suited to database-native constraints, queries, and set-based changes to large instance sets.</li>
+<li><strong>C#</strong> is suited to typed application and service code.</li>
 </ul>
-<p>Because the semantics remain aligned, different producers and consumers can collaborate without rebuilding the model at every boundary:</p>
-<ul>
-<li>analysts and modelers can author and review workspace data;</li>
-<li>platform engineers can consume SQL and SQL-project outputs;</li>
-<li>application and tooling engineers can consume generated C# APIs.</li>
-</ul>
+<p>The surface changes storage and execution. It does not change the model or the records it describes.</p>
             </div>
           </section>
           <section class="subsection description-block">
-            <h3 class="document-heading">Why Git matters for metadata</h3>
+            <h3 class="document-heading">SQL workspace</h3>
             <div class="markdown-content">
-<p>A workspace is designed to behave well under version control:</p>
-<ul>
-<li>deterministic writer output keeps diffs stable and reviewable;</li>
-<li>model and instance changes can be reviewed with the same discipline as source code;</li>
-<li>branch and merge workflows can carry metadata evolution;</li>
-<li>refactors remain auditable through before-and-after workspace changes.</li>
-</ul>
-<p>The XML writer uses stable ordering, UTF-8 without a byte-order mark, and LF line endings so representation noise does not obscure semantic changes.</p>
+<p><code>meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --sql</code> creates a SQL workspace containing the model and instance graph. SQL provides database-native storage, foreign-key enforcement, queries, and set-based updates for large instance sets.</p>
             </div>
           </section>
           <section class="subsection description-block">
-            <h3 class="document-heading">Workspace contract</h3>
+            <h3 class="document-heading">C# workspace</h3>
             <div class="markdown-content">
-<p>A workspace is a directory with this baseline shape:</p>
-<pre><code class="language-text">workspace.xml
-model.xml
-instances/...
-</code></pre>
-<p>Instance data may be sharded across several files. Loading combines rows for the same entity; saving preserves the existing shard layout and writes new rows to that entity's primary shard.</p>
+<p><code>meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --csharp</code> creates a C# workspace containing the same model and instance graph. Applications can work with its typed model and instance objects directly.</p>
             </div>
           </section>
           <section class="subsection description-block">
             <h3 class="document-heading">Meta CLI at a glance</h3>
             <div class="markdown-content">
-<p><code>meta</code> follows the working lifecycle of a metadata workspace:</p>
+<p><code>meta</code> provides the commands used to work with a metadata workspace:</p>
 <ul>
-<li><strong>Create and inspect:</strong> initialize workspaces and inspect their current model and instance state (<code>init</code>, <code>status</code>).</li>
-<li><strong>Explore:</strong> list, view, query, and traverse modeled data (<code>list</code>, <code>view</code>, <code>query</code>, <code>graph</code>).</li>
+<li><strong>Create:</strong> create an empty workspace or create one from another workspace on XML, SQL, or C# (<code>create</code>).</li>
+<li><strong>Inspect:</strong> review model and instance state (<code>status</code>, <code>list</code>, <code>view</code>, <code>query</code>, <code>graph</code>).</li>
 <li><strong>Author:</strong> change model definitions and instance data through model-aware commands (<code>model ...</code>, <code>insert</code>, <code>delete</code>, <code>bulk-insert</code>, <code>instance ...</code>).</li>
-<li><strong>Refactor:</strong> analyze candidate relationships and apply atomic model-plus-instance changes (<code>model suggest</code>, <code>model refactor ...</code>).</li>
-<li><strong>Exchange representations:</strong> import source material and generate SQL, C#, and other sanctioned consumables (<code>import ...</code>, <code>generate ...</code>).</li>
+<li><strong>Refactor:</strong> analyze and apply model changes together with the instance changes they require (<code>model suggest</code>, <code>model refactor ...</code>).</li>
+<li><strong>Import:</strong> bring SQL metadata or CSV data into a workspace (<code>import ...</code>).</li>
 </ul>
-<p>A typical flow starts with a model and instance workspace, uses <code>meta</code> to preserve and transform that modeled truth, then emits the native artifacts needed by databases, applications, and downstream generators.</p>
+<p>Commands use the selected workspace surface for storage and execution.</p>
             </div>
           </section>
           <section class="subsection description-block">
@@ -283,12 +261,12 @@ instances/...
 <p>A model has one <code>&lt;Model name=...&gt;</code> root and follows a small set of rules:</p>
 <ul>
 <li><code>&lt;Entity name=Cube&gt;</code> defines a record type; every entity has an implicit <code>Id</code>.</li>
-<li><code>&lt;PropertyList&gt;</code> contains scalar text fields. Properties are required by default, and <code>isRequired=false</code> makes a property optional.</li>
+<li><code>&lt;PropertyList&gt;</code> contains scalar text fields. Properties are required by default; <code>isRequired=false</code> makes a property optional.</li>
 <li><code>&lt;RelationshipList&gt;</code> contains references to other entities. Relationships are required by default.</li>
 <li>A relationship role is used when more than one relationship targets the same entity and the references need distinct meanings.</li>
-<li>XML instance containers and generated C# root collections use the deterministic <code>&lt;EntityName&gt;List</code> convention.</li>
+<li>XML instance containers use the deterministic <code>&lt;EntityName&gt;List</code> convention.</li>
 </ul>
-<p>The model contract is intentionally small. Meaning that must survive generation belongs in entities, properties, and relationships rather than in parser conventions or surrounding prose.</p>
+<p>These rules define the XML model representation.</p>
             </div>
           </section>
           <section class="subsection description-block">
@@ -298,11 +276,11 @@ instances/...
 <ul>
 <li>The document root is the model name, such as <code>&lt;EnterpriseBIPlatform&gt;</code>.</li>
 <li>Each entity's records appear under a deterministic list container such as <code>&lt;CubeList&gt;</code> or <code>&lt;MeasureList&gt;</code>.</li>
-<li>Each record uses the singular entity name and has an <code>Id=&quot;...&quot;</code> attribute.</li>
-<li>Relationship usages are stored as <code>...Id</code> attributes. A relationship to <code>Cube</code> becomes <code>CubeId</code>; a relationship with <code>role=&quot;SourceCube&quot;</code> becomes <code>SourceCubeId</code>.</li>
+<li>Each record uses the singular entity name and has an <code>Id=...</code> attribute.</li>
+<li>Relationship usages are stored as <code>...Id</code> attributes. A relationship to <code>Cube</code> becomes <code>CubeId</code>; a relationship with <code>role=SourceCube</code> becomes <code>SourceCubeId</code>.</li>
 <li>Scalar properties are child elements. A missing element is unset; an empty element is an explicitly empty string.</li>
 </ul>
-<p>These XML conventions are deterministic representation rules. The loaded C# model still carries relationships as object references, while generated SQL carries them as relational keys.</p>
+<p>These rules define the XML instance representation.</p>
             </div>
           </section>
           <section class="subsection description-block">
@@ -363,190 +341,51 @@ meta model suggest --help
             </div>
           </section>
           <section class="subsection description-block">
-            <h3 class="document-heading">Create a workspace and emit SQL/C#</h3>
+            <h3 class="document-heading">Create workspaces on each surface</h3>
             <div class="markdown-content">
-<p>Create a workspace, add a small model and one row, then emit SQL and C# outputs from the same model and instance graph.</p>
-<pre><code class="language-powershell">meta init .\Workspace
+<p>Create an XML workspace, add a small model and one row, then create SQL and C# workspaces from the same model and instance graph.</p>
+<pre><code class="language-powershell">meta create --new-workspace .\Workspace --xml
 cd .\Workspace
 meta model rename-model MetadataModel WorkspaceCatalog
 meta model add-entity System
 meta model add-property System SystemName --required true
 meta insert System 1 --set &quot;SystemName=Enterprise Analytics Platform&quot;
 meta status
-meta generate sql --out ..\out\sql
-meta generate csharp --out ..\out\csharp --tooling
+meta create --new-workspace ..\SqlWorkspace --source-workspace . --with-instances --sql
+meta create --new-workspace ..\CsharpWorkspace --source-workspace . --with-instances --csharp
 </code></pre>
             </div>
           </section>
           <section class="subsection description-block">
-            <h3 class="document-heading">One sample across XML, SQL, and C#</h3>
+            <h3 class="document-heading">One workspace across XML, SQL, and C#</h3>
             <div class="markdown-content">
-<p>The same EnterpriseBIPlatform sample can be represented as workspace XML, emitted as SQL, and consumed through generated C# tooling.</p>
-<h3 id="xml-model-model.xml">XML model (model.xml)</h3>
-<p><code>model.xml</code> defines the schema for your metadata workspace: which entities exist, what properties they have, and how entities relate to each other.</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;Model name=&quot;EnterpriseBIPlatform&quot;&gt;
-  &lt;EntityList&gt;
-    &lt;Entity name=&quot;Cube&quot;&gt;
-      &lt;PropertyList&gt;
-        &lt;Property name=&quot;CubeName&quot; /&gt;
-        &lt;Property name=&quot;Purpose&quot; isRequired=&quot;false&quot; /&gt;
-        &lt;Property name=&quot;RefreshMode&quot; isRequired=&quot;false&quot; /&gt;
-      &lt;/PropertyList&gt;
-    &lt;/Entity&gt;
-
-    &lt;Entity name=&quot;Measure&quot;&gt;
-      &lt;PropertyList&gt;
-        &lt;Property name=&quot;MeasureName&quot; /&gt;
-        &lt;Property name=&quot;MDX&quot; isRequired=&quot;false&quot; /&gt;
-      &lt;/PropertyList&gt;
-      &lt;RelationshipList&gt;
-        &lt;Relationship entity=&quot;Cube&quot; /&gt;
-      &lt;/RelationshipList&gt;
-    &lt;/Entity&gt;
-
-    &lt;Entity name=&quot;SystemType&quot;&gt;
-      &lt;PropertyList&gt;
-        &lt;Property name=&quot;TypeName&quot; /&gt;
-      &lt;/PropertyList&gt;
-    &lt;/Entity&gt;
-
-    &lt;Entity name=&quot;System&quot;&gt;
-      &lt;PropertyList&gt;
-        &lt;Property name=&quot;SystemName&quot; /&gt;
-        &lt;Property name=&quot;Version&quot; isRequired=&quot;false&quot; /&gt;
-      &lt;/PropertyList&gt;
-      &lt;RelationshipList&gt;
-        &lt;Relationship entity=&quot;SystemType&quot; /&gt;
-      &lt;/RelationshipList&gt;
-    &lt;/Entity&gt;
-
-    &lt;Entity name=&quot;SystemCube&quot;&gt;
-      &lt;PropertyList&gt;
-        &lt;Property name=&quot;ProcessingMode&quot; isRequired=&quot;false&quot; /&gt;
-      &lt;/PropertyList&gt;
-      &lt;RelationshipList&gt;
-        &lt;Relationship entity=&quot;Cube&quot; /&gt;
-        &lt;Relationship entity=&quot;System&quot; /&gt;
-      &lt;/RelationshipList&gt;
-    &lt;/Entity&gt;
-  &lt;/EntityList&gt;
-&lt;/Model&gt;
-</code></pre>
-<h3 id="xml-instance-instances.xml">XML instance (instances/*.xml)</h3>
-<p><code>instances/*.xml</code> stores the data for a model. The root element is the model name, each entity's instances are grouped under a deterministic list container element, and relationships are stored as <code>...Id</code> attributes on the record.</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;EnterpriseBIPlatform&gt;
-  &lt;CubeList&gt;
-    &lt;Cube Id=&quot;1&quot;&gt;
-      &lt;CubeName&gt;Sales Performance&lt;/CubeName&gt;
-      &lt;Purpose&gt;Monthly revenue and margin tracking.&lt;/Purpose&gt;
-      &lt;RefreshMode&gt;Scheduled&lt;/RefreshMode&gt;
-    &lt;/Cube&gt;
-  &lt;/CubeList&gt;
-
-  &lt;MeasureList&gt;
-    &lt;Measure Id=&quot;1&quot; CubeId=&quot;1&quot;&gt;
-      &lt;MeasureName&gt;Sales Amount&lt;/MeasureName&gt;
-      &lt;MDX&gt;[Measures].[Sales Amount]&lt;/MDX&gt;
-    &lt;/Measure&gt;
-  &lt;/MeasureList&gt;
-
-  &lt;SystemTypeList&gt;
-    &lt;SystemType Id=&quot;1&quot;&gt;
-      &lt;TypeName&gt;Internal&lt;/TypeName&gt;
-    &lt;/SystemType&gt;
-  &lt;/SystemTypeList&gt;
-
-  &lt;SystemList&gt;
-    &lt;System Id=&quot;1&quot; SystemTypeId=&quot;1&quot;&gt;
-      &lt;SystemName&gt;Enterprise Analytics Platform&lt;/SystemName&gt;
-      &lt;Version&gt;2.1&lt;/Version&gt;
-    &lt;/System&gt;
-  &lt;/SystemList&gt;
-
-  &lt;SystemCubeList&gt;
-    &lt;SystemCube Id=&quot;1&quot; CubeId=&quot;1&quot; SystemId=&quot;1&quot;&gt;
-      &lt;ProcessingMode&gt;InMemory&lt;/ProcessingMode&gt;
-    &lt;/SystemCube&gt;
-  &lt;/SystemCubeList&gt;
-&lt;/EnterpriseBIPlatform&gt;
-</code></pre>
-<h3 id="sql-representation-meta-generate-sql">SQL representation (meta generate sql)</h3>
-<p><code>meta generate sql</code> emits <code>schema.sql</code> and <code>data.sql</code> as deterministic SQL consumables (DDL and INSERT scripts).</p>
-<pre><code class="language-sql">CREATE TABLE [dbo].[Cube] (
-  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [CubeName] NVARCHAR(MAX) NOT NULL,
-  [Purpose] NVARCHAR(MAX) NULL,
-  [RefreshMode] NVARCHAR(MAX) NULL
-);
-
-CREATE TABLE [dbo].[Measure] (
-  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [MeasureName] NVARCHAR(MAX) NOT NULL,
-  [MDX] NVARCHAR(MAX) NULL,
-  [CubeId] INT NOT NULL
-);
-
-CREATE TABLE [dbo].[SystemType] (
-  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [TypeName] NVARCHAR(MAX) NOT NULL
-);
-
-CREATE TABLE [dbo].[System] (
-  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [SystemName] NVARCHAR(MAX) NOT NULL,
-  [Version] NVARCHAR(MAX) NULL,
-  [SystemTypeId] INT NOT NULL
-);
-
-CREATE TABLE [dbo].[SystemCube] (
-  [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-  [ProcessingMode] NVARCHAR(MAX) NULL,
-  [CubeId] INT NOT NULL,
-  [SystemId] INT NOT NULL
-);
-
-ALTER TABLE [dbo].[Measure]
-ADD CONSTRAINT [FK_Measure_Cube_CubeId]
-FOREIGN KEY ([CubeId]) REFERENCES [dbo].[Cube]([Id]);
-
-ALTER TABLE [dbo].[System]
-ADD CONSTRAINT [FK_System_SystemType_SystemTypeId]
-FOREIGN KEY ([SystemTypeId]) REFERENCES [dbo].[SystemType]([Id]);
-
-ALTER TABLE [dbo].[SystemCube]
-ADD CONSTRAINT [FK_SystemCube_Cube_CubeId]
-FOREIGN KEY ([CubeId]) REFERENCES [dbo].[Cube]([Id]);
-
-ALTER TABLE [dbo].[SystemCube]
-ADD CONSTRAINT [FK_SystemCube_System_SystemId]
-FOREIGN KEY ([SystemId]) REFERENCES [dbo].[System]([Id]);
-</code></pre>
-<h3 id="c-representation-meta-generate-csharp">C# representation (meta generate csharp)</h3>
-<p><code>meta generate csharp --tooling</code> emits a typed loaded model and model tooling classes for workspace-backed runtime use.</p>
-<pre><code class="language-csharp">using EnterpriseBIPlatform;
-using System;
+<p>The same EnterpriseBIPlatform model and instance graph can move between XML, SQL, and C# workspaces without changing its meaning.</p>
+<h3 id="xml-workspace">XML workspace</h3>
+<p>The XML surface stores model and instance data in deterministic workspace files for authoring, review, branching, and merging.</p>
+<h3 id="sql-workspace">SQL workspace</h3>
+<p><code>meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --sql</code> creates a SQL workspace. SQL provides database-native storage, queries, and updates for large instance sets.</p>
+<h3 id="c-workspace">C# workspace</h3>
+<p><code>meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --csharp</code> creates a C# workspace. Application code can work with the typed model and instance objects directly:</p>
+<pre><code class="language-csharp">using System;
 using System.Linq;
 
-// Tooling view: fully populated typed model loaded from workspace XML.
-var model = EnterpriseBIPlatformModel.LoadFromXmlWorkspace(
-    @&quot;.\Samples\Demos\EnterpriseBIPlatformTooling\Workspace&quot;);
-
-foreach (var system in model.SystemList)
+static void PrintSystems(EnterpriseBIPlatformModel model)
 {
-    Console.WriteLine($&quot;{system.SystemName} [{system.SystemType.TypeName}]&quot;);
-
-    foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+    foreach (var system in model.SystemList)
     {
-        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? &quot;n/a&quot; : link.ProcessingMode;
-        Console.WriteLine($&quot;  Cube: {link.Cube.CubeName} (mode: {mode})&quot;);
-    }
-}
+        Console.WriteLine(system.SystemName + &quot; [&quot; + system.SystemType.TypeName + &quot;]&quot;);
 
-foreach (var measure in model.MeasureList)
-{
-    Console.WriteLine($&quot;{measure.Cube.CubeName}.{measure.MeasureName}&quot;);
+        foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
+        {
+            var mode = string.IsNullOrEmpty(link.ProcessingMode) ? &quot;n/a&quot; : link.ProcessingMode;
+            Console.WriteLine(&quot;  Cube: &quot; + link.Cube.CubeName + &quot; (mode: &quot; + mode + &quot;)&quot;);
+        }
+    }
+
+    foreach (var measure in model.MeasureList)
+    {
+        Console.WriteLine(measure.Cube.CubeName + &quot;.&quot; + measure.MeasureName);
+    }
 }
 </code></pre>
             </div>
@@ -554,29 +393,21 @@ foreach (var measure in model.MeasureList)
           <section class="subsection description-block">
             <h3 class="document-heading">Workspace surfaces and execution</h3>
             <div class="markdown-content">
-<h2 id="three-workspace-surfaces">Three workspace surfaces</h2>
-<p>A metadata workspace can be stored and operated on as XML, SQL, or C#. These are not three different product models and they are not merely export formats. They are representations of the same model and instance graph.</p>
-<ul>
-<li><strong>XML</strong> keeps the workspace in deterministic files that can be reviewed, branched, merged, and changed with normal source-control workflows.</li>
-<li><strong>SQL</strong> stores the workspace in a database so large instance sets can be queried and changed with database operations.</li>
-<li><strong>C#</strong> exposes the workspace as typed application data for tools and services that work naturally in the language.</li>
-</ul>
-<p>The model stays the same when a workspace moves between surfaces. A model can be authored on one surface, used by a command on another, and emitted for a third without changing the intended entities, properties, relationships, or records.</p>
-<h2 id="where-commands-execute">Where commands execute</h2>
-<p>meta dispatches workspace commands through the selected surface. It does not choose XML as a hidden intermediate representation.</p>
-<p>Most inspection and mutation commands use the workspace implementation directly. On an SQL workspace, that means SQL reads and SQL operations; on an XML or C# workspace, it means the corresponding file or typed implementation.</p>
-<p>Some commands currently need a complete graph for their algorithm. They materialize that state explicitly:</p>
-<ul>
-<li>meta model suggest</li>
-<li>meta generate ...</li>
-<li>meta graph stats</li>
-<li>meta instance diff</li>
-<li>meta instance diff-aligned</li>
-<li>meta instance merge</li>
-<li>meta instance merge-aligned</li>
-<li>CSV import when it merges into an existing workspace</li>
-</ul>
-<p>Materialization is an execution strategy for those algorithms. It does not create another model or weaken the isomorphism between workspace surfaces.</p>
+<p>Commands open a workspace through its selected surface and operate on that workspace through one API. Callers do not need to manage XML files, SQL tables, or C# object graphs as separate product concepts.</p>
+<p>An operation may stay native to its surface when that is useful, such as a set-based SQL update. When an algorithm needs the complete graph, the workspace API can materialize it without changing the model or instance semantics.</p>
+            </div>
+          </section>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Version-control friendly workspaces</h3>
+            <div class="markdown-content">
+<p>XML workspaces fit naturally into Git. Model definitions, instance data, and refactors remain structured, so a change can be reviewed as metadata rather than as an opaque file-format rewrite. Stable ordering and consistent encoding keep diffs focused on the change itself.</p>
+            </div>
+          </section>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Workspace contract</h3>
+            <div class="markdown-content">
+<p>A workspace is the unit that commands create, inspect, change, and move between surfaces. It contains a model, its instance data, and the storage configuration required by the selected surface.</p>
+<p>The workspace API keeps those storage details behind one boundary, so a command can work with the metadata without taking ownership of files, tables, or typed object graphs.</p>
             </div>
           </section>
         </section>
@@ -597,7 +428,7 @@ foreach (var measure in model.MeasureList)
                 <tbody>
                   <tr>
                     <td class="cmd"><a href="#cli-meta" data-panel-link="cli-meta">meta</a></td>
-                    <td>Build deterministic metadata workspaces that can be reviewed in XML, projected into SQL, and consumed through typed C# tooling without changing the represented model.</td>
+                    <td>Create and operate on model-first metadata workspaces across XML, SQL, and C# surfaces.</td>
                   </tr>
                   <tr>
                     <td class="cmd"><a href="#cli-meta-cli" data-panel-link="cli-meta-cli">meta-cli</a></td>
@@ -624,16 +455,15 @@ foreach (var measure in model.MeasureList)
           <header class="panel-header">
             <div class="breadcrumb">Meta / CLI</div>
             <h2>meta</h2>
-            <p class="panel-lead">Build deterministic metadata workspaces that can be reviewed in XML, projected into SQL, and consumed through typed C# tooling without changing the represented model.</p>
+            <p class="panel-lead">Create and operate on model-first metadata workspaces across XML, SQL, and C# surfaces.</p>
           </header>
           <div class="application-layout">
             <div class="application-main">
               <section class="subsection description-block">
                 <h3 class="document-heading">Working with meta</h3>
                 <div class="markdown-content">
-<p>Meta is the foundation tool for creating, evolving, inspecting, and projecting typed metadata workspaces. A workspace declares a model and its instance graph once, then makes that same structure available as deterministic XML, relational SQL, and typed C# without changing its meaning.</p>
-<p>The CLI owns the everyday lifecycle: initialize a workspace, inspect its model and rows, make intentional edits, import a source surface, and generate a consumable representation. Model refactors rewrite the corresponding instance structure atomically, while structured diff and merge preserve stable row identities so workspace evolution can participate in normal code review and branch workflows.</p>
-<p>The result is a durable model boundary. A database, generator, service, or analytical tool can consume a natural representation for its environment while staying connected to the same declared entities, properties, relationships, and data.</p>
+<p><code>meta</code> creates and works with model and instance workspaces on XML, SQL, or C# surfaces. It can inspect and edit model definitions and instance data, refactor model structure together with its records, import external metadata, and write SQL or C# representations of the same workspace.</p>
+<p>Structured diff and merge preserve row identity while a workspace evolves. A database, service, or analytical tool can use the representation natural to its environment and remain connected to the same declared entities, properties, relationships, and records.</p>
                 </div>
               </section>
           <details class="card cli-command-card" id="subject-source-cli-meta-app-command-bulk-insert">
@@ -718,13 +548,13 @@ foreach (var measure in model.MeasureList)
                 <span class="command-name">meta create</span>
                 <span class="command-summary-text">Create a metadata workspace.</span>
               </span>
-              <span class="command-counts">6 options</span>
+              <span class="command-counts">9 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--strict] [--workspace &lt;workspace&gt;] [--xml &lt;path&gt;]</code></pre>
+                <pre><code>meta create [--connection-env &lt;value&gt;] [--csharp] --new-workspace &lt;path&gt; [--source-workspace &lt;path&gt;] [--sql] [--strict] [--with-instances] [--workspace &lt;workspace&gt;] [--xml]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -738,20 +568,38 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--csharp &lt;path&gt;</td>
-                      <td>Create a C# workspace at this directory.</td>
+                      <td class="opt">--csharp</td>
+                      <td>Create the destination on the selected workspace surface.</td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--new-workspace &lt;path&gt;</td>
+                      <td>Destination workspace directory.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--sql &lt;path&gt;</td>
-                      <td>Create a SQL workspace described by this directory.</td>
+                      <td class="opt">--source-workspace &lt;path&gt;</td>
+                      <td>Source workspace to copy.</td>
                       <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql</td>
+                      <td>Create the destination on the selected workspace surface.</td>
+                      <td></td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--strict</td>
                       <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--with-instances</td>
+                      <td>Include instance data from the source workspace.</td>
                       <td></td>
                       <td>False</td>
                     </tr>
@@ -762,9 +610,9 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--xml &lt;path&gt;</td>
-                      <td>Create an XML workspace at this directory.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--xml</td>
+                      <td>Create the destination on the selected workspace surface.</td>
+                      <td></td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -891,190 +739,6 @@ foreach (var measure in model.MeasureList)
                       <td class="opt">--out &lt;file&gt;</td>
                       <td></td>
                       <td>&lt;file&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--strict</td>
-                      <td></td>
-                      <td></td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--workspace &lt;workspace&gt;</td>
-                      <td></td>
-                      <td>&lt;workspace&gt;</td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-app-command-generate-csharp">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta generate csharp</span>
-                <span class="command-summary-text">Emit dependency-free POCOs and optional workspace tooling classes from the current model and instance graph.</span>
-              </span>
-              <span class="command-counts">4 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta generate csharp --out &lt;dir&gt; [--strict] [--tooling] [--workspace &lt;workspace&gt;]</code></pre>
-              </section>
-              <section class="subsection description-block">
-                <h3 class="document-heading">Generated C# surfaces</h3>
-                <div class="markdown-content">
-<p><code>meta generate csharp</code> emits dependency-free consumer types in a namespace that matches the model name (for example <code>namespace EnterpriseBIPlatform</code>):</p>
-<ul>
-<li><code>&lt;ModelName&gt;.cs</code> (static model facade with a built-in instantiated snapshot, e.g. <code>EnterpriseBIPlatform</code>)</li>
-<li><code>&lt;Entity&gt;.cs</code> (one file per entity, POCOs)</li>
-</ul>
-<p>If you also run <code>meta generate csharp --tooling</code>, <code>meta</code> emits a typed loaded model plus <code>&lt;ModelName&gt;.Tooling.cs</code> in the same model-name namespace. This tooling path is for workspace-backed runtime use; it does not emit the static built-in facade used by the dependency-free consumer path.</p>
-                </div>
-              </section>
-              <section class="subsection description-block">
-                <h3 class="document-heading">Generate typed workspace tooling</h3>
-                <div class="markdown-content">
-<p>Use the tooling form when another CLI, service, or generator needs to load a workspace and work with strongly typed model objects.</p>
-<pre><code class="language-powershell">meta generate csharp --workspace .\Workspace --out .\out\csharp --tooling
-</code></pre>
-                </div>
-              </section>
-              <section class="subsection description-block">
-                <h3 class="document-heading">Generate C# consumer and tooling surfaces</h3>
-                <div class="markdown-content">
-<p>Generate dependency-free consumer POCOs for read-only application use, or include the tooling surface when a CLI, service, or generator needs to load a workspace and work with a typed model object.</p>
-<h4 id="dependency-free-consumer-usage">Dependency-free consumer usage</h4>
-<pre><code class="language-csharp">using EnterpriseBIPlatform;
-using System;
-using System.Linq;
-
-// Consumer view: dependency-free POCOs + a strongly-typed model facade.
-foreach (var system in EnterpriseBIPlatform.SystemList)
-{
-    Console.WriteLine($&quot;{system.SystemName} [{system.SystemType.TypeName}]&quot;);
-
-    foreach (var link in EnterpriseBIPlatform.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
-    {
-        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? &quot;n/a&quot; : link.ProcessingMode;
-        Console.WriteLine($&quot;  Cube: {link.Cube.CubeName} (mode: {mode})&quot;);
-    }
-}
-
-foreach (var measure in EnterpriseBIPlatform.MeasureList)
-{
-    Console.WriteLine($&quot;{measure.Cube.CubeName}.{measure.MeasureName}&quot;);
-}
-</code></pre>
-<h3 id="optional-tooling-surface">Optional tooling surface</h3>
-<p>The tooling view loads the workspace XML into a fully populated typed model. Use it for generators and command-line tools that need to inspect or mutate workspaces through generated C# classes.</p>
-<h4 id="workspace-backed-tooling-usage">Workspace-backed tooling usage</h4>
-<pre><code class="language-csharp">using EnterpriseBIPlatform;
-using System;
-using System.Linq;
-
-// Tooling view: fully populated typed model loaded from workspace XML.
-var model = EnterpriseBIPlatformModel.LoadFromXmlWorkspace(
-    @&quot;.\Samples\Demos\EnterpriseBIPlatformTooling\Workspace&quot;);
-
-foreach (var system in model.SystemList)
-{
-    Console.WriteLine($&quot;{system.SystemName} [{system.SystemType.TypeName}]&quot;);
-
-    foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
-    {
-        var mode = string.IsNullOrEmpty(link.ProcessingMode) ? &quot;n/a&quot; : link.ProcessingMode;
-        Console.WriteLine($&quot;  Cube: {link.Cube.CubeName} (mode: {mode})&quot;);
-    }
-}
-
-foreach (var measure in model.MeasureList)
-{
-    Console.WriteLine($&quot;{measure.Cube.CubeName}.{measure.MeasureName}&quot;);
-}
-</code></pre>
-                </div>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--out &lt;dir&gt;</td>
-                      <td></td>
-                      <td>&lt;dir&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--strict</td>
-                      <td></td>
-                      <td></td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--tooling</td>
-                      <td></td>
-                      <td></td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--workspace &lt;workspace&gt;</td>
-                      <td></td>
-                      <td>&lt;workspace&gt;</td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-app-command-generate-sql">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta generate sql</span>
-                <span class="command-summary-text">Emit deterministic SQL DDL and data scripts from the workspace so the same model can be inspected and loaded through a database-native surface.</span>
-              </span>
-              <span class="command-counts">3 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta generate sql --out &lt;dir&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
-              </section>
-              <section class="subsection description-block">
-                <h3 class="document-heading">Generated SQL consumables</h3>
-                <div class="markdown-content">
-<p><code>meta generate sql</code> emits <code>schema.sql</code> and <code>data.sql</code> as deterministic SQL consumables.</p>
-<p>The generated schema represents entities as tables, implicit <code>Id</code> values as primary keys, scalar properties as nullable or non-nullable columns, and required relationships as foreign-key columns plus constraints. The generated data script inserts the workspace instance rows in deterministic order.</p>
-<p>This gives the same model and instance graph a database-native surface for inspection, interchange, and validation at scale.</p>
-                </div>
-              </section>
-              <section class="subsection description-block">
-                <h3 class="document-heading">Generate SQL consumables</h3>
-                <div class="markdown-content">
-<p>Generate SQL consumables when the next stage wants relational DDL, foreign keys, and repeatable data scripts rather than XML workspace files.</p>
-<pre><code class="language-powershell">meta generate sql --workspace .\Workspace --out .\out\sql
-</code></pre>
-                </div>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--out &lt;dir&gt;</td>
-                      <td></td>
-                      <td>&lt;dir&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -1269,19 +933,19 @@ foreach (var measure in model.MeasureList)
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -1337,19 +1001,19 @@ foreach (var measure in model.MeasureList)
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -1520,7 +1184,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the diff workspace on the XML surface.</td>
+                      <td>Create the diff workspace on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -1582,7 +1246,7 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the diff workspace on the XML surface.</td>
+                      <td>Create the diff workspace on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -2941,19 +2605,19 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -2979,7 +2643,7 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
             <aside class="application-command-rail" aria-label="Command navigation">
               <div class="application-command-rail-header">
                 <h3>Commands</h3>
-                <p>43 commands</p>
+                <p>41 commands</p>
               </div>
               <nav class="application-command-list">
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-bulk-insert" aria-label="Open meta bulk-insert"><code>bulk-insert</code></a>
@@ -2987,8 +2651,6 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-delete" aria-label="Open meta delete"><code>delete</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-deploy-sqlserver" aria-label="Open meta deploy sqlserver"><code>deploy sqlserver</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-export-csv" aria-label="Open meta export csv"><code>export csv</code></a>
-                <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-generate-csharp" aria-label="Open meta generate csharp"><code>generate csharp</code></a>
-                <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-generate-sql" aria-label="Open meta generate sql"><code>generate sql</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-graph-inbound" aria-label="Open meta graph inbound"><code>graph inbound</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-graph-stats" aria-label="Open meta graph stats"><code>graph stats</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-help" aria-label="Open meta help"><code>help</code></a>
@@ -4315,19 +3977,19 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -4545,19 +4207,19 @@ meta-docs search deploy
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -4681,19 +4343,19 @@ meta-docs search deploy
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -6037,19 +5699,19 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -10239,13 +9901,13 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
           <section class="subsection description-block">
             <h3 class="document-heading">SQL as modeled structure</h3>
             <div class="markdown-content">
-<p>SQL is represented as structure rather than carried as an opaque script blob.</p>
+<p>SQL has a typed structural representation in the BI stack.</p>
 <ul>
 <li><strong><code>MetaTransformScript</code></strong> imports the supported T-SQL surface into a typed syntax graph covering statement roots, query composition, joins, expressions, predicates, grouping, windowing, functions, and bounded mutation statements. The model emits semantically equivalent SQL and proves stability through <code>SQL -&gt; workspace -&gt; SQL -&gt; workspace</code> round trips.</li>
 <li><strong><code>MetaTransformBinding</code></strong> resolves modeled source and target identifiers against explicit <code>MetaSchema</code> workspaces. It records rowsets, columns, source objects, target objects, and validation links, and checks target shape and data-type compatibility through sanctioned <code>MetaDataTypeConversion</code> policy.</li>
 <li><strong><code>MetaSql</code></strong> carries deployable database structure, while <code>MetaSqlDeployManifest</code> makes source and live fingerprints, schema changes, destructive approvals, and deployment actions explicit before execution.</li>
 </ul>
-<p>That shared understanding lets later layers reason from transform structure and binding evidence instead of reparsing SQL independently or guessing from text.</p>
+<p>That shared structure lets later layers reason from transform structure and binding evidence instead of reparsing SQL independently or guessing from text.</p>
             </div>
           </section>
           <section class="subsection description-block">
@@ -10279,14 +9941,14 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
           <section class="subsection description-block">
             <h3 class="document-heading">From source contracts to analytical targets</h3>
             <div class="markdown-content">
-<p>A typical path can begin with a live system extracted into <code>MetaSchema</code>, then move through explicit data-type policy, vault or dimensional architecture, modeled and bound SQL transforms, generated database assets, data-quality review, pipeline execution, orchestration, and a portable <code>MetaAnalytics</code> model projected into Tabular or MultiDimensional form.</p>
-<p>Teams compose the sanctioned workspaces that match their architecture. At every handoff, the input and output remain inspectable model instances instead of disappearing into generator configuration or unstructured deployment scripts.</p>
+<p>A typical path can begin with a live system extracted into <code>MetaSchema</code>, then move through explicit data-type policy, vault or dimensional architecture, modeled and bound SQL transforms, database structures and deployment assets, data-quality review, pipeline execution, orchestration, and a portable <code>MetaAnalytics</code> model projected into Tabular or MultiDimensional form.</p>
+<p>Teams compose the sanctioned workspaces that match their architecture. Each handoff remains an inspectable model instance, with the decisions needed for generation, deployment, and execution represented alongside it.</p>
             </div>
           </section>
           <section class="subsection description-block">
             <h3 class="document-heading">A complete stack in practice</h3>
             <div class="markdown-content">
-<p>The architecture is also exercised as one complete system. The checked-in AdventureWorks stack composes 27 workspaces and 30 named operations over a live <code>AdventureWorks2022</code> source:</p>
+<p>The AdventureWorks stack composes 27 workspaces and 29 named operations over a live <code>AdventureWorks2022</code> source:</p>
 <ul>
 <li>synchronize the source schema into <code>MetaSchema</code>;</li>
 <li>generate and deploy Raw and Business Data Vault structures and a dimensional warehouse;</li>
@@ -10296,7 +9958,7 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
 <li>author portable <code>MetaAnalytics</code> semantics, project them into <code>MetaTabular</code>, then deploy and process the model.</li>
 </ul>
 <p>A clean run reconciled 31,465 orders, 121,317 order lines, and 163 quota rows from source through the warehouse. It reproduced total due <code>123216786.1159</code>, line sales <code>109846381.4250</code>, quota <code>95714000.0000</code>, and zero findings across the promoted Data Quality checks. Repeating the complete ETL preserved the modeled Raw, Business, and warehouse row totals. A processed Tabular deployment returned the same analytical values.</p>
-<p>After the named create and deploy operations have materialized the stack, execution remains concise:</p>
+<p>After the create and deployment operations have materialized the stack, execution remains concise:</p>
 <pre><code class="language-powershell">cd Demos\AdventureWorksBiStackDemo\AdventureWorksBiStackDemo.MetaMesh
 meta-mesh operations
 meta-mesh run --operation run-etl
@@ -10304,7 +9966,7 @@ meta-mesh run --operation verify-stack
 meta-mesh run --operation deploy-tabular
 meta-mesh run --operation process-tabular
 </code></pre>
-<p>The demo README records the complete build order, local services, environment variables, layer-by-layer execution options, and cleanup operation.</p>
+<p>The operation names and workspace dependencies are part of the MetaMesh workspace, so the sequence can be inspected and repeated from the model.</p>
             </div>
           </section>
         </section>
@@ -12663,19 +12325,19 @@ meta-mesh run --operation process-tabular
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;location&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;location&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;location&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
@@ -12886,19 +12548,19 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -20412,19 +20074,19 @@ meta-orchestration inspect-run-plan --workspace .\Orchestration.Workspace
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -21485,19 +21147,19 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -21819,19 +21481,19 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -24366,19 +24028,19 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -24509,19 +24171,19 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -24571,19 +24233,19 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -24645,19 +24307,19 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
                     </tr>
                     <tr>
                       <td class="opt">--output-csharp &lt;path&gt;</td>
-                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-sql &lt;path&gt;</td>
-                      <td>Create the output on the sql workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
                       <td class="opt">--output-xml &lt;path&gt;</td>
-                      <td>Create the output on the xml workspace surface.</td>
+                      <td>Create the output on the selected workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>

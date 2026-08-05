@@ -1,4 +1,4 @@
-using Meta.Adapters;
+using Meta.Surfaces;
 using Meta.Core.Domain;
 using Meta.Core.Operations;
 using Meta.Core.Serialization;
@@ -183,14 +183,14 @@ public sealed class MetaCSharpReaderTests
             MetaXmlCodecTests.BuildState());
         var source = csharp.Sources["RoundTrip.cs"];
         source = source.Replace(
-            "            var nodeListById =",
+            "        var nodeList =",
             """
                         var ignoredNodes = new List<Node>
                         {
                             new Node { Id = "ignored", RequiredText = "Ignored" },
                         };
 
-                        var nodeListById =
+                        var nodeList =
             """,
             StringComparison.Ordinal);
 
@@ -207,11 +207,10 @@ public sealed class MetaCSharpReaderTests
             MetaXmlCodecTests.BuildState());
         var source = csharp.Sources["RoundTrip.cs"];
         source = source.Replace(
-            "            var nodeListById =",
+            "        return new RoundTripInstance",
             """
-                        nodeList.Add(new Node { Id = "added", RequiredText = "Added" });
-
-                        var nodeListById =
+                nodeList.Add(new Node { Id = "added", RequiredText = "Added" });
+                return new RoundTripInstance
             """,
             StringComparison.Ordinal);
 

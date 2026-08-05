@@ -35,15 +35,6 @@ public static class MetaCliWorkspace
         string directory,
         CancellationToken cancellationToken = default)
     {
-        var typedXmlWorkspace = await MetaCliWorkspaceResolver.TryOpenTypedXmlAsync<MetaCliModel>(
-                directory,
-                cancellationToken)
-            .ConfigureAwait(false);
-        if (typedXmlWorkspace is not null)
-        {
-            return typedXmlWorkspace.Model;
-        }
-
         await using var workspace = await OpenAsync(directory, cancellationToken)
             .ConfigureAwait(false);
         var state = await WorkspaceComposition.MaterializeAsync(

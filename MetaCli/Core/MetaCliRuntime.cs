@@ -397,23 +397,6 @@ public sealed class MetaCliRuntime<TModel>
             HasValue(invocation, workspaceParameter) ||
             !HasSelectedOutput(invocation, handler.Workspaces);
 
-        if (hasPrimaryWorkspace && handler.HasTypedModelHandler)
-        {
-            var typedXmlWorkspace = await MetaCliWorkspaceResolver.TryOpenTypedXmlAsync<TModel>(
-                    invocation,
-                    workspaceParameter)
-                .ConfigureAwait(false);
-            if (typedXmlWorkspace is not null)
-            {
-                await ExecuteTypedModelHandlerAsync(
-                        invocation,
-                        handler,
-                        typedXmlWorkspace)
-                    .ConfigureAwait(false);
-                return;
-            }
-        }
-
         await using var workspace = hasPrimaryWorkspace
             ? await MetaCliWorkspaceResolver.OpenAsync(
                     invocation,
@@ -505,59 +488,6 @@ public sealed class MetaCliRuntime<TModel>
         if (operations.Count > 0)
         {
             await workspace.ExecuteAsync(operations).ConfigureAwait(false);
-        }
-
-        completion.Complete();
-    }
-
-    private static async Task ExecuteTypedModelHandlerAsync(
-        MetaCliInvocation invocation,
-        HandlerBinding handler,
-        MetaCliTypedXmlWorkspace<TModel> workspace)
-    {
-        await using var additionalWorkspaces = await ResolveWorkspacesAsync(
-                invocation,
-                handler.Workspaces)
-            .ConfigureAwait(false);
-        var completion = new MetaCliCommandCompletion();
-
-        if (handler.WorkspaceHandler is not null)
-        {
-            handler.WorkspaceHandler(invocation, workspace.Model);
-        }
-        else if (handler.AsyncWorkspaceHandler is not null)
-        {
-            await handler.AsyncWorkspaceHandler(invocation, workspace.Model)
-                .ConfigureAwait(false);
-        }
-        else if (handler.CompletionWorkspaceHandler is not null)
-        {
-            handler.CompletionWorkspaceHandler(invocation, workspace.Model, completion);
-        }
-        else if (handler.AsyncCompletionWorkspaceHandler is not null)
-        {
-            await handler.AsyncCompletionWorkspaceHandler(invocation, workspace.Model, completion)
-                .ConfigureAwait(false);
-        }
-        else if (handler.WorkspacesHandler is not null)
-        {
-            handler.WorkspacesHandler(
-                invocation,
-                workspace.Model,
-                additionalWorkspaces);
-        }
-        else
-        {
-            await handler.AsyncWorkspacesHandler!(
-                    invocation,
-                    workspace.Model,
-                    additionalWorkspaces)
-                .ConfigureAwait(false);
-        }
-
-        if (handler.PersistModelChanges)
-        {
-            await workspace.SaveAsync().ConfigureAwait(false);
         }
 
         completion.Complete();
@@ -745,14 +675,6 @@ public sealed class MetaCliRuntime<TModel>
         public bool HasPrimaryWorkspaceHandler =>
             GenericWorkspaceHandler is not null ||
             AsyncGenericWorkspaceHandler is not null ||
-            WorkspaceHandler is not null ||
-            AsyncWorkspaceHandler is not null ||
-            CompletionWorkspaceHandler is not null ||
-            AsyncCompletionWorkspaceHandler is not null ||
-            WorkspacesHandler is not null ||
-            AsyncWorkspacesHandler is not null;
-
-        public bool HasTypedModelHandler =>
             WorkspaceHandler is not null ||
             AsyncWorkspaceHandler is not null ||
             CompletionWorkspaceHandler is not null ||

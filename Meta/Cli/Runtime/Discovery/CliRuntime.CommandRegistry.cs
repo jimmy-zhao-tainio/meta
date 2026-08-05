@@ -81,8 +81,6 @@ internal sealed partial class CliRuntime
         RegisterOutput("exec-import-sql", [], ImportAsync);
         RegisterOutput("exec-import-csv", [MetaCliWorkspace.Target("workspace")], ImportAsync);
         RegisterWorkspace("exec-export-csv", ExportAsync);
-        RegisterWorkspace("exec-generate-sql", GenerateAsync);
-        RegisterWorkspace("exec-generate-csharp", GenerateAsync);
         Register("exec-deploy-sqlserver", DeployAsync);
 
         void Register(string executableCommandId, Func<string[], Task<int>> handler)

@@ -238,8 +238,12 @@ public sealed class MetaMeshCliTests
             Assert.Contains(meshPath, recorded, StringComparison.OrdinalIgnoreCase);
 
             Assert.True(File.Exists(Path.Combine(meshPath, "MetaMesh.cs")));
-            Assert.True(File.Exists(Path.Combine(meshPath, "Mesh.cs")));
-            Assert.True(File.Exists(Path.Combine(meshPath, "Operation.cs")));
+            Assert.Equal(
+                ["MetaMesh.cs"],
+                Directory.EnumerateFiles(meshPath, "*.cs")
+                    .Select(path => Path.GetFileName(path) ?? string.Empty)
+                    .OrderBy(name => name, StringComparer.Ordinal)
+                    .ToArray());
             Assert.False(File.Exists(Path.Combine(meshPath, "workspace.xml")));
         }
         finally

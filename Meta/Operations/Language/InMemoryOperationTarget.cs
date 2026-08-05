@@ -103,7 +103,28 @@ public static class InMemoryOperations
             }
         }
 
-        EnsureValid(candidate, "Operation batch produced invalid metadata.");
+        var finalDiagnostics = WorkspaceValidator.Validate(
+            candidate.Model,
+            candidate.Instance);
+        if (finalDiagnostics.HasErrors)
+        {
+            if (operations.Count == 0)
+            {
+                throw new InvalidOperationException(
+                    BuildValidationMessage(
+                        finalDiagnostics,
+                        "Operation batch produced invalid metadata."));
+            }
+
+            var finalOperation = operations[^1];
+            throw new MetaOperationException(
+                operations.Count - 1,
+                finalOperation,
+                new InvalidOperationException(BuildValidationMessage(
+                    finalDiagnostics,
+                    "Operation batch produced invalid metadata.")),
+                finalDiagnostics);
+        }
 
         return new InMemoryOperationResult(candidate, results);
     }
