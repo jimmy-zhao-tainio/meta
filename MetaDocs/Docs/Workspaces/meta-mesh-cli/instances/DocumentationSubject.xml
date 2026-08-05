@@ -208,7 +208,79 @@
       <Status>New</Status>
       <Summary>Workspace representation and location.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:help" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:create" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:add-workspace">
+      <DisplayName>meta-mesh create</DisplayName>
+      <DisplayPath>meta-mesh create</DisplayPath>
+      <NativeId>exec-create</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a meta-mesh workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:create:option:connection-env" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:create">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta-mesh create --connection-env</DisplayPath>
+      <NativeId>option-create-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the SQL Server connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:create:option:csharp" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:create" PreviousSubjectId="source:cli:meta-mesh:app:command:create:option:connection-env">
+      <DisplayName>--csharp</DisplayName>
+      <DisplayPath>meta-mesh create --csharp</DisplayPath>
+      <NativeId>option-create-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a C# workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:create:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:create" PreviousSubjectId="source:cli:meta-mesh:app:command:create:option:csharp">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-mesh create --description</DisplayPath>
+      <NativeId>option-create-description</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Mesh description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:create:option:name" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:create" PreviousSubjectId="source:cli:meta-mesh:app:command:create:option:description">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-mesh create --name</DisplayPath>
+      <NativeId>option-create-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Mesh name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:create:option:root" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:create" PreviousSubjectId="source:cli:meta-mesh:app:command:create:option:name">
+      <DisplayName>--root</DisplayName>
+      <DisplayPath>meta-mesh create --root</DisplayPath>
+      <NativeId>option-create-root</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Mesh root path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:create:option:sql" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:create" PreviousSubjectId="source:cli:meta-mesh:app:command:create:option:root">
+      <DisplayName>--sql</DisplayName>
+      <DisplayPath>meta-mesh create --sql</DisplayPath>
+      <NativeId>option-create-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a SQL workspace described by this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:create:option:xml" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:create" PreviousSubjectId="source:cli:meta-mesh:app:command:create:option:sql">
+      <DisplayName>--xml</DisplayName>
+      <DisplayPath>meta-mesh create --xml</DisplayPath>
+      <NativeId>option-create-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create an XML workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:create:parameter-group:output" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-mesh:app:command:create">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-mesh create group output</DisplayPath>
+      <NativeId>group-create-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace representation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:help" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:create">
       <DisplayName>meta-mesh help</DisplayName>
       <DisplayPath>meta-mesh help</DisplayPath>
       <NativeId>exec-help</NativeId>
@@ -216,79 +288,7 @@
       <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:help">
-      <DisplayName>meta-mesh new-workspace</DisplayName>
-      <DisplayPath>meta-mesh new-workspace</DisplayPath>
-      <NativeId>exec-new-workspace</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create an empty MetaMesh workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:connection-env" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace">
-      <DisplayName>--connection-env</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --connection-env</DisplayPath>
-      <NativeId>opt-new-workspace-connection-env</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Environment variable containing the SQL workspace connection string.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:connection-env">
-      <DisplayName>--description</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --description</DisplayPath>
-      <NativeId>opt-new-workspace-description</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Mesh description.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:name" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:description">
-      <DisplayName>--name</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --name</DisplayPath>
-      <NativeId>opt-new-workspace-name</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Mesh name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-csharp" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:name">
-      <DisplayName>--new-workspace-csharp</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --new-workspace-csharp</DisplayPath>
-      <NativeId>opt-new-workspace-csharp</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create a C# workspace in this directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-sql" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-csharp">
-      <DisplayName>--new-workspace-sql</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --new-workspace-sql</DisplayPath>
-      <NativeId>opt-new-workspace-sql</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create a SQL workspace described by this directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-xml" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-sql">
-      <DisplayName>--new-workspace-xml</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --new-workspace-xml</DisplayPath>
-      <NativeId>opt-new-workspace-xml</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create an XML workspace in this directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:option:root" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace:option:new-workspace-xml">
-      <DisplayName>--root</DisplayName>
-      <DisplayPath>meta-mesh new-workspace --root</DisplayPath>
-      <NativeId>opt-new-workspace-root</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Root path used to resolve relative workspace paths.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:new-workspace:parameter-group:representation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-mesh:app:command:new-workspace">
-      <DisplayName>representation</DisplayName>
-      <DisplayPath>meta-mesh new-workspace group representation</DisplayPath>
-      <NativeId>group-new-workspace-representation</NativeId>
-      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Workspace representation to create.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:operations" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:operations" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:help">
       <DisplayName>meta-mesh operations</DisplayName>
       <DisplayPath>meta-mesh operations</DisplayPath>
       <NativeId>exec-operations</NativeId>

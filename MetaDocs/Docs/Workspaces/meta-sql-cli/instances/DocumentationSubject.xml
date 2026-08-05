@@ -232,15 +232,39 @@
       <Status>New</Status>
       <Summary>Extract view modules. If any include switch is provided, only selected object kinds are extracted.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:new-workspace" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:include-views">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta-sql extract sqlserver --new-workspace</DisplayPath>
-      <NativeId>opt-extract-sqlserver-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:output-connection-env" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:include-views">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-sql extract sqlserver --output-connection-env</DisplayPath>
+      <NativeId>option-extract-sqlserver-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Directory where the MetaSql workspace will be created.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:schema" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:output-csharp" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-sql extract sqlserver --output-csharp</DisplayPath>
+      <NativeId>option-extract-sqlserver-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the csharp workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:output-sql" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-sql extract sqlserver --output-sql</DisplayPath>
+      <NativeId>option-extract-sqlserver-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the sql workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:output-xml" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-sql extract sqlserver --output-xml</DisplayPath>
+      <NativeId>option-extract-sqlserver-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the xml workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:option:schema" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver:option:output-xml">
       <DisplayName>--schema</DisplayName>
       <DisplayPath>meta-sql extract sqlserver --schema</DisplayPath>
       <NativeId>opt-extract-sqlserver-schema</NativeId>
@@ -255,6 +279,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Extract only one table. SQL module extraction is skipped when a table filter is used.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:extract-sqlserver:parameter-group:target" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-sql:app:command:extract-sqlserver">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta-sql extract sqlserver group target</DisplayPath>
+      <NativeId>group-extract-sqlserver-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-sql:app:command:help" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-sql:app" PreviousSubjectId="source:cli:meta-sql:app:command:extract-sqlserver">
       <DisplayName>meta-sql help</DisplayName>

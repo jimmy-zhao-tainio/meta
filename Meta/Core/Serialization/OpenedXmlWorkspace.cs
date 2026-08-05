@@ -57,7 +57,7 @@ public sealed class OpenedXmlWorkspace : IMetaWorkspace
         ArgumentNullException.ThrowIfNull(operations);
         cancellationToken.ThrowIfCancellationRequested();
 
-        var applied = InMemoryOperations.Execute(State, operations);
+        var applied = InMemoryOperations.ExecuteBatch(State, operations);
         await XmlWorkspaceWriter.WriteAsync(
                 this,
                 applied.Workspace,

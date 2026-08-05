@@ -72,15 +72,39 @@
       <Status>New</Status>
       <Summary>Comma-separated target columns to exclude only on target tables where they exist.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:new-workspace" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind:option:ignore-target-columns-if-present">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta-transform-binding bind --new-workspace</DisplayPath>
-      <NativeId>opt-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:output-connection-env" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind:option:ignore-target-columns-if-present">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-transform-binding bind --output-connection-env</DisplayPath>
+      <NativeId>option-bind-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Directory where the binding workspace will be created.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:partial-report" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:output-csharp" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-transform-binding bind --output-csharp</DisplayPath>
+      <NativeId>option-bind-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the csharp workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:output-sql" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-transform-binding bind --output-sql</DisplayPath>
+      <NativeId>option-bind-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the sql workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:output-xml" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-transform-binding bind --output-xml</DisplayPath>
+      <NativeId>option-bind-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the xml workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:option:partial-report" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind:option:output-xml">
       <DisplayName>--partial-report</DisplayName>
       <DisplayPath>meta-transform-binding bind --partial-report</DisplayPath>
       <NativeId>opt-partial-report</NativeId>
@@ -111,6 +135,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>MetaTransformScript workspace to bind.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:bind:parameter-group:target" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-transform-binding:app:command:bind">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta-transform-binding bind group target</DisplayPath>
+      <NativeId>group-bind-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-transform-binding:app:command:help" DocumentationSourceId="source:cli:meta-transform-binding" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-binding:app" PreviousSubjectId="source:cli:meta-transform-binding:app:command:bind">
       <DisplayName>meta-transform-binding help</DisplayName>

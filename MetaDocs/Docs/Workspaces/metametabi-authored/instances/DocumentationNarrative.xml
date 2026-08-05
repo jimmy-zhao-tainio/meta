@@ -512,7 +512,8 @@ BI-specific sanctioned models and command-line tools live in the separate `meta-
       <Title>Foundation command-line tools</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:summary:overview" DocumentationSubjectId="public:meta:overview">
-      <Body>`meta` is a deterministic metadata backend for defining structured models once and carrying them across XML, SQL, and C# without semantic drift. XML workspaces provide a git-friendly authoring surface, while generated SQL and C# provide native relational and application surfaces over the same model and instance graph.</Body>
+      <Body>meta defines one metadata model and instance graph with three isomorphic workspace surfaces: XML, SQL, and C#. Each surface carries the same structure and meaning. XML is the file-based, git-friendly surface; SQL is the database-native surface; C# is the typed application surface. The selected workspace surface determines where an operation runs.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -546,6 +547,41 @@ Instance data may be sharded across several files. Loading combines rows for the
       <ReviewStatus>Current</ReviewStatus>
       <Slot>WorkspaceContract</Slot>
       <Title>Workspace contract</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta:overview:narrative:workspacesurfaces:workspace-surfaces-and-execution" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:example-example-meta-xml-sql-csharp-sample:one-sample-across-xml-sql-and-c">
+      <Body>## Three workspace surfaces
+
+A metadata workspace can be stored and operated on as XML, SQL, or C#. These are not three different product models and they are not merely export formats. They are representations of the same model and instance graph.
+
+- **XML** keeps the workspace in deterministic files that can be reviewed, branched, merged, and changed with normal source-control workflows.
+- **SQL** stores the workspace in a database so large instance sets can be queried and changed with database operations.
+- **C#** exposes the workspace as typed application data for tools and services that work naturally in the language.
+
+The model stays the same when a workspace moves between surfaces. A model can be authored on one surface, used by a command on another, and emitted for a third without changing the intended entities, properties, relationships, or records.
+
+## Where commands execute
+
+meta dispatches workspace commands through the selected surface. It does not choose XML as a hidden intermediate representation.
+
+Most inspection and mutation commands use the workspace implementation directly. On an SQL workspace, that means SQL reads and SQL operations; on an XML or C# workspace, it means the corresponding file or typed implementation.
+
+Some commands currently need a complete graph for their algorithm. They materialize that state explicitly:
+
+- meta model suggest
+- meta generate ...
+- meta graph stats
+- meta instance diff
+- meta instance diff-aligned
+- meta instance merge
+- meta instance merge-aligned
+- CSV import when it merges into an existing workspace
+
+Materialization is an execution strategy for those algorithms. It does not create another model or weaken the isomorphism between workspace surfaces.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>WorkspaceSurfaces</Slot>
+      <Title>Workspace surfaces and execution</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:reference:narrative:summary:meta-meta-bi-reference" DocumentationSubjectId="public:reference">
       <Body>Command-line and model references for the current public MetaDocs suite.</Body>

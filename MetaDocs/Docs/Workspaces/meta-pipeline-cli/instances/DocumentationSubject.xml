@@ -240,7 +240,15 @@
       <Status>New</Status>
       <Summary>Existing MetaPipeline workspace to update. Defaults to the current working directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create-pipeline-db" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-pipeline:app" PreviousSubjectId="source:cli:meta-pipeline:app:command:add-step">
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-pipeline:app" PreviousSubjectId="source:cli:meta-pipeline:app:command:add-step">
+      <DisplayName>meta-pipeline create</DisplayName>
+      <DisplayPath>meta-pipeline create</DisplayPath>
+      <NativeId>exec-create</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a meta-pipeline workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create-pipeline-db" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-pipeline:app" PreviousSubjectId="source:cli:meta-pipeline:app:command:create">
       <DisplayName>meta-pipeline create-pipeline-db</DisplayName>
       <DisplayPath>meta-pipeline create-pipeline-db</DisplayPath>
       <NativeId>exec-create-pipeline-db</NativeId>
@@ -263,6 +271,46 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Operational database name. Default: MetaPipeline.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create:option:connection-env" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-pipeline:app:command:create">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta-pipeline create --connection-env</DisplayPath>
+      <NativeId>option-create-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the SQL Server connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create:option:csharp" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-pipeline:app:command:create" PreviousSubjectId="source:cli:meta-pipeline:app:command:create:option:connection-env">
+      <DisplayName>--csharp</DisplayName>
+      <DisplayPath>meta-pipeline create --csharp</DisplayPath>
+      <NativeId>option-create-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a C# workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create:option:sql" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-pipeline:app:command:create" PreviousSubjectId="source:cli:meta-pipeline:app:command:create:option:csharp">
+      <DisplayName>--sql</DisplayName>
+      <DisplayPath>meta-pipeline create --sql</DisplayPath>
+      <NativeId>option-create-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a SQL workspace described by this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create:option:xml" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-pipeline:app:command:create" PreviousSubjectId="source:cli:meta-pipeline:app:command:create:option:sql">
+      <DisplayName>--xml</DisplayName>
+      <DisplayPath>meta-pipeline create --xml</DisplayPath>
+      <NativeId>option-create-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create an XML workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:create:parameter-group:output" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-pipeline:app:command:create">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-pipeline create group output</DisplayPath>
+      <NativeId>group-create-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace representation.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-pipeline:app:command:execute" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-pipeline:app" PreviousSubjectId="source:cli:meta-pipeline:app:command:create-pipeline-db">
       <DisplayName>meta-pipeline execute</DisplayName>
@@ -584,23 +632,7 @@
       <Status>New</Status>
       <Summary>MetaPipeline workspace to inspect. Defaults to the current working directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:new-workspace" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-pipeline:app" PreviousSubjectId="source:cli:meta-pipeline:app:command:inspect">
-      <DisplayName>meta-pipeline new-workspace</DisplayName>
-      <DisplayPath>meta-pipeline new-workspace</DisplayPath>
-      <NativeId>exec-new-workspace</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create an empty sanctioned MetaPipeline workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta-pipeline:app:command:new-workspace">
-      <DisplayName>&lt;path&gt;</DisplayName>
-      <DisplayPath>meta-pipeline new-workspace &lt;path&gt;</DisplayPath>
-      <NativeId>arg-new-workspace-path</NativeId>
-      <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Directory where the MetaPipeline workspace will be created.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:prune-pipeline-db" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-pipeline:app" PreviousSubjectId="source:cli:meta-pipeline:app:command:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-pipeline:app:command:prune-pipeline-db" DocumentationSourceId="source:cli:meta-pipeline" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-pipeline:app" PreviousSubjectId="source:cli:meta-pipeline:app:command:inspect">
       <DisplayName>meta-pipeline prune-pipeline-db</DisplayName>
       <DisplayPath>meta-pipeline prune-pipeline-db</DisplayPath>
       <NativeId>exec-prune-pipeline-db</NativeId>

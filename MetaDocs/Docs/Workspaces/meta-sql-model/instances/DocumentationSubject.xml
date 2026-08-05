@@ -14,6 +14,7 @@
       <NativeId>Database</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:database:property:collation" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:database">
       <DisplayName>Collation</DisplayName>
@@ -21,6 +22,7 @@
       <NativeId>Collation</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:database:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:database" PreviousSubjectId="source:workspace-model:meta-sql:entity:database:property:collation">
       <DisplayName>Name</DisplayName>
@@ -28,6 +30,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkey" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:database">
       <DisplayName>ForeignKey</DisplayName>
@@ -35,6 +38,7 @@
       <NativeId>ForeignKey</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkey:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:foreignkey">
       <DisplayName>Name</DisplayName>
@@ -42,6 +46,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:sourcetable-table" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:foreignkey">
       <DisplayName>SourceTable</DisplayName>
@@ -49,6 +54,7 @@
       <NativeId>SourceTable:Table</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkey:relationship:targettable-table" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:foreignkey" PreviousSubjectId="source:workspace-model:meta-sql:entity:foreignkey:relationship:sourcetable-table">
       <DisplayName>TargetTable</DisplayName>
@@ -56,6 +62,7 @@
       <NativeId>TargetTable:Table</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkeycolumn" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:foreignkey">
       <DisplayName>ForeignKeyColumn</DisplayName>
@@ -63,6 +70,7 @@
       <NativeId>ForeignKeyColumn</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:foreignkeycolumn">
       <DisplayName>Ordinal</DisplayName>
@@ -70,6 +78,7 @@
       <NativeId>Ordinal</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:foreignkey-foreignkey" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:foreignkeycolumn">
       <DisplayName>ForeignKey</DisplayName>
@@ -77,6 +86,7 @@
       <NativeId>ForeignKey:ForeignKey</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:sourcecolumn-tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:foreignkeycolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:foreignkey-foreignkey">
       <DisplayName>SourceColumn</DisplayName>
@@ -84,6 +94,7 @@
       <NativeId>SourceColumn:TableColumn</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:targetcolumn-tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:foreignkeycolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:foreignkeycolumn:relationship:sourcecolumn-tablecolumn">
       <DisplayName>TargetColumn</DisplayName>
@@ -91,6 +102,7 @@
       <NativeId>TargetColumn:TableColumn</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:foreignkeycolumn">
       <DisplayName>Function</DisplayName>
@@ -98,6 +110,7 @@
       <NativeId>Function</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function:property:definitionsql" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:function">
       <DisplayName>DefinitionSql</DisplayName>
@@ -105,6 +118,7 @@
       <NativeId>DefinitionSql</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function:property:deployordinal" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:function" PreviousSubjectId="source:workspace-model:meta-sql:entity:function:property:definitionsql">
       <DisplayName>DeployOrdinal</DisplayName>
@@ -112,6 +126,7 @@
       <NativeId>DeployOrdinal</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function:property:functionkind" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:function" PreviousSubjectId="source:workspace-model:meta-sql:entity:function:property:deployordinal">
       <DisplayName>FunctionKind</DisplayName>
@@ -119,6 +134,7 @@
       <NativeId>FunctionKind</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:function" PreviousSubjectId="source:workspace-model:meta-sql:entity:function:property:functionkind">
       <DisplayName>Name</DisplayName>
@@ -126,6 +142,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:function:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:function">
       <DisplayName>Schema</DisplayName>
@@ -133,6 +150,7 @@
       <NativeId>Schema:Schema</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:function">
       <DisplayName>Index</DisplayName>
@@ -140,6 +158,7 @@
       <NativeId>Index</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index:property:filtersql" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:index">
       <DisplayName>FilterSql</DisplayName>
@@ -147,6 +166,7 @@
       <NativeId>FilterSql</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index:property:isclustered" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:index" PreviousSubjectId="source:workspace-model:meta-sql:entity:index:property:filtersql">
       <DisplayName>IsClustered</DisplayName>
@@ -154,6 +174,7 @@
       <NativeId>IsClustered</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index:property:isunique" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:index" PreviousSubjectId="source:workspace-model:meta-sql:entity:index:property:isclustered">
       <DisplayName>IsUnique</DisplayName>
@@ -161,6 +182,7 @@
       <NativeId>IsUnique</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:index" PreviousSubjectId="source:workspace-model:meta-sql:entity:index:property:isunique">
       <DisplayName>Name</DisplayName>
@@ -168,6 +190,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:index:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:index">
       <DisplayName>Table</DisplayName>
@@ -175,6 +198,7 @@
       <NativeId>Table:Table</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:index">
       <DisplayName>IndexColumn</DisplayName>
@@ -182,6 +206,7 @@
       <NativeId>IndexColumn</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn:property:isdescending" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:indexcolumn">
       <DisplayName>IsDescending</DisplayName>
@@ -189,6 +214,7 @@
       <NativeId>IsDescending</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn:property:isincluded" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:indexcolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:indexcolumn:property:isdescending">
       <DisplayName>IsIncluded</DisplayName>
@@ -196,6 +222,7 @@
       <NativeId>IsIncluded</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:indexcolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:indexcolumn:property:isincluded">
       <DisplayName>Ordinal</DisplayName>
@@ -203,6 +230,7 @@
       <NativeId>Ordinal</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:index-index" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:indexcolumn">
       <DisplayName>Index</DisplayName>
@@ -210,6 +238,7 @@
       <NativeId>Index:Index</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:indexcolumn:relationship:tablecolumn-tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:indexcolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:indexcolumn:relationship:index-index">
       <DisplayName>TableColumn</DisplayName>
@@ -217,6 +246,7 @@
       <NativeId>TableColumn:TableColumn</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykey" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:indexcolumn">
       <DisplayName>PrimaryKey</DisplayName>
@@ -224,6 +254,7 @@
       <NativeId>PrimaryKey</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykey:property:isclustered" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:primarykey">
       <DisplayName>IsClustered</DisplayName>
@@ -231,6 +262,7 @@
       <NativeId>IsClustered</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykey:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:primarykey" PreviousSubjectId="source:workspace-model:meta-sql:entity:primarykey:property:isclustered">
       <DisplayName>Name</DisplayName>
@@ -238,6 +270,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykey:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:primarykey">
       <DisplayName>Table</DisplayName>
@@ -245,6 +278,7 @@
       <NativeId>Table:Table</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykeycolumn" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:primarykey">
       <DisplayName>PrimaryKeyColumn</DisplayName>
@@ -252,6 +286,7 @@
       <NativeId>PrimaryKeyColumn</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykeycolumn:property:isdescending" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:primarykeycolumn">
       <DisplayName>IsDescending</DisplayName>
@@ -259,6 +294,7 @@
       <NativeId>IsDescending</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykeycolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:primarykeycolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:primarykeycolumn:property:isdescending">
       <DisplayName>Ordinal</DisplayName>
@@ -266,6 +302,7 @@
       <NativeId>Ordinal</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:primarykey-primarykey" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:primarykeycolumn">
       <DisplayName>PrimaryKey</DisplayName>
@@ -273,6 +310,7 @@
       <NativeId>PrimaryKey:PrimaryKey</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:tablecolumn-tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:primarykeycolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:primarykeycolumn:relationship:primarykey-primarykey">
       <DisplayName>TableColumn</DisplayName>
@@ -280,6 +318,7 @@
       <NativeId>TableColumn:TableColumn</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:schema" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:primarykeycolumn">
       <DisplayName>Schema</DisplayName>
@@ -287,6 +326,7 @@
       <NativeId>Schema</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:schema:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:schema">
       <DisplayName>Name</DisplayName>
@@ -294,6 +334,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:schema:relationship:database-database" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:schema">
       <DisplayName>Database</DisplayName>
@@ -301,6 +342,7 @@
       <NativeId>Database:Database</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:storedprocedure" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:schema">
       <DisplayName>StoredProcedure</DisplayName>
@@ -308,6 +350,7 @@
       <NativeId>StoredProcedure</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:storedprocedure:property:definitionsql" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:storedprocedure">
       <DisplayName>DefinitionSql</DisplayName>
@@ -315,6 +358,7 @@
       <NativeId>DefinitionSql</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:storedprocedure:property:deployordinal" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:storedprocedure" PreviousSubjectId="source:workspace-model:meta-sql:entity:storedprocedure:property:definitionsql">
       <DisplayName>DeployOrdinal</DisplayName>
@@ -322,6 +366,7 @@
       <NativeId>DeployOrdinal</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:storedprocedure:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:storedprocedure" PreviousSubjectId="source:workspace-model:meta-sql:entity:storedprocedure:property:deployordinal">
       <DisplayName>Name</DisplayName>
@@ -329,6 +374,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:storedprocedure:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:storedprocedure">
       <DisplayName>Schema</DisplayName>
@@ -336,6 +382,7 @@
       <NativeId>Schema:Schema</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:table" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:storedprocedure">
       <DisplayName>Table</DisplayName>
@@ -343,6 +390,7 @@
       <NativeId>Table</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:table:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:table">
       <DisplayName>Name</DisplayName>
@@ -350,6 +398,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:table:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:table">
       <DisplayName>Schema</DisplayName>
@@ -357,6 +406,7 @@
       <NativeId>Schema:Schema</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:table">
       <DisplayName>TableColumn</DisplayName>
@@ -364,6 +414,7 @@
       <NativeId>TableColumn</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:defaultexpressionsql" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumn">
       <DisplayName>DefaultExpressionSql</DisplayName>
@@ -371,6 +422,7 @@
       <NativeId>DefaultExpressionSql</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:expressionsql" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumn:property:defaultexpressionsql">
       <DisplayName>ExpressionSql</DisplayName>
@@ -378,6 +430,7 @@
       <NativeId>ExpressionSql</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:identityincrement" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumn:property:expressionsql">
       <DisplayName>IdentityIncrement</DisplayName>
@@ -385,6 +438,7 @@
       <NativeId>IdentityIncrement</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:identityseed" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumn:property:identityincrement">
       <DisplayName>IdentitySeed</DisplayName>
@@ -392,6 +446,7 @@
       <NativeId>IdentitySeed</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:isidentity" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumn:property:identityseed">
       <DisplayName>IsIdentity</DisplayName>
@@ -399,6 +454,7 @@
       <NativeId>IsIdentity</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:isnullable" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumn:property:isidentity">
       <DisplayName>IsNullable</DisplayName>
@@ -406,6 +462,7 @@
       <NativeId>IsNullable</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:metadatatypeid" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumn:property:isnullable">
       <DisplayName>MetaDataTypeId</DisplayName>
@@ -413,6 +470,7 @@
       <NativeId>MetaDataTypeId</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumn:property:metadatatypeid">
       <DisplayName>Name</DisplayName>
@@ -420,6 +478,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:property:ordinal" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumn" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumn:property:name">
       <DisplayName>Ordinal</DisplayName>
@@ -427,6 +486,7 @@
       <NativeId>Ordinal</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumn:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumn">
       <DisplayName>Table</DisplayName>
@@ -434,6 +494,7 @@
       <NativeId>Table:Table</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumn">
       <DisplayName>TableColumnDataTypeDetail</DisplayName>
@@ -441,6 +502,7 @@
       <NativeId>TableColumnDataTypeDetail</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail">
       <DisplayName>Name</DisplayName>
@@ -448,6 +510,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:property:name">
       <DisplayName>Value</DisplayName>
@@ -455,6 +518,7 @@
       <NativeId>Value</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail:relationship:tablecolumn-tablecolumn" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail">
       <DisplayName>TableColumn</DisplayName>
@@ -462,6 +526,7 @@
       <NativeId>TableColumn:TableColumn</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:view" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-sql:model:metasql" PreviousSubjectId="source:workspace-model:meta-sql:entity:tablecolumndatatypedetail">
       <DisplayName>View</DisplayName>
@@ -469,6 +534,7 @@
       <NativeId>View</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:view:property:definitionsql" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:view">
       <DisplayName>DefinitionSql</DisplayName>
@@ -476,6 +542,7 @@
       <NativeId>DefinitionSql</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:view:property:deployordinal" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:view" PreviousSubjectId="source:workspace-model:meta-sql:entity:view:property:definitionsql">
       <DisplayName>DeployOrdinal</DisplayName>
@@ -483,6 +550,7 @@
       <NativeId>DeployOrdinal</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:view:property:name" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-sql:entity:view" PreviousSubjectId="source:workspace-model:meta-sql:entity:view:property:deployordinal">
       <DisplayName>Name</DisplayName>
@@ -490,6 +558,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:entity:view:relationship:schema-schema" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-sql:entity:view">
       <DisplayName>Schema</DisplayName>
@@ -497,6 +566,7 @@
       <NativeId>Schema:Schema</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:model:metasql" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
       <DisplayName>MetaSql</DisplayName>
@@ -504,6 +574,7 @@
       <NativeId>MetaSql</NativeId>
       <SourceTypeName>GenericModel</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-sql:workspace" DocumentationSourceId="source:workspace-model:meta-sql" DocumentationSubjectTypeId="subject-type:workspace">
       <DisplayName>MetaSql</DisplayName>
@@ -511,6 +582,7 @@
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaSql\Workspace</NativeId>
       <SourceTypeName>Workspace</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

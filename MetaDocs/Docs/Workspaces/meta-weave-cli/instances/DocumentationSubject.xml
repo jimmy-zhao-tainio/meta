@@ -144,7 +144,55 @@
       <Status>New</Status>
       <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:help" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:check">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:create" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:check">
+      <DisplayName>meta-weave create</DisplayName>
+      <DisplayPath>meta-weave create</DisplayPath>
+      <NativeId>exec-create</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a meta-weave workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:connection-env" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta-weave create --connection-env</DisplayPath>
+      <NativeId>option-create-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the SQL Server connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:csharp" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create" PreviousSubjectId="source:cli:meta-weave:app:command:create:option:connection-env">
+      <DisplayName>--csharp</DisplayName>
+      <DisplayPath>meta-weave create --csharp</DisplayPath>
+      <NativeId>option-create-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a C# workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:sql" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create" PreviousSubjectId="source:cli:meta-weave:app:command:create:option:csharp">
+      <DisplayName>--sql</DisplayName>
+      <DisplayPath>meta-weave create --sql</DisplayPath>
+      <NativeId>option-create-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a SQL workspace described by this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:xml" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create" PreviousSubjectId="source:cli:meta-weave:app:command:create:option:sql">
+      <DisplayName>--xml</DisplayName>
+      <DisplayPath>meta-weave create --xml</DisplayPath>
+      <NativeId>option-create-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create an XML workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:parameter-group:output" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-weave:app:command:create">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-weave create group output</DisplayPath>
+      <NativeId>group-create-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace representation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:help" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:create">
       <DisplayName>meta-weave help</DisplayName>
       <DisplayPath>meta-weave help</DisplayPath>
       <NativeId>exec-help</NativeId>
@@ -168,15 +216,39 @@
       <Status>New</Status>
       <Summary>Materialized model name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:new-workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:materialize" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:model">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta-weave materialize --new-workspace</DisplayPath>
-      <NativeId>opt-materialize-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:output-connection-env" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:materialize" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:model">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-weave materialize --output-connection-env</DisplayPath>
+      <NativeId>option-materialize-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Empty target directory for the materialized workspace.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:materialize" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:output-csharp" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:materialize" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-weave materialize --output-csharp</DisplayPath>
+      <NativeId>option-materialize-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the csharp workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:output-sql" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:materialize" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-weave materialize --output-sql</DisplayPath>
+      <NativeId>option-materialize-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the sql workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:output-xml" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:materialize" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-weave materialize --output-xml</DisplayPath>
+      <NativeId>option-materialize-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the xml workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:option:workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:materialize" PreviousSubjectId="source:cli:meta-weave:app:command:materialize:option:output-xml">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-weave materialize --workspace</DisplayPath>
       <NativeId>opt-materialize-workspace</NativeId>
@@ -184,23 +256,15 @@
       <Status>New</Status>
       <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:new-workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:materialize">
-      <DisplayName>meta-weave new-workspace</DisplayName>
-      <DisplayPath>meta-weave new-workspace</DisplayPath>
-      <NativeId>exec-new-workspace</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:materialize:parameter-group:target" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-weave:app:command:materialize">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta-weave materialize group target</DisplayPath>
+      <NativeId>group-materialize-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
       <Status>New</Status>
-      <Summary>Create a MetaWeave workspace.</Summary>
+      <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta-weave:app:command:new-workspace">
-      <DisplayName>&lt;path&gt;</DisplayName>
-      <DisplayPath>meta-weave new-workspace &lt;path&gt;</DisplayPath>
-      <NativeId>pos-new-workspace-path</NativeId>
-      <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Empty target directory for the new MetaWeave workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:suggest" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:suggest" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:materialize">
       <DisplayName>meta-weave suggest</DisplayName>
       <DisplayPath>meta-weave suggest</DisplayPath>
       <NativeId>exec-suggest</NativeId>

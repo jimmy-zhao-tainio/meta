@@ -48,15 +48,39 @@
       <Status>New</Status>
       <Summary>Navigation label for the page. Defaults to the page title when first authored.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:new-workspace" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:navigation-title">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta-docs author-page --new-workspace</DisplayPath>
-      <NativeId>option-author-page-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:output-connection-env" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:navigation-title">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-docs author-page --output-connection-env</DisplayPath>
+      <NativeId>option-author-page-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>New MetaDocs workspace to create.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:parent" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:output-csharp" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-docs author-page --output-csharp</DisplayPath>
+      <NativeId>option-author-page-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the csharp workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:output-sql" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-docs author-page --output-sql</DisplayPath>
+      <NativeId>option-author-page-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the sql workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:output-xml" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-docs author-page --output-xml</DisplayPath>
+      <NativeId>option-author-page-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the xml workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:parent" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:output-xml">
       <DisplayName>--parent</DisplayName>
       <DisplayPath>meta-docs author-page --parent</DisplayPath>
       <NativeId>option-author-page-parent</NativeId>
@@ -134,6 +158,7 @@
       <NativeId>allowed-boolean-false</NativeId>
       <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:view-root:allowed-value:true" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-docs:app:command:author-page:option:view-root" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:view-root:allowed-value:false">
       <DisplayName>true</DisplayName>
@@ -141,6 +166,7 @@
       <NativeId>allowed-boolean-true</NativeId>
       <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:option:workspace" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:author-page" PreviousSubjectId="source:cli:meta-docs:app:command:author-page:option:view-root">
       <DisplayName>--workspace</DisplayName>
@@ -149,6 +175,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Existing MetaDocs workspace to update in place.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:author-page:parameter-group:target" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-docs:app:command:author-page">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta-docs author-page group target</DisplayPath>
+      <NativeId>group-author-page-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:browse" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-docs:app" PreviousSubjectId="source:cli:meta-docs:app:command:author-page">
       <DisplayName>meta-docs browse</DisplayName>
@@ -230,15 +264,39 @@
       <Status>New</Status>
       <Summary>Optional MetaCli application id when the source workspace contains more than one application.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:new-workspace" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-cli" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:application">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta-docs import-cli --new-workspace</DisplayPath>
-      <NativeId>option-import-cli-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:output-connection-env" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-cli" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:application">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-docs import-cli --output-connection-env</DisplayPath>
+      <NativeId>option-import-cli-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary>New MetaDocs source workspace to create.</Summary>
+      <Status>New</Status>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:parent-subject" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-cli" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:output-csharp" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-cli" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-docs import-cli --output-csharp</DisplayPath>
+      <NativeId>option-import-cli-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the csharp workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:output-sql" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-cli" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-docs import-cli --output-sql</DisplayPath>
+      <NativeId>option-import-cli-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the sql workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:output-xml" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-cli" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-docs import-cli --output-xml</DisplayPath>
+      <NativeId>option-import-cli-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the xml workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:option:parent-subject" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-cli" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli:option:output-xml">
       <DisplayName>--parent-subject</DisplayName>
       <DisplayPath>meta-docs import-cli --parent-subject</DisplayPath>
       <NativeId>option-import-cli-parent-subject</NativeId>
@@ -269,6 +327,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>Changed</Status>
       <Summary>Existing MetaDocs source workspace to refresh in place.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-cli:parameter-group:target" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-docs:app:command:import-cli">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta-docs import-cli group target</DisplayPath>
+      <NativeId>group-import-cli-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-instances" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-docs:app" PreviousSubjectId="source:cli:meta-docs:app:command:import-cli">
       <DisplayName>meta-docs import-workspace-instances</DisplayName>
@@ -334,15 +400,39 @@
       <Status>New</Status>
       <Summary>Optional source display name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:new-workspace" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:display-name">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta-docs import-workspace-model --new-workspace</DisplayPath>
-      <NativeId>option-import-workspace-model-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:output-connection-env" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:display-name">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-docs import-workspace-model --output-connection-env</DisplayPath>
+      <NativeId>option-import-workspace-model-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary>New MetaDocs source workspace to create.</Summary>
+      <Status>New</Status>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:parent-subject" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:output-csharp" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-docs import-workspace-model --output-csharp</DisplayPath>
+      <NativeId>option-import-workspace-model-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the csharp workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:output-sql" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-docs import-workspace-model --output-sql</DisplayPath>
+      <NativeId>option-import-workspace-model-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the sql workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:output-xml" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-docs import-workspace-model --output-xml</DisplayPath>
+      <NativeId>option-import-workspace-model-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the xml workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:option:parent-subject" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model:option:output-xml">
       <DisplayName>--parent-subject</DisplayName>
       <DisplayPath>meta-docs import-workspace-model --parent-subject</DisplayPath>
       <NativeId>option-import-workspace-model-parent-subject</NativeId>
@@ -373,6 +463,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>Changed</Status>
       <Summary>Existing MetaDocs source workspace to refresh in place.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:import-workspace-model:parameter-group:target" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-docs:app:command:import-workspace-model">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta-docs import-workspace-model group target</DisplayPath>
+      <NativeId>group-import-workspace-model-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:include-instance-entity" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-docs:app" PreviousSubjectId="source:cli:meta-docs:app:command:import-workspace-model">
       <DisplayName>meta-docs include-instance-entity</DisplayName>

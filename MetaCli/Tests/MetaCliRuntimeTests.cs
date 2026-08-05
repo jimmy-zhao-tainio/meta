@@ -179,6 +179,29 @@ public sealed class MetaCliRuntimeTests
     }
 
     [Fact]
+    public void Runtime_UsesTypedLoaderForXmlPrimaryWorkspace()
+    {
+        using var temp = TempDirectory.Create();
+        var commandWorkspace = temp.SaveCommandSurface(CreateRuntimeModel());
+        var domainWorkspace = temp.SaveDomainModel("Domain.MetaCli");
+        var exitCode = -1;
+        ProbeModel.LoadCount = 0;
+
+        var runtime = new MetaCliRuntime<ProbeModel>(
+                commandWorkspace,
+                error: new StringWriter(),
+                setExitCode: code => exitCode = code)
+            .BindReadOnly(
+                "exec-add-property",
+                (MetaCliInvocation _, ProbeModel _) => { });
+
+        runtime.Run("model", "add-property", "--workspace", domainWorkspace, "Customer", "Name");
+
+        Assert.Equal(0, exitCode);
+        Assert.Equal(1, ProbeModel.LoadCount);
+    }
+
+    [Fact]
     public void Runtime_CompletesCommandAfterWorkspacePersistence()
     {
         using var temp = TempDirectory.Create();
@@ -1070,6 +1093,45 @@ public sealed class MetaCliRuntimeTests
             {
                 Directory.Delete(Path, recursive: true);
             }
+        }
+    }
+
+    private sealed class ProbeModel : IMetaWorkspaceModel<ProbeModel>
+    {
+        public static int LoadCount { get; set; }
+
+        public static ProbeModel CreateEmpty() => new();
+
+        public static ProbeModel LoadFromXmlWorkspace(
+            string workspacePath,
+            bool searchUpward = false) =>
+            Load();
+
+        public static Task<ProbeModel> LoadFromXmlWorkspaceAsync(
+            string workspacePath,
+            bool searchUpward = false,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.FromResult(Load());
+        }
+
+        public void SaveToXmlWorkspace(string workspacePath)
+        {
+        }
+
+        public Task SaveToXmlWorkspaceAsync(
+            string workspacePath,
+            CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.CompletedTask;
+        }
+
+        private static ProbeModel Load()
+        {
+            LoadCount++;
+            return new ProbeModel();
         }
     }
 }

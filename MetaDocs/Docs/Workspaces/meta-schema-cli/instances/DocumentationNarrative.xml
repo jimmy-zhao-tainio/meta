@@ -3,7 +3,7 @@
   <DocumentationNarrativeList>
     <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver">
       <Body>Extract SQL Server schema into a MetaSchema workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -11,7 +11,7 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:all-schemas:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:all-schemas">
       <Body>Extract all SQL Server schemas in scope.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -19,7 +19,7 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:all-tables:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:all-tables">
       <Body>Extract all SQL Server tables and views in scope.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -27,15 +27,39 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:connection-env:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:connection-env">
       <Body>Environment variable containing the SQL Server connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:new-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:new-workspace">
-      <Body>Directory where the MetaSchema workspace will be created.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:output-connection-env:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:output-connection-env">
+      <Body>Environment variable containing the output SQL workspace connection string.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:output-csharp:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:output-csharp">
+      <Body>Create the output on the csharp workspace surface.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:output-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:output-sql">
+      <Body>Create the output on the sql workspace surface.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:output-xml:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:output-xml">
+      <Body>Create the output on the xml workspace surface.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -43,7 +67,7 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:schema:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:schema">
       <Body>Extract one SQL Server schema.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -51,7 +75,7 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:system:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:system">
       <Body>Source system name recorded in the workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -59,7 +83,7 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-schema:app:command:extract-sqlserver:option:table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:extract-sqlserver:option:table">
       <Body>Extract one SQL Server table or view.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -67,7 +91,7 @@
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-schema:app:command:help:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app:command:help">
       <Body>Show help.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -99,7 +123,7 @@ Because the schema is durable model data, it can be compared, regenerated, and c
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-schema:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-schema:app">
       <Body>Extract SQL Server schemas into modeled workspaces that preserve databases, schemas, tables, fields, keys, and relationships.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260701172655824</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-schema:batch:20260805095717066</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>

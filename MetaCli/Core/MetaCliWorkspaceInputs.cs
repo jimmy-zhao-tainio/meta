@@ -9,6 +9,9 @@ public abstract record MetaCliWorkspaceParameter(string Name);
 public sealed record MetaCliWorkspaceInput(string Parameter)
     : MetaCliWorkspaceParameter(Parameter);
 
+public sealed record MetaCliOptionalWorkspaceInput(string Parameter)
+    : MetaCliWorkspaceParameter(Parameter);
+
 public sealed record MetaCliWorkspaceTarget(string Parameter)
     : MetaCliWorkspaceParameter(Parameter);
 
@@ -17,7 +20,8 @@ public sealed record MetaCliWorkspaceOutput(
     string XmlParameter,
     string CSharpParameter,
     string SqlParameter,
-    string ConnectionEnvironmentParameter)
+    string ConnectionEnvironmentParameter,
+    string? LocationParameter = null)
     : MetaCliWorkspaceParameter(Output);
 
 public static class MetaCliWorkspace
@@ -31,6 +35,15 @@ public static class MetaCliWorkspace
         string directory,
         CancellationToken cancellationToken = default)
     {
+        var typedXmlWorkspace = await MetaCliWorkspaceResolver.TryOpenTypedXmlAsync<MetaCliModel>(
+                directory,
+                cancellationToken)
+            .ConfigureAwait(false);
+        if (typedXmlWorkspace is not null)
+        {
+            return typedXmlWorkspace.Model;
+        }
+
         await using var workspace = await OpenAsync(directory, cancellationToken)
             .ConfigureAwait(false);
         var state = await WorkspaceComposition.MaterializeAsync(
@@ -79,6 +92,12 @@ public static class MetaCliWorkspace
         return new MetaCliWorkspaceInput(parameter.Trim());
     }
 
+    public static MetaCliOptionalWorkspaceInput OpenOptional(string parameter)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(parameter);
+        return new MetaCliOptionalWorkspaceInput(parameter.Trim());
+    }
+
     public static MetaCliWorkspaceTarget Target(string parameter)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(parameter);
@@ -103,6 +122,29 @@ public static class MetaCliWorkspace
             csharpParameter.Trim(),
             sqlParameter.Trim(),
             connectionEnvironmentParameter.Trim());
+    }
+
+    public static MetaCliWorkspaceOutput CreateAt(
+        string output,
+        string locationParameter,
+        string xmlParameter,
+        string csharpParameter,
+        string sqlParameter,
+        string connectionEnvironmentParameter = "connection-env")
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(output);
+        ArgumentException.ThrowIfNullOrWhiteSpace(locationParameter);
+        ArgumentException.ThrowIfNullOrWhiteSpace(xmlParameter);
+        ArgumentException.ThrowIfNullOrWhiteSpace(csharpParameter);
+        ArgumentException.ThrowIfNullOrWhiteSpace(sqlParameter);
+        ArgumentException.ThrowIfNullOrWhiteSpace(connectionEnvironmentParameter);
+        return new MetaCliWorkspaceOutput(
+            output.Trim(),
+            xmlParameter.Trim(),
+            csharpParameter.Trim(),
+            sqlParameter.Trim(),
+            connectionEnvironmentParameter.Trim(),
+            locationParameter.Trim());
     }
 
     private static string? Optional(
@@ -222,6 +264,49 @@ public sealed class MetaCliWorkspaces : IAsyncDisposable
         MetaCliInvocation invocation,
         MetaCliWorkspaceOutput output)
     {
+        if (output.LocationParameter is not null)
+        {
+            var location = Optional(invocation, output.LocationParameter);
+            if (string.IsNullOrWhiteSpace(location))
+            {
+                throw new InvalidOperationException(
+                    $"--{output.LocationParameter} is required.");
+            }
+
+            var selectedSurfaces = new[]
+            {
+                IsPresent(invocation, output.XmlParameter),
+                IsPresent(invocation, output.CSharpParameter),
+                IsPresent(invocation, output.SqlParameter),
+            }.Count(static value => value);
+            if (selectedSurfaces != 1)
+            {
+                throw new InvalidOperationException(
+                    $"Specify exactly one of --{output.XmlParameter}, --{output.CSharpParameter}, or --{output.SqlParameter}.");
+            }
+
+            if (IsPresent(invocation, output.XmlParameter))
+            {
+                return new MetaCliXmlWorkspaceCreation(Path.GetFullPath(location));
+            }
+
+            if (IsPresent(invocation, output.CSharpParameter))
+            {
+                return new MetaCliCSharpWorkspaceCreation(Path.GetFullPath(location));
+            }
+
+            var sqlConnectionEnvironment = Optional(invocation, output.ConnectionEnvironmentParameter);
+            if (string.IsNullOrWhiteSpace(sqlConnectionEnvironment))
+            {
+                throw new InvalidOperationException(
+                    $"--{output.ConnectionEnvironmentParameter} is required with --{output.SqlParameter}.");
+            }
+
+            return new MetaCliSqlWorkspaceCreation(
+                Path.GetFullPath(location),
+                sqlConnectionEnvironment.Trim());
+        }
+
         var xml = Optional(invocation, output.XmlParameter);
         var csharp = Optional(invocation, output.CSharpParameter);
         var sql = Optional(invocation, output.SqlParameter);
@@ -263,6 +348,18 @@ public sealed class MetaCliWorkspaces : IAsyncDisposable
         catch (KeyNotFoundException)
         {
             return null;
+        }
+    }
+
+    private static bool IsPresent(MetaCliInvocation invocation, string parameter)
+    {
+        try
+        {
+            return invocation.IsPresent(parameter);
+        }
+        catch (KeyNotFoundException)
+        {
+            return false;
         }
     }
 }

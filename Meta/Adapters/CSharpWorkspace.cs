@@ -104,7 +104,7 @@ public sealed class CSharpWorkspace : IMetaWorkspace
     {
         ArgumentNullException.ThrowIfNull(operations);
         cancellationToken.ThrowIfCancellationRequested();
-        var applied = InMemoryOperations.Execute(_state, operations);
+        var applied = InMemoryOperations.ExecuteBatch(_state, operations);
         var output = MetaCSharpWriter.Write(applied.Workspace);
         await PublishAsync(
                 output,

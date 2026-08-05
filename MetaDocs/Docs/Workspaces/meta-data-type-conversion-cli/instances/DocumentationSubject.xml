@@ -32,7 +32,55 @@
       <Status>New</Status>
       <Summary>MetaDataTypeConversion workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:help" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-data-type-conversion:app" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:check">
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:create" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-data-type-conversion:app" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:check">
+      <DisplayName>meta-data-type-conversion create</DisplayName>
+      <DisplayPath>meta-data-type-conversion create</DisplayPath>
+      <NativeId>exec-create</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a meta-data-type-conversion workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:create:option:connection-env" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-data-type-conversion:app:command:create">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta-data-type-conversion create --connection-env</DisplayPath>
+      <NativeId>option-create-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the SQL Server connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:create:option:csharp" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-data-type-conversion:app:command:create" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:create:option:connection-env">
+      <DisplayName>--csharp</DisplayName>
+      <DisplayPath>meta-data-type-conversion create --csharp</DisplayPath>
+      <NativeId>option-create-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a C# workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:create:option:sql" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-data-type-conversion:app:command:create" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:create:option:csharp">
+      <DisplayName>--sql</DisplayName>
+      <DisplayPath>meta-data-type-conversion create --sql</DisplayPath>
+      <NativeId>option-create-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a SQL workspace described by this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:create:option:xml" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-data-type-conversion:app:command:create" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:create:option:sql">
+      <DisplayName>--xml</DisplayName>
+      <DisplayPath>meta-data-type-conversion create --xml</DisplayPath>
+      <NativeId>option-create-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create an XML workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:create:parameter-group:output" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-data-type-conversion:app:command:create">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-data-type-conversion create group output</DisplayPath>
+      <NativeId>group-create-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace representation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:help" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-data-type-conversion:app" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:create">
       <DisplayName>meta-data-type-conversion help</DisplayName>
       <DisplayPath>meta-data-type-conversion help</DisplayPath>
       <NativeId>exec-help</NativeId>
@@ -40,23 +88,7 @@
       <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:new-workspace" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-data-type-conversion:app" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:help">
-      <DisplayName>meta-data-type-conversion new-workspace</DisplayName>
-      <DisplayPath>meta-data-type-conversion new-workspace</DisplayPath>
-      <NativeId>exec-new-workspace</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create a seeded MetaDataTypeConversion workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta-data-type-conversion:app:command:new-workspace">
-      <DisplayName>&lt;path&gt;</DisplayName>
-      <DisplayPath>meta-data-type-conversion new-workspace &lt;path&gt;</DisplayPath>
-      <NativeId>pos-new-workspace-path</NativeId>
-      <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Directory where the sanctioned workspace will be created.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-data-type-conversion:app" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-data-type-conversion:app:command:resolve" DocumentationSourceId="source:cli:meta-data-type-conversion" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-data-type-conversion:app" PreviousSubjectId="source:cli:meta-data-type-conversion:app:command:help">
       <DisplayName>meta-data-type-conversion resolve</DisplayName>
       <DisplayPath>meta-data-type-conversion resolve</DisplayPath>
       <NativeId>exec-resolve</NativeId>

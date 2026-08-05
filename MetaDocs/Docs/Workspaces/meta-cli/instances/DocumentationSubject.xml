@@ -30,6 +30,7 @@
       <NativeId>pos-bulk-insert-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:auto-id" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:bulk-insert">
       <DisplayName>--auto-id</DisplayName>
@@ -37,6 +38,7 @@
       <NativeId>option-bulk-insert-auto-id</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:file" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:bulk-insert" PreviousSubjectId="source:cli:meta:app:command:bulk-insert:option:auto-id">
       <DisplayName>--file</DisplayName>
@@ -44,6 +46,7 @@
       <NativeId>option-bulk-insert-file</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:from" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:bulk-insert" PreviousSubjectId="source:cli:meta:app:command:bulk-insert:option:file">
       <DisplayName>--from</DisplayName>
@@ -51,6 +54,7 @@
       <NativeId>option-bulk-insert-from</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:key" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:bulk-insert" PreviousSubjectId="source:cli:meta:app:command:bulk-insert:option:from">
       <DisplayName>--key</DisplayName>
@@ -58,6 +62,7 @@
       <NativeId>option-bulk-insert-key</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:stdin" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:bulk-insert" PreviousSubjectId="source:cli:meta:app:command:bulk-insert:option:key">
       <DisplayName>--stdin</DisplayName>
@@ -65,6 +70,7 @@
       <NativeId>option-bulk-insert-stdin</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:bulk-insert" PreviousSubjectId="source:cli:meta:app:command:bulk-insert:option:stdin">
       <DisplayName>--strict</DisplayName>
@@ -72,6 +78,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:bulk-insert:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:bulk-insert" PreviousSubjectId="source:cli:meta:app:command:bulk-insert:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -79,8 +86,73 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:delete" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:bulk-insert">
+    <DocumentationSubject Id="source:cli:meta:app:command:create" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:bulk-insert">
+      <DisplayName>meta create</DisplayName>
+      <DisplayPath>meta create</DisplayPath>
+      <NativeId>exec-create</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a metadata workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:connection-env" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta create --connection-env</DisplayPath>
+      <NativeId>option-create-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the SQL Server connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:csharp" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:connection-env">
+      <DisplayName>--csharp</DisplayName>
+      <DisplayPath>meta create --csharp</DisplayPath>
+      <NativeId>option-create-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a C# workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:csharp">
+      <DisplayName>--sql</DisplayName>
+      <DisplayPath>meta create --sql</DisplayPath>
+      <NativeId>option-create-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a SQL workspace described by this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:sql">
+      <DisplayName>--strict</DisplayName>
+      <DisplayPath>meta create --strict</DisplayPath>
+      <NativeId>option-strict</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:strict">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta create --workspace</DisplayPath>
+      <NativeId>option-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:xml" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:workspace">
+      <DisplayName>--xml</DisplayName>
+      <DisplayPath>meta create --xml</DisplayPath>
+      <NativeId>option-create-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create an XML workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:create:parameter-group:output" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta:app:command:create">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta create group output</DisplayPath>
+      <NativeId>group-create-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace representation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:delete" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:create">
       <DisplayName>meta delete</DisplayName>
       <DisplayPath>meta delete</DisplayPath>
       <NativeId>exec-delete</NativeId>
@@ -94,6 +166,7 @@
       <NativeId>pos-delete-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:delete:argument:id" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:delete" PreviousSubjectId="source:cli:meta:app:command:delete:argument:entity">
       <DisplayName>&lt;Id&gt;</DisplayName>
@@ -101,6 +174,7 @@
       <NativeId>pos-delete-id</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:delete:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:delete">
       <DisplayName>--strict</DisplayName>
@@ -108,6 +182,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:delete:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:delete" PreviousSubjectId="source:cli:meta:app:command:delete:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -115,6 +190,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:deploy-sqlserver" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:delete">
       <DisplayName>meta deploy sqlserver</DisplayName>
@@ -130,6 +206,7 @@
       <NativeId>option-deploy-sqlserver-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:deploy-sqlserver:option:database" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:deploy-sqlserver" PreviousSubjectId="source:cli:meta:app:command:deploy-sqlserver:option:connection-env">
       <DisplayName>--database</DisplayName>
@@ -137,6 +214,7 @@
       <NativeId>option-deploy-sqlserver-database</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:deploy-sqlserver:option:scripts" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:deploy-sqlserver" PreviousSubjectId="source:cli:meta:app:command:deploy-sqlserver:option:database">
       <DisplayName>--scripts</DisplayName>
@@ -144,6 +222,7 @@
       <NativeId>option-deploy-sqlserver-scripts</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:deploy-sqlserver:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:deploy-sqlserver" PreviousSubjectId="source:cli:meta:app:command:deploy-sqlserver:option:scripts">
       <DisplayName>--strict</DisplayName>
@@ -151,6 +230,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:deploy-sqlserver:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:deploy-sqlserver" PreviousSubjectId="source:cli:meta:app:command:deploy-sqlserver:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -158,6 +238,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:export-csv" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:deploy-sqlserver">
       <DisplayName>meta export csv</DisplayName>
@@ -173,6 +254,7 @@
       <NativeId>pos-export-csv-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:export-csv:option:out" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:export-csv">
       <DisplayName>--out</DisplayName>
@@ -180,6 +262,7 @@
       <NativeId>option-export-csv-out</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:export-csv:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:export-csv" PreviousSubjectId="source:cli:meta:app:command:export-csv:option:out">
       <DisplayName>--strict</DisplayName>
@@ -187,6 +270,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:export-csv:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:export-csv" PreviousSubjectId="source:cli:meta:app:command:export-csv:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -194,6 +278,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:export-csv">
       <DisplayName>meta generate csharp</DisplayName>
@@ -209,6 +294,7 @@
       <NativeId>option-generate-csharp-out</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-csharp" PreviousSubjectId="source:cli:meta:app:command:generate-csharp:option:out">
       <DisplayName>--strict</DisplayName>
@@ -216,6 +302,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp:option:tooling" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-csharp" PreviousSubjectId="source:cli:meta:app:command:generate-csharp:option:strict">
       <DisplayName>--tooling</DisplayName>
@@ -223,6 +310,7 @@
       <NativeId>option-generate-csharp-tooling</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate-csharp:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-csharp" PreviousSubjectId="source:cli:meta:app:command:generate-csharp:option:tooling">
       <DisplayName>--workspace</DisplayName>
@@ -230,6 +318,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:generate-csharp">
       <DisplayName>meta generate sql</DisplayName>
@@ -245,6 +334,7 @@
       <NativeId>option-generate-sql-out</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate-sql:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-sql" PreviousSubjectId="source:cli:meta:app:command:generate-sql:option:out">
       <DisplayName>--strict</DisplayName>
@@ -252,6 +342,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:generate-sql:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:generate-sql" PreviousSubjectId="source:cli:meta:app:command:generate-sql:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -259,6 +350,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:generate-sql">
       <DisplayName>meta graph inbound</DisplayName>
@@ -274,6 +366,7 @@
       <NativeId>pos-graph-inbound-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:graph-inbound">
       <DisplayName>--strict</DisplayName>
@@ -281,6 +374,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound:option:top" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:graph-inbound" PreviousSubjectId="source:cli:meta:app:command:graph-inbound:option:strict">
       <DisplayName>--top</DisplayName>
@@ -288,6 +382,7 @@
       <NativeId>option-graph-inbound-top</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph-inbound:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:graph-inbound" PreviousSubjectId="source:cli:meta:app:command:graph-inbound:option:top">
       <DisplayName>--workspace</DisplayName>
@@ -295,6 +390,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph-stats" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:graph-inbound">
       <DisplayName>meta graph stats</DisplayName>
@@ -310,6 +406,7 @@
       <NativeId>option-graph-stats-cycles</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph-stats:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:graph-stats" PreviousSubjectId="source:cli:meta:app:command:graph-stats:option:cycles">
       <DisplayName>--strict</DisplayName>
@@ -317,6 +414,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph-stats:option:top" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:graph-stats" PreviousSubjectId="source:cli:meta:app:command:graph-stats:option:strict">
       <DisplayName>--top</DisplayName>
@@ -324,6 +422,7 @@
       <NativeId>option-graph-stats-top</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:graph-stats:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:graph-stats" PreviousSubjectId="source:cli:meta:app:command:graph-stats:option:top">
       <DisplayName>--workspace</DisplayName>
@@ -331,6 +430,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:help" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:graph-stats">
       <DisplayName>meta help</DisplayName>
@@ -346,6 +446,7 @@
       <NativeId>pos-help-command</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:help:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:help">
       <DisplayName>--strict</DisplayName>
@@ -353,6 +454,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:help:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:help" PreviousSubjectId="source:cli:meta:app:command:help:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -360,6 +462,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-csv" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:help">
       <DisplayName>meta import csv</DisplayName>
@@ -375,6 +478,7 @@
       <NativeId>pos-import-csv-csvfile</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:entity" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv">
       <DisplayName>--entity</DisplayName>
@@ -382,20 +486,47 @@
       <NativeId>option-import-csv-entity</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:new-workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:entity">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta import csv --new-workspace</DisplayPath>
-      <NativeId>option-import-csv-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:output-connection-env" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:entity">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta import csv --output-connection-env</DisplayPath>
+      <NativeId>option-import-csv-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:output-csharp" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta import csv --output-csharp</DisplayPath>
+      <NativeId>option-import-csv-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the csharp workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:output-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta import csv --output-sql</DisplayPath>
+      <NativeId>option-import-csv-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the sql workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:output-xml" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta import csv --output-xml</DisplayPath>
+      <NativeId>option-import-csv-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the xml workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:output-xml">
       <DisplayName>--strict</DisplayName>
       <DisplayPath>meta import csv --strict</DisplayPath>
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-csv:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-csv" PreviousSubjectId="source:cli:meta:app:command:import-csv:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -403,6 +534,15 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-csv:parameter-group:target" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta:app:command:import-csv">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta import csv group target</DisplayPath>
+      <NativeId>group-import-csv-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:import-csv">
       <DisplayName>meta import sql</DisplayName>
@@ -418,6 +558,7 @@
       <NativeId>pos-import-sql-schema</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:connection-env" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql">
       <DisplayName>--connection-env</DisplayName>
@@ -425,20 +566,47 @@
       <NativeId>option-import-sql-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:new-workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:connection-env">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta import sql --new-workspace</DisplayPath>
-      <NativeId>option-import-sql-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:output-connection-env" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:connection-env">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta import sql --output-connection-env</DisplayPath>
+      <NativeId>option-import-sql-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:output-csharp" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta import sql --output-csharp</DisplayPath>
+      <NativeId>option-import-sql-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the csharp workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:output-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta import sql --output-sql</DisplayPath>
+      <NativeId>option-import-sql-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the sql workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:output-xml" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta import sql --output-xml</DisplayPath>
+      <NativeId>option-import-sql-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the xml workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:output-xml">
       <DisplayName>--strict</DisplayName>
       <DisplayPath>meta import sql --strict</DisplayPath>
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:import-sql:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:import-sql" PreviousSubjectId="source:cli:meta:app:command:import-sql:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -446,37 +614,17 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:init" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:import-sql">
-      <DisplayName>meta init</DisplayName>
-      <DisplayPath>meta init</DisplayPath>
-      <NativeId>exec-init</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+    <DocumentationSubject Id="source:cli:meta:app:command:import-sql:parameter-group:target" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta:app:command:import-sql">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta import sql group target</DisplayPath>
+      <NativeId>group-import-sql-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
       <Status>New</Status>
-      <Summary>Initialize a metadata workspace.</Summary>
+      <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:init:argument:path" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:init">
-      <DisplayName>&lt;path&gt;</DisplayName>
-      <DisplayPath>meta init &lt;path&gt;</DisplayPath>
-      <NativeId>pos-init-path</NativeId>
-      <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:init:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:init">
-      <DisplayName>--strict</DisplayName>
-      <DisplayPath>meta init --strict</DisplayPath>
-      <NativeId>option-strict</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:init:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:init" PreviousSubjectId="source:cli:meta:app:command:init:option:strict">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta init --workspace</DisplayPath>
-      <NativeId>option-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:insert" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:init">
+    <DocumentationSubject Id="source:cli:meta:app:command:insert" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:import-sql">
       <DisplayName>meta insert</DisplayName>
       <DisplayPath>meta insert</DisplayPath>
       <NativeId>exec-insert</NativeId>
@@ -490,6 +638,7 @@
       <NativeId>pos-insert-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert:argument:id" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:insert" PreviousSubjectId="source:cli:meta:app:command:insert:argument:entity">
       <DisplayName>&lt;Id&gt;</DisplayName>
@@ -497,6 +646,7 @@
       <NativeId>pos-insert-id</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert:option:auto-id" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:insert">
       <DisplayName>--auto-id</DisplayName>
@@ -504,6 +654,7 @@
       <NativeId>option-insert-auto-id</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert:option:set" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:insert" PreviousSubjectId="source:cli:meta:app:command:insert:option:auto-id">
       <DisplayName>--set</DisplayName>
@@ -511,6 +662,7 @@
       <NativeId>option-insert-set</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:insert" PreviousSubjectId="source:cli:meta:app:command:insert:option:set">
       <DisplayName>--strict</DisplayName>
@@ -518,6 +670,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:insert:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:insert" PreviousSubjectId="source:cli:meta:app:command:insert:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -525,14 +678,15 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-diff" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:insert">
       <DisplayName>meta instance diff</DisplayName>
       <DisplayPath>meta instance diff</DisplayPath>
       <NativeId>exec-instance-diff</NativeId>
       <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Diff instance data for two workspaces with byte-identical model.xml.</Summary>
+      <Status>Changed</Status>
+      <Summary>Diff instance data for two workspaces with matching model contracts.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:instance-diff">
       <DisplayName>meta instance diff-aligned</DisplayName>
@@ -548,6 +702,7 @@
       <NativeId>pos-instance-diff-aligned-alignmentworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:argument:leftworkspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned">
       <DisplayName>&lt;leftWorkspace&gt;</DisplayName>
@@ -555,6 +710,7 @@
       <NativeId>pos-instance-diff-aligned-leftworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:argument:rightworkspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned" PreviousSubjectId="source:cli:meta:app:command:instance-diff-aligned:argument:leftworkspace">
       <DisplayName>&lt;rightWorkspace&gt;</DisplayName>
@@ -562,13 +718,47 @@
       <NativeId>pos-instance-diff-aligned-rightworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned">
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:option:output-connection-env" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta instance diff-aligned --output-connection-env</DisplayPath>
+      <NativeId>option-instance-diff-aligned-output-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the SQL output connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:option:output-csharp" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned" PreviousSubjectId="source:cli:meta:app:command:instance-diff-aligned:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta instance diff-aligned --output-csharp</DisplayPath>
+      <NativeId>option-instance-diff-aligned-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the diff workspace on the C# surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:option:output-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned" PreviousSubjectId="source:cli:meta:app:command:instance-diff-aligned:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta instance diff-aligned --output-sql</DisplayPath>
+      <NativeId>option-instance-diff-aligned-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the diff workspace on the SQL surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:option:output-xml" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned" PreviousSubjectId="source:cli:meta:app:command:instance-diff-aligned:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta instance diff-aligned --output-xml</DisplayPath>
+      <NativeId>option-instance-diff-aligned-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the diff workspace on the XML surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned" PreviousSubjectId="source:cli:meta:app:command:instance-diff-aligned:option:output-xml">
       <DisplayName>--strict</DisplayName>
       <DisplayPath>meta instance diff-aligned --strict</DisplayPath>
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned" PreviousSubjectId="source:cli:meta:app:command:instance-diff-aligned:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -576,6 +766,15 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff-aligned:parameter-group:output" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta:app:command:instance-diff-aligned">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta instance diff-aligned group output</DisplayPath>
+      <NativeId>group-instance-diff-aligned-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace representation for the aligned diff.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:argument:leftworkspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-diff">
       <DisplayName>&lt;leftWorkspace&gt;</DisplayName>
@@ -583,6 +782,7 @@
       <NativeId>pos-instance-diff-leftworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:argument:rightworkspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-diff" PreviousSubjectId="source:cli:meta:app:command:instance-diff:argument:leftworkspace">
       <DisplayName>&lt;rightWorkspace&gt;</DisplayName>
@@ -590,13 +790,47 @@
       <NativeId>pos-instance-diff-rightworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff">
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:option:output-connection-env" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta instance diff --output-connection-env</DisplayPath>
+      <NativeId>option-instance-diff-output-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the SQL output connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:option:output-csharp" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff" PreviousSubjectId="source:cli:meta:app:command:instance-diff:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta instance diff --output-csharp</DisplayPath>
+      <NativeId>option-instance-diff-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the diff workspace on the C# surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:option:output-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff" PreviousSubjectId="source:cli:meta:app:command:instance-diff:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta instance diff --output-sql</DisplayPath>
+      <NativeId>option-instance-diff-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the diff workspace on the SQL surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:option:output-xml" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff" PreviousSubjectId="source:cli:meta:app:command:instance-diff:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta instance diff --output-xml</DisplayPath>
+      <NativeId>option-instance-diff-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the diff workspace on the XML surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff" PreviousSubjectId="source:cli:meta:app:command:instance-diff:option:output-xml">
       <DisplayName>--strict</DisplayName>
       <DisplayPath>meta instance diff --strict</DisplayPath>
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-diff" PreviousSubjectId="source:cli:meta:app:command:instance-diff:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -604,6 +838,15 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:instance-diff:parameter-group:output" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta:app:command:instance-diff">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta instance diff group output</DisplayPath>
+      <NativeId>group-instance-diff-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace representation for the diff.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-merge" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:instance-diff-aligned">
       <DisplayName>meta instance merge</DisplayName>
@@ -627,6 +870,7 @@
       <NativeId>pos-instance-merge-aligned-diffworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-merge-aligned:argument:targetworkspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-merge-aligned">
       <DisplayName>&lt;targetWorkspace&gt;</DisplayName>
@@ -634,6 +878,7 @@
       <NativeId>pos-instance-merge-aligned-targetworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-merge-aligned:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-merge-aligned">
       <DisplayName>--strict</DisplayName>
@@ -641,6 +886,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-merge-aligned:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-merge-aligned" PreviousSubjectId="source:cli:meta:app:command:instance-merge-aligned:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -648,6 +894,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-merge:argument:diffworkspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-merge" PreviousSubjectId="source:cli:meta:app:command:instance-merge:argument:targetworkspace">
       <DisplayName>&lt;diffWorkspace&gt;</DisplayName>
@@ -655,6 +902,7 @@
       <NativeId>pos-instance-merge-diffworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-merge:argument:targetworkspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-merge">
       <DisplayName>&lt;targetWorkspace&gt;</DisplayName>
@@ -662,6 +910,7 @@
       <NativeId>pos-instance-merge-targetworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-merge:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-merge">
       <DisplayName>--strict</DisplayName>
@@ -669,6 +918,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-merge:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-merge" PreviousSubjectId="source:cli:meta:app:command:instance-merge:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -676,6 +926,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-list" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:instance-merge-aligned">
       <DisplayName>meta instance relationship list</DisplayName>
@@ -691,6 +942,7 @@
       <NativeId>pos-instance-relationship-list-fromentity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-list:argument:fromid" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-relationship-list" PreviousSubjectId="source:cli:meta:app:command:instance-relationship-list:argument:fromentity">
       <DisplayName>&lt;FromId&gt;</DisplayName>
@@ -698,6 +950,7 @@
       <NativeId>pos-instance-relationship-list-fromid</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-list:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-relationship-list">
       <DisplayName>--strict</DisplayName>
@@ -705,6 +958,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-list:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-relationship-list" PreviousSubjectId="source:cli:meta:app:command:instance-relationship-list:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -712,6 +966,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-set" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:instance-relationship-list">
       <DisplayName>meta instance relationship set</DisplayName>
@@ -727,6 +982,7 @@
       <NativeId>pos-instance-relationship-set-fromentity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-set:argument:fromid" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-relationship-set" PreviousSubjectId="source:cli:meta:app:command:instance-relationship-set:argument:fromentity">
       <DisplayName>&lt;FromId&gt;</DisplayName>
@@ -734,6 +990,7 @@
       <NativeId>pos-instance-relationship-set-fromid</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-set:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-relationship-set">
       <DisplayName>--strict</DisplayName>
@@ -741,6 +998,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-relationship-set:option:to" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-relationship-set" PreviousSubjectId="source:cli:meta:app:command:instance-relationship-set:option:strict">
       <DisplayName>--to</DisplayName>
@@ -756,6 +1014,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-rename-id" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:instance-relationship-set">
       <DisplayName>meta instance rename-id</DisplayName>
@@ -771,6 +1030,7 @@
       <NativeId>pos-instance-rename-id-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-rename-id:argument:newid" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-rename-id" PreviousSubjectId="source:cli:meta:app:command:instance-rename-id:argument:oldid">
       <DisplayName>&lt;NewId&gt;</DisplayName>
@@ -778,6 +1038,7 @@
       <NativeId>pos-instance-rename-id-newid</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-rename-id:argument:oldid" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-rename-id" PreviousSubjectId="source:cli:meta:app:command:instance-rename-id:argument:entity">
       <DisplayName>&lt;OldId&gt;</DisplayName>
@@ -785,6 +1046,7 @@
       <NativeId>pos-instance-rename-id-oldid</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-rename-id:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-rename-id">
       <DisplayName>--strict</DisplayName>
@@ -792,6 +1054,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-rename-id:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-rename-id" PreviousSubjectId="source:cli:meta:app:command:instance-rename-id:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -799,6 +1062,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-update" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:instance-rename-id">
       <DisplayName>meta instance update</DisplayName>
@@ -814,6 +1078,7 @@
       <NativeId>pos-instance-update-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-update:argument:id" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:instance-update" PreviousSubjectId="source:cli:meta:app:command:instance-update:argument:entity">
       <DisplayName>&lt;Id&gt;</DisplayName>
@@ -821,6 +1086,7 @@
       <NativeId>pos-instance-update-id</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-update:option:set" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-update">
       <DisplayName>--set</DisplayName>
@@ -828,6 +1094,7 @@
       <NativeId>option-instance-update-set</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-update:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-update" PreviousSubjectId="source:cli:meta:app:command:instance-update:option:set">
       <DisplayName>--strict</DisplayName>
@@ -835,6 +1102,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:instance-update:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:instance-update" PreviousSubjectId="source:cli:meta:app:command:instance-update:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -842,6 +1110,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list-entities" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:instance-update">
       <DisplayName>meta list entities</DisplayName>
@@ -857,6 +1126,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list-entities:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:list-entities" PreviousSubjectId="source:cli:meta:app:command:list-entities:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -864,6 +1134,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list-properties" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:list-entities">
       <DisplayName>meta list properties</DisplayName>
@@ -879,6 +1150,7 @@
       <NativeId>pos-list-properties-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list-properties:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:list-properties">
       <DisplayName>--strict</DisplayName>
@@ -886,6 +1158,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list-properties:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:list-properties" PreviousSubjectId="source:cli:meta:app:command:list-properties:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -893,6 +1166,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list-relationships" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:list-properties">
       <DisplayName>meta list relationships</DisplayName>
@@ -908,6 +1182,7 @@
       <NativeId>pos-list-relationships-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list-relationships:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:list-relationships">
       <DisplayName>--strict</DisplayName>
@@ -915,6 +1190,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:list-relationships:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:list-relationships" PreviousSubjectId="source:cli:meta:app:command:list-relationships:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -922,6 +1198,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-entity" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:list-relationships">
       <DisplayName>meta model add-entity</DisplayName>
@@ -937,6 +1214,7 @@
       <NativeId>pos-model-add-entity-name</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-entity:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-entity">
       <DisplayName>--strict</DisplayName>
@@ -944,6 +1222,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-entity:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-entity" PreviousSubjectId="source:cli:meta:app:command:model-add-entity:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -951,6 +1230,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-add-entity">
       <DisplayName>meta model add-property</DisplayName>
@@ -966,6 +1246,7 @@
       <NativeId>pos-model-add-property-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:argument:property" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:model-add-property" PreviousSubjectId="source:cli:meta:app:command:model-add-property:argument:entity">
       <DisplayName>&lt;Property&gt;</DisplayName>
@@ -973,6 +1254,7 @@
       <NativeId>pos-model-add-property-property</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:default-value" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-property">
       <DisplayName>--default-value</DisplayName>
@@ -980,6 +1262,7 @@
       <NativeId>option-model-add-property-default-value</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:required" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-property" PreviousSubjectId="source:cli:meta:app:command:model-add-property:option:default-value">
       <DisplayName>--required</DisplayName>
@@ -987,6 +1270,7 @@
       <NativeId>option-model-add-property-required</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-property:option:required">
       <DisplayName>false</DisplayName>
@@ -994,6 +1278,7 @@
       <NativeId>allowed-bool-false</NativeId>
       <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-property:option:required" PreviousSubjectId="source:cli:meta:app:command:model-add-property:option:required:allowed-value:false">
       <DisplayName>true</DisplayName>
@@ -1001,6 +1286,7 @@
       <NativeId>allowed-bool-true</NativeId>
       <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-property" PreviousSubjectId="source:cli:meta:app:command:model-add-property:option:required">
       <DisplayName>--strict</DisplayName>
@@ -1008,6 +1294,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-property:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-property" PreviousSubjectId="source:cli:meta:app:command:model-add-property:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1015,6 +1302,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-add-property">
       <DisplayName>meta model add-relationship</DisplayName>
@@ -1030,6 +1318,7 @@
       <NativeId>pos-model-add-relationship-fromentity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:argument:toentity" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:argument:fromentity">
       <DisplayName>&lt;ToEntity&gt;</DisplayName>
@@ -1037,6 +1326,7 @@
       <NativeId>pos-model-add-relationship-toentity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:default-id" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship">
       <DisplayName>--default-id</DisplayName>
@@ -1044,6 +1334,7 @@
       <NativeId>option-model-add-relationship-default-id</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:default-id">
       <DisplayName>--required</DisplayName>
@@ -1051,6 +1342,7 @@
       <NativeId>option-model-add-relationship-required</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-relationship:option:required">
       <DisplayName>false</DisplayName>
@@ -1058,6 +1350,7 @@
       <NativeId>allowed-bool-false</NativeId>
       <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-add-relationship:option:required" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:required:allowed-value:false">
       <DisplayName>true</DisplayName>
@@ -1065,6 +1358,7 @@
       <NativeId>allowed-bool-true</NativeId>
       <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:role" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:required">
       <DisplayName>--role</DisplayName>
@@ -1072,6 +1366,7 @@
       <NativeId>option-model-add-relationship-role</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:role">
       <DisplayName>--strict</DisplayName>
@@ -1079,6 +1374,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-add-relationship:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-add-relationship" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1086,6 +1382,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-entity" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-add-relationship">
       <DisplayName>meta model drop-entity</DisplayName>
@@ -1101,6 +1398,7 @@
       <NativeId>pos-model-drop-entity-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-entity:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-drop-entity">
       <DisplayName>--strict</DisplayName>
@@ -1108,6 +1406,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-entity:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-drop-entity" PreviousSubjectId="source:cli:meta:app:command:model-drop-entity:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1115,6 +1414,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-property" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-drop-entity">
       <DisplayName>meta model drop-property</DisplayName>
@@ -1130,6 +1430,7 @@
       <NativeId>pos-model-drop-property-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-property:argument:property" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:model-drop-property" PreviousSubjectId="source:cli:meta:app:command:model-drop-property:argument:entity">
       <DisplayName>&lt;Property&gt;</DisplayName>
@@ -1137,6 +1438,7 @@
       <NativeId>pos-model-drop-property-property</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-property:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-drop-property">
       <DisplayName>--strict</DisplayName>
@@ -1144,6 +1446,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-property:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-drop-property" PreviousSubjectId="source:cli:meta:app:command:model-drop-property:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1151,6 +1454,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-relationship" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-drop-property">
       <DisplayName>meta model drop-relationship</DisplayName>
@@ -1166,6 +1470,7 @@
       <NativeId>pos-model-drop-relationship-fromentity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-relationship:argument:toentity" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:model-drop-relationship" PreviousSubjectId="source:cli:meta:app:command:model-drop-relationship:argument:fromentity">
       <DisplayName>&lt;ToEntity&gt;</DisplayName>
@@ -1173,6 +1478,7 @@
       <NativeId>pos-model-drop-relationship-toentity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-relationship:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-drop-relationship">
       <DisplayName>--strict</DisplayName>
@@ -1180,6 +1486,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-drop-relationship:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-drop-relationship" PreviousSubjectId="source:cli:meta:app:command:model-drop-relationship:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1187,6 +1494,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-drop-relationship">
       <DisplayName>meta model refactor property-to-relationship</DisplayName>
@@ -1202,6 +1510,7 @@
       <NativeId>option-model-refactor-property-to-relationship-lookup</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:preserve-property" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship" PreviousSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:lookup">
       <DisplayName>--preserve-property</DisplayName>
@@ -1209,6 +1518,7 @@
       <NativeId>option-model-refactor-property-to-relationship-preserve-property</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:role" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship" PreviousSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:preserve-property">
       <DisplayName>--role</DisplayName>
@@ -1216,6 +1526,7 @@
       <NativeId>option-model-refactor-property-to-relationship-role</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:source" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship" PreviousSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:role">
       <DisplayName>--source</DisplayName>
@@ -1223,6 +1534,7 @@
       <NativeId>option-model-refactor-property-to-relationship-source</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship" PreviousSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:source">
       <DisplayName>--strict</DisplayName>
@@ -1230,6 +1542,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:target" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship" PreviousSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:strict">
       <DisplayName>--target</DisplayName>
@@ -1237,6 +1550,7 @@
       <NativeId>option-model-refactor-property-to-relationship-target</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-property-to-relationship:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship" PreviousSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship:option:target">
       <DisplayName>--workspace</DisplayName>
@@ -1244,6 +1558,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship">
       <DisplayName>meta model refactor relationship-to-property</DisplayName>
@@ -1259,6 +1574,7 @@
       <NativeId>option-model-refactor-relationship-to-property-property</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:role" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property" PreviousSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property:option:property">
       <DisplayName>--role</DisplayName>
@@ -1266,6 +1582,7 @@
       <NativeId>option-model-refactor-relationship-to-property-role</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:source" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property" PreviousSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property:option:role">
       <DisplayName>--source</DisplayName>
@@ -1273,6 +1590,7 @@
       <NativeId>option-model-refactor-relationship-to-property-source</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property" PreviousSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property:option:source">
       <DisplayName>--strict</DisplayName>
@@ -1280,6 +1598,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:target" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property" PreviousSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property:option:strict">
       <DisplayName>--target</DisplayName>
@@ -1287,6 +1606,7 @@
       <NativeId>option-model-refactor-relationship-to-property-target</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-refactor-relationship-to-property:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property" PreviousSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property:option:target">
       <DisplayName>--workspace</DisplayName>
@@ -1294,6 +1614,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-entity" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property">
       <DisplayName>meta model rename-entity</DisplayName>
@@ -1309,6 +1630,7 @@
       <NativeId>pos-model-rename-entity-new</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-entity:argument:old" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:model-rename-entity">
       <DisplayName>&lt;Old&gt;</DisplayName>
@@ -1316,6 +1638,7 @@
       <NativeId>pos-model-rename-entity-old</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-entity:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-entity">
       <DisplayName>--strict</DisplayName>
@@ -1323,6 +1646,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-entity:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-entity" PreviousSubjectId="source:cli:meta:app:command:model-rename-entity:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1330,6 +1654,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-model" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-rename-entity">
       <DisplayName>meta model rename-model</DisplayName>
@@ -1345,6 +1670,7 @@
       <NativeId>pos-model-rename-model-new</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-model:argument:old" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:model-rename-model">
       <DisplayName>&lt;Old&gt;</DisplayName>
@@ -1352,6 +1678,7 @@
       <NativeId>pos-model-rename-model-old</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-model:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-model">
       <DisplayName>--strict</DisplayName>
@@ -1359,6 +1686,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-model:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-model" PreviousSubjectId="source:cli:meta:app:command:model-rename-model:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1366,6 +1694,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-rename-model">
       <DisplayName>meta model rename-property</DisplayName>
@@ -1381,6 +1710,7 @@
       <NativeId>pos-model-rename-property-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property:argument:new" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:model-rename-property" PreviousSubjectId="source:cli:meta:app:command:model-rename-property:argument:old">
       <DisplayName>&lt;New&gt;</DisplayName>
@@ -1388,6 +1718,7 @@
       <NativeId>pos-model-rename-property-new</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property:argument:old" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:model-rename-property" PreviousSubjectId="source:cli:meta:app:command:model-rename-property:argument:entity">
       <DisplayName>&lt;Old&gt;</DisplayName>
@@ -1395,6 +1726,7 @@
       <NativeId>pos-model-rename-property-old</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-property">
       <DisplayName>--strict</DisplayName>
@@ -1402,6 +1734,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-property:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-property" PreviousSubjectId="source:cli:meta:app:command:model-rename-property:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1409,6 +1742,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-rename-property">
       <DisplayName>meta model rename-relationship</DisplayName>
@@ -1424,6 +1758,7 @@
       <NativeId>pos-model-rename-relationship-fromentity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:argument:toentity" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:model-rename-relationship" PreviousSubjectId="source:cli:meta:app:command:model-rename-relationship:argument:fromentity">
       <DisplayName>&lt;ToEntity&gt;</DisplayName>
@@ -1431,6 +1766,7 @@
       <NativeId>pos-model-rename-relationship-toentity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:role" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-relationship">
       <DisplayName>--role</DisplayName>
@@ -1438,6 +1774,7 @@
       <NativeId>option-model-rename-relationship-role</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-relationship" PreviousSubjectId="source:cli:meta:app:command:model-rename-relationship:option:role">
       <DisplayName>--strict</DisplayName>
@@ -1445,6 +1782,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-rename-relationship:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-rename-relationship" PreviousSubjectId="source:cli:meta:app:command:model-rename-relationship:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1452,6 +1790,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-rename-relationship">
       <DisplayName>meta model set-property-required</DisplayName>
@@ -1467,6 +1806,7 @@
       <NativeId>pos-model-set-property-required-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:argument:property" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:model-set-property-required" PreviousSubjectId="source:cli:meta:app:command:model-set-property-required:argument:entity">
       <DisplayName>&lt;Property&gt;</DisplayName>
@@ -1474,6 +1814,7 @@
       <NativeId>pos-model-set-property-required-property</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:default-value" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-set-property-required">
       <DisplayName>--default-value</DisplayName>
@@ -1481,6 +1822,7 @@
       <NativeId>option-model-set-property-required-default-value</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:required" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-set-property-required" PreviousSubjectId="source:cli:meta:app:command:model-set-property-required:option:default-value">
       <DisplayName>--required</DisplayName>
@@ -1488,6 +1830,7 @@
       <NativeId>option-model-set-property-required-required</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:required:allowed-value:false" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-set-property-required:option:required">
       <DisplayName>false</DisplayName>
@@ -1495,6 +1838,7 @@
       <NativeId>allowed-bool-false</NativeId>
       <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:required:allowed-value:true" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta:app:command:model-set-property-required:option:required" PreviousSubjectId="source:cli:meta:app:command:model-set-property-required:option:required:allowed-value:false">
       <DisplayName>true</DisplayName>
@@ -1502,6 +1846,7 @@
       <NativeId>allowed-bool-true</NativeId>
       <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-set-property-required" PreviousSubjectId="source:cli:meta:app:command:model-set-property-required:option:required">
       <DisplayName>--strict</DisplayName>
@@ -1509,6 +1854,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-set-property-required:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-set-property-required" PreviousSubjectId="source:cli:meta:app:command:model-set-property-required:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1516,6 +1862,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-set-property-required">
       <DisplayName>meta model suggest</DisplayName>
@@ -1531,6 +1878,7 @@
       <NativeId>option-model-suggest-explain</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:option:print-commands" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-suggest" PreviousSubjectId="source:cli:meta:app:command:model-suggest:option:explain">
       <DisplayName>--print-commands</DisplayName>
@@ -1538,6 +1886,7 @@
       <NativeId>option-model-suggest-print-commands</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:option:show-keys" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-suggest" PreviousSubjectId="source:cli:meta:app:command:model-suggest:option:print-commands">
       <DisplayName>--show-keys</DisplayName>
@@ -1545,6 +1894,7 @@
       <NativeId>option-model-suggest-show-keys</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-suggest" PreviousSubjectId="source:cli:meta:app:command:model-suggest:option:show-keys">
       <DisplayName>--strict</DisplayName>
@@ -1552,6 +1902,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:model-suggest:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:model-suggest" PreviousSubjectId="source:cli:meta:app:command:model-suggest:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1559,6 +1910,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:model-suggest">
       <DisplayName>meta query</DisplayName>
@@ -1574,6 +1926,7 @@
       <NativeId>pos-query-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:option:contains" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:query">
       <DisplayName>--contains</DisplayName>
@@ -1581,6 +1934,7 @@
       <NativeId>option-query-contains</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:option:equals" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:query" PreviousSubjectId="source:cli:meta:app:command:query:option:contains">
       <DisplayName>--equals</DisplayName>
@@ -1588,6 +1942,7 @@
       <NativeId>option-query-equals</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:query" PreviousSubjectId="source:cli:meta:app:command:query:option:equals">
       <DisplayName>--strict</DisplayName>
@@ -1595,6 +1950,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:option:top" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:query" PreviousSubjectId="source:cli:meta:app:command:query:option:strict">
       <DisplayName>--top</DisplayName>
@@ -1602,6 +1958,7 @@
       <NativeId>option-query-top</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:query:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:query" PreviousSubjectId="source:cli:meta:app:command:query:option:top">
       <DisplayName>--workspace</DisplayName>
@@ -1609,6 +1966,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:status" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:query">
       <DisplayName>meta status</DisplayName>
@@ -1624,6 +1982,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:status:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:status" PreviousSubjectId="source:cli:meta:app:command:status:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1631,6 +1990,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view-entity" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:status">
       <DisplayName>meta view entity</DisplayName>
@@ -1646,6 +2006,7 @@
       <NativeId>pos-view-entity-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view-entity:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:view-entity">
       <DisplayName>--strict</DisplayName>
@@ -1653,6 +2014,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view-entity:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:view-entity" PreviousSubjectId="source:cli:meta:app:command:view-entity:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1660,6 +2022,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view-instance" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:view-entity">
       <DisplayName>meta view instance</DisplayName>
@@ -1675,6 +2038,7 @@
       <NativeId>pos-view-instance-entity</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view-instance:argument:id" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:view-instance" PreviousSubjectId="source:cli:meta:app:command:view-instance:argument:entity">
       <DisplayName>&lt;Id&gt;</DisplayName>
@@ -1682,6 +2046,7 @@
       <NativeId>pos-view-instance-id</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view-instance:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:view-instance">
       <DisplayName>--strict</DisplayName>
@@ -1689,6 +2054,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:view-instance:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:view-instance" PreviousSubjectId="source:cli:meta:app:command:view-instance:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1696,6 +2062,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:view-instance">
       <DisplayName>meta workspace merge</DisplayName>
@@ -1711,6 +2078,7 @@
       <NativeId>pos-workspace-merge-leftworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:argument:rightworkspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:argument:leftworkspace">
       <DisplayName>&lt;rightWorkspace&gt;</DisplayName>
@@ -1718,6 +2086,7 @@
       <NativeId>pos-workspace-merge-rightworkspace</NativeId>
       <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:model" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge">
       <DisplayName>--model</DisplayName>
@@ -1725,20 +2094,47 @@
       <NativeId>option-workspace-merge-model</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:new-workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:model">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta workspace merge --new-workspace</DisplayPath>
-      <NativeId>option-workspace-merge-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:output-connection-env" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:model">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta workspace merge --output-connection-env</DisplayPath>
+      <NativeId>option-workspace-merge-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:output-csharp" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta workspace merge --output-csharp</DisplayPath>
+      <NativeId>option-workspace-merge-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the csharp workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:output-sql" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta workspace merge --output-sql</DisplayPath>
+      <NativeId>option-workspace-merge-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the sql workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:output-xml" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta workspace merge --output-xml</DisplayPath>
+      <NativeId>option-workspace-merge-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the xml workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:output-xml">
       <DisplayName>--strict</DisplayName>
       <DisplayPath>meta workspace merge --strict</DisplayPath>
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:workspace-merge" PreviousSubjectId="source:cli:meta:app:command:workspace-merge:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1746,6 +2142,15 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta:app:command:workspace-merge:parameter-group:target" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta:app:command:workspace-merge">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta workspace merge group target</DisplayPath>
+      <NativeId>group-workspace-merge-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app">
       <DisplayName>--strict</DisplayName>
@@ -1753,6 +2158,7 @@
       <NativeId>option-strict</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:option:workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:option:strict">
       <DisplayName>--workspace</DisplayName>
@@ -1760,6 +2166,7 @@
       <NativeId>option-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

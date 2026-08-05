@@ -2408,7 +2408,55 @@
       <Status>New</Status>
       <Summary>Workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:deploy" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-multi-dimensional:app" PreviousSubjectId="source:cli:meta-multi-dimensional:app:command:add-security-role">
+    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:create" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-multi-dimensional:app" PreviousSubjectId="source:cli:meta-multi-dimensional:app:command:add-security-role">
+      <DisplayName>meta-multi-dimensional create</DisplayName>
+      <DisplayPath>meta-multi-dimensional create</DisplayPath>
+      <NativeId>exec-create</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a meta-multi-dimensional workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:create:option:connection-env" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-multi-dimensional:app:command:create">
+      <DisplayName>--connection-env</DisplayName>
+      <DisplayPath>meta-multi-dimensional create --connection-env</DisplayPath>
+      <NativeId>option-create-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the SQL Server connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:create:option:csharp" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-multi-dimensional:app:command:create" PreviousSubjectId="source:cli:meta-multi-dimensional:app:command:create:option:connection-env">
+      <DisplayName>--csharp</DisplayName>
+      <DisplayPath>meta-multi-dimensional create --csharp</DisplayPath>
+      <NativeId>option-create-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a C# workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:create:option:sql" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-multi-dimensional:app:command:create" PreviousSubjectId="source:cli:meta-multi-dimensional:app:command:create:option:csharp">
+      <DisplayName>--sql</DisplayName>
+      <DisplayPath>meta-multi-dimensional create --sql</DisplayPath>
+      <NativeId>option-create-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a SQL workspace described by this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:create:option:xml" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-multi-dimensional:app:command:create" PreviousSubjectId="source:cli:meta-multi-dimensional:app:command:create:option:sql">
+      <DisplayName>--xml</DisplayName>
+      <DisplayPath>meta-multi-dimensional create --xml</DisplayPath>
+      <NativeId>option-create-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create an XML workspace at this directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:create:parameter-group:output" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-multi-dimensional:app:command:create">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-multi-dimensional create group output</DisplayPath>
+      <NativeId>group-create-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace representation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:deploy" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-multi-dimensional:app" PreviousSubjectId="source:cli:meta-multi-dimensional:app:command:create">
       <DisplayName>meta-multi-dimensional deploy</DisplayName>
       <DisplayPath>meta-multi-dimensional deploy</DisplayPath>
       <NativeId>exec-deploy</NativeId>
@@ -2488,22 +2536,7 @@
       <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:new-workspace" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-multi-dimensional:app" PreviousSubjectId="source:cli:meta-multi-dimensional:app:command:help">
-      <DisplayName>meta-multi-dimensional new-workspace</DisplayName>
-      <DisplayPath>meta-multi-dimensional new-workspace</DisplayPath>
-      <NativeId>exec-new-workspace</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Create a MetaMultiDimensional workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:new-workspace:argument:path" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:cliargument" ParentSubjectId="source:cli:meta-multi-dimensional:app:command:new-workspace">
-      <DisplayName>&lt;path&gt;</DisplayName>
-      <DisplayPath>meta-multi-dimensional new-workspace &lt;path&gt;</DisplayPath>
-      <NativeId>arg-new-workspace-path</NativeId>
-      <SourceTypeName>MetaCli.PositionalArgument</SourceTypeName>
-      <Status>New</Status>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:restore" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-multi-dimensional:app" PreviousSubjectId="source:cli:meta-multi-dimensional:app:command:new-workspace">
+    <DocumentationSubject Id="source:cli:meta-multi-dimensional:app:command:restore" DocumentationSourceId="source:cli:meta-multi-dimensional" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-multi-dimensional:app" PreviousSubjectId="source:cli:meta-multi-dimensional:app:command:help">
       <DisplayName>meta-multi-dimensional restore</DisplayName>
       <DisplayPath>meta-multi-dimensional restore</DisplayPath>
       <NativeId>exec-restore</NativeId>

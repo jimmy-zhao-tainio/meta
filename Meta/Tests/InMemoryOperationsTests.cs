@@ -64,6 +64,37 @@ public sealed class InMemoryOperationsTests
     }
 
     [Fact]
+    public void ApplyBatch_ValidatesTheFinalCandidateAndLeavesTheSourceUnchanged()
+    {
+        var source = BuildState();
+
+        var result = InMemoryOperations.ApplyBatch(
+            source,
+            [
+                new Operation.AddEntity("Audit"),
+                new Operation.AddProperty(
+                    "Audit",
+                    "Message",
+                    IsRequired: true),
+                new Operation.InsertRecord(
+                    "Audit",
+                    "audit-1",
+                    new Dictionary<string, string>
+                    {
+                        ["Message"] = "Created",
+                    }),
+            ]);
+
+        Assert.Equal("Created", Assert.Single(
+            result.Instance.RecordsByEntity["Audit"]).Values["Message"]);
+        Assert.Null(source.Model.FindEntity("Audit"));
+        Assert.False(WorkspaceValidator.Validate(
+                result.Model,
+                result.Instance)
+            .HasErrors);
+    }
+
+    [Fact]
     public void Apply_RejectsCaseInsensitiveCollisionWithoutChangingSource()
     {
         var source = BuildState();

@@ -183,7 +183,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <h2>meta</h2>
             <div class="panel-lead markdown-content">
-<p><code>meta</code> is a deterministic metadata backend for defining structured models once and carrying them across XML, SQL, and C# without semantic drift. XML workspaces provide a git-friendly authoring surface, while generated SQL and C# provide native relational and application surfaces over the same model and instance graph.</p>
+<p>meta defines one metadata model and instance graph with three isomorphic workspace surfaces: XML, SQL, and C#. Each surface carries the same structure and meaning. XML is the file-based, git-friendly surface; SQL is the database-native surface; C# is the typed application surface. The selected workspace surface determines where an operation runs.</p>
             </div>
           </header>
           <section class="subsection description-block">
@@ -551,6 +551,34 @@ foreach (var measure in model.MeasureList)
 </code></pre>
             </div>
           </section>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Workspace surfaces and execution</h3>
+            <div class="markdown-content">
+<h2 id="three-workspace-surfaces">Three workspace surfaces</h2>
+<p>A metadata workspace can be stored and operated on as XML, SQL, or C#. These are not three different product models and they are not merely export formats. They are representations of the same model and instance graph.</p>
+<ul>
+<li><strong>XML</strong> keeps the workspace in deterministic files that can be reviewed, branched, merged, and changed with normal source-control workflows.</li>
+<li><strong>SQL</strong> stores the workspace in a database so large instance sets can be queried and changed with database operations.</li>
+<li><strong>C#</strong> exposes the workspace as typed application data for tools and services that work naturally in the language.</li>
+</ul>
+<p>The model stays the same when a workspace moves between surfaces. A model can be authored on one surface, used by a command on another, and emitted for a third without changing the intended entities, properties, relationships, or records.</p>
+<h2 id="where-commands-execute">Where commands execute</h2>
+<p>meta dispatches workspace commands through the selected surface. It does not choose XML as a hidden intermediate representation.</p>
+<p>Most inspection and mutation commands use the workspace implementation directly. On an SQL workspace, that means SQL reads and SQL operations; on an XML or C# workspace, it means the corresponding file or typed implementation.</p>
+<p>Some commands currently need a complete graph for their algorithm. They materialize that state explicitly:</p>
+<ul>
+<li>meta model suggest</li>
+<li>meta generate ...</li>
+<li>meta graph stats</li>
+<li>meta instance diff</li>
+<li>meta instance diff-aligned</li>
+<li>meta instance merge</li>
+<li>meta instance merge-aligned</li>
+<li>CSV import when it merges into an existing workspace</li>
+</ul>
+<p>Materialization is an execution strategy for those algorithms. It does not create another model or weaken the isomorphism between workspace surfaces.</p>
+            </div>
+          </section>
         </section>
         <section class="panel" id="group-public-meta-cli" data-panel="group-public-meta-cli">
           <header class="panel-header">
@@ -675,6 +703,68 @@ foreach (var measure in model.MeasureList)
                       <td class="opt">--workspace &lt;workspace&gt;</td>
                       <td></td>
                       <td>&lt;workspace&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta create</span>
+                <span class="command-summary-text">Create a metadata workspace.</span>
+              </span>
+              <span class="command-counts">6 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--strict] [--workspace &lt;workspace&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--strict</td>
+                      <td></td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td></td>
+                      <td>&lt;workspace&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
@@ -1144,13 +1234,13 @@ foreach (var measure in model.MeasureList)
                 <span class="command-name">meta import csv</span>
                 <span class="command-summary-text">Import CSV data into a workspace.</span>
               </span>
-              <span class="command-counts">4 options</span>
+              <span class="command-counts">7 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta import csv &lt;csvFile&gt; --entity &lt;EntityName&gt; [--new-workspace &lt;path&gt;] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
+                <pre><code>meta import csv &lt;csvFile&gt; --entity &lt;EntityName&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Id-first CSV landing</h3>
@@ -1172,8 +1262,26 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td></td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -1202,13 +1310,13 @@ foreach (var measure in model.MeasureList)
                 <span class="command-name">meta import sql</span>
                 <span class="command-summary-text">Import SQL metadata into a new workspace.</span>
               </span>
-              <span class="command-counts">4 options</span>
+              <span class="command-counts">7 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta import sql &lt;schema&gt; --connection-env &lt;name&gt; --new-workspace &lt;path&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
+                <pre><code>meta import sql &lt;schema&gt; --connection-env &lt;name&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -1222,49 +1330,29 @@ foreach (var measure in model.MeasureList)
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td></td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--strict</td>
-                      <td></td>
-                      <td></td>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;workspace&gt;</td>
-                      <td></td>
-                      <td>&lt;workspace&gt;</td>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
-                  </tbody>
-                </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-app-command-init">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta init</span>
-                <span class="command-summary-text">Initialize a metadata workspace.</span>
-              </span>
-              <span class="command-counts">2 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta init &lt;path&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
                     <tr>
                       <td class="opt">--strict</td>
                       <td></td>
@@ -1348,13 +1436,13 @@ foreach (var measure in model.MeasureList)
                 <span class="command-name">meta instance diff</span>
                 <span class="command-summary-text">Compare two workspaces with the same model and write a structured change artifact over rows, scalar values, and relationship usages.</span>
               </span>
-              <span class="command-counts">2 options</span>
+              <span class="command-counts">6 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance diff &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
+                <pre><code>meta instance diff &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">What instance diff does</h3>
@@ -1413,6 +1501,30 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL output connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the diff workspace on the C# surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the diff workspace on the SQL surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the diff workspace on the XML surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
                       <td class="opt">--strict</td>
                       <td></td>
                       <td></td>
@@ -1437,19 +1549,43 @@ meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
                 <span class="command-name">meta instance diff-aligned</span>
                 <span class="command-summary-text">Diff mapped instance data using an explicit alignment workspace.</span>
               </span>
-              <span class="command-counts">2 options</span>
+              <span class="command-counts">6 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta instance diff-aligned &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; &lt;alignmentWorkspace&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
+                <pre><code>meta instance diff-aligned &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; &lt;alignmentWorkspace&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
                 <table>
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
+                    <tr>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL output connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the diff workspace on the C# surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the diff workspace on the SQL surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the diff workspace on the XML surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
                     <tr>
                       <td class="opt">--strict</td>
                       <td></td>
@@ -2778,13 +2914,13 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                 <span class="command-name">meta workspace merge</span>
                 <span class="command-summary-text">Merge two full workspaces into a new workspace.</span>
               </span>
-              <span class="command-counts">4 options</span>
+              <span class="command-counts">7 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta workspace merge &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; --model &lt;name&gt; --new-workspace &lt;path&gt; [--strict] [--workspace &lt;workspace&gt;]</code></pre>
+                <pre><code>meta workspace merge &lt;leftWorkspace&gt; &lt;rightWorkspace&gt; --model &lt;name&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--strict] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -2798,8 +2934,26 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td></td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -2829,6 +2983,7 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
               </div>
               <nav class="application-command-list">
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-bulk-insert" aria-label="Open meta bulk-insert"><code>bulk-insert</code></a>
+                <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-create" aria-label="Open meta create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-delete" aria-label="Open meta delete"><code>delete</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-deploy-sqlserver" aria-label="Open meta deploy sqlserver"><code>deploy sqlserver</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-export-csv" aria-label="Open meta export csv"><code>export csv</code></a>
@@ -2839,7 +2994,6 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-help" aria-label="Open meta help"><code>help</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-import-csv" aria-label="Open meta import csv"><code>import csv</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-import-sql" aria-label="Open meta import sql"><code>import sql</code></a>
-                <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-init" aria-label="Open meta init"><code>init</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-insert" aria-label="Open meta insert"><code>insert</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-instance-diff" aria-label="Open meta instance diff"><code>instance diff</code></a>
                 <a class="application-command-link" href="#cli-meta" data-local-anchor="subject-source-cli-meta-app-command-instance-diff-aligned" aria-label="Open meta instance diff-aligned"><code>instance diff-aligned</code></a>
@@ -3742,6 +3896,74 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-cli-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-cli create</span>
+                <span class="command-summary-text">Create a meta-cli workspace.</span>
+              </span>
+              <span class="command-counts">7 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-cli create [--application &lt;value&gt;] [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--default-help] [--sql &lt;path&gt;] [--standard-cli-shapes] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--application &lt;value&gt;</td>
+                      <td>Application name used to seed the workspace.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--default-help</td>
+                      <td>Seed the standard help command.</td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--standard-cli-shapes</td>
+                      <td>Seed the standard CLI value shapes.</td>
+                      <td></td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-cli-app-command-help">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -3756,50 +3978,6 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-cli help</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-cli-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-cli new-workspace</span>
-                <span class="command-summary-text">Create a MetaCli workspace.</span>
-              </span>
-              <span class="command-counts">3 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-cli new-workspace &lt;Path&gt; [--application &lt;value&gt;] [--default-help] [--standard-cli-shapes]</code></pre>
-              </section>
-              <section class="subsection">
-                <h4 class="subsection-title">Options</h4>
-                <table>
-                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td class="opt">--application &lt;value&gt;</td>
-                      <td></td>
-                      <td>&lt;value&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--default-help</td>
-                      <td></td>
-                      <td></td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--standard-cli-shapes</td>
-                      <td></td>
-                      <td></td>
-                      <td>False</td>
-                    </tr>
-                  </tbody>
-                </table>
               </section>
               </div>
             </div>
@@ -3833,6 +4011,82 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                     <tr>
                       <td class="opt">--parameter &lt;value&gt;</td>
                       <td></td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaCli workspace. Defaults to the current directory.</td>
+                      <td>&lt;workspace&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-cli-app-command-remove-command">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-cli remove-command</span>
+                <span class="command-summary-text">Remove a leaf command and its executable aggregate.</span>
+              </span>
+              <span class="command-counts">2 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-cli remove-command --id &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--id &lt;value&gt;</td>
+                      <td>Command identifier.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaCli workspace. Defaults to the current directory.</td>
+                      <td>&lt;workspace&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-cli-app-command-remove-option">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-cli remove-option</span>
+                <span class="command-summary-text">Remove one command option aggregate.</span>
+              </span>
+              <span class="command-counts">2 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-cli remove-option --parameter &lt;value&gt; [--workspace &lt;workspace&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--parameter &lt;value&gt;</td>
+                      <td>Option parameter identifier.</td>
                       <td>&lt;value&gt;</td>
                       <td>False</td>
                     </tr>
@@ -3892,6 +4146,50 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-cli-app-command-set-parameter-group-required">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-cli set-parameter-group-required</span>
+                <span class="command-summary-text">Set whether a parameter group requires an explicit member.</span>
+              </span>
+              <span class="command-counts">3 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-cli set-parameter-group-required --id &lt;value&gt; --required true|false [--workspace &lt;workspace&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--id &lt;value&gt;</td>
+                      <td></td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--required true|false</td>
+                      <td></td>
+                      <td>true|false: false, true</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--workspace &lt;workspace&gt;</td>
+                      <td>MetaCli workspace. Defaults to the current directory.</td>
+                      <td>&lt;workspace&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-cli-app-command-show">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -3928,7 +4226,7 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
             <aside class="application-command-rail" aria-label="Command navigation">
               <div class="application-command-rail-header">
                 <h3>Commands</h3>
-                <p>17 commands</p>
+                <p>20 commands</p>
               </div>
               <nav class="application-command-list">
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-add-allowed-value" aria-label="Open meta-cli add-allowed-value"><code>add-allowed-value</code></a>
@@ -3943,10 +4241,13 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-add-positional" aria-label="Open meta-cli add-positional"><code>add-positional</code></a>
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-add-value-arity" aria-label="Open meta-cli add-value-arity"><code>add-value-arity</code></a>
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-add-value-shape" aria-label="Open meta-cli add-value-shape"><code>add-value-shape</code></a>
+                <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-create" aria-label="Open meta-cli create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-help" aria-label="Open meta-cli help"><code>help</code></a>
-                <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-new-workspace" aria-label="Open meta-cli new-workspace"><code>new-workspace</code></a>
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-remove-application-option" aria-label="Open meta-cli remove-application-option"><code>remove-application-option</code></a>
+                <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-remove-command" aria-label="Open meta-cli remove-command"><code>remove-command</code></a>
+                <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-remove-option" aria-label="Open meta-cli remove-option"><code>remove-option</code></a>
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-set-default-command" aria-label="Open meta-cli set-default-command"><code>set-default-command</code></a>
+                <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-set-parameter-group-required" aria-label="Open meta-cli set-parameter-group-required"><code>set-parameter-group-required</code></a>
                 <a class="application-command-link" href="#cli-meta-cli" data-local-anchor="subject-source-cli-meta-cli-app-command-show" aria-label="Open meta-cli show"><code>show</code></a>
               </nav>
             </aside>
@@ -3975,13 +4276,13 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                 <span class="command-name">meta-docs author-page</span>
                 <span class="command-summary-text">Add or update an authored documentation page in a MetaDocs workspace.</span>
               </span>
-              <span class="command-counts">14 options</span>
+              <span class="command-counts">17 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs author-page --body &lt;value&gt; --id &lt;value&gt; [--navigation-title &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent &lt;value&gt;] [--path &lt;value&gt;] [--slot &lt;value&gt;] [--source-id &lt;value&gt;] [--source-name &lt;value&gt;] [--subject-type &lt;value&gt;] --summary &lt;value&gt; --title &lt;value&gt; [--view-root true|false] [--workspace &lt;workspace&gt;]</code></pre>
+                <pre><code>meta-docs author-page --body &lt;value&gt; --id &lt;value&gt; [--navigation-title &lt;value&gt;] [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--parent &lt;value&gt;] [--path &lt;value&gt;] [--slot &lt;value&gt;] [--source-id &lt;value&gt;] [--source-name &lt;value&gt;] [--subject-type &lt;value&gt;] --summary &lt;value&gt; --title &lt;value&gt; [--view-root true|false] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4007,8 +4308,26 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>New MetaDocs workspace to create.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -4191,13 +4510,13 @@ meta-docs search deploy
                 <span class="command-name">meta-docs import-cli</span>
                 <span class="command-summary-text">Refresh CLI reference documentation from a MetaCli workspace while preserving authored descriptions.</span>
               </span>
-              <span class="command-counts">6 options</span>
+              <span class="command-counts">9 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs import-cli [--application &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
+                <pre><code>meta-docs import-cli [--application &lt;value&gt;] [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection description-block">
                 <h3 class="document-heading">Refresh CLI reference rows</h3>
@@ -4219,8 +4538,26 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>New MetaDocs source workspace to create.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -4317,13 +4654,13 @@ meta-docs search deploy
                 <span class="command-name">meta-docs import-workspace-model</span>
                 <span class="command-summary-text">Refresh model reference documentation from a Meta workspace while preserving authored descriptions.</span>
               </span>
-              <span class="command-counts">6 options</span>
+              <span class="command-counts">9 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs import-workspace-model [--display-name &lt;value&gt;] [--new-workspace &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
+                <pre><code>meta-docs import-workspace-model [--display-name &lt;value&gt;] [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--parent-subject &lt;value&gt;] [--source-id &lt;value&gt;] --source-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4337,8 +4674,26 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>New MetaDocs source workspace to create.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -5043,30 +5398,12 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
               </div>
             </div>
           </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-mesh-app-command-help">
+          <details class="card cli-command-card" id="subject-source-cli-meta-mesh-app-command-create">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
               <span class="command-main">
-                <span class="command-name">meta-mesh help</span>
-                <span class="command-summary-text">Show help.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh help</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-mesh-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-mesh new-workspace</span>
-                <span class="command-summary-text">Create an empty MetaMesh workspace.</span>
+                <span class="command-name">meta-mesh create</span>
+                <span class="command-summary-text">Create a meta-mesh workspace.</span>
               </span>
               <span class="command-counts">7 options</span>
             </summary>
@@ -5074,7 +5411,7 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-mesh new-workspace [--connection-env &lt;environment-variable&gt;] [--description &lt;value&gt;] [--name &lt;value&gt;] [--new-workspace-csharp &lt;path&gt;] [--new-workspace-sql &lt;path&gt;] [--new-workspace-xml &lt;path&gt;] [--root &lt;path&gt;]</code></pre>
+                <pre><code>meta-mesh create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--description &lt;value&gt;] [--name &lt;value&gt;] [--root &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5082,9 +5419,15 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--connection-env &lt;environment-variable&gt;</td>
-                      <td>Environment variable containing the SQL workspace connection string.</td>
-                      <td>&lt;environment-variable&gt;</td>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -5100,31 +5443,43 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace-csharp &lt;path&gt;</td>
-                      <td>Create a C# workspace in this directory.</td>
+                      <td class="opt">--root &lt;path&gt;</td>
+                      <td>Mesh root path.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace-sql &lt;path&gt;</td>
+                      <td class="opt">--sql &lt;path&gt;</td>
                       <td>Create a SQL workspace described by this directory.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace-xml &lt;path&gt;</td>
-                      <td>Create an XML workspace in this directory.</td>
-                      <td>&lt;path&gt;</td>
-                      <td>False</td>
-                    </tr>
-                    <tr>
-                      <td class="opt">--root &lt;path&gt;</td>
-                      <td>Root path used to resolve relative workspace paths.</td>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
                   </tbody>
                 </table>
+              </section>
+              </div>
+            </div>
+          </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-mesh-app-command-help">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-mesh help</span>
+                <span class="command-summary-text">Show help.</span>
+              </span>
+              <span class="command-counts">0 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-mesh help</code></pre>
               </section>
               </div>
             </div>
@@ -5383,8 +5738,8 @@ meta-mesh run --operation regenerate-public-docs
                 <a class="application-command-link" href="#cli-meta-mesh" data-local-anchor="subject-source-cli-meta-mesh-app-command-add-operation" aria-label="Open meta-mesh add-operation"><code>add-operation</code></a>
                 <a class="application-command-link" href="#cli-meta-mesh" data-local-anchor="subject-source-cli-meta-mesh-app-command-add-step" aria-label="Open meta-mesh add-step"><code>add-step</code></a>
                 <a class="application-command-link" href="#cli-meta-mesh" data-local-anchor="subject-source-cli-meta-mesh-app-command-add-workspace" aria-label="Open meta-mesh add-workspace"><code>add-workspace</code></a>
+                <a class="application-command-link" href="#cli-meta-mesh" data-local-anchor="subject-source-cli-meta-mesh-app-command-create" aria-label="Open meta-mesh create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-mesh" data-local-anchor="subject-source-cli-meta-mesh-app-command-help" aria-label="Open meta-mesh help"><code>help</code></a>
-                <a class="application-command-link" href="#cli-meta-mesh" data-local-anchor="subject-source-cli-meta-mesh-app-command-new-workspace" aria-label="Open meta-mesh new-workspace"><code>new-workspace</code></a>
                 <a class="application-command-link" href="#cli-meta-mesh" data-local-anchor="subject-source-cli-meta-mesh-app-command-operations" aria-label="Open meta-mesh operations"><code>operations</code></a>
                 <a class="application-command-link" href="#cli-meta-mesh" data-local-anchor="subject-source-cli-meta-mesh-app-command-run" aria-label="Open meta-mesh run"><code>run</code></a>
                 <a class="application-command-link" href="#cli-meta-mesh" data-local-anchor="subject-source-cli-meta-mesh-app-command-show" aria-label="Open meta-mesh show"><code>show</code></a>
@@ -5580,6 +5935,56 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-weave-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-weave create</span>
+                <span class="command-summary-text">Create a meta-weave workspace.</span>
+              </span>
+              <span class="command-counts">4 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-weave create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-weave-app-command-help">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -5605,13 +6010,13 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                 <span class="command-name">meta-weave materialize</span>
                 <span class="command-summary-text">Materialize a new workspace from a valid weave.</span>
               </span>
-              <span class="command-counts">3 options</span>
+              <span class="command-counts">6 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-weave materialize --model &lt;value&gt; --new-workspace &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
+                <pre><code>meta-weave materialize --model &lt;value&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--workspace &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -5625,8 +6030,26 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Empty target directory for the materialized workspace.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -5638,24 +6061,6 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                     </tr>
                   </tbody>
                 </table>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-weave-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-weave new-workspace</span>
-                <span class="command-summary-text">Create a MetaWeave workspace.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-weave new-workspace &lt;path&gt;</code></pre>
               </section>
               </div>
             </div>
@@ -5702,9 +6107,9 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
                 <a class="application-command-link" href="#cli-meta-weave" data-local-anchor="subject-source-cli-meta-weave-app-command-add-binding" aria-label="Open meta-weave add-binding"><code>add-binding</code></a>
                 <a class="application-command-link" href="#cli-meta-weave" data-local-anchor="subject-source-cli-meta-weave-app-command-add-model" aria-label="Open meta-weave add-model"><code>add-model</code></a>
                 <a class="application-command-link" href="#cli-meta-weave" data-local-anchor="subject-source-cli-meta-weave-app-command-check" aria-label="Open meta-weave check"><code>check</code></a>
+                <a class="application-command-link" href="#cli-meta-weave" data-local-anchor="subject-source-cli-meta-weave-app-command-create" aria-label="Open meta-weave create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-weave" data-local-anchor="subject-source-cli-meta-weave-app-command-help" aria-label="Open meta-weave help"><code>help</code></a>
                 <a class="application-command-link" href="#cli-meta-weave" data-local-anchor="subject-source-cli-meta-weave-app-command-materialize" aria-label="Open meta-weave materialize"><code>materialize</code></a>
-                <a class="application-command-link" href="#cli-meta-weave" data-local-anchor="subject-source-cli-meta-weave-app-command-new-workspace" aria-label="Open meta-weave new-workspace"><code>new-workspace</code></a>
                 <a class="application-command-link" href="#cli-meta-weave" data-local-anchor="subject-source-cli-meta-weave-app-command-suggest" aria-label="Open meta-weave suggest"><code>suggest</code></a>
               </nav>
             </aside>
@@ -11791,6 +12196,56 @@ meta-mesh run --operation process-tabular
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-analytics-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-analytics create</span>
+                <span class="command-summary-text">Create a meta-analytics workspace.</span>
+              </span>
+              <span class="command-counts">4 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-analytics create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-analytics-app-command-help">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -11805,24 +12260,6 @@ meta-mesh run --operation process-tabular
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-analytics help</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-analytics-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-analytics new-workspace</span>
-                <span class="command-summary-text">Create a MetaAnalytics workspace.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-analytics new-workspace &lt;path&gt;</code></pre>
               </section>
               </div>
             </div>
@@ -11861,8 +12298,8 @@ meta-mesh run --operation process-tabular
                 <a class="application-command-link" href="#cli-meta-analytics" data-local-anchor="subject-source-cli-meta-analytics-app-command-add-table" aria-label="Open meta-analytics add-table"><code>add-table</code></a>
                 <a class="application-command-link" href="#cli-meta-analytics" data-local-anchor="subject-source-cli-meta-analytics-app-command-add-table-permission" aria-label="Open meta-analytics add-table-permission"><code>add-table-permission</code></a>
                 <a class="application-command-link" href="#cli-meta-analytics" data-local-anchor="subject-source-cli-meta-analytics-app-command-add-table-translation" aria-label="Open meta-analytics add-table-translation"><code>add-table-translation</code></a>
+                <a class="application-command-link" href="#cli-meta-analytics" data-local-anchor="subject-source-cli-meta-analytics-app-command-create" aria-label="Open meta-analytics create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-analytics" data-local-anchor="subject-source-cli-meta-analytics-app-command-help" aria-label="Open meta-analytics help"><code>help</code></a>
-                <a class="application-command-link" href="#cli-meta-analytics" data-local-anchor="subject-source-cli-meta-analytics-app-command-new-workspace" aria-label="Open meta-analytics new-workspace"><code>new-workspace</code></a>
               </nav>
             </aside>
           </div>
@@ -12181,13 +12618,13 @@ meta-mesh run --operation process-tabular
                 <span class="command-name">meta-convert schema-to-raw-datavault</span>
                 <span class="command-summary-text">Convert MetaSchema workspace to MetaRawDataVault workspace.</span>
               </span>
-              <span class="command-counts">9 options</span>
+              <span class="command-counts">10 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-convert schema-to-raw-datavault [--connection-env &lt;value&gt;] [--ignore-field-name &lt;value&gt;] [--ignore-field-suffix &lt;value&gt;] [--include-views] [--new-workspace-csharp &lt;location&gt;] [--new-workspace-sql &lt;location&gt;] [--new-workspace-xml &lt;location&gt;] --source-workspace &lt;location&gt; [--verbose]</code></pre>
+                <pre><code>meta-convert schema-to-raw-datavault [--connection-env &lt;value&gt;] [--ignore-field-name &lt;value&gt;] [--ignore-field-suffix &lt;value&gt;] [--include-views] [--output-connection-env &lt;value&gt;] [--output-csharp &lt;location&gt;] [--output-sql &lt;location&gt;] [--output-xml &lt;location&gt;] --source-workspace &lt;location&gt; [--verbose]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -12219,20 +12656,26 @@ meta-mesh run --operation process-tabular
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace-csharp &lt;location&gt;</td>
-                      <td>Create a C# workspace in this directory.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;location&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
                       <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace-sql &lt;location&gt;</td>
-                      <td>Create a SQL workspace described by this directory.</td>
+                      <td class="opt">--output-sql &lt;location&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
                       <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace-xml &lt;location&gt;</td>
-                      <td>Create an XML workspace in this directory.</td>
+                      <td class="opt">--output-xml &lt;location&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
@@ -12416,13 +12859,13 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
                 <span class="command-name">meta-data-quality from-transform-workspace</span>
                 <span class="command-summary-text">Create generated DQ views from a full MetaTransformScript workspace.</span>
               </span>
-              <span class="command-counts">3 options</span>
+              <span class="command-counts">6 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-data-quality from-transform-workspace [--binding-workspace &lt;path&gt;] --new-workspace &lt;path&gt; --transform-workspace &lt;path&gt;</code></pre>
+                <pre><code>meta-data-quality from-transform-workspace [--binding-workspace &lt;path&gt;] [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] --transform-workspace &lt;path&gt;</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -12436,8 +12879,26 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Directory where the generated MetaDataQuality workspace will be created.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -12602,6 +13063,56 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
 <p>That common vocabulary becomes especially valuable when a solution crosses SQL Server, analytical engines, and generated code. Type decisions stay inspectable at the model layer and conversion policy can build on them without inventing private compatibility rules.</p>
                 </div>
               </section>
+          <details class="card cli-command-card" id="subject-source-cli-meta-data-type-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-data-type create</span>
+                <span class="command-summary-text">Create a meta-data-type workspace.</span>
+              </span>
+              <span class="command-counts">4 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-data-type create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-data-type-app-command-help">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -12620,24 +13131,6 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               </div>
             </div>
           </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-data-type-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-data-type new-workspace</span>
-                <span class="command-summary-text">Create a MetaDataType workspace.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-data-type new-workspace &lt;path&gt;</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
             </div>
             <aside class="application-command-rail" aria-label="Command navigation">
               <div class="application-command-rail-header">
@@ -12645,8 +13138,8 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
                 <p>2 commands</p>
               </div>
               <nav class="application-command-list">
+                <a class="application-command-link" href="#cli-meta-data-type" data-local-anchor="subject-source-cli-meta-data-type-app-command-create" aria-label="Open meta-data-type create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-data-type" data-local-anchor="subject-source-cli-meta-data-type-app-command-help" aria-label="Open meta-data-type help"><code>help</code></a>
-                <a class="application-command-link" href="#cli-meta-data-type" data-local-anchor="subject-source-cli-meta-data-type-app-command-new-workspace" aria-label="Open meta-data-type new-workspace"><code>new-workspace</code></a>
               </nav>
             </aside>
           </div>
@@ -12699,6 +13192,56 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-data-type-conversion-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-data-type-conversion create</span>
+                <span class="command-summary-text">Create a meta-data-type-conversion workspace.</span>
+              </span>
+              <span class="command-counts">4 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-data-type-conversion create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-data-type-conversion-app-command-help">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -12713,24 +13256,6 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-data-type-conversion help</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-data-type-conversion-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-data-type-conversion new-workspace</span>
-                <span class="command-summary-text">Create a seeded MetaDataTypeConversion workspace.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-data-type-conversion new-workspace &lt;path&gt;</code></pre>
               </section>
               </div>
             </div>
@@ -12787,8 +13312,8 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               </div>
               <nav class="application-command-list">
                 <a class="application-command-link" href="#cli-meta-data-type-conversion" data-local-anchor="subject-source-cli-meta-data-type-conversion-app-command-check" aria-label="Open meta-data-type-conversion check"><code>check</code></a>
+                <a class="application-command-link" href="#cli-meta-data-type-conversion" data-local-anchor="subject-source-cli-meta-data-type-conversion-app-command-create" aria-label="Open meta-data-type-conversion create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-data-type-conversion" data-local-anchor="subject-source-cli-meta-data-type-conversion-app-command-help" aria-label="Open meta-data-type-conversion help"><code>help</code></a>
-                <a class="application-command-link" href="#cli-meta-data-type-conversion" data-local-anchor="subject-source-cli-meta-data-type-conversion-app-command-new-workspace" aria-label="Open meta-data-type-conversion new-workspace"><code>new-workspace</code></a>
                 <a class="application-command-link" href="#cli-meta-data-type-conversion" data-local-anchor="subject-source-cli-meta-data-type-conversion-app-command-resolve" aria-label="Open meta-data-type-conversion resolve"><code>resolve</code></a>
               </nav>
             </aside>
@@ -14604,6 +15129,56 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-data-warehouse-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-data-warehouse create</span>
+                <span class="command-summary-text">Create a meta-data-warehouse workspace.</span>
+              </span>
+              <span class="command-counts">4 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-data-warehouse create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-data-warehouse-app-command-help">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -14618,24 +15193,6 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-data-warehouse help</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-data-warehouse-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-data-warehouse new-workspace</span>
-                <span class="command-summary-text">Create a MetaDataWarehouse workspace.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-data-warehouse new-workspace &lt;path&gt;</code></pre>
               </section>
               </div>
             </div>
@@ -14677,8 +15234,8 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
                 <a class="application-command-link" href="#cli-meta-data-warehouse" data-local-anchor="subject-source-cli-meta-data-warehouse-app-command-add-type1-dimension-attribute" aria-label="Open meta-data-warehouse add-type1-dimension-attribute"><code>add-type1-dimension-attribute</code></a>
                 <a class="application-command-link" href="#cli-meta-data-warehouse" data-local-anchor="subject-source-cli-meta-data-warehouse-app-command-add-type2-dimension-attribute" aria-label="Open meta-data-warehouse add-type2-dimension-attribute"><code>add-type2-dimension-attribute</code></a>
                 <a class="application-command-link" href="#cli-meta-data-warehouse" data-local-anchor="subject-source-cli-meta-data-warehouse-app-command-add-warehouse" aria-label="Open meta-data-warehouse add-warehouse"><code>add-warehouse</code></a>
+                <a class="application-command-link" href="#cli-meta-data-warehouse" data-local-anchor="subject-source-cli-meta-data-warehouse-app-command-create" aria-label="Open meta-data-warehouse create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-data-warehouse" data-local-anchor="subject-source-cli-meta-data-warehouse-app-command-help" aria-label="Open meta-data-warehouse help"><code>help</code></a>
-                <a class="application-command-link" href="#cli-meta-data-warehouse" data-local-anchor="subject-source-cli-meta-data-warehouse-app-command-new-workspace" aria-label="Open meta-data-warehouse new-workspace"><code>new-workspace</code></a>
               </nav>
             </aside>
           </div>
@@ -15891,6 +16448,56 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-datavault-business-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-datavault-business create</span>
+                <span class="command-summary-text">Create a meta-datavault-business workspace.</span>
+              </span>
+              <span class="command-counts">4 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-datavault-business create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-datavault-business-app-command-help">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -15905,24 +16512,6 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-datavault-business help</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-datavault-business-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-datavault-business new-workspace</span>
-                <span class="command-summary-text">Create a MetaBusinessDataVault workspace.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-datavault-business new-workspace &lt;Path&gt;</code></pre>
               </section>
               </div>
             </div>
@@ -15954,8 +16543,8 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
                 <a class="application-command-link" href="#cli-meta-datavault-business" data-local-anchor="subject-source-cli-meta-datavault-business-app-command-add-same-as-link" aria-label="Open meta-datavault-business add-same-as-link"><code>add-same-as-link</code></a>
                 <a class="application-command-link" href="#cli-meta-datavault-business" data-local-anchor="subject-source-cli-meta-datavault-business-app-command-add-same-as-link-satellite" aria-label="Open meta-datavault-business add-same-as-link-satellite"><code>add-same-as-link-satellite</code></a>
                 <a class="application-command-link" href="#cli-meta-datavault-business" data-local-anchor="subject-source-cli-meta-datavault-business-app-command-add-satellite-attribute" aria-label="Open meta-datavault-business add-satellite-attribute"><code>add-satellite-attribute</code></a>
+                <a class="application-command-link" href="#cli-meta-datavault-business" data-local-anchor="subject-source-cli-meta-datavault-business-app-command-create" aria-label="Open meta-datavault-business create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-datavault-business" data-local-anchor="subject-source-cli-meta-datavault-business-app-command-help" aria-label="Open meta-datavault-business help"><code>help</code></a>
-                <a class="application-command-link" href="#cli-meta-datavault-business" data-local-anchor="subject-source-cli-meta-datavault-business-app-command-new-workspace" aria-label="Open meta-datavault-business new-workspace"><code>new-workspace</code></a>
               </nav>
             </aside>
           </div>
@@ -16512,6 +17101,56 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-datavault-raw-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-datavault-raw create</span>
+                <span class="command-summary-text">Create a meta-datavault-raw workspace.</span>
+              </span>
+              <span class="command-counts">4 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-datavault-raw create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-datavault-raw-app-command-help">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -16526,24 +17165,6 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-datavault-raw help</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-datavault-raw-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-datavault-raw new-workspace</span>
-                <span class="command-summary-text">Create a MetaRawDataVault workspace.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-datavault-raw new-workspace &lt;path&gt;</code></pre>
               </section>
               </div>
             </div>
@@ -16565,8 +17186,8 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
                 <a class="application-command-link" href="#cli-meta-datavault-raw" data-local-anchor="subject-source-cli-meta-datavault-raw-app-command-add-link-role" aria-label="Open meta-datavault-raw add-link-role"><code>add-link-role</code></a>
                 <a class="application-command-link" href="#cli-meta-datavault-raw" data-local-anchor="subject-source-cli-meta-datavault-raw-app-command-add-link-satellite" aria-label="Open meta-datavault-raw add-link-satellite"><code>add-link-satellite</code></a>
                 <a class="application-command-link" href="#cli-meta-datavault-raw" data-local-anchor="subject-source-cli-meta-datavault-raw-app-command-add-link-satellite-attribute" aria-label="Open meta-datavault-raw add-link-satellite-attribute"><code>add-link-satellite-attribute</code></a>
+                <a class="application-command-link" href="#cli-meta-datavault-raw" data-local-anchor="subject-source-cli-meta-datavault-raw-app-command-create" aria-label="Open meta-datavault-raw create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-datavault-raw" data-local-anchor="subject-source-cli-meta-datavault-raw-app-command-help" aria-label="Open meta-datavault-raw help"><code>help</code></a>
-                <a class="application-command-link" href="#cli-meta-datavault-raw" data-local-anchor="subject-source-cli-meta-datavault-raw-app-command-new-workspace" aria-label="Open meta-datavault-raw new-workspace"><code>new-workspace</code></a>
               </nav>
             </aside>
           </div>
@@ -19141,6 +19762,56 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-multi-dimensional-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-multi-dimensional create</span>
+                <span class="command-summary-text">Create a meta-multi-dimensional workspace.</span>
+              </span>
+              <span class="command-counts">4 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-multi-dimensional create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-multi-dimensional-app-command-deploy">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -19249,24 +19920,6 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-multi-dimensional help</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-multi-dimensional-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-multi-dimensional new-workspace</span>
-                <span class="command-summary-text">Create a MetaMultiDimensional workspace.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-multi-dimensional new-workspace &lt;path&gt;</code></pre>
               </section>
               </div>
             </div>
@@ -19384,10 +20037,10 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
                 <a class="application-command-link" href="#cli-meta-multi-dimensional" data-local-anchor="subject-source-cli-meta-multi-dimensional-app-command-add-perspective-translation" aria-label="Open meta-multi-dimensional add-perspective-translation"><code>add-perspective-translation</code></a>
                 <a class="application-command-link" href="#cli-meta-multi-dimensional" data-local-anchor="subject-source-cli-meta-multi-dimensional-app-command-add-role-member" aria-label="Open meta-multi-dimensional add-role-member"><code>add-role-member</code></a>
                 <a class="application-command-link" href="#cli-meta-multi-dimensional" data-local-anchor="subject-source-cli-meta-multi-dimensional-app-command-add-security-role" aria-label="Open meta-multi-dimensional add-security-role"><code>add-security-role</code></a>
+                <a class="application-command-link" href="#cli-meta-multi-dimensional" data-local-anchor="subject-source-cli-meta-multi-dimensional-app-command-create" aria-label="Open meta-multi-dimensional create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-multi-dimensional" data-local-anchor="subject-source-cli-meta-multi-dimensional-app-command-deploy" aria-label="Open meta-multi-dimensional deploy"><code>deploy</code></a>
                 <a class="application-command-link" href="#cli-meta-multi-dimensional" data-local-anchor="subject-source-cli-meta-multi-dimensional-app-command-drop" aria-label="Open meta-multi-dimensional drop"><code>drop</code></a>
                 <a class="application-command-link" href="#cli-meta-multi-dimensional" data-local-anchor="subject-source-cli-meta-multi-dimensional-app-command-help" aria-label="Open meta-multi-dimensional help"><code>help</code></a>
-                <a class="application-command-link" href="#cli-meta-multi-dimensional" data-local-anchor="subject-source-cli-meta-multi-dimensional-app-command-new-workspace" aria-label="Open meta-multi-dimensional new-workspace"><code>new-workspace</code></a>
                 <a class="application-command-link" href="#cli-meta-multi-dimensional" data-local-anchor="subject-source-cli-meta-multi-dimensional-app-command-restore" aria-label="Open meta-multi-dimensional restore"><code>restore</code></a>
               </nav>
             </aside>
@@ -19732,13 +20385,13 @@ meta-orchestration inspect-run-plan --workspace .\Orchestration.Workspace
                 <span class="command-name">meta-orchestration infer</span>
                 <span class="command-summary-text">Infer a MetaOrchestration workspace from a modeled MetaPipeline workspace.</span>
               </span>
-              <span class="command-counts">3 options</span>
+              <span class="command-counts">6 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-orchestration infer [--description &lt;value&gt;] --new-workspace &lt;path&gt; --pipeline-workspace &lt;path&gt;</code></pre>
+                <pre><code>meta-orchestration infer [--description &lt;value&gt;] [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] --pipeline-workspace &lt;path&gt;</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -19752,8 +20405,26 @@ meta-orchestration inspect-run-plan --workspace .\Orchestration.Workspace
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Directory where the MetaOrchestration workspace will be created.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -20236,6 +20907,56 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-pipeline-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-pipeline create</span>
+                <span class="command-summary-text">Create a meta-pipeline workspace.</span>
+              </span>
+              <span class="command-counts">4 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-pipeline create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-pipeline-app-command-create-pipeline-db">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -20626,24 +21347,6 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
               </div>
             </div>
           </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-pipeline-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-pipeline new-workspace</span>
-                <span class="command-summary-text">Create an empty sanctioned MetaPipeline workspace.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-pipeline new-workspace &lt;path&gt;</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-pipeline-app-command-prune-pipeline-db">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -20698,6 +21401,7 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                 <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-add-executable-step" aria-label="Open meta-pipeline add-executable-step"><code>add-executable-step</code></a>
                 <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-add-pipeline" aria-label="Open meta-pipeline add-pipeline"><code>add-pipeline</code></a>
                 <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-add-step" aria-label="Open meta-pipeline add-step"><code>add-step</code></a>
+                <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-create" aria-label="Open meta-pipeline create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-create-pipeline-db" aria-label="Open meta-pipeline create-pipeline-db"><code>create-pipeline-db</code></a>
                 <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-execute" aria-label="Open meta-pipeline execute"><code>execute</code></a>
                 <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-execute-sqlserver" aria-label="Open meta-pipeline execute-sqlserver"><code>execute-sqlserver</code></a>
@@ -20705,7 +21409,6 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                 <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-execute-worker" aria-label="Open meta-pipeline execute-worker"><code>execute-worker</code></a>
                 <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-help" aria-label="Open meta-pipeline help"><code>help</code></a>
                 <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-inspect" aria-label="Open meta-pipeline inspect"><code>inspect</code></a>
-                <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-new-workspace" aria-label="Open meta-pipeline new-workspace"><code>new-workspace</code></a>
                 <a class="application-command-link" href="#cli-meta-pipeline" data-local-anchor="subject-source-cli-meta-pipeline-app-command-prune-pipeline-db" aria-label="Open meta-pipeline prune-pipeline-db"><code>prune-pipeline-db</code></a>
               </nav>
             </aside>
@@ -20743,13 +21446,13 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                 <span class="command-name">meta-schema extract sqlserver</span>
                 <span class="command-summary-text">Extract SQL Server schema into a MetaSchema workspace.</span>
               </span>
-              <span class="command-counts">7 options</span>
+              <span class="command-counts">10 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-schema extract sqlserver [--all-schemas] [--all-tables] --connection-env &lt;value&gt; --new-workspace &lt;path&gt; [--schema &lt;value&gt;] --system &lt;value&gt; [--table &lt;value&gt;]</code></pre>
+                <pre><code>meta-schema extract sqlserver [--all-schemas] [--all-tables] --connection-env &lt;value&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--schema &lt;value&gt;] --system &lt;value&gt; [--table &lt;value&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -20775,8 +21478,26 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Directory where the MetaSchema workspace will be created.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -21041,13 +21762,13 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                 <span class="command-name">meta-sql extract sqlserver</span>
                 <span class="command-summary-text">Extract SQL Server database objects into a MetaSql workspace.</span>
               </span>
-              <span class="command-counts">9 options</span>
+              <span class="command-counts">12 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-sql extract sqlserver [--allow-empty] --connection-env &lt;value&gt; [--include-functions] [--include-stored-procedures] [--include-tables] [--include-views] --new-workspace &lt;path&gt; [--schema &lt;value&gt;] [--table &lt;value&gt;]</code></pre>
+                <pre><code>meta-sql extract sqlserver [--allow-empty] --connection-env &lt;value&gt; [--include-functions] [--include-stored-procedures] [--include-tables] [--include-views] [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--schema &lt;value&gt;] [--table &lt;value&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -21091,8 +21812,26 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Directory where the MetaSql workspace will be created.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -23202,6 +23941,56 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
               </div>
             </div>
           </details>
+          <details class="card cli-command-card" id="subject-source-cli-meta-tabular-app-command-create">
+            <summary class="command-summary">
+              <span class="command-toggle" aria-hidden="true"></span>
+              <span class="command-main">
+                <span class="command-name">meta-tabular create</span>
+                <span class="command-summary-text">Create a meta-tabular workspace.</span>
+              </span>
+              <span class="command-counts">4 options</span>
+            </summary>
+            <div class="command-body">
+              <div class="command-body-inner">
+              <section class="subsection">
+                <h4 class="subsection-title">Usage</h4>
+                <pre><code>meta-tabular create [--connection-env &lt;value&gt;] [--csharp &lt;path&gt;] [--sql &lt;path&gt;] [--xml &lt;path&gt;]</code></pre>
+              </section>
+              <section class="subsection">
+                <h4 class="subsection-title">Options</h4>
+                <table>
+                  <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="opt">--connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the SQL Server connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--csharp &lt;path&gt;</td>
+                      <td>Create a C# workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--sql &lt;path&gt;</td>
+                      <td>Create a SQL workspace described by this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--xml &lt;path&gt;</td>
+                      <td>Create an XML workspace at this directory.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              </div>
+            </div>
+          </details>
           <details class="card cli-command-card" id="subject-source-cli-meta-tabular-app-command-deploy">
             <summary class="command-summary">
               <span class="command-toggle" aria-hidden="true"></span>
@@ -23310,24 +24099,6 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
                 <pre><code>meta-tabular help</code></pre>
-              </section>
-              </div>
-            </div>
-          </details>
-          <details class="card cli-command-card" id="subject-source-cli-meta-tabular-app-command-new-workspace">
-            <summary class="command-summary">
-              <span class="command-toggle" aria-hidden="true"></span>
-              <span class="command-main">
-                <span class="command-name">meta-tabular new-workspace</span>
-                <span class="command-summary-text">Create a MetaTabular workspace.</span>
-              </span>
-              <span class="command-counts">0 options</span>
-            </summary>
-            <div class="command-body">
-              <div class="command-body-inner">
-              <section class="subsection">
-                <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-tabular new-workspace &lt;path&gt;</code></pre>
               </section>
               </div>
             </div>
@@ -23495,10 +24266,10 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                 <a class="application-command-link" href="#cli-meta-tabular" data-local-anchor="subject-source-cli-meta-tabular-app-command-add-tabular-table" aria-label="Open meta-tabular add-tabular-table"><code>add-tabular-table</code></a>
                 <a class="application-command-link" href="#cli-meta-tabular" data-local-anchor="subject-source-cli-meta-tabular-app-command-add-tabular-table-permission" aria-label="Open meta-tabular add-tabular-table-permission"><code>add-tabular-table-permission</code></a>
                 <a class="application-command-link" href="#cli-meta-tabular" data-local-anchor="subject-source-cli-meta-tabular-app-command-add-tabular-table-translation" aria-label="Open meta-tabular add-tabular-table-translation"><code>add-tabular-table-translation</code></a>
+                <a class="application-command-link" href="#cli-meta-tabular" data-local-anchor="subject-source-cli-meta-tabular-app-command-create" aria-label="Open meta-tabular create"><code>create</code></a>
                 <a class="application-command-link" href="#cli-meta-tabular" data-local-anchor="subject-source-cli-meta-tabular-app-command-deploy" aria-label="Open meta-tabular deploy"><code>deploy</code></a>
                 <a class="application-command-link" href="#cli-meta-tabular" data-local-anchor="subject-source-cli-meta-tabular-app-command-drop" aria-label="Open meta-tabular drop"><code>drop</code></a>
                 <a class="application-command-link" href="#cli-meta-tabular" data-local-anchor="subject-source-cli-meta-tabular-app-command-help" aria-label="Open meta-tabular help"><code>help</code></a>
-                <a class="application-command-link" href="#cli-meta-tabular" data-local-anchor="subject-source-cli-meta-tabular-app-command-new-workspace" aria-label="Open meta-tabular new-workspace"><code>new-workspace</code></a>
                 <a class="application-command-link" href="#cli-meta-tabular" data-local-anchor="subject-source-cli-meta-tabular-app-command-process" aria-label="Open meta-tabular process"><code>process</code></a>
                 <a class="application-command-link" href="#cli-meta-tabular" data-local-anchor="subject-source-cli-meta-tabular-app-command-restore" aria-label="Open meta-tabular restore"><code>restore</code></a>
               </nav>
@@ -23538,13 +24309,13 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                 <span class="command-name">meta-transform-binding bind</span>
                 <span class="command-summary-text">Bind transform scripts and validate them against source and target schema contracts into a new workspace.</span>
               </span>
-              <span class="command-counts">11 options</span>
+              <span class="command-counts">14 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-transform-binding bind [--allow-partial] [--data-type-conversion-workspace &lt;path&gt;] --execute-system &lt;value&gt; [--execute-system-default-schema-name &lt;value&gt;] [--ignore-target-columns &lt;col[,col...]&gt;] [--ignore-target-columns-if-present &lt;col[,col...]&gt;] --new-workspace &lt;path&gt; [--partial-report &lt;path&gt;] --source-schema &lt;path&gt; --target-schema &lt;path&gt; --transform-workspace &lt;path&gt;</code></pre>
+                <pre><code>meta-transform-binding bind [--allow-partial] [--data-type-conversion-workspace &lt;path&gt;] --execute-system &lt;value&gt; [--execute-system-default-schema-name &lt;value&gt;] [--ignore-target-columns &lt;col[,col...]&gt;] [--ignore-target-columns-if-present &lt;col[,col...]&gt;] [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--partial-report &lt;path&gt;] --source-schema &lt;path&gt; --target-schema &lt;path&gt; --transform-workspace &lt;path&gt;</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -23588,8 +24359,26 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Directory where the binding workspace will be created.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -23687,13 +24476,13 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
                 <span class="command-name">meta-transform-script from sql-code</span>
                 <span class="command-summary-text">Import SQL text.</span>
               </span>
-              <span class="command-counts">5 options</span>
+              <span class="command-counts">8 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-transform-script from sql-code --code &lt;sql&gt; [--name &lt;value&gt;] [--new-workspace &lt;path&gt;] [--target &lt;sql-identifier&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-transform-script from sql-code --code &lt;sql&gt; [--name &lt;value&gt;] [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--target &lt;sql-identifier&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -23713,8 +24502,26 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
                       <td>True</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Create a new MetaTransformScript workspace.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -23743,13 +24550,13 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
                 <span class="command-name">meta-transform-script from sql-file</span>
                 <span class="command-summary-text">Import one .sql file.</span>
               </span>
-              <span class="command-counts">4 options</span>
+              <span class="command-counts">7 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-transform-script from sql-file [--new-workspace &lt;path&gt;] --path &lt;file.sql&gt; [--target &lt;sql-identifier&gt;] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-transform-script from sql-file [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] --path &lt;file.sql&gt; [--target &lt;sql-identifier&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -23757,8 +24564,26 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Create a new MetaTransformScript workspace.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>
@@ -23793,13 +24618,13 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
                 <span class="command-name">meta-transform-script from sql-files</span>
                 <span class="command-summary-text">Import many .sql files from an explicit manifest.</span>
               </span>
-              <span class="command-counts">5 options</span>
+              <span class="command-counts">8 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-transform-script from sql-files --manifest &lt;manifest.tsv&gt; [--new-workspace &lt;path&gt;] [--report &lt;path&gt;] [--verbose] [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-transform-script from sql-files --manifest &lt;manifest.tsv&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] [--report &lt;path&gt;] [--verbose] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -23813,8 +24638,26 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--new-workspace &lt;path&gt;</td>
-                      <td>Create a new MetaTransformScript workspace.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the output on the csharp workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the output on the sql workspace surface.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the output on the xml workspace surface.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>

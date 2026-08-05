@@ -256,31 +256,39 @@
       <Status>New</Status>
       <Summary>Include source views.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:include-views">
-      <DisplayName>--new-workspace-csharp</DisplayName>
-      <DisplayPath>meta-convert schema-to-raw-datavault --new-workspace-csharp</DisplayPath>
-      <NativeId>opt-schema-to-raw-datavault-new-workspace-csharp</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-connection-env" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:include-views">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --output-connection-env</DisplayPath>
+      <NativeId>option-schema-to-raw-datavault-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Create a C# workspace in this directory.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-csharp">
-      <DisplayName>--new-workspace-sql</DisplayName>
-      <DisplayPath>meta-convert schema-to-raw-datavault --new-workspace-sql</DisplayPath>
-      <NativeId>opt-schema-to-raw-datavault-new-workspace-sql</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --output-csharp</DisplayPath>
+      <NativeId>option-schema-to-raw-datavault-output-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Create a SQL workspace described by this directory.</Summary>
+      <Summary>Create the output on the csharp workspace surface.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-sql">
-      <DisplayName>--new-workspace-xml</DisplayName>
-      <DisplayPath>meta-convert schema-to-raw-datavault --new-workspace-xml</DisplayPath>
-      <NativeId>opt-schema-to-raw-datavault-new-workspace-xml</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --output-sql</DisplayPath>
+      <NativeId>option-schema-to-raw-datavault-output-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Create an XML workspace in this directory.</Summary>
+      <Summary>Create the output on the sql workspace surface.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:source-workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:new-workspace-xml">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault --output-xml</DisplayPath>
+      <NativeId>option-schema-to-raw-datavault-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the xml workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:source-workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-xml">
       <DisplayName>--source-workspace</DisplayName>
       <DisplayPath>meta-convert schema-to-raw-datavault --source-workspace</DisplayPath>
       <NativeId>opt-schema-to-raw-datavault-source-workspace</NativeId>
@@ -296,13 +304,13 @@
       <Status>New</Status>
       <Summary>Print conversion summary.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:parameter-group:new-workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault">
-      <DisplayName>new-workspace</DisplayName>
-      <DisplayPath>meta-convert schema-to-raw-datavault group new-workspace</DisplayPath>
-      <NativeId>group-schema-to-raw-datavault-new-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:parameter-group:target" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta-convert schema-to-raw-datavault group target</DisplayPath>
+      <NativeId>group-schema-to-raw-datavault-target</NativeId>
       <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
       <Status>New</Status>
-      <Summary>Choose new-workspace-csharp or new-workspace-sql or new-workspace-xml.</Summary>
+      <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault">
       <DisplayName>meta-convert sql-to-transform-script</DisplayName>

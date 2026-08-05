@@ -85,7 +85,7 @@ public static class WorkspaceSynchronization
             desiredRecords,
             operations);
 
-        var result = InMemoryOperations.Apply(current, operations);
+        var result = InMemoryOperations.ApplyBatch(current, operations);
         var difference = InMemoryWorkspaceComparer.FindDifference(
             result,
             desired);

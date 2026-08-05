@@ -17,6 +17,13 @@ public static class InMemoryOperations
         return Execute(source, operations).Workspace;
     }
 
+    public static InMemoryWorkspace ApplyBatch(
+        InMemoryWorkspace source,
+        IReadOnlyList<Operation> operations)
+    {
+        return ExecuteBatch(source, operations).Workspace;
+    }
+
     public static InMemoryOperationResult Execute(
         InMemoryWorkspace source,
         params Operation[] operations)
@@ -27,6 +34,27 @@ public static class InMemoryOperations
     public static InMemoryOperationResult Execute(
         InMemoryWorkspace source,
         IReadOnlyList<Operation> operations)
+    {
+        return Execute(
+            source,
+            operations,
+            validateAfterEachOperation: true);
+    }
+
+    public static InMemoryOperationResult ExecuteBatch(
+        InMemoryWorkspace source,
+        IReadOnlyList<Operation> operations)
+    {
+        return Execute(
+            source,
+            operations,
+            validateAfterEachOperation: false);
+    }
+
+    private static InMemoryOperationResult Execute(
+        InMemoryWorkspace source,
+        IReadOnlyList<Operation> operations,
+        bool validateAfterEachOperation)
     {
         ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(operations);
@@ -48,18 +76,21 @@ public static class InMemoryOperations
             try
             {
                 results.Add(operation.ApplyTo(target));
-                var diagnostics = WorkspaceValidator.Validate(
-                    candidate.Model,
-                    candidate.Instance);
-                if (diagnostics.HasErrors)
+                if (validateAfterEachOperation)
                 {
-                    throw new MetaOperationException(
-                        index,
-                        operation,
-                        new InvalidOperationException(BuildValidationMessage(
-                            diagnostics,
-                            $"Operation {index + 1} ({operation.GetType().Name}) produced invalid metadata.")),
-                        diagnostics);
+                    var diagnostics = WorkspaceValidator.Validate(
+                        candidate.Model,
+                        candidate.Instance);
+                    if (diagnostics.HasErrors)
+                    {
+                        throw new MetaOperationException(
+                            index,
+                            operation,
+                            new InvalidOperationException(BuildValidationMessage(
+                                diagnostics,
+                                $"Operation {index + 1} ({operation.GetType().Name}) produced invalid metadata.")),
+                            diagnostics);
+                    }
                 }
             }
             catch (MetaOperationException)
@@ -71,6 +102,8 @@ public static class InMemoryOperations
                 throw new MetaOperationException(index, operation, exception);
             }
         }
+
+        EnsureValid(candidate, "Operation batch produced invalid metadata.");
 
         return new InMemoryOperationResult(candidate, results);
     }

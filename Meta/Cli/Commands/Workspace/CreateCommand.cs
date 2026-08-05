@@ -4,20 +4,48 @@ internal sealed partial class CliRuntime
         string[] commandArgs,
         MetaCli.Core.MetaCliWorkspaces workspaces)
     {
-        var workspace = new InMemoryWorkspace(
-            new GenericModel
+        var source = workspaces.Optional("source-workspace");
+        if (source is null)
+        {
+            if (Flag("with-instances"))
+            {
+                return PrintArgumentError(
+                    "Error: --with-instances requires --source-workspace.");
+            }
+
+            var model = new GenericModel
             {
                 Name = "MetadataModel",
-            },
-            new GenericInstance
+            };
+            var emptyInstance = new GenericInstance
             {
-                ModelName = "MetadataModel",
-            });
+                ModelName = model.Name,
+            };
+            var emptyWorkspace = new InMemoryWorkspace(model, emptyInstance);
+            await workspaces.CreateAsync("output", emptyWorkspace).ConfigureAwait(false);
+        }
+        else if (Flag("with-instances"))
+        {
+            var workspace = await WorkspaceComposition.MaterializeAsync(source)
+                .ConfigureAwait(false);
+            await workspaces.CreateAsync("output", workspace).ConfigureAwait(false);
+        }
+        else
+        {
+            var model = await WorkspaceComposition.MaterializeModelAsync(source)
+                .ConfigureAwait(false);
+            var workspace = new InMemoryWorkspace(
+                model,
+                new GenericInstance
+                {
+                    ModelName = model.Name,
+                });
+            await workspaces.CreateAsync("output", workspace).ConfigureAwait(false);
+        }
 
-        await workspaces.CreateAsync("output", workspace).ConfigureAwait(false);
         presenter.WriteOk(
             "workspace created",
-            ("Path", MetaCli.Core.MetaCliWorkspace.OutputLocation(currentInvocation!)));
+            ("Path", RequiredValue("new-workspace")));
 
         return 0;
     }

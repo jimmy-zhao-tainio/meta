@@ -24,16 +24,40 @@
       <Description>Environment variable containing the SQL Server connection string.</Description>
       <Name>connection-env</Name>
     </Parameter>
-    <Parameter Id="param-create-csharp" ValueShapeId="shape-path">
-      <Description>Create a C# workspace at this directory.</Description>
+    <Parameter Id="param-create-csharp" ValueShapeId="shape-flag">
+      <Description>Create the destination on the C# workspace surface.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>false</IsRequired>
       <Name>csharp</Name>
     </Parameter>
-    <Parameter Id="param-create-sql" ValueShapeId="shape-path">
-      <Description>Create a SQL workspace described by this directory.</Description>
+    <Parameter Id="param-create-new-workspace" ValueShapeId="shape-path">
+      <Description>Destination workspace directory.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>true</IsRequired>
+      <Name>new-workspace</Name>
+    </Parameter>
+    <Parameter Id="param-create-source-workspace" ValueShapeId="shape-path">
+      <Description>Source workspace to copy.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>false</IsRequired>
+      <Name>source-workspace</Name>
+    </Parameter>
+    <Parameter Id="param-create-sql" ValueShapeId="shape-flag">
+      <Description>Create the destination on the SQL workspace surface.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>false</IsRequired>
       <Name>sql</Name>
     </Parameter>
-    <Parameter Id="param-create-xml" ValueShapeId="shape-path">
-      <Description>Create an XML workspace at this directory.</Description>
+    <Parameter Id="param-create-with-instances" ValueShapeId="shape-flag">
+      <Description>Include instance data from the source workspace.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>false</IsRequired>
+      <Name>with-instances</Name>
+    </Parameter>
+    <Parameter Id="param-create-xml" ValueShapeId="shape-flag">
+      <Description>Create the destination on the XML workspace surface.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>false</IsRequired>
       <Name>xml</Name>
     </Parameter>
     <Parameter Id="param-delete-entity" ValueShapeId="shape-text">

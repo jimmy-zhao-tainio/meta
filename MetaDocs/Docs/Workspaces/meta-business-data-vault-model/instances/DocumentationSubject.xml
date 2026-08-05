@@ -14,6 +14,7 @@
       <NativeId>BusinessBridge</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridge:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridge">
       <DisplayName>Description</DisplayName>
@@ -21,6 +22,7 @@
       <NativeId>Description</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridge:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridge" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridge:property:description">
       <DisplayName>Name</DisplayName>
@@ -28,6 +30,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridge:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridge">
       <DisplayName>BusinessHub</DisplayName>
@@ -35,6 +38,7 @@
       <NativeId>BusinessHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridge">
       <DisplayName>BusinessBridgeTraversal</DisplayName>
@@ -42,6 +46,7 @@
       <NativeId>BusinessBridgeTraversal</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:businessbridge-businessbridge" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal">
       <DisplayName>BusinessBridge</DisplayName>
@@ -49,6 +54,7 @@
       <NativeId>BusinessBridge:BusinessBridge</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:previoustraversal-businessbridgetraversal" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:businessbridge-businessbridge">
       <DisplayName>PreviousTraversal</DisplayName>
@@ -56,6 +62,7 @@
       <NativeId>PreviousTraversal:BusinessBridgeTraversal</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:sourcerole-businesslinkrole" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:previoustraversal-businessbridgetraversal">
       <DisplayName>SourceRole</DisplayName>
@@ -63,6 +70,7 @@
       <NativeId>SourceRole:BusinessLinkRole</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:targetrole-businesslinkrole" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal:relationship:sourcerole-businesslinkrole">
       <DisplayName>TargetRole</DisplayName>
@@ -70,6 +78,7 @@
       <NativeId>TargetRole:BusinessLinkRole</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessbridgetraversal">
       <DisplayName>BusinessHierarchicalLink</DisplayName>
@@ -77,6 +86,7 @@
       <NativeId>BusinessHierarchicalLink</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink">
       <DisplayName>Description</DisplayName>
@@ -84,6 +94,7 @@
       <NativeId>Description</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:property:description">
       <DisplayName>Name</DisplayName>
@@ -91,6 +102,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:relationship:childhub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink">
       <DisplayName>ChildHub</DisplayName>
@@ -98,6 +110,7 @@
       <NativeId>ChildHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:relationship:parenthub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink:relationship:childhub-businesshub">
       <DisplayName>ParentHub</DisplayName>
@@ -105,6 +118,7 @@
       <NativeId>ParentHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallink">
       <DisplayName>BusinessHierarchicalLinkSatellite</DisplayName>
@@ -112,6 +126,7 @@
       <NativeId>BusinessHierarchicalLinkSatellite</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:relationship:businesshierarchicallink-businesshierarchicallink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite">
       <DisplayName>BusinessHierarchicalLink</DisplayName>
@@ -119,6 +134,7 @@
       <NativeId>BusinessHierarchicalLink:BusinessHierarchicalLink</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite:relationship:businesshierarchicallink-businesshierarchicallink">
       <DisplayName>BusinessSatellite</DisplayName>
@@ -126,6 +142,7 @@
       <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshierarchicallinksatellite">
       <DisplayName>BusinessHub</DisplayName>
@@ -133,6 +150,7 @@
       <NativeId>BusinessHub</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshub:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshub">
       <DisplayName>Description</DisplayName>
@@ -140,6 +158,7 @@
       <NativeId>Description</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshub:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshub" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshub:property:description">
       <DisplayName>Name</DisplayName>
@@ -147,6 +166,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshub">
       <DisplayName>BusinessHubKeyPart</DisplayName>
@@ -154,6 +174,7 @@
       <NativeId>BusinessHubKeyPart</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart">
       <DisplayName>DataTypeId</DisplayName>
@@ -161,6 +182,7 @@
       <NativeId>DataTypeId</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:property:datatypeid">
       <DisplayName>Name</DisplayName>
@@ -168,6 +190,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart">
       <DisplayName>BusinessHub</DisplayName>
@@ -175,6 +198,7 @@
       <NativeId>BusinessHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:relationship:previouskeypart-businesshubkeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart:relationship:businesshub-businesshub">
       <DisplayName>PreviousKeyPart</DisplayName>
@@ -182,6 +206,7 @@
       <NativeId>PreviousKeyPart:BusinessHubKeyPart</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypart">
       <DisplayName>BusinessHubKeyPartDataTypeDetail</DisplayName>
@@ -189,6 +214,7 @@
       <NativeId>BusinessHubKeyPartDataTypeDetail</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail">
       <DisplayName>Name</DisplayName>
@@ -196,6 +222,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail:property:name">
       <DisplayName>Value</DisplayName>
@@ -203,6 +230,7 @@
       <NativeId>Value</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail:relationship:businesshubkeypart-businesshubkeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail">
       <DisplayName>BusinessHubKeyPart</DisplayName>
@@ -210,6 +238,7 @@
       <NativeId>BusinessHubKeyPart:BusinessHubKeyPart</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubkeypartdatatypedetail">
       <DisplayName>BusinessHubSatellite</DisplayName>
@@ -217,6 +246,7 @@
       <NativeId>BusinessHubSatellite</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite">
       <DisplayName>BusinessHub</DisplayName>
@@ -224,6 +254,7 @@
       <NativeId>BusinessHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite:relationship:businesshub-businesshub">
       <DisplayName>BusinessSatellite</DisplayName>
@@ -231,6 +262,7 @@
       <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesshubsatellite">
       <DisplayName>BusinessLink</DisplayName>
@@ -238,6 +270,7 @@
       <NativeId>BusinessLink</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslink:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslink">
       <DisplayName>Description</DisplayName>
@@ -245,6 +278,7 @@
       <NativeId>Description</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslink:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslink" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslink:property:description">
       <DisplayName>Name</DisplayName>
@@ -252,6 +286,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkrole" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslink">
       <DisplayName>BusinessLinkRole</DisplayName>
@@ -259,6 +294,7 @@
       <NativeId>BusinessLinkRole</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkrole:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkrole">
       <DisplayName>Name</DisplayName>
@@ -266,6 +302,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkrole:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkrole">
       <DisplayName>BusinessHub</DisplayName>
@@ -273,6 +310,7 @@
       <NativeId>BusinessHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinkrole:relationship:businesslink-businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkrole" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkrole:relationship:businesshub-businesshub">
       <DisplayName>BusinessLink</DisplayName>
@@ -280,6 +318,7 @@
       <NativeId>BusinessLink:BusinessLink</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinkrole">
       <DisplayName>BusinessLinkSatellite</DisplayName>
@@ -287,6 +326,7 @@
       <NativeId>BusinessLinkSatellite</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:relationship:businesslink-businesslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite">
       <DisplayName>BusinessLink</DisplayName>
@@ -294,6 +334,7 @@
       <NativeId>BusinessLink:BusinessLink</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite:relationship:businesslink-businesslink">
       <DisplayName>BusinessSatellite</DisplayName>
@@ -301,6 +342,7 @@
       <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintime" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesslinksatellite">
       <DisplayName>BusinessPointInTime</DisplayName>
@@ -308,6 +350,7 @@
       <NativeId>BusinessPointInTime</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintime:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintime">
       <DisplayName>Description</DisplayName>
@@ -315,6 +358,7 @@
       <NativeId>Description</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintime:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintime" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintime:property:description">
       <DisplayName>Name</DisplayName>
@@ -322,6 +366,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintime:relationship:businesshub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintime">
       <DisplayName>BusinessHub</DisplayName>
@@ -329,6 +374,7 @@
       <NativeId>BusinessHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintime">
       <DisplayName>BusinessPointInTimeHubSatellite</DisplayName>
@@ -336,6 +382,7 @@
       <NativeId>BusinessPointInTimeHubSatellite</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:relationship:businesshubsatellite-businesshubsatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite">
       <DisplayName>BusinessHubSatellite</DisplayName>
@@ -343,6 +390,7 @@
       <NativeId>BusinessHubSatellite:BusinessHubSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:relationship:businesspointintime-businesspointintime" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite:relationship:businesshubsatellite-businesshubsatellite">
       <DisplayName>BusinessPointInTime</DisplayName>
@@ -350,6 +398,7 @@
       <NativeId>BusinessPointInTime:BusinessPointInTime</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimehubsatellite">
       <DisplayName>BusinessPointInTimeLinkSatellite</DisplayName>
@@ -357,6 +406,7 @@
       <NativeId>BusinessPointInTimeLinkSatellite</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:relationship:businesslinksatellite-businesslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite">
       <DisplayName>BusinessLinkSatellite</DisplayName>
@@ -364,6 +414,7 @@
       <NativeId>BusinessLinkSatellite:BusinessLinkSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:relationship:businesspointintime-businesspointintime" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite:relationship:businesslinksatellite-businesslinksatellite">
       <DisplayName>BusinessPointInTime</DisplayName>
@@ -371,6 +422,7 @@
       <NativeId>BusinessPointInTime:BusinessPointInTime</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimelinksatellite">
       <DisplayName>BusinessPointInTimeStamp</DisplayName>
@@ -378,6 +430,7 @@
       <NativeId>BusinessPointInTimeStamp</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp">
       <DisplayName>DataTypeId</DisplayName>
@@ -385,6 +438,7 @@
       <NativeId>DataTypeId</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:property:datatypeid">
       <DisplayName>Name</DisplayName>
@@ -392,6 +446,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp:relationship:businesspointintime-businesspointintime" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp">
       <DisplayName>BusinessPointInTime</DisplayName>
@@ -399,6 +454,7 @@
       <NativeId>BusinessPointInTime:BusinessPointInTime</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestamp">
       <DisplayName>BusinessPointInTimeStampDataTypeDetail</DisplayName>
@@ -406,6 +462,7 @@
       <NativeId>BusinessPointInTimeStampDataTypeDetail</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail">
       <DisplayName>Name</DisplayName>
@@ -413,6 +470,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail:property:name">
       <DisplayName>Value</DisplayName>
@@ -420,6 +478,7 @@
       <NativeId>Value</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail:relationship:businesspointintimestamp-businesspointintimestamp" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail">
       <DisplayName>BusinessPointInTimeStamp</DisplayName>
@@ -427,6 +486,7 @@
       <NativeId>BusinessPointInTimeStamp:BusinessPointInTimeStamp</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreference" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesspointintimestampdatatypedetail">
       <DisplayName>BusinessReference</DisplayName>
@@ -434,6 +494,7 @@
       <NativeId>BusinessReference</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreference:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreference">
       <DisplayName>Description</DisplayName>
@@ -441,6 +502,7 @@
       <NativeId>Description</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreference:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreference" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreference:property:description">
       <DisplayName>Name</DisplayName>
@@ -448,6 +510,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreference">
       <DisplayName>BusinessReferenceKeyPart</DisplayName>
@@ -455,6 +518,7 @@
       <NativeId>BusinessReferenceKeyPart</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart">
       <DisplayName>DataTypeId</DisplayName>
@@ -462,6 +526,7 @@
       <NativeId>DataTypeId</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:property:datatypeid">
       <DisplayName>Name</DisplayName>
@@ -469,6 +534,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:relationship:businessreference-businessreference" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart">
       <DisplayName>BusinessReference</DisplayName>
@@ -476,6 +542,7 @@
       <NativeId>BusinessReference:BusinessReference</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:relationship:previouskeypart-businessreferencekeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart:relationship:businessreference-businessreference">
       <DisplayName>PreviousKeyPart</DisplayName>
@@ -483,6 +550,7 @@
       <NativeId>PreviousKeyPart:BusinessReferenceKeyPart</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypart">
       <DisplayName>BusinessReferenceKeyPartDataTypeDetail</DisplayName>
@@ -490,6 +558,7 @@
       <NativeId>BusinessReferenceKeyPartDataTypeDetail</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail">
       <DisplayName>Name</DisplayName>
@@ -497,6 +566,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail:property:name">
       <DisplayName>Value</DisplayName>
@@ -504,6 +574,7 @@
       <NativeId>Value</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail:relationship:businessreferencekeypart-businessreferencekeypart" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail">
       <DisplayName>BusinessReferenceKeyPart</DisplayName>
@@ -511,6 +582,7 @@
       <NativeId>BusinessReferenceKeyPart:BusinessReferenceKeyPart</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencekeypartdatatypedetail">
       <DisplayName>BusinessReferenceSatellite</DisplayName>
@@ -518,6 +590,7 @@
       <NativeId>BusinessReferenceSatellite</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:relationship:businessreference-businessreference" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite">
       <DisplayName>BusinessReference</DisplayName>
@@ -525,6 +598,7 @@
       <NativeId>BusinessReference:BusinessReference</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite:relationship:businessreference-businessreference">
       <DisplayName>BusinessSatellite</DisplayName>
@@ -532,6 +606,7 @@
       <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businessreferencesatellite">
       <DisplayName>BusinessSameAsLink</DisplayName>
@@ -539,6 +614,7 @@
       <NativeId>BusinessSameAsLink</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslink">
       <DisplayName>Description</DisplayName>
@@ -546,6 +622,7 @@
       <NativeId>Description</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslink" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslink:property:description">
       <DisplayName>Name</DisplayName>
@@ -553,6 +630,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink:relationship:equivalenthub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslink">
       <DisplayName>EquivalentHub</DisplayName>
@@ -560,6 +638,7 @@
       <NativeId>EquivalentHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslink:relationship:primaryhub-businesshub" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslink" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslink:relationship:equivalenthub-businesshub">
       <DisplayName>PrimaryHub</DisplayName>
@@ -567,6 +646,7 @@
       <NativeId>PrimaryHub:BusinessHub</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslink">
       <DisplayName>BusinessSameAsLinkSatellite</DisplayName>
@@ -574,6 +654,7 @@
       <NativeId>BusinessSameAsLinkSatellite</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:relationship:businesssameaslink-businesssameaslink" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite">
       <DisplayName>BusinessSameAsLink</DisplayName>
@@ -581,6 +662,7 @@
       <NativeId>BusinessSameAsLink:BusinessSameAsLink</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite:relationship:businesssameaslink-businesssameaslink">
       <DisplayName>BusinessSatellite</DisplayName>
@@ -588,6 +670,7 @@
       <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssameaslinksatellite">
       <DisplayName>BusinessSatellite</DisplayName>
@@ -595,6 +678,7 @@
       <NativeId>BusinessSatellite</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatellite:property:description" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatellite">
       <DisplayName>Description</DisplayName>
@@ -602,6 +686,7 @@
       <NativeId>Description</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatellite:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatellite" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatellite:property:description">
       <DisplayName>Name</DisplayName>
@@ -609,6 +694,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatellite">
       <DisplayName>BusinessSatelliteAttribute</DisplayName>
@@ -616,6 +702,7 @@
       <NativeId>BusinessSatelliteAttribute</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute:property:datatypeid" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute">
       <DisplayName>DataTypeId</DisplayName>
@@ -623,6 +710,7 @@
       <NativeId>DataTypeId</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute:property:datatypeid">
       <DisplayName>Name</DisplayName>
@@ -630,6 +718,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute:relationship:businesssatellite-businesssatellite" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute">
       <DisplayName>BusinessSatellite</DisplayName>
@@ -637,6 +726,7 @@
       <NativeId>BusinessSatellite:BusinessSatellite</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattribute">
       <DisplayName>BusinessSatelliteAttributeDataTypeDetail</DisplayName>
@@ -644,6 +734,7 @@
       <NativeId>BusinessSatelliteAttributeDataTypeDetail</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail:property:name" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail">
       <DisplayName>Name</DisplayName>
@@ -651,6 +742,7 @@
       <NativeId>Name</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail:property:value" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail" PreviousSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail:property:name">
       <DisplayName>Value</DisplayName>
@@ -658,6 +750,7 @@
       <NativeId>Value</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail:relationship:businesssatelliteattribute-businesssatelliteattribute" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-business-data-vault:entity:businesssatelliteattributedatatypedetail">
       <DisplayName>BusinessSatelliteAttribute</DisplayName>
@@ -665,6 +758,7 @@
       <NativeId>BusinessSatelliteAttribute:BusinessSatelliteAttribute</NativeId>
       <SourceTypeName>GenericRelationship</SourceTypeName>
       <Status>New</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:model:metabusinessdatavault" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
       <DisplayName>MetaBusinessDataVault</DisplayName>
@@ -672,6 +766,7 @@
       <NativeId>MetaBusinessDataVault</NativeId>
       <SourceTypeName>GenericModel</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-business-data-vault:workspace" DocumentationSourceId="source:workspace-model:meta-business-data-vault" DocumentationSubjectTypeId="subject-type:workspace">
       <DisplayName>MetaBusinessDataVault</DisplayName>
@@ -679,6 +774,7 @@
       <NativeId>C:\Users\jimmy\Desktop\meta-bi\MetaDataVault\Workspaces\MetaBusinessDataVault</NativeId>
       <SourceTypeName>Workspace</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>
