@@ -81,14 +81,20 @@ public sealed class MetaDocsAuthoringService
     {
         var slot = string.IsNullOrWhiteSpace(page.Slot) ? "Summary" : page.Slot.Trim();
         var title = string.IsNullOrWhiteSpace(page.NarrativeTitle) ? page.Title.Trim() : page.NarrativeTitle.Trim();
-        var id = $"{subject.Id}:narrative:{MetaDocsImportSession.NormalizeKey(slot)}:{MetaDocsImportSession.NormalizeKey(title)}";
         var narrative = model.DocumentationNarrativeList.FirstOrDefault(row =>
-            string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
+            row.DocumentationSubject is not null &&
+            string.Equals(row.DocumentationSubject.Id, subject.Id, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.Slot, slot, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.Origin, "Authored", StringComparison.OrdinalIgnoreCase));
+        narrative ??= model.DocumentationNarrativeList.FirstOrDefault(row =>
+            row.DocumentationSubject is not null &&
+            string.Equals(row.DocumentationSubject.Id, subject.Id, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.Slot, slot, StringComparison.OrdinalIgnoreCase));
         if (narrative is null)
         {
             narrative = new DocumentationNarrative
             {
-                Id = id,
+                Id = $"{subject.Id}:narrative:{MetaDocsImportSession.NormalizeKey(slot)}",
             };
             model.DocumentationNarrativeList.Add(narrative);
         }

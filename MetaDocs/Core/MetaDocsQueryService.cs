@@ -140,15 +140,21 @@ public sealed class MetaDocsQueryService
         var subject = ResolveSubject(model, selector);
         var normalizedSlot = slot.Trim();
         var normalizedTitle = string.IsNullOrWhiteSpace(title) ? normalizedSlot : title.Trim();
-        var id = $"{subject.Id}:narrative:{MetaDocsImportSession.NormalizeKey(normalizedSlot)}:{MetaDocsImportSession.NormalizeKey(normalizedTitle)}";
 
         var narrative = model.DocumentationNarrativeList.FirstOrDefault(row =>
-            string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
+            row.DocumentationSubject is not null &&
+            string.Equals(row.DocumentationSubject.Id, subject.Id, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.Slot, normalizedSlot, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.Origin, "Authored", StringComparison.OrdinalIgnoreCase));
+        narrative ??= model.DocumentationNarrativeList.FirstOrDefault(row =>
+            row.DocumentationSubject is not null &&
+            string.Equals(row.DocumentationSubject.Id, subject.Id, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.Slot, normalizedSlot, StringComparison.OrdinalIgnoreCase));
         if (narrative is null)
         {
             narrative = new DocumentationNarrative
             {
-                Id = id,
+                Id = $"{subject.Id}:narrative:{MetaDocsImportSession.NormalizeKey(normalizedSlot)}",
                 PreviousNarrative = OrderedNarratives(model, subject).LastOrDefault(),
             };
             model.DocumentationNarrativeList.Add(narrative);

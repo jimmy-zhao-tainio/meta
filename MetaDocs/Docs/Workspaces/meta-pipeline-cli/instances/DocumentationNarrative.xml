@@ -656,11 +656,10 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
       <Title>Start a modeled pipeline</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-pipeline:app:narrative:guide:working-with-metapipeline" DocumentationSubjectId="source:cli:meta-pipeline:app" PreviousNarrativeId="source:cli:meta-pipeline:app:narrative:summary:summary">
-      <Body>MetaPipeline models executable work as named pipelines and tasks. A task can be backed by a validated transform or by an explicit executable, with declared dependencies, connection context, timeouts, fingerprints, and the evidence needed to understand each run.
+      <Body>`MetaPipeline` models executable work as named pipelines and tasks. A task can call a validated transform or an external executable, with declared dependencies, connection context, timeouts, fingerprints, and run evidence.
 
-The workspace is the plan. It describes what should be executed and the contracts it relies on. The optional operational database records diagnostics, metrics, audits, and failures, giving an execution a useful history without becoming the source of model truth.
-
-This makes pipeline behavior inspectable before it is scheduled. A team can author steps, review their dependencies and execution context, run a pipeline or individual task, and retain operational evidence that points back to the exact modeled plan.</Body>
+The workspace is the execution plan. It states what should run and which contracts it relies on; runtime records explain what actually happened.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>

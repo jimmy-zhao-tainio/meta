@@ -16,31 +16,30 @@
       <Title>Models</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence">
-      <Body>A typical path can begin with a live system extracted into `MetaSchema`, then move through explicit data-type policy, vault or dimensional architecture, modeled and bound SQL transforms, database structures and deployment assets, data-quality review, pipeline execution, orchestration, and a portable `MetaAnalytics` model projected into Tabular or MultiDimensional form.
+      <Body>A BI stack can begin with a source schema, pass through Raw and Business Data Vault structures, continue into a dimensional warehouse, and finish in an analytical target. At each handoff, the next workspace receives declared structure and the evidence needed to bind, generate, deploy, or execute it.
 
-Teams compose the sanctioned workspaces that match their architecture. Each handoff remains an inspectable model instance, with the decisions needed for generation, deployment, and execution represented alongside it.</Body>
+The result is a chain that can be inspected at every boundary instead of one opaque build script.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>EndToEnd</Slot>
-      <Title>From source contracts to analytical targets</Title>
+      <Title>How the layers connect</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:fullstack:a-complete-stack-in-practice" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets">
       <Body>The AdventureWorks stack composes 27 workspaces and 29 named operations over a live `AdventureWorks2022` source:
 
-- synchronize the source schema into `MetaSchema`;
-- generate and deploy Raw and Business Data Vault structures and a dimensional warehouse;
-- import and strictly bind 53 source-to-Raw, 47 Raw-to-Business, and 20 Business-to-warehouse transforms;
-- author three pipelines and infer their cross-pipeline orchestration from modeled task and binding evidence;
-- generate and deploy 176 Data Quality checks;
-- author portable `MetaAnalytics` semantics, project them into `MetaTabular`, then deploy and process the model.
+- source schema synchronization;
+- Raw and Business Data Vault and dimensional warehouse creation and deployment;
+- 53 source-to-Raw, 47 Raw-to-Business, and 20 Business-to-warehouse transforms imported and strictly bound;
+- three pipelines with modeled cross-pipeline orchestration;
+- 176 generated Data Quality checks;
+- portable `MetaAnalytics` projected into `MetaTabular`, then deployed and processed.
 
-A clean run reconciled 31,465 orders, 121,317 order lines, and 163 quota rows from source through the warehouse. It reproduced total due `123216786.1159`, line sales `109846381.4250`, quota `95714000.0000`, and zero findings across the promoted Data Quality checks. Repeating the complete ETL preserved the modeled Raw, Business, and warehouse row totals. A processed Tabular deployment returned the same analytical values.
+A clean run reconciled 31,465 orders, 121,317 order lines, and 163 quota rows from source through the warehouse. It reproduced the expected sales and quota totals and produced zero findings across the promoted Data Quality checks. Repeating the ETL preserved the Raw, Business, and warehouse row totals, and the processed Tabular deployment returned the same analytical values.
 
-After the create and deployment operations have materialized the stack, execution remains concise:
+Once the stack is created and deployed:
 
 ```powershell
 cd Demos\AdventureWorksBiStackDemo\AdventureWorksBiStackDemo.MetaMesh
-meta-mesh operations
 meta-mesh run --operation run-etl
 meta-mesh run --operation verify-stack
 meta-mesh run --operation deploy-tabular
@@ -51,53 +50,48 @@ The operation names and workspace dependencies are part of the MetaMesh workspac
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>FullStack</Slot>
-      <Title>A complete stack in practice</Title>
+      <Title>AdventureWorks evidence</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure">
-      <Body>The sanctioned models divide BI concerns at their natural ownership boundaries:
+      <Body>The official BI models divide the stack by ownership:
 
-- **Source and type contracts:** `MetaSchema` captures systems, schemas, tables, fields, keys, and relationships from SQL Server. `MetaDataType` and `MetaDataTypeConversion` carry semantic types and explicit mappings into runtime type systems.
-- **Data architecture:** `MetaRawDataVault` and `MetaBusinessDataVault` model raw and governed vault structures. `MetaDataWarehouse` models dimensions, facts, grain, business keys, roles, snapshots, bridges, and slowly changing dimensions. Separate implementation workspaces own physical SQL naming, keys, platform columns, defaults, and indexes.
-- **Transform and database realization:** `MetaTransformScript`, `MetaTransformBinding`, `MetaSql`, and `MetaSqlDeployManifest` carry understood SQL, schema contracts, deployable objects, and controlled deployment.
-- **Analytical semantics:** `MetaAnalytics` defines portable tables, attributes, hierarchies, measures, aggregation behavior, relationships, perspectives, roles, cultures, and translations before an engine is selected.
-- **Analytical targets:** `MetaTabular` owns DAX measures, calculation groups, partitions, KPIs, and tabular security. `MetaMultiDimensional` owns cubes, measure groups, MDX, named sets, actions, partitions, and multidimensional security.
-- **Execution and assurance:** `MetaDataQuality`, `MetaPipeline`, and `MetaOrchestration` turn modeled transform and access evidence into reviewable checks, executable task chains, dependency graphs, synchronization policy, and runtime evidence.
+- `MetaSchema`, `MetaDataType`, and `MetaDataTypeConversion` describe source structures and type mappings.
+- `MetaRawDataVault`, `MetaBusinessDataVault`, and `MetaDataWarehouse` describe data architecture and physical implementation.
+- `MetaTransformScript`, `MetaTransformBinding`, `MetaSql`, and `MetaSqlDeployManifest` describe transformation, binding, database objects, and deployment.
+- `MetaAnalytics` carries portable analytical meaning before a target engine is selected.
+- `MetaTabular` and `MetaMultiDimensional` describe target-specific analytical models.
+- `MetaDataQuality`, `MetaPipeline`, and `MetaOrchestration` describe assurance and execution.
 
-`meta-convert` performs explicit conversions between sanctioned model surfaces, keeping portable intent separate from target-specific implementation details.</Body>
+`meta-convert` connects these workspaces through explicit model conversions.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>ModelLayers</Slot>
-      <Title>Sanctioned model layers</Title>
+      <Title>BI model layers</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers">
-      <Body>The runtime tools consume modeled evidence produced by the layers before them:
+      <Body>`meta-data-quality` turns transform and schema information into generated quality checks and findings.
 
-- **`meta-data-quality`** traverses the typed transform graph to discover reviewable integrity, optionality, fanout, duplicate, join-pattern, and filter-consensus candidates. Binding evidence can restrict generation to transforms whose source and target contracts are already proven.
-- **`meta-pipeline`** executes modeled transform-backed and external-process tasks, records the exact transform and binding used, and preserves row, batch, timeout, fingerprint, audit, and failure evidence.
-- **`meta-orchestration`** derives the provable dependency graph from pipeline tasks and bound object reads and writes. Explicit ordering, lock compatibility, synchronization, and failure branches remain modeled policy instead of being buried in scheduler behavior.
-- **Target CLIs** realize modeled SQL, Tabular, and MultiDimensional workspaces through deployment and processing commands owned by the target model.
+`meta-pipeline` executes modeled tasks and records the transform, binding, row, batch, timeout, fingerprint, audit, and failure information needed to understand a run. `meta-orchestration` derives dependencies from pipeline tasks and modeled object access, while explicit ordering, synchronization, and failure policy remain part of the orchestration workspace.
 
-Automation therefore follows from explicit contracts. When additional knowledge is required, it enters as modeled policy that engineers and agents can inspect alongside the inferred evidence.</Body>
+Target CLIs deploy or process the analytical workspaces described by the stack.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>OperationalEvidence</Slot>
-      <Title>Model-driven execution and evidence</Title>
+      <Title>Execution models</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:summary:overview">
-      <Body>SQL has a typed structural representation in the BI stack.
+      <Body>SQL structure matters to the BI layers that depend on it.
 
-- **`MetaTransformScript`** imports the supported T-SQL surface into a typed syntax graph covering statement roots, query composition, joins, expressions, predicates, grouping, windowing, functions, and bounded mutation statements. The model emits semantically equivalent SQL and proves stability through `SQL -&gt; workspace -&gt; SQL -&gt; workspace` round trips.
-- **`MetaTransformBinding`** resolves modeled source and target identifiers against explicit `MetaSchema` workspaces. It records rowsets, columns, source objects, target objects, and validation links, and checks target shape and data-type compatibility through sanctioned `MetaDataTypeConversion` policy.
-- **`MetaSql`** carries deployable database structure, while `MetaSqlDeployManifest` makes source and live fingerprints, schema changes, destructive approvals, and deployment actions explicit before execution.
+`MetaTransformScript` imports supported SQL into a typed syntax model and can emit equivalent SQL. `MetaTransformBinding` checks that modeled reads and writes resolve against source and target `MetaSchema` workspaces and follow the selected `MetaDataTypeConversion` policy. `MetaSql` and `MetaSqlDeployManifest` carry deployable database structure and controlled deployment.
 
-That shared structure lets later layers reason from transform structure and binding evidence instead of reparsing SQL independently or guessing from text.</Body>
+The result is a chain of declared contracts rather than independent tools guessing from SQL text.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>SqlSemantics</Slot>
-      <Title>SQL as modeled structure</Title>
+      <Title>SQL structure and binding</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:summary:overview" DocumentationSubjectId="public:meta-bi:overview">
-      <Body>`meta-bi` is a model-driven BI engineering stack built on the generic `meta` foundation. It keeps source structures, SQL semantics, transformation contracts, data architecture, deployment assets, execution plans, and analytical targets as typed workspaces that can be inspected, converted, generated, and executed through one model-first foundation.</Body>
+      <Body>`meta-bi` is the BI modeling layer built on `meta`. It carries source contracts through SQL transformation, Data Vault, warehouse, quality, pipeline, orchestration, and analytical target workspaces. Each handoff remains a workspace that can be reviewed, converted, deployed, or executed.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -117,292 +111,237 @@ That shared structure lets later layers reason from transform structure and bind
       <Slot>Summary</Slot>
       <Title>Models</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:cliataglance:meta-cli-at-a-glance" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:workspacecontract:workspace-contract">
-      <Body>`meta` provides the commands used to work with a metadata workspace:
+    <DocumentationNarrative Id="public:meta:overview:narrative:cliataglance:the-meta-command-surface" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:repositoryclis:foundation-command-line-tools">
+      <Body>`meta` is organized around the work done on a workspace:
 
-- **Create:** create an empty workspace or create one from another workspace on XML, SQL, or C# (`create`).
-- **Inspect:** review model and instance state (`status`, `list`, `view`, `query`, `graph`).
-- **Author:** change model definitions and instance data through model-aware commands (`model ...`, `insert`, `delete`, `bulk-insert`, `instance ...`).
-- **Refactor:** analyze and apply model changes together with the instance changes they require (`model suggest`, `model refactor ...`).
-- **Import:** bring SQL metadata or CSV data into a workspace (`import ...`).
+- **Create:** make an empty workspace or create one surface from another.
+- **Inspect:** view workspace state, models, instances, relationships, and graphs.
+- **Author:** add and change model definitions and instance records.
+- **Refactor:** change model structure together with the affected instance data.
+- **Import and export:** bring in external metadata and write the selected workspace surface.
 
-Commands use the selected workspace surface for storage and execution.</Body>
+Use `meta help` for the current command surface and command-specific options.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>CliAtAGlance</Slot>
-      <Title>Meta CLI at a glance</Title>
+      <Title>The meta command surface</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:commandguide:command-guide" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:installandrun:install-and-run">
+    <DocumentationNarrative Id="public:meta:overview:narrative:commandguide:command-guide" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:installandrun:development-and-installation">
       <Body>Workspace-oriented commands operate on the current working directory by default. Use `--workspace &lt;path&gt;` to target another workspace.
 
-Common command behavior:
-
-- successful state changes print `Ok`;
-- usage and runtime failures explain what prevented the command from continuing and return a non-zero exit code;
-- mutating commands that expose `--strict` promote warnings to errors.
-
-**Discover the command surface**
-
-```powershell
-meta help
-meta help model
-meta model suggest --help
-```
-
-Top-level help lists command groups. Command help then narrows the surface to the relevant usage, arguments, and options.</Body>
+Use `meta help` for the available commands and `meta help &lt;command&gt;` for the options and arguments of one command. The command reference below is generated from the same command surface used by the CLI.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>CommandGuide</Slot>
       <Title>Command guide</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:csharprepresentation:c-workspace" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:sqlrepresentation:sql-workspace">
-      <Body>`meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --csharp` creates a C# workspace containing the same model and instance graph. Applications can work with its typed model and instance objects directly.</Body>
+    <DocumentationNarrative Id="public:meta:overview:narrative:csharprepresentation:c-workspace-creation" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:sqlrepresentation:sql-workspace-creation">
+      <Body>A C# workspace is readable and writable typed source for the same model and instance graph. Create it from an existing workspace when an application or service should work with the workspace in C#:
+
+```powershell
+meta create --new-workspace .\CSharpWorkspace --source-workspace .\XmlWorkspace --with-instances --csharp
+```
+
+The result is a workspace surface, not a separate tooling product.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>CsharpRepresentation</Slot>
-      <Title>C# workspace</Title>
+      <Title>C# workspace creation</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:example-example-meta-workspace-roundtrip:create-workspaces-on-each-surface" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:internalpackages:internal-packages">
-      <Body>Create an XML workspace, add a small model and one row, then create SQL and C# workspaces from the same model and instance graph.
+    <DocumentationNarrative Id="public:meta:overview:narrative:example-example-meta-workspace-roundtrip:create-a-workspace-on-a-selected-surface" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:csharprepresentation:c-workspace-creation">
+      <Body>Create an empty XML workspace, then create SQL and C# workspaces from it:
 
 ```powershell
-meta create --new-workspace .\Workspace --xml
-cd .\Workspace
-meta model rename-model MetadataModel WorkspaceCatalog
-meta model add-entity System
-meta model add-property System SystemName --required true
-meta insert System 1 --set "SystemName=Enterprise Analytics Platform"
-meta status
-meta create --new-workspace ..\SqlWorkspace --source-workspace . --with-instances --sql
-meta create --new-workspace ..\CsharpWorkspace --source-workspace . --with-instances --csharp
-```</Body>
+meta create --new-workspace .\XmlWorkspace --xml
+
+$env:META_SQL_CONNECTION = "Server=.;Database=WorkspaceCatalog;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+meta create --new-workspace .\SqlWorkspace --source-workspace .\XmlWorkspace --with-instances --connection-env META_SQL_CONNECTION --sql
+meta create --new-workspace .\CSharpWorkspace --source-workspace .\XmlWorkspace --with-instances --csharp
+```
+
+All three workspaces carry the same declared model and instance graph.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta:workspace-roundtrip</Slot>
-      <Title>Create workspaces on each surface</Title>
+      <Title>Create a workspace on a selected surface</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:example-example-meta-xml-sql-csharp-sample:one-workspace-across-xml-sql-and-c" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:example-example-meta-workspace-roundtrip:create-workspaces-on-each-surface">
-      <Body>The same EnterpriseBIPlatform model and instance graph can move between XML, SQL, and C# workspaces without changing its meaning.
+    <DocumentationNarrative Id="public:meta:overview:narrative:example-example-meta-xml-sql-csharp-sample:change-a-workspace-surface" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:example-example-meta-workspace-roundtrip:create-a-workspace-on-a-selected-surface">
+      <Body>The `meta create` command copies a model, and optionally its instances, into a new workspace surface. The source and destination are explicit, so the operation is repeatable and easy to inspect:
 
-### XML workspace
+```powershell
+meta create --new-workspace .\SqlWorkspace --source-workspace .\XmlWorkspace --with-instances --connection-env META_SQL_CONNECTION --sql
+meta create --new-workspace .\CSharpWorkspace --source-workspace .\SqlWorkspace --with-instances --csharp
+```
 
-The XML surface stores model and instance data in deterministic workspace files for authoring, review, branching, and merging.
-
-### SQL workspace
-
-`meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --sql` creates a SQL workspace. SQL provides database-native storage, queries, and updates for large instance sets.
-
-### C# workspace
-
-`meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --csharp` creates a C# workspace. Application code can work with the typed model and instance objects directly:
-
-```csharp
-using System;
-using System.Linq;
-
-static void PrintSystems(EnterpriseBIPlatformModel model)
-{
-    foreach (var system in model.SystemList)
-    {
-        Console.WriteLine(system.SystemName + " [" + system.SystemType.TypeName + "]");
-
-        foreach (var link in model.SystemCubeList.Where(x =&gt; x.SystemId == system.Id))
-        {
-            var mode = string.IsNullOrEmpty(link.ProcessingMode) ? "n/a" : link.ProcessingMode;
-            Console.WriteLine("  Cube: " + link.Cube.CubeName + " (mode: " + mode + ")");
-        }
-    }
-
-    foreach (var measure in model.MeasureList)
-    {
-        Console.WriteLine(measure.Cube.CubeName + "." + measure.MeasureName);
-    }
-}
-```</Body>
+The selected surface owns storage and execution. The workspace semantics remain unchanged.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta:xml-sql-csharp-sample</Slot>
-      <Title>One workspace across XML, SQL, and C#</Title>
+      <Title>Change a workspace surface</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:foundations:metadata-foundations" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:repositoryclis:foundation-command-line-tools">
-      <Body>Metadata is the model that tools operate on. A model defines entity types, their scalar properties, and their relationships. Instance data supplies the records and references for those definitions. A workspace brings the model and its records together for authoring, inspection, refactoring, and execution.
+    <DocumentationNarrative Id="public:meta:overview:narrative:foundations:metadata-foundations" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:summary:overview">
+      <Body>Metadata is the structure that tools operate on. A model defines entity types, scalar properties, and relationships. Its instance graph contains identified records and references. A workspace carries both so the same declared meaning can be authored, inspected, changed, and moved between surfaces.
 
 Core terms:
 
 - **Model:** a named set of entity definitions.
-- **Entity:** a record type, comparable to a table or a POCO type.
-- **Property:** a scalar attribute on an entity instance.
-- **Relationship:** a modeled reference from one entity to another.
+- **Entity:** a record type with an identity.
+- **Property:** a scalar value on an entity.
+- **Relationship:** a reference from one entity to another.
 - **Instance:** one identified record of an entity.
-- **Workspace:** the model and instance data together with the surface-specific storage used to operate on them.</Body>
+- **Workspace:** the unit that carries a model, its instance graph, and the selected surface.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Foundations</Slot>
       <Title>Metadata foundations</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:installandrun:install-and-run" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:instancexmlcontract:instance-xml-contract">
-      <Body>Build the foundation and weave solutions with .NET 8:
+    <DocumentationNarrative Id="public:meta:overview:narrative:installandrun:development-and-installation" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:cliataglance:the-meta-command-surface">
+      <Body>Build the foundation from the repository root:
 
 ```powershell
 dotnet build Metadata.Framework.sln
-dotnet build MetaWeave.sln
 ```
 
-Run a CLI directly from its project during development:
+Run the CLI directly during development:
 
 ```powershell
-dotnet run --project Meta/Cli/Meta.Cli.csproj -- help
+dotnet run --project Meta\Cli\Meta.Cli.csproj -- help
 ```
 
-When the CLI output directory is on `PATH`, use the executable name directly:
-
-```powershell
-meta help
-```
-
-On Windows, the `meta`, `meta-weave`, and `meta-docs` project builds also refresh their framework-dependent publish directories under `Cli\bin\publish\win-x64`.
-
-Build the offline installer package with:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File Meta\Installer\package-offline.ps1
-```
-
-The default package is framework-dependent and requires the .NET 8 runtime on the target machine. Use `-SelfContained` only when the package must carry its own runtime.
-
-Install the packaged `meta`, `meta-weave`, and `meta-docs` CLIs into `%LOCALAPPDATA%\meta\bin` with:
-
-```powershell
-Meta\Installer\bin\publish\win-x64-framework-dependent-shared\install-meta.exe
-```</Body>
+The installer can publish the foundation CLIs for a machine with the .NET 8 runtime. The repository build and the published executables use the same modeled command surfaces.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>InstallAndRun</Slot>
-      <Title>Install and run</Title>
+      <Title>Development and installation</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:instancexmlcontract:instance-xml-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:modelxmlcontract:model-xml-contract">
-      <Body>`instances/*.xml` carries the data for a model.
+    <DocumentationNarrative Id="public:meta:overview:narrative:instancexmlcontract:xml-instance-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:modelxmlcontract:xml-model-contract">
+      <Body>`instances/*.xml` stores the records for an XML workspace. The root element names the model, and each entity is grouped under its deterministic list container.
 
-- The document root is the model name, such as `&lt;EnterpriseBIPlatform&gt;`.
-- Each entity's records appear under a deterministic list container such as `&lt;CubeList&gt;` or `&lt;MeasureList&gt;`.
-- Each record uses the singular entity name and has an `Id=...` attribute.
-- Relationship usages are stored as `...Id` attributes. A relationship to `Cube` becomes `CubeId`; a relationship with `role=SourceCube` becomes `SourceCubeId`.
-- Scalar properties are child elements. A missing element is unset; an empty element is an explicitly empty string.
+For the small fictional `WorkspaceCatalog` model:
 
-These rules define the XML instance representation.</Body>
+```xml
+&lt;WorkspaceCatalog&gt;
+  &lt;SystemList&gt;
+    &lt;System Id="erp"&gt;
+      &lt;SystemName&gt;ERP&lt;/SystemName&gt;
+    &lt;/System&gt;
+  &lt;/SystemList&gt;
+&lt;/WorkspaceCatalog&gt;
+```
+
+Every record has an `Id`. Scalar properties are child elements; relationships are stored as `...Id` attributes. Missing elements mean that an optional value is unset.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>InstanceXmlContract</Slot>
-      <Title>Instance XML contract</Title>
+      <Title>XML instance contract</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:internalpackages:internal-packages" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:commandguide:command-guide">
-      <Body>The foundation libraries are available as internal NuGet packages:
+    <DocumentationNarrative Id="public:meta:overview:narrative:internalpackages:foundation-package-boundary" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:commandguide:command-guide">
+      <Body>The foundation package boundary is explicit:
 
-- `Meta.Core`
-- `Meta.Adapters`
-- `MetaWeave.Core`
+- `Meta.Operations` owns representation-neutral state, reads, constraints, and operations.
+- `Meta.Core` owns shared model algorithms and deterministic core behavior.
+- `Meta.Surfaces` owns XML, SQL, and C# workspace surfaces.
+- `Meta.Integration` owns import, export, deployment, and service composition.
+- `MetaWeave.Core` owns the MetaWeave domain library.
 
-Build them into the local `.nupkg` feed with:
-
-```powershell
-.\pack-internal.cmd
-```
-
-Downstream repositories consume packages rather than project references back into this repository. That keeps the foundation boundary explicit and prevents downstream changes from silently reaching into core source.
-
-`meta-bi` currently consumes `Meta.Core` from this feed. `MetaWeave.Core` is published alongside it for consumers that need sanctioned cross-model binding services.</Body>
+`pack-internal.cmd` packs these internal packages in dependency order for downstream CLI development.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>InternalPackages</Slot>
-      <Title>Internal packages</Title>
+      <Title>Foundation package boundary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:isomorphism:why-isomorphic-metadata" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:foundations:metadata-foundations">
-      <Body>The same model and instance graph can be created, operated on, and moved between XML, SQL, and C# workspaces without changing its meaning.
+    <DocumentationNarrative Id="public:meta:overview:narrative:isomorphism:surface-agnostic-workspaces" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:foundations:metadata-foundations">
+      <Body>A workspace has one semantic content and several first-class surfaces. XML, SQL, and C# can carry the same model and instance graph without changing its meaning. Changing the surface changes how the workspace is stored and operated on; it does not change the entities, properties, relationships, or records.
 
-Choose the surface for the work at hand:
-
-- **XML** is suited to authoring, review, branching, and merging.
-- **SQL** is suited to database-native constraints, queries, and set-based changes to large instance sets.
-- **C#** is suited to typed application and service code.
-
-The surface changes storage and execution. It does not change the model or the records it describes.</Body>
+Commands work through the selected surface. XML is a deterministic file surface, SQL is a database surface, and C# is a typed source surface.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Isomorphism</Slot>
-      <Title>Why isomorphic metadata</Title>
+      <Title>Surface-agnostic workspaces</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:modelxmlcontract:model-xml-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:cliataglance:meta-cli-at-a-glance">
-      <Body>`model.xml` declares the schema of a metadata workspace: which entities exist, which scalar properties they carry, and how they relate.
+    <DocumentationNarrative Id="public:meta:overview:narrative:modelxmlcontract:xml-model-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:workspacecontract:workspace-contract">
+      <Body>`model.xml` declares the schema for an XML workspace: which entities exist, which scalar properties they carry, and how they relate.
 
-A model has one `&lt;Model name=...&gt;` root and follows a small set of rules:
+A model has one `&lt;Model name="WorkspaceCatalog"&gt;` root and follows a small set of rules:
 
-- `&lt;Entity name=Cube&gt;` defines a record type; every entity has an implicit `Id`.
-- `&lt;PropertyList&gt;` contains scalar text fields. Properties are required by default; `isRequired=false` makes a property optional.
+- `&lt;Entity name="System"&gt;` defines a record type; every entity has an implicit `Id`.
+- `&lt;PropertyList&gt;` contains scalar fields. Properties are required by default; `isRequired="false"` makes one optional.
 - `&lt;RelationshipList&gt;` contains references to other entities. Relationships are required by default.
-- A relationship role is used when more than one relationship targets the same entity and the references need distinct meanings.
-- XML instance containers use the deterministic `&lt;EntityName&gt;List` convention.
+- A relationship role distinguishes multiple relationships to the same target entity.
+- Entity instances are grouped under deterministic `&lt;EntityName&gt;List` containers.
 
-These rules define the XML model representation.</Body>
+The XML model contract keeps structure explicit and reviewable.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>ModelXmlContract</Slot>
-      <Title>Model XML contract</Title>
+      <Title>XML model contract</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:repositoryclis:foundation-command-line-tools" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:summary:overview">
+    <DocumentationNarrative Id="public:meta:overview:narrative:repositoryclis:foundation-command-line-tools" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:example-example-meta-xml-sql-csharp-sample:change-a-workspace-surface">
       <Body>The foundation is delivered through five command-line tools:
 
-- **`meta`** creates and operates on model and instance workspaces across XML, SQL, and C# surfaces. It authors and inspects models, refactors model and instance data, and imports external metadata.
-- **`meta-cli`** defines command grammars and provides the shared parser, help, workspace access, and handler runtime used by the suite.
-- **`meta-weave`** defines and validates sanctioned property bindings across models, then materializes those bindings when one combined workspace is needed.
+- **`meta`** creates and operates on model and instance workspaces across XML, SQL, and C# surfaces.
+- **`meta-cli`** defines command surfaces and provides shared parsing, help, workspace access, and runtime binding.
+- **`meta-weave`** defines and validates sanctioned property bindings across models, then materializes those bindings when a combined workspace is needed.
 - **`meta-docs`** combines CLI and model reference data with authored technical documentation, then merges and renders the public reference.
 - **`meta-mesh`** declares the workspaces involved in a repository workflow and the ordered executable steps that operate on them.
 
-BI-specific sanctioned models and command-line tools live in the separate `meta-bi` repository.</Body>
+BI-specific models and command-line tools live in the separate `meta-bi` repository.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>RepositoryClis</Slot>
       <Title>Foundation command-line tools</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:sqlrepresentation:sql-workspace" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:repositoryclis:foundation-command-line-tools">
-      <Body>`meta create --new-workspace &lt;destination&gt; --source-workspace &lt;source&gt; --with-instances --sql` creates a SQL workspace containing the model and instance graph. SQL provides database-native storage, foreign-key enforcement, queries, and set-based updates for large instance sets.</Body>
+    <DocumentationNarrative Id="public:meta:overview:narrative:sqlrepresentation:sql-workspace-creation" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:versioncontrol:xml-surface-and-version-control">
+      <Body>A SQL workspace is a database carrying the model and instance graph. Create one from an existing workspace by supplying the connection environment variable required for the target database:
+
+```powershell
+$env:META_SQL_CONNECTION = "Server=.;Database=WorkspaceCatalog;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+meta create --new-workspace .\SqlWorkspace --source-workspace .\XmlWorkspace --with-instances --connection-env META_SQL_CONNECTION --sql
+```
+
+SQL operations then work against the database surface instead of first turning the database into an XML file.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>SqlRepresentation</Slot>
-      <Title>SQL workspace</Title>
+      <Title>SQL workspace creation</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:summary:overview" DocumentationSubjectId="public:meta:overview">
-      <Body>`meta` is the foundation CLI for creating and operating model and instance workspaces. It carries one workspace between XML, SQL, and C# surfaces while preserving the model and its records.</Body>
+      <Body>`meta` is the foundation for model-first metadata. It creates and operates on workspaces that carry a model and its instance graph across XML, SQL, and C# surfaces.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Overview</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:versioncontrol:version-control-friendly-workspaces" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:workspacesurfaces:workspace-surfaces-and-execution">
-      <Body>XML workspaces fit naturally into Git. Model definitions, instance data, and refactors remain structured, so a change can be reviewed as metadata rather than as an opaque file-format rewrite. Stable ordering and consistent encoding keep diffs focused on the change itself.</Body>
+    <DocumentationNarrative Id="public:meta:overview:narrative:versioncontrol:xml-surface-and-version-control" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:workspacesurfaces:xml-sql-and-c-surfaces">
+      <Body>The XML surface fits naturally into Git. Model definitions, instance data, and refactors remain structured, so changes can be reviewed as metadata rather than as an opaque file rewrite. Stable ordering and consistent encoding keep diffs focused on the change itself.
+
+Teams that work primarily in SQL or C# can use those surfaces directly and still move the same workspace through the foundation tools.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>VersionControl</Slot>
-      <Title>Version-control friendly workspaces</Title>
+      <Title>XML surface and version control</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:workspacecontract:workspace-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:versioncontrol:version-control-friendly-workspaces">
-      <Body>A workspace is the unit that commands create, inspect, change, and move between surfaces. It contains a model, its instance data, and the storage required by the selected surface.
+    <DocumentationNarrative Id="public:meta:overview:narrative:workspacecontract:workspace-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:isomorphism:surface-agnostic-workspaces">
+      <Body>A workspace contains a model, its instance graph, and the storage owned by its selected surface.
 
-`workspace.meta` identifies the selected representation. An ordinary XML or C# workspace needs only its representation; a SQL workspace also records the connection location. Layout, encoding, newline, and canonical ordering use implementation defaults. Non-default layout or storage settings are recorded only when a workspace actually needs them.
-
-The workspace API keeps those storage details behind one boundary, so commands can work with metadata without taking ownership of files, tables, or typed object graphs.</Body>
+The line-oriented `workspace.meta` descriptor identifies the selected surface. It records `representation xml`, `representation csharp`, or `representation sql`; a SQL workspace also records the environment variable that locates its database. The surface owns its layout and persistence details, while the workspace contents remain the same model and instance graph.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>WorkspaceContract</Slot>
       <Title>Workspace contract</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:overview:narrative:workspacesurfaces:workspace-surfaces-and-execution" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:example-example-meta-xml-sql-csharp-sample:one-workspace-across-xml-sql-and-c">
-      <Body>Commands open a workspace through its selected surface and operate on that workspace through one API. Callers do not need to manage XML files, SQL tables, or C# object graphs as separate product concepts.
+    <DocumentationNarrative Id="public:meta:overview:narrative:workspacesurfaces:xml-sql-and-c-surfaces" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:instancexmlcontract:xml-instance-contract">
+      <Body>Each surface fits a different working style while carrying the same workspace semantics:
 
-An operation may stay native to its surface when that is useful, such as a set-based SQL update. When an algorithm needs the complete graph, the workspace API can materialize it without changing the model or instance semantics.</Body>
+- **XML** keeps model and instance files deterministic, reviewable, and easy to version in Git.
+- **SQL** keeps metadata in a database, with relational integrity, queries, and set-based changes available where the data lives.
+- **C#** keeps the workspace as readable and writable typed source for applications and services.
+
+The choice is operational. It does not create a second meaning for the model.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>WorkspaceSurfaces</Slot>
-      <Title>Workspace surfaces and execution</Title>
+      <Title>XML, SQL, and C# surfaces</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:reference:narrative:summary:meta-meta-bi-reference" DocumentationSubjectId="public:reference">
       <Body>Command-line and model references for the current public MetaDocs suite.</Body>
@@ -2124,11 +2063,9 @@ An operation may stay native to its surface when that is useful, such as a set-b
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:narrative:guide:working-with-metaanalytics" DocumentationSubjectId="source:cli:meta-analytics:app" PreviousNarrativeId="source:cli:meta-analytics:app:narrative:summary:summary">
-      <Body>MetaAnalytics is the portable semantic model of the BI stack. It describes data sources, tables, attributes, hierarchies, measures, facts, relationships, and security in a target-neutral form that architects and analysts can review before an analytical engine is chosen.
+      <Body>`MetaAnalytics` is the portable semantic layer for BI. It describes sources, tables, attributes, hierarchies, measures, relationships, and security before a target engine is selected.
 
-Analytical intent is explicit. A measure has a source and aggregation behavior, a hierarchy has a declared path, a table has a modeled purpose, and security belongs to the semantic model rather than being appended to a generated target. The result is a compact but expressive description of how the business should explore and calculate over the warehouse.
-
-MetaConvert can project the same semantic contract into Tabular or MultiDimensional workspaces. Those target models add platform-specific capabilities while retaining the analytical design that the team agreed on here.</Body>
+Use it when analytical intent should be shared by Tabular, MultiDimensional, or another target model. Target-specific workspaces can then add engine behavior without rewriting the business semantics.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -3093,13 +3030,14 @@ MetaConvert can project the same semantic contract into Tabular or MultiDimensio
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-cli:app:narrative:example-example-meta-cli-create-command-surface:create-a-small-command-surface" DocumentationSubjectId="source:cli:meta-cli:app" PreviousNarrativeId="source:cli:meta-cli:app:narrative:guide:working-with-metacli">
-      <Body>Start with a MetaCli workspace, add a command, mark it executable, then add the options the runtime should parse and document.
+      <Body>Start with the standard shapes and help command, add a command path, mark it runnable, and add its first option token. The workspace itself is the current directory after `cd`, so no workspace switch is needed in the authoring commands.
 
 ```powershell
-meta-cli new-workspace .\my-cli.MetaCli --application app-my-cli --standard-cli-shapes --default-help
-meta-cli add-command --workspace .\my-cli.MetaCli --id cmd-show --application app-my-cli --name show --token show --description "Show the workspace."
-meta-cli add-executable-command --workspace .\my-cli.MetaCli --id exec-show --command cmd-show
-meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-workspace --option-id option-show-workspace --executable-command exec-show --name workspace --value-shape shape-path --token-id token-show-workspace --token --workspace --description "Workspace path."
+meta-cli create --xml .\my-cli.MetaCli --application app-my-cli --standard-cli-shapes --default-help
+cd .\my-cli.MetaCli
+meta-cli add-command --id cmd-show --application app-my-cli --name show --token show --description "Show the workspace."
+meta-cli add-executable-command --id exec-show --command cmd-show
+meta-cli add-option --parameter-id param-show-workspace --option-id option-show-workspace --executable-command exec-show --name workspace --value-shape shape-path --token-id token-show-workspace --token --workspace --description "Workspace path."
 ```</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -3107,11 +3045,19 @@ meta-cli add-option --workspace .\my-cli.MetaCli --parameter-id param-show-works
       <Title>Create a small command surface</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-cli:app:narrative:guide:working-with-metacli" DocumentationSubjectId="source:cli:meta-cli:app" PreviousNarrativeId="source:cli:meta-cli:app:narrative:summary:summary">
-      <Body>MetaCli is the modeled command-surface language used by the meta tools. An authored workspace describes an application, its command hierarchy, executable commands, parameters, option tokens, positional arguments, value shapes, allowed values, and parameter choices as ordinary model data.
+      <Body>`meta-cli` authors the command surface that a CLI runtime parses, documents, and binds to handlers. The practical result is one reviewed workspace for applications, commands, options, positional arguments, value shapes, and help.
 
-That workspace is the source for shared parsing, help generation, runtime invocation, and documentation import. A command handler binds to an executable-command identity, while the runtime resolves modeled arguments and supplies the resulting invocation. Help and usage therefore come from the same surface that the parser accepts, rather than from a separate handwritten catalog.
+Create a workspace with the standard shapes and help command, then add a command and mark it executable:
 
-The authoring CLI is intentionally precise. It makes the public grammar visible before behavior is attached, so a tool can be reviewed as a command-line product in its own right and then reused consistently by people, agents, documentation, and runtime code.</Body>
+```powershell
+meta-cli create --xml .\my-cli.MetaCli --application app-my-cli --standard-cli-shapes --default-help
+cd .\my-cli.MetaCli
+meta-cli add-command --id cmd-show --application app-my-cli --name show --token show --description "Show the workspace."
+meta-cli add-executable-command --id exec-show --command cmd-show
+meta-cli add-option --parameter-id param-show-workspace --option-id option-show-workspace --executable-command exec-show --name workspace --value-shape shape-path --token-id token-show-workspace --token --workspace --description "Workspace path."
+```
+
+The runtime, help output, and documentation import all read the same modeled command surface. Behavior is attached to executable-command identities after the public grammar has been authored.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -3515,11 +3461,9 @@ meta-convert schema-to-raw-datavault --source-workspace .\SourceSchema.Workspace
       <Title>Derive a raw Data Vault design</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:narrative:guide:working-with-metaconvert" DocumentationSubjectId="source:cli:meta-convert:app" PreviousNarrativeId="source:cli:meta-convert:app:narrative:summary:summary">
-      <Body>MetaConvert is the projection boundary between sanctioned BI workspaces. It carries an explicit source design into the next representation: source schema into raw vault, vault or warehouse into deployable SQL, quality evidence into SQL assets, or portable analytics into Tabular and MultiDimensional targets.
+      <Body>`MetaConvert` moves declared structure between sanctioned BI workspaces. It connects source schema to Raw Data Vault, vault or warehouse designs to SQL, quality outputs to SQL assets, and portable analytics to target models.
 
-Every conversion starts from modeled inputs and produces a modeled output. Where a physical implementation or deployment policy is needed, that workspace is passed explicitly, keeping logical intent separate from target-specific choices. The converter therefore preserves a reviewable chain from source contract to generated artifact.
-
-This makes the suite composable. A team can inspect each model in its own domain, regenerate a later projection when an upstream decision changes, and avoid treating an emitted script or target project as the place where the architecture is defined.</Body>
+Each conversion names its source and destination workspaces and applies the rules owned by the target model. The result is a modeled workspace that can be inspected and used by the next CLI.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -3694,11 +3638,9 @@ meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\Dat
       <Title>Derive and promote quality evidence</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-quality:app:narrative:guide:working-with-metadataquality" DocumentationSubjectId="source:cli:meta-data-quality:app" PreviousNarrativeId="source:cli:meta-data-quality:app:narrative:summary:summary">
-      <Body>MetaDataQuality derives reviewable quality candidates from typed transform and schema evidence. It examines the modeled transform graph, binding evidence, joins, relationships, and corpus patterns to identify missing references, uniqueness problems, unexpected null behavior, suspicious joins, and drift from repeated behavior.
+      <Body>`MetaDataQuality` turns transform and schema information into quality checks and findings. It examines joins, relationships, references, uniqueness, null behavior, and repeated patterns where the modeled input provides a technical basis.
 
-Discovery is automatic because the technical basis is already modeled. Promotion remains deliberate: candidates become executable or review-oriented assets only when a user chooses to make that decision part of the workspace. The candidate, its evidence, and its promotion state stay together as inspectable data.
-
-Generated SQL distinguishes runtime checks from semantic review findings. The resulting views and operational objects therefore preserve the reason a finding exists, support repeated execution, and give reviewers a clear route from a dashboard result back to the transform and schema evidence that produced it.</Body>
+Generated checks remain connected to the transform and schema evidence that produced them, so teams can inspect a finding and decide whether to promote it into an operational quality asset.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -3809,11 +3751,9 @@ Generated SQL distinguishes runtime checks from semantic review findings. The re
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type-conversion:app:narrative:guide:working-with-type-conversion" DocumentationSubjectId="source:cli:meta-data-type-conversion:app" PreviousNarrativeId="source:cli:meta-data-type-conversion:app:narrative:summary:summary">
-      <Body>MetaDataTypeConversion records the sanctioned paths between declared data types. A conversion states the source and target systems together with the length, precision, scale, fallback, and compatibility behavior that determine whether a value can move across a boundary.
+      <Body>`MetaDataTypeConversion` records how declared types move between systems. A conversion names the source and target systems and the length, precision, scale, fallback, and compatibility rules for that boundary.
 
-The conversion workspace is shared policy. Transform binding uses it to evaluate source-to-target compatibility, and generators can apply the same approved behavior when they project a model into SQL or another platform. This avoids quietly embedding widening assumptions in individual tools.
-
-Keeping conversion rules modeled also makes the hard cases visible. A design can be reviewed for loss, truncation, precision, and fallback choices before a transform or target is generated, and the resulting decision is reusable wherever the same type boundary appears.</Body>
+Transform binding and conversion tools use this workspace as shared policy. The policy stays separate from the models that consume it, so a platform mapping can change without changing the business model.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -3876,11 +3816,9 @@ Keeping conversion rules modeled also makes the hard cases visible. A design can
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-type:app:narrative:guide:working-with-metadatatype" DocumentationSubjectId="source:cli:meta-data-type:app" PreviousNarrativeId="source:cli:meta-data-type:app:narrative:summary:summary">
-      <Body>MetaDataType is the sanctioned vocabulary for types used throughout the modeled stack. A type catalog turns platform names, parameters, and identity behavior into reusable declarations instead of repeating those choices as loose strings in every schema, transform, and target.
+      <Body>`MetaDataType` is the shared vocabulary for data types used by the BI models. A type declaration carries the platform name and its authored facets instead of forcing every schema, transform, and target model to repeat loose text.
 
-The catalog gives downstream models a stable language for saying what a field or expression represents. Schema extraction, transform binding, warehouse design, analytics, and generated SQL can refer to the same declared type while each projection uses the natural syntax of its own platform.
-
-That common vocabulary becomes especially valuable when a solution crosses SQL Server, analytical engines, and generated code. Type decisions stay inspectable at the model layer and conversion policy can build on them without inventing private compatibility rules.</Body>
+Use the catalog with schema extraction, transform binding, conversion, and target generation so type decisions are made against one declared vocabulary.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -5535,11 +5473,9 @@ That common vocabulary becomes especially valuable when a solution crosses SQL S
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-data-warehouse:app:narrative:guide:working-with-metadatawarehouse" DocumentationSubjectId="source:cli:meta-data-warehouse:app" PreviousNarrativeId="source:cli:meta-data-warehouse:app:narrative:summary:summary">
-      <Body>MetaDataWarehouse models a dimensional relational warehouse independently of its physical SQL projection. Dimensions, attributes, business keys, facts, measures, and slowly changing behavior are declared together as one coherent contract.
+      <Body>`MetaDataWarehouse` describes a dimensional warehouse independently of its physical SQL names. Dimensions, attributes, business keys, facts, measures, grain, roles, snapshots, and slowly changing behavior belong to the warehouse design.
 
-The workspace provides the design surface between source or vault evidence and analytical consumption. It captures the choices that make a warehouse useful to the business: which dimensions describe a fact, how attributes identify a member, how keys behave, and where historical change is part of the design.
-
-Implementation policy determines the deployable database shape while the warehouse model continues to express the intended dimensional structure. That separation makes the warehouse reviewable, regenerable, and suitable as a stable input to MetaAnalytics without conflating logical design with table scripts.</Body>
+Implementation workspaces carry physical names, keys, platform columns, defaults, and indexes. This keeps the warehouse intent readable while leaving deployment details explicit.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -6611,11 +6547,9 @@ Implementation policy determines the deployable database shape while the warehou
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-datavault-business:app:narrative:guide:working-with-business-data-vault" DocumentationSubjectId="source:cli:meta-datavault-business:app" PreviousNarrativeId="source:cli:meta-datavault-business:app:narrative:summary:summary">
-      <Body>MetaBusinessDataVault models the governed business layer built on raw Data Vault structures. It is where business-facing hubs, links, satellites, and the rules that shape raw evidence into reusable business structures are made explicit.
+      <Body>`MetaBusinessDataVault` models the governed business layer built from raw Data Vault structures. It gives business-facing hubs, links, satellites, and their relationships a durable place between source history and downstream warehouse design.
 
-The workspace gives a team a stable place to review semantics that are broader than a single source system. Business identity, relationships, and descriptive context remain model data, connected to the raw layer but owned by the business design rather than hidden in downstream SQL transformations.
-
-That explicit layer lets raw source history remain intact while business structures evolve deliberately. It can be inspected alongside the raw vault, projected through the appropriate implementation policy, and used as a controlled input to warehouse and analytical modeling.</Body>
+Use the workspace to author the business interpretation and its implementation separately. The resulting structures can be reviewed before they are projected into SQL.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -7126,11 +7060,9 @@ That explicit layer lets raw source history remain intact while business structu
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-datavault-raw:app:narrative:guide:working-with-raw-data-vault" DocumentationSubjectId="source:cli:meta-datavault-raw:app" PreviousNarrativeId="source:cli:meta-datavault-raw:app:narrative:summary:summary">
-      <Body>MetaRawDataVault models the source-faithful Data Vault layer. Hubs, links, satellites, source keys, and their relationships are declared as durable structures that capture identity, association, and historized source evidence.
+      <Body>`MetaRawDataVault` models the source-faithful Raw Data Vault layer. Hubs, links, satellites, source keys, and their relationships preserve source identity, association, and historized evidence.
 
-The raw vault begins from a modeled source contract rather than a folder of database scripts. Its workspace provides the design surface between an extracted schema and a physical implementation, so the important choices remain visible before SQL is generated: which source identities form hubs, which associations form links, and which descriptive attributes belong in satellites.
-
-The model keeps raw evidence distinct from business interpretation. That separation supports auditable ingestion, controlled regeneration, and a clear handoff to the Business Data Vault and warehouse layers without losing the connection to the systems that supplied the data.</Body>
+The raw vault starts from a source contract rather than a folder of scripts. Its implementation workspace supplies physical columns and deployment choices without changing the raw model.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -7918,11 +7850,9 @@ meta-docs render-site --workspace MetaDocs\Docs\SuiteWorkspace --out MetaDocs\Do
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-docs:app:narrative:guide:working-with-metadocs" DocumentationSubjectId="source:cli:meta-docs:app" PreviousNarrativeId="source:cli:meta-docs:app:narrative:summary:summary">
-      <Body>MetaDocs keeps generated reference facts and authored technical explanation in the same modeled documentation workspace. Each CLI contributes its MetaCli command surface, each product model contributes structural facts, and authored descriptions and structured examples explain the decisions that the generated facts cannot express.
+      <Body>`MetaDocs` keeps generated reference facts and authored technical explanation in one documentation workspace. CLI command surfaces and model structures provide the facts; descriptions and structured examples provide the context that facts cannot carry.
 
-Source documentation workspaces remain independent. They can be refreshed from their CLI or model source without overwriting authored prose, then merged into a suite workspace that represents the complete reference. The rendered site is a projection of that suite; it can be discarded and rebuilt at any time.
-
-This gives the documentation a real lifecycle. Browse and search operate on the modeled reference, while update-description and the example commands author the public technical guide directly where it will be preserved across imports and regeneration.</Body>
+Use it to refresh sources, author descriptions, browse and search the result, merge documentation workspaces, and render the public site. Refreshing generated facts preserves authored descriptions.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -8228,7 +8158,7 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:example-example-meta-mesh-run-docs-operation:run-the-documentation-operation" DocumentationSubjectId="source:cli:meta-mesh:app:command:run" PreviousNarrativeId="source:cli:meta-mesh:app:command:run:narrative:guidance:preflight">
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:example-example-meta-mesh-run-docs-operation:run-the-documentation-operation" DocumentationSubjectId="source:cli:meta-mesh:app:command:run" PreviousNarrativeId="source:cli:meta-mesh:app:command:run:narrative:guidance:execution-preflight">
       <Body>Run a modeled operation from its mesh workspace. The documentation mesh imports source workspaces, rebuilds the suite workspace, validates it, and renders the static site.
 
 ```powershell
@@ -8241,12 +8171,14 @@ meta-mesh run --operation regenerate-public-docs
       <Slot>Example.example:meta-mesh:run-docs-operation</Slot>
       <Title>Run the documentation operation</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:guidance:preflight" DocumentationSubjectId="source:cli:meta-mesh:app:command:run" PreviousNarrativeId="source:cli:meta-mesh:app:command:run:narrative:summary:summary">
-      <Body>Before starting, `run` resolves the ordered step chain, every workspace representation used by the operation, executable lookup, filesystem working directories, and non-empty `{env:...}` variables. The operation starts only after the complete plan is ready.</Body>
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:guidance:execution-preflight" DocumentationSubjectId="source:cli:meta-mesh:app:command:run" PreviousNarrativeId="source:cli:meta-mesh:app:command:run:narrative:example-example-meta-mesh-run-docs-operation:run-the-documentation-operation">
+      <Body>`meta-mesh run --operation &lt;name&gt;` validates the selected operation before starting its steps. It resolves every workspace and token used by that operation, checks environment variables and executable paths, verifies working directories and permissions, and confirms that the step plan is runnable.
+
+Use `meta-mesh validate --operation &lt;name&gt;` when you want the same preflight without executing child processes.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guidance</Slot>
-      <Title>Preflight</Title>
+      <Title>Execution preflight</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:run">
       <Body>Run the steps declared for one operation.</Body>
@@ -8328,12 +8260,14 @@ meta-mesh run --operation regenerate-public-docs
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:validate:narrative:guidance:preflight" DocumentationSubjectId="source:cli:meta-mesh:app:command:validate" PreviousNarrativeId="source:cli:meta-mesh:app:command:validate:narrative:summary:summary">
-      <Body>Validate performs the same preflight as run but starts no child processes.</Body>
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:validate:narrative:guidance:validate-an-operation" DocumentationSubjectId="source:cli:meta-mesh:app:command:validate" PreviousNarrativeId="source:cli:meta-mesh:app:command:validate:narrative:summary:summary">
+      <Body>`meta-mesh validate --operation &lt;name&gt;` builds the selected operation plan and checks its declared workspaces, tokens, executable paths, working directories, permissions, and arguments. It does not start the operation.
+
+Use it to inspect a workflow before handing execution to `meta-mesh run --operation &lt;name&gt;`.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guidance</Slot>
-      <Title>Preflight</Title>
+      <Title>Validate an operation</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:validate:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:validate">
       <Body>Validate one operation before running it.</Body>
@@ -8376,13 +8310,11 @@ meta-mesh run --operation regenerate-public-docs
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:narrative:guide:working-with-metamesh" DocumentationSubjectId="source:cli:meta-mesh:app" PreviousNarrativeId="source:cli:meta-mesh:app:narrative:summary:summary">
-      <Body>A MetaMesh workspace names the workspaces that participate in repository work and records executable operations over them. Each declared workspace has one representation: an XML workspace path, a C# workspace path, or a SQL connection environment variable. Operations remain independent of that representation and invoke the product CLI that owns each domain action.
+      <Body>`meta-mesh` turns a repository workflow into a workspace. The mesh declares the workspaces an operation uses and the ordered executable steps that create, inspect, transform, deploy, or run them.
 
-An operation contains an ordered chain of steps. Workspace tokens let those steps refer to declared inputs without embedding machine-specific paths. Environment tokens make external configuration explicit while keeping connection strings and other values out of the mesh. Before execution begins, MetaMesh resolves the workspaces used by the operation, executable lookup, working-directory access, and required environment variables.
+Each operation is independently named and scoped. Before a run, MetaMesh resolves workspace locations, environment-variable tokens, executable paths, permissions, and step arguments. The same plan can be inspected with `steps` or `validate`, then executed with `run --operation &lt;name&gt;`.
 
-Documentation regeneration, integration demos, and multi-workspace builds can therefore be inspected, validated, and replayed from the same model. Progress and failures identify the active step while each product CLI continues to own its behavior.
-
-The AdventureWorks full-stack mesh uses this structure at system scale. Its operations synchronize a source schema, build and deploy Data Vault and warehouse layers, bind transforms, author pipelines, infer orchestration, generate Data Quality assets, and deploy a processed Tabular model.</Body>
+The result is a repeatable workflow surface that people and agents can inspect before starting processes.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -10973,11 +10905,9 @@ The AdventureWorks full-stack mesh uses this structure at system scale. Its oper
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-multi-dimensional:app:narrative:guide:working-with-metamultidimensional" DocumentationSubjectId="source:cli:meta-multi-dimensional:app" PreviousNarrativeId="source:cli:meta-multi-dimensional:app:narrative:summary:summary">
-      <Body>MetaMultiDimensional models a deployable multidimensional target. Cubes, dimensions, measure groups, calculations, partitions, actions, named sets, and security are expressed as explicit structures rather than being hidden inside an SSAS project or an MDX script collection.
+      <Body>`MetaMultiDimensional` describes a deployable multidimensional target. Cubes, dimensions, measure groups, calculations, partitions, actions, named sets, and security remain visible model structures rather than an opaque project.
 
-The workspace can be generated from MetaAnalytics when the portable semantic model is the starting point, then extended with multidimensional capabilities that belong specifically to the cube: aggregation-aware measure groups, dimension behavior, named sets, drillthrough actions, and cell-level security.
-
-This keeps business semantics distinct from target implementation while still allowing a complete, inspectable cube design. Deployment consumes the modeled workspace, so the operational target remains tied to the same declared analytical intent.</Body>
+A multidimensional workspace can be authored directly or created from portable `MetaAnalytics` intent, then deployed and processed by the target CLI.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -11440,11 +11370,9 @@ meta-orchestration inspect-run-plan --workspace .\Orchestration.Workspace
       <Title>Infer and review a run plan</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-orchestration:app:narrative:guide:working-with-metaorchestration" DocumentationSubjectId="source:cli:meta-orchestration:app" PreviousNarrativeId="source:cli:meta-orchestration:app:narrative:summary:summary">
-      <Body>MetaOrchestration turns modeled pipeline tasks and bound transform access evidence into a run graph. It derives the ordering that can be proven from declared reads, writes, and effects, then represents the remaining synchronization choices as explicit policy.
+      <Body>`MetaOrchestration` turns pipeline tasks and modeled object access into an executable run graph. It derives dependencies that can be proved from declared reads, writes, and effects, then keeps additional ordering and synchronization as explicit policy.
 
-That division is deliberate. Structural evidence can establish a large portion of a safe plan, while dependency rules, lock policies, and concurrent-append decisions supply the operational knowledge that only a designer can provide. The resulting workspace makes both the inferred and authored portions of orchestration visible.
-
-Execution coordinates the modeled run plan and retains run evidence. When an issue remains unresolved, it is recorded as a specific modeled concern rather than disappearing into scheduler code or an implicit ordering convention.</Body>
+The orchestration workspace is both the plan and the evidence boundary: it can be inspected before execution and records the result of a run.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -12113,11 +12041,9 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
       <Title>Start a modeled pipeline</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-pipeline:app:narrative:guide:working-with-metapipeline" DocumentationSubjectId="source:cli:meta-pipeline:app" PreviousNarrativeId="source:cli:meta-pipeline:app:narrative:summary:summary">
-      <Body>MetaPipeline models executable work as named pipelines and tasks. A task can be backed by a validated transform or by an explicit executable, with declared dependencies, connection context, timeouts, fingerprints, and the evidence needed to understand each run.
+      <Body>`MetaPipeline` models executable work as named pipelines and tasks. A task can call a validated transform or an external executable, with declared dependencies, connection context, timeouts, fingerprints, and run evidence.
 
-The workspace is the plan. It describes what should be executed and the contracts it relies on. The optional operational database records diagnostics, metrics, audits, and failures, giving an execution a useful history without becoming the source of model truth.
-
-This makes pipeline behavior inspectable before it is scheduled. A team can author steps, review their dependencies and execution context, run a pipeline or individual task, and retain operational evidence that points back to the exact modeled plan.</Body>
+The workspace is the execution plan. It states what should run and which contracts it relies on; runtime records explain what actually happened.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -12241,11 +12167,9 @@ meta-schema extract sqlserver --new-workspace .\SourceSchema.Workspace --connect
       <Title>Extract a source contract</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-schema:app:narrative:guide:working-with-metaschema" DocumentationSubjectId="source:cli:meta-schema:app" PreviousNarrativeId="source:cli:meta-schema:app:narrative:summary:summary">
-      <Body>MetaSchema captures a live source schema as an explicit workspace. The extracted model preserves the database and system context together with schemas, tables, fields, keys, and relationships, giving every later stage a reviewable source contract.
+      <Body>`MetaSchema` captures a live SQL Server schema as an explicit workspace. It preserves the database context together with schemas, tables, fields, keys, and relationships so later modeling and binding work from a source contract.
 
-Extraction begins from the actual SQL Server surface and lets a team choose the schemas and tables that belong in the modeled boundary. The workspace records what the source exposes with enough structure for binding, conversion, vault design, warehouse design, and contract validation to reason about it directly.
-
-Because the schema is durable model data, it can be compared, regenerated, and cited by downstream workspaces. A transform binds to this contract; a vault or warehouse derives from it; a deployment or quality check can state exactly which source objects it relies on.</Body>
+Extraction starts from the database surface. Select the schemas and tables that belong to the contract, then use the resulting workspace as the source for vault, transform, and binding operations.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -12537,11 +12461,9 @@ meta-sql deploy --source-workspace .\MetaSql.Workspace --manifest-workspace .\De
       <Title>Apply a verified deployment</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-sql:app:narrative:guide:working-with-metasql" DocumentationSubjectId="source:cli:meta-sql:app" PreviousNarrativeId="source:cli:meta-sql:app:narrative:summary:summary">
-      <Body>MetaSql represents a database and its deployable SQL structure as a modeled workspace. Tables, views, procedures, functions, dependencies, and deployment evidence are available as data that can be inspected, compared, generated, and consumed by other models.
+      <Body>`MetaSql` carries database structure as a modeled workspace. Tables, views, procedures, functions, dependencies, and deployment evidence can be inspected, compared, generated, and consumed by other models.
 
-Authoring and deployment have distinct responsibilities. A deploy manifest records the source and live fingerprints that must agree before SQL is applied, turning release readiness into an explicit modeled decision. Generated SQL therefore has a traceable source workspace and a clear contract for the database it is about to change.
-
-MetaSql is the physical SQL boundary for sanctioned converters and generated assets. It provides a natural database-facing representation while staying connected to the source schema, transform, vault, warehouse, or data-quality model that gave the SQL its meaning.</Body>
+Authoring and deployment are separate concerns. A deploy manifest records the source and live state and governs the SQL changes that are allowed to reach a database.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -14652,11 +14574,9 @@ MetaSql is the physical SQL boundary for sanctioned converters and generated ass
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-tabular:app:narrative:guide:working-with-metatabular" DocumentationSubjectId="source:cli:meta-tabular:app" PreviousNarrativeId="source:cli:meta-tabular:app:narrative:summary:summary">
-      <Body>MetaTabular models a deployable Tabular target without reducing it to an opaque project. Tables, columns, measures, relationships, partitions, calculation groups, roles, and processing choices are ordinary model structures that can be inspected and evolved before they reach Analysis Services.
+      <Body>`MetaTabular` models a deployable Tabular target. Tables, columns, measures, relationships, partitions, calculation groups, roles, and processing choices remain inspectable before they reach Analysis Services.
 
-A Tabular workspace can be authored directly or generated from MetaAnalytics. In either route, the portable semantic contract remains visible and Tabular-specific decisions have a proper modeled home: import mode, partition expressions, calculation-item logic, role filters, and deployment behavior.
-
-Deployment applies the modeled target to an Analysis Services server. That makes the deployed model a result of a reviewable workspace, while still supporting the capabilities expected of a serious Tabular implementation.</Body>
+A Tabular workspace can be authored directly or created from `MetaAnalytics`. Deployment and processing then operate on the target workspace rather than on an undocumented project directory.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -14812,13 +14732,9 @@ meta-transform-binding bind --transform-workspace .\Transforms.Workspace --sourc
       <Title>Validate a transform contract</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-binding:app:narrative:guide:working-with-metatransformbinding" DocumentationSubjectId="source:cli:meta-transform-binding:app" PreviousNarrativeId="source:cli:meta-transform-binding:app:narrative:summary:summary">
-      <Body>MetaTransformBinding validates transform scripts against explicit source and target MetaSchema contracts. It resolves referenced objects and columns, verifies target write shape, evaluates data-type compatibility through the sanctioned conversion workspace, and records the resulting evidence in a dedicated binding workspace.
+      <Body>`MetaTransformBinding` validates transform scripts against source and target `MetaSchema` workspaces. It resolves referenced objects and columns, checks target write shape, evaluates type compatibility through `MetaDataTypeConversion`, and records the result in a binding workspace.
 
-A successful binding says more than that the SQL parsed. It establishes that each modeled source and target reference resolves against the stated schemas and that the transform's write contract is compatible with its target. The recorded rowsets, columns, and validation links become a durable technical basis for later pipeline, orchestration, and quality work.
-
-Strict mutation binding preserves the resolved reads and effects of `INSERT`, `UPDATE`, `MERGE`, `DELETE`, and `TRUNCATE` statements. Its bounded expression analysis carries data types and nullability through direct columns, literals, parentheses, explicit `CAST` and `CONVERT`, compatible `CASE` and `COALESCE` expressions, and conjunctive `WHERE ... IS NOT NULL` evidence. Proven nullable writes to non-null targets fail; unknown evidence remains unknown rather than being invented.
-
-Binding is an atomic contract gate in normal operation. Its explicit partial mode is for corpus discovery: it keeps the successfully bound scripts while preserving a report of the scripts that need more source, target, or type information.</Body>
+A successful binding is a concrete statement about what the transform reads and writes. Later quality, pipeline, and orchestration tools can use that evidence instead of reparsing the SQL.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -15279,11 +15195,9 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
       <Title>Round-trip a transform view</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:narrative:guide:working-with-metatransformscript" DocumentationSubjectId="source:cli:meta-transform-script:app" PreviousNarrativeId="source:cli:meta-transform-script:app:narrative:summary:summary">
-      <Body>MetaTransformScript understands the supported SQL Server transform surface structurally. It imports views, query expressions, bounded mutation statements, inline table-valued functions, and constrained scalar functions into a typed workspace, then emits semantically equivalent SQL.
+      <Body>`MetaTransformScript` understands the supported SQL Server transform surface structurally. It imports views and bounded mutation statements into a typed workspace, then emits equivalent SQL from the same structure.
 
-The workspace captures the parts of SQL that downstream tools need to reason about: statement ownership, identifiers, expressions, joins, common table expressions, predicates, grouping, windowing, type references, and source paths. A transform can therefore be inspected, bound to schemas, compared after a round-trip, and used as evidence by pipeline, orchestration, and data-quality tools.
-
-The target is faithful syntax modeling. SQL is represented once as structured data, not reduced to a blob or replaced by a guessed lineage graph. Dynamic and procedural forms remain clearly bounded, while the supported surface can be proven through SQL-to-model-to-SQL equivalence and workspace diff evidence.</Body>
+That workspace gives binding and quality tools access to statements, sources, projections, expressions, predicates, joins, and other supported SQL elements as modeled data.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -15562,11 +15476,9 @@ meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --n
       <Title>Bind two workspace models and materialize</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-weave:app:narrative:guide:working-with-metaweave" DocumentationSubjectId="source:cli:meta-weave:app" PreviousNarrativeId="source:cli:meta-weave:app:narrative:summary:summary">
-      <Body>MetaWeave makes cross-model references explicit without distorting either participating model. A weave workspace records the source and target workspaces together with property bindings that explain how a scalar source value resolves to a target identity.
+      <Body>`MetaWeave` makes cross-model references explicit without changing either participating model. A weave workspace records the source and target workspaces together with property bindings that explain how a source value resolves to a target identity.
 
-This lets source models retain their natural XML, SQL, and C# shape while the cross-model contract is visible, reviewable, and validated in one place. Evidence-backed suggestions help discover strong candidates, but the persisted binding remains an intentional modeled decision. Validation proves that every declared source value resolves through the binding it claims to use.
-
-A valid weave can materialize a composed workspace when a consumer needs one model boundary. The weave itself remains the durable explanation of why that composition is correct and which source fields establish each cross-model link.</Body>
+Use it when a relationship crosses model boundaries. The binding can be reviewed, validated, and materialized into a combined workspace when a downstream operation needs one.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
@@ -15580,14 +15492,14 @@ A valid weave can materialize a composed workspace when a consumer needs one mod
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:narrative:idpolicy:bulk-landing-identity" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert" PreviousNarrativeId="source:cli:meta:app:command:bulk-insert:narrative:summary:summary">
-      <Body>Bulk import follows the same identity discipline as single-row insert and CSV import: row identity is explicit, stable, and part of the workspace semantics.
+    <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:narrative:idpolicy:landing-csv-data-and-preserving-identity" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert" PreviousNarrativeId="source:cli:meta:app:command:bulk-insert:narrative:summary:summary">
+      <Body>Flat-file landing starts with stable row identity. Keep the source identifier in `Id`, or land source references as scalar `...Id` fields until the workspace has complete relationship evidence.
 
-When importing flat files, keep source identifiers as stable `Id` values or scalar `...Id` landing fields first. Relationship promotion should happen after the landed workspace has complete referential-integrity evidence.</Body>
+`bulk-insert` and `import csv` preserve that identity. Promote scalar references only after the landed data is ready for an explicit model refactor.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>IdPolicy</Slot>
-      <Title>Bulk landing identity</Title>
+      <Title>Landing CSV data and preserving identity</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:bulk-insert:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:bulk-insert">
       <Body>Insert many instances from tsv/csv input.</Body>
@@ -15905,16 +15817,14 @@ When importing flat files, keep source identifiers as stable `Id` values or scal
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:import-csv:narrative:idfirstlanding:id-first-csv-landing" DocumentationSubjectId="source:cli:meta:app:command:import-csv" PreviousNarrativeId="source:cli:meta:app:command:import-csv:narrative:summary:summary">
-      <Body>`meta import csv` is Id-first: the file must contain a column named `Id` (case-insensitive header match).
+    <DocumentationNarrative Id="source:cli:meta:app:command:import-csv:narrative:idfirstlanding:csv-import" DocumentationSubjectId="source:cli:meta:app:command:import-csv" PreviousNarrativeId="source:cli:meta:app:command:import-csv:narrative:summary:summary">
+      <Body>`meta import csv` requires an `Id` column. Re-importing an existing entity updates matching rows, inserts new identities, and leaves rows absent from the file untouched.
 
-On re-import into an existing entity, matching Id updates the row, new Id inserts the row, and rows missing from the CSV are preserved. Entity containers are always `&lt;EntityName&gt;List`. There is no alternate id-column mapping and no best-effort reconciliation.
-
-Scalar landing fields that point at other entities should stay as `...Id` until promoted with `meta model suggest` and `meta model refactor property-to-relationship`.</Body>
+Use stable source identifiers during landing. A scalar `ProductId` or `SupplierId` can later be promoted into a modeled relationship when the reference is complete and unambiguous.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>IdFirstLanding</Slot>
-      <Title>Id-first CSV landing</Title>
+      <Title>CSV import</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:import-csv:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:import-csv">
       <Body>Import CSV data into a workspace.</Body>
@@ -16038,16 +15948,14 @@ Scalar landing fields that point at other entities should stay as `...Id` until 
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:insert:narrative:idpolicy:row-identity" DocumentationSubjectId="source:cli:meta:app:command:insert" PreviousNarrativeId="source:cli:meta:app:command:insert:narrative:summary:summary">
-      <Body>Row `Id` values are stable strings; they do not need to be numeric.
+    <DocumentationNarrative Id="source:cli:meta:app:command:insert:narrative:idpolicy:stable-row-identity" DocumentationSubjectId="source:cli:meta:app:command:insert" PreviousNarrativeId="source:cli:meta:app:command:insert:narrative:summary:summary">
+      <Body>Row `Id` values are stable strings and do not need to be numeric. Use the source identity when one exists; use `--auto-id` only for a new row without an external identity.
 
-Use explicit stable `Id` values whenever the source system already has identity. `--auto-id` is only for creating brand-new rows when no external identity exists.
-
-Refactors, diff, and merge preserve row identities. They rewrite fields and relationships; they do not remap existing rows.</Body>
+Model refactors, diff, and merge preserve existing row identities.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>IdPolicy</Slot>
-      <Title>Row identity</Title>
+      <Title>Stable row identity</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:insert:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:insert">
       <Body>Insert one instance.</Body>
@@ -16139,61 +16047,28 @@ Refactors, diff, and merge preserve row identities. They rewrite fields and rela
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:instance-diff:narrative:example-example-meta-instance-diff-merge:move-instance-changes-between-workspaces" DocumentationSubjectId="source:cli:meta:app:command:instance-diff" PreviousNarrativeId="source:cli:meta:app:command:instance-diff:narrative:mechanics:what-instance-diff-does">
-      <Body>Use instance diff when two branches or workspaces evolved independently and you want a deterministic artifact describing the right-hand workspace changes.
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-diff:narrative:example-example-meta-instance-diff-merge:move-instance-changes-between-workspaces" DocumentationSubjectId="source:cli:meta:app:command:instance-diff" PreviousNarrativeId="source:cli:meta:app:command:instance-diff:narrative:mechanics:semantic-instance-diff-and-merge">
+      <Body>Generate a diff from the baseline to the feature workspace, then apply it to the integration workspace:
 
 ```powershell
-meta instance diff .\BaselineWorkspace .\FeatureWorkspace
+meta instance diff .\BaselineWorkspace .\FeatureWorkspace --output-xml .\FeatureWorkspace.instance-diff
 meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
-```</Body>
+```
+
+The diff describes instance changes by entity and `Id`; it does not merge model definitions.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta:instance-diff-merge</Slot>
       <Title>Move instance changes between workspaces</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:instance-diff:narrative:mechanics:what-instance-diff-does" DocumentationSubjectId="source:cli:meta:app:command:instance-diff" PreviousNarrativeId="source:cli:meta:app:command:instance-diff:narrative:summary:summary">
-      <Body>Workspaces evolve independently on different branches. `meta instance diff` and `meta instance merge` are deterministic synchronization primitives for instance data:
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-diff:narrative:mechanics:semantic-instance-diff-and-merge" DocumentationSubjectId="source:cli:meta:app:command:instance-diff" PreviousNarrativeId="source:cli:meta:app:command:instance-diff:narrative:example-example-meta-instance-diff-merge:move-instance-changes-between-workspaces">
+      <Body>Rows are identified by entity and `Id`. `meta instance diff` compares two workspace instance graphs and writes a structured description of added, removed, and changed rows, scalar values, and relationship usages. It is a semantic diff, not a text diff.
 
-- `diff` produces a structured change artifact from Left -&gt; Right.
-- `merge` applies that artifact to a target workspace with strict validation.
-
-This is not a text diff. It is a semantic diff over entity rows, scalar values, and relationship usages.
-
-Inputs:
-
-- Left workspace
-- Right workspace
-
-Output:
-
-- a deterministic diff workspace artifact (default sibling path: `&lt;RightWorkspace&gt;.instance-diff`)
-
-Mechanics:
-
-- requires byte-identical `model.xml` for equal-model diff.
-- compares row identity by entity + `Id`.
-- compares scalar property values.
-- compares relationship usage values (`...Id` attributes).
-- compares row presence/absence.
-
-Conceptual change classes captured by the artifact:
-
-- added rows (present in Right, absent in Left)
-- removed rows (present in Left, absent in Right)
-- updated scalar values on shared rows
-- updated relationship references on shared rows
-
-Determinism guarantees:
-
-- canonical ordering/normalization is applied before writing the diff artifact.
-- entity/property traversal and row comparisons are stable.
-- same inputs produce the same logical diff artifact.
-
-The artifact is a structured description of how to transform Left into Right.</Body>
+`meta instance merge` applies that change artifact to a target workspace after validating its precondition and resulting relationships. The default diff output is the sibling path `&lt;RightWorkspace&gt;.instance-diff`.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Mechanics</Slot>
-      <Title>What instance diff does</Title>
+      <Title>Semantic instance diff and merge</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:instance-diff:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:instance-diff">
       <Body>Compare two workspaces with the same model and write a structured change artifact over rows, scalar values, and relationship usages.</Body>
@@ -16271,68 +16146,27 @@ The artifact is a structured description of how to transform Left into Right.</B
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:boundary:what-this-is-not" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:integrity:referential-integrity-and-row-identity">
-      <Body>`meta instance diff` and `meta instance merge` are not:
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:integrity:merge-validation" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:summary:summary">
+      <Body>Merge validates both identity and referential integrity before it writes. Missing required relationships, missing target rows, deleted rows that remain referenced, and changed target preconditions stop the operation.
 
-- text merge tools.
-- automatic conflict resolution.
-- model/schema merge.
-- record matching by business key.
-- best-effort partial reconciliation.</Body>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Boundary</Slot>
-      <Title>What this is not</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:integrity:referential-integrity-and-row-identity" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:mechanics:what-instance-merge-does">
-      <Body>Merge is strict. It fails rather than writing invalid state.
-
-- required relationship usage missing -&gt; validation failure.
-- relationship target row missing -&gt; validation failure.
-- deleting rows that remain referenced -&gt; validation failure.
-- relationship updates are applied as part of the snapshot and validated with the whole workspace.
-
-Operation ordering is snapshot-based: merge builds the target end state in memory, validates, then saves. It does not persist partial intermediate steps.
-
-Rows are matched by identity (`Entity`, `Id`), not by value similarity.
-
-- identity stability is assumed.
-- no fuzzy matching.
-- no business-key reconciliation.
-- if a target workspace has drifted so that an incoming `Id` would collide with different state, merge fails its precondition instead of remapping or guessing.</Body>
+The result is either a valid target workspace or no persisted change.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Integrity</Slot>
-      <Title>Referential integrity and row identity</Title>
+      <Title>Merge validation</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:mechanics:what-instance-merge-does" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:summary:summary">
-      <Body>Inputs:
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:mechanics:applying-a-diff" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:integrity:merge-validation">
+      <Body>The target workspace and diff artifact are positional arguments:
 
-- target workspace
-- diff artifact workspace (from `meta instance diff`)
+```powershell
+meta instance merge .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
+```
 
-Operation:
-
-- verifies precondition: target must match the diff Left snapshot.
-- applies the diff Right snapshot to the target in memory.
-- normalizes and validates the resulting workspace.
-- persists once only if validation/postconditions pass.
-
-Atomicity and safety:
-
-- all changes are applied or none are persisted.
-- any failure restores pre-merge in-memory state and aborts.
-- save is a single workspace write operation after successful validation.
-- rows created by merge keep the `Id` values recorded in the diff artifact.
-- merge never allocates replacement ids or remaps existing ids.
-
-Determinism:
-
-- same target + same diff artifact -&gt; same resulting workspace state.</Body>
+The command checks that the target still matches the diff precondition, applies the described instance changes, validates the resulting workspace, and publishes it as one operation.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Mechanics</Slot>
-      <Title>What instance merge does</Title>
+      <Title>Applying a diff</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:instance-merge">
       <Body>Apply a structured instance diff to a target workspace only when its precondition still matches, so workspace changes synchronize without text merges.</Body>
@@ -16342,26 +16176,19 @@ Determinism:
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:typicalworkflow:typical-diff-merge-workflow" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:boundary:what-this-is-not">
-      <Body>Example flow with two independently evolved workspaces:
+    <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:narrative:typicalworkflow:aligned-diff-and-merge" DocumentationSubjectId="source:cli:meta:app:command:instance-merge" PreviousNarrativeId="source:cli:meta:app:command:instance-merge:narrative:mechanics:applying-a-diff">
+      <Body>Equal-model diff and merge use the entity and `Id` identities directly. When the two workspaces have different model contracts, use an explicit alignment workspace:
 
-1. baseline/integration workspace is your Left reference.
-2. feature workspace with intended changes is your Right reference.
-3. generate diff from Left -&gt; Right.
-4. apply diff into integration target (which must still match Left snapshot).
+```powershell
+meta instance diff-aligned .\BaselineWorkspace .\FeatureWorkspace .\AlignmentWorkspace --output-xml .\FeatureWorkspace.instance-diff
+meta instance merge-aligned .\IntegrationWorkspace .\FeatureWorkspace.instance-diff
+```
 
-`meta instance diff .\WorkspaceA .\WorkspaceB`
-`meta instance merge .\WorkspaceA .\WorkspaceB.instance-diff`
-
-If merge precondition fails, regenerate diff against the current target baseline.
-
-`model refactor property-to-relationship` changes instance structure (scalar values moved to required relationship usages). Diff/merge captures and replays those instance-level structural value changes when both sides share the same model contract.
-
-For model-contract drift between workspaces, use the aligned diff/merge path (`instance diff-aligned` / `instance merge-aligned`) with explicit alignment mappings.</Body>
+The alignment is authored data. It makes the contract difference visible instead of hiding it in a matching heuristic.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>TypicalWorkflow</Slot>
-      <Title>Typical diff/merge workflow</Title>
+      <Title>Aligned diff and merge</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:instance-merge:option:strict:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:instance-merge:option:strict">
       <LastReviewedImportBatchId>source:cli:meta:batch:20260805183153831</LastReviewedImportBatchId>
@@ -16713,16 +16540,20 @@ For model-contract drift between workspaces, use the aligned diff/merge path (`i
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:narrative:atomicrefactor:atomic-relationship-promotion" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship" PreviousNarrativeId="source:cli:meta:app:command:model-refactor-property-to-relationship:narrative:summary:summary">
-      <Body>`meta model refactor property-to-relationship` performs an atomic model+instance rewrite from a scalar property to a required relationship.
+    <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:narrative:atomicrefactor:promoting-scalar-id-fields-into-relationships" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship" PreviousNarrativeId="source:cli:meta:app:command:model-refactor-property-to-relationship:narrative:summary:summary">
+      <Body>`meta model refactor property-to-relationship` changes a scalar reference into a modeled relationship and rewrites the affected instance data in the same operation.
 
-The source property is dropped by default after the relationship usage is created. Use `--preserve-property` only when the scalar field name will not collide with the implied relationship usage name.
+For a landed `Order.ProductId` field:
 
-The command preserves row identities and rewrites each affected instance from scalar `...Id` data to relationship usage data. If the workspace cannot be rewritten and validated as one complete end state, the mutation does not persist.</Body>
+```powershell
+meta model refactor property-to-relationship --source Order.ProductId --target Product --lookup Id
+```
+
+The command preserves row identities and removes the scalar property by default. Use `--preserve-property` only when retaining both forms is part of the model contract.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>AtomicRefactor</Slot>
-      <Title>Atomic relationship promotion</Title>
+      <Title>Promoting scalar Id fields into relationships</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-property-to-relationship:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-property-to-relationship">
       <Body>Convert a property into a relationship.</Body>
@@ -16781,14 +16612,14 @@ The command preserves row identities and rewrites each affected instance from sc
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-relationship-to-property:narrative:atomicrefactor:atomic-relationship-demotion" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property" PreviousNarrativeId="source:cli:meta:app:command:model-refactor-relationship-to-property:narrative:summary:summary">
-      <Body>`meta model refactor relationship-to-property` performs the reverse structural rewrite: a required relationship usage becomes a scalar Id property.
+    <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-relationship-to-property:narrative:atomicrefactor:flattening-a-relationship" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property" PreviousNarrativeId="source:cli:meta:app:command:model-refactor-relationship-to-property:narrative:summary:summary">
+      <Body>`meta model refactor relationship-to-property` changes a relationship usage into a scalar Id property while preserving the records that use it.
 
-The command preserves row identities and rewrites fields, not records. It is useful when a relationship should be flattened for interchange or when a model contract needs to move a reference back to scalar data.</Body>
+Use it when the target contract needs a flat reference for interchange. The model and instance changes are published together.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>AtomicRefactor</Slot>
-      <Title>Atomic relationship demotion</Title>
+      <Title>Flattening a relationship</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-refactor-relationship-to-property:narrative:summary:summary" DocumentationSubjectId="source:cli:meta:app:command:model-refactor-relationship-to-property">
       <Body>Convert a relationship into a property.</Body>
@@ -16972,19 +16803,17 @@ The command preserves row identities and rewrites fields, not records. It is use
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-suggest:narrative:example-example-meta-model-suggest-promote-relationships:promote-landing-id-fields-into-relationships" DocumentationSubjectId="source:cli:meta:app:command:model-suggest" PreviousNarrativeId="source:cli:meta:app:command:model-suggest:narrative:workflow:csv-import-suggest-refactor">
-      <Body>After landing CSV files as scalar Id fields, inspect deterministic relationship suggestions and promote exact Id-to-Id references into modeled relationships.
+      <Body>Land the files with stable identities, inspect the exact suggestions, and apply the refactors you accept:
 
 ```powershell
-meta import csv .\demo-csv\products.csv --entity Product --new-workspace .\Workspace
+meta import csv .\demo-csv\products.csv --entity Product --output-xml .\Workspace
+cd .\Workspace
 meta import csv ..\demo-csv\suppliers.csv --entity Supplier
-meta import csv ..\demo-csv\categories.csv --entity Category
-meta import csv ..\demo-csv\warehouses.csv --entity Warehouse
-meta import csv ..\demo-csv\orders.csv --entity Order
 meta model suggest --print-commands
 meta model refactor property-to-relationship --source Order.ProductId --target Product --lookup Id
-meta model refactor property-to-relationship --source Order.SupplierId --target Supplier --lookup Id
-meta model refactor property-to-relationship --source Order.WarehouseId --target Warehouse --lookup Id
-```</Body>
+```
+
+Suggestions are printed only when the landed values provide a complete, unambiguous reference.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta:model-suggest-promote-relationships</Slot>
@@ -16999,20 +16828,13 @@ meta model refactor property-to-relationship --source Order.WarehouseId --target
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:command:model-suggest:narrative:workflow:csv-import-suggest-refactor" DocumentationSubjectId="source:cli:meta:app:command:model-suggest" PreviousNarrativeId="source:cli:meta:app:command:model-suggest:narrative:summary:summary">
-      <Body>This is the intended landing workflow: import flat CSVs with stable row Ids, run suggest, then apply an atomic model+instance refactor.
+      <Body>The landing workflow is short:
 
-`meta model suggest` is structural and deterministic. It prints strong exact-name relationship promotions by default and prints weak suggestions separately when RI is still complete but the target is only a role-style suffix match or the same source property matches more than one eligible target.
+1. Import CSV rows with stable `Id` values.
+2. Run `meta model suggest`.
+3. Apply the exact relationship promotions that belong in the model.
 
-Eligible means the promotion satisfies 100% referential integrity (RI) before any mutation:
-
-- source lands first as a scalar `...Id` field (for example `WarehouseId`)
-- target lookup property is complete and unambiguous (no null/blank values, no duplicates)
-- source property is complete (no null/blank values)
-- every source value resolves to an existing target lookup value (full coverage, no unmatched values)
-- source and target scalar types are compatible under strict rules (no implicit casting)
-- source values are reused, so the source behaves like a reference and the direction is structurally evidenced as many-to-one
-
-For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product.Id`, `SupplierId -&gt; Supplier.Id`, and so on. `meta model suggest` does not rely on `Code` fields for this workflow. If any rule fails, the item is not printed.</Body>
+The suggestion step uses the landed values and declared model structure. It does not guess a relationship when the reference is incomplete or ambiguous.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Workflow</Slot>
@@ -17224,9 +17046,9 @@ For Id-first landing, the sanctioned structural rule is `ProductId -&gt; Product
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta:app:narrative:guide:working-with-meta" DocumentationSubjectId="source:cli:meta:app" PreviousNarrativeId="source:cli:meta:app:narrative:summary:summary">
-      <Body>`meta` creates and works with model and instance workspaces on XML, SQL, or C# surfaces. It can inspect and edit model definitions and instance data, refactor model structure together with its records, import external metadata, and write SQL or C# representations of the same workspace.
+      <Body>`meta` is the command line for creating and working with model and instance workspaces. It authors models, edits records, imports external metadata, and changes a workspace between XML, SQL, and C# surfaces.
 
-Structured diff and merge preserve row identity while a workspace evolves. A database, service, or analytical tool can use the representation natural to its environment and remain connected to the same declared entities, properties, relationships, and records.</Body>
+Use `model` commands for structure, `insert` and `bulk-insert` for records, `instance` commands for existing data, and `import` for external sources. Semantic diff and merge move instance changes between workspaces while preserving entity and record identity.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>

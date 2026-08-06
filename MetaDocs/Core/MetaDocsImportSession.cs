@@ -232,14 +232,18 @@ public sealed class MetaDocsImportSession
         ArgumentException.ThrowIfNullOrWhiteSpace(slot);
         ArgumentException.ThrowIfNullOrWhiteSpace(origin);
 
-        var id = $"{subject.Id}:narrative:{NormalizeKey(slot)}:{NormalizeKey(string.IsNullOrWhiteSpace(title) ? slot : title)}";
         var narrative = model.DocumentationNarrativeList.FirstOrDefault(row =>
-            string.Equals(row.Id, id, StringComparison.OrdinalIgnoreCase));
+            string.Equals(row.DocumentationSubject?.Id ?? string.Empty, subject.Id, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.Slot, slot, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(row.Origin, "Authored", StringComparison.OrdinalIgnoreCase))
+            ?? model.DocumentationNarrativeList.FirstOrDefault(row =>
+                string.Equals(row.DocumentationSubject?.Id ?? string.Empty, subject.Id, StringComparison.OrdinalIgnoreCase) &&
+                string.Equals(row.Slot, slot, StringComparison.OrdinalIgnoreCase));
         if (narrative is null)
         {
             narrative = new DocumentationNarrative
             {
-                Id = id,
+                Id = $"{subject.Id}:narrative:{NormalizeKey(slot)}",
                 DocumentationSubject = subject,
                 Slot = slot,
                 Title = title,

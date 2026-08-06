@@ -391,11 +391,10 @@ meta-convert schema-to-raw-datavault --source-workspace .\SourceSchema.Workspace
       <Title>Derive a raw Data Vault design</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:narrative:guide:working-with-metaconvert" DocumentationSubjectId="source:cli:meta-convert:app" PreviousNarrativeId="source:cli:meta-convert:app:narrative:summary:summary">
-      <Body>MetaConvert is the projection boundary between sanctioned BI workspaces. It carries an explicit source design into the next representation: source schema into raw vault, vault or warehouse into deployable SQL, quality evidence into SQL assets, or portable analytics into Tabular and MultiDimensional targets.
+      <Body>`MetaConvert` moves declared structure between sanctioned BI workspaces. It connects source schema to Raw Data Vault, vault or warehouse designs to SQL, quality outputs to SQL assets, and portable analytics to target models.
 
-Every conversion starts from modeled inputs and produces a modeled output. Where a physical implementation or deployment policy is needed, that workspace is passed explicitly, keeping logical intent separate from target-specific choices. The converter therefore preserves a reviewable chain from source contract to generated artifact.
-
-This makes the suite composable. A team can inspect each model in its own domain, regenerate a later projection when an upstream decision changes, and avoid treating an emitted script or target project as the place where the architecture is defined.</Body>
+Each conversion names its source and destination workspaces and applies the rules owned by the target model. The result is a modeled workspace that can be inspected and used by the next CLI.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>

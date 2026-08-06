@@ -293,7 +293,7 @@ render-site --workspace ..\SuiteWorkspace --out ..\Site
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:example-example-meta-mesh-run-docs-operation:run-the-documentation-operation" DocumentationSubjectId="source:cli:meta-mesh:app:command:run" PreviousNarrativeId="source:cli:meta-mesh:app:command:run:narrative:guidance:preflight">
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:example-example-meta-mesh-run-docs-operation:run-the-documentation-operation" DocumentationSubjectId="source:cli:meta-mesh:app:command:run" PreviousNarrativeId="source:cli:meta-mesh:app:command:run:narrative:guidance:execution-preflight">
       <Body>Run a modeled operation from its mesh workspace. The documentation mesh imports source workspaces, rebuilds the suite workspace, validates it, and renders the static site.
 
 ```powershell
@@ -306,12 +306,15 @@ meta-mesh run --operation regenerate-public-docs
       <Slot>Example.example:meta-mesh:run-docs-operation</Slot>
       <Title>Run the documentation operation</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:guidance:preflight" DocumentationSubjectId="source:cli:meta-mesh:app:command:run" PreviousNarrativeId="source:cli:meta-mesh:app:command:run:narrative:summary:summary">
-      <Body>Before starting, `run` resolves the ordered step chain, every workspace representation used by the operation, executable lookup, filesystem working directories, and non-empty `{env:...}` variables. The operation starts only after the complete plan is ready.</Body>
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:guidance:execution-preflight" DocumentationSubjectId="source:cli:meta-mesh:app:command:run" PreviousNarrativeId="source:cli:meta-mesh:app:command:run:narrative:example-example-meta-mesh-run-docs-operation:run-the-documentation-operation">
+      <Body>`meta-mesh run --operation &lt;name&gt;` validates the selected operation before starting its steps. It resolves every workspace and token used by that operation, checks environment variables and executable paths, verifies working directories and permissions, and confirms that the step plan is runnable.
+
+Use `meta-mesh validate --operation &lt;name&gt;` when you want the same preflight without executing child processes.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guidance</Slot>
-      <Title>Preflight</Title>
+      <Title>Execution preflight</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:run:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:run">
       <Body>Run the steps declared for one operation.</Body>
@@ -393,12 +396,15 @@ meta-mesh run --operation regenerate-public-docs
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:validate:narrative:guidance:preflight" DocumentationSubjectId="source:cli:meta-mesh:app:command:validate" PreviousNarrativeId="source:cli:meta-mesh:app:command:validate:narrative:summary:summary">
-      <Body>Validate performs the same preflight as run but starts no child processes.</Body>
+    <DocumentationNarrative Id="source:cli:meta-mesh:app:command:validate:narrative:guidance:validate-an-operation" DocumentationSubjectId="source:cli:meta-mesh:app:command:validate" PreviousNarrativeId="source:cli:meta-mesh:app:command:validate:narrative:summary:summary">
+      <Body>`meta-mesh validate --operation &lt;name&gt;` builds the selected operation plan and checks its declared workspaces, tokens, executable paths, working directories, permissions, and arguments. It does not start the operation.
+
+Use it to inspect a workflow before handing execution to `meta-mesh run --operation &lt;name&gt;`.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guidance</Slot>
-      <Title>Preflight</Title>
+      <Title>Validate an operation</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:command:validate:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-mesh:app:command:validate">
       <Body>Validate one operation before running it.</Body>
@@ -441,13 +447,12 @@ meta-mesh run --operation regenerate-public-docs
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-mesh:app:narrative:guide:working-with-metamesh" DocumentationSubjectId="source:cli:meta-mesh:app" PreviousNarrativeId="source:cli:meta-mesh:app:narrative:summary:summary">
-      <Body>A MetaMesh workspace names the workspaces that participate in repository work and records executable operations over them. Each declared workspace has one representation: an XML workspace path, a C# workspace path, or a SQL connection environment variable. Operations remain independent of that representation and invoke the product CLI that owns each domain action.
+      <Body>`meta-mesh` turns a repository workflow into a workspace. The mesh declares the workspaces an operation uses and the ordered executable steps that create, inspect, transform, deploy, or run them.
 
-An operation contains an ordered chain of steps. Workspace tokens let those steps refer to declared inputs without embedding machine-specific paths. Environment tokens make external configuration explicit while keeping connection strings and other values out of the mesh. Before execution begins, MetaMesh resolves the workspaces used by the operation, executable lookup, working-directory access, and required environment variables.
+Each operation is independently named and scoped. Before a run, MetaMesh resolves workspace locations, environment-variable tokens, executable paths, permissions, and step arguments. The same plan can be inspected with `steps` or `validate`, then executed with `run --operation &lt;name&gt;`.
 
-Documentation regeneration, integration demos, and multi-workspace builds can therefore be inspected, validated, and replayed from the same model. Progress and failures identify the active step while each product CLI continues to own its behavior.
-
-The AdventureWorks full-stack mesh uses this structure at system scale. Its operations synchronize a source schema, build and deploy Data Vault and warehouse layers, bind transforms, author pipelines, infer orchestration, generate Data Quality assets, and deploy a processed Tabular model.</Body>
+The result is a repeatable workflow surface that people and agents can inspect before starting processes.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>

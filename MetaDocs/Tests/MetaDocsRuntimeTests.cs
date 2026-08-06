@@ -209,7 +209,7 @@ public sealed class MetaDocsRuntimeTests
                 "update-description --cli meta-transform-binding --command bind --option --source-schema --body-stdin",
                 root,
                 "\uFEFFUse this when the binding command should read a source schema workspace.");
-            Assert.Equal(0, update.ExitCode);
+            Assert.True(update.ExitCode == 0, update.Output);
             Assert.Contains("Updated description:", update.Output);
 
             var updatedBrowse = RunCli("browse cli/meta-transform-binding/bind", root);
@@ -334,28 +334,55 @@ public sealed class MetaDocsRuntimeTests
             Assert.StartsWith("Apply a deploy manifest", authoredNarrative.Body, StringComparison.Ordinal);
             Assert.Contains("```powershell", authoredNarrative.Body, StringComparison.Ordinal);
 
+            var narrativeId = authoredNarrative.Id;
+            var previousNarrativeId = authoredNarrative.PreviousNarrative?.Id;
+            const string renamedMarkdown = """
+                Updated deployment guidance.
+
+                ```powershell
+                meta-sql deploy --connection-env META_SQL_DEV --manifest-workspace .\DeployPlan --source-workspace .\MetaSql
+                ```
+                """;
+            var rename = RunCli(
+                $"update-description --workspace {QuoteArgument(docsWorkspace)} --cli meta-sql --command deploy --slot Example.Deploy --title \"Deploy a deployment manifest\" --body-stdin",
+                standardInput: renamedMarkdown);
+            Assert.Equal(0, rename.ExitCode);
+
+            var renamed = MetaDocsModel.LoadFromXmlWorkspace(docsWorkspace, searchUpward: false);
+            var renamedCandidates = renamed.DocumentationNarrativeList.Where(row =>
+                row.DocumentationSubject.Id == "source:cli:meta-sql:app:command:deploy" &&
+                row.Origin == "Authored" &&
+                row.Slot == "Example.Deploy").ToArray();
+            Assert.True(renamedCandidates.Length == 1,
+                string.Join("\n", renamedCandidates.Select(row => $"{row.Id} | {row.Title} | {row.Body}")));
+            var renamedNarrative = renamedCandidates[0];
+            Assert.Equal(narrativeId, renamedNarrative.Id);
+            Assert.Equal("Deploy a deployment manifest", renamedNarrative.Title);
+            Assert.StartsWith("Updated deployment guidance.", renamedNarrative.Body, StringComparison.Ordinal);
+            Assert.Equal(previousNarrativeId, renamedNarrative.PreviousNarrative?.Id);
+
             var browse = RunCli($"browse --workspace {QuoteArgument(docsWorkspace)} cli/meta-sql/deploy");
             Assert.Equal(0, browse.ExitCode);
             Assert.Contains("Descriptions:", browse.Output);
-            Assert.Contains("Deploy a manifest", browse.Output);
+            Assert.Contains("Deploy a deployment manifest", browse.Output);
             Assert.Contains("meta-sql deploy --connection-env META_SQL_DEV", browse.Output);
 
-            var search = RunCli($"search --workspace {QuoteArgument(docsWorkspace)} \"Deploy a manifest\"");
+            var search = RunCli($"search --workspace {QuoteArgument(docsWorkspace)} \"Deploy a deployment manifest\"");
             Assert.Equal(0, search.ExitCode);
             Assert.Contains("meta-sql deploy", search.Output);
-            Assert.Contains("Deploy a manifest", search.Output);
+            Assert.Contains("Deploy a deployment manifest", search.Output);
 
             var merge = RunCli($"merge --include {QuoteArgument(docsWorkspace)} --workspace {QuoteArgument(suiteWorkspace)}");
             Assert.Equal(0, merge.ExitCode);
             var suite = MetaDocsModel.LoadFromXmlWorkspace(suiteWorkspace, searchUpward: false);
             var suiteNarrative = Assert.Single(suite.DocumentationNarrativeList, row => row.Slot == "Example.Deploy");
-            Assert.Equal("Deploy a manifest", suiteNarrative.Title);
+            Assert.Equal("Deploy a deployment manifest", suiteNarrative.Title);
             Assert.Equal("meta-sql deploy", suiteNarrative.DocumentationSubject.DisplayName);
 
             var render = RunCli($"render-site --workspace {QuoteArgument(suiteWorkspace)} --out {QuoteArgument(siteOutput)}");
             Assert.Equal(0, render.ExitCode);
             var html = File.ReadAllText(Path.Combine(siteOutput, "docs.html"));
-            Assert.Contains("Deploy a manifest", html, StringComparison.Ordinal);
+            Assert.Contains("Deploy a deployment manifest", html, StringComparison.Ordinal);
             Assert.Contains("<pre><code class=\"language-powershell\">", html, StringComparison.Ordinal);
             Assert.Contains("meta-sql deploy --connection-env META_SQL_DEV", html, StringComparison.Ordinal);
             Assert.DoesNotContain("General examples", html, StringComparison.Ordinal);
@@ -516,7 +543,20 @@ public sealed class MetaDocsRuntimeTests
         var narrative = Assert.Single(model.DocumentationNarrativeList, row =>
             row.DocumentationSubject?.Id == subject.Id &&
             row.Origin == "Authored");
-        Assert.Equal("Updated authored description.", narrative.Body);
+        var narrativeId = narrative.Id;
+        new MetaDocsAuthoringService().UpsertPage(
+            model,
+            page with { Title = "Renamed home", NarrativeTitle = "Renamed overview", Body = "Renamed authored description." });
+
+        subject = Assert.Single(model.DocumentationSubjectList, row => row.Id == "docs:home");
+        narrative = Assert.Single(model.DocumentationNarrativeList, row =>
+            row.DocumentationSubject?.Id == subject.Id &&
+            row.Origin == "Authored");
+        Assert.Equal(narrativeId, narrative.Id);
+        Assert.Equal("Renamed overview", narrative.Title);
+        Assert.Equal("Renamed authored description.", narrative.Body);
+        Assert.Equal("Renamed home", subject.DisplayName);
+        Assert.Equal("Renamed authored description.", narrative.Body);
         Assert.Equal("Current", narrative.ReviewStatus);
 
         Assert.Contains(model.DocumentationViewNodeList, row =>
@@ -576,6 +616,48 @@ public sealed class MetaDocsRuntimeTests
         Assert.Equal("Authored option explanation.", FindNarrative(model, option, "Summary").Body);
         Assert.Equal("Authored option when.", FindNarrative(model, option, "Usage").Body);
         Assert.Equal(".\\Schema", FindFact(model, option, "Cli", "ExampleValue").Value);
+    }
+
+    [Fact]
+    public void ImportSession_RenamingNarrativeTitleKeepsTheSameRow()
+    {
+        var model = MetaDocsModel.CreateEmpty();
+        var session = new MetaDocsImportSession(
+            model,
+            "source:test",
+            "TestSource",
+            "Test source",
+            "test",
+            "fingerprint",
+            "MetaDocs.Tests",
+            "1");
+        var subject = session.UpsertSubject(
+            "source:test:subject",
+            "Guide",
+            "Test.Guide",
+            "subject",
+            "Test subject",
+            "Test subject",
+            string.Empty,
+            null);
+
+        var first = session.UpsertNarrative(
+            subject,
+            "Example.Run",
+            "Run the first version",
+            "First body.",
+            "Generated");
+        var renamed = session.UpsertNarrative(
+            subject,
+            "Example.Run",
+            "Run the renamed version",
+            "Renamed body.",
+            "Generated");
+
+        Assert.Same(first, renamed);
+        Assert.Equal("Run the renamed version", renamed.Title);
+        Assert.Equal("Renamed body.", renamed.Body);
+        Assert.Single(model.DocumentationNarrativeList, row => row.DocumentationSubject?.Id == subject.Id);
     }
 
     [Fact]

@@ -448,11 +448,10 @@ meta-transform-script to sql-path --workspace .\Transforms.Workspace --out .\Rou
       <Title>Round-trip a transform view</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:narrative:guide:working-with-metatransformscript" DocumentationSubjectId="source:cli:meta-transform-script:app" PreviousNarrativeId="source:cli:meta-transform-script:app:narrative:summary:summary">
-      <Body>MetaTransformScript understands the supported SQL Server transform surface structurally. It imports views, query expressions, bounded mutation statements, inline table-valued functions, and constrained scalar functions into a typed workspace, then emits semantically equivalent SQL.
+      <Body>`MetaTransformScript` understands the supported SQL Server transform surface structurally. It imports views and bounded mutation statements into a typed workspace, then emits equivalent SQL from the same structure.
 
-The workspace captures the parts of SQL that downstream tools need to reason about: statement ownership, identifiers, expressions, joins, common table expressions, predicates, grouping, windowing, type references, and source paths. A transform can therefore be inspected, bound to schemas, compared after a round-trip, and used as evidence by pipeline, orchestration, and data-quality tools.
-
-The target is faithful syntax modeling. SQL is represented once as structured data, not reduced to a blob or replaced by a guessed lineage graph. Dynamic and procedural forms remain clearly bounded, while the supported surface can be proven through SQL-to-model-to-SQL equivalence and workspace diff evidence.</Body>
+That workspace gives binding and quality tools access to statements, sources, projections, expressions, predicates, joins, and other supported SQL elements as modeled data.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
