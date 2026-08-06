@@ -1,6 +1,6 @@
 # meta
 
-Model-first metadata tooling for deterministic XML, SQL, and C# representations.
+Model-first metadata tooling for workspaces represented through XML, SQL, and C# surfaces.
 
 The public reference is generated from authored MetaDocs workspaces:
 

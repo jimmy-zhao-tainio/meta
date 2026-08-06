@@ -11,7 +11,7 @@ Rules:
 - `cleanup.cmd` removes generated workspace state
 
 Structure:
-- `Contracts`: XML source inputs used by import-based samples
-- `MainWorkspace`: bootstrap a canonical workspace from the XML contracts
+- `Contracts`: source inputs used by import-based samples
+- `MainWorkspace`: bootstrap a workspace from the sample contracts
 - `Demos/SuggestDemo`: CSV import -> suggest -> refactor
 - `Fixtures/DiffLeft` and `Fixtures/DiffRight`: equal-model diff/merge pair

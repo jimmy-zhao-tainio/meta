@@ -1,36 +1,57 @@
-# C# Services API
+# Meta Workspace Surfaces and Services
 
-This page describes the supported C# surfaces for operating on Meta workspaces
-without invoking a CLI.
+This document describes the foundation API for working with metadata
+workspaces from C# code. A workspace is the product abstraction; XML, SQL, and
+C# are supported surfaces for the same model and instance structure.
 
-## Assemblies
+## Assembly Boundaries
 
-- `Meta.Operations` owns representation-neutral model and instance state,
-  reads, constraints, validation, and operations.
-- `Meta.Core` owns XML workspace serialization and higher-level algorithms
-  composed from the operation language.
-- `Meta.Adapters` owns SQL and C# representation adapters plus import and
-  export services.
+- `Meta.Operations` owns representation-neutral state, reads, constraints,
+  validation, and operations.
+- `Meta.Core` owns shared domain algorithms and foundation services that are
+  independent of one workspace surface.
+- `Meta.Surfaces` owns XML, SQL, and C# workspace readers, writers, and surface
+  execution.
+- `Meta.Integration` owns cross-surface import/export, CSV support, SQL
+  deployment, and service composition.
 
-## XML Workspaces
+The foundation no longer exposes a separate adapter or artifact-generation
+service boundary. Surface ownership is explicit in the assembly list above.
 
-`XmlWorkspaceReader` opens one exact XML workspace path. It returns an
-`OpenedXmlWorkspace`, which carries the semantic state, the physical XML
-layout, and the baseline fingerprint needed for safe publication.
+## Workspace Metadata
+
+`workspace.meta` identifies the workspace surface and carries only the
+surface-specific location or non-default storage settings that are needed by
+the reader. It is a small descriptor, not a second model format.
+
+## Representation-Neutral Operations
+
+`InMemoryWorkspace` contains a generic model and its instance graph.
+`InMemoryOperations` applies the common operation language to that state and
+returns a separate candidate with structured results. A rejected operation
+batch does not modify its input.
 
 ```csharp
-using Meta.Core.Operations;
-using Meta.Core.Serialization;
+var execution = InMemoryOperations.Execute(
+    workspace,
+    new Operation.AddEntity("Order"),
+    new Operation.AddProperty("Order", "OrderNumber", IsRequired: true));
+```
 
+Operation construction and execution enforce the common Meta identity,
+referential-integrity, and model rules before a surface publishes the result.
+
+## XML Workspace
+
+`XmlWorkspaceReader.OpenAsync` opens one exact workspace directory and returns
+an `OpenedXmlWorkspace`. `XmlWorkspaceWriter` owns XML layout, shards, locking,
+stale-write detection, and atomic publication.
+
+```csharp
 var opened = await XmlWorkspaceReader.OpenAsync(@".\Workspace");
-
 var execution = InMemoryOperations.Execute(
     opened.State,
-    new Operation.AddEntity("Order"),
-    new Operation.AddProperty(
-        "Order",
-        "OrderNumber",
-        IsRequired: true));
+    new Operation.AddEntity("Order"));
 
 await XmlWorkspaceWriter.WriteAsync(
     opened,
@@ -38,100 +59,49 @@ await XmlWorkspaceWriter.WriteAsync(
     execution.Results);
 ```
 
-`XmlWorkspaceWriter.WriteAsync` validates the candidate, checks that the
-workspace has not changed since it was opened, preserves XML configuration and
-shard layout, applies XML-specific rename effects, and publishes atomically.
+Use `XmlWorkspaceWriter.WriteNewAsync` for a new XML workspace. XML loading
+uses the exact path supplied by the caller; it does not search parent folders.
 
-Use `XmlWorkspaceWriter.WriteNewAsync` when creating a new XML workspace from
-semantic state. Use `WriteMergedAsync` when publishing a semantic merge while
-preserving compatible source layouts.
+## C# Workspace
 
-XML loading never searches parent directories.
+`CSharpWorkspace` reads and writes a workspace represented by C# sources.
+`MetaCSharpReader` and `MetaCSharpWriter` translate between those sources and
+the shared semantic workspace state. Creation and publication read the written
+sources back and reject a semantic difference before publishing them.
 
-## Semantic Operations
+Object references are the natural in-memory C# integrity surface. Serialized
+identities are transport details used to persist and reconstruct those
+references.
 
-`InMemoryWorkspace` contains only a `GenericModel` and `GenericInstance`.
-`InMemoryOperations.Execute` applies a batch atomically and returns a separate
-candidate plus structured results. Rejected batches do not alter the input.
+## SQL Workspace
 
-```csharp
-var execution = InMemoryOperations.Execute(
-    workspace,
-    new Operation.InsertRecord(
-        "Order",
-        "order-1",
-        new Dictionary<string, string>
-        {
-            ["OrderNumber"] = "SO-001",
-        }));
-```
+`SqlWorkspace` opens and creates a workspace in a SQL database. Its operation
+target applies the common operation language as SQL DDL and DML, so ordinary
+reads and mutations do not need to materialize every instance row in memory.
+`SqlWorkspaceSource` exposes the common read contract for bounded queries and
+record streams.
 
-Operation construction enforces the common Meta name and identity language.
-Execution enforces model and referential integrity independently of the storage
-surface.
+Full conversion to another surface necessarily reads the source structure and
+materializes the semantic state needed by the destination writer.
 
-## Reads
+## Integration Services
 
-`IMetaWorkspaceSource` is the common read contract. An
-`InMemoryWorkspaceSource` adapts in-memory state. `SqlWorkspaceSource`
-implements the same reads directly in SQL so bounded queries and record streams
-do not require loading all instance rows.
+`Meta.Integration.ServiceCollection` composes the integration services:
 
-The source contract includes model name, entity names, properties,
-relationships, record streams, record lookup, counts, and bounded typed
-queries.
+- `ImportService` imports SQL and CSV data into semantic workspace state.
+- `ExportService` writes selected external representations and streams CSV.
+- `SqlServerDeploymentService` deploys SQL scripts to an external SQL Server.
+- Diff and merge services compose semantic reads and operation plans.
 
-## SQL Workspaces
-
-`SqlWorkspaceSource` reads a SQL-backed Meta workspace under one coherent
-transaction. `SqlOperations` applies the common operation language directly
-through SQL DDL and DML; ordinary SQL reads and mutations do not materialize
-instance tables in memory.
-
-Full conversion to XML or C# intentionally materializes semantic state by
-composing the common reads.
-
-## Import And Export
-
-`Meta.Adapters.ServiceCollection` provides:
-
-- `IImportService ImportService`
-- `IExportService ExportService`
-- `IInstanceDiffService InstanceDiffService`
-- `IWorkspaceMergeService WorkspaceMergeService`
-- `SqlServerDeploymentService SqlServerDeploymentService`
-
-`IImportService` returns `InMemoryWorkspace` for SQL and CSV imports.
-Existing-workspace CSV import returns an operation plan rather than mutating its
-target.
-
-`IExportService.ExportXmlAsync` writes an `InMemoryWorkspace` as a new XML
-workspace. `ExportCsvAsync` streams one entity from an
-`IMetaWorkspaceSource`.
-
-## Higher-Level Algorithms
-
-`IWorkspaceMergeService.MergeAsync` reads semantic sources and returns a
-`WorkspaceMergePlan` containing merged state and counts.
-
-`IInstanceDiffService` builds equal or aligned diff workspaces from
-`InMemoryWorkspace` values. Its merge methods return ordinary operation plans
-for the caller to execute and publish.
-
-`ModelSuggestService.Analyze` consumes `InMemoryWorkspace`.
-`GenerationService.GenerateSql` and `GenerateCSharp`
-also consume semantic state; output-directory ownership belongs to those
-artifact generators.
+These services cross a surface boundary. They do not define the workspace
+surface contract itself.
 
 ## Failure Model
 
-- Invalid semantic operations throw `MetaOperationException`.
-- Validation returns structured `WorkspaceDiagnostics`.
-- Publishing a stale opened XML workspace throws `WorkspaceConflictException`
-  with expected and actual fingerprints.
-- Representation adapters reject structures they cannot carry without
-  semantic loss.
+- Invalid operations produce structured operation or validation failures.
+- A surface rejects data it cannot carry without semantic loss.
+- XML and C# publication detects a stale source and refuses to overwrite it.
+- SQL creation and execution are verified by the SQL surface before completion.
 
-The old mutable `Workspace` object and `WorkspaceService` compatibility
-shell no longer exist. Callers choose a representation adapter explicitly and
-keep semantic work separate from persistence.
+Use the surface API that matches the workspace being operated on. Do not parse
+workspace files in a product service to discover how another surface works.
