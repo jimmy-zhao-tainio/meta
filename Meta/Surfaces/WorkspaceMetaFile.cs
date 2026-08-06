@@ -13,7 +13,6 @@ public static class WorkspaceMetaFile
 {
     public const string FileName = "workspace.meta";
 
-    private const string Header = "workspace 1";
     private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);
 
     public static WorkspaceMetaDocument Read(string workspaceRootPath)
@@ -29,12 +28,18 @@ public static class WorkspaceMetaFile
         }
 
         var descriptor = Parse(File.ReadAllLines(path, Utf8NoBom), path);
+        var representation = NormalizeRepresentation(descriptor.Required("representation"), path);
+        if (string.Equals(representation, "sql", StringComparison.Ordinal))
+        {
+            descriptor.Require("location", path);
+        }
+
         var configuration = descriptor.HasConfiguration
             ? BuildConfiguration(descriptor, path)
             : MetaWorkspace.CreateDefault();
         return new WorkspaceMetaDocument(
-            NormalizeRepresentation(descriptor.Required("representation"), path),
-            descriptor.Required("location").Trim(),
+            representation,
+            descriptor.Get("location", "."),
             configuration);
     }
 
@@ -84,9 +89,11 @@ public static class WorkspaceMetaFile
         var normalizedRepresentation = NormalizeRepresentation(representation, FileName);
         var normalizedConfiguration = MetaWorkspace.Normalize(configuration, FileName);
         var builder = new StringBuilder();
-        builder.AppendLine(Header);
         AppendDirective(builder, "representation", normalizedRepresentation);
-        AppendDirective(builder, "location", location.Trim());
+        if (!string.Equals(location.Trim(), ".", StringComparison.Ordinal))
+        {
+            AppendDirective(builder, "location", location.Trim());
+        }
 
         if (!includeConfiguration)
         {
@@ -100,18 +107,43 @@ public static class WorkspaceMetaFile
             .Single(item => string.Equals(item.Id, workspace.EncodingId, StringComparison.OrdinalIgnoreCase));
         var newlines = normalizedConfiguration.Newlines
             .Single(item => string.Equals(item.Id, workspace.NewlinesId, StringComparison.OrdinalIgnoreCase));
+        var defaults = MetaWorkspace.Normalize(MetaWorkspace.CreateDefault(), FileName);
+        var defaultWorkspace = defaults.Workspace.Single();
+        var defaultLayout = defaults.WorkspaceLayout.Single();
+        var defaultEncoding = defaults.Encoding.Single();
+        var defaultNewlines = defaults.Newlines.Single();
 
-        AppendDirective(builder, "name", workspace.Name);
-        AppendDirective(builder, "format-version", workspace.FormatVersion);
-        AppendDirective(builder, "model-file", layout.ModelFilePath);
-        AppendDirective(builder, "instance-directory", layout.InstanceDirPath);
-        AppendDirective(builder, "encoding", encoding.Name);
-        AppendDirective(builder, "newlines", newlines.Name);
-        AppendDirective(builder, "order.entities", FindOrderName(normalizedConfiguration, workspace.EntitiesOrderId));
-        AppendDirective(builder, "order.properties", FindOrderName(normalizedConfiguration, workspace.PropertiesOrderId));
-        AppendDirective(builder, "order.relationships", FindOrderName(normalizedConfiguration, workspace.RelationshipsOrderId));
-        AppendDirective(builder, "order.rows", FindOrderName(normalizedConfiguration, workspace.RowsOrderId));
-        AppendDirective(builder, "order.attributes", FindOrderName(normalizedConfiguration, workspace.AttributesOrderId));
+        AppendIfDifferent(builder, "name", workspace.Name, defaultWorkspace.Name);
+        AppendIfDifferent(builder, "format-version", workspace.FormatVersion, defaultWorkspace.FormatVersion);
+        AppendIfDifferent(builder, "model-file", layout.ModelFilePath, defaultLayout.ModelFilePath);
+        AppendIfDifferent(builder, "instance-directory", layout.InstanceDirPath, defaultLayout.InstanceDirPath);
+        AppendIfDifferent(builder, "encoding", encoding.Name, defaultEncoding.Name);
+        AppendIfDifferent(builder, "newlines", newlines.Name, defaultNewlines.Name);
+        AppendIfDifferent(
+            builder,
+            "order.entities",
+            FindOrderName(normalizedConfiguration, workspace.EntitiesOrderId),
+            FindOrderName(defaults, defaultWorkspace.EntitiesOrderId));
+        AppendIfDifferent(
+            builder,
+            "order.properties",
+            FindOrderName(normalizedConfiguration, workspace.PropertiesOrderId),
+            FindOrderName(defaults, defaultWorkspace.PropertiesOrderId));
+        AppendIfDifferent(
+            builder,
+            "order.relationships",
+            FindOrderName(normalizedConfiguration, workspace.RelationshipsOrderId),
+            FindOrderName(defaults, defaultWorkspace.RelationshipsOrderId));
+        AppendIfDifferent(
+            builder,
+            "order.rows",
+            FindOrderName(normalizedConfiguration, workspace.RowsOrderId),
+            FindOrderName(defaults, defaultWorkspace.RowsOrderId));
+        AppendIfDifferent(
+            builder,
+            "order.attributes",
+            FindOrderName(normalizedConfiguration, workspace.AttributesOrderId),
+            FindOrderName(defaults, defaultWorkspace.AttributesOrderId));
 
         foreach (var storage in normalizedConfiguration.EntityStorage
                      .OrderBy(item => item.EntityName, StringComparer.OrdinalIgnoreCase)
@@ -148,7 +180,6 @@ public static class WorkspaceMetaFile
     private static Descriptor Parse(IReadOnlyList<string> lines, string path)
     {
         var descriptor = new Descriptor();
-        var headerFound = false;
         StorageValues? storage = null;
 
         for (var index = 0; index < lines.Count; index++)
@@ -161,17 +192,6 @@ public static class WorkspaceMetaFile
 
             if (string.IsNullOrWhiteSpace(line) || line.StartsWith('#'))
             {
-                continue;
-            }
-
-            if (!headerFound)
-            {
-                if (!string.Equals(line, Header, StringComparison.Ordinal))
-                {
-                    throw Invalid(path, index, $"expected '{Header}'");
-                }
-
-                headerFound = true;
                 continue;
             }
 
@@ -238,18 +258,12 @@ public static class WorkspaceMetaFile
             }
         }
 
-        if (!headerFound)
-        {
-            throw new InvalidDataException($"Workspace metadata '{path}' is empty.");
-        }
-
         if (storage != null)
         {
             throw new InvalidDataException($"Workspace metadata '{path}' has an unterminated storage block.");
         }
 
         descriptor.Require("representation", path);
-        descriptor.Require("location", path);
         return descriptor;
     }
 
@@ -383,6 +397,14 @@ public static class WorkspaceMetaFile
         }
 
         builder.AppendLine();
+    }
+
+    private static void AppendIfDifferent(StringBuilder builder, string key, string value, string defaultValue)
+    {
+        if (!string.Equals(value, defaultValue, StringComparison.Ordinal))
+        {
+            AppendDirective(builder, key, value);
+        }
     }
 
     private static void AppendOptionalDirective(StringBuilder builder, string key, string? value)

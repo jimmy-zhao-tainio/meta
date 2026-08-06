@@ -406,8 +406,9 @@ static void PrintSystems(EnterpriseBIPlatformModel model)
           <section class="subsection description-block">
             <h3 class="document-heading">Workspace contract</h3>
             <div class="markdown-content">
-<p>A workspace is the unit that commands create, inspect, change, and move between surfaces. It contains a model, its instance data, and the storage configuration required by the selected surface.</p>
-<p>The workspace API keeps those storage details behind one boundary, so a command can work with the metadata without taking ownership of files, tables, or typed object graphs.</p>
+<p>A workspace is the unit that commands create, inspect, change, and move between surfaces. It contains a model, its instance data, and the storage required by the selected surface.</p>
+<p><code>workspace.meta</code> identifies the selected representation. An ordinary XML or C# workspace needs only its representation; a SQL workspace also records the connection location. Layout, encoding, newline, and canonical ordering use implementation defaults. Non-default layout or storage settings are recorded only when a workspace actually needs them.</p>
+<p>The workspace API keeps those storage details behind one boundary, so commands can work with metadata without taking ownership of files, tables, or typed object graphs.</p>
             </div>
           </section>
         </section>

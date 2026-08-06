@@ -400,9 +400,11 @@ BI-specific sanctioned models and command-line tools live in the separate `meta-
       <Title>Version-control friendly workspaces</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:workspacecontract:workspace-contract" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:versioncontrol:version-control-friendly-workspaces">
-      <Body>A workspace is the unit that commands create, inspect, change, and move between surfaces. It contains a model, its instance data, and the storage configuration required by the selected surface.
+      <Body>A workspace is the unit that commands create, inspect, change, and move between surfaces. It contains a model, its instance data, and the storage required by the selected surface.
 
-The workspace API keeps those storage details behind one boundary, so a command can work with the metadata without taking ownership of files, tables, or typed object graphs.</Body>
+`workspace.meta` identifies the selected representation. An ordinary XML or C# workspace needs only its representation; a SQL workspace also records the connection location. Layout, encoding, newline, and canonical ordering use implementation defaults. Non-default layout or storage settings are recorded only when a workspace actually needs them.
+
+The workspace API keeps those storage details behind one boundary, so commands can work with metadata without taking ownership of files, tables, or typed object graphs.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
