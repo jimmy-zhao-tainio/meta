@@ -20,16 +20,17 @@ internal static class XmlWorkspaceFingerprint
         var normalizedConfiguration = MetaWorkspaceGenerated.Normalize(
             configuration,
             WorkspaceMetaFile.FileName);
-        var configurationXml = XmlWorkspaceWriter.Serialize(
-            WorkspaceMetaFile.BuildXmlDocument(normalizedConfiguration, "xml", "."),
-            indented: false);
+        var configurationText = WorkspaceMetaFile.Serialize(
+            normalizedConfiguration,
+            "xml",
+            ".");
         var modelXml = XmlWorkspaceWriter.Serialize(
             ModelXmlCodec.BuildDocument(workspace.Model),
             indented: false);
         var instanceXml = XmlWorkspaceWriter.BuildCanonicalShardPayload(
             workspace,
             layout);
-        var payload = configurationXml + "\n---\n" + modelXml + "\n---\n" + instanceXml;
+        var payload = configurationText + "\n---\n" + modelXml + "\n---\n" + instanceXml;
         return Convert.ToHexString(
                 SHA256.HashData(Encoding.UTF8.GetBytes(payload)))
             .ToLowerInvariant();

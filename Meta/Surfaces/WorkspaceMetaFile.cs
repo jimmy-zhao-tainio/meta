@@ -1,5 +1,5 @@
+using System.Globalization;
 using System.Text;
-using System.Xml.Linq;
 using Meta.Core.WorkspaceConfig.Generated;
 
 namespace Meta.Surfaces;
@@ -13,6 +13,7 @@ public static class WorkspaceMetaFile
 {
     public const string FileName = "workspace.meta";
 
+    private const string Header = "workspace 1";
     private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);
 
     public static WorkspaceMetaDocument Read(string workspaceRootPath)
@@ -27,23 +28,13 @@ public static class WorkspaceMetaFile
                 path);
         }
 
-        var document = XDocument.Load(path, LoadOptions.None);
-        var root = document.Root ?? throw new InvalidDataException(
-            $"Workspace metadata '{path}' has no root element.");
-        if (!string.Equals(root.Name.LocalName, "MetaWorkspace", StringComparison.Ordinal))
-        {
-            throw new InvalidDataException(
-                $"Workspace metadata '{path}' must have a 'MetaWorkspace' root element.");
-        }
-
-        var representation = root.Attribute("representation")?.Value?.Trim() ?? "xml";
-        var location = root.Attribute("location")?.Value?.Trim() ?? ".";
-        var configuration = root.Element("WorkspaceList") is null
-            ? MetaWorkspace.CreateDefault()
-            : MetaWorkspace.Load(document, path);
+        var descriptor = Parse(File.ReadAllLines(path, Utf8NoBom), path);
+        var configuration = descriptor.HasConfiguration
+            ? BuildConfiguration(descriptor, path)
+            : MetaWorkspace.CreateDefault();
         return new WorkspaceMetaDocument(
-            NormalizeRepresentation(representation, path),
-            location,
+            NormalizeRepresentation(descriptor.Required("representation"), path),
+            descriptor.Required("location").Trim(),
             configuration);
     }
 
@@ -55,11 +46,17 @@ public static class WorkspaceMetaFile
             workspaceRootPath,
             "xml",
             ".",
-            configuration ?? MetaWorkspace.CreateDefault());
+            configuration ?? MetaWorkspace.CreateDefault(),
+            includeConfiguration: true);
     }
 
     public static void WriteCSharp(string workspaceRootPath) =>
-        Write(workspaceRootPath, "csharp", ".", MetaWorkspace.CreateDefault(), includeConfiguration: false);
+        Write(
+            workspaceRootPath,
+            "csharp",
+            ".",
+            MetaWorkspace.CreateDefault(),
+            includeConfiguration: false);
 
     public static void WriteSql(
         string workspaceRootPath,
@@ -74,20 +71,62 @@ public static class WorkspaceMetaFile
             includeConfiguration: false);
     }
 
-    internal static XDocument BuildXmlDocument(
+    public static string Serialize(
         MetaWorkspace configuration,
         string representation,
-        string location)
+        string location,
+        bool includeConfiguration = true)
     {
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentException.ThrowIfNullOrWhiteSpace(representation);
         ArgumentException.ThrowIfNullOrWhiteSpace(location);
 
-        var document = MetaWorkspace.BuildDocument(
-            MetaWorkspace.Normalize(configuration, "workspace.meta"));
-        document.Root!.SetAttributeValue("representation", NormalizeRepresentation(representation, "workspace.meta"));
-        document.Root.SetAttributeValue("location", location.Trim());
-        return document;
+        var normalizedRepresentation = NormalizeRepresentation(representation, FileName);
+        var normalizedConfiguration = MetaWorkspace.Normalize(configuration, FileName);
+        var builder = new StringBuilder();
+        builder.AppendLine(Header);
+        AppendDirective(builder, "representation", normalizedRepresentation);
+        AppendDirective(builder, "location", location.Trim());
+
+        if (!includeConfiguration)
+        {
+            return NormalizeLineEndings(builder.ToString());
+        }
+
+        var workspace = normalizedConfiguration.Workspace.Single();
+        var layout = normalizedConfiguration.WorkspaceLayout
+            .Single(item => string.Equals(item.Id, workspace.WorkspaceLayoutId, StringComparison.OrdinalIgnoreCase));
+        var encoding = normalizedConfiguration.Encoding
+            .Single(item => string.Equals(item.Id, workspace.EncodingId, StringComparison.OrdinalIgnoreCase));
+        var newlines = normalizedConfiguration.Newlines
+            .Single(item => string.Equals(item.Id, workspace.NewlinesId, StringComparison.OrdinalIgnoreCase));
+
+        AppendDirective(builder, "name", workspace.Name);
+        AppendDirective(builder, "format-version", workspace.FormatVersion);
+        AppendDirective(builder, "model-file", layout.ModelFilePath);
+        AppendDirective(builder, "instance-directory", layout.InstanceDirPath);
+        AppendDirective(builder, "encoding", encoding.Name);
+        AppendDirective(builder, "newlines", newlines.Name);
+        AppendDirective(builder, "order.entities", FindOrderName(normalizedConfiguration, workspace.EntitiesOrderId));
+        AppendDirective(builder, "order.properties", FindOrderName(normalizedConfiguration, workspace.PropertiesOrderId));
+        AppendDirective(builder, "order.relationships", FindOrderName(normalizedConfiguration, workspace.RelationshipsOrderId));
+        AppendDirective(builder, "order.rows", FindOrderName(normalizedConfiguration, workspace.RowsOrderId));
+        AppendDirective(builder, "order.attributes", FindOrderName(normalizedConfiguration, workspace.AttributesOrderId));
+
+        foreach (var storage in normalizedConfiguration.EntityStorage
+                     .OrderBy(item => item.EntityName, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.EntityName, StringComparer.Ordinal))
+        {
+            builder.AppendLine();
+            AppendDirective(builder, "storage", storage.EntityName);
+            AppendDirective(builder, "  kind", storage.StorageKind);
+            AppendOptionalDirective(builder, "  directory", storage.DirectoryPath);
+            AppendOptionalDirective(builder, "  file", storage.FilePath);
+            AppendOptionalDirective(builder, "  pattern", storage.Pattern);
+            AppendDirective(builder, "end-storage", string.Empty, omitValue: true);
+        }
+
+        return NormalizeLineEndings(builder.ToString());
     }
 
     private static void Write(
@@ -95,25 +134,293 @@ public static class WorkspaceMetaFile
         string representation,
         string location,
         MetaWorkspace configuration,
-        bool includeConfiguration = true)
+        bool includeConfiguration)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(workspaceRootPath);
         var rootPath = Path.GetFullPath(workspaceRootPath);
         Directory.CreateDirectory(rootPath);
-
-        var document = includeConfiguration
-            ? BuildXmlDocument(configuration, representation, location)
-            : new XDocument(
-                new XDeclaration("1.0", "utf-8", null),
-                new XElement(
-                    "MetaWorkspace",
-                    new XAttribute("representation", NormalizeRepresentation(representation, FileName)),
-                    new XAttribute("location", location.Trim())));
         File.WriteAllText(
             Path.Combine(rootPath, FileName),
-            Meta.Core.Serialization.CanonicalXmlSerializer.SerializeToString(document, indented: true),
+            Serialize(configuration, representation, location, includeConfiguration),
             Utf8NoBom);
     }
+
+    private static Descriptor Parse(IReadOnlyList<string> lines, string path)
+    {
+        var descriptor = new Descriptor();
+        var headerFound = false;
+        StorageValues? storage = null;
+
+        for (var index = 0; index < lines.Count; index++)
+        {
+            var line = lines[index].Trim();
+            if (index == 0)
+            {
+                line = line.TrimStart('\uFEFF');
+            }
+
+            if (string.IsNullOrWhiteSpace(line) || line.StartsWith('#'))
+            {
+                continue;
+            }
+
+            if (!headerFound)
+            {
+                if (!string.Equals(line, Header, StringComparison.Ordinal))
+                {
+                    throw Invalid(path, index, $"expected '{Header}'");
+                }
+
+                headerFound = true;
+                continue;
+            }
+
+            var directive = ParseDirective(line, path, index);
+            if (storage != null)
+            {
+                if (string.Equals(directive.Key, "end-storage", StringComparison.Ordinal))
+                {
+                    if (directive.Value.Length != 0)
+                    {
+                        throw Invalid(path, index, "end-storage does not accept a value");
+                    }
+
+                    descriptor.Storages.Add(storage);
+                    storage = null;
+                    continue;
+                }
+
+                switch (directive.Key)
+                {
+                    case "kind":
+                        storage.Kind = RequireValue(directive, path, index);
+                        break;
+                    case "directory":
+                        storage.Directory = directive.Value;
+                        break;
+                    case "file":
+                        storage.File = directive.Value;
+                        break;
+                    case "pattern":
+                        storage.Pattern = directive.Value;
+                        break;
+                    default:
+                        throw Invalid(path, index, $"unknown storage field '{directive.Key}'");
+                }
+
+                continue;
+            }
+
+            if (string.Equals(directive.Key, "storage", StringComparison.Ordinal))
+            {
+                storage = new StorageValues
+                {
+                    EntityName = RequireValue(directive, path, index),
+                };
+                descriptor.HasConfiguration = true;
+                continue;
+            }
+
+            if (string.Equals(directive.Key, "end-storage", StringComparison.Ordinal))
+            {
+                throw Invalid(path, index, "end-storage has no matching storage directive");
+            }
+
+            if (!descriptor.Values.TryAdd(directive.Key, directive.Value))
+            {
+                throw Invalid(path, index, $"duplicate directive '{directive.Key}'");
+            }
+
+            if (!string.Equals(directive.Key, "representation", StringComparison.Ordinal) &&
+                !string.Equals(directive.Key, "location", StringComparison.Ordinal))
+            {
+                descriptor.HasConfiguration = true;
+            }
+        }
+
+        if (!headerFound)
+        {
+            throw new InvalidDataException($"Workspace metadata '{path}' is empty.");
+        }
+
+        if (storage != null)
+        {
+            throw new InvalidDataException($"Workspace metadata '{path}' has an unterminated storage block.");
+        }
+
+        descriptor.Require("representation", path);
+        descriptor.Require("location", path);
+        return descriptor;
+    }
+
+    private static MetaWorkspace BuildConfiguration(Descriptor descriptor, string path)
+    {
+        var configuration = MetaWorkspace.CreateDefault();
+        var workspace = configuration.Workspace.Single();
+        var layout = configuration.WorkspaceLayout.Single();
+        var encoding = configuration.Encoding.Single();
+        var newlines = configuration.Newlines.Single();
+
+        workspace.Name = descriptor.Get("name", workspace.Name);
+        workspace.FormatVersion = descriptor.Get("format-version", workspace.FormatVersion);
+        layout.ModelFilePath = descriptor.Get("model-file", layout.ModelFilePath);
+        layout.InstanceDirPath = descriptor.Get("instance-directory", layout.InstanceDirPath);
+        encoding.Name = descriptor.Get("encoding", encoding.Name);
+        newlines.Name = descriptor.Get("newlines", newlines.Name);
+
+        var orders = new[]
+        {
+            descriptor.Get("order.entities", "name-ordinal"),
+            descriptor.Get("order.properties", "name-ordinal"),
+            descriptor.Get("order.relationships", "name-ordinal"),
+            descriptor.Get("order.rows", "id-ordinal"),
+            descriptor.Get("order.attributes", "id-first-then-name-ordinal"),
+        };
+        configuration.CanonicalOrder = orders
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Select((name, index) => new CanonicalOrder
+            {
+                Id = (index + 1).ToString(CultureInfo.InvariantCulture),
+                Name = name,
+            })
+            .ToList();
+        workspace.EntitiesOrderId = FindOrderId(configuration, orders[0]);
+        workspace.PropertiesOrderId = FindOrderId(configuration, orders[1]);
+        workspace.RelationshipsOrderId = FindOrderId(configuration, orders[2]);
+        workspace.RowsOrderId = FindOrderId(configuration, orders[3]);
+        workspace.AttributesOrderId = FindOrderId(configuration, orders[4]);
+        configuration.EntityStorage = descriptor.Storages
+            .Select((item, index) => new EntityStorage
+            {
+                Id = (index + 1).ToString(CultureInfo.InvariantCulture),
+                WorkspaceId = workspace.Id,
+                EntityName = item.EntityName,
+                StorageKind = item.Kind,
+                DirectoryPath = item.Directory,
+                FilePath = item.File,
+                Pattern = item.Pattern,
+            })
+            .ToList();
+
+        return MetaWorkspace.Normalize(configuration, path);
+    }
+
+    private static string FindOrderName(MetaWorkspace configuration, string orderId) =>
+        configuration.CanonicalOrder.Single(item =>
+            string.Equals(item.Id, orderId, StringComparison.OrdinalIgnoreCase)).Name;
+
+    private static string FindOrderId(MetaWorkspace configuration, string orderName) =>
+        configuration.CanonicalOrder.Single(item =>
+            string.Equals(item.Name, orderName, StringComparison.OrdinalIgnoreCase)).Id;
+
+    private static (string Key, string Value) ParseDirective(string line, string path, int lineIndex)
+    {
+        var separator = line.IndexOfAny([' ', '\t']);
+        if (separator < 0)
+        {
+            return (line.ToLowerInvariant(), string.Empty);
+        }
+
+        var key = line[..separator].Trim().ToLowerInvariant();
+        var value = ParseValue(line[(separator + 1)..].Trim(), path, lineIndex);
+        return (key, value);
+    }
+
+    private static string ParseValue(string text, string path, int lineIndex)
+    {
+        if (text.Length == 0)
+        {
+            return string.Empty;
+        }
+
+        if (text[0] != '"')
+        {
+            if (text.Any(char.IsWhiteSpace))
+            {
+                throw Invalid(path, lineIndex, "values containing whitespace must be quoted");
+            }
+
+            return text;
+        }
+
+        var builder = new StringBuilder();
+        for (var index = 1; index < text.Length; index++)
+        {
+            var character = text[index];
+            if (character == '"')
+            {
+                if (!string.IsNullOrWhiteSpace(text[(index + 1)..]))
+                {
+                    throw Invalid(path, lineIndex, "quoted values cannot have trailing text");
+                }
+
+                return builder.ToString();
+            }
+
+            if (character == '\\')
+            {
+                if (++index >= text.Length)
+                {
+                    throw Invalid(path, lineIndex, "quoted value has an unfinished escape");
+                }
+
+                builder.Append(text[index]);
+                continue;
+            }
+
+            builder.Append(character);
+        }
+
+        throw Invalid(path, lineIndex, "quoted value is not terminated");
+    }
+
+    private static void AppendDirective(StringBuilder builder, string key, string value, bool omitValue = false)
+    {
+        builder.Append(key);
+        if (!omitValue)
+        {
+            builder.Append(' ').Append(FormatValue(value));
+        }
+
+        builder.AppendLine();
+    }
+
+    private static void AppendOptionalDirective(StringBuilder builder, string key, string? value)
+    {
+        if (!string.IsNullOrEmpty(value))
+        {
+            AppendDirective(builder, key, value);
+        }
+    }
+
+    private static string FormatValue(string value)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        if (value.Length > 0 && value.All(character =>
+                !char.IsWhiteSpace(character) && character != '#' && character != '"' && character != '\\'))
+        {
+            return value;
+        }
+
+        return '"' + value.Replace("\\", "\\\\", StringComparison.Ordinal)
+            .Replace("\"", "\\\"", StringComparison.Ordinal) + '"';
+    }
+
+    private static string NormalizeLineEndings(string value) =>
+        value.ReplaceLineEndings("\n");
+
+    private static string RequireValue((string Key, string Value) directive, string path, int lineIndex)
+    {
+        if (string.IsNullOrWhiteSpace(directive.Value))
+        {
+            throw Invalid(path, lineIndex, $"directive '{directive.Key}' requires a value");
+        }
+
+        return directive.Value;
+    }
+
+    private static InvalidDataException Invalid(string path, int lineIndex, string detail) =>
+        new($"Workspace metadata '{path}' line {lineIndex + 1}: {detail}.");
 
     private static string NormalizeRepresentation(string value, string path)
     {
@@ -122,5 +429,36 @@ public static class WorkspaceMetaFile
             ? representation
             : throw new InvalidDataException(
                 $"Workspace metadata '{path}' has unsupported representation '{value}'.");
+    }
+
+    private sealed class Descriptor
+    {
+        public Dictionary<string, string> Values { get; } = new(StringComparer.OrdinalIgnoreCase);
+        public List<StorageValues> Storages { get; } = new();
+        public bool HasConfiguration { get; set; }
+
+        public string Get(string key, string fallback) =>
+            Values.TryGetValue(key, out var value) && !string.IsNullOrWhiteSpace(value)
+                ? value
+                : fallback;
+
+        public string Required(string key) => Values[key];
+
+        public void Require(string key, string path)
+        {
+            if (!Values.TryGetValue(key, out var value) || string.IsNullOrWhiteSpace(value))
+            {
+                throw new InvalidDataException($"Workspace metadata '{path}' is missing '{key}'.");
+            }
+        }
+    }
+
+    private sealed class StorageValues
+    {
+        public string EntityName { get; set; } = string.Empty;
+        public string Kind { get; set; } = "Sharded";
+        public string Directory { get; set; } = string.Empty;
+        public string File { get; set; } = string.Empty;
+        public string Pattern { get; set; } = string.Empty;
     }
 }

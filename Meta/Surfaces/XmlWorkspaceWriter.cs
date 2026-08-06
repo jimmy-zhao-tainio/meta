@@ -164,10 +164,9 @@ public static class XmlWorkspaceWriter
         BackupIfPresent(workspaceConfigPath, workspaceConfigBackupPath);
         try
         {
-            WriteDocument(
-                WorkspaceMetaFile.BuildXmlDocument(normalizedConfig, "xml", "."),
-                workspaceConfigPath,
-                indented: true);
+            WriteText(
+                WorkspaceMetaFile.Serialize(normalizedConfig, "xml", "."),
+                workspaceConfigPath);
             WorkspaceStagingWriter.SaveByStagingConfiguredPaths(
                 workspaceRoot,
                 modelPath,
@@ -459,6 +458,43 @@ public static class XmlWorkspaceWriter
 
         var tempPath = path + ".tmp." + Guid.NewGuid().ToString("N");
         File.WriteAllText(tempPath, Serialize(document, indented), Utf8NoBom);
+        try
+        {
+            if (File.Exists(path))
+            {
+                var backupPath = path + ".bak";
+                try
+                {
+                    File.Replace(tempPath, path, backupPath, ignoreMetadataErrors: true);
+                    DeleteFileIfPresent(backupPath);
+                }
+                catch (PlatformNotSupportedException)
+                {
+                    File.Delete(path);
+                    File.Move(tempPath, path);
+                }
+            }
+            else
+            {
+                File.Move(tempPath, path);
+            }
+        }
+        finally
+        {
+            DeleteFileIfPresent(tempPath);
+        }
+    }
+
+    private static void WriteText(string contents, string path)
+    {
+        var directory = Path.GetDirectoryName(path);
+        if (!string.IsNullOrWhiteSpace(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
+        var tempPath = path + ".tmp." + Guid.NewGuid().ToString("N");
+        File.WriteAllText(tempPath, contents, Utf8NoBom);
         try
         {
             if (File.Exists(path))

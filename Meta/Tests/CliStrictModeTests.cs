@@ -85,9 +85,6 @@ public sealed partial class CliStrictModeTests
         Directory.CreateDirectory(Path.Combine(brokenWorkspaceRoot, "instances"));
         WriteXmlWorkspaceDescriptor(brokenWorkspaceRoot);
         await File.WriteAllTextAsync(
-            Path.Combine(brokenWorkspaceRoot, "workspace.meta"),
-            "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>model.xml</ModelFilePath><InstanceDirPath>instances</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
-        await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "model.xml"),
             "<Model name=\"Broken\"><EntityList><Entity name=\"X\"></EntityList></Model>");
 
@@ -177,9 +174,6 @@ public sealed partial class CliStrictModeTests
         var outputRoot = Path.Combine(Path.GetTempPath(), "metadata-generate-out", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(Path.Combine(brokenWorkspaceRoot, "instances"));
         WriteXmlWorkspaceDescriptor(brokenWorkspaceRoot);
-        await File.WriteAllTextAsync(
-            Path.Combine(brokenWorkspaceRoot, "workspace.meta"),
-            "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>model.xml</ModelFilePath><InstanceDirPath>instances</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "model.xml"),
             "<Model name=\"Broken\"><EntityList><Entity name=\"X\"></EntityList></Model>");
@@ -2867,10 +2861,10 @@ public sealed partial class CliStrictModeTests
                 model.Descendants("Relationship"),
                 element => string.Equals((string?)element.Attribute("entity"), "PlatformType", StringComparison.OrdinalIgnoreCase));
 
-            var workspaceConfig = XDocument.Load(Path.Combine(workspaceRoot, "workspace.meta"));
+            var workspaceConfig = WorkspaceMetaFile.Read(workspaceRoot);
             Assert.Contains(
-                workspaceConfig.Descendants("EntityStorage"),
-                element => string.Equals((string?)element.Element("EntityName"), "PlatformType", StringComparison.OrdinalIgnoreCase));
+                workspaceConfig.Configuration.EntityStorage,
+                storage => string.Equals(storage.EntityName, "PlatformType", StringComparison.OrdinalIgnoreCase));
 
             var systemRows = LoadEntityRows(workspaceRoot, "System");
             Assert.All(systemRows, row =>
@@ -5961,18 +5955,16 @@ public sealed partial class CliStrictModeTests
     private static string CreateTempWorkspaceWithEntityStorageRenameFixture()
     {
         var root = CreateTempWorkspaceFromSamples();
-        var workspaceConfigPath = Path.Combine(root, "workspace.meta");
-        var workspaceConfig = XDocument.Load(workspaceConfigPath);
-        var entityStorages = workspaceConfig.Root?.Element("EntityStorageList");
-        Assert.NotNull(entityStorages);
-        entityStorages!.Add(
-            new XElement("EntityStorage",
-                new XAttribute("Id", "1"),
-                new XAttribute("WorkspaceId", "1"),
-                new XElement("EntityName", "SystemType"),
-                new XElement("StorageKind", "Sharded"),
-                new XElement("FilePath", "instances/SystemType.xml")));
-        workspaceConfig.Save(workspaceConfigPath);
+        var workspaceConfig = WorkspaceMetaFile.Read(root).Configuration;
+        workspaceConfig.EntityStorage.Add(new Meta.Core.WorkspaceConfig.Generated.EntityStorage
+        {
+            Id = "1",
+            WorkspaceId = workspaceConfig.Workspace.Single().Id,
+            EntityName = "SystemType",
+            StorageKind = "Sharded",
+            FilePath = "instances/SystemType.xml",
+        });
+        WorkspaceMetaFile.WriteXml(root, workspaceConfig);
         return root;
     }
 
@@ -6056,48 +6048,6 @@ public sealed partial class CliStrictModeTests
         var root = Path.Combine(Path.GetTempPath(), "metadata-invalid-load-tests", Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(Path.Combine(root, "instances"));
         WriteXmlWorkspaceDescriptor(root);
-
-        File.WriteAllText(
-            Path.Combine(root, "workspace.meta"),
-            """
-            <?xml version="1.0" encoding="utf-8"?>
-            <MetaWorkspace>
-              <WorkspaceList>
-                <Workspace Id="1" WorkspaceLayoutId="1" EncodingId="1" NewlinesId="1" EntitiesOrderId="1" PropertiesOrderId="1" RelationshipsOrderId="1" RowsOrderId="2" AttributesOrderId="3">
-                  <Name>Workspace</Name>
-                  <FormatVersion>1.0</FormatVersion>
-                </Workspace>
-              </WorkspaceList>
-              <WorkspaceLayoutList>
-                <WorkspaceLayout Id="1">
-                  <ModelFilePath>model.xml</ModelFilePath>
-                  <InstanceDirPath>instances</InstanceDirPath>
-                </WorkspaceLayout>
-              </WorkspaceLayoutList>
-              <EncodingList>
-                <Encoding Id="1">
-                  <Name>utf-8-no-bom</Name>
-                </Encoding>
-              </EncodingList>
-              <NewlinesList>
-                <Newlines Id="1">
-                  <Name>lf</Name>
-                </Newlines>
-              </NewlinesList>
-              <CanonicalOrderList>
-                <CanonicalOrder Id="1">
-                  <Name>name-ordinal</Name>
-                </CanonicalOrder>
-                <CanonicalOrder Id="2">
-                  <Name>id-ordinal</Name>
-                </CanonicalOrder>
-                <CanonicalOrder Id="3">
-                  <Name>id-first-then-name-ordinal</Name>
-                </CanonicalOrder>
-              </CanonicalOrderList>
-              <EntityStorageList />
-            </MetaWorkspace>
-            """);
 
         File.WriteAllText(
             Path.Combine(root, "model.xml"),

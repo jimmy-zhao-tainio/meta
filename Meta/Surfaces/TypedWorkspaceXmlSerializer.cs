@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Reflection;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -833,12 +834,11 @@ public static partial class TypedWorkspaceXmlSerializer
     {
         WriteBytesIfChanged(
             workspaceMetaPath,
-            CanonicalXmlSerializer.SerializeToUtf8(
-                WorkspaceMetaFile.BuildXmlDocument(
+            new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)
+                .GetBytes(WorkspaceMetaFile.Serialize(
                     MetaWorkspaceGenerated.CreateDefault(),
                     "xml",
-                    "."),
-                indented: true));
+                    ".")));
     }
 
     private static string GetXmlAttributeName(PropertyInfo property)

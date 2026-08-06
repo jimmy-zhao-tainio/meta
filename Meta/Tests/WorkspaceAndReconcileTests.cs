@@ -7,6 +7,7 @@ using Meta.Core.Domain;
 using Meta.Core.Operations;
 using Meta.Core.Serialization;
 using Meta.Core.Services;
+using Meta.Surfaces;
 
 namespace Meta.Core.Tests;
 
@@ -95,10 +96,15 @@ public sealed class XmlWorkspaceTests
             var modelPath = Path.Combine(tempRoot, "model.xml");
             var instanceDir = Path.Combine(tempRoot, "instances");
             Assert.True(File.Exists(workspaceConfigPath), "workspace.meta should exist after save.");
-            var workspaceMetadata = File.ReadAllText(workspaceConfigPath);
-            Assert.Contains("<MetaWorkspace", workspaceMetadata, StringComparison.Ordinal);
-            Assert.Contains("representation=\"xml\"", workspaceMetadata, StringComparison.Ordinal);
-            Assert.Contains("<WorkspaceLayoutList>", workspaceMetadata, StringComparison.Ordinal);
+            var workspaceMetadata = WorkspaceMetaFile.Read(tempRoot);
+            Assert.Equal("xml", workspaceMetadata.Representation);
+            Assert.Equal(".", workspaceMetadata.Location);
+            Assert.Equal(
+                "model.xml",
+                Meta.Core.WorkspaceConfig.Generated.MetaWorkspace.GetModelFile(workspaceMetadata.Configuration));
+            Assert.Equal(
+                "instances",
+                Meta.Core.WorkspaceConfig.Generated.MetaWorkspace.GetInstanceDir(workspaceMetadata.Configuration));
             Assert.True(File.Exists(modelPath), "model.xml should exist after save.");
             Assert.True(Directory.Exists(instanceDir), "instance shard directory should exist after save.");
             Assert.True(Directory.GetFiles(instanceDir, "*.xml").Length > 0, "instance shard directory should contain XML files.");
@@ -348,13 +354,9 @@ public sealed class XmlWorkspaceTests
         try
         {
             await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
-            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.meta");
-            var workspaceConfig = XDocument.Load(workspaceConfigPath);
-            workspaceConfig
-                .Descendants("FormatVersion")
-                .Single()
-                .Value = "2.0";
-            workspaceConfig.Save(workspaceConfigPath);
+            var workspaceConfig = WorkspaceMetaFile.Read(tempRoot).Configuration;
+            workspaceConfig.Workspace.Single().FormatVersion = "2.0";
+            WorkspaceMetaFile.WriteXml(tempRoot, workspaceConfig);
 
             var exception = await Assert.ThrowsAsync<InvalidDataException>(async () =>
                 await XmlWorkspaceReader.OpenAsync(tempRoot));
@@ -378,13 +380,9 @@ public sealed class XmlWorkspaceTests
         try
         {
             await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
-            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.meta");
-            var workspaceConfig = XDocument.Load(workspaceConfigPath);
-            workspaceConfig
-                .Descendants("FormatVersion")
-                .Single()
-                .Value = "1.7";
-            workspaceConfig.Save(workspaceConfigPath);
+            var workspaceConfig = WorkspaceMetaFile.Read(tempRoot).Configuration;
+            workspaceConfig.Workspace.Single().FormatVersion = "1.7";
+            WorkspaceMetaFile.WriteXml(tempRoot, workspaceConfig);
 
             var loaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             Assert.Equal("1.7", loaded.ContractVersion);
@@ -443,11 +441,9 @@ public sealed class XmlWorkspaceTests
         try
         {
             await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
-            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.meta");
-            var workspaceConfig = XDocument.Load(workspaceConfigPath);
-            var workspaceLayout = workspaceConfig.Descendants("WorkspaceLayout").Single();
-            workspaceLayout.Element("ModelFilePath")!.Value = "../outside-model.xml";
-            workspaceConfig.Save(workspaceConfigPath);
+            var workspaceConfig = WorkspaceMetaFile.Read(tempRoot).Configuration;
+            workspaceConfig.WorkspaceLayout.Single().ModelFilePath = "../outside-model.xml";
+            WorkspaceMetaFile.WriteXml(tempRoot, workspaceConfig);
 
             var exception = await Assert.ThrowsAsync<InvalidDataException>(async () =>
                 await XmlWorkspaceReader.OpenAsync(tempRoot));
