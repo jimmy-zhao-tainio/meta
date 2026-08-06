@@ -137,7 +137,7 @@ Commands use the selected workspace surface for storage and execution.</Body>
       <Title>Meta CLI at a glance</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:commandguide:command-guide" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:installandrun:install-and-run">
-      <Body>Workspace-oriented commands use the **current working directory** when `--workspace` is omitted. They do not search parent directories. Use `--workspace &lt;path&gt;` when the target workspace is elsewhere.
+      <Body>Workspace-oriented commands operate on the current working directory by default. Use `--workspace &lt;path&gt;` to target another workspace.
 
 Common command behavior:
 
@@ -154,6 +154,7 @@ meta model suggest --help
 ```
 
 Top-level help lists command groups. Command help then narrows the surface to the relevant usage, arguments, and options.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>CommandGuide</Slot>
