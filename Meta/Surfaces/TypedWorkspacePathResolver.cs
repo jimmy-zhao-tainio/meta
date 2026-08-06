@@ -1,14 +1,12 @@
 using System;
 using System.IO;
-using System.Linq;
-using System.Xml.Linq;
+using Meta.Core.WorkspaceConfig.Generated;
+using Meta.Surfaces;
 
 namespace Meta.Core.Serialization;
 
 internal static class TypedWorkspacePathResolver
 {
-    private const string WorkspaceXmlFileName = "workspace.xml";
-    private const string DefaultModelFileRelativePath = "model.xml";
     private const string DefaultInstanceDirectoryRelativePath = "instances";
 
     public static string ResolveWorkspaceRootFromPath(string inputPath)
@@ -54,44 +52,27 @@ internal static class TypedWorkspacePathResolver
 
     private static string ReadInstanceDirectoryRelativePath(string workspaceRootPath)
     {
-        var workspaceXmlPath = Path.Combine(workspaceRootPath, WorkspaceXmlFileName);
-        if (!File.Exists(workspaceXmlPath))
-        {
-            return DefaultInstanceDirectoryRelativePath;
-        }
-
-        var document = XDocument.Load(workspaceXmlPath, LoadOptions.None);
-        var instanceDirPath = document.Root?
-            .Element("WorkspaceLayoutList")?
-            .Elements("WorkspaceLayout")
-            .Elements("InstanceDirPath")
-            .Select(element => element.Value?.Trim())
-            .FirstOrDefault(value => !string.IsNullOrWhiteSpace(value));
-
-        return string.IsNullOrWhiteSpace(instanceDirPath)
-            ? DefaultInstanceDirectoryRelativePath
-            : instanceDirPath!;
+        var metadata = WorkspaceMetaFile.Read(workspaceRootPath);
+        EnsureXmlSurface(metadata, workspaceRootPath);
+        return MetaWorkspace.GetInstanceDir(metadata.Configuration);
     }
 
     private static string ReadModelFileRelativePath(string workspaceRootPath)
     {
-        var workspaceXmlPath = Path.Combine(workspaceRootPath, WorkspaceXmlFileName);
-        if (!File.Exists(workspaceXmlPath))
+        var metadata = WorkspaceMetaFile.Read(workspaceRootPath);
+        EnsureXmlSurface(metadata, workspaceRootPath);
+        return MetaWorkspace.GetModelFile(metadata.Configuration);
+    }
+
+    private static void EnsureXmlSurface(
+        WorkspaceMetaDocument metadata,
+        string workspaceRootPath)
+    {
+        if (!string.Equals(metadata.Representation, "xml", StringComparison.Ordinal))
         {
-            return DefaultModelFileRelativePath;
+            throw new InvalidDataException(
+                $"Workspace '{workspaceRootPath}' selects '{metadata.Representation}', not the XML surface.");
         }
-
-        var document = XDocument.Load(workspaceXmlPath, LoadOptions.None);
-        var modelFilePath = document.Root?
-            .Element("WorkspaceLayoutList")?
-            .Elements("WorkspaceLayout")
-            .Elements("ModelFilePath")
-            .Select(element => element.Value?.Trim())
-            .FirstOrDefault(value => !string.IsNullOrWhiteSpace(value));
-
-        return string.IsNullOrWhiteSpace(modelFilePath)
-            ? DefaultModelFileRelativePath
-            : modelFilePath!;
     }
 
     private static void EnsurePathUnderWorkspaceRoot(string workspaceRootPath, string path, string memberName)

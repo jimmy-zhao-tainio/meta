@@ -98,7 +98,7 @@ public sealed class MetaCliRuntimeTests
 
         Assert.Equal(4, exitCode);
         Assert.Contains(
-            "Workspace descriptor",
+            "workspace.meta",
             error.ToString());
     }
 
@@ -1032,7 +1032,6 @@ public sealed class MetaCliRuntimeTests
         {
             var workspace = System.IO.Path.Combine(Path, "CommandSurface.MetaCli");
             model.SaveToXmlWorkspace(workspace);
-            File.WriteAllText(System.IO.Path.Combine(workspace, "workspace.meta"), "workspace\nxml .\n");
             return workspace;
         }
 
@@ -1043,9 +1042,7 @@ public sealed class MetaCliRuntimeTests
                     TypedWorkspaceModelMapper.ToInMemoryWorkspace(model),
                     workspace)
                 .ConfigureAwait(false);
-            File.WriteAllText(
-                System.IO.Path.Combine(workspace, "workspace.meta"),
-                "workspace\ncsharp .\n");
+            WorkspaceMetaFile.WriteCSharp(workspace);
             return workspace;
         }
 
@@ -1060,7 +1057,6 @@ public sealed class MetaCliRuntimeTests
                 ExecutableName = "domain",
             });
             model.SaveToXmlWorkspace(workspace);
-            File.WriteAllText(System.IO.Path.Combine(workspace, "workspace.meta"), "workspace\nxml .\n");
             return workspace;
         }
 

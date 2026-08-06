@@ -10,6 +10,7 @@ using Meta.Integration;
 using Meta.Core.Domain;
 using Meta.Core.Serialization;
 using Meta.Core.Services;
+using Meta.Surfaces;
 
 namespace Meta.Core.Tests;
 
@@ -84,7 +85,7 @@ public sealed partial class CliStrictModeTests
         Directory.CreateDirectory(Path.Combine(brokenWorkspaceRoot, "instances"));
         WriteXmlWorkspaceDescriptor(brokenWorkspaceRoot);
         await File.WriteAllTextAsync(
-            Path.Combine(brokenWorkspaceRoot, "workspace.xml"),
+            Path.Combine(brokenWorkspaceRoot, "workspace.meta"),
             "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>model.xml</ModelFilePath><InstanceDirPath>instances</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "model.xml"),
@@ -177,7 +178,7 @@ public sealed partial class CliStrictModeTests
         Directory.CreateDirectory(Path.Combine(brokenWorkspaceRoot, "instances"));
         WriteXmlWorkspaceDescriptor(brokenWorkspaceRoot);
         await File.WriteAllTextAsync(
-            Path.Combine(brokenWorkspaceRoot, "workspace.xml"),
+            Path.Combine(brokenWorkspaceRoot, "workspace.meta"),
             "<MetaWorkspace><WorkspaceList><Workspace Id=\"1\" WorkspaceLayoutId=\"1\" EncodingId=\"1\" NewlinesId=\"1\" EntitiesOrderId=\"1\" PropertiesOrderId=\"1\" RelationshipsOrderId=\"1\" RowsOrderId=\"2\" AttributesOrderId=\"3\"><Name>Workspace</Name><FormatVersion>1.0</FormatVersion></Workspace></WorkspaceList><WorkspaceLayoutList><WorkspaceLayout Id=\"1\"><ModelFilePath>model.xml</ModelFilePath><InstanceDirPath>instances</InstanceDirPath></WorkspaceLayout></WorkspaceLayoutList><EncodingList><Encoding Id=\"1\"><Name>utf-8-no-bom</Name></Encoding></EncodingList><NewlinesList><Newlines Id=\"1\"><Name>lf</Name></Newlines></NewlinesList><CanonicalOrderList><CanonicalOrder Id=\"1\"><Name>name-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"2\"><Name>id-ordinal</Name></CanonicalOrder><CanonicalOrder Id=\"3\"><Name>id-first-then-name-ordinal</Name></CanonicalOrder></CanonicalOrderList><EntityStorageList /></MetaWorkspace>");
         await File.WriteAllTextAsync(
             Path.Combine(brokenWorkspaceRoot, "model.xml"),
@@ -1148,7 +1149,7 @@ public sealed partial class CliStrictModeTests
 
             Assert.Equal(4, result.ExitCode);
             Assert.DoesNotContain("requires --workspace <path> or --output-xml <path>", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
-            Assert.Contains("Workspace descriptor", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("workspace.meta", result.CombinedOutput, StringComparison.OrdinalIgnoreCase);
         }
         finally
         {
@@ -2866,7 +2867,7 @@ public sealed partial class CliStrictModeTests
                 model.Descendants("Relationship"),
                 element => string.Equals((string?)element.Attribute("entity"), "PlatformType", StringComparison.OrdinalIgnoreCase));
 
-            var workspaceConfig = XDocument.Load(Path.Combine(workspaceRoot, "workspace.xml"));
+            var workspaceConfig = XDocument.Load(Path.Combine(workspaceRoot, "workspace.meta"));
             Assert.Contains(
                 workspaceConfig.Descendants("EntityStorage"),
                 element => string.Equals((string?)element.Element("EntityName"), "PlatformType", StringComparison.OrdinalIgnoreCase));
@@ -5831,6 +5832,7 @@ public sealed partial class CliStrictModeTests
             Path.Combine(repoRoot, "Meta", "Workspaces", "InstanceDiff.Alignment", "model.xml"),
             Path.Combine(metadataRoot, "model.xml"),
             overwrite: true);
+        WorkspaceMetaFile.WriteXml(workspaceRoot);
 
         var openedWorkspace = await XmlWorkspaceReader
             .OpenAsync(workspaceRoot)
@@ -5888,10 +5890,6 @@ public sealed partial class CliStrictModeTests
         }
 
         await XmlWorkspaceWriter.WriteNewAsync(workspace, workspaceRoot).ConfigureAwait(false);
-        File.WriteAllText(
-            Path.Combine(workspaceRoot, "workspace.meta"),
-            "workspace\nxml .\n",
-            new System.Text.UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
 
         void AddRow(
             string entityName,
@@ -5963,7 +5961,7 @@ public sealed partial class CliStrictModeTests
     private static string CreateTempWorkspaceWithEntityStorageRenameFixture()
     {
         var root = CreateTempWorkspaceFromSamples();
-        var workspaceConfigPath = Path.Combine(root, "workspace.xml");
+        var workspaceConfigPath = Path.Combine(root, "workspace.meta");
         var workspaceConfig = XDocument.Load(workspaceConfigPath);
         var entityStorages = workspaceConfig.Root?.Element("EntityStorageList");
         Assert.NotNull(entityStorages);
@@ -6060,7 +6058,7 @@ public sealed partial class CliStrictModeTests
         WriteXmlWorkspaceDescriptor(root);
 
         File.WriteAllText(
-            Path.Combine(root, "workspace.xml"),
+            Path.Combine(root, "workspace.meta"),
             """
             <?xml version="1.0" encoding="utf-8"?>
             <MetaWorkspace>
@@ -6149,9 +6147,7 @@ public sealed partial class CliStrictModeTests
 
     private static void WriteXmlWorkspaceDescriptor(string workspaceRoot)
     {
-        File.WriteAllText(
-            Path.Combine(workspaceRoot, "workspace.meta"),
-            "workspace\nxml .\n");
+        WorkspaceMetaFile.WriteXml(workspaceRoot);
     }
 
     private static async Task<string> CreateTempCanonicalWorkspaceFromSamplesAsync()

@@ -270,7 +270,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
             var exception = Assert.Throws<InvalidDataException>(
                 () => TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath));
 
-            Assert.Contains("workspace.xml", exception.Message, StringComparison.Ordinal);
+        Assert.Contains("workspace.meta", exception.Message, StringComparison.Ordinal);
             Assert.Empty(Directory.EnumerateFileSystemEntries(workspacePath));
         }
         finally
@@ -313,7 +313,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
             var createdPath = TypedWorkspaceXmlSerializer.CreateWorkspace<TestTypedModel>(workspacePath);
 
             Assert.Equal(Path.GetFullPath(workspacePath), createdPath);
-            Assert.True(File.Exists(Path.Combine(workspacePath, "workspace.xml")));
+            Assert.True(File.Exists(Path.Combine(workspacePath, "workspace.meta")));
             Assert.True(File.Exists(Path.Combine(workspacePath, "model.xml")));
             Assert.True(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(workspacePath));
             var loaded = TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath);

@@ -3,6 +3,7 @@ using MetaCli;
 using MetaCli.Core;
 using MetaDocs;
 using MetaDocs.Core;
+using Meta.Surfaces;
 
 namespace MetaDocs.Tests;
 
@@ -156,7 +157,6 @@ public sealed class MetaDocsRuntimeTests
             new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), parentSubjectId: reference.MetaCli.Id);
             AddModelSubject(model, "MetaDocs", reference.MetaModels);
             model.SaveToXmlWorkspace(root);
-            File.WriteAllText(Path.Combine(root, "workspace.meta"), "workspace\nxml .\n");
 
             var rootBrowse = RunCli("browse", root);
             Assert.Equal(0, rootBrowse.ExitCode);
@@ -245,7 +245,6 @@ public sealed class MetaDocsRuntimeTests
             var authored = MetaDocsModel.CreateEmpty();
             var reference = AddPublicReferenceTree(authored);
             authored.SaveToXmlWorkspace(authoredWorkspace);
-            File.WriteAllText(Path.Combine(authoredWorkspace, "workspace.meta"), "workspace\nxml .\n");
 
             var import = RunCli(
                 $"import-workspace-model --source-workspace {QuoteArgument(sourceWorkspace)} --output-xml {QuoteArgument(docsWorkspace)} --source-id source:workspace-model:sample --display-name SampleDocs --parent-subject {reference.MetaModels.Id}");
@@ -311,7 +310,6 @@ public sealed class MetaDocsRuntimeTests
             var reference = AddPublicReferenceTree(model);
             new MetaDocsCliImporter().ImportApplication(model, CreateMetaSqlApp(), parentSubjectId: reference.MetaBiCli.Id);
             model.SaveToXmlWorkspace(docsWorkspace);
-            File.WriteAllText(Path.Combine(docsWorkspace, "workspace.meta"), "workspace\nxml .\n");
 
             const string markdown = """
                 Apply a deploy manifest after source and live fingerprint validation.
@@ -386,7 +384,6 @@ public sealed class MetaDocsRuntimeTests
                 "MetaDocs");
             AddLowLevelDeployProperty(model);
             model.SaveToXmlWorkspace(root);
-            File.WriteAllText(Path.Combine(root, "workspace.meta"), "workspace\nxml .\n");
 
             var rootBrowse = RunCli("browse", root);
             Assert.Equal(0, rootBrowse.ExitCode);
@@ -631,7 +628,6 @@ public sealed class MetaDocsRuntimeTests
             var batch = Assert.Single(model.DocumentationImportBatchList);
             var importedAt = Assert.Single(model.DocumentationSourceList, row => IsSourceType(row, "MetaCliWorkspace")).ImportedAt;
             model.SaveToXmlWorkspace(root);
-            File.WriteAllText(Path.Combine(root, "workspace.meta"), "workspace\nxml .\n");
 
             var reloaded = MetaDocsModel.LoadFromXmlWorkspace(root, searchUpward: false);
             var subjectStatuses = reloaded.DocumentationSubjectList.ToDictionary(row => row.Id, row => row.Status);
@@ -2458,6 +2454,7 @@ public sealed class MetaDocsRuntimeTests
     {
         var root = Path.Combine(Path.GetTempPath(), "metadocs-model-import-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
+        WorkspaceMetaFile.WriteXml(root);
         WriteSampleModel(root, includeEmail);
         if (includeInstances)
         {
@@ -2533,6 +2530,7 @@ public sealed class MetaDocsRuntimeTests
     {
         var root = Path.Combine(Path.GetTempPath(), "metadocs-display-path-import-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
+        WorkspaceMetaFile.WriteXml(root);
         WriteDisplayPathSourceModel(root, includeDisplayPath);
         WriteDisplayPathSourceInstances(root, includeDisplayPath);
         return root;

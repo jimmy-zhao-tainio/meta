@@ -71,7 +71,6 @@ internal static class MetaCliWorkspaceResolver
                     path,
                     cancellationToken)
                 .ConfigureAwait(false);
-            MetaCliWorkspaceDescriptor.WriteXml(path);
             return;
         }
 

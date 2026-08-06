@@ -1,6 +1,7 @@
 using System.Security.Cryptography;
 using System.Text;
 using Meta.Core.Domain;
+using Meta.Surfaces;
 using MetaWorkspaceGenerated = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Serialization;
@@ -18,9 +19,9 @@ internal static class XmlWorkspaceFingerprint
 
         var normalizedConfiguration = MetaWorkspaceGenerated.Normalize(
             configuration,
-            "workspace.xml");
+            WorkspaceMetaFile.FileName);
         var configurationXml = XmlWorkspaceWriter.Serialize(
-            MetaWorkspaceGenerated.BuildDocument(normalizedConfiguration),
+            WorkspaceMetaFile.BuildXmlDocument(normalizedConfiguration, "xml", "."),
             indented: false);
         var modelXml = XmlWorkspaceWriter.Serialize(
             ModelXmlCodec.BuildDocument(workspace.Model),

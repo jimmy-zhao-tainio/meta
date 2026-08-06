@@ -26,8 +26,8 @@ public sealed class DeterminismGoldenTests
             await XmlWorkspaceWriter.WriteNewAsync(workspace, outputA);
             await XmlWorkspaceWriter.WriteNewAsync(workspace, outputB);
 
-            var manifestA = BuildWorkspaceXmlManifest(outputA);
-            var manifestB = BuildWorkspaceXmlManifest(outputB);
+            var manifestA = BuildWorkspaceManifest(outputA);
+            var manifestB = BuildWorkspaceManifest(outputB);
 
             AssertManifestEqual(manifestA, manifestB);
             Assert.NotEmpty(manifestA.FileHashes);
@@ -55,13 +55,13 @@ public sealed class DeterminismGoldenTests
         }
     }
 
-    private static DirectoryManifest BuildWorkspaceXmlManifest(string workspaceRoot)
+    private static DirectoryManifest BuildWorkspaceManifest(string workspaceRoot)
     {
         var root = Path.GetFullPath(workspaceRoot);
         var fileHashes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-        var workspaceXmlPath = Path.Combine(root, "workspace.xml");
-        fileHashes["workspace.xml"] = ComputeFileHash(workspaceXmlPath);
+        var workspaceMetaPath = Path.Combine(root, "workspace.meta");
+        fileHashes["workspace.meta"] = ComputeFileHash(workspaceMetaPath);
 
         var metadataRoot = root;
         foreach (var filePath in Directory.GetFiles(metadataRoot, "*", SearchOption.AllDirectories)

@@ -4,13 +4,14 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Meta.Core.Domain;
+using Meta.Surfaces;
+using MetaWorkspaceGenerated = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
 
 namespace Meta.Core.Serialization;
 
 public static partial class TypedWorkspaceXmlSerializer
 {
-    private const string WorkspaceXmlFileName = "workspace.xml";
-    private const string DefaultModelFileRelativePath = "model.xml";
+    private const string WorkspaceMetaFileName = WorkspaceMetaFile.FileName;
     private const string DefaultInstanceDirectoryRelativePath = "instances";
     private static readonly object CacheLock = new();
     private static readonly Dictionary<Type, ModelMap> ModelMaps = new();
@@ -194,10 +195,17 @@ public static partial class TypedWorkspaceXmlSerializer
             throw new DirectoryNotFoundException($"Workspace '{workspaceRootPath}' was not found.");
         }
 
-        var workspaceXmlPath = Path.Combine(workspaceRootPath, WorkspaceXmlFileName);
-        if (!File.Exists(workspaceXmlPath))
+        var workspaceMetaPath = Path.Combine(workspaceRootPath, WorkspaceMetaFileName);
+        if (!File.Exists(workspaceMetaPath))
         {
-            throw new InvalidDataException($"Workspace '{workspaceRootPath}' does not contain {WorkspaceXmlFileName}.");
+            throw new InvalidDataException($"Workspace '{workspaceRootPath}' does not contain {WorkspaceMetaFileName}.");
+        }
+
+        var metadata = WorkspaceMetaFile.Read(workspaceRootPath);
+        if (!string.Equals(metadata.Representation, "xml", StringComparison.Ordinal))
+        {
+            throw new InvalidDataException(
+                $"Workspace '{workspaceRootPath}' selects '{metadata.Representation}', not the XML surface.");
         }
 
         var modelPath = TypedWorkspacePathResolver.ResolveModelFilePath(workspaceRootPath);
@@ -773,10 +781,10 @@ public static partial class TypedWorkspaceXmlSerializer
         var workspaceRootPath = Path.GetFullPath(workspacePath);
         Directory.CreateDirectory(workspaceRootPath);
 
-        var workspaceXmlPath = Path.Combine(workspaceRootPath, WorkspaceXmlFileName);
-        if (!File.Exists(workspaceXmlPath))
+        var workspaceMetaPath = Path.Combine(workspaceRootPath, WorkspaceMetaFileName);
+        if (!File.Exists(workspaceMetaPath))
         {
-            WriteWorkspaceDocument(workspaceXmlPath);
+            WriteWorkspaceDocument(workspaceMetaPath);
         }
 
         var modelPath = TypedWorkspacePathResolver.ResolveModelFilePath(workspaceRootPath);
@@ -821,51 +829,15 @@ public static partial class TypedWorkspaceXmlSerializer
         }
     }
 
-    private static void WriteWorkspaceDocument(string workspaceXmlPath)
+    private static void WriteWorkspaceDocument(string workspaceMetaPath)
     {
-        var root = new XElement("MetaWorkspace",
-            new XElement("WorkspaceList",
-                new XElement("Workspace",
-                    new XAttribute("Id", "1"),
-                    new XAttribute("WorkspaceLayoutId", "1"),
-                    new XAttribute("EncodingId", "1"),
-                    new XAttribute("NewlinesId", "1"),
-                    new XAttribute("EntitiesOrderId", "1"),
-                    new XAttribute("PropertiesOrderId", "1"),
-                    new XAttribute("RelationshipsOrderId", "1"),
-                    new XAttribute("RowsOrderId", "2"),
-                    new XAttribute("AttributesOrderId", "3"),
-                    new XElement("Name", "Workspace"),
-                    new XElement("FormatVersion", "1.0"))),
-            new XElement("WorkspaceLayoutList",
-                new XElement("WorkspaceLayout",
-                    new XAttribute("Id", "1"),
-                    new XElement("ModelFilePath", DefaultModelFileRelativePath.Replace(Path.DirectorySeparatorChar, '/')),
-                    new XElement("InstanceDirPath", DefaultInstanceDirectoryRelativePath.Replace(Path.DirectorySeparatorChar, '/')))),
-            new XElement("EncodingList",
-                new XElement("Encoding",
-                    new XAttribute("Id", "1"),
-                    new XElement("Name", "utf-8-no-bom"))),
-            new XElement("NewlinesList",
-                new XElement("Newlines",
-                    new XAttribute("Id", "1"),
-                    new XElement("Name", "lf"))),
-            new XElement("CanonicalOrderList",
-                new XElement("CanonicalOrder", new XAttribute("Id", "1"), new XElement("Name", "name-ordinal")),
-                new XElement("CanonicalOrder", new XAttribute("Id", "2"), new XElement("Name", "id-ordinal")),
-                new XElement("CanonicalOrder", new XAttribute("Id", "3"), new XElement("Name", "id-first-then-name-ordinal"))),
-            new XElement("EntityStorageList"));
-
-        var directory = Path.GetDirectoryName(workspaceXmlPath);
-        if (!string.IsNullOrWhiteSpace(directory))
-        {
-            Directory.CreateDirectory(directory);
-        }
-
         WriteBytesIfChanged(
-            workspaceXmlPath,
+            workspaceMetaPath,
             CanonicalXmlSerializer.SerializeToUtf8(
-                new XDocument(new XDeclaration("1.0", "utf-8", null), root),
+                WorkspaceMetaFile.BuildXmlDocument(
+                    MetaWorkspaceGenerated.CreateDefault(),
+                    "xml",
+                    "."),
                 indented: true));
     }
 

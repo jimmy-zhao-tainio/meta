@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Meta.Core.Operations;
 using Meta.Core.Serialization;
+using Meta.Surfaces;
 
 namespace Meta.Core.Tests;
 
@@ -65,6 +66,8 @@ public sealed class ListNamingTests
                   </PersonList>
                 </ListModel>
                 """);
+
+            WorkspaceMetaFile.WriteXml(root);
 
             var workspace = await XmlWorkspaceReader.OpenAsync(root);
 

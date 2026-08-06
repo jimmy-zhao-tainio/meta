@@ -274,7 +274,7 @@ state and private XML layout together.
 `entityName + "\0" + recordId`. Semantic rename operations change those values,
 but no XML provider logic moves the private placement entries.
 
-The old entity rename also updated `workspace.xml` `EntityStorage`; that update
+The old entity rename also updated `workspace.meta` `EntityStorage`; that update
 was removed. The failing test confirms the stale row remains.
 
 Disposition: XML must project semantic renames into its private layout state in
@@ -293,7 +293,7 @@ provider state.
 ### 7. New XML records have an undocumented placement policy
 
 The provider sends a new record to the lexically first existing shard for the
-entity. `workspace.xml` `EntityStorage` is normalized and persisted but is not
+entity. `workspace.meta` `EntityStorage` is normalized and persisted but is not
 used for placement. There is no public XML-specific API for selecting a shard
 after `SourceShardFileName` was removed.
 

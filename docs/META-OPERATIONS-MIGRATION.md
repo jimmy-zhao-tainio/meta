@@ -69,7 +69,7 @@ Every public command that mutates an existing XML workspace now uses the opened 
 
 Bulk insert remains a higher-level CLI planning algorithm, but its result is now only a composition of primitive operations. Optional references to rows created later in the same input are deferred until those rows exist. No batch operation was added to the semantic language.
 
-Entity and record renames can affect XML-owned shard addresses and `workspace.xml` storage names. `XmlWorkspaceOperationEffects` consumes semantic operation results after successful execution and updates those XML details before save. The operation language does not know about XML layout.
+Entity and record renames can affect XML-owned shard addresses and `workspace.meta` storage names. `XmlWorkspaceOperationEffects` consumes semantic operation results after successful execution and updates those XML details before save. The operation language does not know about XML layout.
 
 MetaWeave remains a higher-level algorithm. It validates its authored bindings, constructs an ordered batch of property-to-relationship operations, and accepts the merged model and instance only when the complete batch succeeds.
 

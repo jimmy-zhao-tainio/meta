@@ -1011,7 +1011,7 @@ internal sealed partial class CliRuntime
             return true;
         }
 
-        var mentionsWorkspaceConfig = message.Contains("workspace.xml", StringComparison.OrdinalIgnoreCase);
+        var mentionsWorkspaceConfig = message.Contains("workspace.meta", StringComparison.OrdinalIgnoreCase);
         return mentionsWorkspaceConfig &&
                message.Contains("not found", StringComparison.OrdinalIgnoreCase);
     }

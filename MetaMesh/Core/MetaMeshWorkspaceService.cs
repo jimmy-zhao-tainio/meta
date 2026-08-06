@@ -470,9 +470,9 @@ public sealed class MetaMeshWorkspaceService
             return "directory is not readable";
         }
 
-        return File.Exists(Path.Combine(path, "workspace.xml"))
+        return File.Exists(Path.Combine(path, "workspace.meta"))
             ? null
-            : "workspace.xml is missing";
+            : "workspace.meta is missing";
     }
 
     private static IReadOnlyList<MetaMeshWorkspaceIssue> CollectOperationWorkspaceIssues(

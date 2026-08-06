@@ -12,7 +12,6 @@ public static class XmlWorkspaceReader
 {
     private const int SupportedContractMajorVersion = 1;
     private const int SupportedContractMinorVersion = 0;
-    private const string WorkspaceFileName = "workspace.xml";
     private const string ModelFileName = "model.xml";
     private const string DefaultInstanceDirectoryName = "instances";
     private const int LoadRetryCount = 3;
@@ -95,7 +94,7 @@ public static class XmlWorkspaceReader
 
     private static bool ShouldRetry(string rootPath) =>
         Directory.Exists(rootPath) ||
-        File.Exists(Path.Combine(rootPath, WorkspaceFileName));
+        File.Exists(Path.Combine(rootPath, WorkspaceMetaFile.FileName));
 
     private static void EnsureValid(
         InMemoryWorkspace state,
@@ -121,16 +120,19 @@ public static class XmlWorkspaceReader
 
     private static MetaWorkspaceGenerated ReadConfiguration(string rootPath)
     {
-        var workspacePath = Path.Combine(rootPath, WorkspaceFileName);
-        if (!File.Exists(workspacePath))
+        var metadata = WorkspaceMetaFile.Read(rootPath);
+        if (!string.Equals(metadata.Representation, "xml", StringComparison.Ordinal))
         {
-            return MetaWorkspaceGenerated.CreateDefault();
+            throw new InvalidDataException(
+                $"Workspace metadata in '{rootPath}' selects '{metadata.Representation}', not the XML surface.");
         }
 
         var configuration = MetaWorkspaceGenerated.Normalize(
-            MetaWorkspaceGenerated.LoadFromXml(workspacePath),
-            workspacePath);
-        ValidateContractVersion(configuration, workspacePath);
+            metadata.Configuration,
+            Path.Combine(rootPath, WorkspaceMetaFile.FileName));
+        ValidateContractVersion(
+            configuration,
+            Path.Combine(rootPath, WorkspaceMetaFile.FileName));
         return configuration;
     }
 

@@ -244,7 +244,6 @@ public sealed class MetaMeshCliTests
                     .Select(path => Path.GetFileName(path) ?? string.Empty)
                     .OrderBy(name => name, StringComparer.Ordinal)
                     .ToArray());
-            Assert.False(File.Exists(Path.Combine(meshPath, "workspace.xml")));
         }
         finally
         {
@@ -275,7 +274,6 @@ public sealed class MetaMeshCliTests
             Assert.Equal("echo", result.OperationName);
             Assert.Single(result.Steps);
             Assert.Equal(root, result.Steps[0].WorkingDirectory);
-            Assert.False(File.Exists(Path.Combine(root, "workspace.xml")));
         }
         finally
         {

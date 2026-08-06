@@ -11,7 +11,6 @@ namespace Meta.Core.Serialization;
 
 public static class XmlWorkspaceWriter
 {
-    private const string WorkspaceFileName = "workspace.xml";
     private static readonly UTF8Encoding Utf8NoBom = new(encoderShouldEmitUTF8Identifier: false);
 
     public static async Task WriteNewAsync(
@@ -83,7 +82,7 @@ public static class XmlWorkspaceWriter
 
         var configuration = MetaWorkspaceGenerated.Normalize(
             workspace.Configuration,
-            Path.Combine(workspace.RootPath, WorkspaceFileName));
+            Path.Combine(workspace.RootPath, WorkspaceMetaFile.FileName));
         var layout = workspace.Layout.Clone();
         XmlWorkspaceOperationEffects.Apply(
             configuration,
@@ -140,7 +139,7 @@ public static class XmlWorkspaceWriter
         cancellationToken.ThrowIfCancellationRequested();
 
         var workspaceRoot = Path.GetFullPath(workspaceRootPath);
-        var workspaceConfigPath = Path.Combine(workspaceRoot, WorkspaceFileName);
+        var workspaceConfigPath = Path.Combine(workspaceRoot, WorkspaceMetaFile.FileName);
         var normalizedConfig = MetaWorkspaceGenerated.Normalize(workspaceConfig, workspaceConfigPath);
         using var writeLock = WorkspaceWriteLock.Acquire(workspaceRoot);
 
@@ -166,7 +165,7 @@ public static class XmlWorkspaceWriter
         try
         {
             WriteDocument(
-                MetaWorkspaceGenerated.BuildDocument(normalizedConfig),
+                WorkspaceMetaFile.BuildXmlDocument(normalizedConfig, "xml", "."),
                 workspaceConfigPath,
                 indented: true);
             WorkspaceStagingWriter.SaveByStagingConfiguredPaths(

@@ -91,10 +91,14 @@ public sealed class XmlWorkspaceTests
         {
             await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
 
-            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
+            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.meta");
             var modelPath = Path.Combine(tempRoot, "model.xml");
             var instanceDir = Path.Combine(tempRoot, "instances");
-            Assert.True(File.Exists(workspaceConfigPath), "workspace.xml should exist after save.");
+            Assert.True(File.Exists(workspaceConfigPath), "workspace.meta should exist after save.");
+            var workspaceMetadata = File.ReadAllText(workspaceConfigPath);
+            Assert.Contains("<MetaWorkspace", workspaceMetadata, StringComparison.Ordinal);
+            Assert.Contains("representation=\"xml\"", workspaceMetadata, StringComparison.Ordinal);
+            Assert.Contains("<WorkspaceLayoutList>", workspaceMetadata, StringComparison.Ordinal);
             Assert.True(File.Exists(modelPath), "model.xml should exist after save.");
             Assert.True(Directory.Exists(instanceDir), "instance shard directory should exist after save.");
             Assert.True(Directory.GetFiles(instanceDir, "*.xml").Length > 0, "instance shard directory should contain XML files.");
@@ -125,7 +129,8 @@ public sealed class XmlWorkspaceTests
 
             var xmlPaths = Directory.GetFiles(tempRoot, "*.xml", SearchOption.AllDirectories);
             Assert.NotEmpty(xmlPaths);
-            Assert.All(xmlPaths, path =>
+            var metadataPaths = new[] { Path.Combine(tempRoot, "workspace.meta") };
+            Assert.All(xmlPaths.Concat(metadataPaths), path =>
             {
                 var bytes = File.ReadAllBytes(path);
                 Assert.NotEmpty(bytes);
@@ -145,20 +150,19 @@ public sealed class XmlWorkspaceTests
     }
 
     [Fact]
-    public async Task Load_MissingWorkspaceConfig_UsesDefaultWorkspaceConfig()
+    public async Task Load_MissingWorkspaceMetadata_Fails()
     {
         var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
             await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
-            var workspaceXmlPath = Path.Combine(tempRoot, "workspace.xml");
-            Assert.True(File.Exists(workspaceXmlPath));
-            File.Delete(workspaceXmlPath);
+            var workspaceMetaPath = Path.Combine(tempRoot, "workspace.meta");
+            Assert.True(File.Exists(workspaceMetaPath));
+            File.Delete(workspaceMetaPath);
 
-            var loaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
-            Assert.Equal("1.0", loaded.ContractVersion);
-            Assert.False(File.Exists(workspaceXmlPath), "workspace.xml should not be auto-created when loading defaults.");
+            await Assert.ThrowsAsync<FileNotFoundException>(async () =>
+                await XmlWorkspaceReader.OpenAsync(tempRoot));
         }
         finally
         {
@@ -171,17 +175,13 @@ public sealed class XmlWorkspaceTests
     }
 
     [Fact]
-    public async Task Load_MissingWorkspaceConfig_UsesCanonicalRootLayout()
+    public async Task Load_WorkspaceMetadata_UsesCanonicalRootLayout()
     {
         var (workspace, sampleRoot) = await TestWorkspaceFactory.LoadCanonicalSampleWorkspaceAsync();
         var tempRoot = Path.Combine(Path.GetTempPath(), "metadata-studio-tests", Guid.NewGuid().ToString("N"));
         try
         {
             await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
-
-            var workspaceXmlPath = Path.Combine(tempRoot, "workspace.xml");
-            Assert.True(File.Exists(workspaceXmlPath));
-            File.Delete(workspaceXmlPath);
 
             var loaded = await XmlWorkspaceReader.OpenAsync(tempRoot);
             Assert.Equal(Path.GetFullPath(tempRoot), loaded.RootPath);
@@ -348,7 +348,7 @@ public sealed class XmlWorkspaceTests
         try
         {
             await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
-            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
+            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.meta");
             var workspaceConfig = XDocument.Load(workspaceConfigPath);
             workspaceConfig
                 .Descendants("FormatVersion")
@@ -378,7 +378,7 @@ public sealed class XmlWorkspaceTests
         try
         {
             await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
-            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
+            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.meta");
             var workspaceConfig = XDocument.Load(workspaceConfigPath);
             workspaceConfig
                 .Descendants("FormatVersion")
@@ -443,7 +443,7 @@ public sealed class XmlWorkspaceTests
         try
         {
             await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
-            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
+            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.meta");
             var workspaceConfig = XDocument.Load(workspaceConfigPath);
             var workspaceLayout = workspaceConfig.Descendants("WorkspaceLayout").Single();
             workspaceLayout.Element("ModelFilePath")!.Value = "../outside-model.xml";
@@ -543,7 +543,7 @@ public sealed class XmlWorkspaceTests
                     .ToArray()
                 : Array.Empty<string>();
             Assert.Empty(leftovers);
-            Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.xml")));
+            Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.meta")));
             Assert.True(File.Exists(Path.Combine(tempRoot, "model.xml")));
         }
         finally
@@ -572,7 +572,7 @@ public sealed class XmlWorkspaceTests
             var cube = candidate.Instance.GetOrCreateEntityRecords("Cube").First();
             cube.Values["CubeName"] = "Changed During Failed Save";
 
-            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.xml");
+            var workspaceConfigPath = Path.Combine(tempRoot, "workspace.meta");
             using (var lockedConfig = new FileStream(workspaceConfigPath, FileMode.Open, FileAccess.Read, FileShare.None))
             {
                 await Assert.ThrowsAnyAsync<IOException>(async () =>
@@ -659,7 +659,7 @@ public sealed class XmlWorkspaceTests
             await XmlWorkspaceWriter.WriteNewAsync(workspace.State, tempRoot);
 
             Assert.False(File.Exists(lockPath), "Stale lock should be removed after successful save.");
-            Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.xml")));
+            Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.meta")));
         }
         finally
         {
@@ -1004,7 +1004,7 @@ public sealed class XmlWorkspaceTests
             var workspace = BuildModelOnlyWorkspace();
             await XmlWorkspaceWriter.WriteNewAsync(workspace, tempRoot);
 
-            Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.xml")));
+            Assert.True(File.Exists(Path.Combine(tempRoot, "workspace.meta")));
             Assert.True(File.Exists(Path.Combine(tempRoot, "model.xml")));
             Assert.False(Directory.Exists(Path.Combine(tempRoot, "instances")));
 
