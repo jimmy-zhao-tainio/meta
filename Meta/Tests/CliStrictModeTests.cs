@@ -16,8 +16,6 @@ namespace Meta.Core.Tests;
 
 public sealed partial class CliStrictModeTests
 {
-    private static string? cliExecutablePath;
-
     [Fact]
     public void CommandExamples_DoNotContainLegacyHumanErrorTokens()
     {
@@ -2959,7 +2957,6 @@ public sealed partial class CliStrictModeTests
     [Fact]
     public async Task ModelRenameRelationship_SetsRoleAndRewritesUsageName()
     {
-        InvalidateCliAssemblyCache();
         var workspaceRoot = CreateTempWorkspaceFromSamples();
         try
         {
@@ -3002,7 +2999,6 @@ public sealed partial class CliStrictModeTests
     [Fact]
     public async Task ModelRenameRelationship_ClearsRoleAndRewritesUsageName()
     {
-        InvalidateCliAssemblyCache();
         var workspaceRoot = CreateTempWorkspaceWithRoleRenameFixture();
         try
         {
@@ -3043,7 +3039,6 @@ public sealed partial class CliStrictModeTests
     [Fact]
     public async Task ModelRenameRelationship_CollisionFailsAndIsAtomic()
     {
-        InvalidateCliAssemblyCache();
         var workspaceRoot = CreateTempWorkspaceWithRelationshipRenameCollisionFixture();
         var expectedWorkspace = Path.Combine(Path.GetTempPath(), "metadata-rename-relationship-expected", Guid.NewGuid().ToString("N"));
         try
@@ -5544,11 +5539,9 @@ public sealed partial class CliStrictModeTests
         IReadOnlyList<string> arguments)
     {
         var repoRoot = FindRepositoryRoot();
-        var cliPath = ResolveCliExecutablePath(repoRoot);
-
         var startInfo = new ProcessStartInfo
         {
-            FileName = cliPath,
+            FileName = CliTestHost.DotNetHost,
             RedirectStandardInput = standardInput != null,
             RedirectStandardError = true,
             RedirectStandardOutput = true,
@@ -5556,6 +5549,8 @@ public sealed partial class CliStrictModeTests
             CreateNoWindow = true,
             WorkingDirectory = repoRoot,
         };
+
+        CliTestHost.AddAssemblyArgument(startInfo, "meta");
 
         var effectiveArguments = arguments.ToList();
         if (effectiveArguments.Count >= 2 &&
@@ -5602,29 +5597,6 @@ public sealed partial class CliStrictModeTests
         return (process.ExitCode, stdOut, stdErr, stdOut + Environment.NewLine + stdErr);
     }
 
-    private static void InvalidateCliAssemblyCache()
-    {
-        cliExecutablePath = null;
-    }
-
-    private static string ResolveCliExecutablePath(string repoRoot)
-    {
-        if (!string.IsNullOrWhiteSpace(cliExecutablePath) && File.Exists(cliExecutablePath))
-        {
-            return cliExecutablePath;
-        }
-
-        var targetFramework = ResolveCliTargetFramework(repoRoot);
-        var candidate = Path.Combine(repoRoot, Path.Combine("Meta", "Cli"), "bin", "Debug", targetFramework, "meta.exe");
-        if (!File.Exists(candidate))
-        {
-            throw new FileNotFoundException($"Could not find compiled Meta CLI at '{candidate}'. Build Meta.Cli before running CLI tests.");
-        }
-
-        cliExecutablePath = candidate;
-        return candidate;
-    }
-
     private static async Task WaitForProcessExitAsync(
         Process process,
         ProcessStartInfo startInfo,
@@ -5668,29 +5640,6 @@ public sealed partial class CliStrictModeTests
         catch (NotSupportedException)
         {
         }
-    }
-
-    private static string ResolveCliTargetFramework(string repoRoot)
-    {
-        var cliProject = Path.Combine(repoRoot, Path.Combine("Meta", "Cli"), "Meta.Cli.csproj");
-        if (!File.Exists(cliProject))
-        {
-            throw new FileNotFoundException($"Could not find CLI project at '{cliProject}'.");
-        }
-
-        var document = XDocument.Load(cliProject, LoadOptions.None);
-        var targetFramework = document
-            .Descendants()
-            .FirstOrDefault(element => string.Equals(element.Name.LocalName, "TargetFramework", StringComparison.OrdinalIgnoreCase))
-            ?.Value
-            ?.Trim();
-
-        if (string.IsNullOrWhiteSpace(targetFramework))
-        {
-            throw new InvalidOperationException($"Project '{cliProject}' does not define <TargetFramework>.");
-        }
-
-        return targetFramework;
     }
 
     private static HashSet<string> AssertIdentityIds(string workspacePath, string entityName)

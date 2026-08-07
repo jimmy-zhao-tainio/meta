@@ -465,16 +465,10 @@ public sealed class MetaCliModelTests
     private static (int ExitCode, string Output) RunCli(string arguments, string? workingDirectory = null)
     {
         var repoRoot = FindRepositoryRoot();
-        var cliPath = Path.Combine(repoRoot, "MetaCli", "Cli", "bin", "Debug", "net8.0", "meta-cli.exe");
-        if (!File.Exists(cliPath))
-        {
-            throw new FileNotFoundException($"Could not find compiled meta-cli executable at '{cliPath}'. Build MetaCli.Cli before running tests.");
-        }
-
         var startInfo = new ProcessStartInfo
         {
-            FileName = cliPath,
-            Arguments = arguments,
+            FileName = CliTestHost.DotNetHost,
+            Arguments = CliTestHost.BuildArguments("meta-cli", arguments),
             WorkingDirectory = workingDirectory ?? repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,

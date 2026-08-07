@@ -452,11 +452,10 @@ public sealed class CliTests
     private static (int ExitCode, string Output) RunCli(string arguments, string? workingDirectory = null)
     {
         var repoRoot = FindRepositoryRoot();
-        var cliPath = ResolveCliPath(repoRoot);
         var startInfo = new ProcessStartInfo
         {
-            FileName = cliPath,
-            Arguments = arguments,
+            FileName = CliTestHost.DotNetHost,
+            Arguments = CliTestHost.BuildArguments("meta-weave", arguments),
             WorkingDirectory = workingDirectory ?? repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -505,17 +504,6 @@ public sealed class CliTests
     private static string GetFixtureWorkspacePath(string name)
     {
         return Path.Combine(FindRepositoryRoot(), "MetaWeave", "Workspaces", name);
-    }
-
-    private static string ResolveCliPath(string repoRoot)
-    {
-        var cliPath = Path.Combine(repoRoot, Path.Combine("MetaWeave", "Cli"), "bin", "Debug", "net8.0", "meta-weave.exe");
-        if (!File.Exists(cliPath))
-        {
-            throw new FileNotFoundException($"Could not find compiled MetaWeave CLI at '{cliPath}'. Build MetaWeave.Cli before running tests.");
-        }
-
-        return cliPath;
     }
 
     private static void TryKillProcessTree(Process process)

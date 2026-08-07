@@ -17,12 +17,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\Meta\Tests\CliTestHost.cs" Link="CliTestHost.cs" />
+    <ProjectReference Include="..\Cli\MetaDocs.Cli.csproj" />
     <ProjectReference Include="..\..\MetaCli\Core\MetaCli.Core.csproj" />
     <ProjectReference Include="..\Core\MetaDocs.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
+    <Using Include="Meta.Tests" />
   </ItemGroup>
 
 </Project>

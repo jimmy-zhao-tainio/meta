@@ -2138,16 +2138,10 @@ public sealed class MetaDocsRuntimeTests
         string? standardInput = null)
     {
         var repoRoot = FindRepositoryRoot();
-        var cliPath = Path.Combine(repoRoot, "MetaDocs", "Cli", "bin", "Debug", "net8.0", "meta-docs.exe");
-        if (!File.Exists(cliPath))
-        {
-            throw new FileNotFoundException($"Could not find compiled meta-docs executable at '{cliPath}'. Build MetaDocs.Cli before running tests.");
-        }
-
         var startInfo = new ProcessStartInfo
         {
-            FileName = cliPath,
-            Arguments = arguments,
+            FileName = CliTestHost.DotNetHost,
+            Arguments = CliTestHost.BuildArguments("meta-docs", arguments),
             WorkingDirectory = workingDirectory ?? repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,

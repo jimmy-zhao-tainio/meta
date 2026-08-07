@@ -16,9 +16,11 @@
 
   <ItemGroup>
     <Using Include="Xunit" />
+    <Using Include="Meta.Tests" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\Meta\Tests\CliTestHost.cs" Link="CliTestHost.cs" />
     <ProjectReference Include="..\Cli\MetaCli.Cli.csproj" />
     <ProjectReference Include="..\Core\MetaCli.Core.csproj" />
     <ProjectReference Include="..\Tooling\MetaCli.Tooling.csproj" />

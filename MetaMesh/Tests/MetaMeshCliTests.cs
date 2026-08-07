@@ -645,16 +645,10 @@ public sealed class MetaMeshCliTests
         string? standardInput = null)
     {
         var repoRoot = FindRepositoryRoot();
-        var cliPath = Path.Combine(repoRoot, "MetaMesh", "Cli", "bin", "Debug", "net8.0", "meta-mesh.exe");
-        if (!File.Exists(cliPath))
-        {
-            throw new FileNotFoundException($"Could not find compiled meta-mesh CLI at '{cliPath}'. Build MetaMesh.Cli before running tests.");
-        }
-
         var startInfo = new ProcessStartInfo
         {
-            FileName = cliPath,
-            Arguments = arguments,
+            FileName = CliTestHost.DotNetHost,
+            Arguments = CliTestHost.BuildArguments("meta-mesh", arguments),
             WorkingDirectory = workingDirectory ?? repoRoot,
             RedirectStandardOutput = true,
             RedirectStandardError = true,

@@ -15,9 +15,11 @@
 
   <ItemGroup>
     <Using Include="Xunit" />
+    <Using Include="Meta.Tests" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cli\Meta.Cli.csproj" />
     <ProjectReference Include="..\Core\Meta.Core.csproj" />
     <ProjectReference Include="..\Surfaces\Meta.Surfaces.csproj" />
     <ProjectReference Include="..\Integration\Meta.Integration.csproj" />
