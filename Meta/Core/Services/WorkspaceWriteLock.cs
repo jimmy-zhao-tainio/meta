@@ -10,6 +10,54 @@ public static class WorkspaceWriteLock
     private const string LockFileName = ".meta.lock";
     private const int MaxAcquireAttempts = 3;
 
+    public static bool IsActive(string workspaceRootPath)
+    {
+        if (string.IsNullOrWhiteSpace(workspaceRootPath))
+        {
+            throw new ArgumentException("Workspace root path is required.", nameof(workspaceRootPath));
+        }
+
+        var root = Path.GetFullPath(workspaceRootPath);
+        var lockPath = Path.Combine(root, LockFileName);
+        if (!File.Exists(lockPath))
+        {
+            return false;
+        }
+
+        if (TryReadLockRecord(lockPath, out var record) &&
+            record != null &&
+            IsStale(record))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void ThrowIfActive(string workspaceRootPath)
+    {
+        if (string.IsNullOrWhiteSpace(workspaceRootPath))
+        {
+            throw new ArgumentException("Workspace root path is required.", nameof(workspaceRootPath));
+        }
+
+        var root = Path.GetFullPath(workspaceRootPath);
+        var lockPath = Path.Combine(root, LockFileName);
+        if (!File.Exists(lockPath))
+        {
+            return;
+        }
+
+        if (TryReadLockRecord(lockPath, out var record) &&
+            record != null &&
+            IsStale(record))
+        {
+            return;
+        }
+
+        throw BuildActiveLockException(lockPath, record);
+    }
+
     public static WorkspaceWriteLockHandle Acquire(string workspaceRootPath)
     {
         if (string.IsNullOrWhiteSpace(workspaceRootPath))

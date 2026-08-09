@@ -1,5 +1,6 @@
 using Meta.Core.Domain;
 using Meta.Core.Operations;
+using Meta.Core.Serialization;
 using Meta.Core.Services;
 using Meta.Surfaces;
 using Microsoft.CodeAnalysis;
@@ -10,6 +11,76 @@ namespace Meta.Core.Tests;
 public sealed class CSharpWorkspaceOwnershipTests
 {
     private static readonly SemaphoreSlim PublicationTestGate = new(1, 1);
+
+    [Fact]
+    public async Task OpeningANonexistentWorkspaceCreatesNothing()
+    {
+        using var fixture = ProjectFixture.CreateEmpty();
+        Directory.Delete(fixture.Root, recursive: true);
+
+        await Assert.ThrowsAsync<DirectoryNotFoundException>(async () =>
+            await CSharpWorkspace.OpenAsync(fixture.Root));
+
+        Assert.False(Directory.Exists(fixture.Root));
+        Assert.False(File.Exists(Path.Combine(fixture.Root, ".meta.lock")));
+    }
+
+    [Fact]
+    public async Task OpeningACSharpWorkspaceDoesNotCreateAWriteLock()
+    {
+        using var fixture = await ProjectFixture.CreateAsync();
+        var lockPath = Path.Combine(fixture.Root, ".meta.lock");
+
+        Assert.False(File.Exists(lockPath));
+        await using var workspace = await CSharpWorkspace.OpenAsync(fixture.Root);
+
+        Assert.False(File.Exists(lockPath));
+    }
+
+    [Fact]
+    public async Task IndependentReadersDoNotUseAnExclusiveReaderLock()
+    {
+        using var fixture = await ProjectFixture.CreateAsync();
+
+        var readers = await Task.WhenAll(
+            CSharpWorkspace.OpenAsync(fixture.Root),
+            CSharpWorkspace.OpenAsync(fixture.Root));
+
+        try
+        {
+            Assert.Equal("Demo", await readers[0].ReadModelNameAsync());
+            Assert.Equal("Demo", await readers[1].ReadModelNameAsync());
+            Assert.False(File.Exists(Path.Combine(fixture.Root, ".meta.lock")));
+        }
+        finally
+        {
+            await readers[0].DisposeAsync();
+            await readers[1].DisposeAsync();
+        }
+    }
+
+    [Fact]
+    public async Task XmlAndSqlDescriptorReadsDoNotCreateAWriteLock()
+    {
+        using var xmlFixture = ProjectFixture.CreateEmpty();
+        await XmlWorkspaceWriter.WriteNewAsync(DemoState(), xmlFixture.Root);
+        await using (var workspace = await WorkspaceSurface.OpenAsync(xmlFixture.Root))
+        {
+            Assert.Equal("Demo", await workspace.ReadModelNameAsync());
+        }
+
+        Assert.False(File.Exists(Path.Combine(xmlFixture.Root, ".meta.lock")));
+
+        using var sqlFixture = ProjectFixture.CreateEmpty();
+        await File.WriteAllTextAsync(
+            Path.Combine(sqlFixture.Root, WorkspaceMetaFile.FileName),
+            "representation sql\nlocation META_TEST_SQL\n");
+
+        var metadata = WorkspaceMetaFile.Read(sqlFixture.Root);
+        Assert.Equal("sql", metadata.Representation);
+        Assert.Equal("META_TEST_SQL", metadata.Location);
+        Assert.False(File.Exists(Path.Combine(sqlFixture.Root, ".meta.lock")));
+    }
 
     [Fact]
     public async Task CreationInsideProjectReadsOnlyDeclaredSourceAndPreservesProjectFiles()
@@ -170,6 +241,10 @@ public sealed class CSharpWorkspaceOwnershipTests
                 await CSharpWorkspace.OpenAsync(fixture.Root));
 
             Assert.Contains("locked", exception.Message, StringComparison.OrdinalIgnoreCase);
+            var surfaceException = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                await WorkspaceSurface.OpenAsync(fixture.Root));
+
+            Assert.Contains("locked", surfaceException.Message, StringComparison.OrdinalIgnoreCase);
             release.SetResult(true);
             await publication;
         }
@@ -290,6 +365,89 @@ public sealed class CSharpWorkspaceOwnershipTests
             if (recoveryPath != null && Directory.Exists(recoveryPath))
             {
                 Directory.Delete(recoveryPath, recursive: true);
+            }
+
+            PublicationTestGate.Release();
+        }
+    }
+
+    [Fact]
+    public async Task CreationFailureAfterSourceMoveCleansUpWhileTheWorkspaceRemainsProtected()
+    {
+        await PublicationTestGate.WaitAsync();
+        using var fixture = ProjectFixture.CreateEmpty();
+        fixture.WriteUnownedProjectFiles();
+        var before = fixture.ReadUnownedFiles();
+        var lockObserved = false;
+        CSharpWorkspacePublicationTestHooks.Checkpoint = (path, checkpoint) =>
+        {
+            if (path == fixture.Root &&
+                checkpoint == CSharpWorkspacePublicationCheckpoint.AfterCreationSourcesMoved)
+            {
+                lockObserved = WorkspaceWriteLock.IsActive(path);
+                throw new InvalidOperationException("injected creation failure");
+            }
+        };
+
+        try
+        {
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                await CSharpWorkspace.CreateAsync(DemoState(), fixture.Root));
+
+            Assert.True(lockObserved);
+            Assert.False(File.Exists(Path.Combine(fixture.Root, WorkspaceMetaFile.FileName)));
+            Assert.False(File.Exists(Path.Combine(fixture.Root, "Demo.meta.cs")));
+            Assert.False(File.Exists(Path.Combine(fixture.Root, ".meta.lock")));
+            Assert.Equal(before, fixture.ReadUnownedFiles());
+        }
+        finally
+        {
+            CSharpWorkspacePublicationTestHooks.Checkpoint = null;
+            PublicationTestGate.Release();
+        }
+    }
+
+    [Fact]
+    public async Task CreationCleanupNeverDeletesAnExternallyChangedSource()
+    {
+        await PublicationTestGate.WaitAsync();
+        using var fixture = ProjectFixture.CreateEmpty();
+        fixture.WriteUnownedProjectFiles();
+        var before = fixture.ReadUnownedFiles();
+        string? stagingPath = null;
+        CSharpWorkspacePublicationTestHooks.Checkpoint = (path, checkpoint) =>
+        {
+            if (path == fixture.Root &&
+                checkpoint == CSharpWorkspacePublicationCheckpoint.AfterCreationSourcesMoved)
+            {
+                Assert.True(WorkspaceWriteLock.IsActive(path));
+                File.WriteAllText(
+                    Path.Combine(path, "Demo.meta.cs"),
+                    "external replacement");
+                throw new InvalidOperationException("injected creation failure");
+            }
+        };
+
+        try
+        {
+            var exception = await Assert.ThrowsAsync<WorkspaceCreationException>(async () =>
+                await CSharpWorkspace.CreateAsync(DemoState(), fixture.Root));
+
+            stagingPath = exception.StagingPath;
+            Assert.True(Directory.Exists(stagingPath));
+            Assert.Equal(
+                "external replacement",
+                await File.ReadAllTextAsync(Path.Combine(fixture.Root, "Demo.meta.cs")));
+            Assert.False(File.Exists(Path.Combine(fixture.Root, WorkspaceMetaFile.FileName)));
+            Assert.False(File.Exists(Path.Combine(fixture.Root, ".meta.lock")));
+            Assert.Equal(before, fixture.ReadUnownedFiles());
+        }
+        finally
+        {
+            CSharpWorkspacePublicationTestHooks.Checkpoint = null;
+            if (stagingPath != null && Directory.Exists(stagingPath))
+            {
+                Directory.Delete(stagingPath, recursive: true);
             }
 
             PublicationTestGate.Release();
@@ -528,7 +686,7 @@ public sealed class CSharpWorkspaceOwnershipTests
                     StringComparer.Ordinal);
         }
 
-        private void WriteUnownedProjectFiles()
+        public void WriteUnownedProjectFiles()
         {
             Write("Demo.csproj", "<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net8.0</TargetFramework></PropertyGroup></Project>");
             Write("Program.cs", "not metadata state");

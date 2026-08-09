@@ -2,7 +2,6 @@ using Meta.Core.Connections;
 using Meta.Core.Domain;
 using Meta.Core.Operations;
 using Meta.Core.Serialization;
-using Meta.Core.Services;
 
 namespace Meta.Surfaces;
 
@@ -14,11 +13,7 @@ public static class WorkspaceSurface
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
         var rootPath = Path.GetFullPath(workspacePath);
-        WorkspaceMetaDocument metadata;
-        using (WorkspaceWriteLock.Acquire(rootPath))
-        {
-            metadata = WorkspaceMetaFile.Read(rootPath);
-        }
+        var metadata = WorkspaceMetaFile.Read(rootPath);
 
         return metadata.Representation switch
         {

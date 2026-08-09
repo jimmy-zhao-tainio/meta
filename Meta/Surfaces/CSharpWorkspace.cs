@@ -9,6 +9,8 @@ namespace Meta.Surfaces;
 
 public sealed class CSharpWorkspace : IMetaWorkspace
 {
+    private const int MaxStableReadAttempts = 3;
+
     private InMemoryWorkspace _state;
     private IReadOnlyList<string> _ownedSources;
     private bool _explicitOwnership;
@@ -44,17 +46,11 @@ public sealed class CSharpWorkspace : IMetaWorkspace
                 $"C# workspace '{rootPath}' was not found.");
         }
 
-        using var readLock = WorkspaceWriteLock.Acquire(rootPath);
-        var metadata = WorkspaceMetaFile.Read(rootPath);
-        EnsureCSharp(metadata, rootPath);
-        var ownedSources = metadata.Sources.Count > 0
-            ? metadata.Sources
-            : ReadLegacySources(rootPath, cancellationToken);
-        var sources = await ReadOwnedSourcesAsync(
-                rootPath,
-                ownedSources,
-                cancellationToken)
+        var snapshot = await ReadStableSnapshotAsync(rootPath, cancellationToken)
             .ConfigureAwait(false);
+        var metadata = snapshot.Metadata;
+        var ownedSources = snapshot.OwnedSources;
+        var sources = snapshot.Sources;
         var state = MetaCSharpReader.Read(new MetaCSharp(sources));
         return new CSharpWorkspace(
             rootPath,
@@ -93,6 +89,9 @@ public sealed class CSharpWorkspace : IMetaWorkspace
         var stagePath = CreateTemporaryDirectory(parent, Path.GetFileName(rootPath), "stage");
         var movedSources = new List<string>();
         var descriptorPublished = false;
+        byte[]? publishedDescriptorBytes = null;
+        var preserveStage = false;
+        WorkspaceWriteLockHandle? writeLock = null;
         try
         {
             await WriteSourcesAsync(stagePath, output.Sources, cancellationToken)
@@ -101,35 +100,65 @@ public sealed class CSharpWorkspace : IMetaWorkspace
             await ValidateStagedAsync(stagePath, workspace, cancellationToken)
                 .ConfigureAwait(false);
 
-            using var writeLock = WorkspaceWriteLock.Acquire(rootPath);
-            if (File.Exists(descriptorPath))
+            writeLock = WorkspaceWriteLock.Acquire(rootPath);
+            try
             {
-                throw new WorkspaceConflictException(
-                    $"C# workspace '{rootPath}' was created while publication was staged.",
-                    string.Empty,
-                    "workspace.meta");
-            }
+                if (File.Exists(descriptorPath))
+                {
+                    throw new WorkspaceConflictException(
+                        $"C# workspace '{rootPath}' was created while publication was staged.",
+                        string.Empty,
+                        "workspace.meta");
+                }
 
-            EnsureTargetPathsAvailable(rootPath, sourcePaths, []);
-            MoveExactSources(stagePath, rootPath, sourcePaths, movedSources);
-            File.Move(
-                Path.Combine(stagePath, WorkspaceMetaFile.FileName),
-                descriptorPath);
-            descriptorPublished = true;
-        }
-        catch
-        {
-            if (descriptorPublished)
+                EnsureTargetPathsAvailable(rootPath, sourcePaths, []);
+                MoveExactSources(stagePath, rootPath, sourcePaths, movedSources);
+                CSharpWorkspacePublicationTestHooks.Invoke(
+                    rootPath,
+                    CSharpWorkspacePublicationCheckpoint.AfterCreationSourcesMoved);
+
+                var stagedDescriptorPath = Path.Combine(stagePath, WorkspaceMetaFile.FileName);
+                publishedDescriptorBytes = File.ReadAllBytes(stagedDescriptorPath);
+                File.Move(stagedDescriptorPath, descriptorPath);
+                descriptorPublished = true;
+            }
+            catch (Exception creationFailure)
             {
-                TryDeleteFile(descriptorPath);
-            }
+                try
+                {
+                    if (descriptorPublished)
+                    {
+                        DeletePublishedFile(descriptorPath, publishedDescriptorBytes!);
+                    }
 
-            DeleteExactSources(rootPath, movedSources);
-            throw;
+                    DeletePublishedSources(rootPath, movedSources, output.Sources);
+                }
+                catch (Exception cleanupFailure)
+                {
+                    preserveStage = true;
+                    throw new WorkspaceCreationException(
+                        rootPath,
+                        stagePath,
+                        creationFailure,
+                        cleanupFailure);
+                }
+
+                throw;
+            }
         }
         finally
         {
-            DeleteKnownTemporaryDirectory(stagePath);
+            try
+            {
+                if (!preserveStage)
+                {
+                    DeleteKnownTemporaryDirectory(stagePath);
+                }
+            }
+            finally
+            {
+                writeLock?.Dispose();
+            }
         }
     }
 
@@ -257,18 +286,20 @@ public sealed class CSharpWorkspace : IMetaWorkspace
                 }
 
                 EnsureTargetPathsAvailable(RootPath, newSources, currentSources);
-                MoveExactSources(RootPath, backupPath, currentSources, movedOldSources);
-                File.Move(
-                    Path.Combine(RootPath, WorkspaceMetaFile.FileName),
-                    Path.Combine(backupPath, WorkspaceMetaFile.FileName));
+                var currentDescriptorPath = Path.Combine(RootPath, WorkspaceMetaFile.FileName);
+                var backupDescriptorPath = Path.Combine(backupPath, WorkspaceMetaFile.FileName);
+                File.Copy(currentDescriptorPath, backupDescriptorPath, overwrite: false);
                 oldDescriptorBackedUp = true;
+                MoveExactSources(RootPath, backupPath, currentSources, movedOldSources);
 
                 MoveExactSources(stagePath, RootPath, newSources, movedNewSources);
                 var stagedDescriptorPath = Path.Combine(stagePath, WorkspaceMetaFile.FileName);
                 publishedDescriptorBytes = File.ReadAllBytes(stagedDescriptorPath);
-                File.Move(
+                File.Replace(
                     stagedDescriptorPath,
-                    Path.Combine(RootPath, WorkspaceMetaFile.FileName));
+                    currentDescriptorPath,
+                    destinationBackupFileName: null,
+                    ignoreMetadataErrors: true);
                 newDescriptorPublished = true;
                 CSharpWorkspacePublicationTestHooks.Invoke(
                     RootPath,
@@ -306,19 +337,13 @@ public sealed class CSharpWorkspace : IMetaWorkspace
                         RootPath,
                         CSharpWorkspacePublicationCheckpoint.BeforeRestore);
 
-                    if (newDescriptorPublished)
-                    {
-                        DeletePublishedFile(
-                            Path.Combine(RootPath, WorkspaceMetaFile.FileName),
-                            publishedDescriptorBytes!);
-                    }
-
                     DeletePublishedSources(RootPath, movedNewSources, output.Sources);
-                    if (oldDescriptorBackedUp)
+                    if (newDescriptorPublished && oldDescriptorBackedUp)
                     {
-                        File.Move(
-                            Path.Combine(backupPath, WorkspaceMetaFile.FileName),
-                            Path.Combine(RootPath, WorkspaceMetaFile.FileName));
+                        RestorePublishedDescriptor(
+                            backupPath,
+                            RootPath,
+                            publishedDescriptorBytes!);
                     }
 
                     RestoreExactSources(backupPath, RootPath, movedOldSources);
@@ -357,6 +382,89 @@ public sealed class CSharpWorkspace : IMetaWorkspace
                 }
             }
         }
+    }
+
+    private static async Task<CSharpWorkspaceSnapshot> ReadStableSnapshotAsync(
+        string rootPath,
+        CancellationToken cancellationToken)
+    {
+        Exception? lastFailure = null;
+        var descriptorPath = Path.Combine(rootPath, WorkspaceMetaFile.FileName);
+
+        for (var attempt = 0; attempt < MaxStableReadAttempts; attempt++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            WorkspaceWriteLock.ThrowIfActive(rootPath);
+
+            try
+            {
+                var descriptorBefore = await File.ReadAllBytesAsync(
+                        descriptorPath,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+                var metadata = WorkspaceMetaFile.Read(rootPath);
+                EnsureCSharp(metadata, rootPath);
+                var ownedSources = metadata.Sources.Count > 0
+                    ? metadata.Sources
+                    : ReadLegacySources(rootPath, cancellationToken);
+                var sources = await ReadOwnedSourcesAsync(
+                        rootPath,
+                        ownedSources,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+                var verificationSources = await ReadOwnedSourcesAsync(
+                        rootPath,
+                        ownedSources,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+                var descriptorAfter = await File.ReadAllBytesAsync(
+                        descriptorPath,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+                var verificationOwnedSources = metadata.Sources.Count > 0
+                    ? metadata.Sources
+                    : ReadLegacySources(rootPath, cancellationToken);
+
+                WorkspaceWriteLock.ThrowIfActive(rootPath);
+                if (descriptorBefore.SequenceEqual(descriptorAfter) &&
+                    ownedSources.SequenceEqual(
+                        verificationOwnedSources,
+                        StringComparer.OrdinalIgnoreCase) &&
+                    SourcesEqual(sources, verificationSources))
+                {
+                    return new CSharpWorkspaceSnapshot(
+                        metadata,
+                        ownedSources,
+                        verificationSources);
+                }
+
+                lastFailure = new IOException(
+                    $"C# workspace '{rootPath}' changed while it was being opened.");
+            }
+            catch (Exception exception)
+            {
+                try
+                {
+                    WorkspaceWriteLock.ThrowIfActive(rootPath);
+                }
+                catch (InvalidOperationException)
+                {
+                    throw;
+                }
+
+                if (attempt + 1 >= MaxStableReadAttempts ||
+                    exception is not IOException and not InvalidDataException)
+                {
+                    throw;
+                }
+
+                lastFailure = exception;
+            }
+        }
+
+        throw new IOException(
+            $"C# workspace '{rootPath}' changed while it was being opened after {MaxStableReadAttempts} attempts.",
+            lastFailure);
     }
 
     private static async Task ValidateStagedAsync(
@@ -404,6 +512,27 @@ public sealed class CSharpWorkspace : IMetaWorkspace
         }
 
         return sources;
+    }
+
+    private static bool SourcesEqual(
+        IReadOnlyDictionary<string, string> left,
+        IReadOnlyDictionary<string, string> right)
+    {
+        if (left.Count != right.Count)
+        {
+            return false;
+        }
+
+        foreach (var pair in left)
+        {
+            if (!right.TryGetValue(pair.Key, out var contents) ||
+                !string.Equals(pair.Value, contents, StringComparison.Ordinal))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static IReadOnlyList<string> ReadLegacySources(
@@ -515,16 +644,6 @@ public sealed class CSharpWorkspace : IMetaWorkspace
         }
     }
 
-    private static void DeleteExactSources(
-        string rootPath,
-        IEnumerable<string> sources)
-    {
-        foreach (var source in sources)
-        {
-            TryDeleteFile(WorkspaceMetaFile.ResolveCSharpSourcePath(rootPath, source));
-        }
-    }
-
     private static void DeletePublishedFile(string path, byte[] expectedContents)
     {
         if (!File.Exists(path))
@@ -539,6 +658,52 @@ public sealed class CSharpWorkspace : IMetaWorkspace
         }
 
         File.Delete(path);
+    }
+
+    private static void RestorePublishedDescriptor(
+        string backupRoot,
+        string targetRoot,
+        byte[] publishedContents)
+    {
+        var backupPath = Path.Combine(backupRoot, WorkspaceMetaFile.FileName);
+        var targetPath = Path.Combine(targetRoot, WorkspaceMetaFile.FileName);
+        if (!File.Exists(backupPath))
+        {
+            throw new FileNotFoundException(
+                $"C# workspace descriptor backup '{backupPath}' was not found.",
+                backupPath);
+        }
+
+        if (File.Exists(targetPath) &&
+            !File.ReadAllBytes(targetPath).SequenceEqual(publishedContents))
+        {
+            throw new IOException(
+                $"Cannot roll back C# workspace descriptor '{targetPath}' because it changed after publication.");
+        }
+
+        var restorePath = Path.Combine(
+            backupRoot,
+            $".{WorkspaceMetaFile.FileName}.restore-{Guid.NewGuid():N}");
+        try
+        {
+            File.Copy(backupPath, restorePath, overwrite: false);
+            if (File.Exists(targetPath))
+            {
+                File.Replace(
+                    restorePath,
+                    targetPath,
+                    destinationBackupFileName: null,
+                    ignoreMetadataErrors: true);
+            }
+            else
+            {
+                File.Move(restorePath, targetPath);
+            }
+        }
+        finally
+        {
+            TryDeleteFile(restorePath);
+        }
     }
 
     private static void EnsureTargetPathsAvailable(
@@ -632,4 +797,9 @@ public sealed class CSharpWorkspace : IMetaWorkspace
             File.Delete(path);
         }
     }
+
+    private sealed record CSharpWorkspaceSnapshot(
+        WorkspaceMetaDocument Metadata,
+        IReadOnlyList<string> OwnedSources,
+        IReadOnlyDictionary<string, string> Sources);
 }

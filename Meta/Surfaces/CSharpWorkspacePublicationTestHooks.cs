@@ -2,6 +2,7 @@ namespace Meta.Surfaces;
 
 internal enum CSharpWorkspacePublicationCheckpoint
 {
+    AfterCreationSourcesMoved,
     AfterNewStatePublished,
     BeforeRollback,
     BeforeRestore,
