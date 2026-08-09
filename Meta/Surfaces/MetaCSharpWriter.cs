@@ -60,9 +60,9 @@ public static class MetaCSharpWriter
             .ThenBy(entity => entity.Name, StringComparer.Ordinal)
             .ToArray();
         var builder = new StringBuilder();
+        builder.AppendLine("#nullable enable");
         builder.AppendLine("using System;");
         builder.AppendLine("using System.Collections.Generic;");
-        builder.AppendLine("using System.Collections.ObjectModel;");
         builder.AppendLine();
         builder.Append("namespace ").Append(Id(model.Name)).AppendLine(";");
         builder.AppendLine();
@@ -73,71 +73,45 @@ public static class MetaCSharpWriter
             builder.AppendLine();
         }
 
-        builder.Append("public sealed class ")
-            .Append(Id(model.Name + "Instance"))
-            .AppendLine();
-        builder.AppendLine("{");
-        foreach (var entity in entities)
-        {
-            builder.Append("    public ReadOnlyCollection<")
-                .Append(Id(entity.Name))
-                .Append("> ")
-                .Append(Id(entity.GetListName()))
-                .AppendLine(" { get; }");
-        }
-
-        builder.AppendLine();
-        builder.Append("    public ")
-            .Append(Id(model.Name + "Instance"))
-            .Append('(');
-        for (var index = 0; index < entities.Length; index++)
-        {
-            if (index > 0)
-            {
-                builder.Append(", ");
-            }
-
-            builder.Append("ReadOnlyCollection<")
-                .Append(Id(entities[index].Name))
-                .Append("> ")
-                .Append(Id(ToParameterName(entities[index].GetListName())));
-        }
-
-        builder.AppendLine(")");
-        builder.AppendLine("    {");
-        foreach (var entity in entities)
-        {
-            builder.Append("        ")
-                .Append(Id(entity.GetListName()))
-                .Append(" = ")
-                .Append(Id(ToParameterName(entity.GetListName())))
-                .AppendLine(";");
-        }
-
-        builder.AppendLine("    }");
-        builder.AppendLine("}");
+        AppendTypedModel(builder, model, entities);
         builder.AppendLine();
 
-        builder.Append("public static partial class ")
-            .Append(Id(model.Name))
+        builder.Append("public static class ")
+            .Append(Id(model.Name + "Instance"))
             .AppendLine();
         builder.AppendLine("{");
         builder.Append("    private static readonly ")
-            .Append(Id(model.Name + "Instance"))
+            .Append(Id(model.Name + "Model"))
             .AppendLine(" _builtIn = CreateBuiltIn();");
         builder.Append("    public static ")
-            .Append(Id(model.Name + "Instance"))
+            .Append(Id(model.Name + "Model"))
             .AppendLine(" BuiltIn => _builtIn;");
         builder.AppendLine();
         builder.Append("    public static ")
-            .Append(Id(model.Name + "Instance"))
+            .Append(Id(model.Name + "Model"))
             .AppendLine(" CreateBuiltIn()");
         builder.AppendLine("    {");
+        builder.Append("        var model = ")
+            .Append(Id(model.Name + "Model"))
+            .AppendLine(".CreateEmpty();");
+        builder.AppendLine();
 
+        var recordVariables = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var nextRecordNumber = 0;
         foreach (var entity in entities)
         {
-            AppendCollection(builder, entity, state.Instance);
-            builder.AppendLine();
+            foreach (var record in GetRecords(state.Instance, entity.Name))
+            {
+                var variableName = "record" + nextRecordNumber++;
+                recordVariables.Add(RecordKey(entity.Name, record.Id), variableName);
+                AppendRecord(builder, entity, record, variableName);
+                builder.Append("        model.")
+                    .Append(Id(entity.GetListName()))
+                    .Append(".Add(")
+                    .Append(variableName)
+                    .AppendLine(");");
+                builder.AppendLine();
+            }
         }
 
         foreach (var entity in entities)
@@ -157,68 +131,60 @@ public static class MetaCSharpWriter
                         continue;
                     }
 
+                    var sourceRecord = records[index];
+                    if (!recordVariables.TryGetValue(
+                            RecordKey(entity.Name, sourceRecord.Id),
+                            out var sourceVariable) ||
+                        !recordVariables.TryGetValue(
+                            RecordKey(relationship.Entity, targetId),
+                            out var targetVariable))
+                    {
+                        throw new InvalidOperationException(
+                            $"C# relationship '{entity.Name}.{relationship.GetNavigationName()}' points to a record that is not present.");
+                    }
+
                     builder.Append("        ")
-                        .Append(Id(ToParameterName(entity.GetListName())))
-                        .Append('[')
-                        .Append(index)
-                        .Append("].")
+                        .Append(sourceVariable)
+                        .Append('.')
                         .Append(Id(relationship.GetNavigationName()))
-                        .Append(" = RequireTarget(")
-                        .Append(Id(ToParameterName(relationship.Entity + "List")))
-                        .Append(", ")
-                        .Append(Quote(targetId))
-                        .AppendLine(");");
+                        .Append(" = ")
+                        .Append(targetVariable)
+                        .AppendLine(";");
                 }
             }
         }
 
-        builder.Append("        return new ")
-            .Append(Id(model.Name + "Instance"))
-            .Append('(');
-        for (var index = 0; index < entities.Length; index++)
-        {
-            if (index > 0)
-            {
-                builder.Append(", ");
-            }
-
-            builder.Append("new ReadOnlyCollection<")
-                .Append(Id(entities[index].Name))
-                .Append(">(")
-                .Append(Id(ToParameterName(entities[index].GetListName())))
-                .Append(')');
-        }
-
-        builder.AppendLine(");");
+        builder.AppendLine("        return model;");
         builder.AppendLine("    }");
+
+        builder.AppendLine("}");
+        return builder.ToString();
+    }
+
+    private static void AppendTypedModel(
+        StringBuilder builder,
+        GenericModel model,
+        IReadOnlyList<GenericEntity> entities)
+    {
+        builder.Append("public sealed class ")
+            .Append(Id(model.Name + "Model"))
+            .AppendLine();
+        builder.AppendLine("{");
+        builder.Append("    public static ")
+            .Append(Id(model.Name + "Model"))
+            .AppendLine(" CreateEmpty() => new();");
         builder.AppendLine();
 
         foreach (var entity in entities)
         {
-            builder.Append("    private static ")
+            builder.Append("    public List<")
                 .Append(Id(entity.Name))
-                .Append(" RequireTarget(IReadOnlyList<")
-                .Append(Id(entity.Name))
-                .Append("> records, string id)");
-            builder.AppendLine();
-            builder.AppendLine("    {");
-            builder.AppendLine("        foreach (var record in records)");
-            builder.AppendLine("        {");
-            builder.AppendLine("            if (record.Id == id)");
-            builder.AppendLine("            {");
-            builder.AppendLine("                return record;");
-            builder.AppendLine("            }");
-            builder.AppendLine("        }");
-            builder.AppendLine();
-            builder.Append("        throw new InvalidOperationException(")
-                .Append(Quote("C# metadata relationship target was not found."))
-                .AppendLine(");");
-            builder.AppendLine("    }");
-            builder.AppendLine();
+                .Append("> ")
+                .Append(Id(entity.GetListName()))
+                .AppendLine(" { get; set; } = new();");
         }
 
         builder.AppendLine("}");
-        return builder.ToString();
     }
 
     private static void AppendEntity(StringBuilder builder, GenericEntity entity)
@@ -265,44 +231,38 @@ public static class MetaCSharpWriter
         builder.AppendLine("}");
     }
 
-    private static void AppendCollection(
+    private static void AppendRecord(
         StringBuilder builder,
         GenericEntity entity,
-        GenericInstance instance)
+        GenericRecord record,
+        string variableName)
     {
         builder.Append("        var ")
-            .Append(Id(ToParameterName(entity.GetListName())))
-            .Append(" = new List<")
+            .Append(variableName)
+            .Append(" = new ")
             .Append(Id(entity.Name))
-            .AppendLine(">");
+            .AppendLine();
         builder.AppendLine("        {");
-        foreach (var record in GetRecords(instance, entity.Name))
+        builder.Append("            Id = ").Append(Quote(record.Id));
+        foreach (var property in entity.Properties
+                     .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
+                     .ThenBy(item => item.Name, StringComparer.Ordinal))
         {
-            builder.Append("            new ")
-                .Append(Id(entity.Name))
-                .AppendLine();
-            builder.AppendLine("            {");
-            builder.Append("                Id = ").Append(Quote(record.Id));
-
-            foreach (var property in entity.Properties
-                         .OrderBy(item => item.Name, StringComparer.OrdinalIgnoreCase)
-                         .ThenBy(item => item.Name, StringComparer.Ordinal))
+            if (record.Values.TryGetValue(property.Name, out var value))
             {
-                if (record.Values.TryGetValue(property.Name, out var value))
-                {
-                    builder.Append(",\n                ")
-                        .Append(Id(property.Name))
-                        .Append(" = ")
-                        .Append(Quote(value));
-                }
+                builder.Append(",\n            ")
+                    .Append(Id(property.Name))
+                    .Append(" = ")
+                    .Append(Quote(value));
             }
-
-            builder.AppendLine();
-            builder.AppendLine("            },");
         }
 
+        builder.AppendLine();
         builder.AppendLine("        };");
     }
+
+    private static string RecordKey(string entityName, string id) =>
+        entityName + "\u001f" + id;
 
     private static IReadOnlyList<GenericRecord> GetRecords(
         GenericInstance instance,
@@ -314,11 +274,6 @@ public static class MetaCSharpWriter
                 .ThenBy(record => record.Id, StringComparer.Ordinal)
                 .ToArray()
             : Array.Empty<GenericRecord>();
-    }
-
-    private static string ToParameterName(string listName)
-    {
-        return char.ToLowerInvariant(listName[0]) + listName[1..];
     }
 
     private static string Quote(string value)

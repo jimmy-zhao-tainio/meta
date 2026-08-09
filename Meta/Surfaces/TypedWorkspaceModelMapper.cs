@@ -1,10 +1,92 @@
 using Meta.Core.Domain;
 using Meta.Core.Operations;
+using Meta.Surfaces;
 
 namespace Meta.Core.Serialization;
 
 public static class TypedWorkspaceModelMapper
 {
+    public static TModel Load<TModel>(
+        string workspacePath,
+        bool searchUpward = false)
+        where TModel : class, new() =>
+        LoadAsync<TModel>(workspacePath, searchUpward)
+            .GetAwaiter()
+            .GetResult();
+
+    public static async Task<TModel> LoadAsync<TModel>(
+        string workspacePath,
+        bool searchUpward = false,
+        CancellationToken cancellationToken = default)
+        where TModel : class, new()
+    {
+        if (searchUpward)
+        {
+            throw new NotSupportedException(
+                "Typed workspace loading does not search parent directories. Pass an explicit workspace path.");
+        }
+
+        await using var workspace = await WorkspaceSurface.OpenAsync(
+                workspacePath,
+                cancellationToken)
+            .ConfigureAwait(false);
+        var state = await WorkspaceComposition.MaterializeAsync(
+                workspace,
+                cancellationToken)
+            .ConfigureAwait(false);
+        return FromInMemoryWorkspace(
+            state,
+            static () => new TModel());
+    }
+
+    public static void Save<TModel>(
+        TModel model,
+        string workspacePath)
+        where TModel : class, new() =>
+        SaveAsync(model, workspacePath)
+            .GetAwaiter()
+            .GetResult();
+
+    public static async Task SaveAsync<TModel>(
+        TModel model,
+        string workspacePath,
+        CancellationToken cancellationToken = default)
+        where TModel : class, new()
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
+        var desired = ToInMemoryWorkspace(model);
+        var rootPath = Path.GetFullPath(workspacePath);
+        if (!File.Exists(Path.Combine(rootPath, WorkspaceMetaFile.FileName)))
+        {
+            await WorkspaceSurface.CreateAsync(
+                    desired,
+                    rootPath,
+                    cancellationToken: cancellationToken)
+                .ConfigureAwait(false);
+            return;
+        }
+
+        await using var workspace = await WorkspaceSurface.OpenAsync(
+                rootPath,
+                cancellationToken)
+            .ConfigureAwait(false);
+        var current = await WorkspaceComposition.MaterializeAsync(
+                workspace,
+                cancellationToken)
+            .ConfigureAwait(false);
+        var operations = WorkspaceSynchronization.PlanInstanceChanges(
+            current,
+            desired);
+        if (operations.Count > 0)
+        {
+            await workspace.ExecuteAsync(
+                    operations,
+                    cancellationToken)
+                .ConfigureAwait(false);
+        }
+    }
+
     public static TModel FromInMemoryWorkspace<TModel>(
         InMemoryWorkspace workspace,
         Func<TModel> createModel)

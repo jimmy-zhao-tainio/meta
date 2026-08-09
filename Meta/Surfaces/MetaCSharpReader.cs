@@ -181,18 +181,86 @@ public static class MetaCSharpReader
             }
         }
 
+        RequireTypedModelRoot(roots, model);
         return model;
+    }
+
+    private static void RequireTypedModelRoot(
+        IReadOnlyCollection<CompilationUnitSyntax> roots,
+        GenericModel model)
+    {
+        var modelTypes = roots
+            .SelectMany(root => root.DescendantNodes()
+                .OfType<ClassDeclarationSyntax>())
+            .Where(type => type.Identifier.ValueText == model.Name + "Model")
+            .ToArray();
+        if (modelTypes.Length != 1)
+        {
+            throw new InvalidDataException(
+                $"C# metadata must declare one '{model.Name}Model' type.");
+        }
+
+        var modelType = modelTypes[0];
+        var factories = modelType.Members
+            .OfType<MethodDeclarationSyntax>()
+            .Where(method =>
+                method.Identifier.ValueText == "CreateEmpty" &&
+                method.Modifiers.Any(SyntaxKind.StaticKeyword) &&
+                ReadSimpleTypeName(method.ReturnType) == model.Name + "Model")
+            .ToArray();
+        if (factories.Length != 1)
+        {
+            throw new InvalidDataException(
+                $"{model.Name}Model must expose one static CreateEmpty method.");
+        }
+
+        var listProperties = modelType.Members
+            .OfType<PropertyDeclarationSyntax>()
+            .Where(property => TryReadListElementType(property.Type, out _))
+            .ToArray();
+        foreach (var entity in model.Entities)
+        {
+            var matches = listProperties
+                .Where(property =>
+                    property.Identifier.ValueText == entity.GetListName() &&
+                    TryReadListElementType(property.Type, out var elementType) &&
+                    MetaName.Comparer.Equals(elementType, entity.Name))
+                .ToArray();
+            if (matches.Length != 1)
+            {
+                throw new InvalidDataException(
+                    $"{model.Name}Model must expose one List<{entity.Name}> {entity.GetListName()} property.");
+            }
+        }
+
+        if (listProperties.Length != model.Entities.Count)
+        {
+            throw new InvalidDataException(
+                $"{model.Name}Model contains a list property that is not part of the model.");
+        }
     }
 
     private static GenericInstance ReadInstance(
         IReadOnlyCollection<CompilationUnitSyntax> roots,
         GenericModel model)
     {
+        var instanceTypes = roots
+            .SelectMany(root => root.DescendantNodes()
+                .OfType<ClassDeclarationSyntax>())
+            .Where(type => type.Identifier.ValueText == model.Name + "Instance")
+            .ToArray();
+        if (instanceTypes.Length != 1)
+        {
+            throw new InvalidDataException(
+                $"C# metadata must declare one '{model.Name}Instance' type.");
+        }
+
         var factories = roots
             .SelectMany(root => root.DescendantNodes()
                 .OfType<MethodDeclarationSyntax>())
             .Where(method =>
-                method.Identifier.ValueText == "CreateBuiltIn")
+                method.Identifier.ValueText == "CreateBuiltIn" &&
+                method.Parent == instanceTypes[0])
             .ToArray();
         if (factories.Length != 1 ||
             factories[0].Body == null)
@@ -202,211 +270,227 @@ public static class MetaCSharpReader
         }
 
         var method = factories[0];
-        RequireBuiltInRoot(roots, method);
+        RequireBuiltInRoot(roots, model, method);
         var body = method.Body!;
         var instance = new GenericInstance
         {
             ModelName = model.Name,
         };
-        var collectionEntityByVariable =
-            new Dictionary<string, GenericEntity>(
-                StringComparer.Ordinal);
-
-        foreach (var local in body.DescendantNodes()
-                     .OfType<LocalDeclarationStatementSyntax>())
+        var modelVariables = body.DescendantNodes()
+            .OfType<VariableDeclaratorSyntax>()
+            .Where(variable =>
+                variable.Initializer?.Value is InvocationExpressionSyntax invocation &&
+                InvocationName(invocation) == "CreateEmpty")
+            .Select(variable => variable.Identifier.ValueText)
+            .Distinct(StringComparer.Ordinal)
+            .ToArray();
+        if (modelVariables.Length != 1)
         {
-            foreach (var variable in local.Declaration.Variables)
-            {
-                if (variable.Initializer?.Value is not
-                    ObjectCreationExpressionSyntax creation ||
-                    !TryReadListElementType(
-                        creation.Type,
-                        out var entityType))
-                {
-                    continue;
-                }
-
-                var entity = model.FindEntity(entityType) ??
-                    throw new InvalidDataException(
-                        $"C# collection '{variable.Identifier.ValueText}' uses unknown entity '{entityType}'.");
-                if (!collectionEntityByVariable.TryAdd(
-                        variable.Identifier.ValueText,
-                        entity))
-                {
-                    throw new InvalidDataException(
-                        $"C# collection variable '{variable.Identifier.ValueText}' is duplicated.");
-                }
-
-                ReadRecords(
-                    creation,
-                    entity,
-                    instance.GetOrCreateEntityRecords(entity.Name));
-            }
+            throw new InvalidDataException(
+                $"{model.Name}Instance.CreateBuiltIn must create one {model.Name}Model with CreateEmpty.");
         }
 
-        RequireReturnedCollections(
-            method,
-            model,
-            collectionEntityByVariable);
-        RejectUnsupportedCollectionUses(
-            method,
-            collectionEntityByVariable.Keys);
-        ReadRelationshipAssignments(
-            method,
-            collectionEntityByVariable,
-            instance);
+        var modelVariable = modelVariables[0];
+        var recordsByVariable = new Dictionary<string, (GenericEntity Entity, GenericRecord Record)>(StringComparer.Ordinal);
+        foreach (var variable in body.DescendantNodes()
+                     .OfType<VariableDeclaratorSyntax>())
+        {
+            if (variable.Identifier.ValueText == modelVariable)
+            {
+                continue;
+            }
+
+            if (variable.Initializer?.Value is not ObjectCreationExpressionSyntax creation)
+            {
+                continue;
+            }
+
+            var entity = model.FindEntity(ReadSimpleTypeName(creation.Type));
+            if (entity == null)
+            {
+                throw new InvalidDataException(
+                    $"C# instance variable '{variable.Identifier.ValueText}' has an unsupported type '{creation.Type}'.");
+            }
+
+            recordsByVariable.Add(
+                variable.Identifier.ValueText,
+                (entity, ReadRecordCreation(creation, entity)));
+        }
+
+        var addedVariables = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var statement in body.Statements.OfType<ExpressionStatementSyntax>())
+        {
+            if (statement.Expression is InvocationExpressionSyntax invocation &&
+                TryReadModelAdd(invocation, modelVariable, model, out var entity, out var recordVariable))
+            {
+                if (!recordsByVariable.TryGetValue(recordVariable, out var record) ||
+                    !ReferenceEquals(record.Entity, entity) ||
+                    !addedVariables.Add(recordVariable))
+                {
+                    throw new InvalidDataException(
+                        $"C# instance adds record variable '{recordVariable}' to an invalid model collection.");
+                }
+
+                instance.GetOrCreateEntityRecords(entity.Name).Add(record.Record);
+                continue;
+            }
+
+            if (statement.Expression is AssignmentExpressionSyntax assignment)
+            {
+                ReadRelationshipAssignment(
+                    assignment,
+                    recordsByVariable,
+                    instance);
+                continue;
+            }
+
+            throw new InvalidDataException(
+                "C# CreateBuiltIn contains an unsupported expression statement.");
+        }
+
+        if (recordsByVariable.Keys.Any(variable => !addedVariables.Contains(variable)))
+        {
+            throw new InvalidDataException(
+                "C# CreateBuiltIn declares a record that is not added to the model.");
+        }
+
+        var returns = body.Statements
+            .OfType<ReturnStatementSyntax>()
+            .ToArray();
+        if (returns.Length != 1 ||
+            returns[0].Expression is not IdentifierNameSyntax returnedModel ||
+            returnedModel.Identifier.ValueText != modelVariable)
+        {
+            throw new InvalidDataException(
+                "C# CreateBuiltIn must return the model created by CreateEmpty.");
+        }
+
         return instance;
     }
 
-    private static void ReadRecords(
-        ObjectCreationExpressionSyntax collectionCreation,
-        GenericEntity entity,
-        ICollection<GenericRecord> records)
+    private static GenericRecord ReadRecordCreation(
+        ObjectCreationExpressionSyntax recordCreation,
+        GenericEntity entity)
     {
-        if (collectionCreation.Initializer == null)
+        if (recordCreation.Initializer == null)
+        {
+            throw new InvalidDataException(
+                $"C# record for '{entity.Name}' must use an object initializer.");
+        }
+
+        string? id = null;
+        var record = new GenericRecord();
+        foreach (var assignment in recordCreation.Initializer.Expressions
+                     .OfType<AssignmentExpressionSyntax>())
+        {
+            if (assignment.Left is not IdentifierNameSyntax member)
+            {
+                throw new InvalidDataException(
+                    $"C# record initializer for '{entity.Name}' contains an unsupported member.");
+            }
+
+            var memberName = member.Identifier.ValueText;
+            if (MetaName.Comparer.Equals(memberName, "Id"))
+            {
+                id = ReadString(assignment.Right);
+                continue;
+            }
+
+            var property = entity.Properties.FirstOrDefault(candidate =>
+                MetaName.Comparer.Equals(candidate.Name, memberName)) ??
+                throw new InvalidDataException(
+                    $"C# record initializer uses unknown property '{entity.Name}.{memberName}'.");
+            var value = ReadOptionalString(assignment.Right);
+            if (value != null)
+            {
+                record.Values.Add(property.Name, value);
+            }
+        }
+
+        record.Id = MetaIdentity.Require(
+            id,
+            $"C# record for entity '{entity.Name}' has invalid Id.");
+        return record;
+    }
+
+    private static bool TryReadModelAdd(
+        InvocationExpressionSyntax invocation,
+        string modelVariable,
+        GenericModel model,
+        out GenericEntity entity,
+        out string recordVariable)
+    {
+        entity = null!;
+        recordVariable = string.Empty;
+        if (invocation.Expression is not MemberAccessExpressionSyntax add ||
+            add.Name.Identifier.ValueText != "Add" ||
+            add.Expression is not MemberAccessExpressionSyntax list ||
+            list.Expression is not IdentifierNameSyntax modelName ||
+            modelName.Identifier.ValueText != modelVariable ||
+            invocation.ArgumentList.Arguments.Count != 1 ||
+            invocation.ArgumentList.Arguments[0].Expression is not IdentifierNameSyntax recordName)
+        {
+            return false;
+        }
+
+        entity = model.Entities.FirstOrDefault(candidate =>
+            MetaName.Comparer.Equals(candidate.GetListName(), list.Name.Identifier.ValueText))!;
+        if (entity == null)
+        {
+            throw new InvalidDataException(
+                $"C# model collection '{list.Name.Identifier.ValueText}' is not declared by the model.");
+        }
+
+        recordVariable = recordName.Identifier.ValueText;
+        return true;
+    }
+
+    private static void ReadRelationshipAssignment(
+        AssignmentExpressionSyntax assignment,
+        IReadOnlyDictionary<string, (GenericEntity Entity, GenericRecord Record)> recordsByVariable,
+        GenericInstance instance)
+    {
+        if (assignment.Left is not MemberAccessExpressionSyntax member ||
+            member.Expression is not IdentifierNameSyntax sourceName ||
+            !recordsByVariable.TryGetValue(sourceName.Identifier.ValueText, out var source))
+        {
+            throw new InvalidDataException(
+                "C# relationship assignment must target a declared record.");
+        }
+
+        var relationship = source.Entity.Relationships.FirstOrDefault(candidate =>
+            MetaName.Comparer.Equals(candidate.GetNavigationName(), member.Name.Identifier.ValueText));
+        if (relationship == null)
+        {
+            throw new InvalidDataException(
+                $"C# relationship assignment uses unknown navigation '{source.Entity.Name}.{member.Name.Identifier.ValueText}'.");
+        }
+
+        if (assignment.Right.IsKind(SyntaxKind.NullLiteralExpression))
         {
             return;
         }
 
-        foreach (var expression in
-                 collectionCreation.Initializer.Expressions)
+        if (assignment.Right is not IdentifierNameSyntax targetName ||
+            !recordsByVariable.TryGetValue(targetName.Identifier.ValueText, out var target) ||
+            !MetaName.Comparer.Equals(target.Entity.Name, relationship.Entity))
         {
-            if (expression is not ObjectCreationExpressionSyntax recordCreation ||
-                !MetaName.Comparer.Equals(
-                    ReadSimpleTypeName(recordCreation.Type),
-                    entity.Name) ||
-                recordCreation.Initializer == null)
-            {
-                throw new InvalidDataException(
-                    $"C# collection for '{entity.Name}' contains an unsupported initializer.");
-            }
-
-            string? id = null;
-            var record = new GenericRecord();
-            foreach (var assignment in recordCreation.Initializer.Expressions
-                         .OfType<AssignmentExpressionSyntax>())
-            {
-                if (assignment.Left is not IdentifierNameSyntax member)
-                {
-                    throw new InvalidDataException(
-                        $"C# record initializer for '{entity.Name}' contains an unsupported member.");
-                }
-
-                var memberName = member.Identifier.ValueText;
-                if (MetaName.Comparer.Equals(memberName, "Id"))
-                {
-                    id = ReadString(assignment.Right);
-                    continue;
-                }
-
-                var property = entity.Properties.FirstOrDefault(candidate =>
-                    MetaName.Comparer.Equals(
-                        candidate.Name,
-                        memberName)) ??
-                    throw new InvalidDataException(
-                        $"C# record initializer uses unknown property '{entity.Name}.{memberName}'.");
-                var value = ReadOptionalString(assignment.Right);
-                if (value != null)
-                {
-                    record.Values.Add(property.Name, value);
-                }
-            }
-
-            record.Id = MetaIdentity.Require(
-                id,
-                $"C# record for entity '{entity.Name}' has invalid Id.");
-            if (records.Any(existing =>
-                    MetaIdentity.Comparer.Equals(
-                        existing.Id,
-                        record.Id)))
-            {
-                throw new InvalidDataException(
-                    $"C# entity '{entity.Name}' contains duplicate Id '{record.Id}'.");
-            }
-
-            records.Add(record);
+            throw new InvalidDataException(
+                $"C# relationship assignment for '{source.Entity.Name}.{relationship.GetNavigationName()}' targets the wrong entity.");
         }
-    }
 
-    private static void ReadRelationshipAssignments(
-        MethodDeclarationSyntax method,
-        IReadOnlyDictionary<string, GenericEntity>
-            collectionEntityByVariable,
-        GenericInstance instance)
-    {
-        foreach (var assignment in method.Body!.DescendantNodes()
-                     .OfType<AssignmentExpressionSyntax>())
+        if (!source.Record.RelationshipIds.TryAdd(
+                relationship.GetColumnName(),
+                target.Record.Id))
         {
-            if (!TryReadRecordMember(
-                    assignment.Left,
-                    out var variableName,
-                    out var recordIndex,
-                    out var memberName))
-            {
-                continue;
-            }
-
-            if (assignment.Parent is not ExpressionStatementSyntax statement ||
-                statement.Parent != method.Body)
-            {
-                throw new InvalidDataException(
-                    "C# relationship assignments must be direct statements in CreateBuiltIn.");
-            }
-
-            if (!collectionEntityByVariable.TryGetValue(
-                    variableName,
-                    out var entity))
-            {
-                throw new InvalidDataException(
-                    $"C# relationship assignment uses unknown collection '{variableName}'.");
-            }
-
-            var records = instance.RecordsByEntity[entity.Name];
-            if (recordIndex < 0 || recordIndex >= records.Count)
-            {
-                throw new InvalidDataException(
-                    $"C# relationship assignment for '{entity.Name}' uses invalid record index {recordIndex}.");
-            }
-
-            var relationship = entity.Relationships.FirstOrDefault(
-                candidate => MetaName.Comparer.Equals(
-                    candidate.GetNavigationName(),
-                    memberName)) ??
-                throw new InvalidDataException(
-                    $"C# relationship assignment uses unknown navigation '{entity.Name}.{memberName}'.");
-            var record = records[recordIndex];
-            var relationshipName = relationship.GetColumnName();
-            if (assignment.Right.IsKind(
-                    SyntaxKind.NullLiteralExpression))
-            {
-                continue;
-            }
-
-            if (assignment.Right is not InvocationExpressionSyntax invocation ||
-                invocation.Expression is not IdentifierNameSyntax invokedName ||
-                invokedName.Identifier.ValueText != "RequireTarget" ||
-                invocation.ArgumentList.Arguments.Count < 2)
-            {
-                throw new InvalidDataException(
-                    $"C# relationship assignment for '{entity.Name}.{memberName}' is unsupported.");
-            }
-
-            var targetId = MetaIdentity.Require(
-                ReadString(
-                    invocation.ArgumentList.Arguments[1].Expression),
-                $"C# relationship '{entity.Name}.{relationshipName}' has invalid target Id.");
-            if (!record.RelationshipIds.TryAdd(
-                    relationshipName,
-                    targetId))
-            {
-                throw new InvalidDataException(
-                    $"C# relationship '{entity.Name}.{relationshipName}' is assigned more than once for record '{record.Id}'.");
-            }
+            throw new InvalidDataException(
+                $"C# relationship '{source.Entity.Name}.{relationship.GetColumnName()}' is assigned more than once.");
         }
     }
 
     private static void RequireBuiltInRoot(
         IReadOnlyCollection<CompilationUnitSyntax> roots,
+        GenericModel model,
         MethodDeclarationSyntax factory)
     {
         var fields = roots
@@ -415,6 +499,7 @@ public static class MetaCSharpReader
             .Where(field =>
                 field.Modifiers.Any(SyntaxKind.StaticKeyword) &&
                 field.Modifiers.Any(SyntaxKind.ReadOnlyKeyword))
+            .Where(field => ReadSimpleTypeName(field.Declaration.Type) == model.Name + "Model")
             .SelectMany(field => field.Declaration.Variables)
             .Where(variable =>
                 variable.Initializer?.Value is InvocationExpressionSyntax invocation &&
@@ -433,6 +518,7 @@ public static class MetaCSharpReader
             .Where(property =>
                 property.Identifier.ValueText == "BuiltIn" &&
                 property.Modifiers.Any(SyntaxKind.StaticKeyword) &&
+                ReadSimpleTypeName(property.Type) == model.Name + "Model" &&
                 property.ExpressionBody?.Expression is IdentifierNameSyntax identifier &&
                 identifier.Identifier.ValueText == fieldName)
             .ToArray();
@@ -454,96 +540,6 @@ public static class MetaCSharpReader
                 member.Name.Identifier.ValueText,
             _ => string.Empty,
         };
-    }
-
-    private static void RequireReturnedCollections(
-        MethodDeclarationSyntax method,
-        GenericModel model,
-        IReadOnlyDictionary<string, GenericEntity>
-            collectionEntityByVariable)
-    {
-        var returns = method.Body!.Statements
-            .OfType<ReturnStatementSyntax>()
-            .ToArray();
-        if (returns.Length != 1 ||
-            returns[0].Expression is not ObjectCreationExpressionSyntax root)
-        {
-            throw new InvalidDataException(
-                "CreateBuiltIn must directly return one workspace instance.");
-        }
-
-        var returnedVariables = new HashSet<string>(StringComparer.Ordinal);
-        var returnedEntities = new HashSet<string>(MetaName.Comparer);
-        foreach (var argument in root.ArgumentList?.Arguments ?? default)
-        {
-            if (argument.Expression is not ObjectCreationExpressionSyntax collection ||
-                collection.Type is not GenericNameSyntax generic ||
-                generic.Identifier.ValueText != "ReadOnlyCollection" ||
-                generic.TypeArgumentList.Arguments.Count != 1 ||
-                collection.ArgumentList?.Arguments.Count != 1 ||
-                collection.ArgumentList.Arguments[0].Expression is not
-                    IdentifierNameSyntax variable)
-            {
-                throw new InvalidDataException(
-                    "CreateBuiltIn must return entity lists as ReadOnlyCollection values.");
-            }
-
-            var variableName = variable.Identifier.ValueText;
-            if (!collectionEntityByVariable.TryGetValue(
-                    variableName,
-                    out var entity) ||
-                !MetaName.Comparer.Equals(
-                    ReadSimpleTypeName(
-                        generic.TypeArgumentList.Arguments[0]),
-                    entity.Name) ||
-                !returnedVariables.Add(variableName) ||
-                !returnedEntities.Add(entity.Name))
-            {
-                throw new InvalidDataException(
-                    $"CreateBuiltIn returns invalid entity collection '{variableName}'.");
-            }
-        }
-
-        if (returnedVariables.Count != collectionEntityByVariable.Count ||
-            returnedEntities.Count != model.Entities.Count)
-        {
-            throw new InvalidDataException(
-                "CreateBuiltIn must return each entity collection exactly once.");
-        }
-    }
-
-    private static void RejectUnsupportedCollectionUses(
-        MethodDeclarationSyntax method,
-        IEnumerable<string> collectionVariables)
-    {
-        var names = collectionVariables.ToHashSet(StringComparer.Ordinal);
-        foreach (var identifier in method.Body!.DescendantNodes()
-                     .OfType<IdentifierNameSyntax>()
-                     .Where(identifier => names.Contains(
-                         identifier.Identifier.ValueText)))
-        {
-            var allowed =
-                identifier.Parent is VariableDeclaratorSyntax ||
-                identifier.Parent is ForEachStatementSyntax forEach &&
-                forEach.Expression == identifier ||
-                identifier.Parent is ElementAccessExpressionSyntax element &&
-                element.Expression == identifier ||
-                identifier.Parent is ArgumentSyntax argument &&
-                argument.Expression == identifier &&
-                argument.Parent?.Parent is ObjectCreationExpressionSyntax collection &&
-                collection.Type is GenericNameSyntax generic &&
-                generic.Identifier.ValueText == "ReadOnlyCollection" ||
-                identifier.Parent is ArgumentSyntax targetArgument &&
-                targetArgument.Expression == identifier &&
-                targetArgument.Parent?.Parent is InvocationExpressionSyntax invocation &&
-                invocation.Expression is IdentifierNameSyntax invokedName &&
-                invokedName.Identifier.ValueText == "RequireTarget";
-            if (!allowed)
-            {
-                throw new InvalidDataException(
-                    $"C# entity collection '{identifier.Identifier.ValueText}' is used in an unsupported expression.");
-            }
-        }
     }
 
     private static bool IsEntityDeclaration(
@@ -594,31 +590,6 @@ public static class MetaCSharpReader
 
         elementType = string.Empty;
         return false;
-    }
-
-    private static bool TryReadRecordMember(
-        ExpressionSyntax expression,
-        out string variableName,
-        out int recordIndex,
-        out string memberName)
-    {
-        variableName = string.Empty;
-        recordIndex = -1;
-        memberName = string.Empty;
-        if (expression is not MemberAccessExpressionSyntax member ||
-            member.Expression is not ElementAccessExpressionSyntax element ||
-            element.Expression is not IdentifierNameSyntax variable ||
-            element.ArgumentList.Arguments.Count != 1 ||
-            !int.TryParse(
-                element.ArgumentList.Arguments[0].Expression.ToString(),
-                out recordIndex))
-        {
-            return false;
-        }
-
-        variableName = variable.Identifier.ValueText;
-        memberName = member.Name.Identifier.ValueText;
-        return true;
     }
 
     private static string ReadString(ExpressionSyntax expression)

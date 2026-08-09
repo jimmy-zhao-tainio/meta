@@ -172,7 +172,7 @@ internal static class Program
         var sourceWorkspace = invocation.Required("source-workspace");
         try
         {
-            var cli = TypedWorkspaceXmlSerializer.Load<MetaCliModel>(sourceWorkspace, searchUpward: false);
+            var cli = TypedWorkspaceModelMapper.Load<MetaCliModel>(sourceWorkspace, searchUpward: false);
             var application = new MetaDocsCliImporter().ImportApplication(
                 model,
                 cli,
@@ -296,11 +296,11 @@ internal static class Program
             var models = new List<MetaDocsModel>();
             foreach (var include in invocation.Values("include"))
             {
-                models.Add(TypedWorkspaceXmlSerializer.LoadAsync<MetaDocsModel>(include, searchUpward: false).GetAwaiter().GetResult());
+                models.Add(TypedWorkspaceModelMapper.LoadAsync<MetaDocsModel>(include, searchUpward: false).GetAwaiter().GetResult());
             }
 
             var merged = new MetaDocsSuiteMerger().MergeIntoNew(models);
-            TypedWorkspaceXmlSerializer.Save(merged, outputWorkspace);
+            TypedWorkspaceModelMapper.Save(merged, outputWorkspace);
             MetaCliWorkspace.DescribeXml(outputWorkspace);
             Presenter.WriteInfo($"Rebuilt suite workspace: {Path.GetFullPath(outputWorkspace)}");
             Presenter.WriteInfo($"Included {models.Count} source workspace(s), {merged.DocumentationSourceList.Count} documentation source(s).");

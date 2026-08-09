@@ -183,21 +183,17 @@ public sealed class MetaCSharpReaderTests
             MetaXmlCodecTests.BuildState());
         var source = csharp.Sources["RoundTrip.cs"];
         source = source.Replace(
-            "        var nodeList =",
+            "        var model = RoundTripModel.CreateEmpty();",
             """
-                        var ignoredNodes = new List<Node>
-                        {
-                            new Node { Id = "ignored", RequiredText = "Ignored" },
-                        };
-
-                        var nodeList =
+                        var model = RoundTripModel.CreateEmpty();
+                        var ignored = new Node { Id = "ignored", RequiredText = "Ignored" };
             """,
             StringComparison.Ordinal);
 
         var exception = Assert.Throws<InvalidDataException>(() =>
             MetaCSharpReader.Read(WithSource(csharp, source)));
 
-        Assert.Contains("return each entity collection", exception.Message);
+        Assert.Contains("declares a record that is not added", exception.Message);
     }
 
     [Fact]
@@ -207,10 +203,10 @@ public sealed class MetaCSharpReaderTests
             MetaXmlCodecTests.BuildState());
         var source = csharp.Sources["RoundTrip.cs"];
         source = source.Replace(
-            "        return new RoundTripInstance",
+            "        return model;",
             """
-                nodeList.Add(new Node { Id = "added", RequiredText = "Added" });
-                return new RoundTripInstance
+                model.NodeList.Add(new Node { Id = "added", RequiredText = "Added" });
+                return model;
             """,
             StringComparison.Ordinal);
 
