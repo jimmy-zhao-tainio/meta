@@ -18,24 +18,24 @@ public delegate Task MetaCliAsyncWorkspaceCommandHandler(
 public delegate void MetaCliModelCommandHandler<TModel>(
     MetaCliInvocation invocation,
     TModel model)
-    where TModel : class, IMetaWorkspaceModel<TModel>;
+    where TModel : class;
 
 public delegate Task MetaCliAsyncModelCommandHandler<TModel>(
     MetaCliInvocation invocation,
     TModel model)
-    where TModel : class, IMetaWorkspaceModel<TModel>;
+    where TModel : class;
 
 public delegate void MetaCliModelCompletionCommandHandler<TModel>(
     MetaCliInvocation invocation,
     TModel model,
     MetaCliCommandCompletion completion)
-    where TModel : class, IMetaWorkspaceModel<TModel>;
+    where TModel : class;
 
 public delegate Task MetaCliAsyncModelCompletionCommandHandler<TModel>(
     MetaCliInvocation invocation,
     TModel model,
     MetaCliCommandCompletion completion)
-    where TModel : class, IMetaWorkspaceModel<TModel>;
+    where TModel : class;
 
 public delegate void MetaCliWorkspacesCommandHandler(
     MetaCliInvocation invocation,
@@ -49,13 +49,13 @@ public delegate void MetaCliModelWorkspacesCommandHandler<TModel>(
     MetaCliInvocation invocation,
     TModel model,
     MetaCliWorkspaces workspaces)
-    where TModel : class, IMetaWorkspaceModel<TModel>;
+    where TModel : class;
 
 public delegate Task MetaCliAsyncModelWorkspacesCommandHandler<TModel>(
     MetaCliInvocation invocation,
     TModel model,
     MetaCliWorkspaces workspaces)
-    where TModel : class, IMetaWorkspaceModel<TModel>;
+    where TModel : class;
 
 public delegate int MetaCliRuntimeFailureHandler(MetaCliRuntimeFailure failure);
 
@@ -75,7 +75,7 @@ public enum MetaCliRuntimeFailureKind
 }
 
 public sealed class MetaCliRuntime<TModel>
-    where TModel : class, IMetaWorkspaceModel<TModel>
+    where TModel : class, new()
 {
     private readonly string commandWorkspacePath;
     private readonly string? applicationId;
@@ -428,12 +428,12 @@ public sealed class MetaCliRuntime<TModel>
         }
 
         var baseline = workspace is null
-            ? TypedWorkspaceModelMapper.ToInMemoryWorkspace(TModel.CreateEmpty())
+            ? TypedWorkspaceModelMapper.ToInMemoryWorkspace(new TModel())
             : await WorkspaceComposition.MaterializeAsync(workspace)
                 .ConfigureAwait(false);
         var domainModel = TypedWorkspaceModelMapper.FromInMemoryWorkspace(
             baseline,
-            static () => TModel.CreateEmpty());
+            static () => new TModel());
         var completion = new MetaCliCommandCompletion();
 
         await using var additionalWorkspaces = await ResolveWorkspacesAsync(

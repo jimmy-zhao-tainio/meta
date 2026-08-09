@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using MetaCli;
 using MetaCli.Core;
+using Meta.Core.Serialization;
 using MetaDocs;
 using MetaDocs.Core;
 using Meta.Surfaces;
@@ -40,7 +41,7 @@ public sealed class MetaDocsRuntimeTests
 
         foreach (var (workspace, cli) in sourceWorkspaces)
         {
-            var documentation = MetaDocsModel.LoadFromXmlWorkspace(
+            var documentation = TypedWorkspaceXmlSerializer.Load<MetaDocsModel>(
                 Path.Combine(repoRoot, "MetaDocs", "Docs", "Workspaces", workspace),
                 searchUpward: false);
 
@@ -57,7 +58,7 @@ public sealed class MetaDocsRuntimeTests
     {
         var repoRoot = FindRepositoryRoot();
         var commandWorkspace = Path.Combine(repoRoot, "MetaDocs", "Cli", "meta-docs.MetaCli");
-        var commandModel = MetaCliModel.LoadFromXmlWorkspace(commandWorkspace, searchUpward: false);
+        var commandModel = TypedWorkspaceXmlSerializer.Load<MetaCliModel>(commandWorkspace, searchUpward: false);
         var integrity = new MetaCliWorkspaceService().ValidateIntegrity(commandModel);
 
         Assert.False(
@@ -156,7 +157,7 @@ public sealed class MetaDocsRuntimeTests
             Assert.Contains("meta-docs browse meta/overview", new MetaDocsBrowseService().Browse(model).Text);
             new MetaDocsCliImporter().ImportApplication(model, CreateBindingApp("Bind transforms."), parentSubjectId: reference.MetaCli.Id);
             AddModelSubject(model, "MetaDocs", reference.MetaModels);
-            model.SaveToXmlWorkspace(root);
+            TypedWorkspaceXmlSerializer.Save(model, root);
 
             var rootBrowse = RunCli("browse", root);
             Assert.Equal(0, rootBrowse.ExitCode);
@@ -216,7 +217,7 @@ public sealed class MetaDocsRuntimeTests
             Assert.Equal(0, updatedBrowse.ExitCode);
             Assert.Contains("Use this when the binding command should read a source schema workspace.", updatedBrowse.Output);
 
-            var reloaded = MetaDocsModel.LoadFromXmlWorkspace(root, searchUpward: false);
+            var reloaded = TypedWorkspaceXmlSerializer.Load<MetaDocsModel>(root, searchUpward: false);
             Assert.Contains(reloaded.DocumentationNarrativeList, row =>
                 row.DocumentationSubject?.Id == "source:cli:meta-transform-binding:app:command:bind:option:source-schema" &&
                 row.Slot == "Summary" &&
@@ -244,7 +245,7 @@ public sealed class MetaDocsRuntimeTests
         {
             var authored = MetaDocsModel.CreateEmpty();
             var reference = AddPublicReferenceTree(authored);
-            authored.SaveToXmlWorkspace(authoredWorkspace);
+            TypedWorkspaceXmlSerializer.Save(authored, authoredWorkspace);
 
             var import = RunCli(
                 $"import-workspace-model --source-workspace {QuoteArgument(sourceWorkspace)} --output-xml {QuoteArgument(docsWorkspace)} --source-id source:workspace-model:sample --display-name SampleDocs --parent-subject {reference.MetaModels.Id}");
@@ -263,7 +264,7 @@ public sealed class MetaDocsRuntimeTests
             Assert.Equal(0, refresh.ExitCode);
             Assert.Contains("Refreshed model docs: SampleModel (2 entity subject(s)).", refresh.Output);
 
-            var refreshedDocs = MetaDocsModel.LoadFromXmlWorkspace(docsWorkspace, searchUpward: false);
+            var refreshedDocs = TypedWorkspaceXmlSerializer.Load<MetaDocsModel>(docsWorkspace, searchUpward: false);
             var modelSubject = Assert.Single(refreshedDocs.DocumentationSubjectList, row =>
                 IsSubjectType(row, "Model") &&
                 row.DisplayName == "SampleModel");
@@ -309,7 +310,7 @@ public sealed class MetaDocsRuntimeTests
             var model = MetaDocsModel.CreateEmpty();
             var reference = AddPublicReferenceTree(model);
             new MetaDocsCliImporter().ImportApplication(model, CreateMetaSqlApp(), parentSubjectId: reference.MetaBiCli.Id);
-            model.SaveToXmlWorkspace(docsWorkspace);
+            TypedWorkspaceXmlSerializer.Save(model, docsWorkspace);
 
             const string markdown = """
                 Apply a deploy manifest after source and live fingerprint validation.
@@ -328,7 +329,7 @@ public sealed class MetaDocsRuntimeTests
             Assert.Equal(0, validate.ExitCode);
             Assert.Contains("Diagnostics: 0 error(s), 0 warning(s), 0 info.", validate.Output);
 
-            var authored = MetaDocsModel.LoadFromXmlWorkspace(docsWorkspace, searchUpward: false);
+            var authored = TypedWorkspaceXmlSerializer.Load<MetaDocsModel>(docsWorkspace, searchUpward: false);
             var authoredNarrative = Assert.Single(authored.DocumentationNarrativeList, row => row.Slot == "Example.Deploy");
             Assert.Equal("Deploy a manifest", authoredNarrative.Title);
             Assert.StartsWith("Apply a deploy manifest", authoredNarrative.Body, StringComparison.Ordinal);
@@ -348,7 +349,7 @@ public sealed class MetaDocsRuntimeTests
                 standardInput: renamedMarkdown);
             Assert.Equal(0, rename.ExitCode);
 
-            var renamed = MetaDocsModel.LoadFromXmlWorkspace(docsWorkspace, searchUpward: false);
+            var renamed = TypedWorkspaceXmlSerializer.Load<MetaDocsModel>(docsWorkspace, searchUpward: false);
             var renamedCandidates = renamed.DocumentationNarrativeList.Where(row =>
                 row.DocumentationSubject.Id == "source:cli:meta-sql:app:command:deploy" &&
                 row.Origin == "Authored" &&
@@ -374,7 +375,7 @@ public sealed class MetaDocsRuntimeTests
 
             var merge = RunCli($"merge --include {QuoteArgument(docsWorkspace)} --workspace {QuoteArgument(suiteWorkspace)}");
             Assert.Equal(0, merge.ExitCode);
-            var suite = MetaDocsModel.LoadFromXmlWorkspace(suiteWorkspace, searchUpward: false);
+            var suite = TypedWorkspaceXmlSerializer.Load<MetaDocsModel>(suiteWorkspace, searchUpward: false);
             var suiteNarrative = Assert.Single(suite.DocumentationNarrativeList, row => row.Slot == "Example.Deploy");
             Assert.Equal("Deploy a deployment manifest", suiteNarrative.Title);
             Assert.Equal("meta-sql deploy", suiteNarrative.DocumentationSubject.DisplayName);
@@ -410,7 +411,7 @@ public sealed class MetaDocsRuntimeTests
                 "source:workspace-model:meta-docs",
                 "MetaDocs");
             AddLowLevelDeployProperty(model);
-            model.SaveToXmlWorkspace(root);
+            TypedWorkspaceXmlSerializer.Save(model, root);
 
             var rootBrowse = RunCli("browse", root);
             Assert.Equal(0, rootBrowse.ExitCode);
@@ -709,9 +710,9 @@ public sealed class MetaDocsRuntimeTests
             importer.ImportApplication(model, CreateBindingApp("Bind transforms."));
             var batch = Assert.Single(model.DocumentationImportBatchList);
             var importedAt = Assert.Single(model.DocumentationSourceList, row => IsSourceType(row, "MetaCliWorkspace")).ImportedAt;
-            model.SaveToXmlWorkspace(root);
+            TypedWorkspaceXmlSerializer.Save(model, root);
 
-            var reloaded = MetaDocsModel.LoadFromXmlWorkspace(root, searchUpward: false);
+            var reloaded = TypedWorkspaceXmlSerializer.Load<MetaDocsModel>(root, searchUpward: false);
             var subjectStatuses = reloaded.DocumentationSubjectList.ToDictionary(row => row.Id, row => row.Status);
             var factStatuses = reloaded.DocumentationFactList.ToDictionary(row => row.Id, row => row.Status);
             importer.ImportApplication(reloaded, CreateBindingApp("Bind transforms."));

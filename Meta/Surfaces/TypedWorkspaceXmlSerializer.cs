@@ -47,6 +47,16 @@ public static partial class TypedWorkspaceXmlSerializer
         return model;
     }
 
+    public static Task<TModel> LoadAsync<TModel>(
+        string workspacePath,
+        bool searchUpward = false,
+        CancellationToken cancellationToken = default)
+        where TModel : class, new()
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        return Task.FromResult(Load<TModel>(workspacePath, searchUpward));
+    }
+
     public static string CreateWorkspace<TModel>(string workspacePath)
         where TModel : class, new()
     {
@@ -138,6 +148,17 @@ public static partial class TypedWorkspaceXmlSerializer
                 File.Delete(shardPath);
             }
         }
+    }
+
+    public static Task SaveAsync<TModel>(
+        TModel model,
+        string workspacePath,
+        CancellationToken cancellationToken = default)
+        where TModel : class, new()
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        Save(model, workspacePath);
+        return Task.CompletedTask;
     }
 
     public static void SaveModel<TModel>(TModel model, string workspacePath)

@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Xml.Linq;
+using Meta.Core.Serialization;
 using MetaCli.Core;
 
 namespace MetaCli.Tests;
@@ -127,7 +128,7 @@ public sealed class MetaCliModelTests
             Assert.Contains("commands: 1 (1 runnable)", result.Output);
             AssertWorkspacePreservesProviderIntegrity(workspace);
 
-            var model = MetaCliModel.LoadFromXmlWorkspace(workspace, searchUpward: false);
+            var model = TypedWorkspaceXmlSerializer.Load<MetaCliModel>(workspace, searchUpward: false);
             Assert.Contains(model.ApplicationList, application => application.Id == "app-demo" && application.ExecutableName == "demo");
             Assert.Contains(model.ValueArityList, arity => arity.Id == "arity-none" && arity.MinValueCount == "0" && arity.MaxValueCount == "0");
             Assert.Contains(model.ValueArityList, arity => arity.Id == "arity-one" && arity.MinValueCount == "1" && arity.MaxValueCount == "1");
@@ -243,7 +244,7 @@ public sealed class MetaCliModelTests
             Assert.DoesNotContain("Application:", show.Output);
             Assert.DoesNotContain("ExecutableCommand:", show.Output);
 
-            var model = MetaCliModel.LoadFromXmlWorkspace(workspace, searchUpward: false);
+            var model = TypedWorkspaceXmlSerializer.Load<MetaCliModel>(workspace, searchUpward: false);
             var addProperty = model.CommandList.Single(command => command.Id == "cmd-add-property");
             Assert.Equal("model add-property", MetaCliWorkspaceService.BuildRoute(addProperty));
             Assert.Equal("exec-add-property", model.ExecutableCommandList.Single(command => ReferenceEquals(command.Command, addProperty)).Id);
@@ -263,7 +264,7 @@ public sealed class MetaCliModelTests
             AssertCommandSucceedsAndWorkspacePreservesProviderIntegrity(
                 "remove-application-option --application app-demo --parameter param-workspace",
                 workspace);
-            model = MetaCliModel.LoadFromXmlWorkspace(
+            model = TypedWorkspaceXmlSerializer.Load<MetaCliModel>(
                 workspace,
                 searchUpward: false);
             Assert.DoesNotContain(
@@ -291,7 +292,7 @@ public sealed class MetaCliModelTests
             Assert.Contains("Required parameter 'token' was not provided.", addOption.Output);
 
             AssertWorkspacePreservesProviderIntegrity(workspace);
-            var model = MetaCliModel.LoadFromXmlWorkspace(workspace, searchUpward: false);
+            var model = TypedWorkspaceXmlSerializer.Load<MetaCliModel>(workspace, searchUpward: false);
             Assert.Empty(model.OptionList);
             Assert.Empty(model.OptionTokenList);
             Assert.DoesNotContain(model.ParameterList, parameter => parameter.Id == "param-workspace");
@@ -316,7 +317,7 @@ public sealed class MetaCliModelTests
 
             Assert.Equal(4, duplicate.ExitCode);
             Assert.Contains("already exists", duplicate.Output);
-            var model = MetaCliModel.LoadFromXmlWorkspace(workspace, searchUpward: false);
+            var model = TypedWorkspaceXmlSerializer.Load<MetaCliModel>(workspace, searchUpward: false);
             Assert.Single(model.ApplicationList);
             Assert.Equal("demo", model.ApplicationList[0].Name);
         }
@@ -455,7 +456,7 @@ public sealed class MetaCliModelTests
 
     private static void AssertWorkspacePreservesProviderIntegrity(string workspace)
     {
-        var model = MetaCliModel.LoadFromXmlWorkspace(workspace);
+        var model = TypedWorkspaceXmlSerializer.Load<MetaCliModel>(workspace);
         var integrity = new MetaCliWorkspaceService().ValidateIntegrity(model);
         Assert.False(
             integrity.HasErrors,

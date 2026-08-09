@@ -132,7 +132,7 @@ public sealed class MetaCliRuntimeTests
         Assert.Equal(0, exitCode);
         Assert.Equal(
             "changed",
-            MetaCliModel.LoadFromXmlWorkspace(domainWorkspace)
+            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace)
                 .ApplicationList.Single(application => application.Id == "app-domain")
                 .Name);
     }
@@ -170,7 +170,7 @@ public sealed class MetaCliRuntimeTests
         Assert.NotNull(handlerModel);
         Assert.Contains(handlerModel.ApplicationList, application => application.Id == "app-domain");
         Assert.Contains(
-            MetaCliModel.LoadFromXmlWorkspace(domainWorkspace).ApplicationList,
+            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace).ApplicationList,
             application => application.Id == "app-added-by-handler");
         Assert.NotNull(invocation);
         Assert.Equal("model add-property", invocation.CommandRoute);
@@ -197,8 +197,8 @@ public sealed class MetaCliRuntimeTests
                 {
                     domainModel.ApplicationList.Single().Name = "changed";
                     completion.OnSucceeded(() =>
-                        persistedNameAtCompletion = MetaCliModel
-                            .LoadFromXmlWorkspace(domainWorkspace)
+                        persistedNameAtCompletion = TypedWorkspaceXmlSerializer
+                            .Load<MetaCliModel>(domainWorkspace)
                             .ApplicationList.Single().Name);
                 });
 
@@ -236,7 +236,7 @@ public sealed class MetaCliRuntimeTests
         Assert.False(completed);
         Assert.Equal(
             "domain",
-            MetaCliModel.LoadFromXmlWorkspace(domainWorkspace).ApplicationList.Single().Name);
+            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace).ApplicationList.Single().Name);
     }
 
     [Fact]
@@ -261,7 +261,7 @@ public sealed class MetaCliRuntimeTests
         Assert.Equal(0, exitCode);
         Assert.Equal(
             "domain",
-            MetaCliModel.LoadFromXmlWorkspace(domainWorkspace).ApplicationList.Single().Name);
+            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace).ApplicationList.Single().Name);
     }
 
     [Fact]
@@ -334,7 +334,7 @@ public sealed class MetaCliRuntimeTests
         Assert.True(exitCode == 0, error.ToString());
         Assert.Equal(
             "updated",
-            MetaCliModel.LoadFromXmlWorkspace(temp.Path)
+            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(temp.Path)
                 .ApplicationList.Single().Name);
     }
 
@@ -1031,7 +1031,7 @@ public sealed class MetaCliRuntimeTests
         public string SaveCommandSurface(MetaCliModel model)
         {
             var workspace = System.IO.Path.Combine(Path, "CommandSurface.MetaCli");
-            model.SaveToXmlWorkspace(workspace);
+            TypedWorkspaceXmlSerializer.Save(model, workspace);
             return workspace;
         }
 
@@ -1056,7 +1056,7 @@ public sealed class MetaCliRuntimeTests
                 Name = "domain",
                 ExecutableName = "domain",
             });
-            model.SaveToXmlWorkspace(workspace);
+            TypedWorkspaceXmlSerializer.Save(model, workspace);
             return workspace;
         }
 

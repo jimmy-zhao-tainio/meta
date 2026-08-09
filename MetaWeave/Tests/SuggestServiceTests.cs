@@ -13,7 +13,7 @@ public sealed class SuggestServiceTests
     public async Task SuggestAsync_OmitsBindingsThatAlreadyExist()
     {
         var workspacePath = GetFixtureWorkspacePath("Weave-Mapping-ReferenceType");
-        var workspace = MetaWeaveModel.LoadFromXmlWorkspace(workspacePath, searchUpward: false);
+        var workspace = TypedWorkspaceXmlSerializer.Load<MetaWeaveModel>(workspacePath, searchUpward: false);
 
         var result = await new MetaWeaveSuggestService().SuggestAsync(workspace, workspacePath);
 

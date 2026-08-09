@@ -205,7 +205,7 @@ public sealed class MetaCliWorkspaces : IAsyncDisposable
         string output,
         TModel model,
         CancellationToken cancellationToken = default)
-        where TModel : class, IMetaWorkspaceModel<TModel>
+        where TModel : class
     {
         ArgumentNullException.ThrowIfNull(model);
         return CreateAsync(
@@ -232,7 +232,7 @@ public sealed class MetaCliWorkspaces : IAsyncDisposable
     public async Task<TModel> RequiredAsync<TModel>(
         string parameter,
         CancellationToken cancellationToken = default)
-        where TModel : class, IMetaWorkspaceModel<TModel>
+        where TModel : class, new()
     {
         var state = await WorkspaceComposition.MaterializeAsync(
                 Required(parameter),
@@ -240,7 +240,7 @@ public sealed class MetaCliWorkspaces : IAsyncDisposable
             .ConfigureAwait(false);
         return TypedWorkspaceModelMapper.FromInMemoryWorkspace(
             state,
-            static () => TModel.CreateEmpty());
+            static () => new TModel());
     }
 
     public async ValueTask DisposeAsync()
