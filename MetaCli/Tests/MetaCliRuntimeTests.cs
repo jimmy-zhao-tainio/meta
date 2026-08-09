@@ -1042,7 +1042,6 @@ public sealed class MetaCliRuntimeTests
                     TypedWorkspaceModelMapper.ToInMemoryWorkspace(model),
                     workspace)
                 .ConfigureAwait(false);
-            WorkspaceMetaFile.WriteCSharp(workspace);
             return workspace;
         }
 

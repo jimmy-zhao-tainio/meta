@@ -19,7 +19,7 @@ public sealed class CSharpWorkspaceContractTests
 
         var csharp = MetaCSharpWriter.Write(sourceState);
         var source = Assert.Single(csharp.Sources.Values);
-        Assert.Contains("public sealed class MetaCliModel", source);
+        Assert.Contains("public sealed partial class MetaCliModel", source);
         Assert.Contains("CreateEmpty()", source);
         Assert.Contains("List<Application> ApplicationList", source);
         Assert.Contains("MetaCliInstance", source);

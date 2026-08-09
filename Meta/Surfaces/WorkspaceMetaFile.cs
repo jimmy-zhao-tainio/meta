@@ -7,7 +7,8 @@ namespace Meta.Surfaces;
 public sealed record WorkspaceMetaDocument(
     string Representation,
     string Location,
-    MetaWorkspace Configuration);
+    MetaWorkspace Configuration,
+    IReadOnlyList<string> Sources);
 
 public static class WorkspaceMetaFile
 {
@@ -29,6 +30,15 @@ public static class WorkspaceMetaFile
 
         var descriptor = Parse(File.ReadAllLines(path, Utf8NoBom), path);
         var representation = NormalizeRepresentation(descriptor.Required("representation"), path);
+        if (descriptor.Sources.Count > 0 && representation != "csharp")
+        {
+            throw new InvalidDataException(
+                $"Workspace metadata '{path}' permits source directives only for the C# representation.");
+        }
+
+        var sources = representation == "csharp"
+            ? NormalizeCSharpSources(rootPath, descriptor.Sources, path)
+            : Array.Empty<string>();
         if (string.Equals(representation, "sql", StringComparison.Ordinal))
         {
             descriptor.Require("location", path);
@@ -40,7 +50,8 @@ public static class WorkspaceMetaFile
         return new WorkspaceMetaDocument(
             representation,
             descriptor.Get("location", "."),
-            configuration);
+            configuration,
+            sources);
     }
 
     public static void WriteXml(
@@ -55,13 +66,31 @@ public static class WorkspaceMetaFile
             includeConfiguration: true);
     }
 
-    public static void WriteCSharp(string workspaceRootPath) =>
+    public static void WriteCSharp(
+        string workspaceRootPath,
+        IReadOnlyCollection<string> sources) =>
+        WriteCSharpDescriptor(workspaceRootPath, sources);
+
+    private static void WriteCSharpDescriptor(
+        string workspaceRootPath,
+        IReadOnlyCollection<string> sources)
+    {
+        ArgumentNullException.ThrowIfNull(sources);
+        if (sources.Count == 0)
+        {
+            throw new ArgumentException(
+                "A C# workspace descriptor requires at least one owned source.",
+                nameof(sources));
+        }
+
         Write(
             workspaceRootPath,
             "csharp",
             ".",
             MetaWorkspace.CreateDefault(),
-            includeConfiguration: false);
+            includeConfiguration: false,
+            sources: sources);
+    }
 
     public static void WriteSql(
         string workspaceRootPath,
@@ -80,19 +109,33 @@ public static class WorkspaceMetaFile
         MetaWorkspace configuration,
         string representation,
         string location,
-        bool includeConfiguration = true)
+        bool includeConfiguration = true,
+        IReadOnlyCollection<string>? sources = null)
     {
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentException.ThrowIfNullOrWhiteSpace(representation);
         ArgumentException.ThrowIfNullOrWhiteSpace(location);
 
         var normalizedRepresentation = NormalizeRepresentation(representation, FileName);
+        if (sources != null && normalizedRepresentation != "csharp" && sources.Count > 0)
+        {
+            throw new InvalidDataException(
+                $"Workspace metadata '{FileName}' permits source directives only for the C# representation.");
+        }
+        var normalizedSources = normalizedRepresentation == "csharp"
+            ? NormalizeCSharpSourceText(sources ?? Array.Empty<string>(), FileName)
+            : Array.Empty<string>();
         var normalizedConfiguration = MetaWorkspace.Normalize(configuration, FileName);
         var builder = new StringBuilder();
         AppendDirective(builder, "representation", normalizedRepresentation);
         if (!string.Equals(location.Trim(), ".", StringComparison.Ordinal))
         {
             AppendDirective(builder, "location", location.Trim());
+        }
+
+        foreach (var source in normalizedSources)
+        {
+            AppendDirective(builder, "source", source);
         }
 
         if (!includeConfiguration)
@@ -166,14 +209,19 @@ public static class WorkspaceMetaFile
         string representation,
         string location,
         MetaWorkspace configuration,
-        bool includeConfiguration)
+        bool includeConfiguration,
+        IReadOnlyCollection<string>? sources = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(workspaceRootPath);
         var rootPath = Path.GetFullPath(workspaceRootPath);
         Directory.CreateDirectory(rootPath);
+        if (sources != null && representation == "csharp")
+        {
+            _ = NormalizeCSharpSources(rootPath, sources, Path.Combine(rootPath, FileName));
+        }
         File.WriteAllText(
             Path.Combine(rootPath, FileName),
-            Serialize(configuration, representation, location, includeConfiguration),
+            Serialize(configuration, representation, location, includeConfiguration, sources),
             Utf8NoBom);
     }
 
@@ -238,6 +286,12 @@ public static class WorkspaceMetaFile
                     EntityName = RequireValue(directive, path, index),
                 };
                 descriptor.HasConfiguration = true;
+                continue;
+            }
+
+            if (string.Equals(directive.Key, "source", StringComparison.Ordinal))
+            {
+                descriptor.Sources.Add(RequireValue(directive, path, index));
                 continue;
             }
 
@@ -457,6 +511,7 @@ public static class WorkspaceMetaFile
     {
         public Dictionary<string, string> Values { get; } = new(StringComparer.OrdinalIgnoreCase);
         public List<StorageValues> Storages { get; } = new();
+        public List<string> Sources { get; } = new();
         public bool HasConfiguration { get; set; }
 
         public string Get(string key, string fallback) =>
@@ -473,6 +528,113 @@ public static class WorkspaceMetaFile
                 throw new InvalidDataException($"Workspace metadata '{path}' is missing '{key}'.");
             }
         }
+    }
+
+    internal static IReadOnlyList<string> NormalizeCSharpSources(
+        string workspaceRootPath,
+        IEnumerable<string> sources,
+        string descriptorPath)
+    {
+        ArgumentNullException.ThrowIfNull(sources);
+        var normalized = NormalizeCSharpSourceText(sources, descriptorPath);
+        foreach (var source in normalized)
+        {
+            var current = Path.GetFullPath(workspaceRootPath);
+            foreach (var segment in source.Split('/'))
+            {
+                current = Path.Combine(current, segment);
+                try
+                {
+                    var attributes = File.GetAttributes(current);
+                    if ((attributes & FileAttributes.ReparsePoint) != 0)
+                    {
+                        throw new InvalidDataException(
+                            $"C# workspace source path '{source}' traverses a symbolic link or reparse point.");
+                    }
+                }
+                catch (FileNotFoundException)
+                {
+                    // A not-yet-created path is valid; publication creates it later.
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    // A not-yet-created parent is valid; publication creates it later.
+                }
+            }
+        }
+
+        return normalized;
+    }
+
+    internal static string ResolveCSharpSourcePath(
+        string workspaceRootPath,
+        string source)
+    {
+        var normalized = NormalizeCSharpSourceText([source], FileName).Single();
+        var root = Path.GetFullPath(workspaceRootPath);
+        var path = Path.GetFullPath(Path.Combine(root, normalized.Replace('/', Path.DirectorySeparatorChar)));
+        var rootWithSeparator = root.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+        var comparison = OperatingSystem.IsWindows()
+            ? StringComparison.OrdinalIgnoreCase
+            : StringComparison.Ordinal;
+        if (!path.StartsWith(rootWithSeparator, comparison))
+        {
+            throw new InvalidDataException(
+                $"C# workspace source path '{source}' escapes its workspace.");
+        }
+
+        return path;
+    }
+
+    private static IReadOnlyList<string> NormalizeCSharpSourceText(
+        IEnumerable<string> sources,
+        string descriptorPath)
+    {
+        var normalized = new List<string>();
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var source in sources)
+        {
+            if (string.IsNullOrWhiteSpace(source))
+            {
+                throw new InvalidDataException(
+                    $"Workspace metadata '{descriptorPath}' contains an empty C# source path.");
+            }
+
+            var value = source.Trim();
+            if (value.Contains('\\') || Path.IsPathRooted(value))
+            {
+                throw new InvalidDataException(
+                    $"Workspace metadata '{descriptorPath}' requires relative C# source paths using '/': '{source}'.");
+            }
+
+            var segments = value.Split('/');
+            if (segments.Any(segment =>
+                    string.IsNullOrEmpty(segment) ||
+                    segment is "." or ".." ||
+                    segment.Contains(':')))
+            {
+                throw new InvalidDataException(
+                    $"Workspace metadata '{descriptorPath}' contains an unsafe C# source path '{source}'.");
+            }
+
+            if (!value.EndsWith(".cs", StringComparison.OrdinalIgnoreCase) ||
+                string.IsNullOrEmpty(Path.GetFileNameWithoutExtension(value)))
+            {
+                throw new InvalidDataException(
+                    $"Workspace metadata '{descriptorPath}' requires nonempty '.cs' source paths: '{source}'.");
+            }
+
+            if (!seen.Add(value))
+            {
+                throw new InvalidDataException(
+                    $"Workspace metadata '{descriptorPath}' contains case-equivalent duplicate C# source paths: '{source}'.");
+            }
+
+            normalized.Add(value);
+        }
+
+        normalized.Sort(StringComparer.Ordinal);
+        return normalized;
     }
 
     private sealed class StorageValues

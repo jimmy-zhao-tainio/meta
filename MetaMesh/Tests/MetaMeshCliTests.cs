@@ -237,9 +237,9 @@ public sealed class MetaMeshCliTests
             Assert.Contains("csharp", recorded);
             Assert.Contains(meshPath, recorded, StringComparison.OrdinalIgnoreCase);
 
-            Assert.True(File.Exists(Path.Combine(meshPath, "MetaMesh.cs")));
+            Assert.True(File.Exists(Path.Combine(meshPath, "MetaMesh.meta.cs")));
             Assert.Equal(
-                ["MetaMesh.cs"],
+                ["MetaMesh.meta.cs"],
                 Directory.EnumerateFiles(meshPath, "*.cs")
                     .Select(path => Path.GetFileName(path) ?? string.Empty)
                     .OrderBy(name => name, StringComparer.Ordinal)

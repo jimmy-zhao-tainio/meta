@@ -59,7 +59,6 @@ public static class WorkspaceSurface
                         rootPath,
                         cancellationToken)
                     .ConfigureAwait(false);
-                WorkspaceMetaFile.WriteCSharp(rootPath);
                 return;
             case "sql":
                 var environmentVariable = connectionEnvironmentVariable ??

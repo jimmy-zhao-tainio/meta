@@ -48,7 +48,7 @@ public static class MetaCSharpWriter
 
         return new MetaCSharp(new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
-            [$"{state.Model.Name}.cs"] = normalizedSource,
+            [$"{state.Model.Name}.meta.cs"] = normalizedSource,
         });
     }
 
@@ -76,7 +76,7 @@ public static class MetaCSharpWriter
         AppendTypedModel(builder, model, entities);
         builder.AppendLine();
 
-        builder.Append("public static class ")
+        builder.Append("public static partial class ")
             .Append(Id(model.Name + "Instance"))
             .AppendLine();
         builder.AppendLine("{");
@@ -166,7 +166,7 @@ public static class MetaCSharpWriter
         GenericModel model,
         IReadOnlyList<GenericEntity> entities)
     {
-        builder.Append("public sealed class ")
+        builder.Append("public sealed partial class ")
             .Append(Id(model.Name + "Model"))
             .AppendLine();
         builder.AppendLine("{");
@@ -189,7 +189,7 @@ public static class MetaCSharpWriter
 
     private static void AppendEntity(StringBuilder builder, GenericEntity entity)
     {
-        builder.Append("public sealed class ").Append(Id(entity.Name)).AppendLine();
+        builder.Append("public sealed partial class ").Append(Id(entity.Name)).AppendLine();
         builder.AppendLine("{");
         builder.AppendLine("    public string Id { get; set; } = null!;");
 

@@ -81,7 +81,6 @@ internal static class MetaCliWorkspaceResolver
                     Path.GetFullPath(csharp.Directory),
                     cancellationToken)
                 .ConfigureAwait(false);
-            MetaCliWorkspaceDescriptor.WriteCSharp(csharp.Directory);
             return;
         }
 

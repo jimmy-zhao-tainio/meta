@@ -94,7 +94,7 @@ public sealed class MetaCSharpReaderTests
 
         var source = Assert.Single(
             MetaCSharpWriter.Write(state).Sources,
-            item => item.Key == "RoundTrip.cs").Value;
+            item => item.Key == "RoundTrip.meta.cs").Value;
 
         Assert.Equal(1, Count(
             source,
@@ -181,7 +181,7 @@ public sealed class MetaCSharpReaderTests
     {
         var csharp = MetaCSharpWriter.Write(
             MetaXmlCodecTests.BuildState());
-        var source = csharp.Sources["RoundTrip.cs"];
+        var source = csharp.Sources["RoundTrip.meta.cs"];
         source = source.Replace(
             "        var model = RoundTripModel.CreateEmpty();",
             """
@@ -201,7 +201,7 @@ public sealed class MetaCSharpReaderTests
     {
         var csharp = MetaCSharpWriter.Write(
             MetaXmlCodecTests.BuildState());
-        var source = csharp.Sources["RoundTrip.cs"];
+        var source = csharp.Sources["RoundTrip.meta.cs"];
         source = source.Replace(
             "        return model;",
             """
@@ -221,7 +221,7 @@ public sealed class MetaCSharpReaderTests
     {
         var csharp = MetaCSharpWriter.Write(
             MetaXmlCodecTests.BuildState());
-        var source = csharp.Sources["RoundTrip.cs"] +
+        var source = csharp.Sources["RoundTrip.meta.cs"] +
                      Environment.NewLine +
                      "internal sealed class Broken { MissingType Value { get; set; } }";
 
@@ -238,7 +238,7 @@ public sealed class MetaCSharpReaderTests
         return new MetaCSharp(
             csharp.Sources.ToDictionary(
                 item => item.Key,
-                item => item.Key == "RoundTrip.cs"
+                item => item.Key == "RoundTrip.meta.cs"
                     ? source
                     : item.Value,
                 StringComparer.OrdinalIgnoreCase));
@@ -255,6 +255,8 @@ public sealed class MetaCSharpReaderTests
             Directory.CreateDirectory(Path.GetDirectoryName(path)!);
             await File.WriteAllTextAsync(path, source.Value);
         }
+
+        WorkspaceMetaFile.WriteCSharp(root, csharp.Sources.Keys.ToArray());
     }
 
     private static void DeleteDirectory(string root)

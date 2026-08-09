@@ -23,9 +23,6 @@ internal abstract record MetaCliWorkspaceDescriptor(string Directory)
     public static void WriteXml(string directory) =>
         WorkspaceMetaFile.WriteXml(directory);
 
-    public static void WriteCSharp(string directory) =>
-        WorkspaceMetaFile.WriteCSharp(directory);
-
     public static void WriteSql(string directory, string connectionEnvironmentVariable)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(connectionEnvironmentVariable);
