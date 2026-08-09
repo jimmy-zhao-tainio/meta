@@ -44,6 +44,7 @@ public sealed class CSharpWorkspace : IMetaWorkspace
                 $"C# workspace '{rootPath}' was not found.");
         }
 
+        using var readLock = WorkspaceWriteLock.Acquire(rootPath);
         var metadata = WorkspaceMetaFile.Read(rootPath);
         EnsureCSharp(metadata, rootPath);
         var ownedSources = metadata.Sources.Count > 0
@@ -201,11 +202,14 @@ public sealed class CSharpWorkspace : IMetaWorkspace
             throw new InvalidOperationException(
                 $"C# workspace '{RootPath}' has no parent directory.");
         var stagePath = CreateTemporaryDirectory(parent, Path.GetFileName(RootPath), "stage");
-        var backupPath = CreateTemporaryDirectory(parent, Path.GetFileName(RootPath), "backup");
+        string? backupPath = null;
         var movedOldSources = new List<string>();
         var movedNewSources = new List<string>();
         var oldDescriptorBackedUp = false;
         var newDescriptorPublished = false;
+        byte[]? publishedDescriptorBytes = null;
+        var preserveBackup = false;
+        WorkspaceWriteLockHandle? writeLock = null;
 
         try
         {
@@ -215,89 +219,143 @@ public sealed class CSharpWorkspace : IMetaWorkspace
             await ValidateStagedAsync(stagePath, expected, cancellationToken)
                 .ConfigureAwait(false);
 
-            using var writeLock = WorkspaceWriteLock.Acquire(RootPath);
-            var currentMetadata = WorkspaceMetaFile.Read(RootPath);
-            EnsureCSharp(currentMetadata, RootPath);
-            var currentSources = currentMetadata.Sources.Count > 0
-                ? currentMetadata.Sources
-                : ReadLegacySources(RootPath, cancellationToken);
-            var currentExplicitOwnership = currentMetadata.Sources.Count > 0;
-            if (currentExplicitOwnership != _explicitOwnership ||
-                !currentSources.SequenceEqual(_ownedSources, StringComparer.OrdinalIgnoreCase))
-            {
-                throw new WorkspaceConflictException(
-                    "C# workspace ownership declaration changed after it was opened.",
-                    _fingerprint,
-                    "ownership declaration");
-            }
+            writeLock = WorkspaceWriteLock.Acquire(RootPath);
+            backupPath = CreateTemporaryDirectory(parent, Path.GetFileName(RootPath), "backup");
 
-            var currentContents = await ReadOwnedSourcesAsync(
-                    RootPath,
+            try
+            {
+                var currentMetadata = WorkspaceMetaFile.Read(RootPath);
+                EnsureCSharp(currentMetadata, RootPath);
+                var currentSources = currentMetadata.Sources.Count > 0
+                    ? currentMetadata.Sources
+                    : ReadLegacySources(RootPath, cancellationToken);
+                var currentExplicitOwnership = currentMetadata.Sources.Count > 0;
+                if (currentExplicitOwnership != _explicitOwnership ||
+                    !currentSources.SequenceEqual(_ownedSources, StringComparer.OrdinalIgnoreCase))
+                {
+                    throw new WorkspaceConflictException(
+                        "C# workspace ownership declaration changed after it was opened.",
+                        _fingerprint,
+                        "ownership declaration");
+                }
+
+                var currentContents = await ReadOwnedSourcesAsync(
+                        RootPath,
+                        currentSources,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+                var actualFingerprint = CalculateFingerprint(
+                    currentMetadata,
                     currentSources,
-                    cancellationToken)
-                .ConfigureAwait(false);
-            var actualFingerprint = CalculateFingerprint(
-                currentMetadata,
-                currentSources,
-                currentContents);
-            if (!string.Equals(actualFingerprint, _fingerprint, StringComparison.Ordinal))
-            {
-                throw new WorkspaceConflictException(
-                    $"C# workspace fingerprint mismatch. Expected '{_fingerprint}', found '{actualFingerprint}'.",
-                    _fingerprint,
-                    actualFingerprint);
-            }
+                    currentContents);
+                if (!string.Equals(actualFingerprint, _fingerprint, StringComparison.Ordinal))
+                {
+                    throw new WorkspaceConflictException(
+                        $"C# workspace fingerprint mismatch. Expected '{_fingerprint}', found '{actualFingerprint}'.",
+                        _fingerprint,
+                        actualFingerprint);
+                }
 
-            EnsureTargetPathsAvailable(RootPath, newSources, currentSources);
-            MoveExactSources(RootPath, backupPath, currentSources, movedOldSources);
-            File.Move(
-                Path.Combine(RootPath, WorkspaceMetaFile.FileName),
-                Path.Combine(backupPath, WorkspaceMetaFile.FileName));
-            oldDescriptorBackedUp = true;
-
-            MoveExactSources(stagePath, RootPath, newSources, movedNewSources);
-            File.Move(
-                Path.Combine(stagePath, WorkspaceMetaFile.FileName),
-                Path.Combine(RootPath, WorkspaceMetaFile.FileName));
-            newDescriptorPublished = true;
-
-            var publishedMetadata = WorkspaceMetaFile.Read(RootPath);
-            var publishedSources = await ReadOwnedSourcesAsync(
-                    RootPath,
-                    publishedMetadata.Sources,
-                    cancellationToken)
-                .ConfigureAwait(false);
-            var publishedState = MetaCSharpReader.Read(new MetaCSharp(publishedSources));
-            EnsureEquivalent(expected, publishedState);
-            _ownedSources = publishedMetadata.Sources;
-            _explicitOwnership = true;
-            _fingerprint = CalculateFingerprint(
-                publishedMetadata,
-                _ownedSources,
-                publishedSources);
-        }
-        catch
-        {
-            if (newDescriptorPublished)
-            {
-                TryDeleteFile(Path.Combine(RootPath, WorkspaceMetaFile.FileName));
-            }
-
-            DeleteExactSources(RootPath, movedNewSources);
-            if (oldDescriptorBackedUp)
-            {
+                EnsureTargetPathsAvailable(RootPath, newSources, currentSources);
+                MoveExactSources(RootPath, backupPath, currentSources, movedOldSources);
                 File.Move(
-                    Path.Combine(backupPath, WorkspaceMetaFile.FileName),
-                    Path.Combine(RootPath, WorkspaceMetaFile.FileName));
-            }
+                    Path.Combine(RootPath, WorkspaceMetaFile.FileName),
+                    Path.Combine(backupPath, WorkspaceMetaFile.FileName));
+                oldDescriptorBackedUp = true;
 
-            RestoreExactSources(backupPath, RootPath, movedOldSources);
-            throw;
+                MoveExactSources(stagePath, RootPath, newSources, movedNewSources);
+                var stagedDescriptorPath = Path.Combine(stagePath, WorkspaceMetaFile.FileName);
+                publishedDescriptorBytes = File.ReadAllBytes(stagedDescriptorPath);
+                File.Move(
+                    stagedDescriptorPath,
+                    Path.Combine(RootPath, WorkspaceMetaFile.FileName));
+                newDescriptorPublished = true;
+                CSharpWorkspacePublicationTestHooks.Invoke(
+                    RootPath,
+                    CSharpWorkspacePublicationCheckpoint.AfterNewStatePublished);
+
+                var publishedMetadata = WorkspaceMetaFile.Read(RootPath);
+                if (!publishedMetadata.Sources.SequenceEqual(newSources, StringComparer.OrdinalIgnoreCase))
+                {
+                    throw new InvalidDataException(
+                        $"Published C# workspace '{RootPath}' does not declare the complete owned source set.");
+                }
+
+                var publishedSources = await ReadOwnedSourcesAsync(
+                        RootPath,
+                        publishedMetadata.Sources,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+                var publishedState = MetaCSharpReader.Read(new MetaCSharp(publishedSources));
+                EnsureEquivalent(expected, publishedState);
+                _ownedSources = publishedMetadata.Sources;
+                _explicitOwnership = true;
+                _fingerprint = CalculateFingerprint(
+                    publishedMetadata,
+                    _ownedSources,
+                    publishedSources);
+            }
+            catch (Exception publicationFailure)
+            {
+                try
+                {
+                    CSharpWorkspacePublicationTestHooks.Invoke(
+                        RootPath,
+                        CSharpWorkspacePublicationCheckpoint.BeforeRollback);
+                    CSharpWorkspacePublicationTestHooks.Invoke(
+                        RootPath,
+                        CSharpWorkspacePublicationCheckpoint.BeforeRestore);
+
+                    if (newDescriptorPublished)
+                    {
+                        DeletePublishedFile(
+                            Path.Combine(RootPath, WorkspaceMetaFile.FileName),
+                            publishedDescriptorBytes!);
+                    }
+
+                    DeletePublishedSources(RootPath, movedNewSources, output.Sources);
+                    if (oldDescriptorBackedUp)
+                    {
+                        File.Move(
+                            Path.Combine(backupPath, WorkspaceMetaFile.FileName),
+                            Path.Combine(RootPath, WorkspaceMetaFile.FileName));
+                    }
+
+                    RestoreExactSources(backupPath, RootPath, movedOldSources);
+                }
+                catch (Exception rollbackFailure)
+                {
+                    preserveBackup = true;
+                    throw new WorkspacePublicationException(
+                        RootPath,
+                        backupPath,
+                        publicationFailure,
+                        rollbackFailure);
+                }
+
+                throw;
+            }
         }
         finally
         {
-            DeleteKnownTemporaryDirectory(stagePath);
-            DeleteKnownTemporaryDirectory(backupPath);
+            try
+            {
+                DeleteKnownTemporaryDirectory(stagePath);
+            }
+            finally
+            {
+                try
+                {
+                    if (!preserveBackup && backupPath != null)
+                    {
+                        DeleteKnownTemporaryDirectory(backupPath);
+                    }
+                }
+                finally
+                {
+                    writeLock?.Dispose();
+                }
+            }
         }
     }
 
@@ -432,6 +490,31 @@ public sealed class CSharpWorkspace : IMetaWorkspace
         }
     }
 
+    private static void DeletePublishedSources(
+        string rootPath,
+        IEnumerable<string> sources,
+        IReadOnlyDictionary<string, string> expectedContents)
+    {
+        foreach (var source in sources)
+        {
+            var path = WorkspaceMetaFile.ResolveCSharpSourcePath(rootPath, source);
+            if (!File.Exists(path))
+            {
+                continue;
+            }
+
+            var actual = File.ReadAllBytes(path);
+            var expected = new UTF8Encoding(false).GetBytes(expectedContents[source]);
+            if (!actual.SequenceEqual(expected))
+            {
+                throw new IOException(
+                    $"Cannot roll back C# workspace source '{source}' because it changed after publication.");
+            }
+
+            File.Delete(path);
+        }
+    }
+
     private static void DeleteExactSources(
         string rootPath,
         IEnumerable<string> sources)
@@ -440,6 +523,22 @@ public sealed class CSharpWorkspace : IMetaWorkspace
         {
             TryDeleteFile(WorkspaceMetaFile.ResolveCSharpSourcePath(rootPath, source));
         }
+    }
+
+    private static void DeletePublishedFile(string path, byte[] expectedContents)
+    {
+        if (!File.Exists(path))
+        {
+            return;
+        }
+
+        if (!File.ReadAllBytes(path).SequenceEqual(expectedContents))
+        {
+            throw new IOException(
+                $"Cannot roll back C# workspace descriptor '{path}' because it changed after publication.");
+        }
+
+        File.Delete(path);
     }
 
     private static void EnsureTargetPathsAvailable(

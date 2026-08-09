@@ -9,6 +9,8 @@ namespace Meta.Core.Tests;
 
 public sealed class CSharpWorkspaceOwnershipTests
 {
+    private static readonly SemaphoreSlim PublicationTestGate = new(1, 1);
+
     [Fact]
     public async Task CreationInsideProjectReadsOnlyDeclaredSourceAndPreservesProjectFiles()
     {
@@ -135,6 +137,163 @@ public sealed class CSharpWorkspaceOwnershipTests
         Assert.NotEqual(
             oldSource,
             await File.ReadAllBytesAsync(Path.Combine(fixture.Root, "Renamed.meta.cs")));
+    }
+
+    [Fact]
+    public async Task OpenDuringPublicationGetsAnExplicitWorkspaceLockConflict()
+    {
+        await PublicationTestGate.WaitAsync();
+        using var fixture = await ProjectFixture.CreateAsync();
+        await using var workspace = await CSharpWorkspace.OpenAsync(fixture.Root);
+        var published = new TaskCompletionSource<bool>(
+            TaskCreationOptions.RunContinuationsAsynchronously);
+        var release = new TaskCompletionSource<bool>(
+            TaskCreationOptions.RunContinuationsAsynchronously);
+        CSharpWorkspacePublicationTestHooks.Checkpoint = (path, checkpoint) =>
+        {
+            if (path == fixture.Root &&
+                checkpoint == CSharpWorkspacePublicationCheckpoint.AfterNewStatePublished)
+            {
+                published.TrySetResult(true);
+                release.Task.GetAwaiter().GetResult();
+            }
+        };
+
+        try
+        {
+            var publication = workspace.ExecuteAsync([
+                new Operation.RenameModel("Demo", "Renamed"),
+            ]).AsTask();
+            await published.Task;
+
+            var exception = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                await CSharpWorkspace.OpenAsync(fixture.Root));
+
+            Assert.Contains("locked", exception.Message, StringComparison.OrdinalIgnoreCase);
+            release.SetResult(true);
+            await publication;
+        }
+        finally
+        {
+            release.TrySetResult(true);
+            CSharpWorkspacePublicationTestHooks.Checkpoint = null;
+            PublicationTestGate.Release();
+        }
+    }
+
+    [Fact]
+    public async Task PublicationFailureRollsBackWhileTheWorkspaceRemainsProtected()
+    {
+        await PublicationTestGate.WaitAsync();
+        using var fixture = await ProjectFixture.CreateAsync();
+        var oldDescriptor = await File.ReadAllBytesAsync(
+            Path.Combine(fixture.Root, WorkspaceMetaFile.FileName));
+        var oldSource = await File.ReadAllBytesAsync(
+            Path.Combine(fixture.Root, "Demo.meta.cs"));
+        var oldUnowned = fixture.ReadUnownedFiles();
+        var rollbackWasProtected = false;
+        CSharpWorkspacePublicationTestHooks.Checkpoint = (path, checkpoint) =>
+        {
+            if (path != fixture.Root)
+            {
+                return;
+            }
+
+            if (checkpoint == CSharpWorkspacePublicationCheckpoint.AfterNewStatePublished)
+            {
+                throw new InvalidOperationException("injected publication failure");
+            }
+
+            if (checkpoint == CSharpWorkspacePublicationCheckpoint.BeforeRollback)
+            {
+                try
+                {
+                    CSharpWorkspace.OpenAsync(fixture.Root).GetAwaiter().GetResult();
+                }
+                catch (InvalidOperationException exception) when (
+                    exception.Message.Contains("locked", StringComparison.OrdinalIgnoreCase))
+                {
+                    rollbackWasProtected = true;
+                }
+            }
+        };
+
+        try
+        {
+            await using var workspace = await CSharpWorkspace.OpenAsync(fixture.Root);
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                await workspace.ExecuteAsync([
+                    new Operation.RenameModel("Demo", "Renamed"),
+                ]));
+
+            Assert.True(rollbackWasProtected);
+            Assert.Equal(oldDescriptor, await File.ReadAllBytesAsync(
+                Path.Combine(fixture.Root, WorkspaceMetaFile.FileName)));
+            Assert.Equal(oldSource, await File.ReadAllBytesAsync(
+                Path.Combine(fixture.Root, "Demo.meta.cs")));
+            Assert.Equal(oldUnowned, fixture.ReadUnownedFiles());
+            Assert.False(File.Exists(Path.Combine(fixture.Root, "Renamed.meta.cs")));
+        }
+        finally
+        {
+            CSharpWorkspacePublicationTestHooks.Checkpoint = null;
+            PublicationTestGate.Release();
+        }
+    }
+
+    [Fact]
+    public async Task RestorationFailurePreservesBackupAndReportsRecoveryPath()
+    {
+        await PublicationTestGate.WaitAsync();
+        using var fixture = await ProjectFixture.CreateAsync();
+        var oldDescriptor = await File.ReadAllBytesAsync(
+            Path.Combine(fixture.Root, WorkspaceMetaFile.FileName));
+        var oldSource = await File.ReadAllBytesAsync(
+            Path.Combine(fixture.Root, "Demo.meta.cs"));
+        var oldUnowned = fixture.ReadUnownedFiles();
+        CSharpWorkspacePublicationTestHooks.Checkpoint = (path, checkpoint) =>
+        {
+            if (path == fixture.Root &&
+                checkpoint == CSharpWorkspacePublicationCheckpoint.AfterNewStatePublished)
+            {
+                throw new InvalidOperationException("injected publication failure");
+            }
+
+            if (path == fixture.Root &&
+                checkpoint == CSharpWorkspacePublicationCheckpoint.BeforeRestore)
+            {
+                throw new IOException("injected restoration failure");
+            }
+        };
+
+        string? recoveryPath = null;
+        try
+        {
+            await using var workspace = await CSharpWorkspace.OpenAsync(fixture.Root);
+            var exception = await Assert.ThrowsAsync<WorkspacePublicationException>(async () =>
+                await workspace.ExecuteAsync([
+                    new Operation.RenameModel("Demo", "Renamed"),
+                ]));
+
+            recoveryPath = exception.RecoveryPath;
+            Assert.True(Directory.Exists(recoveryPath));
+            Assert.Same(exception.PublicationFailure, exception.InnerException!.InnerException);
+            Assert.Equal(oldDescriptor, await File.ReadAllBytesAsync(
+                Path.Combine(recoveryPath, WorkspaceMetaFile.FileName)));
+            Assert.Equal(oldSource, await File.ReadAllBytesAsync(
+                Path.Combine(recoveryPath, "Demo.meta.cs")));
+            Assert.Equal(oldUnowned, fixture.ReadUnownedFiles());
+        }
+        finally
+        {
+            CSharpWorkspacePublicationTestHooks.Checkpoint = null;
+            if (recoveryPath != null && Directory.Exists(recoveryPath))
+            {
+                Directory.Delete(recoveryPath, recursive: true);
+            }
+
+            PublicationTestGate.Release();
+        }
     }
 
     [Fact]
