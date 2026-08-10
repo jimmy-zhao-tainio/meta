@@ -4,6 +4,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <PackageId>MetaWeave.Model</PackageId>
+    <Description>Typed MetaWeave model classes for authored cross-model bindings.</Description>
+    <PackageReadmeFile>PACKAGE-README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\Workspace\model.xml" Link="MetaWeave\model.xml" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\Workspace\model.xml" Link="MetaWeave\model.xml" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="contentFiles\any\any\MetaWeave\model.xml" />
+    <None Include="..\..\PACKAGE-README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

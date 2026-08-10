@@ -1,5 +1,21 @@
-dotnet pack Meta\Operations\Meta.Operations.csproj -c Release
-dotnet pack Meta\Core\Meta.Core.csproj -c Release
-dotnet pack Meta\Surfaces\Meta.Surfaces.csproj -c Release
-dotnet pack Meta\Integration\Meta.Integration.csproj -c Release
-dotnet pack MetaWeave\Core\MetaWeave.Core.csproj -c Release
+@echo off
+setlocal
+set "PACKAGE_OUTPUT=%~1"
+if "%PACKAGE_OUTPUT%"=="" set "PACKAGE_OUTPUT=%~dp0.nupkg"
+if exist "%PACKAGE_OUTPUT%" rmdir /s /q "%PACKAGE_OUTPUT%"
+mkdir "%PACKAGE_OUTPUT%"
+
+call :pack Meta\Operations\Meta.Operations.csproj || exit /b %errorlevel%
+call :pack Meta\Core\Meta.Core.csproj || exit /b %errorlevel%
+call :pack Meta\Surfaces\Meta.Surfaces.csproj || exit /b %errorlevel%
+call :pack Meta\Integration\Meta.Integration.csproj || exit /b %errorlevel%
+call :pack MetaCli\Model\MetaCli.Model.csproj || exit /b %errorlevel%
+call :pack MetaCli\Core\MetaCli.Core.csproj || exit /b %errorlevel%
+call :pack MetaWeave\Model\MetaWeave.Model.csproj || exit /b %errorlevel%
+call :pack MetaWeave\Core\MetaWeave.Core.csproj || exit /b %errorlevel%
+exit /b 0
+
+:pack
+echo Packing %~1
+dotnet pack "%~1" --configuration Release --output "%PACKAGE_OUTPUT%" --nologo
+exit /b %errorlevel%

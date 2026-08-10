@@ -4,11 +4,19 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <PackageId>MetaCli.Model</PackageId>
+    <Description>Typed MetaCli model classes for authored command surfaces.</Description>
+    <PackageReadmeFile>PACKAGE-README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Meta\Surfaces\Meta.Surfaces.csproj" />
     <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\PACKAGE-README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

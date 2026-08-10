@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
-    <MetaInternalPackageVersion Condition="'$(MetaInternalPackageVersion)' == ''">0.1.0-internal.9</MetaInternalPackageVersion>
+    <MetaFoundationPackageVersion Condition="'$(MetaFoundationPackageVersion)' == ''">0.1.0-internal.10</MetaFoundationPackageVersion>
+    <MetaInternalPackageVersion Condition="'$(MetaInternalPackageVersion)' == ''">$(MetaFoundationPackageVersion)</MetaInternalPackageVersion>
     <Version Condition="'$(Version)' == ''">$(MetaInternalPackageVersion)</Version>
     <PackageVersion Condition="'$(PackageVersion)' == ''">$(MetaInternalPackageVersion)</PackageVersion>
     <MetaSuiteVersion Condition="'$(MetaSuiteVersion)' == ''">2026.06.01.1</MetaSuiteVersion>
