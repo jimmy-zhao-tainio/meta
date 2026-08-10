@@ -141,34 +141,56 @@ internal sealed partial class SqlOperationTarget
             NameParameter("@name", objectName)) != null;
     }
 
-    private void EnsureObjectNamesAvailable(
-        IReadOnlyCollection<string> ignoredNames,
-        params string[] desiredNames)
+    private IReadOnlyList<SqlConstraintRename> PlanConstraintRenames(
+        params (string CurrentName, string FinalName)[] constraints)
     {
-        var distinctNames = new HashSet<string>(MetaName.Comparer);
-        foreach (var desiredName in desiredNames)
+        var currentNames = constraints
+            .Select(constraint => MetaName.Require(
+                constraint.CurrentName,
+                "Current constraint name."))
+            .ToArray();
+        var finalNames = new HashSet<string>(MetaName.Comparer);
+        foreach (var constraint in constraints)
         {
-            var name = MetaName.Require(desiredName, "Constraint name.");
-            if (!distinctNames.Add(name))
+            var finalName = MetaName.Require(
+                constraint.FinalName,
+                "Final constraint name.");
+            if (!finalNames.Add(finalName))
             {
                 throw new InvalidOperationException(
-                    $"Constraint name '{name}' is required more than once.");
+                    $"Constraint name '{finalName}' is required more than once.");
             }
 
-            if (SchemaObjectExists(name) &&
-                !ignoredNames.Contains(name, MetaName.Comparer))
+            if (SchemaObjectExists(finalName) &&
+                !currentNames.Contains(finalName, MetaName.Comparer))
             {
                 throw new InvalidOperationException(
-                    $"SQL object '{name}' already exists in schema '{_schema}'.");
+                    $"SQL object '{finalName}' already exists in schema '{_schema}'.");
             }
         }
+
+        var reservedNames = new HashSet<string>(
+            currentNames.Concat(finalNames),
+            MetaName.Comparer);
+        return constraints
+            .Select(constraint => new SqlConstraintRename(
+                constraint.CurrentName,
+                constraint.FinalName,
+                CreateTemporaryConstraintName(reservedNames)))
+            .ToArray();
     }
 
-    private void DropForeignKey(SqlRelationship relationship)
+    private string CreateTemporaryConstraintName(
+        ISet<string> reservedNames)
     {
-        Execute(
-            $"ALTER TABLE {Table(relationship.SourceEntityName)} " +
-            $"DROP CONSTRAINT {Quote(relationship.ConstraintName)};");
+        while (true)
+        {
+            var name = "MetaRename_" + Guid.NewGuid().ToString("N");
+            if (reservedNames.Add(name) && !SchemaObjectExists(name))
+            {
+                return name;
+            }
+        }
     }
 
     private void RenameConstraint(string oldName, string newName)
@@ -364,4 +386,9 @@ internal sealed partial class SqlOperationTarget
         string TargetEntityName,
         string TargetColumnName,
         bool IsNullable);
+
+    private sealed record SqlConstraintRename(
+        string CurrentName,
+        string FinalName,
+        string TemporaryName);
 }

@@ -130,20 +130,20 @@ internal sealed partial class SqlOperationTarget
                         columnName));
             })
             .ToList();
-        var ignoredConstraintNames = affectedRelationships
-            .Select(relationship => relationship.ConstraintName)
-            .Append(affectedPrimaryKey)
-            .ToArray();
-        EnsureObjectNamesAvailable(
-            ignoredConstraintNames,
+        var constraintRenames = PlanConstraintRenames(
             [
-                SqlWorkspaceNames.PrimaryKey(newName),
-                .. relationshipPlans.Select(plan => plan.NewConstraintName),
+                (
+                    affectedPrimaryKey,
+                    SqlWorkspaceNames.PrimaryKey(newName)),
+                .. relationshipPlans.Select(plan => (
+                    plan.Relationship.ConstraintName,
+                    plan.NewConstraintName)),
             ]);
-
-        foreach (var relationship in affectedRelationships)
+        foreach (var constraint in constraintRenames)
         {
-            DropForeignKey(relationship);
+            RenameConstraint(
+                constraint.CurrentName,
+                constraint.TemporaryName);
         }
 
         var recordCount = Count(
@@ -174,15 +174,11 @@ internal sealed partial class SqlOperationTarget
                 plan.NewColumnName);
         }
 
-        RenameConstraint(
-            affectedPrimaryKey,
-            SqlWorkspaceNames.PrimaryKey(newName));
-        foreach (var plan in relationshipPlans)
+        foreach (var constraint in constraintRenames)
         {
-            AddForeignKey(
-                plan.NewSourceName,
-                plan.NewTargetName,
-                plan.NewColumnName);
+            RenameConstraint(
+                constraint.TemporaryName,
+                constraint.FinalName);
         }
 
         return new RenameEntityResult(
@@ -386,19 +382,20 @@ internal sealed partial class SqlOperationTarget
             sourceName,
             relationship.TargetEntityName,
             newColumnName);
-        EnsureObjectNamesAvailable(
-            [relationship.ConstraintName],
-            newConstraintName);
+        var constraintRename = PlanConstraintRenames(
+                (relationship.ConstraintName, newConstraintName))
+            .Single();
         var oldColumnName = relationship.ColumnName;
-        DropForeignKey(relationship);
+        RenameConstraint(
+            constraintRename.CurrentName,
+            constraintRename.TemporaryName);
         RenameColumn(
             sourceName,
             oldColumnName,
             newColumnName);
-        AddForeignKey(
-            sourceName,
-            relationship.TargetEntityName,
-            newColumnName);
+        RenameConstraint(
+            constraintRename.TemporaryName,
+            constraintRename.FinalName);
         return new RenameRelationshipResult(
             sourceName,
             relationship.TargetEntityName,

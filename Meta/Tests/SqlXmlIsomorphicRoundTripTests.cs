@@ -761,6 +761,135 @@ public sealed class SqlXmlIsomorphicRoundTripTests
     }
 
     [Fact]
+    public async Task SqlWorkspace_FailedBatchRollsBackLogicalModelRenameAndRejectsReuse()
+    {
+        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
+        if (string.IsNullOrWhiteSpace(baseConnectionString))
+        {
+            throw new InvalidOperationException(
+                "SQL operation verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
+        }
+
+        var originalName = "MetaBatchModel" + Guid.NewGuid().ToString("N")[..14];
+        var renamedName = "MetaBatchRenamed" + Guid.NewGuid().ToString("N")[..12];
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "MetaSqlBatchModel-" + Guid.NewGuid().ToString("N"));
+        var environmentVariable = "META_SQL_BATCH_MODEL_" +
+                                  Guid.NewGuid().ToString("N");
+        var originalEnvironmentValue = Environment.GetEnvironmentVariable(
+            environmentVariable);
+        try
+        {
+            var source = BuildRelationshipRenameWorkspace(originalName);
+            var connectionString = WithDatabase(
+                baseConnectionString,
+                originalName);
+            Environment.SetEnvironmentVariable(
+                environmentVariable,
+                connectionString);
+            await WorkspaceSurface.CreateAsync(
+                source,
+                root,
+                "sql",
+                environmentVariable);
+
+            await using (var workspace = await WorkspaceSurface.OpenAsync(root))
+            {
+                var failure = await Assert.ThrowsAsync<MetaOperationException>(
+                    () => workspace.ExecuteAsync(
+                        [
+                            new Operation.RenameModel(originalName, renamedName),
+                            new Operation.RemoveEntity("Missing"),
+                        ]).AsTask());
+                Assert.Equal(1, failure.OperationIndex);
+                await Assert.ThrowsAsync<InvalidOperationException>(
+                    () => workspace.ExecuteAsync(
+                        [new Operation.AddEntity("AfterFailure")]).AsTask());
+            }
+
+            await using var reopened = await WorkspaceSurface.OpenAsync(root);
+            Assert.Equal(originalName, await reopened.ReadModelNameAsync());
+            var actual = await WorkspaceComposition.MaterializeAsync(reopened);
+            Assert.Null(InMemoryWorkspaceComparer.FindDifference(source, actual));
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(
+                environmentVariable,
+                originalEnvironmentValue);
+            await DropDatabaseIfExistsAsync(baseConnectionString, originalName);
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public async Task SqlWorkspace_FailedBatchRollsBackEntityRenameCatalogAndData()
+    {
+        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
+        if (string.IsNullOrWhiteSpace(baseConnectionString))
+        {
+            throw new InvalidOperationException(
+                "SQL operation verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
+        }
+
+        var databaseName = "MetaBatchEntity" + Guid.NewGuid().ToString("N")[..13];
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "MetaSqlBatchEntity-" + Guid.NewGuid().ToString("N"));
+        var environmentVariable = "META_SQL_BATCH_ENTITY_" +
+                                  Guid.NewGuid().ToString("N");
+        var originalEnvironmentValue = Environment.GetEnvironmentVariable(
+            environmentVariable);
+        try
+        {
+            var source = BuildRelationshipRenameWorkspace(databaseName);
+            var connectionString = WithDatabase(
+                baseConnectionString,
+                databaseName);
+            Environment.SetEnvironmentVariable(
+                environmentVariable,
+                connectionString);
+            await WorkspaceSurface.CreateAsync(
+                source,
+                root,
+                "sql",
+                environmentVariable);
+            var beforeConstraints = await ReadConstraintCatalogAsync(
+                connectionString);
+
+            await using (var workspace = await WorkspaceSurface.OpenAsync(root))
+            {
+                var failure = await Assert.ThrowsAsync<MetaOperationException>(
+                    () => workspace.ExecuteAsync(
+                        [
+                            new Operation.RenameEntity("Child", "RenamedChild"),
+                            new Operation.AddEntity("Parent"),
+                        ]).AsTask());
+                Assert.Equal(1, failure.OperationIndex);
+                await Assert.ThrowsAsync<InvalidOperationException>(
+                    () => workspace.ExecuteAsync(
+                        [new Operation.AddEntity("AfterFailure")]).AsTask());
+            }
+
+            await using var reopened = await WorkspaceSurface.OpenAsync(root);
+            var actual = await WorkspaceComposition.MaterializeAsync(reopened);
+            Assert.Null(InMemoryWorkspaceComparer.FindDifference(source, actual));
+            Assert.Equal(
+                beforeConstraints,
+                await ReadConstraintCatalogAsync(connectionString));
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(
+                environmentVariable,
+                originalEnvironmentValue);
+            await DropDatabaseIfExistsAsync(baseConnectionString, databaseName);
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
     public async Task SqlWorkspace_RenameEntity_RefreshesAllAffectedConstraints()
     {
         var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
@@ -790,12 +919,14 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 EXEC sys.sp_rename N'[dbo].[FK_Source_Node_NodeId]', N'Legacy_Source_Node_FK', N'OBJECT';
                 EXEC sys.sp_rename N'[dbo].[FK_Source_Node_OwnerId]', N'Legacy_Source_Owner_FK', N'OBJECT';
                 """);
+            var before = await ReadConstraintCatalogAsync(connectionString);
 
             SqlOperations.Execute(
                 connectionString,
                 new Operation.RenameEntity("Node", "RenamedNode"));
 
-            var constraints = await ReadConstraintNamesAsync(connectionString);
+            var after = await ReadConstraintCatalogAsync(connectionString);
+            var constraints = after.Select(constraint => constraint.Name).ToArray();
             Assert.Contains(
                 SqlWorkspaceNames.PrimaryKey("RenamedNode"),
                 constraints);
@@ -823,6 +954,48 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                     "RenamedNode",
                     "OwnerId"),
                 constraints);
+            AssertConstraintPreserved(
+                before,
+                "Legacy_Node_PK",
+                after,
+                SqlWorkspaceNames.PrimaryKey("RenamedNode"));
+            AssertConstraintPreserved(
+                before,
+                SqlWorkspaceNames.ForeignKey("Node", "Target", "TargetId"),
+                after,
+                SqlWorkspaceNames.ForeignKey(
+                    "RenamedNode",
+                    "Target",
+                    "TargetId"));
+            AssertConstraintPreserved(
+                before,
+                SqlWorkspaceNames.ForeignKey("Node", "Node", "ParentId"),
+                after,
+                SqlWorkspaceNames.ForeignKey(
+                    "RenamedNode",
+                    "RenamedNode",
+                    "ParentId"));
+            AssertConstraintPreserved(
+                before,
+                "Legacy_Source_Node_FK",
+                after,
+                SqlWorkspaceNames.ForeignKey(
+                    "Source",
+                    "RenamedNode",
+                    "RenamedNodeId"));
+            AssertConstraintPreserved(
+                before,
+                "Legacy_Source_Owner_FK",
+                after,
+                SqlWorkspaceNames.ForeignKey(
+                    "Source",
+                    "RenamedNode",
+                    "OwnerId"));
+            Assert.DoesNotContain(
+                after,
+                constraint => constraint.Name.StartsWith(
+                    "MetaRename_",
+                    StringComparison.OrdinalIgnoreCase));
 
             SqlOperations.Execute(
                 connectionString,
@@ -872,6 +1045,11 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             var connectionString = WithDatabase(
                 baseConnectionString,
                 databaseName);
+            var before = await ReadConstraintCatalogAsync(connectionString);
+            var originalConstraintName = SqlWorkspaceNames.ForeignKey(
+                "Child",
+                "Parent",
+                "OriginalId");
 
             SqlOperations.Execute(
                 connectionString,
@@ -879,19 +1057,23 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                     "Child",
                     "Original",
                     "original"));
-            var renamed = await ReadConstraintNamesAsync(connectionString);
+            var renamedCatalog = await ReadConstraintCatalogAsync(connectionString);
+            var renamed = renamedCatalog.Select(constraint => constraint.Name).ToArray();
+            var caseOnlyConstraintName = SqlWorkspaceNames.ForeignKey(
+                "Child",
+                "Parent",
+                "originalId");
             Assert.Contains(
-                SqlWorkspaceNames.ForeignKey(
-                    "Child",
-                    "Parent",
-                    "originalId"),
+                caseOnlyConstraintName,
                 renamed);
             Assert.DoesNotContain(
-                SqlWorkspaceNames.ForeignKey(
-                    "Child",
-                    "Parent",
-                    "OriginalId"),
+                originalConstraintName,
                 renamed);
+            AssertConstraintPreserved(
+                before,
+                originalConstraintName,
+                renamedCatalog,
+                caseOnlyConstraintName);
 
             SqlOperations.Execute(
                 connectionString,
@@ -899,13 +1081,21 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                     "Child",
                     "original",
                     "Renamed"));
-            renamed = await ReadConstraintNamesAsync(connectionString);
+            var roleRenamedCatalog = await ReadConstraintCatalogAsync(
+                connectionString);
+            renamed = roleRenamedCatalog.Select(constraint => constraint.Name).ToArray();
+            var renamedConstraintName = SqlWorkspaceNames.ForeignKey(
+                "Child",
+                "Parent",
+                "RenamedId");
             Assert.Contains(
-                SqlWorkspaceNames.ForeignKey(
-                    "Child",
-                    "Parent",
-                    "RenamedId"),
+                renamedConstraintName,
                 renamed);
+            AssertConstraintPreserved(
+                renamedCatalog,
+                caseOnlyConstraintName,
+                roleRenamedCatalog,
+                renamedConstraintName);
 
             SqlOperations.Execute(
                 connectionString,
@@ -967,7 +1157,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 );
                 """);
             var before = await MetaSqlReader.ReadAsync(connectionString, "dbo");
-            var beforeConstraints = await ReadConstraintNamesAsync(connectionString);
+            var beforeConstraints = await ReadConstraintCatalogAsync(connectionString);
 
             var exception = Assert.Throws<MetaOperationException>(() =>
                 SqlOperations.Execute(
@@ -978,9 +1168,8 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             var after = await MetaSqlReader.ReadAsync(connectionString, "dbo");
             Assert.Null(InMemoryWorkspaceComparer.FindDifference(before, after));
             Assert.Equal(
-                beforeConstraints.OrderBy(name => name, StringComparer.Ordinal),
-                (await ReadConstraintNamesAsync(connectionString))
-                    .OrderBy(name => name, StringComparer.Ordinal));
+                beforeConstraints,
+                await ReadConstraintCatalogAsync(connectionString));
         }
         finally
         {
@@ -1026,6 +1215,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             var connectionString = WithDatabase(
                 baseConnectionString,
                 databaseName);
+            var before = await ReadConstraintCatalogAsync(connectionString);
 
             SqlOperations.Execute(
                 connectionString,
@@ -1037,7 +1227,8 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                     "Role",
                     "AnotherRole"));
 
-            var constraints = await ReadConstraintNamesAsync(connectionString);
+            var after = await ReadConstraintCatalogAsync(connectionString);
+            var constraints = after.Select(constraint => constraint.Name).ToArray();
             Assert.Contains(SqlWorkspaceNames.PrimaryKey(newTarget), constraints);
             Assert.Contains(
                 SqlWorkspaceNames.ForeignKey(
@@ -1052,6 +1243,19 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             Assert.NotEqual(
                 "PK_" + maximumName,
                 SqlWorkspaceNames.PrimaryKey(maximumName));
+            AssertConstraintPreserved(
+                before,
+                "Legacy_Target_PK",
+                after,
+                SqlWorkspaceNames.PrimaryKey(newTarget));
+            AssertConstraintPreserved(
+                before,
+                "Legacy_Source_Role_FK",
+                after,
+                SqlWorkspaceNames.ForeignKey(
+                    sourceName,
+                    newTarget,
+                    "AnotherRoleId"));
         }
         finally
         {
@@ -1656,6 +1860,68 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         return names;
     }
 
+    private static async Task<IReadOnlyList<SqlConstraintCatalogEntry>>
+        ReadConstraintCatalogAsync(string connectionString)
+    {
+        var constraints = new List<SqlConstraintCatalogEntry>();
+        await using var connection = new SqlConnection(connectionString);
+        await connection.OpenAsync().ConfigureAwait(false);
+        await using var command = new SqlCommand(
+            """
+            SELECT
+                objectValue.name,
+                objectValue.object_id,
+                objectValue.type,
+                CONVERT(bit, COALESCE(foreignKey.is_disabled, 0)),
+                CONVERT(bit, COALESCE(foreignKey.is_not_trusted, 0)),
+                CONVERT(bit, COALESCE(foreignKey.is_not_for_replication, 0))
+            FROM sys.objects objectValue
+            INNER JOIN sys.schemas schemaValue
+                ON schemaValue.schema_id = objectValue.schema_id
+            LEFT JOIN sys.foreign_keys foreignKey
+                ON foreignKey.object_id = objectValue.object_id
+            WHERE schemaValue.name = N'dbo'
+              AND objectValue.type IN ('PK', 'F')
+            ORDER BY objectValue.object_id;
+            """,
+            connection);
+        await using var reader = await command.ExecuteReaderAsync()
+            .ConfigureAwait(false);
+        while (await reader.ReadAsync().ConfigureAwait(false))
+        {
+            constraints.Add(new SqlConstraintCatalogEntry(
+                reader.GetString(0),
+                reader.GetInt32(1),
+                reader.GetString(2).Trim(),
+                reader.GetBoolean(3),
+                reader.GetBoolean(4),
+                reader.GetBoolean(5)));
+        }
+
+        return constraints;
+    }
+
+    private static void AssertConstraintPreserved(
+        IReadOnlyList<SqlConstraintCatalogEntry> before,
+        string beforeName,
+        IReadOnlyList<SqlConstraintCatalogEntry> after,
+        string afterName)
+    {
+        var original = Assert.Single(before, constraint =>
+            string.Equals(
+                constraint.Name,
+                beforeName,
+                StringComparison.Ordinal));
+        var renamed = Assert.Single(after, constraint =>
+            string.Equals(
+                constraint.Name,
+                afterName,
+                StringComparison.Ordinal));
+        Assert.Equal(
+            original with { Name = afterName },
+            renamed);
+    }
+
     private static async Task ExecuteSqlAsync(
         string connectionString,
         string script)
@@ -1876,6 +2142,14 @@ public sealed class SqlXmlIsomorphicRoundTripTests
 
         return batches;
     }
+
+    private sealed record SqlConstraintCatalogEntry(
+        string Name,
+        int ObjectId,
+        string Type,
+        bool IsDisabled,
+        bool IsNotTrusted,
+        bool IsNotForReplication);
 
     private static string FindRepositoryRoot()
     {

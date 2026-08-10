@@ -396,10 +396,18 @@ internal sealed class SqlWorkspaceConnection : IMetaWorkspaceSource, IAsyncDispo
             return ValueTask.FromResult<IReadOnlyList<OperationResult>>([]);
         }
 
-        var results = ApplyOperations(operations);
-        _transaction.Commit();
-        _completed = true;
-        return ValueTask.FromResult<IReadOnlyList<OperationResult>>(results);
+        try
+        {
+            var results = ApplyOperations(operations);
+            _transaction.Commit();
+            _completed = true;
+            return ValueTask.FromResult<IReadOnlyList<OperationResult>>(results);
+        }
+        catch (Exception executionFailure)
+        {
+            FailExecution(executionFailure);
+            throw;
+        }
     }
 
     internal async ValueTask<IReadOnlyList<OperationResult>> ExecuteVerifiedAsync(
@@ -409,23 +417,31 @@ internal sealed class SqlWorkspaceConnection : IMetaWorkspaceSource, IAsyncDispo
     {
         ArgumentNullException.ThrowIfNull(expected);
         ValidateExecution(operations, cancellationToken);
-        var results = ApplyOperations(operations);
-        var actual = await WorkspaceComposition.MaterializeAsync(
-                this,
-                cancellationToken)
-            .ConfigureAwait(false);
-        var difference = InMemoryWorkspaceComparer.FindDifference(
-            expected,
-            actual);
-        if (difference != null)
+        try
         {
-            throw new InvalidOperationException(
-                $"Created SQL workspace changed metadata semantics. {difference}");
-        }
+            var results = ApplyOperations(operations);
+            var actual = await WorkspaceComposition.MaterializeAsync(
+                    this,
+                    cancellationToken)
+                .ConfigureAwait(false);
+            var difference = InMemoryWorkspaceComparer.FindDifference(
+                expected,
+                actual);
+            if (difference != null)
+            {
+                throw new InvalidOperationException(
+                    $"Created SQL workspace changed metadata semantics. {difference}");
+            }
 
-        _transaction.Commit();
-        _completed = true;
-        return results;
+            _transaction.Commit();
+            _completed = true;
+            return results;
+        }
+        catch (Exception executionFailure)
+        {
+            FailExecution(executionFailure);
+            throw;
+        }
     }
 
     private IReadOnlyList<OperationResult> ApplyOperations(
@@ -491,6 +507,22 @@ internal sealed class SqlWorkspaceConnection : IMetaWorkspaceSource, IAsyncDispo
         {
             throw new InvalidOperationException(
                 "SQL workspace execution has completed.");
+        }
+    }
+
+    private void FailExecution(Exception executionFailure)
+    {
+        _completed = true;
+        try
+        {
+            _transaction.Rollback();
+        }
+        catch (Exception rollbackFailure)
+        {
+            throw new AggregateException(
+                "SQL workspace execution and rollback both failed.",
+                executionFailure,
+                rollbackFailure);
         }
     }
 

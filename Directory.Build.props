@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <MetaFoundationPackageVersion Condition="'$(MetaFoundationPackageVersion)' == ''">0.1.0-internal.11</MetaFoundationPackageVersion>
+    <MetaFoundationPackageVersion Condition="'$(MetaFoundationPackageVersion)' == ''">0.1.0-internal.12</MetaFoundationPackageVersion>
     <MetaInternalPackageVersion Condition="'$(MetaInternalPackageVersion)' == ''">$(MetaFoundationPackageVersion)</MetaInternalPackageVersion>
     <Version Condition="'$(Version)' == ''">$(MetaInternalPackageVersion)</Version>
     <PackageVersion Condition="'$(PackageVersion)' == ''">$(MetaInternalPackageVersion)</PackageVersion>
