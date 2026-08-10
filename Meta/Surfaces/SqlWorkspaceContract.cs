@@ -11,6 +11,8 @@ internal static class SqlWorkspaceContract
 
     public const string PropertySqlType = "NVARCHAR(MAX)";
 
+    public const string LogicalModelNameProperty = "Meta.ModelName";
+
     public static string IdentitySqlType { get; } =
         $"NVARCHAR({MetaIdentity.MaximumLength}) COLLATE {CaseInsensitiveCollation}";
 }

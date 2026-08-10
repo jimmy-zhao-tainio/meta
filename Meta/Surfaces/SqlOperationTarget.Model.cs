@@ -40,6 +40,23 @@ internal sealed partial class SqlOperationTarget
             operation.NewName,
             "New entity name.");
         LoadColumnNames(name);
+        if (string.Equals(name, newName, StringComparison.Ordinal))
+        {
+            return new RenameEntityResult(
+                name,
+                newName,
+                Count($"SELECT COUNT_BIG(1) FROM {Table(name)};"),
+                LoadRelationships(targetEntityName: name).Count,
+                0);
+        }
+
+        if (!MetaName.Comparer.Equals(name, newName) &&
+            TableExists(newName))
+        {
+            throw new InvalidOperationException(
+                $"Entity '{newName}' already exists.");
+        }
+
         var allInbound = LoadRelationships(targetEntityName: name)
             .ToList();
         var renamedInbound = allInbound
@@ -64,6 +81,71 @@ internal sealed partial class SqlOperationTarget
             }
         }
 
+        var affectedRelationships = LoadRelationships()
+            .Where(relationship =>
+                MetaName.Comparer.Equals(
+                    relationship.SourceEntityName,
+                    name) ||
+                MetaName.Comparer.Equals(
+                    relationship.TargetEntityName,
+                    name))
+            .ToList();
+        var affectedPrimaryKey = RequirePrimaryKeyConstraint(name);
+        var newImplicitColumnName = renamedInbound.Any()
+            ? MetaName.Require(newName + "Id", "Relationship name.")
+            : null;
+        var relationshipPlans = affectedRelationships
+            .Select(relationship =>
+            {
+                var sourceName = MetaName.Comparer.Equals(
+                    relationship.SourceEntityName,
+                    name)
+                    ? newName
+                    : relationship.SourceEntityName;
+                var targetName = MetaName.Comparer.Equals(
+                    relationship.TargetEntityName,
+                    name)
+                    ? newName
+                    : relationship.TargetEntityName;
+                var columnName = relationship.ColumnName;
+                if (newImplicitColumnName != null &&
+                    MetaName.Comparer.Equals(
+                        relationship.TargetEntityName,
+                        name) &&
+                    MetaName.Comparer.Equals(
+                        relationship.ColumnName,
+                        name + "Id"))
+                {
+                    columnName = newImplicitColumnName;
+                }
+
+                return new SqlRelationshipPlan(
+                    relationship,
+                    sourceName,
+                    targetName,
+                    columnName,
+                    SqlWorkspaceNames.ForeignKey(
+                        sourceName,
+                        targetName,
+                        columnName));
+            })
+            .ToList();
+        var ignoredConstraintNames = affectedRelationships
+            .Select(relationship => relationship.ConstraintName)
+            .Append(affectedPrimaryKey)
+            .ToArray();
+        EnsureObjectNamesAvailable(
+            ignoredConstraintNames,
+            [
+                SqlWorkspaceNames.PrimaryKey(newName),
+                .. relationshipPlans.Select(plan => plan.NewConstraintName),
+            ]);
+
+        foreach (var relationship in affectedRelationships)
+        {
+            DropForeignKey(relationship);
+        }
+
         var recordCount = Count(
             $"SELECT COUNT_BIG(1) FROM {Table(name)};");
         var relationshipValueCount = renamedInbound.Sum(relationship =>
@@ -76,17 +158,31 @@ internal sealed partial class SqlOperationTarget
             TextParameter("@objectName", Quote(_schema) + "." + Quote(name)),
             NameParameter("@newName", newName));
 
-        foreach (var relationship in renamedInbound)
+        foreach (var plan in relationshipPlans)
         {
-            var sourceName = MetaName.Comparer.Equals(
-                relationship.SourceEntityName,
-                name)
-                ? newName
-                : relationship.SourceEntityName;
+            if (string.Equals(
+                    plan.Relationship.ColumnName,
+                    plan.NewColumnName,
+                    StringComparison.Ordinal))
+            {
+                continue;
+            }
+
             RenameColumn(
-                sourceName,
-                relationship.ColumnName,
-                newName + "Id");
+                plan.NewSourceName,
+                plan.Relationship.ColumnName,
+                plan.NewColumnName);
+        }
+
+        RenameConstraint(
+            affectedPrimaryKey,
+            SqlWorkspaceNames.PrimaryKey(newName));
+        foreach (var plan in relationshipPlans)
+        {
+            AddForeignKey(
+                plan.NewSourceName,
+                plan.NewTargetName,
+                plan.NewColumnName);
         }
 
         return new RenameEntityResult(
@@ -261,9 +357,10 @@ internal sealed partial class SqlOperationTarget
         var newColumnName = MetaName.Require(
             newRole + "Id",
             "New relationship name.");
-        if (MetaName.Comparer.Equals(
+        if (string.Equals(
                 relationship.ColumnName,
-                newColumnName))
+                newColumnName,
+                StringComparison.Ordinal))
         {
             throw new InvalidOperationException(
                 $"Relationship '{sourceName}.{relationship.ColumnName}' already uses the requested role.");
@@ -284,11 +381,23 @@ internal sealed partial class SqlOperationTarget
 
         var relationshipValueCount = Count(
             $"SELECT COUNT_BIG(1) FROM {Table(sourceName)} " +
-            $"WHERE {Quote(relationship.ColumnName)} IS NOT NULL;");
+                $"WHERE {Quote(relationship.ColumnName)} IS NOT NULL;");
+        var newConstraintName = SqlWorkspaceNames.ForeignKey(
+            sourceName,
+            relationship.TargetEntityName,
+            newColumnName);
+        EnsureObjectNamesAvailable(
+            [relationship.ConstraintName],
+            newConstraintName);
         var oldColumnName = relationship.ColumnName;
+        DropForeignKey(relationship);
         RenameColumn(
             sourceName,
             oldColumnName,
+            newColumnName);
+        AddForeignKey(
+            sourceName,
+            relationship.TargetEntityName,
             newColumnName);
         return new RenameRelationshipResult(
             sourceName,
@@ -410,6 +519,26 @@ internal sealed partial class SqlOperationTarget
             """);
     }
 
+    private RenameModelResult Apply(Operation.RenameModel operation)
+    {
+        var oldName = MetaName.Require(
+            SqlWorkspaceModelMetadata.Read(_connection, _transaction),
+            "Model name.");
+        var expectedName = MetaName.Require(operation.Name, "Model name.");
+        if (!MetaName.Comparer.Equals(oldName, expectedName))
+        {
+            throw new InvalidOperationException(
+                $"SQL workspace model is '{oldName}', not '{expectedName}'.");
+        }
+
+        var newName = MetaName.Require(operation.NewName, "New model name.");
+        SqlWorkspaceModelMetadata.Write(
+            _connection,
+            _transaction,
+            newName);
+        return new RenameModelResult(oldName, newName);
+    }
+
     private string RequireNewMemberName(
         string entityName,
         string name,
@@ -442,4 +571,11 @@ internal sealed partial class SqlOperationTarget
                 Quote(_schema) + "." + Quote(entityName) + "." + Quote(name)),
             NameParameter("@newName", newName));
     }
+
+    private sealed record SqlRelationshipPlan(
+        SqlRelationship Relationship,
+        string NewSourceName,
+        string NewTargetName,
+        string NewColumnName,
+        string NewConstraintName);
 }

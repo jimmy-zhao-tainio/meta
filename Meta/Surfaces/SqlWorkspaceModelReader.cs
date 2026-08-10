@@ -25,7 +25,7 @@ internal static class SqlWorkspaceModelReader
 
         var model = new GenericModel
         {
-            Name = MetaName.Require(connection.Database, "Database name."),
+            Name = SqlWorkspaceModelMetadata.Read(connection, transaction),
         };
         foreach (var tableColumns in columns.GroupBy(
                      column => column.TableName,

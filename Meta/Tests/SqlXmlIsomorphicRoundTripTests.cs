@@ -619,7 +619,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
     }
 
     [Fact]
-    public async Task SqlOperations_RenameModel_RenamesTheDatabase()
+    public async Task SqlWorkspace_RenameModel_PersistsLogicalIdentityThroughDescriptor()
     {
         var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
         if (string.IsNullOrWhiteSpace(baseConnectionString))
@@ -630,6 +630,92 @@ public sealed class SqlXmlIsomorphicRoundTripTests
 
         var originalName = "MetaOld" + Guid.NewGuid().ToString("N")[..20];
         var renamedName = "MetaNew" + Guid.NewGuid().ToString("N")[..20];
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "MetaSqlRename-" + Guid.NewGuid().ToString("N"));
+        var environmentVariable = "META_SQL_RENAME_" +
+                                   Guid.NewGuid().ToString("N");
+        var originalEnvironmentValue = Environment.GetEnvironmentVariable(
+            environmentVariable);
+        try
+        {
+            var source = MetaXmlCodecTests.BuildState();
+            source.Model.Name = originalName;
+            source.Instance.ModelName = originalName;
+            var originalConnectionString = new SqlConnectionStringBuilder(
+                baseConnectionString)
+            {
+                InitialCatalog = originalName,
+            }.ConnectionString;
+            Environment.SetEnvironmentVariable(
+                environmentVariable,
+                originalConnectionString);
+            await WorkspaceSurface.CreateAsync(
+                source,
+                root,
+                "sql",
+                environmentVariable);
+
+            await using (var workspace = await WorkspaceSurface.OpenAsync(root))
+            {
+                var results = await workspace.ExecuteAsync(
+                    [new Operation.RenameModel(originalName, renamedName)]);
+                Assert.Equal(
+                    new RenameModelResult(originalName, renamedName),
+                    Assert.Single(results));
+            }
+
+            Assert.Equal(
+                originalConnectionString,
+                Environment.GetEnvironmentVariable(environmentVariable));
+            var expected = InMemoryOperations.Execute(
+                source,
+                new Operation.RenameModel(originalName, renamedName)).Workspace;
+            await using var reopened = await WorkspaceSurface.OpenAsync(root);
+            Assert.Equal(renamedName, await reopened.ReadModelNameAsync());
+            var actual = await WorkspaceComposition.MaterializeAsync(reopened);
+            Assert.Null(InMemoryWorkspaceComparer.FindDifference(expected, actual));
+            await reopened.ExecuteAsync([new Operation.AddEntity("AfterRename")]);
+
+            await using var reopenedAgain = await WorkspaceSurface.OpenAsync(root);
+            Assert.Contains(
+                "AfterRename",
+                await ReadEntityNamesAsync(reopenedAgain));
+
+            await using var physicalConnection = new SqlConnection(
+                originalConnectionString);
+            await physicalConnection.OpenAsync();
+            Assert.Equal(originalName, physicalConnection.Database);
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(
+                environmentVariable,
+                originalEnvironmentValue);
+            await DropDatabaseIfExistsAsync(baseConnectionString, originalName);
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public async Task SqlWorkspace_RenameModel_MigratesLegacyPhysicalNameFallback()
+    {
+        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
+        if (string.IsNullOrWhiteSpace(baseConnectionString))
+        {
+            throw new InvalidOperationException(
+                "SQL operation verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
+        }
+
+        var originalName = "MetaLegacy" + Guid.NewGuid().ToString("N")[..19];
+        var renamedName = "MetaLogical" + Guid.NewGuid().ToString("N")[..17];
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "MetaSqlLegacyRename-" + Guid.NewGuid().ToString("N"));
+        var environmentVariable = "META_SQL_LEGACY_RENAME_" +
+                                   Guid.NewGuid().ToString("N");
+        var originalEnvironmentValue = Environment.GetEnvironmentVariable(
+            environmentVariable);
         try
         {
             var source = MetaXmlCodecTests.BuildState();
@@ -641,36 +727,335 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 originalName,
                 sql.Schema,
                 sql.Data);
+            var connectionString = new SqlConnectionStringBuilder(
+                baseConnectionString)
+            {
+                InitialCatalog = originalName,
+            }.ConnectionString;
+            Environment.SetEnvironmentVariable(
+                environmentVariable,
+                connectionString);
+            WorkspaceMetaFile.WriteSql(root, environmentVariable);
 
-            var originalConnectionString =
-                new SqlConnectionStringBuilder(baseConnectionString)
-                {
-                    InitialCatalog = originalName,
-                }.ConnectionString;
-            var results = SqlOperations.Execute(
-                originalConnectionString,
-                new Operation.RenameModel(originalName, renamedName));
-            Assert.Equal(
-                new RenameModelResult(originalName, renamedName),
-                Assert.Single(results));
+            await using (var legacy = await WorkspaceSurface.OpenAsync(root))
+            {
+                Assert.Equal(originalName, await legacy.ReadModelNameAsync());
+                await legacy.ExecuteAsync(
+                    [new Operation.RenameModel(originalName, renamedName)]);
+            }
 
-            var renamedConnectionString =
-                new SqlConnectionStringBuilder(baseConnectionString)
-                {
-                    InitialCatalog = renamedName,
-                }.ConnectionString;
-            var renamed = await MetaSqlReader.ReadAsync(
-                renamedConnectionString,
-                "dbo");
-
-            Assert.Equal(renamedName, renamed.Model.Name);
-            Assert.Equal(renamedName, renamed.Instance.ModelName);
+            await using var reopened = await WorkspaceSurface.OpenAsync(root);
+            Assert.Equal(renamedName, await reopened.ReadModelNameAsync());
+            await using var physicalConnection = new SqlConnection(connectionString);
+            await physicalConnection.OpenAsync();
+            Assert.Equal(originalName, physicalConnection.Database);
         }
         finally
         {
-            SqlConnection.ClearAllPools();
+            Environment.SetEnvironmentVariable(
+                environmentVariable,
+                originalEnvironmentValue);
             await DropDatabaseIfExistsAsync(baseConnectionString, originalName);
-            await DropDatabaseIfExistsAsync(baseConnectionString, renamedName);
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public async Task SqlWorkspace_RenameEntity_RefreshesAllAffectedConstraints()
+    {
+        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
+        if (string.IsNullOrWhiteSpace(baseConnectionString))
+        {
+            throw new InvalidOperationException(
+                "SQL operation verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
+        }
+
+        var databaseName = "MetaEntityRename" + Guid.NewGuid().ToString("N")[..15];
+        try
+        {
+            var source = BuildEntityRenameWorkspace(databaseName);
+            var sql = MetaSqlWriter.Write(source);
+            await RecreateDatabaseFromSqlAsync(
+                baseConnectionString,
+                databaseName,
+                sql.Schema,
+                sql.Data);
+            var connectionString = WithDatabase(
+                baseConnectionString,
+                databaseName);
+            await ExecuteSqlAsync(
+                connectionString,
+                """
+                EXEC sys.sp_rename N'[dbo].[PK_Node]', N'Legacy_Node_PK', N'OBJECT';
+                EXEC sys.sp_rename N'[dbo].[FK_Source_Node_NodeId]', N'Legacy_Source_Node_FK', N'OBJECT';
+                EXEC sys.sp_rename N'[dbo].[FK_Source_Node_OwnerId]', N'Legacy_Source_Owner_FK', N'OBJECT';
+                """);
+
+            SqlOperations.Execute(
+                connectionString,
+                new Operation.RenameEntity("Node", "RenamedNode"));
+
+            var constraints = await ReadConstraintNamesAsync(connectionString);
+            Assert.Contains(
+                SqlWorkspaceNames.PrimaryKey("RenamedNode"),
+                constraints);
+            Assert.Contains(
+                SqlWorkspaceNames.ForeignKey(
+                    "RenamedNode",
+                    "Target",
+                    "TargetId"),
+                constraints);
+            Assert.Contains(
+                SqlWorkspaceNames.ForeignKey(
+                    "RenamedNode",
+                    "RenamedNode",
+                    "ParentId"),
+                constraints);
+            Assert.Contains(
+                SqlWorkspaceNames.ForeignKey(
+                    "Source",
+                    "RenamedNode",
+                    "RenamedNodeId"),
+                constraints);
+            Assert.Contains(
+                SqlWorkspaceNames.ForeignKey(
+                    "Source",
+                    "RenamedNode",
+                    "OwnerId"),
+                constraints);
+
+            SqlOperations.Execute(
+                connectionString,
+                new Operation.AddEntity("Node"),
+                new Operation.AddRelationship(
+                    "RenamedNode",
+                    "Node",
+                    "Owner",
+                    IsRequired: false));
+            var afterReuse = await ReadConstraintNamesAsync(connectionString);
+            Assert.Contains(
+                SqlWorkspaceNames.PrimaryKey("Node"),
+                afterReuse);
+            Assert.Contains(
+                SqlWorkspaceNames.ForeignKey(
+                    "RenamedNode",
+                    "Node",
+                    "OwnerId"),
+                afterReuse);
+        }
+        finally
+        {
+            await DropDatabaseIfExistsAsync(baseConnectionString, databaseName);
+        }
+    }
+
+    [Fact]
+    public async Task SqlWorkspace_RenameRelationship_RefreshesConstraintAndAllowsRoleReuse()
+    {
+        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
+        if (string.IsNullOrWhiteSpace(baseConnectionString))
+        {
+            throw new InvalidOperationException(
+                "SQL operation verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
+        }
+
+        var databaseName = "MetaRelationshipRename" + Guid.NewGuid().ToString("N")[..12];
+        try
+        {
+            var source = BuildRelationshipRenameWorkspace(databaseName);
+            var sql = MetaSqlWriter.Write(source);
+            await RecreateDatabaseFromSqlAsync(
+                baseConnectionString,
+                databaseName,
+                sql.Schema,
+                sql.Data);
+            var connectionString = WithDatabase(
+                baseConnectionString,
+                databaseName);
+
+            SqlOperations.Execute(
+                connectionString,
+                new Operation.RenameRelationship(
+                    "Child",
+                    "Original",
+                    "original"));
+            var renamed = await ReadConstraintNamesAsync(connectionString);
+            Assert.Contains(
+                SqlWorkspaceNames.ForeignKey(
+                    "Child",
+                    "Parent",
+                    "originalId"),
+                renamed);
+            Assert.DoesNotContain(
+                SqlWorkspaceNames.ForeignKey(
+                    "Child",
+                    "Parent",
+                    "OriginalId"),
+                renamed);
+
+            SqlOperations.Execute(
+                connectionString,
+                new Operation.RenameRelationship(
+                    "Child",
+                    "original",
+                    "Renamed"));
+            renamed = await ReadConstraintNamesAsync(connectionString);
+            Assert.Contains(
+                SqlWorkspaceNames.ForeignKey(
+                    "Child",
+                    "Parent",
+                    "RenamedId"),
+                renamed);
+
+            SqlOperations.Execute(
+                connectionString,
+                new Operation.AddRelationship(
+                    "Child",
+                    "Parent",
+                    "Original",
+                    IsRequired: false));
+            var reused = await ReadConstraintNamesAsync(connectionString);
+            Assert.Contains(
+                SqlWorkspaceNames.ForeignKey(
+                    "Child",
+                    "Parent",
+                    "OriginalId"),
+                reused);
+            Assert.Contains(
+                SqlWorkspaceNames.ForeignKey(
+                    "Child",
+                    "Parent",
+                    "RenamedId"),
+                reused);
+        }
+        finally
+        {
+            await DropDatabaseIfExistsAsync(baseConnectionString, databaseName);
+        }
+    }
+
+    [Fact]
+    public async Task SqlWorkspace_RenameEntity_CollisionRollsBackWithoutChanges()
+    {
+        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
+        if (string.IsNullOrWhiteSpace(baseConnectionString))
+        {
+            throw new InvalidOperationException(
+                "SQL operation verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
+        }
+
+        var databaseName = "MetaRenameRollback" + Guid.NewGuid().ToString("N")[..13];
+        try
+        {
+            var source = BuildRelationshipRenameWorkspace(databaseName);
+            var sql = MetaSqlWriter.Write(source);
+            await RecreateDatabaseFromSqlAsync(
+                baseConnectionString,
+                databaseName,
+                sql.Schema,
+                sql.Data);
+            var connectionString = WithDatabase(
+                baseConnectionString,
+                databaseName);
+            await ExecuteSqlAsync(
+                connectionString,
+                """
+                CREATE TABLE [dbo].[PK_Target]
+                (
+                    [Id] NVARCHAR(450) COLLATE Latin1_General_100_CI_AS_SC NOT NULL,
+                    CONSTRAINT [PK_PK_Target] PRIMARY KEY ([Id])
+                );
+                """);
+            var before = await MetaSqlReader.ReadAsync(connectionString, "dbo");
+            var beforeConstraints = await ReadConstraintNamesAsync(connectionString);
+
+            var exception = Assert.Throws<MetaOperationException>(() =>
+                SqlOperations.Execute(
+                    connectionString,
+                    new Operation.RenameEntity("Child", "Target")));
+            Assert.Contains("already exists", exception.Message, StringComparison.OrdinalIgnoreCase);
+
+            var after = await MetaSqlReader.ReadAsync(connectionString, "dbo");
+            Assert.Null(InMemoryWorkspaceComparer.FindDifference(before, after));
+            Assert.Equal(
+                beforeConstraints.OrderBy(name => name, StringComparer.Ordinal),
+                (await ReadConstraintNamesAsync(connectionString))
+                    .OrderBy(name => name, StringComparer.Ordinal));
+        }
+        finally
+        {
+            await DropDatabaseIfExistsAsync(baseConnectionString, databaseName);
+        }
+    }
+
+    [Fact]
+    public async Task SqlWorkspace_RenameEntity_UsesDeterministicHashedConstraintNames()
+    {
+        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
+        if (string.IsNullOrWhiteSpace(baseConnectionString))
+        {
+            throw new InvalidOperationException(
+                "SQL operation verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
+        }
+
+        var databaseName = "MetaLongRename" + Guid.NewGuid().ToString("N")[..13];
+        var sourceName = "Source" + new string('S', 50);
+        var oldTarget = "Old" + new string('T', 55);
+        var newTarget = "New" + new string('T', 55);
+        try
+        {
+            await RecreateDatabaseFromSqlAsync(
+                baseConnectionString,
+                databaseName,
+                $"""
+                CREATE TABLE [{oldTarget}]
+                (
+                    [Id] NVARCHAR(450) COLLATE Latin1_General_100_CI_AS_SC NOT NULL,
+                    CONSTRAINT [Legacy_Target_PK] PRIMARY KEY ([Id])
+                );
+                CREATE TABLE [{sourceName}]
+                (
+                    [Id] NVARCHAR(450) COLLATE Latin1_General_100_CI_AS_SC NOT NULL,
+                    [RoleId] NVARCHAR(450) COLLATE Latin1_General_100_CI_AS_SC NULL,
+                    CONSTRAINT [Legacy_Source_PK] PRIMARY KEY ([Id]),
+                    CONSTRAINT [Legacy_Source_Role_FK]
+                        FOREIGN KEY ([RoleId]) REFERENCES [dbo].[{oldTarget}] ([Id])
+                );
+                """,
+                string.Empty);
+            var connectionString = WithDatabase(
+                baseConnectionString,
+                databaseName);
+
+            SqlOperations.Execute(
+                connectionString,
+                new Operation.RenameEntity(oldTarget, newTarget));
+            SqlOperations.Execute(
+                connectionString,
+                new Operation.RenameRelationship(
+                    sourceName,
+                    "Role",
+                    "AnotherRole"));
+
+            var constraints = await ReadConstraintNamesAsync(connectionString);
+            Assert.Contains(SqlWorkspaceNames.PrimaryKey(newTarget), constraints);
+            Assert.Contains(
+                SqlWorkspaceNames.ForeignKey(
+                    sourceName,
+                    newTarget,
+                    "AnotherRoleId"),
+                constraints);
+            Assert.DoesNotContain(
+                SqlWorkspaceNames.PrimaryKey(oldTarget),
+                constraints);
+            var maximumName = new string('L', MetaName.MaximumLength);
+            Assert.NotEqual(
+                "PK_" + maximumName,
+                SqlWorkspaceNames.PrimaryKey(maximumName));
+        }
+        finally
+        {
+            await DropDatabaseIfExistsAsync(baseConnectionString, databaseName);
         }
     }
 
@@ -1220,6 +1605,129 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             };
             await command.ExecuteNonQueryAsync().ConfigureAwait(false);
         }
+    }
+
+    private static string WithDatabase(
+        string connectionString,
+        string databaseName)
+    {
+        return new SqlConnectionStringBuilder(connectionString)
+        {
+            InitialCatalog = databaseName,
+        }.ConnectionString;
+    }
+
+    private static async Task<IReadOnlyList<string>> ReadEntityNamesAsync(
+        IMetaWorkspace workspace)
+    {
+        var names = new List<string>();
+        await foreach (var name in workspace.ReadEntityNamesAsync())
+        {
+            names.Add(name);
+        }
+
+        return names;
+    }
+
+    private static async Task<IReadOnlyList<string>> ReadConstraintNamesAsync(
+        string connectionString)
+    {
+        var names = new List<string>();
+        await using var connection = new SqlConnection(connectionString);
+        await connection.OpenAsync().ConfigureAwait(false);
+        await using var command = new SqlCommand(
+            """
+            SELECT objectValue.name
+            FROM sys.objects objectValue
+            INNER JOIN sys.schemas schemaValue
+                ON schemaValue.schema_id = objectValue.schema_id
+            WHERE schemaValue.name = N'dbo'
+              AND objectValue.type IN ('PK', 'F')
+            ORDER BY objectValue.name;
+            """,
+            connection);
+        await using var reader = await command.ExecuteReaderAsync()
+            .ConfigureAwait(false);
+        while (await reader.ReadAsync().ConfigureAwait(false))
+        {
+            names.Add(reader.GetString(0));
+        }
+
+        return names;
+    }
+
+    private static async Task ExecuteSqlAsync(
+        string connectionString,
+        string script)
+    {
+        await using var connection = new SqlConnection(connectionString);
+        await connection.OpenAsync().ConfigureAwait(false);
+        foreach (var batch in SplitSqlBatches(script))
+        {
+            await using var command = new SqlCommand(batch, connection)
+            {
+                CommandTimeout = 300,
+            };
+            await command.ExecuteNonQueryAsync().ConfigureAwait(false);
+        }
+    }
+
+    private static InMemoryWorkspace BuildEntityRenameWorkspace(
+        string modelName)
+    {
+        var model = new GenericModel { Name = modelName };
+        var node = new GenericEntity { Name = "Node" };
+        node.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Node",
+            Role = "Parent",
+            IsNullable = true,
+        });
+        node.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Target",
+            IsNullable = true,
+        });
+        model.Entities.Add(node);
+        var target = new GenericEntity { Name = "Target" };
+        model.Entities.Add(target);
+        var source = new GenericEntity { Name = "Source" };
+        source.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Node",
+            IsNullable = true,
+        });
+        source.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Node",
+            Role = "Owner",
+            IsNullable = true,
+        });
+        model.Entities.Add(source);
+        return new InMemoryWorkspace(
+            model,
+            new GenericInstance { ModelName = modelName });
+    }
+
+    private static InMemoryWorkspace BuildRelationshipRenameWorkspace(
+        string modelName)
+    {
+        var model = new GenericModel { Name = modelName };
+        model.Entities.Add(new GenericEntity { Name = "Parent" });
+        var child = new GenericEntity { Name = "Child" };
+        child.Relationships.Add(new GenericRelationship
+        {
+            Entity = "Parent",
+            Role = "Original",
+            IsNullable = true,
+        });
+        model.Entities.Add(child);
+        var instance = new GenericInstance { ModelName = modelName };
+        instance.GetOrCreateEntityRecords("Child").Add(
+            new GenericRecord { Id = "child-1" });
+        return new InMemoryWorkspace(
+            model,
+            instance);
     }
 
     private static InMemoryWorkspace BuildRefactorWorkspace(

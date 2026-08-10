@@ -41,8 +41,9 @@ public sealed class SqlWorkspace : IMetaWorkspace
                     connectionString,
                     cancellationToken)
                 .ConfigureAwait(false);
+            destination._connection.WriteModelName(workspace.Model.Name);
             var modelName = await destination.ReadModelNameAsync(
-                    cancellationToken)
+                cancellationToken)
                 .ConfigureAwait(false);
             var operations = WorkspaceSynchronization.PlanCreation(
                 workspace,
@@ -187,7 +188,6 @@ public sealed class SqlSchemaSource : IMetaWorkspaceSource, IAsyncDisposable
 
 internal sealed class SqlWorkspaceConnection : IMetaWorkspaceSource, IAsyncDisposable
 {
-    private readonly string _connectionString;
     private readonly SqlConnection _connection;
     private readonly SqlTransaction _transaction;
     private readonly string _schema;
@@ -195,13 +195,11 @@ internal sealed class SqlWorkspaceConnection : IMetaWorkspaceSource, IAsyncDispo
     private bool _completed;
 
     private SqlWorkspaceConnection(
-        string connectionString,
         SqlConnection connection,
         SqlTransaction transaction,
         string schema,
         GenericModel model)
     {
-        _connectionString = connectionString;
         _connection = connection;
         _transaction = transaction;
         _schema = schema;
@@ -240,7 +238,6 @@ internal sealed class SqlWorkspaceConnection : IMetaWorkspaceSource, IAsyncDispo
                 transaction,
                 effectiveSchema);
             return new SqlWorkspaceConnection(
-                connectionString,
                 connection,
                 transaction,
                 effectiveSchema,
@@ -263,6 +260,15 @@ internal sealed class SqlWorkspaceConnection : IMetaWorkspaceSource, IAsyncDispo
     {
         cancellationToken.ThrowIfCancellationRequested();
         return ValueTask.FromResult(_model.Name);
+    }
+
+    internal void WriteModelName(string modelName)
+    {
+        EnsureActive();
+        SqlWorkspaceModelMetadata.Write(
+            _connection,
+            _transaction,
+            modelName);
     }
 
     public async IAsyncEnumerable<string> ReadEntityNamesAsync(
@@ -390,37 +396,6 @@ internal sealed class SqlWorkspaceConnection : IMetaWorkspaceSource, IAsyncDispo
             return ValueTask.FromResult<IReadOnlyList<OperationResult>>([]);
         }
 
-        if (operations.Any(operation => operation is Operation.RenameModel))
-        {
-            if (operations.Count != 1 ||
-                operations[0] is not Operation.RenameModel renameModel)
-            {
-                throw new InvalidOperationException(
-                    "SQL model rename must be applied as one operation because SQL Server database rename cannot participate in a transaction with other workspace operations.");
-            }
-
-            _transaction.Rollback();
-            _completed = true;
-            _transaction.Dispose();
-            _connection.Dispose();
-            try
-            {
-                var result = SqlOperationTarget.RenameDatabase(
-                    _connectionString,
-                    _schema,
-                    renameModel);
-                return ValueTask.FromResult<IReadOnlyList<OperationResult>>(
-                    [result]);
-            }
-            catch (Exception exception)
-            {
-                throw new MetaOperationException(
-                    0,
-                    renameModel,
-                    exception);
-            }
-        }
-
         var results = ApplyOperations(operations);
         _transaction.Commit();
         _completed = true;
@@ -434,12 +409,6 @@ internal sealed class SqlWorkspaceConnection : IMetaWorkspaceSource, IAsyncDispo
     {
         ArgumentNullException.ThrowIfNull(expected);
         ValidateExecution(operations, cancellationToken);
-        if (operations.Any(operation => operation is Operation.RenameModel))
-        {
-            throw new InvalidOperationException(
-                "Verified SQL workspace creation cannot rename the destination database.");
-        }
-
         var results = ApplyOperations(operations);
         var actual = await WorkspaceComposition.MaterializeAsync(
                 this,

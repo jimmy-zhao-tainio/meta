@@ -76,9 +76,7 @@ internal sealed partial class SqlOperationTarget : IOperationTarget
         _schema = schema;
     }
 
-    RenameModelResult IOperationTarget.Apply(Operation.RenameModel operation) =>
-        throw new InvalidOperationException(
-            "SQL model rename is executed outside the transactional operation target.");
+    RenameModelResult IOperationTarget.Apply(Operation.RenameModel operation) => Apply(operation);
 
     OperationResult IOperationTarget.Apply(Operation.AddEntity operation) => Complete(operation, Apply);
     OperationResult IOperationTarget.Apply(Operation.RemoveEntity operation) => Complete(operation, Apply);

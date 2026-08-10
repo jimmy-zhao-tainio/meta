@@ -8,49 +8,6 @@ namespace Meta.Surfaces;
 
 internal sealed partial class SqlOperationTarget
 {
-    internal static RenameModelResult RenameDatabase(
-        string connectionString,
-        string schema,
-        Operation.RenameModel operation)
-    {
-        var expectedName = MetaName.Require(operation.Name, "Model name.");
-        var newName = MetaName.Require(operation.NewName, "New model name.");
-        var builder = new SqlConnectionStringBuilder(connectionString);
-        var oldName = MetaName.Require(
-            builder.InitialCatalog,
-            "Connection database name.");
-        if (!MetaName.Comparer.Equals(oldName, expectedName))
-        {
-            throw new InvalidOperationException(
-                $"SQL workspace model is '{oldName}', not '{expectedName}'.");
-        }
-
-        using (var validationConnection = new SqlConnection(
-                   connectionString))
-        {
-            validationConnection.Open();
-            SqlWorkspaceModelReader.Read(
-                validationConnection,
-                transaction: null,
-                schema);
-        }
-
-        using (var pooledConnection = new SqlConnection(connectionString))
-        {
-            SqlConnection.ClearPool(pooledConnection);
-        }
-
-        builder.InitialCatalog = "master";
-
-        using var connection = new SqlConnection(builder.ConnectionString);
-        connection.Open();
-        using var command = connection.CreateCommand();
-        command.CommandText =
-            $"ALTER DATABASE {Quote(oldName)} MODIFY NAME = {Quote(newName)};";
-        command.ExecuteNonQuery();
-        return new RenameModelResult(oldName, newName);
-    }
-
     private const string IdentityCollation =
         SqlWorkspaceContract.CaseInsensitiveCollation;
 
@@ -130,6 +87,103 @@ internal sealed partial class SqlOperationTarget
         }
 
         return names;
+    }
+
+    private bool TableExists(string entityName)
+    {
+        return Scalar(
+            """
+            SELECT TOP (1) 1
+            FROM sys.tables tableValue
+            INNER JOIN sys.schemas schemaValue
+                ON schemaValue.schema_id = tableValue.schema_id
+            WHERE schemaValue.name = @schema
+              AND tableValue.name = @table;
+            """,
+            NameParameter("@schema", _schema),
+            NameParameter("@table", entityName)) != null;
+    }
+
+    private string RequirePrimaryKeyConstraint(string entityName)
+    {
+        var value = Scalar(
+            """
+            SELECT TOP (1) keyConstraint.name
+            FROM sys.key_constraints keyConstraint
+            INNER JOIN sys.tables tableValue
+                ON tableValue.object_id = keyConstraint.parent_object_id
+            INNER JOIN sys.schemas schemaValue
+                ON schemaValue.schema_id = tableValue.schema_id
+            WHERE keyConstraint.type = 'PK'
+              AND schemaValue.name = @schema
+              AND tableValue.name = @table;
+            """,
+            NameParameter("@schema", _schema),
+            NameParameter("@table", entityName));
+        return value is string name
+            ? name
+            : throw new InvalidOperationException(
+                $"Entity '{entityName}' does not have a primary key.");
+    }
+
+    private bool SchemaObjectExists(string objectName)
+    {
+        return Scalar(
+            """
+            SELECT TOP (1) 1
+            FROM sys.objects objectValue
+            INNER JOIN sys.schemas schemaValue
+                ON schemaValue.schema_id = objectValue.schema_id
+            WHERE schemaValue.name = @schema
+              AND objectValue.name = @name;
+            """,
+            NameParameter("@schema", _schema),
+            NameParameter("@name", objectName)) != null;
+    }
+
+    private void EnsureObjectNamesAvailable(
+        IReadOnlyCollection<string> ignoredNames,
+        params string[] desiredNames)
+    {
+        var distinctNames = new HashSet<string>(MetaName.Comparer);
+        foreach (var desiredName in desiredNames)
+        {
+            var name = MetaName.Require(desiredName, "Constraint name.");
+            if (!distinctNames.Add(name))
+            {
+                throw new InvalidOperationException(
+                    $"Constraint name '{name}' is required more than once.");
+            }
+
+            if (SchemaObjectExists(name) &&
+                !ignoredNames.Contains(name, MetaName.Comparer))
+            {
+                throw new InvalidOperationException(
+                    $"SQL object '{name}' already exists in schema '{_schema}'.");
+            }
+        }
+    }
+
+    private void DropForeignKey(SqlRelationship relationship)
+    {
+        Execute(
+            $"ALTER TABLE {Table(relationship.SourceEntityName)} " +
+            $"DROP CONSTRAINT {Quote(relationship.ConstraintName)};");
+    }
+
+    private void RenameConstraint(string oldName, string newName)
+    {
+        if (string.Equals(oldName, newName, StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        Execute(
+            "EXEC sys.sp_rename @objectName, @newName, N'OBJECT';",
+            TextParameter(
+                "@objectName",
+                Quote(_schema) + "." + Quote(oldName)),
+            NameParameter("@newName", newName));
     }
 
     private IReadOnlyList<SqlRelationship> LoadRelationships(
