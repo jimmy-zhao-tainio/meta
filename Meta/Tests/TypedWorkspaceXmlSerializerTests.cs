@@ -280,6 +280,30 @@ public sealed class TypedWorkspaceXmlSerializerTests
     }
 
     [Fact]
+    public void TypedWorkspaceModelMapper_SaveDoesNotInventXmlForNewWorkspace()
+    {
+        var tempRoot = CreateTempRoot();
+        try
+        {
+            var workspacePath = Path.Combine(tempRoot, "workspace");
+            var model = new TestTypedModel();
+
+            var exception = Assert.Throws<InvalidOperationException>(
+                () => TypedWorkspaceModelMapper.Save(model, workspacePath));
+
+            Assert.Contains("explicit representation", exception.Message, StringComparison.OrdinalIgnoreCase);
+            Assert.False(Directory.Exists(workspacePath));
+
+            TypedWorkspaceModelMapper.Create(model, workspacePath, "xml");
+            Assert.True(File.Exists(Path.Combine(workspacePath, "workspace.meta")));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(tempRoot);
+        }
+    }
+
+    [Fact]
     public void IsWorkspace_RequiresMatchingModel()
     {
         var tempRoot = CreateTempRoot();

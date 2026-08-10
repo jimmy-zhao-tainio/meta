@@ -37,7 +37,7 @@ public static class WorkspaceSurface
     public static async Task CreateAsync(
         InMemoryWorkspace workspace,
         string workspacePath,
-        string representation = "xml",
+        string representation,
         string? connectionEnvironmentVariable = null,
         CancellationToken cancellationToken = default)
     {

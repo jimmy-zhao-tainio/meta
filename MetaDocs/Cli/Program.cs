@@ -6,6 +6,7 @@ using MetaCli.Core;
 using MetaDocs;
 using MetaDocs.Core;
 using Meta.Core.Serialization;
+using Meta.Surfaces;
 
 internal static class Program
 {
@@ -300,7 +301,15 @@ internal static class Program
             }
 
             var merged = new MetaDocsSuiteMerger().MergeIntoNew(models);
-            TypedWorkspaceModelMapper.Save(merged, outputWorkspace);
+            var outputMetaPath = Path.Combine(Path.GetFullPath(outputWorkspace), WorkspaceMetaFile.FileName);
+            if (File.Exists(outputMetaPath))
+            {
+                TypedWorkspaceModelMapper.Save(merged, outputWorkspace);
+            }
+            else
+            {
+                TypedWorkspaceModelMapper.Create(merged, outputWorkspace, "xml");
+            }
             MetaCliWorkspace.DescribeXml(outputWorkspace);
             Presenter.WriteInfo($"Rebuilt suite workspace: {Path.GetFullPath(outputWorkspace)}");
             Presenter.WriteInfo($"Included {models.Count} source workspace(s), {merged.DocumentationSourceList.Count} documentation source(s).");

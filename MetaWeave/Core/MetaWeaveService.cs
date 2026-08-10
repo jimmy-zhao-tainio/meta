@@ -76,7 +76,7 @@ public sealed class MetaWeaveService : IMetaWeaveService
 
     private static WeaveCheckResult CheckBindings(
         MetaWeaveModel weaveModel,
-        IReadOnlyDictionary<string, OpenedXmlWorkspace> loadedModels)
+        IReadOnlyDictionary<string, InMemoryWorkspace> loadedModels)
     {
         var modelRefs = weaveModel.ModelReferenceList
             .OrderBy(record => record.Id, StringComparer.Ordinal)
@@ -91,8 +91,8 @@ public sealed class MetaWeaveService : IMetaWeaveService
         {
             var sourceModelRef = RequireModelReference(binding.SourceModel, binding, "source", modelRefById);
             var targetModelRef = RequireModelReference(binding.TargetModel, binding, "target", modelRefById);
-            var sourceWorkspace = loadedModels[sourceModelRef.Id].State;
-            var targetWorkspace = loadedModels[targetModelRef.Id].State;
+            var sourceWorkspace = loadedModels[sourceModelRef.Id];
+            var targetWorkspace = loadedModels[targetModelRef.Id];
             var sourceEntityName = RequireValue(binding.SourceEntity, $"PropertyBinding '{binding.Id}' SourceEntity");
             var sourcePropertyName = RequireValue(binding.SourceProperty, $"PropertyBinding '{binding.Id}' SourceProperty");
             var targetEntityName = RequireValue(binding.TargetEntity, $"PropertyBinding '{binding.Id}' TargetEntity");
@@ -186,7 +186,7 @@ public sealed class MetaWeaveService : IMetaWeaveService
         var mergePlan = await _workspaceMergeService.MergeAsync(
                 modelRefs
                     .Select(item => (IMetaWorkspaceSource)new InMemoryWorkspaceSource(
-                        referencedWorkspaces[item.Id].State))
+                    referencedWorkspaces[item.Id]))
                     .ToArray(),
                 new WorkspaceMergeOptions(mergedModelName),
                 cancellationToken)
@@ -238,18 +238,18 @@ public sealed class MetaWeaveService : IMetaWeaveService
             operations.Count);
     }
 
-    private static async Task<Dictionary<string, OpenedXmlWorkspace>> LoadReferencedWorkspacesAsync(
+    private static async Task<Dictionary<string, InMemoryWorkspace>> LoadReferencedWorkspacesAsync(
         IReadOnlyCollection<WeaveModelReference> modelRefs,
         string weaveWorkspaceRootPath,
         CancellationToken cancellationToken)
     {
-        var loadedModels = new Dictionary<string, OpenedXmlWorkspace>(StringComparer.Ordinal);
+        var loadedModels = new Dictionary<string, InMemoryWorkspace>(StringComparer.Ordinal);
         foreach (var modelRef in modelRefs)
         {
             var id = RequireValue(modelRef.Id, "ModelReference Id");
             var path = RequireValue(modelRef.WorkspacePath, $"ModelReference '{id}' WorkspacePath");
             var resolvedPath = ResolveWorkspacePath(weaveWorkspaceRootPath, path);
-            var loaded = await XmlWorkspaceReader.OpenAsync(
+            var loaded = await TypedWorkspaceModelMapper.LoadStateAsync(
                     resolvedPath,
                     cancellationToken)
                 .ConfigureAwait(false);

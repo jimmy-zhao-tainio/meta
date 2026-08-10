@@ -20,14 +20,12 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(sourceWorkspacePath);
 
-        await using var openedWorkspace = await XmlWorkspaceReader.OpenAsync(
-                sourceWorkspacePath,
-                cancellationToken)
-            .ConfigureAwait(false);
+        var sourceRootPath = Path.GetFullPath(sourceWorkspacePath);
         return await ImportWorkspaceInstancesAsync(
                 model,
-                openedWorkspace,
-                Path.GetFullPath(sourceWorkspacePath),
+                new InMemoryWorkspaceSource(
+                    await TypedWorkspaceModelMapper.LoadStateAsync(sourceRootPath, cancellationToken).ConfigureAwait(false)),
+                sourceRootPath,
                 sourceId,
                 modelSourceId,
                 displayName,

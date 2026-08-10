@@ -46,7 +46,7 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
         RequireNonEmpty(workspacePath, nameof(workspacePath));
 
         var resolvedWorkspacePath = Path.GetFullPath(workspacePath);
-        var referencedWorkspace = await XmlWorkspaceReader.OpenAsync(
+        var referencedWorkspace = await TypedWorkspaceModelMapper.LoadStateAsync(
                 resolvedWorkspacePath,
                 cancellationToken)
             .ConfigureAwait(false);
@@ -181,7 +181,7 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
         var configuredPath = RequireValue(modelReference.WorkspacePath, $"ModelReference '{modelReference.Id}' WorkspacePath");
         var expectedModelName = RequireValue(modelReference.ModelName, $"ModelReference '{modelReference.Id}' ModelName");
         var resolvedPath = ResolveWorkspacePath(weaveWorkspaceRootPath, configuredPath);
-        var referencedWorkspace = await XmlWorkspaceReader.OpenAsync(
+        var referencedWorkspace = await TypedWorkspaceModelMapper.LoadStateAsync(
                 resolvedPath,
                 cancellationToken)
             .ConfigureAwait(false);
@@ -191,7 +191,7 @@ public sealed class MetaWeaveAuthoringService : IMetaWeaveAuthoringService
                 $"ModelReference alias '{RequireValue(modelReference.Alias, $"ModelReference '{modelReference.Id}' Alias")}' expected model '{expectedModelName}' but workspace '{resolvedPath}' contained '{referencedWorkspace.Model.Name}'.");
         }
 
-        return referencedWorkspace.State;
+        return referencedWorkspace;
     }
 
     private static void ValidateBindingEndpoint(InMemoryWorkspace workspace, string entityName, string propertyName, bool allowId, string bindingSide)

@@ -19,10 +19,10 @@ public sealed class MetaDocsWorkspaceModelImporter
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(sourceWorkspacePath);
 
-        var openedWorkspace = await XmlWorkspaceReader.OpenAsync(
-            sourceWorkspacePath,
+        var sourceRootPath = Path.GetFullPath(sourceWorkspacePath);
+        var workspace = await TypedWorkspaceModelMapper.LoadStateAsync(
+            sourceRootPath,
             cancellationToken).ConfigureAwait(false);
-        var workspace = openedWorkspace.State;
         var modelName = string.IsNullOrWhiteSpace(workspace.Model.Name) ? "Model" : workspace.Model.Name;
         var normalizedDisplayName = string.IsNullOrWhiteSpace(displayName)
             ? modelName
@@ -45,13 +45,13 @@ public sealed class MetaDocsWorkspaceModelImporter
             $"{normalizedSourceId}:workspace",
             "Workspace",
             "Workspace",
-            openedWorkspace.RootPath,
+            sourceRootPath,
             normalizedDisplayName,
             normalizedDisplayName,
             string.Empty,
             null,
             null);
-        session.UpsertFact(workspaceSubject, "Workspace", "RootPath", openedWorkspace.RootPath);
+        session.UpsertFact(workspaceSubject, "Workspace", "RootPath", sourceRootPath);
         session.UpsertFact(workspaceSubject, "Workspace", "ModelName", modelName);
         session.EnsureViewNode(workspaceSubject, normalizedDisplayName);
 

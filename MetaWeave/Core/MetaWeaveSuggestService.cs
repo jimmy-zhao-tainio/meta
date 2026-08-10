@@ -231,11 +231,10 @@ public sealed class MetaWeaveSuggestService : IMetaWeaveSuggestService
         {
             var path = RequireValue(modelReference.WorkspacePath, $"ModelReference '{modelReference.Id}' WorkspacePath");
             var resolvedPath = ResolveWorkspacePath(weaveWorkspaceRootPath, path);
-            var openedWorkspace = await XmlWorkspaceReader.OpenAsync(
+            var workspace = await TypedWorkspaceModelMapper.LoadStateAsync(
                     resolvedPath,
                     cancellationToken)
                 .ConfigureAwait(false);
-            var workspace = openedWorkspace.State;
             var modelName = RequireValue(modelReference.ModelName, $"ModelReference '{modelReference.Id}' ModelName");
             if (!string.Equals(workspace.Model.Name, modelName, StringComparison.Ordinal))
             {

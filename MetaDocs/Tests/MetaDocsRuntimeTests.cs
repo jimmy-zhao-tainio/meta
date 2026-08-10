@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using MetaCli;
 using MetaCli.Core;
+using Meta.Core.Domain;
 using Meta.Core.Serialization;
 using MetaDocs;
 using MetaDocs.Core;
@@ -889,6 +890,53 @@ public sealed class MetaDocsRuntimeTests
             IsRelationshipType(row, "ReferencesEntity") &&
             row.ToSubject?.Id == customer.Id);
         Assert.Empty(model.DocumentationNarrativeList);
+    }
+
+    [Fact]
+    public async Task ImportWorkspaceModel_UsesTheSelectedCSharpWorkspaceSurface()
+    {
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "metadocs-csharp-model-import-" + Guid.NewGuid().ToString("N"));
+        var model = new GenericModel { Name = "SurfaceModel" };
+        var entity = new GenericEntity { Name = "Customer" };
+        entity.Properties.Add(new GenericProperty { Name = "Name" });
+        model.Entities.Add(entity);
+        var instance = new GenericInstance { ModelName = model.Name };
+        instance.GetOrCreateEntityRecords(entity.Name).Add(new GenericRecord
+        {
+            Id = "customer-1",
+            Values = { ["Name"] = "Ada" },
+        });
+
+        try
+        {
+            await CSharpWorkspace.CreateAsync(
+                new InMemoryWorkspace(model, instance),
+                root);
+
+            var documentation = MetaDocsModel.CreateEmpty();
+            await new MetaDocsWorkspaceModelImporter().ImportWorkspaceModelAsync(
+                documentation,
+                root,
+                "source:workspace-model:csharp",
+                "C# model");
+
+            var importedModel = Assert.Single(
+                documentation.DocumentationSubjectList,
+                subject => IsSubjectType(subject, "Model"));
+            Assert.Equal("SurfaceModel", importedModel.DisplayName);
+            Assert.Contains(
+                documentation.DocumentationSubjectList,
+                subject => IsSubjectType(subject, "Entity") && subject.DisplayName == "Customer");
+        }
+        finally
+        {
+            if (Directory.Exists(root))
+            {
+                Directory.Delete(root, recursive: true);
+            }
+        }
     }
 
     [Fact]

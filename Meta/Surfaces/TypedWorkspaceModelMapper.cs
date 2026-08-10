@@ -26,17 +26,59 @@ public static class TypedWorkspaceModelMapper
                 "Typed workspace loading does not search parent directories. Pass an explicit workspace path.");
         }
 
+        var state = await LoadStateAsync(workspacePath, cancellationToken).ConfigureAwait(false);
+        return FromInMemoryWorkspace(
+            state,
+            static () => new TModel());
+    }
+
+    public static async Task<InMemoryWorkspace> LoadStateAsync(
+        string workspacePath,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
         await using var workspace = await WorkspaceSurface.OpenAsync(
                 workspacePath,
                 cancellationToken)
             .ConfigureAwait(false);
-        var state = await WorkspaceComposition.MaterializeAsync(
+        return await WorkspaceComposition.MaterializeAsync(
                 workspace,
                 cancellationToken)
             .ConfigureAwait(false);
-        return FromInMemoryWorkspace(
-            state,
-            static () => new TModel());
+    }
+
+    public static void Create<TModel>(
+        TModel model,
+        string workspacePath,
+        string representation,
+        string? connectionEnvironmentVariable = null)
+        where TModel : class, new() =>
+        CreateAsync(
+                model,
+                workspacePath,
+                representation,
+                connectionEnvironmentVariable)
+            .GetAwaiter()
+            .GetResult();
+
+    public static async Task CreateAsync<TModel>(
+        TModel model,
+        string workspacePath,
+        string representation,
+        string? connectionEnvironmentVariable = null,
+        CancellationToken cancellationToken = default)
+        where TModel : class, new()
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(representation);
+        await WorkspaceSurface.CreateAsync(
+                ToInMemoryWorkspace(model),
+                workspacePath,
+                representation,
+                connectionEnvironmentVariable,
+                cancellationToken)
+            .ConfigureAwait(false);
     }
 
     public static void Save<TModel>(
@@ -59,12 +101,8 @@ public static class TypedWorkspaceModelMapper
         var rootPath = Path.GetFullPath(workspacePath);
         if (!File.Exists(Path.Combine(rootPath, WorkspaceMetaFile.FileName)))
         {
-            await WorkspaceSurface.CreateAsync(
-                    desired,
-                    rootPath,
-                    cancellationToken: cancellationToken)
-                .ConfigureAwait(false);
-            return;
+            throw new InvalidOperationException(
+                $"Workspace '{rootPath}' does not exist. Use TypedWorkspaceModelMapper.Create with an explicit representation to create it.");
         }
 
         await using var workspace = await WorkspaceSurface.OpenAsync(
