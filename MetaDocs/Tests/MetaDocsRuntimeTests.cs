@@ -2,6 +2,7 @@ using System.Diagnostics;
 using MetaCli;
 using MetaCli.Core;
 using Meta.Core.Domain;
+using Meta.Core.Operations;
 using Meta.Core.Serialization;
 using MetaDocs;
 using MetaDocs.Core;
@@ -108,7 +109,7 @@ public sealed class MetaDocsRuntimeTests
         var mergeHelp = RunCli("help merge");
         Assert.Equal(0, mergeHelp.ExitCode);
         Assert.Contains("Rebuild a suite workspace", mergeHelp.Output);
-        Assert.Contains("Suite workspace to rebuild", mergeHelp.Output);
+        Assert.Contains("--output-xml <workspace>", mergeHelp.Output);
 
         var searchHelp = RunCli("help search");
         Assert.Equal(0, searchHelp.ExitCode);
@@ -276,7 +277,7 @@ public sealed class MetaDocsRuntimeTests
                 row.DisplayName == "Email");
 
             var merge = RunCli(
-                $"merge --include {QuoteArgument(authoredWorkspace)} --include {QuoteArgument(docsWorkspace)} --workspace {QuoteArgument(suiteWorkspace)}");
+                $"merge --include {QuoteArgument(authoredWorkspace)} --include {QuoteArgument(docsWorkspace)} --output-xml {QuoteArgument(suiteWorkspace)}");
             Assert.Equal(0, merge.ExitCode);
             Assert.Contains("Rebuilt suite workspace:", merge.Output);
             Assert.Contains("Included 2 source workspace(s), 2 documentation source(s).", merge.Output);
@@ -297,6 +298,36 @@ public sealed class MetaDocsRuntimeTests
             DeleteDirectoryIfExists(docsWorkspace);
             DeleteDirectoryIfExists(suiteWorkspace);
             DeleteDirectoryIfExists(siteOutput);
+        }
+    }
+
+    [Fact]
+    public async Task Cli_MergeCreatesAndReopensSelectedCSharpWorkspace()
+    {
+        var docsWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-merge-source-" + Guid.NewGuid().ToString("N"));
+        var csharpWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-merge-csharp-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var model = MetaDocsModel.CreateEmpty();
+            var reference = AddPublicReferenceTree(model);
+            new MetaDocsCliImporter().ImportApplication(model, CreateMetaSqlApp(), parentSubjectId: reference.MetaBiCli.Id);
+            TypedWorkspaceXmlSerializer.Save(model, docsWorkspace);
+
+            var merge = RunCli($"merge --include {QuoteArgument(docsWorkspace)} --output-csharp {QuoteArgument(csharpWorkspace)}");
+            Assert.Equal(0, merge.ExitCode);
+            Assert.Contains("representation csharp", File.ReadAllText(Path.Combine(csharpWorkspace, WorkspaceMetaFile.FileName)));
+
+            await using var opened = await WorkspaceSurface.OpenAsync(csharpWorkspace);
+            var state = await WorkspaceComposition.MaterializeAsync(opened);
+            var roundTrip = TypedWorkspaceModelMapper.FromInMemoryWorkspace(
+                state,
+                static () => MetaDocsModel.CreateEmpty());
+            Assert.Contains(roundTrip.DocumentationSubjectList, row => row.DisplayName == "meta-sql");
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(docsWorkspace);
+            DeleteDirectoryIfExists(csharpWorkspace);
         }
     }
 
@@ -374,7 +405,7 @@ public sealed class MetaDocsRuntimeTests
             Assert.Contains("meta-sql deploy", search.Output);
             Assert.Contains("Deploy a deployment manifest", search.Output);
 
-            var merge = RunCli($"merge --include {QuoteArgument(docsWorkspace)} --workspace {QuoteArgument(suiteWorkspace)}");
+            var merge = RunCli($"merge --include {QuoteArgument(docsWorkspace)} --output-xml {QuoteArgument(suiteWorkspace)}");
             Assert.Equal(0, merge.ExitCode);
             var suite = TypedWorkspaceXmlSerializer.Load<MetaDocsModel>(suiteWorkspace, searchUpward: false);
             var suiteNarrative = Assert.Single(suite.DocumentationNarrativeList, row => row.Slot == "Example.Deploy");

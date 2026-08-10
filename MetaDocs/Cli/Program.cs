@@ -43,7 +43,15 @@ internal static class Program
             .Bind("exec-include-instance-entity", RunIncludeInstanceEntity)
             .Bind("exec-include-instance-property", RunIncludeInstanceProperty)
             .Bind("exec-include-instance-relationship", RunIncludeInstanceRelationship)
-            .Bind("exec-merge", RunMerge)
+            .Bind(
+                "exec-merge",
+                [MetaCliWorkspace.Create(
+                    "output",
+                    "output-xml",
+                    "output-csharp",
+                    "output-sql",
+                    "output-connection-env")],
+                RunMerge)
             .BindReadOnly("exec-validate", RunValidate)
             .BindReadOnly("exec-render-site", RunRenderSite);
 
@@ -289,9 +297,15 @@ internal static class Program
         }
     }
 
-    private static void RunMerge(MetaCliInvocation invocation)
+    private static async Task RunMerge(
+        MetaCliInvocation invocation,
+        MetaCliWorkspaces workspaces)
     {
-        var outputWorkspace = WorkspaceOrCurrent(invocation);
+        var outputWorkspace = MetaCliWorkspace.OutputLocation(
+            invocation,
+            "output-xml",
+            "output-csharp",
+            "output-sql");
         try
         {
             var models = new List<MetaDocsModel>();
@@ -308,9 +322,8 @@ internal static class Program
             }
             else
             {
-                TypedWorkspaceModelMapper.Create(merged, outputWorkspace, "xml");
+                await workspaces.CreateAsync("output", merged).ConfigureAwait(false);
             }
-            MetaCliWorkspace.DescribeXml(outputWorkspace);
             Presenter.WriteInfo($"Rebuilt suite workspace: {Path.GetFullPath(outputWorkspace)}");
             Presenter.WriteInfo($"Included {models.Count} source workspace(s), {merged.DocumentationSourceList.Count} documentation source(s).");
         }
@@ -383,9 +396,6 @@ internal static class Program
             await workspaces.CreateAsync("output", model).ConfigureAwait(false);
         }
     }
-
-    private static string WorkspaceOrCurrent(MetaCliInvocation invocation) =>
-        Optional(invocation, "workspace", Directory.GetCurrentDirectory());
 
     private static string Optional(MetaCliInvocation invocation, string parameter, string defaultValue = "")
     {

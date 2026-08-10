@@ -251,9 +251,29 @@
       <IsRequired>true</IsRequired>
       <Name>include</Name>
     </Parameter>
-    <Parameter Id="param-merge-option-workspace" ValueShapeId="shape-workspace-location">
-      <Description>Suite workspace to rebuild. Defaults to the current directory.</Description>
-      <Name>workspace</Name>
+    <Parameter Id="param-merge-output-connection-env" ValueShapeId="shape-text">
+      <Description>Environment variable containing the output SQL workspace connection string.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>false</IsRequired>
+      <Name>output-connection-env</Name>
+    </Parameter>
+    <Parameter Id="param-merge-output-csharp" ValueShapeId="shape-workspace-location">
+      <Description>Create the merged workspace as C# at this path.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>false</IsRequired>
+      <Name>output-csharp</Name>
+    </Parameter>
+    <Parameter Id="param-merge-output-sql" ValueShapeId="shape-workspace-location">
+      <Description>Create the merged workspace as SQL at this path.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>false</IsRequired>
+      <Name>output-sql</Name>
+    </Parameter>
+    <Parameter Id="param-merge-output-xml" ValueShapeId="shape-workspace-location">
+      <Description>Create the merged workspace as XML at this path.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>false</IsRequired>
+      <Name>output-xml</Name>
     </Parameter>
     <Parameter Id="param-render-site-option-out" ValueShapeId="shape-path">
       <Description>Output directory. The merged page is written as docs.html.</Description>

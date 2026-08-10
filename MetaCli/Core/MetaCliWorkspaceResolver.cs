@@ -1,5 +1,4 @@
 using Meta.Surfaces;
-using Meta.Core.Connections;
 using Meta.Core.Domain;
 using Meta.Core.Operations;
 using Meta.Core.Serialization;
@@ -35,17 +34,13 @@ internal static class MetaCliWorkspaceResolver
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(directory);
         var fullDirectory = Path.GetFullPath(directory);
-        var descriptor = MetaCliWorkspaceDescriptor.Read(fullDirectory);
 
         try
         {
-            return descriptor switch
-            {
-                XmlWorkspaceDescriptor xml => await OpenXmlAsync(xml.Path, cancellationToken).ConfigureAwait(false),
-                CSharpWorkspaceDescriptor csharp => await OpenCSharpAsync(csharp.Path, cancellationToken).ConfigureAwait(false),
-                SqlWorkspaceDescriptor sql => await OpenSqlAsync(sql.ConnectionEnvironmentVariable, cancellationToken).ConfigureAwait(false),
-                _ => throw new InvalidOperationException("Workspace representation is not supported."),
-            };
+            return await WorkspaceSurface.OpenAsync(
+                    fullDirectory,
+                    cancellationToken)
+                .ConfigureAwait(false);
         }
         catch (Exception exception)
         {
@@ -66,20 +61,22 @@ internal static class MetaCliWorkspaceResolver
         if (creation is MetaCliXmlWorkspaceCreation xml)
         {
             var path = RequireEmptyDirectory(xml.Directory, "XML");
-            await XmlWorkspaceWriter.WriteNewAsync(
+            await WorkspaceSurface.CreateAsync(
                     workspace,
                     path,
-                    cancellationToken)
+                    "xml",
+                    cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
             return;
         }
 
         if (creation is MetaCliCSharpWorkspaceCreation csharp)
         {
-            await CSharpWorkspace.CreateAsync(
+            await WorkspaceSurface.CreateAsync(
                     workspace,
                     Path.GetFullPath(csharp.Directory),
-                    cancellationToken)
+                    "csharp",
+                    cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
             return;
         }
@@ -87,48 +84,17 @@ internal static class MetaCliWorkspaceResolver
         if (creation is MetaCliSqlWorkspaceCreation sql)
         {
             var directory = RequireEmptyDirectory(sql.Directory, "SQL");
-            var connectionString = ConnectionEnvironmentVariableResolver
-                .ResolveRequired(sql.ConnectionEnvironmentVariable);
-            await SqlWorkspace.CreateAsync(
-                    connectionString,
+            await WorkspaceSurface.CreateAsync(
                     workspace,
+                    directory,
+                    "sql",
+                    sql.ConnectionEnvironmentVariable,
                     cancellationToken)
                 .ConfigureAwait(false);
-            MetaCliWorkspaceDescriptor.WriteSql(
-                directory,
-                sql.ConnectionEnvironmentVariable);
             return;
         }
 
         throw new InvalidOperationException("Workspace representation is not supported.");
-    }
-
-    private static async Task<IMetaWorkspace> OpenXmlAsync(
-        string location,
-        CancellationToken cancellationToken) =>
-        await XmlWorkspaceReader.OpenAsync(
-                Path.GetFullPath(location),
-                cancellationToken: cancellationToken)
-            .ConfigureAwait(false);
-
-    private static async Task<IMetaWorkspace> OpenCSharpAsync(
-        string location,
-        CancellationToken cancellationToken) =>
-        await CSharpWorkspace.OpenAsync(
-                Path.GetFullPath(location),
-                cancellationToken)
-            .ConfigureAwait(false);
-
-    private static async Task<IMetaWorkspace> OpenSqlAsync(
-        string location,
-        CancellationToken cancellationToken)
-    {
-        var connectionString = ConnectionEnvironmentVariableResolver
-            .ResolveRequired(location);
-        return await SqlWorkspace.OpenAsync(
-                connectionString,
-                cancellationToken)
-            .ConfigureAwait(false);
     }
 
     private static string RequireEmptyDirectory(
