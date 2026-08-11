@@ -1,4 +1,4 @@
-namespace Meta.Core.Ddl;
+namespace Meta.Surfaces.Sql.Ddl;
 
 public sealed class DdlColumn
 {

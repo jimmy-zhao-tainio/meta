@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Meta.Core.Ddl;
+namespace Meta.Surfaces.Sql.Ddl;
 
 public sealed class DdlDatabase
 {

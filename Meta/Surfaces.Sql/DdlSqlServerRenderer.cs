@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using Meta.Core.Ddl;
+using Meta.Surfaces.Sql.Ddl;
 
 namespace Meta.Surfaces.Sql;
 

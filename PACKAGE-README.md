@@ -16,8 +16,10 @@ namespace boundaries are deliberately aligned:
 - `MetaWeave.Core`
 
 `Meta.Operations` and `Meta.Core` are representation-neutral. `Meta.Surfaces`
-is lightweight shared infrastructure; the XML, C#, and SQL implementations are
-separate packages. `Meta.Integration` is the intentional composition package.
+is independent shared descriptor and publication infrastructure. XML and C#
+depend on Operations and common Surfaces; SQL depends on Operations and owns
+its complete DDL model. `Meta.Integration` is the intentional composition
+package.
 
 These packages are consumed by downstream repositories to keep the foundation
 boundary explicit and prevent source-level drift back into Core.

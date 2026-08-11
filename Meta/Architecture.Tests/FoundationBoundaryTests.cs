@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Xml.Linq;
+using Xunit.Sdk;
 
 namespace Meta.Architecture.Tests;
 
@@ -17,22 +18,45 @@ public sealed class FoundationBoundaryTests
     };
 
     [Fact]
-    public void DeclaredProjectAndPackageReferencesRespectTheFoundationDag()
+    public void DeclaredProductionReferencesRespectTheFoundationDag()
     {
         var root = FindRepositoryRoot();
 
         AssertProject(root, "Meta/Operations/Meta.Operations.csproj", [], []);
         AssertProject(root, "Meta/Core/Meta.Core.csproj", ["Meta.Operations"], []);
-        AssertProject(root, "Meta/Surfaces/Meta.Surfaces.csproj", ["Meta.Core", "Meta.Operations"], []);
+        AssertProject(root, "Meta/Surfaces/Meta.Surfaces.csproj", [], []);
         AssertProject(root, "Meta/Surfaces.Xml/Meta.Surfaces.Xml.csproj",
-            ["Meta.Core", "Meta.Operations", "Meta.Surfaces"], []);
+            ["Meta.Operations", "Meta.Surfaces"], []);
         AssertProject(root, "Meta/Surfaces.CSharp/Meta.Surfaces.CSharp.csproj",
-            ["Meta.Core", "Meta.Operations", "Meta.Surfaces"], ["Microsoft.CodeAnalysis.CSharp"]);
+            ["Meta.Operations", "Meta.Surfaces"], ["Microsoft.CodeAnalysis.CSharp"]);
         AssertProject(root, "Meta/Surfaces.Sql/Meta.Surfaces.Sql.csproj",
-            ["Meta.Core", "Meta.Operations", "Meta.Surfaces"], ["Microsoft.Data.SqlClient"]);
+            ["Meta.Operations"], ["Microsoft.Data.SqlClient"]);
         AssertProject(root, "Meta/Integration/Meta.Integration.csproj",
             ["Meta.Core", "Meta.Operations", "Meta.Surfaces", "Meta.Surfaces.Xml", "Meta.Surfaces.CSharp", "Meta.Surfaces.Sql"],
             ["Microsoft.Data.SqlClient"]);
+    }
+
+    [Fact]
+    public void DeclaredTestReferencesRespectTheirLayerBoundaries()
+    {
+        var root = FindRepositoryRoot();
+
+        AssertProject(root, "Meta/Operations.Tests/Meta.Operations.Tests.csproj",
+            ["Meta.Operations"], []);
+        AssertProject(root, "Meta/Tests/Meta.Core.Tests.csproj",
+            ["Meta.Core", "Meta.Operations"], []);
+        AssertProject(root, "Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj",
+            ["Meta.Core", "Meta.Operations", "Meta.Surfaces", "Meta.Surfaces.Xml"], []);
+        AssertProject(root, "Meta/Surfaces.CSharp.Tests/Meta.Surfaces.CSharp.Tests.csproj",
+            ["Meta.Operations", "Meta.Surfaces", "Meta.Surfaces.CSharp"], []);
+        AssertProject(root, "Meta/Surfaces.Sql.Tests/Meta.Surfaces.Sql.Tests.csproj",
+            ["Meta.Surfaces.Sql"], []);
+        AssertProject(root, "Meta/Integration.Tests/Meta.Integration.Tests.csproj",
+            ["Meta.Core", "Meta.Integration", "Meta.Operations", "Meta.Surfaces", "Meta.Surfaces.CSharp", "Meta.Surfaces.Sql", "Meta.Surfaces.Xml"], []);
+
+        // Architecture tests deliberately load and inspect every foundation assembly.
+        AssertProject(root, "Meta/Architecture.Tests/Meta.Architecture.Tests.csproj",
+            FoundationAssemblies, []);
     }
 
     [Fact]
@@ -59,33 +83,126 @@ public sealed class FoundationBoundaryTests
         AssertNamespaces("Meta.Integration", "Meta.Integration");
     }
 
+    [Fact]
+    public void FoundationPackageReferenceCannotBypassTheDeclaredDag()
+    {
+        var document = XDocument.Parse("""
+            <Project>
+              <ItemGroup>
+                <PackageReference Include="Meta.Integration" Version="1.0.0" />
+              </ItemGroup>
+            </Project>
+            """);
+
+        var error = Assert.Throws<XunitException>(() =>
+            AssertDeclaredDependencies("mutated production project", document, [], []));
+
+        Assert.Contains("Meta.Integration", error.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ForbiddenTestProjectEdgeIsRejected()
+    {
+        var document = XDocument.Parse("""
+            <Project>
+              <ItemGroup>
+                <ProjectReference Include="..\Integration\Meta.Integration.csproj" />
+              </ItemGroup>
+            </Project>
+            """);
+
+        var error = Assert.Throws<XunitException>(() =>
+            AssertDeclaredDependencies("mutated Core test project", document, ["Meta.Core", "Meta.Operations"], []));
+
+        Assert.Contains("Meta.Integration", error.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void MicrosoftCodeAnalysisCommonIsClassifiedAsRoslyn()
+    {
+        var document = XDocument.Parse("""
+            <Project>
+              <ItemGroup>
+                <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="1.0.0" />
+              </ItemGroup>
+            </Project>
+            """);
+
+        var dependencies = ReadDeclaredDependencies(document);
+
+        Assert.Equal(["Microsoft.CodeAnalysis.Common"], dependencies.TechnologyPackages);
+    }
+
     private static void AssertProject(
         string root,
         string relativePath,
         string[] expectedFoundationReferences,
         string[] expectedTechnologyPackages)
     {
-        var document = XDocument.Load(Path.Combine(root, relativePath.Replace('/', Path.DirectorySeparatorChar)));
+        var path = Path.Combine(root, relativePath.Replace('/', Path.DirectorySeparatorChar));
+        AssertDeclaredDependencies(relativePath, XDocument.Load(path), expectedFoundationReferences, expectedTechnologyPackages);
+    }
+
+    private static void AssertDeclaredDependencies(
+        string project,
+        XDocument document,
+        string[] expectedFoundationReferences,
+        string[] expectedTechnologyPackages)
+    {
+        var dependencies = ReadDeclaredDependencies(document);
+        AssertExact(project, "foundation references", expectedFoundationReferences, dependencies.FoundationReferences);
+        AssertExact(project, "technology packages", expectedTechnologyPackages, dependencies.TechnologyPackages);
+    }
+
+    private static DeclaredDependencies ReadDeclaredDependencies(XDocument document)
+    {
         var projectReferences = document.Descendants("ProjectReference")
-            .Select(element => Path.GetFileNameWithoutExtension((string)element.Attribute("Include")!))
-            .Where(FoundationAssemblies.Contains)
+            .Select(element => Path.GetFileNameWithoutExtension((string)element.Attribute("Include")!));
+        var packageReferences = document.Descendants("PackageReference")
+            .Select(element => (string)element.Attribute("Include")!);
+
+        var foundationReferences = projectReferences
+            .Concat(packageReferences)
+            .Where(IsFoundationAssembly)
             .OrderBy(value => value, StringComparer.Ordinal)
             .ToArray();
-        var technologyPackages = document.Descendants("PackageReference")
-            .Select(element => (string)element.Attribute("Include")!)
-            .Where(value => value is "Microsoft.CodeAnalysis.CSharp" or "Microsoft.Data.SqlClient")
+        var technologyPackages = packageReferences
+            .Where(value => IsRoslyn(value) || IsSqlClient(value))
             .OrderBy(value => value, StringComparer.Ordinal)
             .ToArray();
 
-        Assert.Equal(expectedFoundationReferences.OrderBy(value => value, StringComparer.Ordinal), projectReferences);
-        Assert.Equal(expectedTechnologyPackages.OrderBy(value => value, StringComparer.Ordinal), technologyPackages);
+        return new DeclaredDependencies(foundationReferences, technologyPackages);
     }
+
+    private static void AssertExact(string project, string dependencyKind, string[] expected, string[] actual)
+    {
+        var orderedExpected = expected.OrderBy(value => value, StringComparer.Ordinal).ToArray();
+        if (orderedExpected.SequenceEqual(actual, StringComparer.Ordinal))
+        {
+            return;
+        }
+
+        throw new XunitException(
+            $"{project} {dependencyKind} differ. " +
+            $"Expected: [{string.Join(", ", orderedExpected)}]. " +
+            $"Actual: [{string.Join(", ", actual)}].");
+    }
+
+    private static bool IsFoundationAssembly(string value) =>
+        FoundationAssemblies.Contains(value, StringComparer.OrdinalIgnoreCase);
+
+    private static bool IsRoslyn(string value) =>
+        value.Equals("Microsoft.CodeAnalysis", StringComparison.OrdinalIgnoreCase) ||
+        value.StartsWith("Microsoft.CodeAnalysis.", StringComparison.OrdinalIgnoreCase);
+
+    private static bool IsSqlClient(string value) =>
+        value.Equals("Microsoft.Data.SqlClient", StringComparison.OrdinalIgnoreCase);
 
     private static void AssertClosure(string assemblyName, bool hasRoslyn, bool hasSqlClient)
     {
         var closure = ReadClosure(assemblyName);
-        Assert.Equal(hasRoslyn, closure.Contains("Microsoft.CodeAnalysis.CSharp"));
-        Assert.Equal(hasSqlClient, closure.Contains("Microsoft.Data.SqlClient"));
+        Assert.Equal(hasRoslyn, closure.Any(IsRoslyn));
+        Assert.Equal(hasSqlClient, closure.Any(IsSqlClient));
     }
 
     private static HashSet<string> ReadClosure(string rootAssemblyName)
@@ -149,4 +266,8 @@ public sealed class FoundationBoundaryTests
 
         throw new InvalidOperationException("Could not locate Metadata.Framework.sln.");
     }
+
+    private sealed record DeclaredDependencies(
+        string[] FoundationReferences,
+        string[] TechnologyPackages);
 }

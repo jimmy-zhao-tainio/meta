@@ -24,12 +24,18 @@ C# are supported surfaces for the same model and instance structure.
 The dependency direction is:
 
 ```text
-Meta.Operations
-  <- Meta.Core
-  <- Meta.Surfaces
-  <- Meta.Surfaces.Xml | Meta.Surfaces.CSharp | Meta.Surfaces.Sql
-  <- Meta.Integration
+Meta.Operations <- Meta.Core
+Meta.Surfaces
+Meta.Operations + Meta.Surfaces <- Meta.Surfaces.Xml
+Meta.Operations + Meta.Surfaces <- Meta.Surfaces.CSharp (+ Roslyn)
+Meta.Operations <- Meta.Surfaces.Sql (+ SqlClient)
+Core + Operations + all surfaces <- Meta.Integration (+ SqlClient)
 ```
+
+The surface implementations are parallel. Common Surfaces is independent of
+Core and Operations; XML and C# share its descriptor and publication
+infrastructure, while SQL depends directly on Operations and owns its complete
+SQL DDL model.
 
 Public namespaces follow those assembly names. This is a coordinated breaking
 change in internal package version `0.1.0-internal.13`; no compatibility facade
