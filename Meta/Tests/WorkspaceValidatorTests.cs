@@ -1,6 +1,6 @@
 using System.Linq;
-using Meta.Core.Domain;
-using Meta.Core.Operations;
+using Meta.Operations.Domain;
+using Meta.Operations;
 
 namespace Meta.Core.Tests;
 

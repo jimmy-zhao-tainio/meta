@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.Xml.Linq;
-using Meta.Core.Serialization;
+using Meta.Surfaces.Xml;
 using MetaCli.Core;
 
 namespace MetaCli.Tests;

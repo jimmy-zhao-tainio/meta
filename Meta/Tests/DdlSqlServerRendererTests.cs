@@ -1,4 +1,5 @@
 using Meta.Core.Ddl;
+using Meta.Surfaces.Sql;
 
 namespace Meta.Core.Tests;
 

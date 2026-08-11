@@ -1,16 +1,13 @@
-using Meta.Core.Domain;
-using Meta.Core.Operations;
+using Meta.Operations.Domain;
+using Meta.Operations;
 
 namespace Meta.Core.Services;
 
 public sealed partial class InstanceDiffService : IInstanceDiffService
 {
     private const string InstanceDiffEqualModelName = "InstanceDiffModelEqual";
-    private const string InstanceDiffEqualModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Equal.model.xml";
     private const string InstanceDiffAlignedModelName = "InstanceDiffModelAligned";
-    private const string InstanceDiffAlignedModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Aligned.model.xml";
     private const string InstanceDiffAlignmentModelName = "InstanceDiffModelAlignment";
-    private const string InstanceDiffAlignmentModelResourceName = "Meta.Core.Workspaces.InstanceDiff.Alignment.model.xml";
 
     private const string DiffEntityName = "Diff";
     private const string ModelEntityName = "Model";
@@ -36,17 +33,11 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
     private const string PropertyMapEntityName = "PropertyMap";
 
     private static readonly Lazy<InstanceDiffWorkspaceDefinition> InstanceDiffEqualWorkspaceDefinition =
-        new(() => LoadWorkspaceDefinition(
-            InstanceDiffEqualModelResourceName,
-            InstanceDiffEqualModelName));
+        new(() => new InstanceDiffWorkspaceDefinition(CreateEqualModel()));
     private static readonly Lazy<InstanceDiffWorkspaceDefinition> InstanceDiffAlignedWorkspaceDefinition =
-        new(() => LoadWorkspaceDefinition(
-            InstanceDiffAlignedModelResourceName,
-            InstanceDiffAlignedModelName));
+        new(() => new InstanceDiffWorkspaceDefinition(CreateAlignedModel()));
     private static readonly Lazy<InstanceDiffWorkspaceDefinition> InstanceDiffAlignmentWorkspaceDefinition =
-        new(() => LoadWorkspaceDefinition(
-            InstanceDiffAlignmentModelResourceName,
-            InstanceDiffAlignmentModelName));
+        new(() => new InstanceDiffWorkspaceDefinition(CreateAlignmentModel()));
 
     private static readonly Lazy<string> InstanceDiffEqualModelSignature =
         new(() => InstanceDiffEqualWorkspaceDefinition.Value.Model.ComputeContractSignature());

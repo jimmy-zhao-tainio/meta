@@ -1,5 +1,5 @@
 
-namespace Meta.Core.Operations;
+namespace Meta.Operations;
 
 public static class InMemoryOperations
 {

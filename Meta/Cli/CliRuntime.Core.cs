@@ -1,5 +1,5 @@
 using Meta.Core.Connections;
-using Meta.Core.Operations;
+using Meta.Operations;
 using MetaCli.Core;
 
 internal sealed partial class CliRuntime

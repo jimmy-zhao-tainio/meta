@@ -12,11 +12,14 @@ its instance graph, and can be operated through supported workspace surfaces.
   validation, and the operation language.
 - `Meta.Core` owns shared domain algorithms, semantic helpers, and foundation
   services that do not belong to one persistence surface.
-- `Meta.Surfaces` owns workspace-surface I/O and implementations for XML, SQL,
-  and C# workspaces. Roslyn is an implementation dependency of the C# reader;
-  it is not a product concept.
-- `Meta.Integration` owns cross-surface import/export, CSV support, SQL
-  deployment, and service composition.
+- `Meta.Surfaces` owns lightweight workspace descriptors and shared publication
+  infrastructure.
+- `Meta.Surfaces.Xml`, `Meta.Surfaces.CSharp`, and `Meta.Surfaces.Sql` own their
+  respective workspace implementations. Only the C# package directly receives
+  Roslyn; only the SQL package directly receives SqlClient.
+- `Meta.Integration` is the deliberate full-surface composition point. It owns
+  descriptor routing, cross-surface import/export, CSV support, SQL deployment,
+  and service composition.
 - `MetaCli`, `MetaDocs`, `MetaMesh`, and `MetaWeave` are modelled CLI products
   built on the foundation. BI-specific models and CLIs live in `meta-bi`.
 

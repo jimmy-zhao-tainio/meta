@@ -1,8 +1,5 @@
-using System.Reflection;
 using System.Globalization;
-using System.Xml.Linq;
-using Meta.Core.Domain;
-using Meta.Core.Serialization;
+using Meta.Operations.Domain;
 
 namespace Meta.Core.Services;
 
@@ -148,28 +145,6 @@ public sealed partial class InstanceDiffService : IInstanceDiffService
             {
                 ModelName = model.Name,
             });
-    }
-
-    private static InstanceDiffWorkspaceDefinition LoadWorkspaceDefinition(
-        string modelResourceName,
-        string expectedModelName)
-    {
-        var assembly = typeof(InstanceDiffService).Assembly;
-        using var modelStream = assembly.GetManifestResourceStream(modelResourceName);
-        if (modelStream == null)
-        {
-            throw new InvalidOperationException($"Embedded model '{modelResourceName}' was not found.");
-        }
-
-        var modelDocument = XDocument.Load(modelStream, LoadOptions.None);
-        var model = ModelXmlCodec.Load(modelDocument);
-        if (!string.Equals(model.Name, expectedModelName, StringComparison.Ordinal))
-        {
-            throw new InvalidDataException(
-                $"Workspace '{modelResourceName}' model name must be '{expectedModelName}', found '{model.Name}'.");
-        }
-
-        return new InstanceDiffWorkspaceDefinition(model);
     }
 
     private static bool IsModelContract(GenericModel model, string expectedSignature)

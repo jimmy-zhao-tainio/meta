@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using Meta.Core.Domain;
-using Meta.Core.Operations;
-using Meta.Core.Serialization;
+using Meta.Operations.Domain;
+using Meta.Operations;
+using Meta.Integration;
+using Meta.Surfaces.CSharp;
+using Meta.Surfaces.Sql;
+using Meta.Surfaces.Xml;
 using Meta.Core.Services;
 using Meta.Surfaces;
 
@@ -101,10 +104,10 @@ public sealed class XmlWorkspaceTests
             Assert.Equal(".", workspaceMetadata.Location);
             Assert.Equal(
                 "model.xml",
-                Meta.Core.WorkspaceConfig.Generated.MetaWorkspace.GetModelFile(workspaceMetadata.Configuration));
+                Meta.Surfaces.Configuration.MetaWorkspace.GetModelFile(workspaceMetadata.Configuration));
             Assert.Equal(
                 "instances",
-                Meta.Core.WorkspaceConfig.Generated.MetaWorkspace.GetInstanceDir(workspaceMetadata.Configuration));
+                Meta.Surfaces.Configuration.MetaWorkspace.GetInstanceDir(workspaceMetadata.Configuration));
             Assert.True(File.Exists(modelPath), "model.xml should exist after save.");
             Assert.True(Directory.Exists(instanceDir), "instance shard directory should exist after save.");
             Assert.True(Directory.GetFiles(instanceDir, "*.xml").Length > 0, "instance shard directory should contain XML files.");
@@ -413,7 +416,7 @@ public sealed class XmlWorkspaceTests
                     ModelName = "MetadataModel",
                 });
 
-            var invalidEntity = new Meta.Core.Domain.GenericEntity
+            var invalidEntity = new Meta.Operations.Domain.GenericEntity
             {
                 Name = "Bad Name",
             };
@@ -475,20 +478,20 @@ public sealed class XmlWorkspaceTests
                     ModelName = "MetadataModel",
                 });
 
-            var entityA = new Meta.Core.Domain.GenericEntity
+            var entityA = new Meta.Operations.Domain.GenericEntity
             {
                 Name = "EntityA",
             };
-            entityA.Relationships.Add(new Meta.Core.Domain.GenericRelationship
+            entityA.Relationships.Add(new Meta.Operations.Domain.GenericRelationship
             {
                 Entity = "EntityB",
             });
 
-            var entityB = new Meta.Core.Domain.GenericEntity
+            var entityB = new Meta.Operations.Domain.GenericEntity
             {
                 Name = "EntityB",
             };
-            entityB.Relationships.Add(new Meta.Core.Domain.GenericRelationship
+            entityB.Relationships.Add(new Meta.Operations.Domain.GenericRelationship
             {
                 Entity = "EntityA",
             });
@@ -496,13 +499,13 @@ public sealed class XmlWorkspaceTests
             workspace.Model.Entities.Add(entityA);
             workspace.Model.Entities.Add(entityB);
 
-            workspace.Instance.GetOrCreateEntityRecords("EntityA").Add(new Meta.Core.Domain.GenericRecord
+            workspace.Instance.GetOrCreateEntityRecords("EntityA").Add(new Meta.Operations.Domain.GenericRecord
             {
                 Id = "1",
             });
             workspace.Instance.GetOrCreateEntityRecords("EntityA")[0].RelationshipIds["EntityBId"] = "1";
 
-            workspace.Instance.GetOrCreateEntityRecords("EntityB").Add(new Meta.Core.Domain.GenericRecord
+            workspace.Instance.GetOrCreateEntityRecords("EntityB").Add(new Meta.Operations.Domain.GenericRecord
             {
                 Id = "1",
             });

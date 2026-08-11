@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Meta.Core.Domain;
+using Meta.Operations.Domain;
 
 namespace Meta.Core.Services;
 

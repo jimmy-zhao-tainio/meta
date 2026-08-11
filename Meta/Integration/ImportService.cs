@@ -5,10 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Meta.Core.Domain;
-using Meta.Core.Operations;
-using Meta.Core.Services;
+using Meta.Operations.Domain;
+using Meta.Operations;
 using Meta.Surfaces;
+using Meta.Surfaces.Sql;
 
 namespace Meta.Integration;
 

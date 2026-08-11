@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Meta.Core.Domain;
+using Meta.Operations.Domain;
 
 namespace Meta.Core.Services;
 

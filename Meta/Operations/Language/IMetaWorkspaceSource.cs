@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 
-namespace Meta.Core.Operations;
+namespace Meta.Operations;
 
 public interface IMetaWorkspaceSource
 {

@@ -1,4 +1,4 @@
-namespace Meta.Core.Domain;
+namespace Meta.Operations.Domain;
 
 public static class MetaIdentity
 {

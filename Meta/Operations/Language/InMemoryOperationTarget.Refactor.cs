@@ -1,4 +1,4 @@
-namespace Meta.Core.Operations;
+namespace Meta.Operations;
 
 internal sealed partial class InMemoryOperationTarget
 {

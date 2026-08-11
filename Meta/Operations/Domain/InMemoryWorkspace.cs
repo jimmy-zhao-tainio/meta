@@ -1,4 +1,4 @@
-namespace Meta.Core.Domain;
+namespace Meta.Operations.Domain;
 
 public sealed class InMemoryWorkspace
 {

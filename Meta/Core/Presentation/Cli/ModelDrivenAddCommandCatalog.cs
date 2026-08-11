@@ -1,5 +1,5 @@
 using System.Text;
-using Meta.Core.Domain;
+using Meta.Operations.Domain;
 
 namespace Meta.Core.Presentation.Cli;
 

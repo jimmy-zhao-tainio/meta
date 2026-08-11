@@ -1,6 +1,6 @@
 using System.Globalization;
 using System.Text;
-using Meta.Core.WorkspaceConfig.Generated;
+using Meta.Surfaces.Configuration;
 
 namespace Meta.Surfaces;
 

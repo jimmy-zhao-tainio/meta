@@ -1,7 +1,6 @@
-using Meta.Core.Domain;
-using Meta.Core.Operations;
-using Meta.Core.Serialization;
-using Meta.Core.Services;
+using Meta.Operations.Domain;
+using Meta.Operations;
+using Meta.Surfaces.CSharp;
 using Meta.Surfaces;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -57,29 +56,6 @@ public sealed class CSharpWorkspaceOwnershipTests
             await readers[0].DisposeAsync();
             await readers[1].DisposeAsync();
         }
-    }
-
-    [Fact]
-    public async Task XmlAndSqlDescriptorReadsDoNotCreateAWriteLock()
-    {
-        using var xmlFixture = ProjectFixture.CreateEmpty();
-        await XmlWorkspaceWriter.WriteNewAsync(DemoState(), xmlFixture.Root);
-        await using (var workspace = await WorkspaceSurface.OpenAsync(xmlFixture.Root))
-        {
-            Assert.Equal("Demo", await workspace.ReadModelNameAsync());
-        }
-
-        Assert.False(File.Exists(Path.Combine(xmlFixture.Root, ".meta.lock")));
-
-        using var sqlFixture = ProjectFixture.CreateEmpty();
-        await File.WriteAllTextAsync(
-            Path.Combine(sqlFixture.Root, WorkspaceMetaFile.FileName),
-            "representation sql\nlocation META_TEST_SQL\n");
-
-        var metadata = WorkspaceMetaFile.Read(sqlFixture.Root);
-        Assert.Equal("sql", metadata.Representation);
-        Assert.Equal("META_TEST_SQL", metadata.Location);
-        Assert.False(File.Exists(Path.Combine(sqlFixture.Root, ".meta.lock")));
     }
 
     [Fact]
@@ -241,10 +217,6 @@ public sealed class CSharpWorkspaceOwnershipTests
                 await CSharpWorkspace.OpenAsync(fixture.Root));
 
             Assert.Contains("locked", exception.Message, StringComparison.OrdinalIgnoreCase);
-            var surfaceException = await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-                await WorkspaceSurface.OpenAsync(fixture.Root));
-
-            Assert.Contains("locked", surfaceException.Message, StringComparison.OrdinalIgnoreCase);
             release.SetResult(true);
             await publication;
         }
@@ -612,7 +584,7 @@ public sealed class CSharpWorkspaceOwnershipTests
 
     private static InMemoryWorkspace DemoState()
     {
-        var state = MetaXmlCodecTests.BuildState();
+        var state = WorkspaceTestData.BuildState();
         state.Model.Name = "Demo";
         state.Instance.ModelName = "Demo";
         return state;

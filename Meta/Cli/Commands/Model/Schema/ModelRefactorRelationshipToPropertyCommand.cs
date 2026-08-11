@@ -1,4 +1,4 @@
-using Meta.Core.Domain;
+using Meta.Operations.Domain;
 
 internal sealed partial class CliRuntime
 {

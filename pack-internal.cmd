@@ -8,6 +8,9 @@ mkdir "%PACKAGE_OUTPUT%"
 call :pack Meta\Operations\Meta.Operations.csproj || exit /b %errorlevel%
 call :pack Meta\Core\Meta.Core.csproj || exit /b %errorlevel%
 call :pack Meta\Surfaces\Meta.Surfaces.csproj || exit /b %errorlevel%
+call :pack Meta\Surfaces.Xml\Meta.Surfaces.Xml.csproj || exit /b %errorlevel%
+call :pack Meta\Surfaces.CSharp\Meta.Surfaces.CSharp.csproj || exit /b %errorlevel%
+call :pack Meta\Surfaces.Sql\Meta.Surfaces.Sql.csproj || exit /b %errorlevel%
 call :pack Meta\Integration\Meta.Integration.csproj || exit /b %errorlevel%
 call :pack MetaCli\Model\MetaCli.Model.csproj || exit /b %errorlevel%
 call :pack MetaCli\Core\MetaCli.Core.csproj || exit /b %errorlevel%

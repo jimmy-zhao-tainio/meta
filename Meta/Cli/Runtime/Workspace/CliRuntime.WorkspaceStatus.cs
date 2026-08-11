@@ -1,5 +1,5 @@
-using Meta.Core.Operations;
-using MetaWorkspaceConfig = Meta.Core.WorkspaceConfig.Generated.MetaWorkspace;
+using Meta.Operations;
+using MetaWorkspaceConfig = Meta.Surfaces.Configuration.MetaWorkspace;
 
 internal sealed partial class CliRuntime
 {
@@ -25,7 +25,7 @@ internal sealed partial class CliRuntime
             });
     }
 
-    void PrintContractCompatibilityWarning(Meta.Core.WorkspaceConfig.Generated.MetaWorkspace workspaceConfig)
+    void PrintContractCompatibilityWarning(Meta.Surfaces.Configuration.MetaWorkspace workspaceConfig)
     {
         PrintContractCompatibilityWarning(
             MetaWorkspaceConfig.GetContractVersion(workspaceConfig));

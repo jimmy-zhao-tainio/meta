@@ -1,5 +1,5 @@
-using Meta.Core.Serialization;
-using Meta.Core.Operations;
+using Meta.Integration;
+using Meta.Operations;
 
 namespace MetaCli.Core;
 

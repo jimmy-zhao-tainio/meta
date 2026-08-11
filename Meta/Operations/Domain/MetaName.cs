@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace Meta.Core.Domain;
+namespace Meta.Operations.Domain;
 
 public static class MetaName
 {

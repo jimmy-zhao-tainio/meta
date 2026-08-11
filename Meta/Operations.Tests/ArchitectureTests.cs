@@ -1,4 +1,4 @@
-using Meta.Core.Operations;
+using Meta.Operations;
 
 namespace Meta.Operations.Tests;
 

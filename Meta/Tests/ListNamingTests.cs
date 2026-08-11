@@ -3,8 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Meta.Core.Operations;
-using Meta.Core.Serialization;
+using Meta.Operations;
+using Meta.Surfaces.Xml;
 using Meta.Surfaces;
 
 namespace Meta.Core.Tests;

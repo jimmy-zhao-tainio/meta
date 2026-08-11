@@ -1,6 +1,7 @@
 using System.Xml.Serialization;
-using Meta.Core.Domain;
-using Meta.Core.Serialization;
+using Meta.Operations.Domain;
+using Meta.Integration;
+using Meta.Surfaces.Xml;
 
 namespace Meta.Core.Tests;
 
@@ -54,7 +55,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
                 {
                     new Alpha
                     {
-                        Id = new string('x', Meta.Core.Domain.MetaIdentity.MaximumLength + 1),
+                        Id = new string('x', Meta.Operations.Domain.MetaIdentity.MaximumLength + 1),
                         Name = "Too long",
                     },
                 },
@@ -64,7 +65,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
                 () => TypedWorkspaceXmlSerializer.Save(model, Path.Combine(tempRoot, "workspace")));
 
             Assert.Contains(
-                Meta.Core.Domain.MetaIdentity.MaximumLength.ToString(),
+                Meta.Operations.Domain.MetaIdentity.MaximumLength.ToString(),
                 exception.Message,
                 StringComparison.Ordinal);
         }

@@ -5,9 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Meta.Surfaces;
-using Meta.Core.Domain;
-using Meta.Core.Operations;
-using Meta.Core.Serialization;
+using Meta.Operations.Domain;
+using Meta.Operations;
+using Meta.Integration;
+using Meta.Surfaces.CSharp;
+using Meta.Surfaces.Sql;
+using Meta.Surfaces.Xml;
 using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
@@ -405,7 +408,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
 
         try
         {
-            var source = MetaXmlCodecTests.BuildState();
+            var source = WorkspaceTestData.BuildState();
             source.Model.Name = databaseName;
             source.Instance.ModelName = databaseName;
 
@@ -469,7 +472,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         var databaseName = "MetaOps" + Guid.NewGuid().ToString("N")[..20];
         try
         {
-            var source = MetaXmlCodecTests.BuildState();
+            var source = WorkspaceTestData.BuildState();
             source.Model.Name = databaseName;
             source.Instance.ModelName = databaseName;
             var sql = MetaSqlWriter.Write(source);
@@ -639,7 +642,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             environmentVariable);
         try
         {
-            var source = MetaXmlCodecTests.BuildState();
+            var source = WorkspaceTestData.BuildState();
             source.Model.Name = originalName;
             source.Instance.ModelName = originalName;
             var originalConnectionString = new SqlConnectionStringBuilder(
@@ -718,7 +721,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             environmentVariable);
         try
         {
-            var source = MetaXmlCodecTests.BuildState();
+            var source = WorkspaceTestData.BuildState();
             source.Model.Name = originalName;
             source.Instance.ModelName = originalName;
             var sql = MetaSqlWriter.Write(source);
@@ -1619,7 +1622,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         var databaseName = "MetaModelOp" + Guid.NewGuid().ToString("N")[..17];
         try
         {
-            var workspace = MetaXmlCodecTests.BuildState();
+            var workspace = WorkspaceTestData.BuildState();
             workspace.Model.Name = databaseName;
             workspace.Instance.ModelName = databaseName;
             var sql = MetaSqlWriter.Write(workspace);
@@ -1670,7 +1673,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         var databaseName = "MetaRollback" + Guid.NewGuid().ToString("N")[..16];
         try
         {
-            var source = MetaXmlCodecTests.BuildState();
+            var source = WorkspaceTestData.BuildState();
             source.Model.Name = databaseName;
             source.Instance.ModelName = databaseName;
             var sql = MetaSqlWriter.Write(source);

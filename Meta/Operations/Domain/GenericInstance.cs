@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Meta.Core.Domain;
+namespace Meta.Operations.Domain;
 
 public sealed class GenericInstance
 {

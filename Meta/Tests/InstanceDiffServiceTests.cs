@@ -1,6 +1,6 @@
-using Meta.Integration;
-using Meta.Core.Domain;
-using Meta.Core.Operations;
+using Meta.Core.Services;
+using Meta.Operations.Domain;
+using Meta.Operations;
 
 public sealed class InstanceDiffServiceTests
 {
@@ -21,8 +21,8 @@ public sealed class InstanceDiffServiceTests
                 ("2", new Dictionary<string, string> { ["Name"] = "Bob", ["Age"] = "40" }),
             });
 
-        var services = new ServiceCollection();
-        var diff = services.InstanceDiffService.BuildEqualDiffWorkspace(left, right);
+        var service = new InstanceDiffService();
+        var diff = service.BuildEqualDiffWorkspace(left, right);
 
         Assert.True(diff.HasDifferences);
         Assert.Equal(1, diff.LeftRowCount);
@@ -35,7 +35,7 @@ public sealed class InstanceDiffServiceTests
                 ("1", new Dictionary<string, string> { ["Name"] = "Alice", ["Age"] = "30" }),
             });
 
-        var operations = services.InstanceDiffService.PlanEqualDiffMerge(
+        var operations = service.PlanEqualDiffMerge(
             target,
             diff.DiffWorkspace);
         var applied = InMemoryOperations.Apply(

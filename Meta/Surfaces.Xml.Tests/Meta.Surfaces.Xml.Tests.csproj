@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+    <Using Include="Meta.Tests" />
+    <ProjectReference Include="..\Core\Meta.Core.csproj" />
+    <ProjectReference Include="..\Operations\Meta.Operations.csproj" />
+    <ProjectReference Include="..\Surfaces\Meta.Surfaces.csproj" />
+    <ProjectReference Include="..\Surfaces.Xml\Meta.Surfaces.Xml.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Tests\MetaXmlCodecTests.cs" Link="MetaXmlCodecTests.cs" />
+    <Compile Include="..\Tests\ListNamingTests.cs" Link="ListNamingTests.cs" />
+    <Compile Include="..\Tests\LargeWorkspacePerformanceTests.cs" Link="LargeWorkspacePerformanceTests.cs" />
+    <Compile Include="..\Tests\TestWorkspaceFactory.cs" Link="TestWorkspaceFactory.cs" />
+    <Compile Include="..\Tests\WorkspaceTestData.cs" Link="WorkspaceTestData.cs" />
+    <Compile Include="..\Tests\WorkspaceMergeXmlTests.cs" Link="WorkspaceMergeXmlTests.cs" />
+  </ItemGroup>
+</Project>

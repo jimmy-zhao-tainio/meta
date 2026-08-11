@@ -1,5 +1,5 @@
-using Meta.Core.Domain;
-using Meta.Core.Operations;
+using Meta.Operations.Domain;
+using Meta.Operations;
 using Meta.Core.Services;
 using System.Xml.Linq;
 
@@ -371,7 +371,7 @@ public sealed class InMemoryOperationsTests
         GenericModel model,
         GenericInstance instance)
     {
-        return Meta.Core.Serialization.InstanceXmlCodec
+        return Meta.Surfaces.Xml.InstanceXmlCodec
             .BuildDocument(model, instance)
             .ToString(SaveOptions.DisableFormatting);
     }

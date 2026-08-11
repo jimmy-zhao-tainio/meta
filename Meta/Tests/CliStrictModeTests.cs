@@ -7,8 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Meta.Integration;
-using Meta.Core.Domain;
-using Meta.Core.Serialization;
+using Meta.Operations.Domain;
+using Meta.Surfaces.CSharp;
+using Meta.Surfaces.Sql;
+using Meta.Surfaces.Xml;
 using Meta.Core.Services;
 using Meta.Surfaces;
 
@@ -5905,7 +5907,7 @@ public sealed partial class CliStrictModeTests
     {
         var root = CreateTempWorkspaceFromSamples();
         var workspaceConfig = WorkspaceMetaFile.Read(root).Configuration;
-        workspaceConfig.EntityStorage.Add(new Meta.Core.WorkspaceConfig.Generated.EntityStorage
+        workspaceConfig.EntityStorage.Add(new Meta.Surfaces.Configuration.EntityStorage
         {
             Id = "1",
             WorkspaceId = workspaceConfig.Workspace.Single().Id,

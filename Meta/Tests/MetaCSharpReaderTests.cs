@@ -1,7 +1,7 @@
 using Meta.Surfaces;
-using Meta.Core.Domain;
-using Meta.Core.Operations;
-using Meta.Core.Serialization;
+using Meta.Operations.Domain;
+using Meta.Operations;
+using Meta.Surfaces.CSharp;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
@@ -20,7 +20,7 @@ public sealed class MetaCSharpReaderTests
         {
             await WriteSourcesAsync(
                 root,
-                MetaCSharpWriter.Write(MetaXmlCodecTests.BuildState()));
+                MetaCSharpWriter.Write(WorkspaceTestData.BuildState()));
             await using (var workspace = await CSharpWorkspace.OpenAsync(root))
             {
                 await workspace.ExecuteAsync([
@@ -54,12 +54,12 @@ public sealed class MetaCSharpReaderTests
         {
             await WriteSourcesAsync(
                 root,
-                MetaCSharpWriter.Write(MetaXmlCodecTests.BuildState()));
+                MetaCSharpWriter.Write(WorkspaceTestData.BuildState()));
             await using var workspace = await CSharpWorkspace.OpenAsync(root);
             var sourcePath = Directory.GetFiles(root, "*.cs").First();
             await File.AppendAllTextAsync(sourcePath, "\n");
 
-            await Assert.ThrowsAsync<Meta.Core.Services.WorkspaceConflictException>(
+            await Assert.ThrowsAsync<Meta.Surfaces.WorkspaceConflictException>(
                 async () => await workspace.ExecuteAsync([
                     new Operation.SetProperty(
                         "Node",
@@ -77,7 +77,7 @@ public sealed class MetaCSharpReaderTests
     [Fact]
     public void ReadWrite_PreservesSemanticState()
     {
-        var state = MetaXmlCodecTests.BuildState();
+        var state = WorkspaceTestData.BuildState();
 
         var csharp = MetaCSharpWriter.Write(state);
         var roundTripped = MetaCSharpReader.Read(csharp);
@@ -90,7 +90,7 @@ public sealed class MetaCSharpReaderTests
     [Fact]
     public void Write_PreservesMissingAndExplicitlyEmptyOptionalText()
     {
-        var state = MetaXmlCodecTests.BuildState();
+        var state = WorkspaceTestData.BuildState();
 
         var source = Assert.Single(
             MetaCSharpWriter.Write(state).Sources,
@@ -104,7 +104,7 @@ public sealed class MetaCSharpReaderTests
     [Fact]
     public void OperationLaw_HoldsForCSharp()
     {
-        var source = MetaXmlCodecTests.BuildState();
+        var source = WorkspaceTestData.BuildState();
         var operation = new Operation.RenameRecord(
             "Node",
             "Root",
@@ -180,7 +180,7 @@ public sealed class MetaCSharpReaderTests
     public void Read_RejectsACollectionThatIsNotReturned()
     {
         var csharp = MetaCSharpWriter.Write(
-            MetaXmlCodecTests.BuildState());
+            WorkspaceTestData.BuildState());
         var source = csharp.Sources["RoundTrip.meta.cs"];
         source = source.Replace(
             "        var model = RoundTripModel.CreateEmpty();",
@@ -200,7 +200,7 @@ public sealed class MetaCSharpReaderTests
     public void Read_RejectsAnUnmodeledCollectionMutation()
     {
         var csharp = MetaCSharpWriter.Write(
-            MetaXmlCodecTests.BuildState());
+            WorkspaceTestData.BuildState());
         var source = csharp.Sources["RoundTrip.meta.cs"];
         source = source.Replace(
             "        return model;",
@@ -220,7 +220,7 @@ public sealed class MetaCSharpReaderTests
     public void Read_RequiresCompilableCSharp()
     {
         var csharp = MetaCSharpWriter.Write(
-            MetaXmlCodecTests.BuildState());
+            WorkspaceTestData.BuildState());
         var source = csharp.Sources["RoundTrip.meta.cs"] +
                      Environment.NewLine +
                      "internal sealed class Broken { MissingType Value { get; set; } }";

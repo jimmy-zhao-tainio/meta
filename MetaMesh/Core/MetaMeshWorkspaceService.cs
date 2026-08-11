@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Meta.Surfaces;
-using SurfaceCSharpWorkspace = global::Meta.Surfaces.CSharpWorkspace;
-using SurfaceSqlWorkspace = global::Meta.Surfaces.SqlWorkspace;
+using SurfaceCSharpWorkspace = global::Meta.Surfaces.CSharp.CSharpWorkspace;
+using SurfaceSqlWorkspace = global::Meta.Surfaces.Sql.SqlWorkspace;
 using Meta.Core.Connections;
 
 namespace MetaMesh.Core;

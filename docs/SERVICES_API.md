@@ -10,13 +10,30 @@ C# are supported surfaces for the same model and instance structure.
   validation, and operations.
 - `Meta.Core` owns shared domain algorithms and foundation services that are
   independent of one workspace surface.
-- `Meta.Surfaces` owns XML, SQL, and C# workspace readers, writers, and surface
-  execution.
-- `Meta.Integration` owns cross-surface import/export, CSV support, SQL
-  deployment, and service composition.
+- `Meta.Surfaces` owns the lightweight workspace descriptor and shared
+  publication infrastructure. It has no Roslyn or SqlClient dependency.
+- `Meta.Surfaces.Xml` owns XML readers, writers, codecs, and layout.
+- `Meta.Surfaces.CSharp` owns C# readers, writers, and transactional source
+  publication. It is the only surface package that directly references Roslyn.
+- `Meta.Surfaces.Sql` owns SQL workspace reads, writes, operations, and SQL
+  Server DDL. It is the only surface package below Integration that directly
+  references SqlClient.
+- `Meta.Integration` owns descriptor-selected routing, cross-surface
+  import/export, CSV support, SQL deployment, and service composition.
 
-The foundation no longer exposes a separate adapter or artifact-generation
-service boundary. Surface ownership is explicit in the assembly list above.
+The dependency direction is:
+
+```text
+Meta.Operations
+  <- Meta.Core
+  <- Meta.Surfaces
+  <- Meta.Surfaces.Xml | Meta.Surfaces.CSharp | Meta.Surfaces.Sql
+  <- Meta.Integration
+```
+
+Public namespaces follow those assembly names. This is a coordinated breaking
+change in internal package version `0.1.0-internal.13`; no compatibility facade
+preserves the former cross-assembly `Meta.Core.*` namespace ownership.
 
 ## Workspace Metadata
 

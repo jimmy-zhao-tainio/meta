@@ -5,8 +5,11 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Meta.Core.Domain;
-using Meta.Core.Serialization;
+using Meta.Operations.Domain;
+using Meta.Integration;
+using Meta.Surfaces.CSharp;
+using Meta.Surfaces.Sql;
+using Meta.Surfaces.Xml;
 using Meta.Core.Services;
 
 namespace Meta.Core.Tests;

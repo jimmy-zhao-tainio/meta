@@ -6,19 +6,12 @@
     <Nullable>enable</Nullable>
     <IsPackable>true</IsPackable>
     <PackageId>Meta.Core</PackageId>
-    <Description>Generic metadata domain, serialization, validation, workspace, and refactor services.</Description>
+    <Description>Representation-neutral metadata algorithms and services.</Description>
     <PackageReadmeFile>PACKAGE-README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Operations\Meta.Operations.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="WorkspaceConfig\Models\MetaWorkspace.model.xml" />
-    <EmbeddedResource Include="..\Workspaces\InstanceDiff.Equal\model.xml" LogicalName="Meta.Core.Workspaces.InstanceDiff.Equal.model.xml" />
-    <EmbeddedResource Include="..\Workspaces\InstanceDiff.Alignment\model.xml" LogicalName="Meta.Core.Workspaces.InstanceDiff.Alignment.model.xml" />
-    <EmbeddedResource Include="..\Workspaces\InstanceDiff.Aligned\model.xml" LogicalName="Meta.Core.Workspaces.InstanceDiff.Aligned.model.xml" />
   </ItemGroup>
 
   <ItemGroup>

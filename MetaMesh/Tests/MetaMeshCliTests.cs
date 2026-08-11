@@ -178,7 +178,7 @@ public sealed class MetaMeshCliTests
             Assert.True(File.Exists(Path.Combine(meshPath, "instances", "Operation.xml")));
             Assert.True(File.Exists(Path.Combine(meshPath, "instances", "OperationStep.xml")));
 
-            var model = Meta.Core.Serialization.TypedWorkspaceXmlSerializer.Load<MetaMesh.MetaMeshModel>(meshPath, searchUpward: false);
+            var model = Meta.Surfaces.Xml.TypedWorkspaceXmlSerializer.Load<MetaMesh.MetaMeshModel>(meshPath, searchUpward: false);
             Assert.Equal("Docs", Assert.Single(model.MeshList).Name);
             Assert.Contains(model.WorkspaceList, item => item.Name == "docs" && item.ModelName == "MetaDocs");
             Assert.Contains(model.XmlWorkspaceList, item => item.Workspace.Name == "docs" && item.Path == ".");
@@ -420,7 +420,7 @@ public sealed class MetaMeshCliTests
             Assert.Equal(0, steps.ExitCode);
             Assert.Contains("cmd.exe " + childArguments, steps.Output);
 
-            var model = Meta.Core.Serialization.TypedWorkspaceXmlSerializer.Load<MetaMesh.MetaMeshModel>(meshPath, searchUpward: false);
+            var model = Meta.Surfaces.Xml.TypedWorkspaceXmlSerializer.Load<MetaMesh.MetaMeshModel>(meshPath, searchUpward: false);
             Assert.Equal(childArguments, Assert.Single(model.OperationStepList).Arguments);
         }
         finally
@@ -452,7 +452,7 @@ public sealed class MetaMeshCliTests
             Assert.Contains("1 step completed.", run.Output);
             Assert.DoesNotContain("Failed step", run.Output);
 
-            var model = Meta.Core.Serialization.TypedWorkspaceXmlSerializer.Load<MetaMesh.MetaMeshModel>(meshPath, searchUpward: false);
+            var model = Meta.Surfaces.Xml.TypedWorkspaceXmlSerializer.Load<MetaMesh.MetaMeshModel>(meshPath, searchUpward: false);
             Assert.Equal("4", Assert.Single(model.OperationStepList).ExpectedExitCode);
         }
         finally

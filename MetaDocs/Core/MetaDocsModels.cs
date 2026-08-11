@@ -1,6 +1,6 @@
 using System.Xml.Linq;
-using Meta.Core.Domain;
-using Meta.Core.Serialization;
+using Meta.Operations.Domain;
+using Meta.Surfaces.Xml;
 
 namespace MetaDocs.Core;
 

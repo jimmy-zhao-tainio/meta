@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Meta.Core.Operations;
+namespace Meta.Operations;
 
 public static class WorkspaceValidator
 {

@@ -1,4 +1,4 @@
-namespace Meta.Core.Operations;
+namespace Meta.Operations;
 
 public abstract partial record Operation
 {

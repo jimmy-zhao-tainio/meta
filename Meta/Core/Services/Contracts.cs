@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Meta.Core.Domain;
-using Meta.Core.Operations;
+using Meta.Operations.Domain;
+using Meta.Operations;
 
 namespace Meta.Core.Services;
 
@@ -24,33 +24,6 @@ public interface IWorkspaceMergeService
     Task<WorkspaceMergePlan> MergeAsync(
         IReadOnlyList<IMetaWorkspaceSource> sourceWorkspaces,
         WorkspaceMergeOptions options,
-        CancellationToken cancellationToken = default);
-}
-
-public interface IImportService
-{
-    Task<InMemoryWorkspace> ImportSqlAsync(string connectionString, string schema, CancellationToken cancellationToken = default);
-    Task<InMemoryWorkspace> ImportCsvAsync(
-        string csvPath,
-        string entityName,
-        CancellationToken cancellationToken = default);
-    CsvImportPlan PlanCsvImport(
-        InMemoryWorkspace targetWorkspace,
-        InMemoryWorkspace importedWorkspace);
-}
-
-public readonly record struct CsvImportPlan(
-    string EntityName,
-    int RowCount,
-    IReadOnlyList<Operation> Operations);
-
-public interface IExportService
-{
-    Task ExportXmlAsync(InMemoryWorkspace workspace, string outputDirectory, CancellationToken cancellationToken = default);
-    Task ExportCsvAsync(
-        IMetaWorkspaceSource source,
-        string entityName,
-        string outputPath,
         CancellationToken cancellationToken = default);
 }
 

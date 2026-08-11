@@ -1,5 +1,5 @@
-using Meta.Core.Operations;
-using Meta.Core.Domain;
+using Meta.Operations;
+using Meta.Operations.Domain;
 
 namespace Meta.Operations.Tests;
 

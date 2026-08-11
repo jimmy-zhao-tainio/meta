@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Meta.Core.Domain;
+namespace Meta.Operations.Domain;
 
 public enum IssueSeverity
 {

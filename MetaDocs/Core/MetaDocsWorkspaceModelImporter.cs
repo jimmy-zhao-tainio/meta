@@ -1,5 +1,5 @@
-using Meta.Core.Domain;
-using Meta.Core.Serialization;
+using Meta.Operations.Domain;
+using Meta.Integration;
 using System.Security.Cryptography;
 using System.Text;
 using MetaDocs;

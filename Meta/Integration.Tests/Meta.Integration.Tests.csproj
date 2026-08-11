@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+    <Using Include="Meta.Tests" />
+    <ProjectReference Include="..\Cli\Meta.Cli.csproj" />
+    <ProjectReference Include="..\Core\Meta.Core.csproj" />
+    <ProjectReference Include="..\Integration\Meta.Integration.csproj" />
+    <ProjectReference Include="..\Operations\Meta.Operations.csproj" />
+    <ProjectReference Include="..\Surfaces\Meta.Surfaces.csproj" />
+    <ProjectReference Include="..\Surfaces.Xml\Meta.Surfaces.Xml.csproj" />
+    <ProjectReference Include="..\Surfaces.CSharp\Meta.Surfaces.CSharp.csproj" />
+    <ProjectReference Include="..\Surfaces.Sql\Meta.Surfaces.Sql.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Tests\CliStrictModeTests.cs" Link="CliStrictModeTests.cs" />
+    <Compile Include="..\Tests\CliStrictMode.RemovedCommandsTests.cs" Link="CliStrictMode.RemovedCommandsTests.cs" />
+    <Compile Include="..\Tests\CliTestHost.cs" Link="CliTestHost.cs" />
+    <Compile Include="..\Tests\DeterminismGoldenTests.cs" Link="DeterminismGoldenTests.cs" />
+    <Compile Include="..\Tests\ImportServiceTests.cs" Link="ImportServiceTests.cs" />
+    <Compile Include="..\Tests\InMemoryOperationsTests.cs" Link="InMemoryOperationsTests.cs" />
+    <Compile Include="..\Tests\MetaIdentityTests.cs" Link="MetaIdentityTests.cs" />
+    <Compile Include="..\Tests\SqlXmlIsomorphicRoundTripTests.cs" Link="SqlXmlIsomorphicRoundTripTests.cs" />
+    <Compile Include="..\Tests\TestWorkspaceFactory.cs" Link="TestWorkspaceFactory.cs" />
+    <Compile Include="..\Tests\WorkspaceAndReconcileTests.cs" Link="WorkspaceAndReconcileTests.cs" />
+    <Compile Include="..\Tests\WorkspaceDescriptorIntegrationTests.cs" Link="WorkspaceDescriptorIntegrationTests.cs" />
+    <Compile Include="..\Tests\WorkspaceTestData.cs" Link="WorkspaceTestData.cs" />
+    <Compile Include="..\Tests\TypedWorkspaceXmlSerializerTests.cs" Link="TypedWorkspaceXmlSerializerTests.cs" />
+  </ItemGroup>
+</Project>

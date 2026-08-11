@@ -5,7 +5,7 @@ using MetaCli;
 using MetaCli.Core;
 using MetaDocs;
 using MetaDocs.Core;
-using Meta.Core.Serialization;
+using Meta.Integration;
 using Meta.Surfaces;
 
 internal static class Program

@@ -5,10 +5,9 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Meta.Core.Domain;
-using Meta.Core.Operations;
-using Meta.Core.Serialization;
-using Meta.Core.Services;
+using Meta.Operations.Domain;
+using Meta.Operations;
+using Meta.Surfaces.Xml;
 
 namespace Meta.Integration;
 

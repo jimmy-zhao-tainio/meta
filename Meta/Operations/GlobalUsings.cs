@@ -1,1 +1,1 @@
-global using Meta.Core.Domain;
+global using Meta.Operations.Domain;
