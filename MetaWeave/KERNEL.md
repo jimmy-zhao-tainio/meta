@@ -23,16 +23,21 @@ file, database, or other physical representation.
 
 ## Correspondence
 
-A correspondence `K` binds one source contract `M_S` and one target contract
-`M_T`. It may define two independent partial functions:
+A correspondence `K` is a first-class declarative correspondence model. It
+expresses modeled correspondence between one source workspace contract `M_S`
+and one target workspace contract `M_T`. A validated `K` may be compiled into
+zero, one, or two executable directional transformations:
 
 ```text
 F_K : D_F -> W_M_T    where D_F subset-of W_M_S
 G_K : D_G -> W_M_S    where D_G subset-of W_M_T
 ```
 
-`F_K` is the forward direction and `G_K` is the reverse direction. Either may
-be absent. The presence of both does not imply that they are inverses.
+`F_K` and `G_K` are compiled products of `K`, not the authored weave or
+handwritten converter logic hidden behind the correspondence. They remain
+independent partial functions: `F_K` is the forward direction and `G_K` is the
+reverse direction. Either may be absent. The presence of both implies neither
+recovery nor mutual inversion.
 
 Each domain is explicit. Applying a direction outside its domain fails without
 returning a successful workspace. Documentation, policy, or best-effort
