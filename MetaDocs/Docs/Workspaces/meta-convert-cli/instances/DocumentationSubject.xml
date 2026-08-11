@@ -24,15 +24,39 @@
       <Status>Changed</Status>
       <Summary>Convert MetaAnalytics workspace to MetaMultiDimensional workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:out" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta-convert analytics-to-multi-dimensional --out</DisplayPath>
-      <NativeId>opt-analytics-to-multi-dimensional-out</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-connection-env" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-convert analytics-to-multi-dimensional --output-connection-env</DisplayPath>
+      <NativeId>option-analytics-to-multi-dimensional-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Output workspace or script folder path.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:out">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-convert analytics-to-multi-dimensional --output-csharp</DisplayPath>
+      <NativeId>option-analytics-to-multi-dimensional-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a C# workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-convert analytics-to-multi-dimensional --output-sql</DisplayPath>
+      <NativeId>option-analytics-to-multi-dimensional-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a SQL workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-convert analytics-to-multi-dimensional --output-xml</DisplayPath>
+      <NativeId>option-analytics-to-multi-dimensional-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as an XML workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-xml">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-convert analytics-to-multi-dimensional --workspace</DisplayPath>
       <NativeId>opt-analytics-to-multi-dimensional-workspace</NativeId>
@@ -48,15 +72,39 @@
       <Status>New</Status>
       <Summary>Convert MetaAnalytics workspace to MetaTabular workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:out" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta-convert analytics-to-tabular --out</DisplayPath>
-      <NativeId>opt-analytics-to-tabular-out</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-connection-env" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-convert analytics-to-tabular --output-connection-env</DisplayPath>
+      <NativeId>option-analytics-to-tabular-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Output workspace or script folder path.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:option:out">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-convert analytics-to-tabular --output-csharp</DisplayPath>
+      <NativeId>option-analytics-to-tabular-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a C# workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-convert analytics-to-tabular --output-sql</DisplayPath>
+      <NativeId>option-analytics-to-tabular-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a SQL workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-convert analytics-to-tabular --output-xml</DisplayPath>
+      <NativeId>option-analytics-to-tabular-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as an XML workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-xml">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-convert analytics-to-tabular --workspace</DisplayPath>
       <NativeId>opt-analytics-to-tabular-workspace</NativeId>
@@ -88,15 +136,39 @@
       <Status>New</Status>
       <Summary>Implementation policy workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:out" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:implementation-workspace">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta-convert business-datavault-to-sql --out</DisplayPath>
-      <NativeId>opt-business-datavault-to-sql-out</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-connection-env" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:implementation-workspace">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-convert business-datavault-to-sql --output-connection-env</DisplayPath>
+      <NativeId>option-business-datavault-to-sql-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Output MetaSql workspace path.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:out">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-convert business-datavault-to-sql --output-csharp</DisplayPath>
+      <NativeId>option-business-datavault-to-sql-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a C# workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-convert business-datavault-to-sql --output-sql</DisplayPath>
+      <NativeId>option-business-datavault-to-sql-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a SQL workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-convert business-datavault-to-sql --output-xml</DisplayPath>
+      <NativeId>option-business-datavault-to-sql-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as an XML workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-xml">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-convert business-datavault-to-sql --workspace</DisplayPath>
       <NativeId>opt-business-datavault-to-sql-workspace</NativeId>
@@ -152,15 +224,39 @@
       <Status>New</Status>
       <Summary>Implementation policy workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:out" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:implementation-workspace">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta-convert data-warehouse-to-sql --out</DisplayPath>
-      <NativeId>opt-data-warehouse-to-sql-out</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-connection-env" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:implementation-workspace">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-convert data-warehouse-to-sql --output-connection-env</DisplayPath>
+      <NativeId>option-data-warehouse-to-sql-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Output MetaSql workspace path.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:out">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-convert data-warehouse-to-sql --output-csharp</DisplayPath>
+      <NativeId>option-data-warehouse-to-sql-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a C# workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-convert data-warehouse-to-sql --output-sql</DisplayPath>
+      <NativeId>option-data-warehouse-to-sql-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a SQL workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-convert data-warehouse-to-sql --output-xml</DisplayPath>
+      <NativeId>option-data-warehouse-to-sql-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as an XML workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-xml">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-convert data-warehouse-to-sql --workspace</DisplayPath>
       <NativeId>opt-data-warehouse-to-sql-workspace</NativeId>
@@ -200,15 +296,39 @@
       <Status>New</Status>
       <Summary>Implementation policy workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:out" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:implementation-workspace">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta-convert raw-datavault-to-sql --out</DisplayPath>
-      <NativeId>opt-raw-datavault-to-sql-out</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-connection-env" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:implementation-workspace">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-convert raw-datavault-to-sql --output-connection-env</DisplayPath>
+      <NativeId>option-raw-datavault-to-sql-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Output MetaSql workspace path.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:out">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-convert raw-datavault-to-sql --output-csharp</DisplayPath>
+      <NativeId>option-raw-datavault-to-sql-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a C# workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-convert raw-datavault-to-sql --output-sql</DisplayPath>
+      <NativeId>option-raw-datavault-to-sql-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a SQL workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-convert raw-datavault-to-sql --output-xml</DisplayPath>
+      <NativeId>option-raw-datavault-to-sql-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as an XML workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-xml">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-convert raw-datavault-to-sql --workspace</DisplayPath>
       <NativeId>opt-raw-datavault-to-sql-workspace</NativeId>
@@ -352,15 +472,39 @@
       <Status>New</Status>
       <Summary>Convert view modules. If no include switch is provided, all module kinds are selected.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:out" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script" PreviousSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-views">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta-convert sql-to-transform-script --out</DisplayPath>
-      <NativeId>opt-sql-to-transform-script-out</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-connection-env" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script" PreviousSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-views">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script --output-connection-env</DisplayPath>
+      <NativeId>option-sql-to-transform-script-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Output MetaTransformScript workspace path.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script" PreviousSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:out">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script" PreviousSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script --output-csharp</DisplayPath>
+      <NativeId>option-sql-to-transform-script-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a C# workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script" PreviousSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script --output-sql</DisplayPath>
+      <NativeId>option-sql-to-transform-script-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a SQL workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script" PreviousSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script --output-xml</DisplayPath>
+      <NativeId>option-sql-to-transform-script-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as an XML workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script" PreviousSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-xml">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-convert sql-to-transform-script --workspace</DisplayPath>
       <NativeId>opt-sql-to-transform-script-workspace</NativeId>
@@ -384,15 +528,39 @@
       <Status>New</Status>
       <Summary>Target MetaSql database name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:out" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:database-name">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta-convert transform-script-to-sql --out</DisplayPath>
-      <NativeId>opt-transform-script-to-sql-out</NativeId>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-connection-env" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:database-name">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-convert transform-script-to-sql --output-connection-env</DisplayPath>
+      <NativeId>option-transform-script-to-sql-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Output MetaSql workspace path.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:out">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-convert transform-script-to-sql --output-csharp</DisplayPath>
+      <NativeId>option-transform-script-to-sql-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a C# workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-convert transform-script-to-sql --output-sql</DisplayPath>
+      <NativeId>option-transform-script-to-sql-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a SQL workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-convert transform-script-to-sql --output-xml</DisplayPath>
+      <NativeId>option-transform-script-to-sql-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as an XML workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql" PreviousSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-xml">
       <DisplayName>--workspace</DisplayName>
       <DisplayPath>meta-convert transform-script-to-sql --workspace</DisplayPath>
       <NativeId>opt-transform-script-to-sql-workspace</NativeId>

@@ -616,13 +616,37 @@
       <Status>Changed</Status>
       <Summary>Source MetaDocs workspace to include. Repeat for many workspaces.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:merge:option:workspace" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:merge" PreviousSubjectId="source:cli:meta-docs:app:command:merge:option:include">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-docs merge --workspace</DisplayPath>
-      <NativeId>option-merge-workspace</NativeId>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:merge:option:output-connection-env" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:merge" PreviousSubjectId="source:cli:meta-docs:app:command:merge:option:include">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-docs merge --output-connection-env</DisplayPath>
+      <NativeId>option-merge-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary>Suite workspace to rebuild. Defaults to the current directory.</Summary>
+      <Status>New</Status>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:merge:option:output-csharp" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:merge" PreviousSubjectId="source:cli:meta-docs:app:command:merge:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-docs merge --output-csharp</DisplayPath>
+      <NativeId>option-merge-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the merged workspace as C# at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:merge:option:output-sql" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:merge" PreviousSubjectId="source:cli:meta-docs:app:command:merge:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-docs merge --output-sql</DisplayPath>
+      <NativeId>option-merge-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the merged workspace as SQL at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:merge:option:output-xml" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:merge" PreviousSubjectId="source:cli:meta-docs:app:command:merge:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-docs merge --output-xml</DisplayPath>
+      <NativeId>option-merge-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the merged workspace as XML at this path.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:render-site" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-docs:app" PreviousSubjectId="source:cli:meta-docs:app:command:merge">
       <DisplayName>meta-docs render-site</DisplayName>

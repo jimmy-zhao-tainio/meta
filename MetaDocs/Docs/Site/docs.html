@@ -357,15 +357,17 @@ meta create --new-workspace .\CSharpWorkspace --source-workspace .\SqlWorkspace 
           <section class="subsection description-block">
             <h3 class="document-heading">Foundation package boundary</h3>
             <div class="markdown-content">
-<p>The foundation package boundary is explicit:</p>
+<p>The foundation packages follow explicit ownership boundaries:</p>
 <ul>
-<li><code>Meta.Operations</code> owns representation-neutral state, reads, constraints, and operations.</li>
+<li><code>Meta.Operations</code> owns representation-neutral state, reads, constraints, validation, and operations.</li>
+<li><code>Meta.TypedModels</code> maps typed CLR models to and from semantic workspace state.</li>
 <li><code>Meta.Core</code> owns shared model algorithms and deterministic core behavior.</li>
-<li><code>Meta.Surfaces</code> owns XML, SQL, and C# workspace surfaces.</li>
-<li><code>Meta.Integration</code> owns import, export, deployment, and service composition.</li>
+<li><code>Meta.Surfaces</code> owns workspace descriptors and shared publication infrastructure.</li>
+<li><code>Meta.Surfaces.Xml</code>, <code>Meta.Surfaces.CSharp</code>, and <code>Meta.Surfaces.Sql</code> own their respective workspace representations.</li>
+<li><code>Meta.Integration</code> composes cross-surface import, export, deployment, and service behavior.</li>
 <li><code>MetaWeave.Core</code> owns the MetaWeave domain library.</li>
 </ul>
-<p><code>pack-internal.cmd</code> packs these internal packages in dependency order for downstream CLI development.</p>
+<p><code>pack-internal.cmd</code> packs the foundation packages in dependency order for downstream command-line and product development.</p>
             </div>
           </section>
         </section>
@@ -4421,13 +4423,13 @@ meta-docs search deploy
                 <span class="command-name">meta-docs merge</span>
                 <span class="command-summary-text">Rebuild a suite workspace from source MetaDocs workspaces.</span>
               </span>
-              <span class="command-counts">2 options</span>
+              <span class="command-counts">5 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-docs merge --include &lt;path&gt; [--workspace &lt;workspace&gt;]</code></pre>
+                <pre><code>meta-docs merge --include &lt;path&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;workspace&gt;] [--output-sql &lt;workspace&gt;] [--output-xml &lt;workspace&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -4441,8 +4443,26 @@ meta-docs search deploy
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--workspace &lt;workspace&gt;</td>
-                      <td>Suite workspace to rebuild. Defaults to the current directory.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;workspace&gt;</td>
+                      <td>Create the merged workspace as C# at this path.</td>
+                      <td>&lt;workspace&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;workspace&gt;</td>
+                      <td>Create the merged workspace as SQL at this path.</td>
+                      <td>&lt;workspace&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;workspace&gt;</td>
+                      <td>Create the merged workspace as XML at this path.</td>
                       <td>&lt;workspace&gt;</td>
                       <td>False</td>
                     </tr>
@@ -11855,13 +11875,13 @@ meta-mesh run --operation process-tabular
                 <span class="command-name">meta-convert analytics-to-multi-dimensional</span>
                 <span class="command-summary-text">Convert MetaAnalytics workspace to MetaMultiDimensional workspace.</span>
               </span>
-              <span class="command-counts">2 options</span>
+              <span class="command-counts">5 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-convert analytics-to-multi-dimensional --out &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-convert analytics-to-multi-dimensional [--output-connection-env &lt;value&gt;] [--output-csharp &lt;location&gt;] [--output-sql &lt;location&gt;] [--output-xml &lt;location&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -11869,9 +11889,27 @@ meta-mesh run --operation process-tabular
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--out &lt;path&gt;</td>
-                      <td>Output workspace or script folder path.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;location&gt;</td>
+                      <td>Create the output as a C# workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;location&gt;</td>
+                      <td>Create the output as a SQL workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;location&gt;</td>
+                      <td>Create the output as an XML workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -11893,13 +11931,13 @@ meta-mesh run --operation process-tabular
                 <span class="command-name">meta-convert analytics-to-tabular</span>
                 <span class="command-summary-text">Convert MetaAnalytics workspace to MetaTabular workspace.</span>
               </span>
-              <span class="command-counts">2 options</span>
+              <span class="command-counts">5 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-convert analytics-to-tabular --out &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-convert analytics-to-tabular [--output-connection-env &lt;value&gt;] [--output-csharp &lt;location&gt;] [--output-sql &lt;location&gt;] [--output-xml &lt;location&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -11907,9 +11945,27 @@ meta-mesh run --operation process-tabular
                   <thead><tr><th>Option</th><th>Description</th><th>Value</th><th>Required</th></tr></thead>
                   <tbody>
                     <tr>
-                      <td class="opt">--out &lt;path&gt;</td>
-                      <td>Output workspace or script folder path.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;location&gt;</td>
+                      <td>Create the output as a C# workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;location&gt;</td>
+                      <td>Create the output as a SQL workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;location&gt;</td>
+                      <td>Create the output as an XML workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -11931,13 +11987,13 @@ meta-mesh run --operation process-tabular
                 <span class="command-name">meta-convert business-datavault-to-sql</span>
                 <span class="command-summary-text">Convert MetaBusinessDataVault workspace to MetaSql workspace.</span>
               </span>
-              <span class="command-counts">4 options</span>
+              <span class="command-counts">7 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-convert business-datavault-to-sql --database-name &lt;value&gt; --implementation-workspace &lt;path&gt; --out &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-convert business-datavault-to-sql --database-name &lt;value&gt; --implementation-workspace &lt;path&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;location&gt;] [--output-sql &lt;location&gt;] [--output-xml &lt;location&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -11957,9 +12013,27 @@ meta-mesh run --operation process-tabular
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--out &lt;path&gt;</td>
-                      <td>Output MetaSql workspace path.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;location&gt;</td>
+                      <td>Create the output as a C# workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;location&gt;</td>
+                      <td>Create the output as a SQL workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;location&gt;</td>
+                      <td>Create the output as an XML workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -12019,13 +12093,13 @@ meta-mesh run --operation process-tabular
                 <span class="command-name">meta-convert data-warehouse-to-sql</span>
                 <span class="command-summary-text">Convert MetaDataWarehouse workspace to MetaSql workspace.</span>
               </span>
-              <span class="command-counts">4 options</span>
+              <span class="command-counts">7 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-convert data-warehouse-to-sql --database-name &lt;value&gt; --implementation-workspace &lt;path&gt; --out &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-convert data-warehouse-to-sql --database-name &lt;value&gt; --implementation-workspace &lt;path&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;location&gt;] [--output-sql &lt;location&gt;] [--output-xml &lt;location&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -12045,9 +12119,27 @@ meta-mesh run --operation process-tabular
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--out &lt;path&gt;</td>
-                      <td>Output MetaSql workspace path.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;location&gt;</td>
+                      <td>Create the output as a C# workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;location&gt;</td>
+                      <td>Create the output as a SQL workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;location&gt;</td>
+                      <td>Create the output as an XML workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -12087,13 +12179,13 @@ meta-mesh run --operation process-tabular
                 <span class="command-name">meta-convert raw-datavault-to-sql</span>
                 <span class="command-summary-text">Convert MetaRawDataVault workspace to MetaSql workspace.</span>
               </span>
-              <span class="command-counts">4 options</span>
+              <span class="command-counts">7 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-convert raw-datavault-to-sql --database-name &lt;value&gt; --implementation-workspace &lt;path&gt; --out &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-convert raw-datavault-to-sql --database-name &lt;value&gt; --implementation-workspace &lt;path&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;location&gt;] [--output-sql &lt;location&gt;] [--output-xml &lt;location&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -12113,9 +12205,27 @@ meta-mesh run --operation process-tabular
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--out &lt;path&gt;</td>
-                      <td>Output MetaSql workspace path.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;location&gt;</td>
+                      <td>Create the output as a C# workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;location&gt;</td>
+                      <td>Create the output as a SQL workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;location&gt;</td>
+                      <td>Create the output as an XML workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -12223,13 +12333,13 @@ meta-mesh run --operation process-tabular
                 <span class="command-name">meta-convert sql-to-transform-script</span>
                 <span class="command-summary-text">Convert MetaSql SQL modules to MetaTransformScript workspace.</span>
               </span>
-              <span class="command-counts">6 options</span>
+              <span class="command-counts">9 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-convert sql-to-transform-script [--allow-empty] [--include-functions] [--include-stored-procedures] [--include-views] --out &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-convert sql-to-transform-script [--allow-empty] [--include-functions] [--include-stored-procedures] [--include-views] [--output-connection-env &lt;value&gt;] [--output-csharp &lt;location&gt;] [--output-sql &lt;location&gt;] [--output-xml &lt;location&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -12261,9 +12371,27 @@ meta-mesh run --operation process-tabular
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--out &lt;path&gt;</td>
-                      <td>Output MetaTransformScript workspace path.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;location&gt;</td>
+                      <td>Create the output as a C# workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;location&gt;</td>
+                      <td>Create the output as a SQL workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;location&gt;</td>
+                      <td>Create the output as an XML workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -12285,13 +12413,13 @@ meta-mesh run --operation process-tabular
                 <span class="command-name">meta-convert transform-script-to-sql</span>
                 <span class="command-summary-text">Convert MetaTransformScript SQL modules to MetaSql workspace.</span>
               </span>
-              <span class="command-counts">3 options</span>
+              <span class="command-counts">6 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-convert transform-script-to-sql --database-name &lt;value&gt; --out &lt;path&gt; [--workspace &lt;path&gt;]</code></pre>
+                <pre><code>meta-convert transform-script-to-sql --database-name &lt;value&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;location&gt;] [--output-sql &lt;location&gt;] [--output-xml &lt;location&gt;] [--workspace &lt;path&gt;]</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -12305,9 +12433,27 @@ meta-mesh run --operation process-tabular
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--out &lt;path&gt;</td>
-                      <td>Output MetaSql workspace path.</td>
-                      <td>&lt;path&gt;</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;location&gt;</td>
+                      <td>Create the output as a C# workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;location&gt;</td>
+                      <td>Create the output as a SQL workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;location&gt;</td>
+                      <td>Create the output as an XML workspace at this path.</td>
+                      <td>&lt;location&gt;</td>
                       <td>False</td>
                     </tr>
                     <tr>
@@ -21140,13 +21286,13 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                 <span class="command-name">meta-sql deploy-plan</span>
                 <span class="command-summary-text">Create a deploy manifest from a source MetaSql workspace and a live SQL Server database.</span>
               </span>
-              <span class="command-counts">7 options</span>
+              <span class="command-counts">10 options</span>
             </summary>
             <div class="command-body">
               <div class="command-body-inner">
               <section class="subsection">
                 <h4 class="subsection-title">Usage</h4>
-                <pre><code>meta-sql deploy-plan [--approval-file &lt;path&gt;] [--approve-drop-column &lt;value&gt;] [--approve-drop-table &lt;value&gt;] [--approve-truncate-column &lt;value&gt;] --connection-env &lt;value&gt; --out &lt;path&gt; --source-workspace &lt;path&gt;</code></pre>
+                <pre><code>meta-sql deploy-plan [--approval-file &lt;path&gt;] [--approve-drop-column &lt;value&gt;] [--approve-drop-table &lt;value&gt;] [--approve-truncate-column &lt;value&gt;] --connection-env &lt;value&gt; [--output-connection-env &lt;value&gt;] [--output-csharp &lt;path&gt;] [--output-sql &lt;path&gt;] [--output-xml &lt;path&gt;] --source-workspace &lt;path&gt;</code></pre>
               </section>
               <section class="subsection">
                 <h4 class="subsection-title">Options</h4>
@@ -21184,8 +21330,26 @@ meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
                       <td>False</td>
                     </tr>
                     <tr>
-                      <td class="opt">--out &lt;path&gt;</td>
-                      <td>Directory where the deploy manifest workspace will be written.</td>
+                      <td class="opt">--output-connection-env &lt;value&gt;</td>
+                      <td>Environment variable containing the output SQL workspace connection string.</td>
+                      <td>&lt;value&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-csharp &lt;path&gt;</td>
+                      <td>Create the deploy manifest as a C# workspace at this path.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-sql &lt;path&gt;</td>
+                      <td>Create the deploy manifest as a SQL workspace at this path.</td>
+                      <td>&lt;path&gt;</td>
+                      <td>False</td>
+                    </tr>
+                    <tr>
+                      <td class="opt">--output-xml &lt;path&gt;</td>
+                      <td>Create the deploy manifest as an XML workspace at this path.</td>
                       <td>&lt;path&gt;</td>
                       <td>False</td>
                     </tr>

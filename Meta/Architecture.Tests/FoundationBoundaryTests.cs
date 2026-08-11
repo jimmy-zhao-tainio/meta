@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using Xunit.Sdk;
 
@@ -11,6 +12,7 @@ public sealed class FoundationBoundaryTests
         "Meta.Operations",
         "Meta.Core",
         "Meta.Surfaces",
+        "Meta.TypedModels",
         "Meta.Surfaces.Xml",
         "Meta.Surfaces.CSharp",
         "Meta.Surfaces.Sql",
@@ -25,14 +27,15 @@ public sealed class FoundationBoundaryTests
         AssertProject(root, "Meta/Operations/Meta.Operations.csproj", [], []);
         AssertProject(root, "Meta/Core/Meta.Core.csproj", ["Meta.Operations"], []);
         AssertProject(root, "Meta/Surfaces/Meta.Surfaces.csproj", [], []);
+        AssertProject(root, "Meta/TypedModels/Meta.TypedModels.csproj", ["Meta.Operations"], []);
         AssertProject(root, "Meta/Surfaces.Xml/Meta.Surfaces.Xml.csproj",
-            ["Meta.Operations", "Meta.Surfaces"], []);
+            ["Meta.Operations", "Meta.Surfaces", "Meta.TypedModels"], []);
         AssertProject(root, "Meta/Surfaces.CSharp/Meta.Surfaces.CSharp.csproj",
             ["Meta.Operations", "Meta.Surfaces"], ["Microsoft.CodeAnalysis.CSharp"]);
         AssertProject(root, "Meta/Surfaces.Sql/Meta.Surfaces.Sql.csproj",
             ["Meta.Operations"], ["Microsoft.Data.SqlClient"]);
         AssertProject(root, "Meta/Integration/Meta.Integration.csproj",
-            ["Meta.Core", "Meta.Operations", "Meta.Surfaces", "Meta.Surfaces.Xml", "Meta.Surfaces.CSharp", "Meta.Surfaces.Sql"],
+            ["Meta.Core", "Meta.Operations", "Meta.Surfaces", "Meta.Surfaces.Xml", "Meta.Surfaces.CSharp", "Meta.Surfaces.Sql", "Meta.TypedModels"],
             ["Microsoft.Data.SqlClient"]);
     }
 
@@ -52,7 +55,7 @@ public sealed class FoundationBoundaryTests
         AssertProject(root, "Meta/Surfaces.Sql.Tests/Meta.Surfaces.Sql.Tests.csproj",
             ["Meta.Surfaces.Sql"], []);
         AssertProject(root, "Meta/Integration.Tests/Meta.Integration.Tests.csproj",
-            ["Meta.Core", "Meta.Integration", "Meta.Operations", "Meta.Surfaces", "Meta.Surfaces.CSharp", "Meta.Surfaces.Sql", "Meta.Surfaces.Xml"], []);
+            ["Meta.Core", "Meta.Integration", "Meta.Operations", "Meta.Surfaces", "Meta.Surfaces.CSharp", "Meta.Surfaces.Sql", "Meta.Surfaces.Xml", "Meta.TypedModels"], []);
 
         // Architecture tests deliberately load and inspect every foundation assembly.
         AssertProject(root, "Meta/Architecture.Tests/Meta.Architecture.Tests.csproj",
@@ -65,6 +68,7 @@ public sealed class FoundationBoundaryTests
         AssertClosure("Meta.Operations", hasRoslyn: false, hasSqlClient: false);
         AssertClosure("Meta.Core", hasRoslyn: false, hasSqlClient: false);
         AssertClosure("Meta.Surfaces", hasRoslyn: false, hasSqlClient: false);
+        AssertClosure("Meta.TypedModels", hasRoslyn: false, hasSqlClient: false);
         AssertClosure("Meta.Surfaces.Xml", hasRoslyn: false, hasSqlClient: false);
         AssertClosure("Meta.Surfaces.CSharp", hasRoslyn: true, hasSqlClient: false);
         AssertClosure("Meta.Surfaces.Sql", hasRoslyn: false, hasSqlClient: true);
@@ -77,10 +81,25 @@ public sealed class FoundationBoundaryTests
         AssertNamespaces("Meta.Operations", "Meta.Operations");
         AssertNamespaces("Meta.Core", "Meta.Core");
         AssertNamespaces("Meta.Surfaces", "Meta.Surfaces");
+        AssertNamespaces("Meta.TypedModels", "Meta.TypedModels");
         AssertNamespaces("Meta.Surfaces.Xml", "Meta.Surfaces.Xml");
         AssertNamespaces("Meta.Surfaces.CSharp", "Meta.Surfaces.CSharp");
         AssertNamespaces("Meta.Surfaces.Sql", "Meta.Surfaces.Sql");
         AssertNamespaces("Meta.Integration", "Meta.Integration");
+    }
+
+    [Fact]
+    public void XmlDoesNotExposeTypedModelMappingToIntegrationThroughFriendship()
+    {
+        var xml = Assembly.LoadFrom(Path.Combine(AppContext.BaseDirectory, "Meta.Surfaces.Xml.dll"));
+        var friends = xml.GetCustomAttributes<InternalsVisibleToAttribute>()
+            .Select(attribute => attribute.AssemblyName.Split(',')[0])
+            .ToArray();
+
+        Assert.DoesNotContain("Meta.Integration", friends, StringComparer.OrdinalIgnoreCase);
+        Assert.DoesNotContain(
+            xml.ExportedTypes,
+            type => type.Name.Contains("TypedModelMapper", StringComparison.Ordinal));
     }
 
     [Fact]

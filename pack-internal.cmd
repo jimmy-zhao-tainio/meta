@@ -6,6 +6,7 @@ if exist "%PACKAGE_OUTPUT%" rmdir /s /q "%PACKAGE_OUTPUT%"
 mkdir "%PACKAGE_OUTPUT%"
 
 call :pack Meta\Operations\Meta.Operations.csproj || exit /b %errorlevel%
+call :pack Meta\TypedModels\Meta.TypedModels.csproj || exit /b %errorlevel%
 call :pack Meta\Core\Meta.Core.csproj || exit /b %errorlevel%
 call :pack Meta\Surfaces\Meta.Surfaces.csproj || exit /b %errorlevel%
 call :pack Meta\Surfaces.Xml\Meta.Surfaces.Xml.csproj || exit /b %errorlevel%

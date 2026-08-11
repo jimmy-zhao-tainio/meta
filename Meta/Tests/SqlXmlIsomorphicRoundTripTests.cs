@@ -11,12 +11,15 @@ using Meta.Integration;
 using Meta.Surfaces.CSharp;
 using Meta.Surfaces.Sql;
 using Meta.Surfaces.Xml;
+using Meta.TypedModels;
 using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
 
 public sealed class SqlXmlIsomorphicRoundTripTests
 {
+    private static readonly SemaphoreSlim TypedSqlWorkspaceGate = new(1, 1);
+
     [Fact]
     public async Task SqlWorkspace_CreateBuildsANewDatabaseThroughPrimitiveOperations()
     {
@@ -697,6 +700,64 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 originalEnvironmentValue);
             await DropDatabaseIfExistsAsync(baseConnectionString, originalName);
             DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public async Task TypedWorkspaceModelMapper_SqlLifecycleUsesNeutralMapping()
+    {
+        var baseConnectionString = await ResolveSqlTestConnectionStringAsync();
+        if (string.IsNullOrWhiteSpace(baseConnectionString))
+        {
+            throw new InvalidOperationException(
+                "SQL typed-model verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
+        }
+
+        const string databaseName = nameof(MetaTypedModelsSqlOrchestrationProof);
+        var root = Path.Combine(
+            Path.GetTempPath(),
+            "MetaTypedSql-" + Guid.NewGuid().ToString("N"));
+        var environmentVariable = "META_TYPED_SQL_" + Guid.NewGuid().ToString("N");
+        var originalEnvironmentValue = Environment.GetEnvironmentVariable(environmentVariable);
+        await TypedSqlWorkspaceGate.WaitAsync();
+        try
+        {
+            await DropDatabaseIfExistsAsync(baseConnectionString, databaseName);
+            var connectionString = new SqlConnectionStringBuilder(baseConnectionString)
+            {
+                InitialCatalog = databaseName,
+            }.ConnectionString;
+            Environment.SetEnvironmentVariable(environmentVariable, connectionString);
+            var model = new MetaTypedModelsSqlOrchestrationProof
+            {
+                ItemList =
+                {
+                    new MetaTypedModelsSqlItem
+                    {
+                        Id = "one",
+                        Note = string.Empty,
+                    },
+                    new MetaTypedModelsSqlItem { Id = "two" },
+                },
+            };
+
+            await TypedWorkspaceModelMapper.CreateAsync(
+                model,
+                root,
+                "sql",
+                environmentVariable);
+            var restored = await TypedWorkspaceModelMapper.LoadAsync<MetaTypedModelsSqlOrchestrationProof>(root);
+
+            Assert.Null(InMemoryWorkspaceComparer.FindDifference(
+                TypedModelMapper.ToWorkspace(model),
+                TypedModelMapper.ToWorkspace(restored)));
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(environmentVariable, originalEnvironmentValue);
+            await DropDatabaseIfExistsAsync(baseConnectionString, databaseName);
+            DeleteDirectoryIfExists(root);
+            TypedSqlWorkspaceGate.Release();
         }
     }
 
@@ -1997,6 +2058,18 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         return new InMemoryWorkspace(
             model,
             instance);
+    }
+
+    public sealed class MetaTypedModelsSqlOrchestrationProof
+    {
+        public List<MetaTypedModelsSqlItem> ItemList { get; set; } = new();
+    }
+
+    public sealed class MetaTypedModelsSqlItem
+    {
+        public string Id { get; set; } = string.Empty;
+
+        public string? Note { get; set; }
     }
 
     private static InMemoryWorkspace BuildRefactorWorkspace(

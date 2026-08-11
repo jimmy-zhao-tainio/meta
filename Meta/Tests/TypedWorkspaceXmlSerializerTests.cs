@@ -2,6 +2,7 @@ using System.Xml.Serialization;
 using Meta.Operations.Domain;
 using Meta.Integration;
 using Meta.Surfaces.Xml;
+using Meta.TypedModels;
 
 namespace Meta.Core.Tests;
 
@@ -22,25 +23,64 @@ public sealed class TypedWorkspaceXmlSerializerTests
                     Note = string.Empty,
                     Parent = target,
                 },
+                new Alpha
+                {
+                    Id = "missing",
+                    Name = "Missing optional value",
+                },
             },
             BetaList = { target },
         };
 
-        var semantic = TypedWorkspaceModelMapper.ToInMemoryWorkspace(typed);
-        var source = Assert.Single(semantic.Instance.RecordsByEntity["Alpha"]);
+        var semantic = TypedModelMapper.ToWorkspace(typed);
+        var source = Assert.Single(
+            semantic.Instance.RecordsByEntity["Alpha"],
+            row => row.Id == "source");
         Assert.Equal(string.Empty, source.Values["Note"]);
         Assert.Equal("target", source.RelationshipIds["ParentId"]);
+        var missing = Assert.Single(
+            semantic.Instance.RecordsByEntity["Alpha"],
+            row => row.Id == "missing");
+        Assert.False(missing.Values.ContainsKey("Note"));
 
-        var restored = TypedWorkspaceModelMapper.FromInMemoryWorkspace(
+        var restored = TypedModelMapper.FromWorkspace(
             semantic,
             static () => new TestTypedModel());
-        var restoredSource = Assert.Single(restored.AlphaList);
+        var restoredSource = Assert.Single(restored.AlphaList, row => row.Id == "source");
+        var restoredMissing = Assert.Single(restored.AlphaList, row => row.Id == "missing");
         Assert.Same(Assert.Single(restored.BetaList), restoredSource.Parent);
+        Assert.Equal(string.Empty, restoredSource.Note);
+        Assert.Null(restoredMissing.Note);
 
-        var roundTripped = TypedWorkspaceModelMapper.ToInMemoryWorkspace(restored);
+        var roundTripped = TypedModelMapper.ToWorkspace(restored);
         Assert.Null(InMemoryWorkspaceComparer.FindDifference(
             semantic,
             roundTripped));
+    }
+
+    [Fact]
+    public void TypedWorkspaceModelMapper_CSharpLifecycleUsesNeutralMapping()
+    {
+        var tempRoot = CreateTempRoot();
+        try
+        {
+            var workspacePath = Path.Combine(tempRoot, "typed-csharp");
+            var model = new TestTypedModel
+            {
+                AlphaList = { new Alpha { Id = "one", Name = "One", Note = string.Empty } },
+            };
+
+            TypedWorkspaceModelMapper.Create(model, workspacePath, "csharp");
+            var restored = TypedWorkspaceModelMapper.Load<TestTypedModel>(workspacePath);
+
+            Assert.Null(InMemoryWorkspaceComparer.FindDifference(
+                TypedModelMapper.ToWorkspace(model),
+                TypedModelMapper.ToWorkspace(restored)));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(tempRoot);
+        }
     }
 
     [Fact]

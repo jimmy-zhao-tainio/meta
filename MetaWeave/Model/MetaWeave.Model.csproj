@@ -11,11 +11,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Meta\Surfaces\Meta.Surfaces.csproj" />
-    <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\Workspace\model.xml" Link="MetaWeave\model.xml" CopyToOutputDirectory="PreserveNewest" Pack="true" PackagePath="contentFiles\any\any\MetaWeave\model.xml" />
     <None Include="..\..\PACKAGE-README.md" Pack="true" PackagePath="\" />
   </ItemGroup>

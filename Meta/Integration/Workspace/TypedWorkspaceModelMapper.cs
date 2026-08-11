@@ -1,7 +1,7 @@
 using Meta.Operations.Domain;
 using Meta.Operations;
 using Meta.Surfaces;
-using Meta.Surfaces.Xml;
+using Meta.TypedModels;
 
 namespace Meta.Integration;
 
@@ -133,7 +133,7 @@ public static class TypedWorkspaceModelMapper
     {
         ArgumentNullException.ThrowIfNull(workspace);
         ArgumentNullException.ThrowIfNull(createModel);
-        return TypedWorkspaceXmlSerializer.FromInMemoryWorkspace(
+        return TypedModelMapper.FromWorkspace(
             workspace,
             createModel);
     }
@@ -142,6 +142,6 @@ public static class TypedWorkspaceModelMapper
         where TModel : class
     {
         ArgumentNullException.ThrowIfNull(model);
-        return TypedWorkspaceXmlSerializer.ToInMemoryWorkspace(model);
+        return TypedModelMapper.ToWorkspace(model);
     }
 }

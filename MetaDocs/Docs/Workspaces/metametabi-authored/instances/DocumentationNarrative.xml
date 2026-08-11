@@ -250,15 +250,17 @@ Every record has an `Id`. Scalar properties are child elements; relationships ar
       <Title>XML instance contract</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:internalpackages:foundation-package-boundary" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:commandguide:command-guide">
-      <Body>The foundation package boundary is explicit:
+      <Body>The foundation packages follow explicit ownership boundaries:
 
-- `Meta.Operations` owns representation-neutral state, reads, constraints, and operations.
+- `Meta.Operations` owns representation-neutral state, reads, constraints, validation, and operations.
+- `Meta.TypedModels` maps typed CLR models to and from semantic workspace state.
 - `Meta.Core` owns shared model algorithms and deterministic core behavior.
-- `Meta.Surfaces` owns XML, SQL, and C# workspace surfaces.
-- `Meta.Integration` owns import, export, deployment, and service composition.
+- `Meta.Surfaces` owns workspace descriptors and shared publication infrastructure.
+- `Meta.Surfaces.Xml`, `Meta.Surfaces.CSharp`, and `Meta.Surfaces.Sql` own their respective workspace representations.
+- `Meta.Integration` composes cross-surface import, export, deployment, and service behavior.
 - `MetaWeave.Core` owns the MetaWeave domain library.
 
-`pack-internal.cmd` packs these internal packages in dependency order for downstream CLI development.</Body>
+`pack-internal.cmd` packs the foundation packages in dependency order for downstream command-line and product development.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>

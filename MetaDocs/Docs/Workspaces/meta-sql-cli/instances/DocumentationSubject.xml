@@ -72,15 +72,39 @@
       <Status>New</Status>
       <Summary>Environment variable containing the SQL Server connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:out" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:deploy-plan" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:connection-env">
-      <DisplayName>--out</DisplayName>
-      <DisplayPath>meta-sql deploy-plan --out</DisplayPath>
-      <NativeId>opt-deploy-plan-out</NativeId>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:output-connection-env" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:deploy-plan" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:connection-env">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --output-connection-env</DisplayPath>
+      <NativeId>option-deploy-plan-output-connection-env</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Directory where the deploy manifest workspace will be written.</Summary>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:source-workspace" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:deploy-plan" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:out">
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:output-csharp" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:deploy-plan" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --output-csharp</DisplayPath>
+      <NativeId>option-deploy-plan-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the deploy manifest as a C# workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:output-sql" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:deploy-plan" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --output-sql</DisplayPath>
+      <NativeId>option-deploy-plan-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the deploy manifest as a SQL workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:output-xml" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:deploy-plan" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-sql deploy-plan --output-xml</DisplayPath>
+      <NativeId>option-deploy-plan-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the deploy manifest as an XML workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-sql:app:command:deploy-plan:option:source-workspace" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-sql:app:command:deploy-plan" PreviousSubjectId="source:cli:meta-sql:app:command:deploy-plan:option:output-xml">
       <DisplayName>--source-workspace</DisplayName>
       <DisplayPath>meta-sql deploy-plan --source-workspace</DisplayPath>
       <NativeId>opt-deploy-plan-source-workspace</NativeId>

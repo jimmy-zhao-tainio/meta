@@ -32,31 +32,32 @@ jobs:
         run: dotnet restore Metadata.Framework.sln
 
       - name: Build
-        run: dotnet build Metadata.Framework.sln --configuration Release --no-restore
+        run: dotnet build Metadata.Framework.sln --configuration Release --no-restore --nologo -m:1 -nr:false
 
-      - name: Test (core correctness)
-        run: dotnet test Meta.Core.Tests/Meta.Core.Tests.csproj --configuration Release --no-build --filter "FullyQualifiedName!~DeterminismGoldenTests&FullyQualifiedName!~LargeWorkspacePerformanceTests"
-
-  determinism:
-    runs-on: windows-latest
-    needs: correctness
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-
-      - name: Restore
-        run: dotnet restore Metadata.Framework.sln
-
-      - name: Build
-        run: dotnet build Metadata.Framework.sln --configuration Release --no-restore
-
+      - name: Test (operations)
+        run: dotnet test Meta/Operations.Tests/Meta.Operations.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
+      - name: Test (core)
+        run: dotnet test Meta/Tests/Meta.Core.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
+      - name: Test (XML correctness)
+        run: dotnet test Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false --filter "FullyQualifiedName!~LargeWorkspacePerformanceTests"
+      - name: Test (C# surface)
+        run: dotnet test Meta/Surfaces.CSharp.Tests/Meta.Surfaces.CSharp.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
+      - name: Test (SQL surface)
+        run: dotnet test Meta/Surfaces.Sql.Tests/Meta.Surfaces.Sql.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
+      - name: Test (integration correctness)
+        run: dotnet test Meta/Integration.Tests/Meta.Integration.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false --filter "FullyQualifiedName!~DeterminismGoldenTests"
       - name: Test (determinism golden)
-        run: dotnet test Meta.Core.Tests/Meta.Core.Tests.csproj --configuration Release --no-build --filter "FullyQualifiedName~DeterminismGoldenTests"
+        run: dotnet test Meta/Integration.Tests/Meta.Integration.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false --filter "FullyQualifiedName~DeterminismGoldenTests"
+      - name: Test (architecture)
+        run: dotnet test Meta/Architecture.Tests/Meta.Architecture.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
+      - name: Test (MetaCli)
+        run: dotnet test MetaCli/Tests/MetaCli.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
+      - name: Test (MetaDocs)
+        run: dotnet test MetaDocs/Tests/MetaDocs.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
+      - name: Test (MetaMesh)
+        run: dotnet test MetaMesh/Tests/MetaMesh.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
+      - name: Test (MetaWeave)
+        run: dotnet test MetaWeave/Tests/MetaWeave.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
 
   perf_100k:
     runs-on: windows-latest
@@ -64,25 +65,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-
       - name: Restore
-        run: dotnet restore Metadata.Framework.sln
-
+        run: dotnet restore Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj
       - name: Build
-        run: dotnet build Metadata.Framework.sln --configuration Release --no-restore
-
+        run: dotnet build Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj --configuration Release --no-restore --nologo -m:1 -nr:false
       - name: Test (performance 100k gate)
         env:
-          METADATASTUDIO_PERF_ROWS: 100000
-          METADATASTUDIO_PERF_MAX_SAVE_MS: 45000
-          METADATASTUDIO_PERF_MAX_LOAD_MS: 45000
-          METADATASTUDIO_PERF_MAX_ALLOCATED_MB: 2048
-        run: dotnet test Meta.Core.Tests/Meta.Core.Tests.csproj --configuration Release --no-build --filter "FullyQualifiedName~LargeWorkspacePerformanceTests.SaveAndLoad_100kRows_WithinConfiguredBudgets"
+          Meta_PERF_ROWS: 100000
+          Meta_PERF_MAX_SAVE_MS: 45000
+          Meta_PERF_MAX_LOAD_MS: 45000
+          Meta_PERF_MAX_ALLOCATED_MB: 2048
+        run: dotnet test Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false --filter "FullyQualifiedName~LargeWorkspacePerformanceTests.SaveAndLoad_100kRows_WithinConfiguredBudgets"
 
   perf_1m_optional:
     runs-on: windows-latest
@@ -91,22 +88,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-
       - name: Restore
-        run: dotnet restore Metadata.Framework.sln
-
+        run: dotnet restore Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj
       - name: Build
-        run: dotnet build Metadata.Framework.sln --configuration Release --no-restore
-
+        run: dotnet build Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj --configuration Release --no-restore --nologo -m:1 -nr:false
       - name: Test (performance 1m optional gate)
         env:
-          METADATASTUDIO_ENABLE_1M_PERF_TEST: 1
-          METADATASTUDIO_PERF_1M_MAX_SAVE_MS: 300000
-          METADATASTUDIO_PERF_1M_MAX_LOAD_MS: 300000
-          METADATASTUDIO_PERF_1M_MAX_ALLOCATED_MB: 6144
-        run: dotnet test Meta.Core.Tests/Meta.Core.Tests.csproj --configuration Release --no-build --filter "FullyQualifiedName~LargeWorkspacePerformanceTests.SaveAndLoad_1MRows_WithinConfiguredBudgets_WhenEnabled"
+          Meta_ENABLE_1M_PERF_TEST: 1
+          Meta_PERF_1M_MAX_SAVE_MS: 300000
+          Meta_PERF_1M_MAX_LOAD_MS: 300000
+          Meta_PERF_1M_MAX_ALLOCATED_MB: 6144
+        run: dotnet test Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false --filter "FullyQualifiedName~LargeWorkspacePerformanceTests.SaveAndLoad_1MRows_WithinConfiguredBudgets_WhenEnabled"

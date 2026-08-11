@@ -10,6 +10,8 @@ C# are supported surfaces for the same model and instance structure.
   validation, and operations.
 - `Meta.Core` owns shared domain algorithms and foundation services that are
   independent of one workspace surface.
+- `Meta.TypedModels` owns representation-neutral mapping between typed CLR
+  models and semantic workspace state. It depends only on Operations.
 - `Meta.Surfaces` owns the lightweight workspace descriptor and shared
   publication infrastructure. It has no Roslyn or SqlClient dependency.
 - `Meta.Surfaces.Xml` owns XML readers, writers, codecs, and layout.
@@ -25,11 +27,12 @@ The dependency direction is:
 
 ```text
 Meta.Operations <- Meta.Core
+Meta.Operations <- Meta.TypedModels
 Meta.Surfaces
-Meta.Operations + Meta.Surfaces <- Meta.Surfaces.Xml
+Meta.Operations + Meta.Surfaces + Meta.TypedModels <- Meta.Surfaces.Xml
 Meta.Operations + Meta.Surfaces <- Meta.Surfaces.CSharp (+ Roslyn)
 Meta.Operations <- Meta.Surfaces.Sql (+ SqlClient)
-Core + Operations + all surfaces <- Meta.Integration (+ SqlClient)
+Core + Operations + TypedModels + all surfaces <- Meta.Integration (+ SqlClient)
 ```
 
 The surface implementations are parallel. Common Surfaces is independent of
@@ -38,7 +41,7 @@ infrastructure, while SQL depends directly on Operations and owns its complete
 SQL DDL model.
 
 Public namespaces follow those assembly names. This is a coordinated breaking
-change in internal package version `0.1.0-internal.13`; no compatibility facade
+change in internal package version `0.1.0-internal.14`; no compatibility facade
 preserves the former cross-assembly `Meta.Core.*` namespace ownership.
 
 ## Workspace Metadata
@@ -63,6 +66,10 @@ var execution = InMemoryOperations.Execute(
 
 Operation construction and execution enforce the common Meta identity,
 referential-integrity, and model rules before a surface publishes the result.
+
+`TypedModelMapper` maps typed CLR contracts to and from the same
+`InMemoryWorkspace` state. The mapper owns no filesystem, XML, Roslyn, or SQL
+behavior; each surface remains responsible for its own representation.
 
 ## XML Workspace
 

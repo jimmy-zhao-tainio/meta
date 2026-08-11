@@ -1,5 +1,10 @@
 # Meta Active Context
 
+This file is stable repository orientation, not a task ledger. Update it only
+when durable architecture, repository invariants, or authoritative entry points
+change. Do not add current tasks, acceptance criteria, verification logs,
+progress reports, or handoff notes.
+
 ## Purpose
 
 `meta` is the generic metadata foundation used by the `meta` and `meta-bi`
@@ -12,6 +17,8 @@ its instance graph, and can be operated through supported workspace surfaces.
   validation, and the operation language.
 - `Meta.Core` owns shared domain algorithms, semantic helpers, and foundation
   services that do not belong to one persistence surface.
+- `Meta.TypedModels` owns representation-neutral mapping between typed CLR
+  models and semantic workspace state.
 - `Meta.Surfaces` owns lightweight workspace descriptors and shared publication
   infrastructure.
 - `Meta.Surfaces.Xml`, `Meta.Surfaces.CSharp`, and `Meta.Surfaces.Sql` own their
@@ -42,8 +49,8 @@ source. Use the documented MetaDocs and MetaMesh commands when changing it.
 
 ## Verification
 
-Build and test serially when projects share local foundation outputs. Build the
-documentation CLI before running tests that invoke its executable. Prefer the
+Build and test serially when projects share local foundation outputs. CLI test
+projects declare the executable they exercise in their build graph. Prefer the
 focused project test for a change, then run the relevant solution build.
 
 The current foundation entry points are:
@@ -66,14 +73,7 @@ dotnet test Meta\Operations.Tests\Meta.Operations.Tests.csproj --nologo -m:1 -nr
 
 ## Authoritative References
 
-- [`meta-bi` guardrails](../meta-bi/docs/META-MODELING-GUARDRAILS.md)
-- [`meta-bi` active context](../meta-bi/docs/ACTIVE_CONTEXT.md)
+- [`meta-bi` guardrails](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/docs/META-MODELING-GUARDRAILS.md)
+- [`meta-bi` active context](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/docs/ACTIVE_CONTEXT.md)
 - [Foundation services and surfaces](SERVICES_API.md)
 - [Public reference source](../MetaDocs/Docs/Documentation.MetaMesh)
-
-## Handoff
-
-This file is a compact orientation document. Current code and project files are
-the authority when they disagree with older notes. The active documentation
-cleanup is complete when the public site has been regenerated from its authored
-MetaDocs source and remaining stale terms are classified rather than hidden.
