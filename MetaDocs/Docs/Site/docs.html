@@ -81,6 +81,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
         <div class="side-kicker">Reference</div>
         <div class="nav-product">Meta</div>
         <a class="nav-surface" href="#subject-public-meta-overview" data-panel-link="subject-public-meta-overview">Overview</a>
+        <a class="nav-surface" href="#subject-public-meta-xml-workspaces" data-panel-link="subject-public-meta-xml-workspaces">XML workspaces</a>
         <a class="nav-surface" href="#group-public-meta-cli" data-panel-link="group-public-meta-cli">CLI</a>
         <ul class="nav-list">
           <li><a class="nav-link" href="#cli-meta" data-panel-link="cli-meta">meta</a></li>
@@ -152,6 +153,11 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
               <h2>Overview</h2>
               <p>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces.</p>
             </a>
+            <a class="entry-card" href="#subject-public-meta-xml-workspaces" data-panel-link="subject-public-meta-xml-workspaces">
+              <div class="label">Meta</div>
+              <h2>XML workspaces</h2>
+              <p>Reference contracts for the XML workspace representation.</p>
+            </a>
             <a class="entry-card" href="#group-public-meta-cli" data-panel-link="group-public-meta-cli">
               <div class="label">Meta</div>
               <h2>CLI</h2>
@@ -183,7 +189,7 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
           <header class="panel-header">
             <h2>meta</h2>
             <div class="panel-lead markdown-content">
-<p><code>meta</code> is the foundation for model-first metadata. It creates and operates on workspaces that carry a model and its instance graph across XML, SQL, and C# surfaces.</p>
+<p><code>meta</code> is a model-first metadata foundation. It lets tools and people create, inspect, change, and move one workspace contract across XML, SQL, and C# without making any one representation the source of semantic truth.</p>
             </div>
           </header>
           <section class="subsection description-block">
@@ -202,23 +208,116 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
             </div>
           </section>
           <section class="subsection description-block">
-            <h3 class="document-heading">Surface-agnostic workspaces</h3>
-            <div class="markdown-content">
-<p>A workspace has one semantic content and several first-class surfaces. XML, SQL, and C# can carry the same model and instance graph without changing its meaning. Changing the surface changes how the workspace is stored and operated on; it does not change the entities, properties, relationships, or records.</p>
-<p>Commands work through the selected surface. XML is a deterministic file surface, SQL is a database surface, and C# is a typed source surface.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
             <h3 class="document-heading">Workspace contract</h3>
             <div class="markdown-content">
-<p>A workspace contains a model, its instance graph, and the storage owned by its selected surface.</p>
-<p>The line-oriented <code>workspace.meta</code> descriptor identifies the selected surface. It records <code>representation xml</code>, <code>representation csharp</code>, or <code>representation sql</code>; a SQL workspace also records the environment variable that locates its database. The surface owns its layout and persistence details, while the workspace contents remain the same model and instance graph.</p>
+<p>A workspace contains one model, one instance graph, and the storage required by its selected surface. Commands address the workspace as a unit rather than depending on a particular file, table, or generated type.</p>
+<p>The line-oriented <code>workspace.meta</code> descriptor selects the surface with <code>representation xml</code>, <code>representation sql</code>, or <code>representation csharp</code>. A SQL workspace also names the environment variable that supplies its database connection. XML files, SQL tables, and C# source remain owned by their respective surfaces behind this common boundary.</p>
             </div>
           </section>
           <section class="subsection description-block">
-            <h3 class="document-heading">XML model contract</h3>
+            <h3 class="document-heading">Why isomorphic metadata</h3>
             <div class="markdown-content">
-<p><code>model.xml</code> declares the schema for an XML workspace: which entities exist, which scalar properties they carry, and how they relate.</p>
+<p>A supported surface is isomorphic when it can carry the modeled facts of a workspace without assigning them a different meaning. The model, identities, scalar values, and relationships remain the same when the workspace moves between XML, SQL, and C#.</p>
+<ul>
+<li><strong>XML</strong> stores deterministic model and instance files. Their structured, stable ordering makes metadata changes practical to review, branch, merge, and version in Git.</li>
+<li><strong>SQL</strong> stores the workspace in relational tables, where database constraints, queries, and set-based operations can work over large instance sets.</li>
+<li><strong>C#</strong> stores readable and writable typed source for applications and services that need to consume or produce the workspace directly.</li>
+</ul>
+<p>Commands open the selected surface through the common workspace contract, apply operations to the same modeled state, and persist through that surface or a selected destination surface. XML is not a canonical semantic form; it is one first-class representation alongside SQL and C#.</p>
+            </div>
+          </section>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Foundation command-line tools</h3>
+            <div class="markdown-content">
+<p>Five command-line tools share the foundation:</p>
+<ul>
+<li><strong><code>meta</code></strong> creates and operates on model and instance workspaces across XML, SQL, and C# surfaces.</li>
+<li><strong><code>meta-cli</code></strong> defines modeled command surfaces and provides shared parsing, help, workspace access, and runtime binding.</li>
+<li><strong><code>meta-weave</code></strong> authors and validates declarative correspondence between source and target workspace contracts.</li>
+<li><strong><code>meta-docs</code></strong> combines CLI and model reference data with authored technical documentation, then merges and renders the public reference.</li>
+<li><strong><code>meta-mesh</code></strong> declares the workspaces involved in a repository workflow and the ordered executable steps that operate on them.</li>
+</ul>
+<p>BI-specific models and command-line tools live in the separate <code>meta-bi</code> repository.</p>
+            </div>
+          </section>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Install and run</h3>
+            <div class="markdown-content">
+<p>The repository targets .NET 8. Build the foundation from its root:</p>
+<pre><code class="language-powershell">dotnet build Metadata.Framework.sln
+</code></pre>
+<p>Run the CLI directly during development:</p>
+<pre><code class="language-powershell">dotnet run --project Meta\Cli\Meta.Cli.csproj -- help
+</code></pre>
+<p>For an offline release, extract the archive without changing its layout and run <code>install-meta.exe</code>. A framework-dependent package requires the .NET 8 runtime; a self-contained package carries its runtime. The installer places <code>meta.exe</code>, <code>meta-weave.exe</code>, and <code>meta-docs.exe</code> in <code>%LOCALAPPDATA%\meta\bin</code> and adds that directory to the user <code>PATH</code>. Open a new terminal, then run <code>meta help</code>.</p>
+            </div>
+          </section>
+          <section class="subsection description-block">
+            <h3 class="document-heading">One workspace across XML, SQL and C#</h3>
+            <div class="markdown-content">
+<p>Create an XML workspace and give its initial model one entity and two records:</p>
+<pre><code class="language-powershell">meta create --new-workspace .\XmlWorkspace --xml
+meta model rename-model MetadataModel WorkspaceCatalog --workspace .\XmlWorkspace
+meta model add-entity System --workspace .\XmlWorkspace
+meta model add-property System SystemName --workspace .\XmlWorkspace
+meta insert System erp --set SystemName=ERP --workspace .\XmlWorkspace
+meta insert System crm --set SystemName=CRM --workspace .\XmlWorkspace
+</code></pre>
+<p>Now create SQL and C# workspaces from that exact model and instance graph:</p>
+<pre><code class="language-powershell">$env:META_SQL_CONNECTION = &quot;Server=.;Database=WorkspaceCatalog;Integrated Security=true;TrustServerCertificate=true;Encrypt=false&quot;
+meta create --new-workspace .\SqlWorkspace --source-workspace .\XmlWorkspace --with-instances --connection-env META_SQL_CONNECTION --sql
+meta create --new-workspace .\CSharpWorkspace --source-workspace .\XmlWorkspace --with-instances --csharp
+</code></pre>
+<p>The C# surface contains the generated <code>WorkspaceCatalogModel</code>, the <code>System</code> type, and the same two records. Application or service code can consume them directly:</p>
+<pre><code class="language-csharp">using WorkspaceCatalog;
+
+WorkspaceCatalogModel catalog = WorkspaceCatalogInstance.BuiltIn;
+foreach (var system in catalog.SystemList)
+{
+    Console.WriteLine($&quot;{system.Id}: {system.SystemName}&quot;);
+}
+</code></pre>
+<p>All three workspaces carry the <code>WorkspaceCatalog</code> model, its <code>System</code> entity, and the <code>erp</code> and <code>crm</code> instances. Only their storage and execution surfaces differ.</p>
+            </div>
+          </section>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Meta CLI at a glance</h3>
+            <div class="markdown-content">
+<p><code>meta</code> organizes commands by the work performed on a workspace:</p>
+<ul>
+<li><strong>Create:</strong> create an empty workspace or project an existing workspace onto another surface.</li>
+<li><strong>Inspect:</strong> view workspace status, models, instances, relationships, queries, and graphs.</li>
+<li><strong>Author:</strong> add or change model definitions and instance records.</li>
+<li><strong>Refactor:</strong> change model structure together with the affected instance data.</li>
+<li><strong>Import and export:</strong> bring external metadata into a workspace or write it in another supported form.</li>
+</ul>
+<p>Workspace-oriented commands use the current directory by default. Pass <code>--workspace &lt;path&gt;</code> to target another workspace. Use <code>meta help</code> for the command list and <code>meta help &lt;command&gt;</code> for the current arguments and options; the complete command reference is generated from that same modeled command surface.</p>
+            </div>
+          </section>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Further reference</h3>
+            <div class="markdown-content">
+<ul>
+<li><a href="https://metametabi.com/docs.html#subject-public-meta-xml-workspaces">XML workspace contract</a> specifies the XML model and instance formats.</li>
+<li><a href="https://metametabi.com/docs.html#group-public-meta-cli">Meta CLI reference</a> is generated from the modeled command surfaces.</li>
+<li><a href="https://metametabi.com/docs.html#group-public-meta-models">Meta model reference</a> describes the foundation models.</li>
+<li><a href="https://github.com/jimmy-zhao-tainio/meta/blob/master/PACKAGE-README.md">Development package documentation</a> records the maintained package boundaries.</li>
+<li><a href="https://github.com/jimmy-zhao-tainio/meta/blob/master/CONTRIBUTING.md">Contributor guidance</a> covers repository builds and generated-artifact policy.</li>
+</ul>
+            </div>
+          </section>
+        </section>
+        <section class="panel" id="subject-public-meta-xml-workspaces" data-panel="subject-public-meta-xml-workspaces">
+          <header class="panel-header">
+            <h2>XML workspaces</h2>
+            <div class="panel-lead markdown-content">
+<p>The XML surface stores a workspace as a line-oriented <code>workspace.meta</code> descriptor, one <code>model.xml</code>, and deterministic instance files under <code>instances/</code>. This reference specifies that representation; it does not assign XML a privileged semantic role.</p>
+            </div>
+          </header>
+          <section class="subsection description-block">
+            <h3 class="document-heading">Model XML contract</h3>
+            <div class="markdown-content">
+<p><code>model.xml</code> declares which entities exist, which scalar properties they carry, and how they relate.</p>
 <p>A model has one <code>&lt;Model name=&quot;WorkspaceCatalog&quot;&gt;</code> root and follows a small set of rules:</p>
 <ul>
 <li><code>&lt;Entity name=&quot;System&quot;&gt;</code> defines a record type; every entity has an implicit <code>Id</code>.</li>
@@ -227,11 +326,11 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
 <li>A relationship role distinguishes multiple relationships to the same target entity.</li>
 <li>Entity instances are grouped under deterministic <code>&lt;EntityName&gt;List</code> containers.</li>
 </ul>
-<p>The XML model contract keeps structure explicit and reviewable.</p>
+<p>The XML model contract keeps structure explicit and reviewable without making XML the canonical semantic representation.</p>
             </div>
           </section>
           <section class="subsection description-block">
-            <h3 class="document-heading">XML instance contract</h3>
+            <h3 class="document-heading">Instance XML contract</h3>
             <div class="markdown-content">
 <p><code>instances/*.xml</code> stores the records for an XML workspace. The root element names the model, and each entity is grouped under its deterministic list container.</p>
 <p>For the small fictional <code>WorkspaceCatalog</code> model:</p>
@@ -244,130 +343,6 @@ details.inline-details{border-top:1px solid var(--line-soft);padding-top:14px;ma
 &lt;/WorkspaceCatalog&gt;
 </code></pre>
 <p>Every record has an <code>Id</code>. Scalar properties are child elements; relationships are stored as <code>...Id</code> attributes. Missing elements mean that an optional value is unset.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">XML, SQL, and C# surfaces</h3>
-            <div class="markdown-content">
-<p>Each surface fits a different working style while carrying the same workspace semantics:</p>
-<ul>
-<li><strong>XML</strong> keeps model and instance files deterministic, reviewable, and easy to version in Git.</li>
-<li><strong>SQL</strong> keeps metadata in a database, with relational integrity, queries, and set-based changes available where the data lives.</li>
-<li><strong>C#</strong> keeps the workspace as readable and writable typed source for applications and services.</li>
-</ul>
-<p>The choice is operational. It does not create a second meaning for the model.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">XML surface and version control</h3>
-            <div class="markdown-content">
-<p>The XML surface fits naturally into Git. Model definitions, instance data, and refactors remain structured, so changes can be reviewed as metadata rather than as an opaque file rewrite. Stable ordering and consistent encoding keep diffs focused on the change itself.</p>
-<p>Teams that work primarily in SQL or C# can use those surfaces directly and still move the same workspace through the foundation tools.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">SQL workspace creation</h3>
-            <div class="markdown-content">
-<p>A SQL workspace is a database carrying the model and instance graph. Create one from an existing workspace by supplying the connection environment variable required for the target database:</p>
-<pre><code class="language-powershell">$env:META_SQL_CONNECTION = &quot;Server=.;Database=WorkspaceCatalog;Integrated Security=true;TrustServerCertificate=true;Encrypt=false&quot;
-meta create --new-workspace .\SqlWorkspace --source-workspace .\XmlWorkspace --with-instances --connection-env META_SQL_CONNECTION --sql
-</code></pre>
-<p>SQL operations then work against the database surface instead of first turning the database into an XML file.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">C# workspace creation</h3>
-            <div class="markdown-content">
-<p>A C# workspace is readable and writable typed source for the same model and instance graph. Create it from an existing workspace when an application or service should work with the workspace in C#:</p>
-<pre><code class="language-powershell">meta create --new-workspace .\CSharpWorkspace --source-workspace .\XmlWorkspace --with-instances --csharp
-</code></pre>
-<p>The result is a workspace surface, not a separate tooling product.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">Create a workspace on a selected surface</h3>
-            <div class="markdown-content">
-<p>Create an empty XML workspace, then create SQL and C# workspaces from it:</p>
-<pre><code class="language-powershell">meta create --new-workspace .\XmlWorkspace --xml
-
-$env:META_SQL_CONNECTION = &quot;Server=.;Database=WorkspaceCatalog;Integrated Security=true;TrustServerCertificate=true;Encrypt=false&quot;
-meta create --new-workspace .\SqlWorkspace --source-workspace .\XmlWorkspace --with-instances --connection-env META_SQL_CONNECTION --sql
-meta create --new-workspace .\CSharpWorkspace --source-workspace .\XmlWorkspace --with-instances --csharp
-</code></pre>
-<p>All three workspaces carry the same declared model and instance graph.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">Change a workspace surface</h3>
-            <div class="markdown-content">
-<p>The <code>meta create</code> command copies a model, and optionally its instances, into a new workspace surface. The source and destination are explicit, so the operation is repeatable and easy to inspect:</p>
-<pre><code class="language-powershell">meta create --new-workspace .\SqlWorkspace --source-workspace .\XmlWorkspace --with-instances --connection-env META_SQL_CONNECTION --sql
-meta create --new-workspace .\CSharpWorkspace --source-workspace .\SqlWorkspace --with-instances --csharp
-</code></pre>
-<p>The selected surface owns storage and execution. The workspace semantics remain unchanged.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">Foundation command-line tools</h3>
-            <div class="markdown-content">
-<p>The foundation is delivered through five command-line tools:</p>
-<ul>
-<li><strong><code>meta</code></strong> creates and operates on model and instance workspaces across XML, SQL, and C# surfaces.</li>
-<li><strong><code>meta-cli</code></strong> defines command surfaces and provides shared parsing, help, workspace access, and runtime binding.</li>
-<li><strong><code>meta-weave</code></strong> defines and validates sanctioned property bindings across models, then materializes those bindings when a combined workspace is needed.</li>
-<li><strong><code>meta-docs</code></strong> combines CLI and model reference data with authored technical documentation, then merges and renders the public reference.</li>
-<li><strong><code>meta-mesh</code></strong> declares the workspaces involved in a repository workflow and the ordered executable steps that operate on them.</li>
-</ul>
-<p>BI-specific models and command-line tools live in the separate <code>meta-bi</code> repository.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">The meta command surface</h3>
-            <div class="markdown-content">
-<p><code>meta</code> is organized around the work done on a workspace:</p>
-<ul>
-<li><strong>Create:</strong> make an empty workspace or create one surface from another.</li>
-<li><strong>Inspect:</strong> view workspace state, models, instances, relationships, and graphs.</li>
-<li><strong>Author:</strong> add and change model definitions and instance records.</li>
-<li><strong>Refactor:</strong> change model structure together with the affected instance data.</li>
-<li><strong>Import and export:</strong> bring in external metadata and write the selected workspace surface.</li>
-</ul>
-<p>Use <code>meta help</code> for the current command surface and command-specific options.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">Development and installation</h3>
-            <div class="markdown-content">
-<p>Build the foundation from the repository root:</p>
-<pre><code class="language-powershell">dotnet build Metadata.Framework.sln
-</code></pre>
-<p>Run the CLI directly during development:</p>
-<pre><code class="language-powershell">dotnet run --project Meta\Cli\Meta.Cli.csproj -- help
-</code></pre>
-<p>The installer can publish the foundation CLIs for a machine with the .NET 8 runtime. The repository build and the published executables use the same modeled command surfaces.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">Command guide</h3>
-            <div class="markdown-content">
-<p>Workspace-oriented commands operate on the current working directory by default. Use <code>--workspace &lt;path&gt;</code> to target another workspace.</p>
-<p>Use <code>meta help</code> for the available commands and <code>meta help &lt;command&gt;</code> for the options and arguments of one command. The command reference below is generated from the same command surface used by the CLI.</p>
-            </div>
-          </section>
-          <section class="subsection description-block">
-            <h3 class="document-heading">Foundation package boundary</h3>
-            <div class="markdown-content">
-<p>The foundation packages follow explicit ownership boundaries:</p>
-<ul>
-<li><code>Meta.Operations</code> owns representation-neutral state, reads, constraints, validation, and operations.</li>
-<li><code>Meta.TypedModels</code> maps typed CLR models to and from semantic workspace state.</li>
-<li><code>Meta.Core</code> owns shared model algorithms and deterministic core behavior.</li>
-<li><code>Meta.Surfaces</code> owns workspace descriptors and shared publication infrastructure.</li>
-<li><code>Meta.Surfaces.Xml</code>, <code>Meta.Surfaces.CSharp</code>, and <code>Meta.Surfaces.Sql</code> own their respective workspace representations.</li>
-<li><code>Meta.Integration</code> composes cross-surface import, export, deployment, and service behavior.</li>
-<li><code>MetaWeave.Core</code> owns the MetaWeave domain library.</li>
-</ul>
-<p><code>pack-internal.cmd</code> packs the foundation packages in dependency order for downstream command-line and product development.</p>
             </div>
           </section>
         </section>
