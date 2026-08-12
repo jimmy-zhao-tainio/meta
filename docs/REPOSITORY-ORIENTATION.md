@@ -1,4 +1,4 @@
-# Meta Active Context
+# Repository Orientation
 
 This file is stable repository orientation, not a task ledger. Update it only
 when durable architecture, repository invariants, or authoritative entry points

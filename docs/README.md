@@ -7,7 +7,7 @@ maintenance guidance that complements the modeled reference.
 
 ## Maintained References
 
-- [Repository orientation](agent-context.md)
+- [Repository orientation](REPOSITORY-ORIENTATION.md)
 - [Foundation services and surfaces](SERVICES_API.md)
 - [Meta language kernel](META-LANGUAGE-KERNEL.md)
 
