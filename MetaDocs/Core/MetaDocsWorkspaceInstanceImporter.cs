@@ -60,6 +60,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
         var normalizedModelSourceId = string.IsNullOrWhiteSpace(modelSourceId)
             ? $"source:workspace-model:{MetaDocsImportSession.NormalizeKey(normalizedDisplayName)}"
             : modelSourceId;
+        var normalizedSourceReference = NormalizeSourceReference(sourceReference, normalizedSourceId);
 
         var policy = new MetaDocsInstanceImportPolicy(model);
         var includedEntities = workspace.Model.Entities
@@ -72,7 +73,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             normalizedSourceId,
             "WorkspaceInstances",
             normalizedDisplayName + " instances",
-            sourceReference,
+            normalizedSourceReference,
             ComputeSourceFingerprint(workspace),
             "MetaDocs.WorkspaceInstances",
             "1");
@@ -81,7 +82,7 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             $"{normalizedSourceId}:instances",
             "WorkspaceInstances",
             "Workspace",
-            sourceReference,
+            normalizedSourceReference,
             normalizedDisplayName + " instances",
             $"{normalizedDisplayName}.Instances",
             "Selected workspace instances.",
@@ -166,6 +167,19 @@ public sealed class MetaDocsWorkspaceInstanceImporter
             importedInstances,
             importedPropertyFacts,
             importedRelationships);
+    }
+
+    private static string NormalizeSourceReference(string sourceReference, string sourceId)
+    {
+        var reference = sourceReference.Trim();
+        var isWindowsRootedPath = reference.Length >= 3 &&
+                                  char.IsLetter(reference[0]) &&
+                                  reference[1] == ':' &&
+                                  reference[2] is '\\' or '/';
+        var isUncPath = reference.StartsWith("\\\\", StringComparison.Ordinal);
+        return Path.IsPathRooted(reference) || isWindowsRootedPath || isUncPath
+            ? sourceId.Trim()
+            : reference;
     }
 
     private static DocumentationSubject ImportInstanceSubject(

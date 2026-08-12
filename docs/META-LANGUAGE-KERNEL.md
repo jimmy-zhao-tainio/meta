@@ -41,7 +41,7 @@ of values attached to graph elements.
 Primary references:
 
 - [Specifying Graph Languages with Type Graphs](https://arxiv.org/abs/1704.05263)
-- [Fundamental Theory for Typed Attributed Graphs and Graph Transformation](https://doi.org/10.3233/FUN-2006-74103)
+- [Fundamental Theory for Typed Attributed Graphs and Graph Transformation](https://dblp.org/rec/journals/fuin/EhrigEPT06)
 
 ## A small formal account
 

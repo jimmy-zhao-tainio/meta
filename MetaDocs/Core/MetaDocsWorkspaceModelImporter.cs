@@ -30,12 +30,13 @@ public sealed class MetaDocsWorkspaceModelImporter
         var normalizedSourceId = string.IsNullOrWhiteSpace(sourceId)
             ? $"source:workspace-model:{MetaDocsImportSession.NormalizeKey(normalizedDisplayName)}"
             : sourceId;
+        var sourceReference = normalizedSourceId.Trim();
         var session = new MetaDocsImportSession(
             model,
             normalizedSourceId,
             "WorkspaceModel",
             normalizedDisplayName,
-            Path.GetFullPath(sourceWorkspacePath),
+            sourceReference,
             ComputeSourceFingerprint(workspace.Model.ComputeContractSignature()),
             "MetaDocs.WorkspaceModel",
             "1");
@@ -45,13 +46,12 @@ public sealed class MetaDocsWorkspaceModelImporter
             $"{normalizedSourceId}:workspace",
             "Workspace",
             "Workspace",
-            sourceRootPath,
+            sourceReference,
             normalizedDisplayName,
             normalizedDisplayName,
             string.Empty,
             null,
             null);
-        session.UpsertFact(workspaceSubject, "Workspace", "RootPath", sourceRootPath);
         session.UpsertFact(workspaceSubject, "Workspace", "ModelName", modelName);
         session.EnsureViewNode(workspaceSubject, normalizedDisplayName);
 

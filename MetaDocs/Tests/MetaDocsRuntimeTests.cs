@@ -885,9 +885,13 @@ public sealed class MetaDocsRuntimeTests
 
         var workspace = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "Workspace"));
         Assert.Equal("Sample docs", workspace.DisplayName);
+        Assert.Equal("source:workspace-model:sample", workspace.NativeId);
         var source = Assert.Single(model.DocumentationSourceList, row => IsSourceType(row, "WorkspaceModel"));
+        Assert.Equal("source:workspace-model:sample", source.Locator);
         Assert.NotNull(source.SourceFingerprint);
         Assert.Equal(64, source.SourceFingerprint.Length);
+        Assert.DoesNotContain(model.DocumentationFactList, row => row.Name == "RootPath");
+        Assert.DoesNotContain(sourceWorkspace, source.Locator ?? string.Empty, StringComparison.OrdinalIgnoreCase);
         Assert.All(
             model.DocumentationFactList.Where(row => row.DocumentationSource == source),
             fact =>
@@ -1525,6 +1529,10 @@ public sealed class MetaDocsRuntimeTests
 
         Assert.Equal(2, result.ImportedInstanceCount);
         var source = Assert.Single(model.DocumentationSourceList, row => IsSourceType(row, "WorkspaceInstances"));
+        Assert.Equal("source:workspace-instances:sample", source.Locator);
+        var root = Assert.Single(model.DocumentationSubjectList, row => IsSubjectType(row, "WorkspaceInstances"));
+        Assert.Equal("source:workspace-instances:sample", root.NativeId);
+        Assert.DoesNotContain(sourceWorkspace, source.Locator ?? string.Empty, StringComparison.OrdinalIgnoreCase);
         Assert.NotNull(source.SourceFingerprint);
         Assert.Equal(64, source.SourceFingerprint.Length);
         Assert.All(

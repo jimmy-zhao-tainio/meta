@@ -1,6 +1,6 @@
 # Meta foundation packages
 
-Internal NuGet packages for the `meta` foundation. The package and public
+Development NuGet packages for the `meta` foundation. The package and public
 namespace boundaries are deliberately aligned:
 
 - `Meta.Operations`
@@ -26,7 +26,9 @@ composition package.
 These packages are consumed by downstream repositories to keep the foundation
 boundary explicit and prevent source-level drift back into Core.
 
-The complete foundation set is packed by `pack-internal.cmd`:
+The complete foundation set is packed by `pack-internal.cmd`. The script name
+and the current `-internal` version suffix identify the unreleased development
+channel; they do not imply that the source or package contracts are private.
 
 - `Meta.Operations`
 - `Meta.TypedModels`

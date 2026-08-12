@@ -74,6 +74,6 @@ dotnet test Meta\Operations.Tests\Meta.Operations.Tests.csproj --nologo -m:1 -nr
 ## Authoritative References
 
 - [`meta-bi` guardrails](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/docs/META-MODELING-GUARDRAILS.md)
-- [`meta-bi` active context](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/docs/ACTIVE_CONTEXT.md)
+- [`meta-bi` documentation index](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/docs/README.md)
 - [Foundation services and surfaces](SERVICES_API.md)
 - [Public reference source](../MetaDocs/Docs/Documentation.MetaMesh)
