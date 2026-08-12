@@ -31,6 +31,11 @@ COMPILATION
   |
   v
 EXECUTION
+  |
+  v
+IMPLEMENTATION
+
+CONFORMANCE validates every edge and the complete path.
 ```
 
 Later documents may refine mechanisms within their own layer. They may not
@@ -40,26 +45,32 @@ dependent specifications are adjusted.
 
 ## Specification Set
 
-Only the kernel and this map are active today. The remaining documents are
-planned and must be designed independently rather than extracted mechanically
-from the former monolithic target.
+The kernel is the sole normative semantic foundation. The ladder documents are
+active design drafts: they are reviewed in dependency order and do not become
+kernel facts merely by being more concrete. Remaining planned documents must
+be designed independently rather than extracted mechanically from the former
+monolithic target.
 
 | Document | Status | Responsibility |
 | --- | --- | --- |
 | `KERNEL.md` | Active | Irreducible semantic facts and laws. |
-| `CORRESPONDENCE-MODEL.md` | Planned | Authorable semantic vocabulary and definition-time validity. |
-| `COMPILATION.md` | Planned | Conversion of a valid correspondence into an immutable execution plan. |
-| `EXECUTION.md` | Planned | Directional application, atomic results, and runtime validation. |
+| `LADDER.md` | Active | Derivation method, trace keys, layer order, and predecessor-validation protocol. |
+| `CORRESPONDENCE-MODEL.md` | Draft | Authorable semantic vocabulary and definition-time validity. |
+| `COMPILATION.md` | Draft | Independent derivation of immutable directional products from a valid correspondence. |
+| `EXECUTION.md` | Draft | Directional application, atomic results, and runtime validation. |
+| `IMPLEMENTATION.md` | Draft | Greenfield Meta package boundaries, first feature slice, and value gates. |
 | `EXTENSIONS.md` | Planned | Explicit externally supplied semantic functions and their trust boundary. |
 | `PROVENANCE.md` | Planned | Logical derivation, trace, explanation, and retention. |
 | `COMPOSITION.md` | Planned | Composition of independently valid correspondences. |
-| `CONFORMANCE.md` | Planned | Executable laws, fixtures, counterexamples, and acceptance criteria. |
+| `CONFORMANCE.md` | Draft | Cross-layer traceability, executable laws, fixtures, counterexamples, and acceptance criteria. |
 
 `EXTENSIONS.md` may refine the correspondence, compilation, and execution
 layers without creating ambient semantics. `PROVENANCE.md` may observe
 execution without changing its result. `COMPOSITION.md` must derive composed
 domains, loss, and recovery from the kernel rather than inherit labels.
-`CONFORMANCE.md` tests each completed layer against the kernel.
+`IMPLEMENTATION.md` closes only choices required for a bounded greenfield
+slice. `CONFORMANCE.md` tests each completed layer against its immediate
+predecessor and the kernel transitively.
 
 ## Ownership
 
