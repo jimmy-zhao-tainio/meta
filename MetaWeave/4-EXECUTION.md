@@ -2,7 +2,7 @@
 
 ## Status
 
-This is draft layer 3 of the MetaWeave specification ladder. It derives from
+This is draft layer 4 of the MetaWeave specification ladder. It derives from
 the `DIR1` intermediate representation in
 [`3-COMPILATION.md`](3-COMPILATION.md) and remains subordinate to
 [`1-KERNEL.md`](1-KERNEL.md).

@@ -2,9 +2,9 @@
 
 ## Status
 
-This is the cross-cutting validation specification for the MetaWeave ladder. It
-adds no correspondence semantics. It checks the concrete artifacts introduced
-by [`2-CORRESPONDENCE-MODEL.md`](2-CORRESPONDENCE-MODEL.md),
+This is layer 6, the cross-cutting validation specification for the MetaWeave
+ladder. It adds no correspondence semantics. It checks the concrete artifacts
+introduced by [`2-CORRESPONDENCE-MODEL.md`](2-CORRESPONDENCE-MODEL.md),
 [`3-COMPILATION.md`](3-COMPILATION.md),
 [`4-EXECUTION.md`](4-EXECUTION.md), and
 [`5-IMPLEMENTATION.md`](5-IMPLEMENTATION.md) against their immediate
@@ -106,7 +106,7 @@ Expected PartyDirectory
 
 Changing any count or endpoint is a fixture revision, not harmless test setup.
 
-## Edge 0: Kernel to `K1`
+## Edge 1 -> 2: Kernel to `K1`
 
 The structural checks are:
 
@@ -149,7 +149,7 @@ production compiler or executor.
 They are never passed to compilation to obtain a per-direction `Rejected`
 status.
 
-## Edge 1: `K1` to `DIR1`
+## Edge 2 -> 3: `K1` to `DIR1`
 
 For every compiler profile, tests enumerate all syntax variants it claims to
 support and assert the lowering table from `3-COMPILATION.md`.
@@ -206,7 +206,7 @@ The finite tests are exhaustive only for the explicitly finite fixture space.
 They witness the closed lowering table; they do not prove claims about an
 unbounded future language.
 
-## Edge 2: `DIR1` to `E1`
+## Edge 3 -> 4: `DIR1` to `E1`
 
 **CF-6 (D; `EX-1` through `EX-16`).** Every `DIR1` variant has an execution
 fixture that reaches its exact machine transition:
@@ -265,7 +265,7 @@ The final workspace must be state-equal to the golden expected output. Trace
 collection may be disabled in production, but disabling observation cannot
 change phase behavior or result.
 
-## Edge 3: `E1` to Meta/.NET
+## Edge 4 -> 5: `E1` to Meta/.NET
 
 **CF-7 (D; `IM-1` through `IM-9`).** Implementation mapping tests establish:
 

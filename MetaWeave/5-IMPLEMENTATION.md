@@ -2,7 +2,7 @@
 
 ## Status
 
-This is draft layer 4 of the MetaWeave specification ladder. It derives from
+This is draft layer 5 of the MetaWeave specification ladder. It derives from
 the `E1` abstract machine in [`4-EXECUTION.md`](4-EXECUTION.md) and remains
 subordinate to [`1-KERNEL.md`](1-KERNEL.md).
 

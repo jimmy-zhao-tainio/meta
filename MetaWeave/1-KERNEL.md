@@ -2,9 +2,9 @@
 
 ## Status
 
-This document is the normative semantic foundation of MetaWeave. It contains
-only facts that every implementation and subordinate specification must
-preserve. It does not prescribe mechanisms or policy.
+This document is layer 1 and the normative semantic foundation of MetaWeave. It
+contains only facts that every implementation and subordinate specification
+must preserve. It does not prescribe mechanisms or policy.
 
 ## Workspace
 

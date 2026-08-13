@@ -2,7 +2,7 @@
 
 ## Status
 
-This is draft layer 1 of the MetaWeave specification ladder. It is subordinate
+This is draft layer 2 of the MetaWeave specification ladder. It is subordinate
 to [`1-KERNEL.md`](1-KERNEL.md) and follows [`0-LADDER.md`](0-LADDER.md).
 
 The input to this layer is the kernel vocabulary. The output is a concrete

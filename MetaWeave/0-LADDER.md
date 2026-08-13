@@ -2,10 +2,10 @@
 
 ## Status
 
-This document defines the method and dependency order for deriving MetaWeave
-from [`1-KERNEL.md`](1-KERNEL.md) to an implementable architecture. It is not an
-additional semantic authority. The kernel remains the sole normative source of
-MetaWeave facts.
+This document is layer 0. It defines the method and dependency order for
+deriving MetaWeave from [`1-KERNEL.md`](1-KERNEL.md) to an implementable
+architecture. It is not an additional semantic authority. The kernel remains
+the sole normative source of MetaWeave facts.
 
 The documents in the ladder are drafts until their predecessor validation and
 conformance obligations are accepted. A later layer may choose a mechanism,
@@ -79,29 +79,38 @@ semantics.
 ## Layers
 
 ```text
-KERNEL
+0 LADDER
+  derivation and validation method
+
+1 KERNEL
   semantic laws
   |
   v
-CORRESPONDENCE-MODEL
+2 CORRESPONDENCE-MODEL
   K1 authored correspondence calculus
   |
   v
-COMPILATION
+3 COMPILATION
   DIR1 immutable directional IR
   |
   v
-EXECUTION
+4 EXECUTION
   E1 abstract machine
   |
   v
-IMPLEMENTATION
+5 IMPLEMENTATION
   Meta entities, CLR values, and services
 
-CONFORMANCE validates every edge and the complete path.
+6 CONFORMANCE validates every edge and the complete path.
 ```
 
-### Layer 0: Kernel
+### Layer 0: Ladder
+
+Defines the derivation order, trace keys, statement classes, validation
+protocol, and promotion record used by every later layer. Its output is a
+reviewable method, not a correspondence semantic.
+
+### Layer 1: Kernel
 
 Defines irreducible semantic facts and ownership boundaries. It contains no
 authoring syntax, compilation plan, API, or adoption policy.
@@ -109,7 +118,7 @@ authoring syntax, compilation plan, API, or adoption policy.
 Its output is the set of semantic obligations identified by the kernel trace
 keys. It is not expected to be executable.
 
-### Layer 1: Correspondence model
+### Layer 2: Correspondence model
 
 Defines `K1`, a concrete abstract syntax for first-class associations,
 directional domains and rules, coverage, loss, and claims. It gives that syntax
@@ -117,7 +126,7 @@ a denotation over neutral workspace state and carries one authored witness from
 contracts to a mathematical partial direction. It does not define a serialized
 Meta metamodel or compiler representation.
 
-### Layer 2: Compilation
+### Layer 3: Compilation
 
 Defines `DIR1`, a concrete immutable intermediate representation with normalized
 domain tests, typed constructors and writes, input-fate and loss tables, a
@@ -125,14 +134,14 @@ coverage certificate, and capability evidence. It defines a lowering relation
 from each `K1` construct to `DIR1` and a denotation-preservation law. It does
 not prescribe compiler passes, code generation, or plan serialization.
 
-### Layer 3: Execution
+### Layer 4: Execution
 
 Defines `E1`, an abstract machine with named state, phases, transition rules,
 private candidate state, failure states, and one atomic success state. The
 machine consumes `DIR1` directly and realizes its denotation operationally.
 It does not acquire or publish workspaces.
 
-### Layer 4: Implementation
+### Layer 5: Implementation
 
 Maps every `K1`, `DIR1`, and `E1` construct onto named Meta entities, immutable
 CLR value variants, service signatures, project dependencies, and a bounded
@@ -140,7 +149,7 @@ delivery slice. No semantic construct may first appear here without a required
 predecessor revision. The document defines decision gates without authorizing
 model or code changes.
 
-### Cross-cutting: Conformance
+### Layer 6: Conformance
 
 Carries the same golden correspondence through authored records, compiled IR,
 machine states, and implementation values. It checks structural mapping and

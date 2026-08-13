@@ -2,7 +2,7 @@
 
 ## Status
 
-This is draft layer 2 of the MetaWeave specification ladder. It derives from
+This is draft layer 3 of the MetaWeave specification ladder. It derives from
 the concrete `K1` language in
 [`2-CORRESPONDENCE-MODEL.md`](2-CORRESPONDENCE-MODEL.md) and remains
 subordinate to [`1-KERNEL.md`](1-KERNEL.md).
@@ -522,5 +522,5 @@ meaning.
 
 For the customer witness, each authored record has one displayed `DIR1`
 counterpart and the compiled capability values can be recomputed from the shown
-program. This is the local evidence that layer 2 contributes lowering and an IR
-rather than a restatement of layer 1.
+program. This is the local evidence that layer 3 contributes lowering and an IR
+rather than a restatement of layer 2.
