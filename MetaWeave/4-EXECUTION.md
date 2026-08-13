@@ -38,9 +38,29 @@ The returned workspace is complete neutral state under the exact output
 contract retained by `DIR1`. `Apply1` has no output location and performs no
 publication.
 
-**EX-1 (D; `CP-1`, `CP-12`).** The supplied program is immutable, internally
-well formed, and bound to exact input and output contract identities. A corrupt
-or unsupported program fails before domain evaluation.
+For execution, each exact contract supplies identity semantics:
+
+```text
+IdentitySemantics(M) = (
+  Revision,
+  IsValid(identity),
+  Equal(left, right),
+  Compare(left, right))
+```
+
+`Compare` is a deterministic total order over valid identities and is coherent
+with equality: `Compare(a, b) = 0` exactly when `Equal(a, b)`. The semantics
+revision participates in the exact contract identity retained by `DIR1`.
+
+Resolved `DIR1-1` semantic identifiers have a canonical Unicode spelling and
+use ordinal code-unit order. This is the identifier order used for
+constructors, writes, losses, and input concepts; it is distinct from modeled
+record-identity order.
+
+**EX-1 (D; `CP-1`, `CP-12`, `CP-15`).** The supplied program is immutable,
+internally well formed, self-identifies its `DIR1` grammar and required
+execution-semantics profile, and is bound to exact input and output contract
+identities. A corrupt or unsupported program fails before domain evaluation.
 
 **EX-2 (D; `CP-1`, `CP-4`).** The input is complete valid state under the exact
 input contract. Contract mismatch, invalid input, and valid input outside the
@@ -80,6 +100,8 @@ Phase ::=
 
 - `Candidate` is a fresh workspace builder for the exact output contract.
 - `OutputIndex` maps `(OutputEntityId, OutputIdentity)` to one candidate record.
+  Entity identity is exact; record-identity keys use the output contract's
+  `Equal` operation.
 - `PendingReferences` holds relationship writes until every constructor has
   contributed its records.
 - `Evidence` is private machine state until success.
@@ -102,13 +124,18 @@ Every transition either advances to the named next phase or terminates in
 
 ```text
 Accept -> TestDomain
-  when Program is well formed,
+  when Program.DIR1Version is supported,
+       Program.ExecutionSemanticsProfileId = E1-1,
+       Program is well formed,
        Input.M = Program.InputContract,
        and Input is valid under that exact contract.
 ```
 
-Otherwise it terminates with `InvalidProgram`, `InputContractMismatch`, or
-`InvalidInput`, respectively.
+An unsupported IR version, unsupported execution profile, or malformed program
+terminates as `InvalidProgram`. Contract mismatch terminates as
+`InputContractMismatch`; failed exact-contract validation terminates as
+`InvalidInput`. Execution never guesses a compatible interpretation from record
+shape.
 
 ### 2. Test domain
 
@@ -157,7 +184,7 @@ MapConstructor:
 
 When source order is significant, record traversal uses that modeled order.
 Otherwise traversal order is semantically irrelevant; implementations may use
-a deterministic identity order for stable diagnostics.
+the input contract's identity `Compare` operation for stable diagnostics.
 
 Property writes evaluate as follows:
 
@@ -167,14 +194,18 @@ WriteConstant    -> write the compiled typed literal
 WriteAbsent      -> leave the optional member absent
 ```
 
-Allocation inserts the record into `OutputIndex`. A duplicate key is
-`EvaluationDefect`: valid `K1`, its coverage certificate, and a valid admitted
-input should make the collision impossible.
+Before allocation, the copied output identity must satisfy the output contract's
+`IsValid` operation. Allocation inserts the record into `OutputIndex`; duplicate
+detection uses output identity `Equal`, not ordinal string equality. An invalid
+copied identity or duplicate key is `EvaluationDefect`: valid `K1`, its coverage
+certificate, compatible identity semantics, and a valid admitted input should
+make either impossible.
 
-**EX-5 (D; `CP-5`, `CP-7`).** Record, identity, and scalar construction follows
-only the constructors and writes in `DIR1`. Runtime name matching, reflection
-inference, implicit merge, defaulting, filtering, grouping, and fan-out are not
-machine transitions.
+**EX-5 (D; `CP-5`, `CP-7`, `CP-15`).** Record, identity, scalar, and significant
+order construction follows only the constructors and writes in `DIR1`. Runtime
+name matching, reflection inference, implicit merge, defaulting, filtering,
+grouping, fan-out, and corresponding-order inference are not machine
+transitions.
 
 ### 4. Resolve relationships
 
@@ -190,23 +221,26 @@ Each queued `CopyReference` contains:
 For a present input relationship, the referenced constructor identifies its
 exact output entity. Resolution looks up
 `(ReferencedOutputEntityId, InputReferencedIdentity)` in `OutputIndex` and
-writes that target. For an absent input relationship, `CopyReference` leaves
-the output relationship absent and queues nothing. Compilation permits that
-case only when the output relationship is optional; otherwise the domain must
-guarantee input presence. `WriteAbsentReference` also queues nothing.
+writes that target. The referenced identity must satisfy output identity
+`IsValid`; lookup then uses output identity `Equal`, so a reference spelling
+need not be ordinally identical to the target identity spelling. For an absent
+input relationship, `CopyReference` leaves the output relationship absent and
+queues nothing. Compilation permits that case only when the output relationship
+is optional; otherwise the domain must guarantee input presence.
+`WriteAbsentReference` also queues nothing.
 
 A missing target or required absent relationship is `EvaluationDefect`. It is
 not repaired by observed identifiers or another constructor.
 
-**EX-6 (D; `CP-5`).** Relationship resolution realizes the exact compiled
+**EX-6 (D; `CP-5`, `CP-15`).** Relationship resolution realizes the exact compiled
 reference dependency. The two-phase record/link process changes no
 correspondence meaning; it merely makes forward references evaluable.
 
 ### 5. Apply significant order
 
 ```text
-CopyRecordOrder:
-  order constructed records by the corresponding source record order.
+CopyRecordOrder(InputOrderId, OutputOrderId):
+  read the exact named input order and write the exact named output order.
 
 IgnoreIncidentalOrder:
   write no significant order fact.
@@ -220,6 +254,9 @@ an output entity whose contract declares order insignificant.
 For every compiled loss row, the machine emits:
 
 ```text
+ApplicationEvidence = (
+  Losses = [LossEvidence, ...])
+
 LossEvidence = (
   LossId,
   InputConceptId,
@@ -232,6 +269,15 @@ property or relationship affects every record for which its presence, absence,
 value, or target is a modeled distinction. Significant order affects the
 ordered entity set. An empty affected set remains evidence that the declaration
 was evaluated for this application.
+
+Evidence rows are ordered by `LossId` and then `InputConceptId` using their
+resolved semantic-identifier order. `AffectedInputRecordIds` is duplicate-free
+under input identity `Equal` and ordered with input identity `Compare`. This
+ordering is part of `E1-1`; thread schedule and constructor traversal cannot
+change it.
+
+A lossless program returns `ApplicationEvidence(Losses = [])`. The collection
+is complete: no other evidence variant exists in `E1-1`.
 
 **EX-7 (D; `CP-6`).** Every compiled loss row produces application evidence.
 The executor cannot discover permission for loss that is absent from the
@@ -271,8 +317,8 @@ transition. No constructor-local fragment can bypass it.
 
 ## Terminal Results
 
-`Succeeded` freezes the candidate as one neutral output workspace, canonicalizes
-evidence ordering by semantic identifiers, and returns both.
+`Succeeded` freezes the candidate as one neutral output workspace, freezes the
+canonically ordered application evidence defined above, and returns both.
 
 `Failed` discards candidate, index, pending references, and private evidence.
 Diagnostics may retain semantic identifiers and bounded input excerpts, but no
@@ -413,10 +459,12 @@ transition consumes a structure introduced by the immediately preceding layer.
 | `DIR1` abstraction | `E1` realization | Local validation |
 | --- | --- | --- |
 | Exact contract identities | `Accept` checks | Evaluation cannot begin on a lookalike contract. |
+| Exact identity semantics and revision | validation, output index, lookup, and ordering | Host string equality never substitutes for contract semantics. |
+| IR and execution versions | `Accept` checks | A detached program carries the interpretation it requires. |
 | `AllOf(DomainTest...)` | `TestDomain` | The same tests decide machine admission. |
 | Constructors and scalar writes | `ConstructRecords` | One transition rule exists for each IR variant. |
 | Reference writes | `ResolveRelationships` | Referenced constructor identity is used directly. |
-| Order writes | `ApplyOrder` | Significant order has an explicit transition. |
+| Order writes with input/output identities | `ApplyOrder` | Significant order has an explicit, fully bound transition. |
 | Fate and loss tables | `RecordLoss` | Every compiled loss row yields evidence. |
 | Coverage certificate | Candidate validation assumption and defensive checks | The executor consumes the certificate result rather than recreating authoring logic. |
 | Denotation-preservation law | `Succeeded` output | `Apply1` realizes the `[[DIR1]]` already used by `CP-8`. |

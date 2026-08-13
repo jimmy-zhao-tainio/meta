@@ -144,10 +144,12 @@ production compiler or executor.
 | forward and independently authored reverse, no claim | valid `K1`; recovery remains unassessed |
 | workspace path stored on a contract binding | invalid `K1`; boundary violation |
 | contract identity differs from the contract supplied to validation | invalid result; no `ValidatedK1` value |
+| valid syntax bound to a nontrivial equivalence under `K1-Validation-Core-1` | `Unsupported`; no `ValidatedK1` value and no invalidity claim |
 
-**CF-4 (D; `CM-13`, `CM-14`).** Invalid authored fixtures stop at validation.
-They are never passed to compilation to obtain a per-direction `Rejected`
-status.
+**CF-4 (D; `CM-13`, `CM-14`).** `Invalid` and `Unsupported` validation results
+both stop before compilation. `Invalid` must identify a refuted `K1` rule;
+`Unsupported` must identify required features and make no invalidity claim.
+Neither is passed to compilation to obtain a per-direction status.
 
 ## Edge 2 -> 3: `K1` to `DIR1`
 
@@ -157,6 +159,9 @@ support and assert the lowering table from `3-COMPILATION.md`.
 For the golden witness, structural equality requires:
 
 ```text
+CompilationHeader language      = K1
+DIR1Version                     = DIR1-1
+ExecutionSemanticsProfileId     = E1-1
 DomainProgram tests             = 0
 MapConstructor count            = 2
 EmptyConstructor count          = 0
@@ -173,23 +178,62 @@ Association evidence row count  = 5
 Each compiled semantic identifier must resolve to the corresponding authored
 record and exact model endpoint.
 
-**CF-5 (D; `CP-1` through `CP-14`).** Compilation conformance includes:
+### Conformance-only compiler profile
+
+`K1-Scalar-Only` is a fixture profile, not a product profile. It has this exact
+feature set:
+
+```text
+Outer correspondence support:
+  all association variants and claim records may be resolved and retained
+
+Supported directional constructs:
+  AllValid
+  EveryRecordPropertyPresent
+  EveryRecordPropertyEquals
+  MapEach
+  ConstructEmpty
+  CopyInputIdentity
+  CopyProperty
+  Constant
+  Absent
+  NoSignificantOutputOrder
+  input coverage and declared loss
+
+Unsupported directional constructs:
+  EveryRecordRelationshipPresent
+  CopyRelationship
+  AbsentRelationship
+  PreserveOrder
+```
+
+The golden forward direction therefore has exactly one missing required
+feature, `CopyRelationship`. Its `K1` validity is unchanged.
+
+**CF-5 (D; `CP-1` through `CP-15`).** Compilation conformance includes:
 
 - only `ValidatedK1` is accepted by the compiler API;
-- invalid or differently bound `K1` cannot reach direction assessment;
+- validation `Invalid`, validation `Unsupported`, and differently bound `K1`
+  cannot reach direction assessment;
 - absent, unsupported, and compiled are distinct;
 - `K1-Scalar-Only` reports the golden forward direction `Unsupported` because
   of `CopyRelationship`, while the same `K1` remains valid;
 - an unsupported direction does not discard a compiled opposite direction;
 - compiler-profile limits do not appear as domain tests;
+- every compiled direction carries `DIR1-1` and `E1-1` without relying
+  on its surrounding compilation header;
 - every supported authored variant has exactly one IR variant;
+- every `PreserveOrder` lowers to `CopyRecordOrder` with the exact resolved
+  input and output `OrderIdentity` values;
+- the contract bindings retain the exact identity validity, equality, order,
+  and revision used by `K1` validation;
 - every target-coverage and input-fate certificate row is complete, including
   an `EmptyPopulationProof` for each `EmptyConstructor`;
 - every authored claim has exactly one claim-assessment row;
 - authored collection reordering declared insignificant does not change
   program semantic identity; and
-- changing a domain test, constructor, write, fate, or loss row does change
-  program semantic identity.
+- changing a `DIR1`/execution version, domain test, constructor, write, fate,
+  loss row, or exact contract identity does change program semantic identity.
 
 ### Denotation preservation
 
@@ -206,6 +250,23 @@ The finite tests are exhaustive only for the explicitly finite fixture space.
 They witness the closed lowering table; they do not prove claims about an
 unbounded future language.
 
+### Named-order retention fixture
+
+A separate valid fixture has input entity `Item`, output entity `Entry`, input
+order `Presentation`, and output order `Display`. A `MapEach` rule copies
+identity, and order association `AO1` binds the two orders. The authored order
+assignment is `PreserveOrder(AO1)`. Its only conforming lowering is:
+
+```text
+CopyRecordOrder(Presentation, Display)
+```
+
+For input records `a`, `b` with `Presentation = [b, a]`, the resulting
+`Display` order must be `[b, a]`.
+
+Lowering to a fieldless order operation, swapping the endpoints, or recovering
+either identity from association evidence during execution fails this fixture.
+
 ## Edge 3 -> 4: `DIR1` to `E1`
 
 **CF-6 (D; `EX-1` through `EX-16`).** Every `DIR1` variant has an execution
@@ -213,6 +274,7 @@ fixture that reaches its exact machine transition:
 
 | `DIR1` construct | Required `E1` observation |
 | --- | --- |
+| IR and execution version fields | verified in `Accept` without a compilation header |
 | domain test | evaluated only in `TestDomain` |
 | map constructor | one output allocation per source record |
 | empty constructor | no allocation for its target entity |
@@ -220,8 +282,8 @@ fixture that reaches its exact machine transition:
 | constant | exact typed literal written |
 | absent scalar/reference | optional target member remains absent |
 | relationship copy | queued during construction and resolved through the named constructor |
-| order copy | output follows modeled source order |
-| input loss row | one deterministic evidence row |
+| order copy with two order identities | the named output order follows the named input order |
+| input loss row | one immutable, deterministically ordered `LossEvidence` row |
 | coverage certificate | no authoring reinterpretation at runtime |
 
 ### Directional law suite
@@ -233,8 +295,8 @@ fixture that reaches its exact machine transition:
 - **Semantic congruence:** when a supported fixture contract supplies an
   explicit nontrivial equivalence, equivalent admitted inputs produce
   equivalent outputs. Until the first profile supports such contracts, it
-  returns `ValidationUnsupported` without claiming invalidity or pretending to
-  test them.
+  returns `K1ValidationResult.Unsupported` without claiming invalidity or
+  pretending to test them.
 - **Nonmutation:** input and program snapshots remain state-equal after success,
   every failure code, and cancellation.
 - **Atomicity:** no failure result contains candidate state.
@@ -243,7 +305,58 @@ fixture that reaches its exact machine transition:
 - **No ambient semantics:** architecture and behavioral tests vary process
   environment without changing semantic results.
 - **Loss fidelity:** every compiled loss row appears in evidence, including an
-  empty affected-record set.
+  empty affected-record set; row and affected-identity order remain stable when
+  execution traversal is varied.
+
+### Identity-key regression
+
+Under identity semantics revision `meta-identity/1`, use this valid input:
+
+```text
+Region(Id = EU, Name = Europe)
+Customer(Id = c1, DisplayName = Ada, Region = eu)
+```
+
+The lowercase reference is valid because `MetaIdentity.Comparer` equates `eu`
+and `EU`. Conforming execution must:
+
+- insert `Territory(EU)` into `OutputIndex` using output identity equality;
+- resolve lookup key `eu` to that same record;
+- produce `Party(c1, Ada, Territory = EU)` without `EvaluationDefect`;
+- treat a second insertion at `eu` as a duplicate of `EU`; and
+- reject an identity failing output identity validation before index use.
+
+Running the same fixture with an ordinal string index is a required negative
+test and must fail conformance.
+
+### Detached-program version regression
+
+The golden `CompiledDirection` succeeds when detached from its
+`CompiledCorrespondence` because it carries `DIR1-1` and `E1-1` itself.
+Changing either field changes `ProgramIdentity`. An unknown `DIR1Version` or
+execution-semantics profile returns `InvalidProgram` in `Accept`, before domain
+evaluation. `K1LanguageVersion` remains compilation provenance and is not
+required by `Apply`.
+
+### Application-evidence regression
+
+A lossy fixture maps `Person(Id, Name)` to `PublicPerson(Id, Label)`. Its
+`MapEach` rule copies identity, writes constant `"Hidden"` to `Label`, and marks
+input concept `Person.Name` lost through declaration `L1`. For input enumeration
+`[Person(c2, Grace), Person(c1, Ada)]`, success returns exactly:
+
+```text
+ApplicationEvidence(
+  Losses = [
+    LossEvidence(
+      Loss = L1,
+      InputConcept = Person.Name,
+      AffectedInputRecordIds = [c1, c2])])
+```
+
+Reversing enumeration or constructor scheduling produces the same immutable
+value. An empty `Person` population still returns the `L1`/`Person.Name` row
+with `AffectedInputRecordIds = []`; it does not omit the evaluated declaration.
 
 ### Golden machine trace
 
@@ -274,12 +387,27 @@ change phase behavior or result.
 - typed-model round-trip preserves the authored `K1` structure;
 - contract binding freezes `GenericModelSnapshot` and significant-order values
   before computing `ContractIdentity`;
+- `ContractIdentity` changes when identity-semantics revision changes, and the
+  first profile binds `MetaIdentity.TryValidate` plus
+  `MetaIdentity.Comparer` as both equality and order;
 - invalid authoring and unsupported validation proof obligations produce
-  distinct `Invalid` and `ValidationUnsupported` results;
+  distinct `K1ValidationResult.Invalid` and
+  `K1ValidationResult.Unsupported` results;
+- `K1-Validation-Core-1` is passed explicitly and reports its missing proof
+  features without changing correspondence validity;
+- every detached `CompiledDirection` carries `DIR1Version` and
+  `ExecutionSemanticsProfile` fields included in
+  `ProgramIdentity`;
 - every compiled abstract-record variant has one immutable CLR type;
 - exhaustive pattern matching covers every domain test, constructor, identity
   write, property write, relationship write, order write, and input-fate
   variant;
+- `CopyRecordOrderWrite` stores exact input and output `OrderIdentity` values;
+- `OutputRecordIndex` uses output identity equality for insertion, duplicate
+  detection, and lookup, while copied identities use output identity
+  validation;
+- successful results expose immutable `ApplicationEvidence` and `LossEvidence`
+  values in the deterministic order required by `E1-1`;
 - `ExecutionContext` is application-local and never retained by a compiled
   program;
 - Core project references exclude `Meta.Integration`, surfaces, database and
@@ -319,11 +447,17 @@ The stage-4 slice is accepted only when:
 
 - the golden `K1` is represented by the sanctioned Meta model;
 - all kernel-to-language positive and negative fixtures relevant to
-  `K1-Core-1` pass;
+  `K1-Validation-Core-1` pass;
+- `Valid`, `Invalid`, and validation `Unsupported` remain distinct through the
+  implementation API;
 - the compiler produces the exact golden `DIR1` counts and identities;
+- detached directions carry and enforce `DIR1-1` and `E1-1`;
 - `K1-Scalar-Only` demonstrates validity distinct from compiler support;
 - the executor produces the exact golden state and passes every applicable
   directional law;
+- the named-order and case-insensitive identity-key regressions pass;
+- application and loss evidence have the exact immutable shapes and ordering
+  required by `E1-1`;
 - relationship construction is included;
 - unsupported language or contract features fail before execution;
 - no reverse or recovery capability is claimed; and
@@ -358,10 +492,10 @@ Decision: revise | accept for next rung
 
 | Edge | Concrete contribution now available | Review still required |
 | --- | --- | --- |
-| Kernel -> `K1` | association and direction grammar, denotation, golden authored witness | Confirm the bounded grammar is sufficient to justify a first value experiment. |
-| `K1` -> `DIR1` | normalized tests, typed constructors/writes, fate/loss tables, certificate, lowering law | Review whether the certificate carries exactly the facts execution needs. |
-| `DIR1` -> `E1` | explicit state, phases, transitions, terminal result, golden trace | Review failure taxonomy and resource/cancellation boundary. |
-| `E1` -> implementation | named Meta entities, CLR values, services, profile, project boundary | Review model size and total cost before authorizing model changes. |
+| Kernel -> `K1` | association and direction grammar, three-way validation result, denotation, golden authored witness | Confirm the bounded grammar is sufficient to justify a first value experiment. |
+| `K1` -> `DIR1` | normalized tests, typed constructors/writes, retained order identities and executable versions, fate/loss tables, certificate, lowering law | Recheck the complete closed lowering table after any language revision. |
+| `DIR1` -> `E1` | explicit state, identity-key semantics, phases, transitions, deterministic evidence, terminal result, golden trace | Review failure taxonomy and resource/cancellation boundary. |
+| `E1` -> implementation | named Meta entities, identity semantics, versioned CLR values, evidence records, services, profile, project boundary | Review model size and total cost before authorizing model changes. |
 
 These rows identify review work; they do not self-certify promotion. No edge
 depends on a primary consistency relation, graph rewriting, incremental

@@ -63,11 +63,11 @@ DirectionAssessment ::=
 - `Compiled` contains the immutable program whose denotation is the authored
   direction.
 
-`ValidatedK1` retains the exact contract bindings used by validation. Invalid,
-incomplete, or differently bound authored syntax cannot be passed through this
-typed interface; `ValidateK1` rejects it before compilation. An unsupported
-direction does not invalidate `K1` and does not discard a successfully compiled
-opposite direction.
+`ValidatedK1` retains the exact contract bindings used by validation. A
+document yielding validation `Invalid` or `Unsupported`, or one bound to
+different contracts, cannot be passed through this typed interface. A
+compiler-unsupported direction does not invalidate `K1` and does not discard a
+successfully compiled opposite direction.
 
 The outer evidence value has a closed structural form:
 
@@ -106,6 +106,8 @@ A compiled direction has this exact logical shape:
 
 ```text
 DIR1 = (
+  DIR1Version,
+  ExecutionSemanticsProfileId,
   ProgramId,
   CorrespondenceKey,
   CorrespondenceRevision,
@@ -120,12 +122,20 @@ DIR1 = (
 )
 ```
 
+`DIR1Version` identifies the exact closed IR grammar. An
+`ExecutionSemanticsProfileId` identifies the transition semantics required to
+interpret that grammar. Both travel with a detached direction; neither is
+inferred from the compiler process or surrounding `CompiledCorrespondence`.
+The source `K1LanguageVersion` remains in `Header` as compilation provenance;
+execution does not reinterpret authoring syntax.
+
 `InputContract` and `OutputContract` are the exact immutable semantic bindings
 supplied during validation and compilation; their identities participate in
 program identity. Retaining them prevents runtime lookup through an ambient
-registry. `DIR1` otherwise contains resolved semantic identifiers. It contains
-no authoring names that require runtime lookup and no executable delegate
-hidden behind a node.
+registry. Each binding retains its identity-validity, identity-equality, and
+deterministic identity-order semantics with their revision. `DIR1` otherwise
+contains resolved semantic identifiers. It contains no authoring names that
+require runtime lookup and no executable delegate hidden behind a node.
 
 Association records lower into resolved compilation evidence:
 
@@ -202,7 +212,7 @@ RelationshipWrite ::=
   | WriteAbsentReference(OutputRelationshipId)
 
 OrderWrite ::=
-    CopyRecordOrder
+    CopyRecordOrder(InputOrderId, OutputOrderId)
   | IgnoreIncidentalOrder
 ```
 
@@ -211,7 +221,8 @@ constructor. Property and relationship writes are indexed by exact output
 member. These indexes are semantic lookup tables, not traversal-dependent
 runtime inference. `CopyScalar` preserves exact presence and text value.
 `CopyReference` preserves relationship presence and, when present, carries the
-referenced input identity to the named output constructor.
+referenced input identity to the named output constructor. `CopyRecordOrder`
+names the exact modeled input order it reads and output order it writes.
 
 **CP-5 (D; `CM-5`, `CM-6`, `CM-7`).** Each `MapEach` lowers to one
 `MapConstructor`, and each `ConstructEmpty` lowers to one `EmptyConstructor`.
@@ -226,7 +237,7 @@ write may be synthesized.
 | `Absent(output)` | `WriteAbsent(resolved output)` |
 | `CopyRelationship(..., input, output, rule)` | `CopyReference(resolved input, resolved output, lowered rule)` |
 | `AbsentRelationship(output)` | `WriteAbsentReference(resolved output)` |
-| `PreserveOrder(...)` | `CopyRecordOrder` |
+| `PreserveOrder(association)` | `CopyRecordOrder(resolved input order, resolved output order)` |
 | `NoSignificantOutputOrder` | `IgnoreIncidentalOrder` |
 
 ### Input fate and loss tables
@@ -297,7 +308,9 @@ reinterpret authoring syntax.
   5. a reference copy preserves input presence and, when present, targets the
      record with the copied identity produced by the named referenced
      constructor;
-  6. order writes supply every significant output order; and
+  6. `CopyRecordOrder(input, output)` writes the named output order from the
+     named input order, while `IgnoreIncidentalOrder` writes no modeled order;
+     and
   7. the union of constructor contributions is O under OutputContract.
 ```
 
@@ -317,11 +330,15 @@ The relation holds only when all of these checks hold:
 
 1. every association, entity, property, relationship, order, and rule reference
    resolves to its exact validated identity;
-2. `Profile` supports every syntax form used by `Delta_X`;
-3. the domain, constructor, assignment, fate, and loss mappings follow the
+2. the exact identity semantics used to establish `K1` identity compatibility
+   are retained in the input and output contract bindings;
+3. every `PreserveOrder` resolves its association to one exact input-order and
+   output-order identity for the direction's orientation;
+4. `Profile` supports every syntax form used by `Delta_X`;
+5. the domain, constructor, assignment, fate, and loss mappings follow the
    tables in this document;
-4. the coverage certificate is complete;
-5. the denotation-preservation obligation below is established for the closed
+6. the coverage certificate is complete;
+7. the denotation-preservation obligation below is established for the closed
    mappings.
 
 The explanatory ordering of checks is not an implementation algorithm.
@@ -407,10 +424,12 @@ establish recovery or canonicalization.
 
 **CP-12 (C; realizes `CM-10`, supports `K-L`).** A `DIR1` value is immutable.
 Its semantic identity is determined by the correspondence key and revision,
-orientation, exact contract identities, normalized domain program,
-constructors, fate and loss tables, certificate, and compiler-language version.
-Reordering authored collections declared insignificant does not change this
-identity; changing a semantic component does.
+`DIR1Version`, execution-semantics profile, orientation, exact contract
+identities, normalized domain program, constructors, fate and loss tables, and
+certificate. Source-language and compiler-profile identities remain compilation
+evidence; they affect program identity only through the executable values they
+select. Reordering authored collections declared insignificant does not change
+semantic identity; changing a semantic component does.
 
 The digest algorithm and physical object representation remain implementation
 choices. A semantic identity cannot contain a path, timestamp, random value, or
@@ -428,6 +447,11 @@ without making them semantic identifiers.
 returns `Unsupported`; it never becomes an opaque delegate, best-effort plan,
 or implicit domain restriction.
 
+**CP-15 (D; `CM-14`).** `DIR1` retains the exact input and output identity
+validity, equality, deterministic order, and semantic revision used to establish
+`K1` identity compatibility. Lowering may not substitute host string semantics
+or an execution-local comparer.
+
 ## Compiled Customer Witness
 
 For a profile supporting all `K1` constructs, the customer correspondence from
@@ -435,6 +459,8 @@ the preceding layer lowers to:
 
 ```text
 DIR1 customer-party/1/F
+  dir1-version: DIR1-1
+  execution-semantics: E1-1
   input:  SalesCatalog
   output: PartyDirectory
 
@@ -513,8 +539,10 @@ meaning.
 | `K1` abstraction | `DIR1` realization | Local validation |
 | --- | --- | --- |
 | Exact contracts and concepts | Resolved semantic identifiers | Every identifier traces to its authored endpoint. |
+| Identity-compatibility proof | Retained contract identity semantics and revision | Execution receives the exact validity, equality, and order used by validation. |
 | Domain formula | `AllOf(DomainTest...)` | Membership denotation is equal. |
 | Entity and assignment rules | Constructors and writes | The lowering table is total for the selected profile. |
+| Order association identity | Input/output identities on `CopyRecordOrder` | Execution never infers a corresponding order. |
 | Input coverage and loss | Fate and loss tables | Row-for-row preservation is checked. |
 | Complete target coverage | Coverage certificate | Every exact output fact has its required owner. |
 | Independent directions | Independent assessments and programs | One unsupported direction cannot erase the other. |

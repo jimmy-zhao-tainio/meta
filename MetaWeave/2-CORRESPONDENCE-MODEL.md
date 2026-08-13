@@ -354,15 +354,30 @@ not establish closure or the round-trip law.
 This layer distinguishes authored-document state from correspondence truth:
 
 ```text
-ValidateK1(document, M_S, M_T)
+ValidateK1(ValidationProfile, document, M_S, M_T)
   -> Valid(ValidatedK1)
-   | Invalid(diagnostics)
+   | Invalid(Diagnostics)
+   | Unsupported(RequiredFeatures, Diagnostics)
 ```
+
+- `Valid` carries the immutable correspondence and exact contract bindings for
+  which every `K1` validity obligation has been established.
+- `Invalid` means the authored document or bound contracts refute at least one
+  `K1` validity rule.
+- `Unsupported` means the document is not known to be invalid, but the selected
+  validator cannot establish a required judgment for a language or
+  exact-contract semantic feature. It carries no `ValidatedK1` value.
+
+`ValidationProfile` declares only which judgments the validator can establish.
+It cannot change `K1` syntax, denotation, or the meaning of `Valid` and
+`Invalid`.
 
 **CM-13 (C; satisfies `K-C`).** `K1` is valid when its identity and revision are
 well formed, both exact contracts resolve, at least one association exists,
 every present direction has valid closed syntax and denotation, claims are well
-formed, and no forbidden boundary concept occurs.
+formed, and no forbidden boundary concept occurs. Validation returns exactly
+one of `Valid`, `Invalid`, or `Unsupported`; inability to establish validity is
+not evidence of invalidity.
 
 **CM-14 (D; `K-D`, `K-L`, `K-I`).** A present direction is valid only when its
 domain is explicit, all references resolve, target coverage is complete,
@@ -376,6 +391,13 @@ Validation also checks scalar compatibility for copies, literal validity for
 constants, member optionality for explicit absence, identity compatibility,
 and every order constraint used by the denotation.
 
+Identity compatibility is evaluated with the exact contracts' identity
+validity and equality semantics. For every admitted input, copied identities
+must be valid output identities, distinct constructed records must remain
+distinct under output identity equality, and an input relationship equal to a
+copied target identity under input semantics must resolve to that target under
+output semantics. These are validity obligations, not executor repair rules.
+
 **CM-15 (D; `K-A`, `K-R`).** Validation establishes syntax and denotation, not
 recovery. Claims remain `Unassessed` until compilation or a separate verifier
 derives evidence. A refuted claim does not silently become a capability.
@@ -385,10 +407,10 @@ compiler may support all or a declared subset of valid `K1`; compiler support
 does not redefine correspondence validity. Opaque expressions or callbacks are
 not an escape hatch for unsupported language.
 
-`ValidateK1` above denotes the complete language judgment. A bounded concrete
-validator that cannot establish one of its proof obligations must report that
-validation feature as unsupported; it must not turn inability to decide into
-`Invalid` or manufacture a `ValidatedK1` value.
+`ValidateK1` above denotes the language judgment and exposes implementation
+incompleteness in its result algebra. A bounded validator that cannot establish
+one of its proof obligations returns `Unsupported`; it must not turn inability
+to decide into `Invalid` or manufacture a `ValidatedK1` value.
 
 ## Concrete Witness: Customer Correspondence
 

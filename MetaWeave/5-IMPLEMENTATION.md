@@ -62,6 +62,17 @@ them.
 Core receives, rather than discovers, this responsibility:
 
 ```csharp
+public interface IWorkspaceIdentityValidator
+{
+    bool TryValidate(string? value, out string error);
+}
+
+public sealed record WorkspaceIdentitySemantics(
+    IdentitySemanticsRevision Revision,
+    IEqualityComparer<string> Equality,
+    IComparer<string> Order,
+    IWorkspaceIdentityValidator Validator);
+
 public sealed record WorkspaceSemanticContract(
     ContractIdentity Identity,
     GenericModelSnapshot Model,
@@ -69,7 +80,7 @@ public sealed record WorkspaceSemanticContract(
     IWorkspaceValidator Validator,
     IWorkspaceStateEquality StateEquality,
     IWorkspaceSemanticEquivalence SemanticEquivalence,
-    IComparer<string> IdentityOrder,
+    WorkspaceIdentitySemantics Identities,
     IWorkspaceCanonicalizer? Canonicalizer);
 ```
 
@@ -81,29 +92,50 @@ facts not currently carried by `GenericModel`. Retaining a caller-mutable
 `GenericModel` reference in `DIR1` would violate program immutability.
 
 The interfaces are model-owned semantic contracts, not delegates embedded in
-authored `K1`. `IdentityOrder` supplies deterministic processing and diagnostic
-ordering for modeled record identities; it does not make record order
-significant.
+authored `K1`. `Identities.Equality` owns duplicate and reference equality;
+`Identities.Order` owns deterministic processing and evidence ordering; and
+`Identities.Validator` decides whether an identity belongs to the contract's
+identity value space. The order must compare exactly the equality classes:
+`Order.Compare(a, b) == 0` if and only if `Equality.Equals(a, b)` for valid
+identities. It does not make record order significant.
+
+`WorkspaceSemanticContract.Validator` must use the same identity validator and
+equality for record uniqueness, relationship-identity validity, and target
+resolution. Contract construction fails if these services are not one coherent
+revision.
 
 Each semantic-contract service is immutable and referentially transparent, and
 its semantic revision participates in `ContractIdentity`. It may inspect only
 the supplied contract or workspace; it cannot consult a registry, process
 state, environment, clock, network, or persistence surface.
 
-The first compilation profile supports directions only for contract bindings
-for which:
+The first validation profile, `K1-Validation-Core-1`, can establish `K1`
+judgments only for contract bindings for which:
 
 - complete validity is supplied by the neutral structural validator;
 - semantic equivalence is state equality;
 - modeled property values are neutral Unicode text with ordinal equality;
-- modeled identities are text with ordinal deterministic ordering; and
+- modeled identities use `MetaIdentity.TryValidate` and
+  `MetaIdentity.Comparer` for both equality and deterministic ordering; and
 - no canonicalizer is required.
+
+For that profile, identity semantics revision `meta-identity/1` binds
+`MetaIdentity.TryValidate` and the ordinal-ignore-case
+`MetaIdentity.Comparer`. Thus `eu` and `EU` are equal identity keys even though
+their strings are not ordinally equal.
+
+A valid-looking document requiring nontrivial semantic equivalence,
+canonicalization, or another proof feature outside this list returns
+`K1ValidationResult.Unsupported` with the missing features. The profile never
+turns validation incapability into `Invalid`.
 
 **IM-3 (C; realizes `EX-1`, `EX-2`, `EX-10`, `EX-11`).** Contract identity is a
 versioned deterministic signature over every neutral model distinction used by
-validity and state equality. A richer future signature must additionally name
-the revision of nontrivial validity, equivalence, ordering, or canonicalization
-semantics. Model names are diagnostic labels, not compatibility evidence.
+validity and state equality. It always includes `Identities.Revision`; changing
+identity validation, equality, or ordering therefore changes contract identity.
+A richer future signature must additionally name the revision of nontrivial
+validity, equivalence, ordering, or canonicalization semantics. Model names are
+diagnostic labels, not compatibility evidence.
 
 ## Sanctioned `K1` Meta Model
 
@@ -266,6 +298,8 @@ public abstract record DirectionAssessment
 }
 
 public sealed record CompiledDirection(
+    DIR1Version DIR1Version,
+    ExecutionSemanticsProfileIdentity ExecutionSemanticsProfile,
     ProgramIdentity Identity,
     Orientation Orientation,
     WorkspaceSemanticContract InputContract,
@@ -336,7 +370,9 @@ public sealed record AbsentReferenceWrite(
 
 public abstract record CompiledOrderWrite;
 public sealed record CopyRecordOrderWrite(
-    ProgramComponentIdentity Identity) : CompiledOrderWrite;
+    ProgramComponentIdentity Identity,
+    OrderIdentity InputOrder,
+    OrderIdentity OutputOrder) : CompiledOrderWrite;
 public sealed record IgnoreIncidentalOrderWrite(
     ProgramComponentIdentity Identity) : CompiledOrderWrite;
 
@@ -367,6 +403,12 @@ These are closed values rather than extension dictionaries. The small identity,
 diagnostic, and evidence value types named above carry only the corresponding
 semantic identifiers and records already defined by `K1` or `DIR1`.
 
+`ProgramIdentity` is computed over every semantic field of `CompiledDirection`,
+including `DIR1Version`, `ExecutionSemanticsProfile`, both exact contract
+identities, and every compiled operation. `K1LanguageVersion` and compiler
+profile remain provenance in `CompilationHeader`; `Apply` can validate a
+detached direction without access to that header.
+
 **IM-5 (D; `EX-1`, `EX-5`, `EX-6`).** Every concrete IR variant is immutable
 and has one executor branch. No IR type carries `Func`, `Delegate`, service
 locator, path, surface descriptor, or arbitrary payload.
@@ -374,14 +416,29 @@ locator, path, surface descriptor, or arbitrary payload.
 ## Core Service Interfaces
 
 ```csharp
-public abstract record K1ValidationResult;
-public sealed record Validated(
-    ValidatedK1 Correspondence) : K1ValidationResult;
-public sealed record Invalid(
-    ImmutableArray<MetaWeaveDiagnostic> Diagnostics) : K1ValidationResult;
-public sealed record ValidationUnsupported(
-    ImmutableArray<UnsupportedFeature> RequiredFeatures,
-    ImmutableArray<MetaWeaveDiagnostic> Diagnostics) : K1ValidationResult;
+public sealed record ValidationProfile(
+    ValidationProfileIdentity Identity,
+    LanguageVersion K1LanguageVersion,
+    ImmutableHashSet<ValidationFeature> SupportedFeatures);
+
+public abstract record K1ValidationResult
+{
+    public sealed record Valid(
+        ValidatedK1 Correspondence) : K1ValidationResult;
+    public sealed record Invalid(
+        ImmutableArray<MetaWeaveDiagnostic> Diagnostics) : K1ValidationResult;
+    public sealed record Unsupported(
+        ImmutableArray<UnsupportedFeature> RequiredFeatures,
+        ImmutableArray<MetaWeaveDiagnostic> Diagnostics) : K1ValidationResult;
+}
+
+public sealed record ApplicationEvidence(
+    ImmutableArray<LossEvidence> Losses);
+
+public sealed record LossEvidence(
+    LossIdentity Loss,
+    InputConceptIdentity InputConcept,
+    ImmutableArray<RecordIdentity> AffectedInputRecordIds);
 
 public abstract record ApplicationResult;
 public sealed record ApplicationSucceeded(
@@ -392,6 +449,7 @@ public sealed record ApplicationFailed(
     ImmutableArray<MetaWeaveDiagnostic> Diagnostics) : ApplicationResult;
 
 K1ValidationResult Validate(
+    ValidationProfile profile,
     MetaWeaveModel document,
     WorkspaceSemanticContract source,
     WorkspaceSemanticContract target);
@@ -410,11 +468,18 @@ ApplicationResult Apply(
 - compilation lowers validated `K1` to `DIR1`;
 - application runs the `E1` machine over neutral state.
 
-The compiler accepts only the `Validated` branch. `Invalid` means the authored
-records refute a `K1` rule; `ValidationUnsupported` means this implementation
+The compiler accepts only `K1ValidationResult.Valid`. `Invalid` means the
+authored records refute a `K1` rule; `Unsupported` means this implementation
 cannot establish a required language judgment and says nothing contrary about
 the correspondence's semantic validity. The executor does not accept authoring
 records. This prevents phase responsibility from being duplicated.
+
+`ApplicationEvidence.Losses` has one row for each `(LossId, InputConceptId)`
+visited by `E1`. Rows are frozen with `DIR1SemanticIdentifierComparer.Ordinal`,
+which implements the canonical identifier order required by `DIR1-1`.
+Affected record identities are duplicate-free under the input contract's
+identity equality and frozen in its identity order. The empty immutable array
+is the complete evidence value for a lossless application.
 
 **IM-6 (D; `EX-4` through `EX-9`).** `Apply` owns an application-local
 `ExecutionContext` containing the candidate builder, output index, pending
@@ -446,6 +511,14 @@ internal sealed class ExecutionContext
     public required ApplicationEvidenceBuilder Evidence { get; init; }
 }
 ```
+
+`OutputRecordIndex` is constructed with
+`Program.OutputContract.Identities.Equality`. It uses that equality for both
+duplicate detection and reference lookup. Copied record and reference
+identities are checked with `Program.OutputContract.Identities.Validator`
+before insertion or lookup. `ApplicationEvidenceBuilder` is constructed with
+the input identity equality and order and can freeze only the immutable shapes
+defined above.
 
 Constructor and record cursors are local enumerators inside
 `ConstructRecords`; they carry no correspondence decisions. The names above
@@ -480,6 +553,12 @@ output, and cancellation.
 `K1-Core-1` supports every construct currently defined by the closed `K1`
 grammar:
 
+```text
+K1LanguageVersion = K1
+DIR1Version = DIR1-1
+ExecutionSemanticsProfile = E1-1
+```
+
 - association records for entities, properties, relationships, and order;
 - `AllValid` and the three universal domain predicates;
 - `MapEach` and `ConstructEmpty`;
@@ -495,10 +574,7 @@ semantic functions, implicit defaults, repair, inference, composition,
 incremental synchronization, or in-place update.
 
 Recovery and canonicalization claims may be stored, but `K1-Core-1` reports
-them `Unresolved` until the corresponding verifier is delivered. A validation
-obligation requiring nontrivial semantic equivalence returns
-`ValidationUnsupported` in this profile; it is not treated as invalid `K1` and
-is never encoded as a narrower domain.
+them `Unresolved` until the corresponding verifier is delivered.
 
 **IM-8 (C; realizes `EX-6` in the first delivery slice).** Relationship
 construction is part of the first profile and the first forward conformance
@@ -512,7 +588,8 @@ An application performs this sequence:
 ```text
 1. Acquire the authored MetaWeave workspace through a supported surface.
 2. Acquire exact source and target model contracts.
-3. Call Validate, then Compile.
+3. Call Validate with an explicit validation profile, then Compile with an
+   explicit compiler profile.
 4. Select one compiled direction.
 5. Acquire one exact-contract input workspace.
 6. Call Apply.
@@ -539,8 +616,9 @@ The same witness now has a one-to-one implementation representation:
 | rules `R1`, `R2` | two `MapEachRule` records with identity, scalar, relationship, and order assignment records |
 | seven input-fate entries | seven input-concept records and seven `PreservedInputCoverage` records |
 | no loss | no `LossDeclaration` or `LostInputCoverage` records |
-| compiled witness | one `CompiledDirection` with two `CompiledMapConstructor` values |
+| compiled witness | one `CompiledDirection` carrying `DIR1-1`, `E1-1`, and two `CompiledMapConstructor` values |
 | execution trace | one application-local `ExecutionContext` traversing all `E1` phases |
+| successful evidence | one `ApplicationEvidence` with an empty immutable loss array |
 
 No implementation record in this table lacks a predecessor construct, and no
 predecessor construct is represented by an opaque implementation field.
@@ -552,7 +630,7 @@ predecessor construct is represented by an opaque implementation field.
 | 0. Ladder acceptance | Reviewed `K1`, `DIR1`, `E1`, implementation map, and conformance witness | Every rung passes its local predecessor check. |
 | 1. In-memory witness | Customer `K1` represented with immutable test values | It validates without serialized model or hidden callbacks. |
 | 2. Sanctioned Meta model | Reviewed model above and generated typed views | It represents the same witness one-for-one. |
-| 3. Validator and compiler | `Validate` plus `K1-Core-1` lowering to the displayed `DIR1` | Negative authoring and exact lowering tests pass. |
+| 3. Validator and compiler | `K1-Validation-Core-1` validation plus `K1-Core-1` lowering to the displayed `DIR1` | Negative authoring, unsupported validation, and exact lowering tests pass. |
 | 4. Forward machine | `Apply` produces the displayed `PartyDirectory` result, including relationship resolution | All applicable `E1` laws and failure cases pass. |
 | 5. Product value gate | One separately selected real product correspondence compared with a direct converter | Continue only when reuse or maintainability benefit justifies total framework cost. |
 | 6. Independent reverse need | A real reverse `K1` definition and compiled program | Reverse value is demonstrated independently; no recovery wording is inferred. |
@@ -582,12 +660,14 @@ Sunk work and architectural elegance are not continuation criteria.
 
 | `E1` abstraction | Implementation realization | Local validation |
 | --- | --- | --- |
-| immutable program and exact contracts | `CompiledDirection`, `WorkspaceSemanticContract` | Core receives both explicitly. |
+| immutable self-describing program and exact contracts | versioned `CompiledDirection`, `WorkspaceSemanticContract` | Core receives all executable identity explicitly. |
+| identity validity, equality, and order | `WorkspaceIdentitySemantics` | Contract revision and coherent operations govern validation, indexing, lookup, and ordering. |
 | fresh machine state | application-local `ExecutionContext` | No state is stored in the program or input. |
 | domain phase | typed domain-test evaluator | One branch exists for every `DIR1` test variant. |
 | record and scalar phase | candidate builder plus typed constructors/writes | No authoring syntax is interpreted at runtime. |
-| relationship phase | pending-reference list and output index | Resolution uses compiled constructor identifiers. |
-| loss phase | evidence accumulator | Every compiled loss row is visited. |
+| relationship phase | pending-reference list and equality-aware output index | Resolution uses compiled constructor identifiers and output identity equality. |
+| significant-order phase | `CopyRecordOrderWrite` with two `OrderIdentity` values | No corresponding order is inferred. |
+| loss phase | evidence builder plus immutable `ApplicationEvidence` and `LossEvidence` | Every compiled loss row is visited and frozen deterministically. |
 | validation and atomic terminal states | neutral validator and result union | Only frozen validated state enters `Success`. |
 | no ambient semantics | project references and architecture tests | Core cannot acquire or publish workspaces. |
 
