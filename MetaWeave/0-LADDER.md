@@ -3,13 +3,19 @@
 ## Status
 
 This document defines the method and dependency order for deriving MetaWeave
-from [`KERNEL.md`](KERNEL.md) to an implementable architecture. It is not an
+from [`1-KERNEL.md`](1-KERNEL.md) to an implementable architecture. It is not an
 additional semantic authority. The kernel remains the sole normative source of
 MetaWeave facts.
 
 The documents in the ladder are drafts until their predecessor validation and
 conformance obligations are accepted. A later layer may choose a mechanism,
 but it may not repair, weaken, or reinterpret an earlier semantic obligation.
+
+Each layer must also contribute a real textual abstraction. Restating its
+predecessor as a longer list of obligations is not a rung. A layer is complete
+only when it names its input artifact, defines a new output artifact with
+concrete syntax or state, and demonstrates the mapping between them on the same
+witness.
 
 ## The Two Anchors
 
@@ -25,7 +31,7 @@ architecture:
 - an authored correspondence is a Meta product document;
 - exact source and target contracts are neutral model contracts;
 - validation, compilation, and application operate over
-  `InMemoryWorkspace`-equivalent neutral state;
+  Meta.Operations `InMemoryWorkspace` neutral state;
 - Core has no workspace-location or persistence responsibility;
 - applications and CLIs acquire and publish workspaces through supported
   surfaces;
@@ -74,18 +80,23 @@ semantics.
 
 ```text
 KERNEL
+  semantic laws
   |
   v
 CORRESPONDENCE-MODEL
+  K1 authored correspondence calculus
   |
   v
 COMPILATION
+  DIR1 immutable directional IR
   |
   v
 EXECUTION
+  E1 abstract machine
   |
   v
 IMPLEMENTATION
+  Meta entities, CLR values, and services
 
 CONFORMANCE validates every edge and the complete path.
 ```
@@ -95,35 +106,47 @@ CONFORMANCE validates every edge and the complete path.
 Defines irreducible semantic facts and ownership boundaries. It contains no
 authoring syntax, compilation plan, API, or adoption policy.
 
+Its output is the set of semantic obligations identified by the kernel trace
+keys. It is not expected to be executable.
+
 ### Layer 1: Correspondence model
 
-Explains what information authored `K` must carry so the kernel facts are
-meaningful and checkable. It defines logical authoring concepts and validity,
-but not a concrete Meta metamodel or compiler representation.
+Defines `K1`, a concrete abstract syntax for first-class associations,
+directional domains and rules, coverage, loss, and claims. It gives that syntax
+a denotation over neutral workspace state and carries one authored witness from
+contracts to a mathematical partial direction. It does not define a serialized
+Meta metamodel or compiler representation.
 
 ### Layer 2: Compilation
 
-Defines how a validated declarative `K` is assessed independently for each
-direction and converted into immutable executable products. It defines the
-contract of compilation, not a particular algorithm or plan encoding.
+Defines `DIR1`, a concrete immutable intermediate representation with normalized
+domain tests, typed constructors and writes, input-fate and loss tables, a
+coverage certificate, and capability evidence. It defines a lowering relation
+from each `K1` construct to `DIR1` and a denotation-preservation law. It does
+not prescribe compiler passes, code generation, or plan serialization.
 
 ### Layer 3: Execution
 
-Defines application of one compiled direction to one neutral workspace,
-including domain decisions, atomic result construction, validation, and
-failure. It does not acquire or publish workspaces.
+Defines `E1`, an abstract machine with named state, phases, transition rules,
+private candidate state, failure states, and one atomic success state. The
+machine consumes `DIR1` directly and realizes its denotation operationally.
+It does not acquire or publish workspaces.
 
 ### Layer 4: Implementation
 
-Maps the preceding contracts onto Meta projects, package boundaries, service
-shapes, and a bounded vertical slice. It defines decision gates without
-authorizing a full implementation.
+Maps every `K1`, `DIR1`, and `E1` construct onto named Meta entities, immutable
+CLR value variants, service signatures, project dependencies, and a bounded
+delivery slice. No semantic construct may first appear here without a required
+predecessor revision. The document defines decision gates without authorizing
+model or code changes.
 
 ### Cross-cutting: Conformance
 
-Turns each semantic obligation and design choice into reviewable fixtures,
-laws, counterexamples, and acceptance gates. Passing examples demonstrate
-support; they do not prove unbounded recovery or equivalence claims.
+Carries the same golden correspondence through authored records, compiled IR,
+machine states, and implementation values. It checks structural mapping and
+semantic preservation at every edge, then adds counterexamples and reusable
+law suites. Passing examples demonstrate bounded support; they do not prove
+unbounded recovery or equivalence claims.
 
 ## Statement Classes
 
@@ -139,17 +162,21 @@ implementation acceptance.
 
 ## Validation Protocol
 
-Each layer is promoted only after five checks.
+Each layer is promoted only after six checks.
 
-1. **Predecessor closure:** every derived statement cites an obligation from
-   the immediately preceding document.
-2. **Kernel conservativity:** no statement contradicts a kernel trace key or
+1. **Concrete increment:** the layer defines a named output artifact, its
+   concrete syntax or state, and the input artifact it consumes. The output is
+   more specific than the input without being an implementation accident.
+2. **Predecessor closure:** every derived statement cites an obligation from
+   the immediately preceding document, and every output construct traces to an
+   input construct or an explicit design choice.
+3. **Kernel conservativity:** no statement contradicts a kernel trace key or
    silently strengthens an optional kernel claim into a universal one.
-3. **Boundary discipline:** the layer introduces only concepts appropriate to
+4. **Boundary discipline:** the layer introduces only concepts appropriate to
    its abstraction level.
-4. **Counterexample review:** partial directions, absent directions, lossy
+5. **Counterexample review:** partial directions, absent directions, lossy
    directions, and nonrecovering bidirectional cases remain representable.
-5. **Endpoint realizability:** at least one implementation in the existing
+6. **Endpoint realizability:** at least one implementation in the existing
    Meta architecture can satisfy the layer without moving persistence or
    artifact semantics into Core.
 
@@ -165,6 +192,10 @@ Review of a layer records:
 ```text
 Layer:
 Predecessor revision:
+Input artifact:
+New output artifact:
+Concrete syntax or state introduced:
+Witness mapping:
 Derived obligations satisfied:
 Choices introduced:
 Open questions preserved:
