@@ -11,5 +11,7 @@ maintenance guidance that complements the modeled reference.
 - [Foundation services and surfaces](SERVICES_API.md)
 - [Meta language kernel](META-LANGUAGE-KERNEL.md)
 
-MetaWeave's kernel and laddered specifications are maintained under
-[`MetaWeave`](../MetaWeave).
+MetaWeave's [overview](../MetaWeave/README.md),
+[WeaveScript surface](../MetaWeave/WEAVESCRIPT-SURFACE.md), and
+[execution contract](../MetaWeave/WEAVESCRIPT-EXECUTION.md) are maintained
+with the implementation.

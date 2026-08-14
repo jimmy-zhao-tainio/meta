@@ -1,46 +1,56 @@
-using Meta.Operations.Domain;
 using Meta.Core.Presentation;
-using Meta.Core.Services;
+using Meta.Core.Presentation.Cli;
+using Meta.Operations;
+using Meta.Operations.Domain;
+using Meta.Surfaces;
 using MetaCli.Core;
+using MetaWeave;
 using MetaWeave.Core;
-using MetaWeaveModel = global::MetaWeave.MetaWeaveModel;
+using MetaWeaveScript.Execution;
 
 internal static class Program
 {
+    private const string AppName = "meta-weave";
     private const string ApplicationId = "app-meta-weave";
     private const string CommandWorkspaceDirectoryName = "meta-weave.MetaCli";
     private static readonly ConsolePresenter Presenter = new();
 
-    static int Main(string[] args)
+    private static int Main(string[] args)
     {
-        if (Meta.Core.Presentation.Cli.CliVersion.TryWriteVersion(Presenter, "meta-weave", args, out var versionExitCode))
+        if (CliVersion.TryWriteVersion(Presenter, AppName, args, out var versionExitCode))
         {
             return versionExitCode;
         }
 
-        Environment.ExitCode = 0;
-        var runtime = new MetaCliRuntime<MetaWeaveModel>(CommandWorkspacePath, ApplicationId)
-            .UseDefaultHelp()
+        var exitCode = 0;
+        var runtime = new MetaCliRuntime<MetaWeaveModel>(
+                CommandWorkspacePath,
+                ApplicationId,
+                setExitCode: code => exitCode = code)
+            .UseDefaultHelp(options: new MetaCliHelpOptions("meta-weave show"))
             .Bind(
                 "exec-create",
                 [MetaCliWorkspace.Create("output", "xml", "csharp", "sql")],
                 RunCreate)
-            .Bind("exec-add-model", RunAddModel)
-            .Bind("exec-add-binding", RunAddBinding)
-            .BindReadOnly("exec-suggest", RunSuggest)
-            .BindReadOnly("exec-check", RunCheck)
+            .Bind("exec-add-direction", RunAddDirection)
+            .Bind("exec-add-requirement", RunAddRequirement)
+            .Bind("exec-add-transformation", RunAddTransformation)
+            .Bind("exec-update-requirement", RunUpdateRequirement)
+            .Bind("exec-update-transformation", RunUpdateTransformation)
+            .BindReadOnly("exec-show", RunShow)
+            .BindReadOnly("exec-emit-requirement", RunEmitRequirement)
+            .BindReadOnly("exec-emit-transformation", RunEmitTransformation)
             .Bind(
-                "exec-materialize",
-                [MetaCliWorkspace.Create(
-                    "output",
-                    "output-xml",
-                    "output-csharp",
-                    "output-sql",
-                    "output-connection-env")],
-                RunMaterialize);
+                "exec-execute",
+                [
+                    MetaCliWorkspace.Open("source-workspace"),
+                    MetaCliWorkspace.Open("target-workspace"),
+                    MetaCliWorkspace.Create("output", "xml", "csharp", "sql"),
+                ],
+                RunExecute);
 
         runtime.Run(args);
-        return Environment.ExitCode;
+        return exitCode;
     }
 
     private static string CommandWorkspacePath =>
@@ -50,153 +60,195 @@ internal static class Program
         MetaCliInvocation invocation,
         MetaCliWorkspaces workspaces)
     {
-        var workspacePath = invocation.Optional("xml") ??
-            invocation.Optional("csharp") ??
-            invocation.Optional("sql") ??
-            throw new InvalidOperationException("A workspace output is required.");
-        await workspaces.CreateAsync("output", MetaWeaveModel.CreateEmpty()).ConfigureAwait(false);
-
-        Presenter.WriteOk(
-            "weave workspace created",
-            ("Workspace", workspacePath),
-            ("Model", "MetaWeave"));
+        var model = new MetaWeaveAuthoringService().Create(
+            invocation.Required("name"),
+            invocation.Required("left-model"),
+            invocation.Required("right-model"));
+        await workspaces.CreateAsync("output", model).ConfigureAwait(false);
+        Presenter.WriteOk("MetaWeave workspace created");
     }
 
-    private static void RunAddModel(MetaCliInvocation invocation, MetaWeaveModel weaveModel)
+    private static void RunAddDirection(
+        MetaCliInvocation invocation,
+        MetaWeaveModel model)
     {
-        var workspacePath = ResolveWorkspacePath(invocation);
-        new MetaWeaveAuthoringService().AddModelReferenceAsync(
-            weaveModel,
-            workspacePath,
-            invocation.Required("alias"),
-            invocation.Required("model"),
-            invocation.Required("workspace-path")).GetAwaiter().GetResult();
-        Presenter.WriteOk(
-            "weave model reference added",
-            ("Workspace", workspacePath),
-            ("Alias", invocation.Required("alias")),
-            ("Model", invocation.Required("model")),
-            ("WorkspacePath", invocation.Required("workspace-path")));
-    }
-
-    private static void RunAddBinding(MetaCliInvocation invocation, MetaWeaveModel weaveModel)
-    {
-        var workspacePath = ResolveWorkspacePath(invocation);
-        new MetaWeaveAuthoringService().AddPropertyBindingAsync(
-            weaveModel,
-            workspacePath,
+        _ = new MetaWeaveAuthoringService().AddDirection(
+            model,
             invocation.Required("name"),
             invocation.Required("source-model"),
-            invocation.Required("source-entity"),
-            invocation.Required("source-property"),
-            invocation.Required("target-model"),
-            invocation.Required("target-entity"),
-            invocation.Required("target-property")).GetAwaiter().GetResult();
-        Presenter.WriteOk(
-            "weave property binding added",
-            ("Workspace", workspacePath),
-            ("Binding", invocation.Required("name")));
+            invocation.Required("target-model"));
+        Presenter.WriteOk("MetaWeave direction added");
     }
 
-    private static void RunSuggest(MetaCliInvocation invocation, MetaWeaveModel weaveModel)
-    {
-        var workspacePath = ResolveWorkspacePath(invocation);
-        var result = new MetaWeaveSuggestService().SuggestAsync(weaveModel, workspacePath).GetAwaiter().GetResult();
-
-        Line("Binding suggestions");
-        if (result.Suggestions.Count == 0)
-        {
-            Line("  (none)");
-        }
-        else
-        {
-            for (var index = 0; index < result.Suggestions.Count; index++)
-            {
-                var suggestion = result.Suggestions[index];
-                var roleSuffix = string.IsNullOrWhiteSpace(suggestion.InferredRole)
-                    ? string.Empty
-                    : $" (role: {suggestion.InferredRole})";
-                Line($"  {index + 1}) {suggestion.SourceModelAlias}.{suggestion.SourceEntity}.{suggestion.SourceProperty} -> {suggestion.TargetModelAlias}.{suggestion.TargetEntity}.{suggestion.TargetProperty}{roleSuffix}");
-            }
-        }
-
-        if (result.WeakSuggestions.Count > 0)
-        {
-            Line(string.Empty);
-            Line("Weak binding suggestions");
-            var weakIndex = 1;
-            foreach (var weakSuggestion in result.WeakSuggestions)
-            {
-                foreach (var candidate in weakSuggestion.Candidates)
-                {
-                    var roleSuffix = string.IsNullOrWhiteSpace(candidate.InferredRole)
-                        ? string.Empty
-                        : $" (role: {candidate.InferredRole})";
-                    Line($"  {weakIndex}) {weakSuggestion.SourceModelAlias}.{weakSuggestion.SourceEntity}.{weakSuggestion.SourceProperty} -> {candidate.TargetModelAlias}.{candidate.TargetEntity}.{candidate.TargetProperty}{roleSuffix}");
-                    weakIndex++;
-                }
-            }
-        }
-    }
-
-    private static void RunCheck(MetaCliInvocation invocation, MetaWeaveModel weaveModel)
-    {
-        var workspacePath = ResolveWorkspacePath(invocation);
-        var result = new MetaWeaveService().CheckAsync(weaveModel, workspacePath).GetAwaiter().GetResult();
-        if (result.HasErrors)
-        {
-            throw new InvalidOperationException(string.Join(
-                Environment.NewLine,
-                result.Bindings.SelectMany(binding => binding.Errors.Select(error => $"{binding.BindingName}: {error}"))));
-        }
-
-        Presenter.WriteOk(
-            "weave check",
-            ("Workspace", workspacePath),
-            ("Bindings", result.BindingCount.ToString()),
-            ("ResolvedRows", result.ResolvedRowCount.ToString()),
-            ("Errors", result.ErrorCount.ToString()));
-    }
-
-    private static async Task RunMaterialize(
+    private static void RunAddTransformation(
         MetaCliInvocation invocation,
-        MetaWeaveModel weaveModel,
+        MetaWeaveModel model)
+    {
+        _ = new MetaWeaveAuthoringService().AddTransformation(
+            model,
+            invocation.Required("direction"),
+            invocation.Required("name"),
+            invocation.Required("target-entity"),
+            MetaCliStandardInput.ReadToEnd());
+        Presenter.WriteOk("MetaWeave transformation added");
+    }
+
+    private static void RunAddRequirement(
+        MetaCliInvocation invocation,
+        MetaWeaveModel model)
+    {
+        _ = new MetaWeaveAuthoringService().AddRequirement(
+            model,
+            invocation.Required("direction"),
+            invocation.Required("name"),
+            invocation.Required("code"),
+            invocation.Required("message"),
+            MetaCliStandardInput.ReadToEnd());
+        Presenter.WriteOk("MetaWeave direction requirement added");
+    }
+
+    private static void RunUpdateTransformation(
+        MetaCliInvocation invocation,
+        MetaWeaveModel model)
+    {
+        _ = new MetaWeaveAuthoringService().UpdateTransformation(
+            model,
+            invocation.Required("direction"),
+            invocation.Required("name"),
+            MetaCliStandardInput.ReadToEnd());
+        Presenter.WriteOk("MetaWeave transformation updated");
+    }
+
+    private static void RunUpdateRequirement(
+        MetaCliInvocation invocation,
+        MetaWeaveModel model)
+    {
+        _ = new MetaWeaveAuthoringService().UpdateRequirement(
+            model,
+            invocation.Required("direction"),
+            invocation.Required("name"),
+            MetaCliStandardInput.ReadToEnd());
+        Presenter.WriteOk("MetaWeave direction requirement updated");
+    }
+
+    private static void RunShow(
+        MetaCliInvocation invocation,
+        MetaWeaveModel model)
+    {
+        var weave = model.WeaveList.Single();
+        Presenter.WriteInfo($"Weave: {weave.Id}");
+        Presenter.WriteInfo($"Left model: {weave.LeftModelName}");
+        Presenter.WriteInfo($"Right model: {weave.RightModelName}");
+        Presenter.WriteInfo($"Directions: {model.DirectionList.Count}");
+        foreach (var direction in model.DirectionList)
+        {
+            var requirements = model.DirectionRequirementList.Where(requirement =>
+                string.Equals(
+                    requirement.Direction?.Id,
+                    direction.Id,
+                    StringComparison.OrdinalIgnoreCase)).ToArray();
+            var transformations = model.TransformationList.Where(transformation =>
+                string.Equals(
+                    transformation.Direction?.Id,
+                    direction.Id,
+                    StringComparison.OrdinalIgnoreCase)).ToArray();
+            Presenter.WriteInfo(
+                $"  {direction.Id}: {direction.SourceModelName} -> {direction.TargetModelName} ({requirements.Length} requirements, {transformations.Length} transformations)");
+            foreach (var requirement in requirements)
+            {
+                Presenter.WriteInfo(
+                    $"    require {MetaWeaveAuthoringService.GetRequirementName(requirement)} [{requirement.Code}]");
+            }
+
+            foreach (var transformation in transformations)
+            {
+                Presenter.WriteInfo(
+                    $"    transform {MetaWeaveAuthoringService.GetTransformationName(transformation)} -> {transformation.TargetEntityName}");
+            }
+        }
+    }
+
+    private static void RunEmitRequirement(
+        MetaCliInvocation invocation,
+        MetaWeaveModel model)
+    {
+        var directionName = invocation.Required("direction");
+        var requirementName = invocation.Required("name");
+        var requirement = model.DirectionRequirementList.SingleOrDefault(item =>
+            string.Equals(item.Direction?.Id, directionName, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(
+                MetaWeaveAuthoringService.GetRequirementName(item),
+                requirementName,
+                StringComparison.OrdinalIgnoreCase))
+            ?? throw new MetaCliExitException(
+                4,
+                $"Requirement '{requirementName}' was not found in direction '{directionName}'.");
+        Console.Out.WriteLine(new MetaWeaveScript.Sql.MetaWeaveScriptSqlService()
+            .ExportToSqlCode(model, requirement.SelectStatement));
+    }
+
+    private static void RunEmitTransformation(
+        MetaCliInvocation invocation,
+        MetaWeaveModel model)
+    {
+        var directionName = invocation.Required("direction");
+        var transformationName = invocation.Required("name");
+        var transformation = model.TransformationList.SingleOrDefault(item =>
+            string.Equals(item.Direction?.Id, directionName, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(
+                MetaWeaveAuthoringService.GetTransformationName(item),
+                transformationName,
+                StringComparison.OrdinalIgnoreCase))
+            ?? throw new MetaCliExitException(
+                4,
+                $"Transformation '{transformationName}' was not found in direction '{directionName}'.");
+        Console.Out.WriteLine(new MetaWeaveScript.Sql.MetaWeaveScriptSqlService()
+            .ExportToSqlCode(model, transformation.SelectStatement));
+    }
+
+    private static async Task RunExecute(
+        MetaCliInvocation invocation,
+        MetaWeaveModel model,
         MetaCliWorkspaces workspaces)
     {
-        var weaveWorkspacePath = ResolveWorkspacePath(invocation);
-        var output = MetaCliWorkspace.OutputLocation(
-            invocation,
-            "output-xml",
-            "output-csharp",
-            "output-sql");
-
-        var result = await new MetaWeaveService()
-            .MaterializeAsync(
-                weaveModel,
-                weaveWorkspacePath,
-                invocation.Required("model"))
+        var direction = new MetaWeaveScriptDirectionLoader().Load(
+            model,
+            invocation.Optional("direction") ?? "forward");
+        var sourceWorkspace = await WorkspaceComposition.MaterializeAsync(
+                workspaces.Required("source-workspace"))
             .ConfigureAwait(false);
-        await workspaces.CreateAsync("output", result.Workspace).ConfigureAwait(false);
+        var targetContract = await WorkspaceComposition.MaterializeAsync(
+                workspaces.Required("target-workspace"))
+            .ConfigureAwait(false);
+        var targetWorkspace = new InMemoryWorkspace(
+            targetContract.Model.Clone(),
+            new GenericInstance { ModelName = targetContract.Model.Name });
+        var result = new MetaWeaveScriptExecutionService().ExecuteDirection(
+            direction,
+            sourceWorkspace,
+            targetWorkspace);
+        if (!result.IsSuccess)
+        {
+            throw new MetaCliExitException(
+                4,
+                string.Join(
+                    Environment.NewLine,
+                    result.Issues.Select(FormatIssue)));
+        }
 
-        Presenter.WriteOk(
-            "weave materialize",
-            ("Weave", weaveWorkspacePath),
-            ("Workspace", output),
-            ("Model", result.Workspace.Model.Name),
-            ("Entities", result.Workspace.Model.Entities.Count.ToString()),
-            ("BindingsMaterialized", result.BindingsMaterialized.ToString()));
+        await workspaces.CreateAsync("output", result.OutputWorkspace!)
+            .ConfigureAwait(false);
+
+        Presenter.WriteOk("MetaWeave direction executed into a new workspace");
     }
 
-    private static string ResolveWorkspacePath(MetaCliInvocation invocation)
+    private static string FormatIssue(MetaWeaveScriptExecutionIssue issue)
     {
-        var workspace = invocation.Optional("workspace");
-        return Path.GetFullPath(string.IsNullOrWhiteSpace(workspace)
-            ? Directory.GetCurrentDirectory()
-            : workspace);
-    }
-
-    private static void Line(string message)
-    {
-        Presenter.WriteInfo(message);
+        var owner = !string.IsNullOrWhiteSpace(issue.RequirementName)
+            ? $" [requirement {issue.RequirementName}]"
+            : !string.IsNullOrWhiteSpace(issue.TransformationName)
+                ? $" [transformation {issue.TransformationName}]"
+                : string.Empty;
+        return $"{issue.Code}{owner}: {issue.Message}";
     }
 }

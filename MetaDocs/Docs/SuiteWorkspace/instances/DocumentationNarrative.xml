@@ -110,6 +110,40 @@ The result is a chain of declared contracts rather than independent tools guessi
       <Slot>Summary</Slot>
       <Title>CLI</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta:metaweave:narrative:summary" DocumentationSubjectId="public:meta:metaweave">
+      <Body>MetaWeave is model-to-model conversion for Meta workspaces. A MetaWeave workspace is a first-class correspondence between two workspace contracts. It contains the independent directions that are supported, the requirements for entering each direction, and the transformations that populate target entities.
+
+The correspondence is the authored conversion truth. It is ordinary Meta workspace data, so it remains inspectable, versionable, and representation-neutral rather than being hidden inside handwritten converter code.
+
+## WeaveScript is modeled transformation
+
+WeaveScript is a modeled language for transforming models, distilled from MetaTransformScript and deliberately bounded to workspace conversion. Its recognizable T-SQL-shaped text is an authoring and inspection surface, not a collection of stored scripts. The MetaWeave workspace contains the typed semantic query graph that the text represents.
+
+MetaWeave executes that graph directly with its in-memory relational engine. It does not send conversion queries to SQL Server. SQL remains available as one workspace representation alongside XML and C#.
+
+A direction requirement is a violation query: zero rows satisfy it, while every returned row becomes a concrete diagnostic with projected evidence. All requirements run against the immutable source before target construction starts.
+
+Each transformation projects records for one target entity. MetaWeave derives their execution order from the target model dependency graph, starts with an empty target instance, and submits every insertion through normal Meta Core operations. The target is valid after every operation; no invalid intermediate workspace or final validation pass is used.
+
+## Execute a correspondence
+
+```text
+meta-weave execute \
+  --workspace &lt;weave-workspace&gt; \
+  --source-workspace &lt;populated-source&gt; \
+  --target-workspace &lt;target-contract&gt; \
+  --xml &lt;new-target-workspace&gt;
+```
+
+`forward` is the default direction. The target workspace supplies its model contract, not seed instances. Exactly one of `--xml`, `--csharp`, or `--sql` selects the new workspace representation. A failed requirement or transformation creates no output.
+
+`meta-weave show` summarizes a correspondence. `emit-requirement` and `emit-transformation` render modeled query graphs as readable WeaveScript. Update commands accept replacement text through standard input and store the parsed semantic model back in the same correspondence workspace.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>MetaWeave</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:models:narrative:summary:models" DocumentationSubjectId="public:meta:models">
       <Body>Model references for the core metadata foundation.</Body>
       <Origin>Authored</Origin>
@@ -240,7 +274,7 @@ Commands open the selected surface through the common workspace contract, apply 
 
 - **`meta`** creates and operates on model and instance workspaces across XML, SQL, and C# surfaces.
 - **`meta-cli`** defines modeled command surfaces and provides shared parsing, help, workspace access, and runtime binding.
-- **`meta-weave`** authors and validates declarative correspondence between source and target workspace contracts.
+- **`meta-weave`** authors first-class correspondences between workspace contracts. Its WeaveScript language is modeled transformation of models, distilled from MetaTransformScript; the T-SQL-shaped text is a readable projection of semantic query graphs stored in the correspondence workspace.
 - **`meta-docs`** combines CLI and model reference data with authored technical documentation, then merges and renders the public reference.
 - **`meta-mesh`** declares the workspaces involved in a repository workflow and the ordered executable steps that operate on them.
 
@@ -15552,283 +15586,433 @@ That workspace gives binding and quality tools access to statements, sources, pr
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-binding:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding">
-      <Body>Add a property binding between two model references.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-direction:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-direction">
+      <Body>Add one independent direction to a MetaWeave workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-binding:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:name">
-      <Body>Binding name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-direction:option:name:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-direction:option:name">
+      <Body>Direction name.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-binding:option:source-entity:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:source-entity">
-      <Body>Source entity name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-direction:option:source-model:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-direction:option:source-model">
+      <Body>Source model name; must be one side of the weave.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-binding:option:source-model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:source-model">
-      <Body>Source model alias.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-direction:option:target-model:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-direction:option:target-model">
+      <Body>Target model name; must be the other side of the weave.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-binding:option:source-property:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:source-property">
-      <Body>Source property name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-binding:option:target-entity:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:target-entity">
-      <Body>Target entity name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-binding:option:target-model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:target-model">
-      <Body>Target model alias.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-binding:option:target-property:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:target-property">
-      <Body>Target property name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-binding:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-binding:option:workspace">
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-direction:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-direction:option:workspace">
       <Body>MetaWeave workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model">
-      <Body>Add a referenced model workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-requirement:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-requirement">
+      <Body>Add a source-domain requirement to one direction.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-model:option:alias:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model:option:alias">
-      <Body>Local model alias used by bindings.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-requirement:option:code:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-requirement:option:code">
+      <Body>Stable diagnostic code for violating rows.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-model:option:model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model:option:model">
-      <Body>Referenced model name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-requirement:option:direction:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-requirement:option:direction">
+      <Body>Direction that owns the requirement.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-model:option:workspace-path:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model:option:workspace-path">
-      <Body>Referenced model workspace path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-requirement:option:message:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-requirement:option:message">
+      <Body>Diagnostic message for violating rows.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-model:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-model:option:workspace">
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-requirement:option:name:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-requirement:option:name">
+      <Body>Requirement name within the direction.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-requirement:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-requirement:option:workspace">
       <Body>MetaWeave workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:check:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:check">
-      <Body>Validate property bindings across referenced workspaces.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-transformation:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-transformation">
+      <Body>Read WeaveScript from standard input and add one transformation to a direction.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:check:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:check:option:workspace">
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-transformation:option:direction:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-transformation:option:direction">
+      <Body>Direction that owns the transformation.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-transformation:option:name:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-transformation:option:name">
+      <Body>Transformation name within the direction.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-transformation:option:target-entity:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-transformation:option:target-entity">
+      <Body>Target entity populated by the transformation.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:add-transformation:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:add-transformation:option:workspace">
       <Body>MetaWeave workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create">
-      <Body>Create a meta-weave workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create">
+      <Body>Create a complete MetaWeave workspace for two model contracts.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:connection-env:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:connection-env">
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:connection-env">
       <Body>Environment variable containing the SQL Server connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:csharp:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:csharp">
-      <Body>Create a C# workspace at this directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:csharp">
+      <Body>Create a C# MetaWeave workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:sql">
-      <Body>Create a SQL workspace described by this directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:left-model:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:left-model">
+      <Body>Left model contract name.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:xml:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:xml">
-      <Body>Create an XML workspace at this directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:name:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:name">
+      <Body>Weave name.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:help:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:help">
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:right-model:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:right-model">
+      <Body>Right model contract name.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:sql:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:sql">
+      <Body>Create a SQL MetaWeave workspace described by this directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:create:option:xml:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:create:option:xml">
+      <Body>Create an XML MetaWeave workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:emit-requirement:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:emit-requirement">
+      <Body>Emit one direction requirement query as recognizable T-SQL.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:emit-requirement:option:direction:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:emit-requirement:option:direction">
+      <Body>Direction that owns the requirement.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:emit-requirement:option:name:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:emit-requirement:option:name">
+      <Body>Requirement name within the direction.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:emit-requirement:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:emit-requirement:option:workspace">
+      <Body>MetaWeave workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:emit-transformation:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:emit-transformation">
+      <Body>Emit one embedded transformation as recognizable T-SQL.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:emit-transformation:option:direction:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:emit-transformation:option:direction">
+      <Body>Direction that owns the transformation.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:emit-transformation:option:name:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:emit-transformation:option:name">
+      <Body>Transformation name within the direction.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:emit-transformation:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:emit-transformation:option:workspace">
+      <Body>MetaWeave workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:execute:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:execute">
+      <Body>Execute one modeled direction into a new target workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:execute:option:connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:execute:option:connection-env">
+      <Body>Environment variable containing the SQL Server connection string.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:execute:option:csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:execute:option:csharp">
+      <Body>Create the result as a C# workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:execute:option:direction:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:execute:option:direction">
+      <Body>Direction to execute. Defaults to forward.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:execute:option:source-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:execute:option:source-workspace">
+      <Body>Populated source workspace read by the direction.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:execute:option:sql:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:execute:option:sql">
+      <Body>Create the result as a SQL workspace described by this directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:execute:option:target-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:execute:option:target-workspace">
+      <Body>Workspace supplying the target model contract.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:execute:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:execute:option:workspace">
+      <Body>MetaWeave workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:execute:option:xml:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:execute:option:xml">
+      <Body>Create the result as an XML workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:help:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:help">
       <Body>Show help.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:materialize:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize">
-      <Body>Materialize a new workspace from a valid weave.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:show:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:show">
+      <Body>Show the weave, its directions, and transformations.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:materialize:option:model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:model">
-      <Body>Materialized model name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:materialize:option:output-connection-env:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:output-connection-env">
-      <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:materialize:option:output-csharp:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:output-csharp">
-      <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:materialize:option:output-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:output-sql">
-      <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:materialize:option:output-xml:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:output-xml">
-      <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:materialize:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:materialize:option:workspace">
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:show:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:show:option:workspace">
       <Body>MetaWeave workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:suggest:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest">
-      <Body>Suggest missing property bindings.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:update-requirement:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:update-requirement">
+      <Body>Read replacement WeaveScript from standard input and update one requirement.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:command:suggest:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:suggest:option:workspace">
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:update-requirement:option:direction:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:update-requirement:option:direction">
+      <Body>Direction that owns the requirement.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:update-requirement:option:name:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:update-requirement:option:name">
+      <Body>Requirement name within the direction.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:update-requirement:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:update-requirement:option:workspace">
       <Body>MetaWeave workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:narrative:example-example-meta-weave-bind-and-materialize:bind-two-workspace-models-and-materialize" DocumentationSubjectId="source:cli:meta-weave:app" PreviousNarrativeId="source:cli:meta-weave:app:narrative:guide:working-with-metaweave">
-      <Body>Reference source and target model workspaces, author explicit property bindings, validate them, then materialize a new workspace from the weave.
-
-```powershell
-meta-weave new-workspace .\MetaWeave.Workspace
-meta-weave add-model --workspace .\MetaWeave.Workspace --alias Source --model SourceModel --workspace-path .\Source.Workspace
-meta-weave add-model --workspace .\MetaWeave.Workspace --alias Target --model TargetModel --workspace-path .\Target.Workspace
-meta-weave add-binding --workspace .\MetaWeave.Workspace --name CustomerName --source-model Source --source-entity Customer --source-property Name --target-model Target --target-entity Customer --target-property CustomerName
-meta-weave check --workspace .\MetaWeave.Workspace
-meta-weave materialize --workspace .\MetaWeave.Workspace --model TargetModel --new-workspace .\Materialized.Workspace
-```</Body>
-      <Origin>Authored</Origin>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:update-transformation:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:update-transformation">
+      <Body>Read replacement WeaveScript from standard input and update one transformation.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
-      <Slot>Example.example:meta-weave:bind-and-materialize</Slot>
-      <Title>Bind two workspace models and materialize</Title>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:narrative:guide:working-with-metaweave" DocumentationSubjectId="source:cli:meta-weave:app" PreviousNarrativeId="source:cli:meta-weave:app:narrative:summary:summary">
-      <Body>`MetaWeave` makes cross-model references explicit without changing either participating model. A weave workspace records the source and target workspaces together with property bindings that explain how a source value resolves to a target identity.
-
-Use it when a relationship crosses model boundaries. The binding can be reviewed, validated, and materialized into a combined workspace when a downstream operation needs one.</Body>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:update-transformation:option:direction:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:update-transformation:option:direction">
+      <Body>Direction that owns the transformation.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:update-transformation:option:name:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:update-transformation:option:name">
+      <Body>Transformation name within the direction.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:command:update-transformation:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app:command:update-transformation:option:workspace">
+      <Body>MetaWeave workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:narrative:guide" DocumentationSubjectId="source:cli:meta-weave:app" PreviousNarrativeId="source:cli:meta-weave:app:narrative:summary">
+      <Body>Create one weave workspace with `create`, then use `add-direction` for either or both independent orientations between its model contracts. Pipe each WeaveScript query to `add-transformation` through standard input; the workspace stores the semantic query graph and no script path. Use `show` to inspect the complete weave and `emit-transformation` to render one query as recognizable T-SQL. `apply` selects a direction, reads explicit source and target contract workspaces, instantiates the target through Meta Core operations in target-DAG order, and writes a new XML, C#, or SQL workspace. Every insertion is validated by the target model's normal operations; there is no separate final-validation pass.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Guide</Slot>
-      <Title>Working with MetaWeave</Title>
+      <Title>Guide</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-weave:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-weave:app">
-      <Body>Map one modeled workspace shape into another with explicit source, target, and field-level rules.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260805095716491</LastReviewedImportBatchId>
+    <DocumentationNarrative Id="source:cli:meta-weave:app:narrative:summary" DocumentationSubjectId="source:cli:meta-weave:app">
+      <Body>Author, inspect, emit, and execute complete MetaWeave correspondences between Meta workspaces.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-weave:batch:20260814170613132</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>

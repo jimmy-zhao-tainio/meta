@@ -4,8 +4,8 @@
     <ParameterGroupMember Id="member-create-csharp" ParameterGroupId="group-create-output" ParameterId="param-create-csharp" PreviousMemberId="member-create-xml" />
     <ParameterGroupMember Id="member-create-sql" ParameterGroupId="group-create-output" ParameterId="param-create-sql" PreviousMemberId="member-create-csharp" />
     <ParameterGroupMember Id="member-create-xml" ParameterGroupId="group-create-output" ParameterId="param-create-xml" />
-    <ParameterGroupMember Id="member-materialize-target-first" ParameterGroupId="group-materialize-target" ParameterId="param-materialize-output-xml" />
-    <ParameterGroupMember Id="member-materialize-target-output-csharp" ParameterGroupId="group-materialize-target" ParameterId="param-materialize-output-csharp" PreviousMemberId="member-materialize-target-first" />
-    <ParameterGroupMember Id="member-materialize-target-output-sql" ParameterGroupId="group-materialize-target" ParameterId="param-materialize-output-sql" PreviousMemberId="member-materialize-target-output-csharp" />
+    <ParameterGroupMember Id="member-execute-csharp" ParameterGroupId="group-execute-output" ParameterId="param-execute-csharp" PreviousMemberId="member-execute-xml" />
+    <ParameterGroupMember Id="member-execute-sql" ParameterGroupId="group-execute-output" ParameterId="param-execute-sql" PreviousMemberId="member-execute-csharp" />
+    <ParameterGroupMember Id="member-execute-xml" ParameterGroupId="group-execute-output" ParameterId="param-execute-xml" />
   </ParameterGroupMemberList>
 </MetaCli>

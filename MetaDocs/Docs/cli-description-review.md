@@ -92,50 +92,6 @@ Other candidate fragments:
 Notes:
 duplicate descriptions
 
-## meta-weave
-
-Product group: meta
-Source/project: ..\meta\MetaWeave\Cli
-Subject key if available: source:cli:meta-weave:app
-
-Current rendered description:
-```text
-`meta-weave` creates MetaWeave workspaces for explicit model-to-model weaving, where structure is carried across modeled surfaces instead of hidden in ad hoc conversion code.
-```
-
-CLI definition description:
-```text
-`meta-weave` creates MetaWeave workspaces for explicit model-to-model weaving, where structure is carried across modeled surfaces instead of hidden in ad hoc conversion code.
-```
-
-README description candidates:
-```text
-not collected; latest instruction limited this pass to the MetaDocs workspace
-```
-
-COMMANDS/docs candidates:
-```text
-not collected; latest instruction limited this pass to the MetaDocs workspace
-```
-
-MetaDocs narrative candidates:
-- Id: source:cli:meta-weave:app:narrative:summary:010
-  Slot: Summary
-  Origin: Authored
-  Body:
-```text
-`meta-weave` creates MetaWeave workspaces for explicit model-to-model weaving, where structure is carried across modeled surfaces instead of hidden in ad hoc conversion code.
-```
-
-Other candidate fragments:
-- MetaDocs workspace DocumentationSubject.Summary
-```text
-`meta-weave` creates MetaWeave workspaces for explicit model-to-model weaving, where structure is carried across modeled surfaces instead of hidden in ad hoc conversion code.
-```
-
-Notes:
-duplicate descriptions
-
 ## meta-schema
 
 Product group: meta-bi

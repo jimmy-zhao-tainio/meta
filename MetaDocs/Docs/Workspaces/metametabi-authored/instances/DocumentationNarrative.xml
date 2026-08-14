@@ -110,6 +110,40 @@ The result is a chain of declared contracts rather than independent tools guessi
       <Slot>Summary</Slot>
       <Title>CLI</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta:metaweave:narrative:summary" DocumentationSubjectId="public:meta:metaweave">
+      <Body>MetaWeave is model-to-model conversion for Meta workspaces. A MetaWeave workspace is a first-class correspondence between two workspace contracts. It contains the independent directions that are supported, the requirements for entering each direction, and the transformations that populate target entities.
+
+The correspondence is the authored conversion truth. It is ordinary Meta workspace data, so it remains inspectable, versionable, and representation-neutral rather than being hidden inside handwritten converter code.
+
+## WeaveScript is modeled transformation
+
+WeaveScript is a modeled language for transforming models, distilled from MetaTransformScript and deliberately bounded to workspace conversion. Its recognizable T-SQL-shaped text is an authoring and inspection surface, not a collection of stored scripts. The MetaWeave workspace contains the typed semantic query graph that the text represents.
+
+MetaWeave executes that graph directly with its in-memory relational engine. It does not send conversion queries to SQL Server. SQL remains available as one workspace representation alongside XML and C#.
+
+A direction requirement is a violation query: zero rows satisfy it, while every returned row becomes a concrete diagnostic with projected evidence. All requirements run against the immutable source before target construction starts.
+
+Each transformation projects records for one target entity. MetaWeave derives their execution order from the target model dependency graph, starts with an empty target instance, and submits every insertion through normal Meta Core operations. The target is valid after every operation; no invalid intermediate workspace or final validation pass is used.
+
+## Execute a correspondence
+
+```text
+meta-weave execute \
+  --workspace &lt;weave-workspace&gt; \
+  --source-workspace &lt;populated-source&gt; \
+  --target-workspace &lt;target-contract&gt; \
+  --xml &lt;new-target-workspace&gt;
+```
+
+`forward` is the default direction. The target workspace supplies its model contract, not seed instances. Exactly one of `--xml`, `--csharp`, or `--sql` selects the new workspace representation. A failed requirement or transformation creates no output.
+
+`meta-weave show` summarizes a correspondence. `emit-requirement` and `emit-transformation` render modeled query graphs as readable WeaveScript. Update commands accept replacement text through standard input and store the parsed semantic model back in the same correspondence workspace.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>MetaWeave</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:models:narrative:summary:models" DocumentationSubjectId="public:meta:models">
       <Body>Model references for the core metadata foundation.</Body>
       <Origin>Authored</Origin>
@@ -240,7 +274,7 @@ Commands open the selected surface through the common workspace contract, apply 
 
 - **`meta`** creates and operates on model and instance workspaces across XML, SQL, and C# surfaces.
 - **`meta-cli`** defines modeled command surfaces and provides shared parsing, help, workspace access, and runtime binding.
-- **`meta-weave`** authors and validates declarative correspondence between source and target workspace contracts.
+- **`meta-weave`** authors first-class correspondences between workspace contracts. Its WeaveScript language is modeled transformation of models, distilled from MetaTransformScript; the T-SQL-shaped text is a readable projection of semantic query graphs stored in the correspondence workspace.
 - **`meta-docs`** combines CLI and model reference data with authored technical documentation, then merges and renders the public reference.
 - **`meta-mesh`** declares the workspaces involved in a repository workflow and the ordered executable steps that operate on them.
 

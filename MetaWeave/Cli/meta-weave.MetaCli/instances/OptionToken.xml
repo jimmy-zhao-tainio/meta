@@ -1,76 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <OptionTokenList>
-    <OptionToken Id="token-add-binding-name" OptionId="opt-add-binding-name">
+    <OptionToken Id="token-add-direction-name" OptionId="opt-add-direction-name">
       <Token>--name</Token>
     </OptionToken>
-    <OptionToken Id="token-add-binding-source-entity" OptionId="opt-add-binding-source-entity">
-      <Token>--source-entity</Token>
-    </OptionToken>
-    <OptionToken Id="token-add-binding-source-model" OptionId="opt-add-binding-source-model">
+    <OptionToken Id="token-add-direction-source-model" OptionId="opt-add-direction-source-model">
       <Token>--source-model</Token>
     </OptionToken>
-    <OptionToken Id="token-add-binding-source-property" OptionId="opt-add-binding-source-property">
-      <Token>--source-property</Token>
-    </OptionToken>
-    <OptionToken Id="token-add-binding-target-entity" OptionId="opt-add-binding-target-entity">
-      <Token>--target-entity</Token>
-    </OptionToken>
-    <OptionToken Id="token-add-binding-target-model" OptionId="opt-add-binding-target-model">
+    <OptionToken Id="token-add-direction-target-model" OptionId="opt-add-direction-target-model">
       <Token>--target-model</Token>
     </OptionToken>
-    <OptionToken Id="token-add-binding-target-property" OptionId="opt-add-binding-target-property">
-      <Token>--target-property</Token>
-    </OptionToken>
-    <OptionToken Id="token-add-binding-workspace" OptionId="opt-add-binding-workspace">
+    <OptionToken Id="token-add-direction-workspace" OptionId="opt-add-direction-workspace">
       <Token>--workspace</Token>
     </OptionToken>
-    <OptionToken Id="token-add-model-alias" OptionId="opt-add-model-alias">
-      <Token>--alias</Token>
+    <OptionToken Id="token-add-requirement-code" OptionId="opt-add-requirement-code">
+      <Token>--code</Token>
     </OptionToken>
-    <OptionToken Id="token-add-model-model" OptionId="opt-add-model-model">
-      <Token>--model</Token>
+    <OptionToken Id="token-add-requirement-direction" OptionId="opt-add-requirement-direction">
+      <Token>--direction</Token>
     </OptionToken>
-    <OptionToken Id="token-add-model-workspace" OptionId="opt-add-model-workspace">
+    <OptionToken Id="token-add-requirement-message" OptionId="opt-add-requirement-message">
+      <Token>--message</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-requirement-name" OptionId="opt-add-requirement-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-requirement-workspace" OptionId="opt-add-requirement-workspace">
       <Token>--workspace</Token>
     </OptionToken>
-    <OptionToken Id="token-add-model-workspace-path" OptionId="opt-add-model-workspace-path">
-      <Token>--workspace-path</Token>
+    <OptionToken Id="token-add-transformation-direction" OptionId="opt-add-transformation-direction">
+      <Token>--direction</Token>
     </OptionToken>
-    <OptionToken Id="token-check-workspace" OptionId="opt-check-workspace">
+    <OptionToken Id="token-add-transformation-name" OptionId="opt-add-transformation-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-transformation-target-entity" OptionId="opt-add-transformation-target-entity">
+      <Token>--target-entity</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-transformation-workspace" OptionId="opt-add-transformation-workspace">
       <Token>--workspace</Token>
     </OptionToken>
-    <OptionToken Id="token-create-connection-env" OptionId="option-create-connection-env">
+    <OptionToken Id="token-create-connection-env" OptionId="opt-create-connection-env">
       <Token>--connection-env</Token>
     </OptionToken>
-    <OptionToken Id="token-create-csharp" OptionId="option-create-csharp">
+    <OptionToken Id="token-create-csharp" OptionId="opt-create-csharp">
       <Token>--csharp</Token>
     </OptionToken>
-    <OptionToken Id="token-create-sql" OptionId="option-create-sql">
+    <OptionToken Id="token-create-left-model" OptionId="opt-create-left-model">
+      <Token>--left-model</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-name" OptionId="opt-create-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-right-model" OptionId="opt-create-right-model">
+      <Token>--right-model</Token>
+    </OptionToken>
+    <OptionToken Id="token-create-sql" OptionId="opt-create-sql">
       <Token>--sql</Token>
     </OptionToken>
-    <OptionToken Id="token-create-xml" OptionId="option-create-xml">
+    <OptionToken Id="token-create-xml" OptionId="opt-create-xml">
       <Token>--xml</Token>
     </OptionToken>
-    <OptionToken Id="token-materialize-model" OptionId="opt-materialize-model">
-      <Token>--model</Token>
+    <OptionToken Id="token-emit-direction" OptionId="opt-emit-direction">
+      <Token>--direction</Token>
     </OptionToken>
-    <OptionToken Id="token-materialize-output-connection-env" OptionId="option-materialize-output-connection-env">
-      <Token>--output-connection-env</Token>
+    <OptionToken Id="token-emit-name" OptionId="opt-emit-name">
+      <Token>--name</Token>
     </OptionToken>
-    <OptionToken Id="token-materialize-output-csharp" OptionId="option-materialize-output-csharp">
-      <Token>--output-csharp</Token>
+    <OptionToken Id="token-emit-requirement-direction" OptionId="opt-emit-requirement-direction">
+      <Token>--direction</Token>
     </OptionToken>
-    <OptionToken Id="token-materialize-output-sql" OptionId="option-materialize-output-sql">
-      <Token>--output-sql</Token>
+    <OptionToken Id="token-emit-requirement-name" OptionId="opt-emit-requirement-name">
+      <Token>--name</Token>
     </OptionToken>
-    <OptionToken Id="token-materialize-output-xml" OptionId="option-materialize-output-xml">
-      <Token>--output-xml</Token>
-    </OptionToken>
-    <OptionToken Id="token-materialize-workspace" OptionId="opt-materialize-workspace">
+    <OptionToken Id="token-emit-requirement-workspace" OptionId="opt-emit-requirement-workspace">
       <Token>--workspace</Token>
     </OptionToken>
-    <OptionToken Id="token-suggest-workspace" OptionId="opt-suggest-workspace">
+    <OptionToken Id="token-emit-workspace" OptionId="opt-emit-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-execute-connection-env" OptionId="opt-execute-connection-env">
+      <Token>--connection-env</Token>
+    </OptionToken>
+    <OptionToken Id="token-execute-csharp" OptionId="opt-execute-csharp">
+      <Token>--csharp</Token>
+    </OptionToken>
+    <OptionToken Id="token-execute-direction" OptionId="opt-execute-direction">
+      <Token>--direction</Token>
+    </OptionToken>
+    <OptionToken Id="token-execute-source-workspace" OptionId="opt-execute-source-workspace">
+      <Token>--source-workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-execute-sql" OptionId="opt-execute-sql">
+      <Token>--sql</Token>
+    </OptionToken>
+    <OptionToken Id="token-execute-target-workspace" OptionId="opt-execute-target-workspace">
+      <Token>--target-workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-execute-workspace" OptionId="opt-execute-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-execute-xml" OptionId="opt-execute-xml">
+      <Token>--xml</Token>
+    </OptionToken>
+    <OptionToken Id="token-show-workspace" OptionId="opt-show-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-requirement-direction" OptionId="opt-update-requirement-direction">
+      <Token>--direction</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-requirement-name" OptionId="opt-update-requirement-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-requirement-workspace" OptionId="opt-update-requirement-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-transformation-direction" OptionId="opt-update-transformation-direction">
+      <Token>--direction</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-transformation-name" OptionId="opt-update-transformation-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-transformation-workspace" OptionId="opt-update-transformation-workspace">
       <Token>--workspace</Token>
     </OptionToken>
   </OptionTokenList>

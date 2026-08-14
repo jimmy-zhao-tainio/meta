@@ -2,14 +2,14 @@
 <MetaCli>
   <ParameterGroupList>
     <ParameterGroup Id="group-create-output" ExecutableCommandId="exec-create">
-      <Description>Choose one workspace representation.</Description>
+      <Description>Choose one MetaWeave workspace representation.</Description>
       <IsRequired>true</IsRequired>
       <Name>output</Name>
     </ParameterGroup>
-    <ParameterGroup Id="group-materialize-target" ExecutableCommandId="exec-materialize">
-      <Description>Choose one workspace target.</Description>
+    <ParameterGroup Id="group-execute-output" ExecutableCommandId="exec-execute">
+      <Description>Choose one new workspace representation.</Description>
       <IsRequired>true</IsRequired>
-      <Name>target</Name>
+      <Name>output</Name>
     </ParameterGroup>
   </ParameterGroupList>
 </MetaCli>

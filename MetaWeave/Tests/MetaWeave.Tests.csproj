@@ -20,9 +20,11 @@
 
   <ItemGroup>
     <Compile Include="..\..\Meta\Tests\CliTestHost.cs" Link="CliTestHost.cs" />
+    <ProjectReference Include="..\..\Meta\Integration\Meta.Integration.csproj" />
+    <ProjectReference Include="..\..\Meta\Surfaces.Xml\Meta.Surfaces.Xml.csproj" />
     <ProjectReference Include="..\Cli\MetaWeave.Cli.csproj" />
-    <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
     <ProjectReference Include="..\Core\MetaWeave.Core.csproj" />
+    <ProjectReference Include="..\Model\MetaWeave.Model.csproj" />
   </ItemGroup>
 
 </Project>

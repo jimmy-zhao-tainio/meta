@@ -5,9 +5,10 @@ workspace operations and carries the same modeled structure through XML, SQL,
 and C# surfaces.
 
 The repository also contains the modeled command runtime and the MetaDocs,
-MetaMesh, and MetaWeave foundation products. BI-specific models and tools live
-in the companion [`meta-bi`](https://github.com/jimmy-zhao-tainio/meta-bi)
-repository and consume `meta` as packages.
+MetaMesh, and [MetaWeave](MetaWeave/README.md) foundation products. BI-specific
+models and tools live in the companion
+[`meta-bi`](https://github.com/jimmy-zhao-tainio/meta-bi) repository and consume
+`meta` as packages.
 
 ## Documentation
 

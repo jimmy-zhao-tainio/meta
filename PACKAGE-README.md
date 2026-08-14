@@ -14,6 +14,8 @@ namespace boundaries are deliberately aligned:
 - `MetaCli.Model`
 - `MetaCli.Core`
 - `MetaWeave.Model`
+- `MetaWeaveScript.Execution`
+- `MetaWeaveScript.Sql`
 - `MetaWeave.Core`
 
 `Meta.Operations`, `Meta.TypedModels`, and `Meta.Core` are representation-neutral. `Meta.Surfaces`
@@ -41,6 +43,8 @@ channel; they do not imply that the source or package contracts are private.
 - `MetaCli.Model`
 - `MetaCli.Core`
 - `MetaWeave.Model`
+- `MetaWeaveScript.Execution`
+- `MetaWeaveScript.Sql`
 - `MetaWeave.Core`
 
 Package consumers supply the feed explicitly during restore. A sibling checkout is not a package source and does not change the dependency graph.

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ValueShapeList>
-    <ValueShape Id="shape-bool" ValueArityId="arity-one">
-      <Name>Boolean</Name>
-      <ValueLabel>true|false</ValueLabel>
-    </ValueShape>
     <ValueShape Id="shape-flag" ValueArityId="arity-none">
       <Name>Flag</Name>
     </ValueShape>
@@ -16,11 +12,6 @@
     <ValueShape Id="shape-text" ValueArityId="arity-one">
       <Name>Text</Name>
       <ValueLabel>&lt;value&gt;</ValueLabel>
-    </ValueShape>
-    <ValueShape Id="shape-token" ValueArityId="arity-one">
-      <AllowsOptionLikeValue>true</AllowsOptionLikeValue>
-      <Name>Token</Name>
-      <ValueLabel>&lt;token&gt;</ValueLabel>
     </ValueShape>
     <ValueShape Id="shape-workspace-location" ValueArityId="arity-one">
       <AllowsOptionLikeValue>true</AllowsOptionLikeValue>

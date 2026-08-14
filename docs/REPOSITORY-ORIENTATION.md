@@ -27,8 +27,13 @@ its instance graph, and can be operated through supported workspace surfaces.
 - `Meta.Integration` is the deliberate full-surface composition point. It owns
   descriptor routing, cross-surface import/export, CSV support, SQL deployment,
   and service composition.
-- `MetaCli`, `MetaDocs`, `MetaMesh`, and `MetaWeave` are modelled CLI products
-  built on the foundation. BI-specific models and CLIs live in `meta-bi`.
+- `MetaCli`, `MetaDocs`, and `MetaMesh` are modelled CLI products built on the
+  foundation. `MetaWeave` owns one correspondence model and CLI containing the
+  weave, its independent directions, target-entity transformations, and
+  embedded T-SQL-shaped WeaveScript query graphs. `MetaWeaveScript.Sql` and
+  `MetaWeaveScript.Execution` implement that language inside the MetaWeave
+  boundary; they are not separate workspace or CLI products. BI-specific
+  models and CLIs live in `meta-bi`.
 
 ## Workspace Contract
 

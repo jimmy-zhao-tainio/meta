@@ -16,6 +16,8 @@ call :pack Meta\Integration\Meta.Integration.csproj || exit /b %errorlevel%
 call :pack MetaCli\Model\MetaCli.Model.csproj || exit /b %errorlevel%
 call :pack MetaCli\Core\MetaCli.Core.csproj || exit /b %errorlevel%
 call :pack MetaWeave\Model\MetaWeave.Model.csproj || exit /b %errorlevel%
+call :pack MetaWeave\Script\Execution\MetaWeaveScript.Execution.csproj || exit /b %errorlevel%
+call :pack MetaWeave\Script\Sql\MetaWeaveScript.Sql.csproj || exit /b %errorlevel%
 call :pack MetaWeave\Core\MetaWeave.Core.csproj || exit /b %errorlevel%
 exit /b 0
 

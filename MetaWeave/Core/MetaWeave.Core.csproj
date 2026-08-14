@@ -6,15 +6,15 @@
     <Nullable>enable</Nullable>
     <IsPackable>true</IsPackable>
     <PackageId>MetaWeave.Core</PackageId>
-    <Description>Sanctioned weave model and validation/materialization core library for the Meta foundation.</Description>
+    <Description>Authors and loads complete MetaWeave correspondences with embedded WeaveScript directions.</Description>
     <PackageReadmeFile>PACKAGE-README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Meta\Core\Meta.Core.csproj" />
-    <ProjectReference Include="..\..\Meta\Operations\Meta.Operations.csproj" />
     <ProjectReference Include="..\..\Meta\Integration\Meta.Integration.csproj" />
     <ProjectReference Include="..\Model\MetaWeave.Model.csproj" />
+    <ProjectReference Include="..\Script\Execution\MetaWeaveScript.Execution.csproj" />
+    <ProjectReference Include="..\Script\Sql\MetaWeaveScript.Sql.csproj" />
   </ItemGroup>
 
   <ItemGroup>
