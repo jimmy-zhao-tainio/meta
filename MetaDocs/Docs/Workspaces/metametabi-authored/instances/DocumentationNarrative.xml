@@ -123,7 +123,7 @@ MetaWeave executes that graph directly with its in-memory relational engine. It 
 
 A direction requirement is a violation query: zero rows satisfy it, while every returned row becomes a concrete diagnostic with projected evidence. All requirements run against the immutable source before target construction starts.
 
-Each transformation projects records for one target entity. MetaWeave derives their execution order from the target model dependency graph, starts with an empty target instance, and submits every insertion through normal Meta Core operations. The target is valid after every operation; no invalid intermediate workspace or final validation pass is used.
+Each transformation projects records for one target entity. MetaWeave derives their execution order from the target model dependency graph, starts with an empty target instance, and submits every insertion through normal Meta Core operations. Every successful operation becomes the next valid target state. The state after the last scheduled transformation is the completed workspace.
 
 ## Execute a correspondence
 

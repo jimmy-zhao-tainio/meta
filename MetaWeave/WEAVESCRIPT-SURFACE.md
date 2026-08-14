@@ -77,7 +77,8 @@ valid target workspace in the topological order derived from the target model
 DAG, with referenced entities before referencing entities. Each insertion is
 a normal validated Meta Core operation. An entity population is atomic for
 optional self-references, which are set through Meta Core after all of that
-entity's rows exist. There is no final validation pass.
+entity's rows exist. The state produced by the last scheduled transformation
+is the completed target workspace.
 
 ## Value and evaluation rules
 

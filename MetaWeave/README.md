@@ -29,9 +29,8 @@ construction begins.
 Each transformation projects the records for one target entity. MetaWeave
 derives execution order from the target model's dependency graph, starts with
 an empty target instance, and submits each insertion through normal Meta Core
-operations. The target is valid after every operation; MetaWeave neither
-constructs an invalid intermediate workspace nor relies on a final validation
-pass.
+operations. Every successful operation becomes the next valid target state.
+The state after the last scheduled transformation is the completed workspace.
 
 ## Execute a weave
 

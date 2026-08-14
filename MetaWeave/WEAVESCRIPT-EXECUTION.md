@@ -150,8 +150,7 @@ next observable target workspace only after both phases succeed. This avoids a
 separate record-level dependency order while preserving a valid workspace at
 every Core operation boundary.
 
-MetaWeave does not construct records directly, admit an invalid target
-workspace, defer broken references, or run a final validation pass. A
-transformation either produces the next valid target workspace or fails; a
-failed invocation returns no output workspace. Only a completely successful
-direction is created on the selected XML, C#, or SQL provider.
+Each successful transformation produces the next valid target workspace. A
+transformation failure ends the invocation before publication. After every
+scheduled transformation succeeds, the resulting state is created on the
+selected XML, C#, or SQL provider.

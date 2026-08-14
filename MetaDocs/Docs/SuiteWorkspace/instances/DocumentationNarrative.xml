@@ -123,7 +123,7 @@ MetaWeave executes that graph directly with its in-memory relational engine. It 
 
 A direction requirement is a violation query: zero rows satisfy it, while every returned row becomes a concrete diagnostic with projected evidence. All requirements run against the immutable source before target construction starts.
 
-Each transformation projects records for one target entity. MetaWeave derives their execution order from the target model dependency graph, starts with an empty target instance, and submits every insertion through normal Meta Core operations. The target is valid after every operation; no invalid intermediate workspace or final validation pass is used.
+Each transformation projects records for one target entity. MetaWeave derives their execution order from the target model dependency graph, starts with an empty target instance, and submits every insertion through normal Meta Core operations. Every successful operation becomes the next valid target state. The state after the last scheduled transformation is the completed workspace.
 
 ## Execute a correspondence
 
@@ -16003,7 +16003,9 @@ That workspace gives binding and quality tools access to statements, sources, pr
       <Title>Summary</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-weave:app:narrative:guide" DocumentationSubjectId="source:cli:meta-weave:app" PreviousNarrativeId="source:cli:meta-weave:app:narrative:summary">
-      <Body>Create one weave workspace with `create`, then use `add-direction` for either or both independent orientations between its model contracts. Pipe each WeaveScript query to `add-transformation` through standard input; the workspace stores the semantic query graph and no script path. Use `show` to inspect the complete weave and `emit-transformation` to render one query as recognizable T-SQL. `apply` selects a direction, reads explicit source and target contract workspaces, instantiates the target through Meta Core operations in target-DAG order, and writes a new XML, C#, or SQL workspace. Every insertion is validated by the target model's normal operations; there is no separate final-validation pass.</Body>
+      <Body>Create one correspondence workspace with `create`, then use `add-direction` for either or both independent orientations between its model contracts. Pipe each requirement and transformation to its authoring command through standard input; the workspace stores the resulting semantic query graphs. Use `show` to inspect the complete correspondence and the `emit-*` commands to render individual queries as readable WeaveScript.
+
+`execute` selects a direction, defaulting to `forward`, reads a populated source and a target model contract, and creates a new XML, C#, or SQL workspace. Requirements run before construction. Transformations run in target-model dependency order, and every successful Meta Core operation becomes the next valid target state. The state after the last scheduled transformation is the completed workspace.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
