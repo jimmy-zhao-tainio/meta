@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
+using Meta.Integration;
 using Xunit.Sdk;
 
 namespace Meta.Architecture.Tests;
@@ -37,6 +38,26 @@ public sealed class FoundationBoundaryTests
         AssertProject(root, "Meta/Integration/Meta.Integration.csproj",
             ["Meta.Core", "Meta.Operations", "Meta.Surfaces", "Meta.Surfaces.Xml", "Meta.Surfaces.CSharp", "Meta.Surfaces.Sql", "Meta.TypedModels"],
             ["Microsoft.Data.SqlClient"]);
+    }
+
+    [Theory]
+    [InlineData("MetaCli")]
+    [InlineData("MetaDocs")]
+    [InlineData("MetaMesh")]
+    [InlineData("MetaWeave")]
+    public async Task ProductModelHasOneAuthoritativeCSharpWorkspace(string product)
+    {
+        var root = FindRepositoryRoot();
+        var workspace = Path.Combine(root, product, "Workspace");
+        var descriptor = await File.ReadAllLinesAsync(Path.Combine(workspace, "workspace.meta"));
+        var state = await TypedWorkspaceModelMapper.LoadStateAsync(workspace);
+
+        Assert.Contains("representation csharp", descriptor);
+        Assert.Contains($"source {product}.meta.cs", descriptor);
+        Assert.True(state.Model.Entities.Count > 0, $"{product} workspace has no model entities.");
+        Assert.False(
+            Directory.Exists(Path.Combine(root, product, "Model")),
+            $"{product}/Model duplicates the authoritative {product}/Workspace.");
     }
 
     [Fact]

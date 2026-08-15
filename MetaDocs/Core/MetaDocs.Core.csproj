@@ -13,15 +13,8 @@
     <ProjectReference Include="..\..\Meta\Surfaces.Xml\Meta.Surfaces.Xml.csproj" />
     <ProjectReference Include="..\..\Meta\Integration\Meta.Integration.csproj" />
     <ProjectReference Include="..\..\MetaCli\Core\MetaCli.Core.csproj" />
-    <ProjectReference Include="..\..\MetaCli\Model\MetaCli.Model.csproj" />
-    <ProjectReference Include="..\Model\MetaDocs.Model.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="..\Workspace\model.xml">
-      <Link>Models\MetaDocs.model.xml</Link>
-      <LogicalName>MetaDocs.Core.Models.MetaDocs.model.xml</LogicalName>
-    </EmbeddedResource>
+    <ProjectReference Include="..\..\MetaCli\MetaCli.Model.csproj" />
+    <ProjectReference Include="..\MetaDocs.Model.csproj" />
   </ItemGroup>
 
 </Project>

@@ -21,9 +21,10 @@
 
   <ItemGroup>
     <Compile Include="..\..\Meta\Tests\CliTestHost.cs" Link="CliTestHost.cs" />
+    <ProjectReference Include="..\..\Meta\Integration\Meta.Integration.csproj" />
     <ProjectReference Include="..\Cli\MetaCli.Cli.csproj" />
     <ProjectReference Include="..\Core\MetaCli.Core.csproj" />
-    <ProjectReference Include="..\Model\MetaCli.Model.csproj" />
+    <ProjectReference Include="..\MetaCli.Model.csproj" />
   </ItemGroup>
 
 </Project>

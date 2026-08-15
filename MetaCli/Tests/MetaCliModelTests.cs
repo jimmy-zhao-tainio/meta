@@ -1,5 +1,6 @@
 using System.Diagnostics;
-using System.Xml.Linq;
+using Meta.Integration;
+using Meta.Operations.Domain;
 using Meta.Surfaces.Xml;
 using MetaCli.Core;
 
@@ -10,15 +11,13 @@ public sealed class MetaCliModelTests
     [Fact]
     public void Model_UsesAcceptedEntitySurface()
     {
-        var modelPath = Path.Combine(FindRepositoryRoot(), "MetaCli", "Workspace", "model.xml");
-        var document = XDocument.Load(modelPath);
-        var entityNames = document
-            .Descendants("Entity")
-            .Select(element => (string?)element.Attribute("name") ?? string.Empty)
+        var model = LoadMetaCliContract();
+        var entityNames = model.Entities
+            .Select(entity => entity.Name)
             .ToArray();
-        var propertyNames = document
-            .Descendants("Property")
-            .Select(element => (string?)element.Attribute("name") ?? string.Empty)
+        var propertyNames = model.Entities
+            .SelectMany(entity => entity.Properties)
+            .Select(property => property.Name)
             .ToArray();
 
         Assert.Contains("Application", entityNames);
@@ -185,10 +184,8 @@ public sealed class MetaCliModelTests
             ["ParameterGroupMember"] = "add-parameter-group-member",
             ["PositionalArgument"] = "add-positional",
         };
-        var modelPath = Path.Combine(FindRepositoryRoot(), "MetaCli", "Workspace", "model.xml");
-        var entityNames = XDocument.Load(modelPath)
-            .Descendants("Entity")
-            .Select(element => (string?)element.Attribute("name") ?? string.Empty)
+        var entityNames = LoadMetaCliContract().Entities
+            .Select(entity => entity.Name)
             .OrderBy(static name => name, StringComparer.Ordinal)
             .ToArray();
 
@@ -511,6 +508,16 @@ public sealed class MetaCliModelTests
         }
 
         throw new InvalidOperationException("Could not locate repository root from test base directory.");
+    }
+
+    private static GenericModel LoadMetaCliContract()
+    {
+        var workspacePath = Path.Combine(FindRepositoryRoot(), "MetaCli", "Workspace");
+        return TypedWorkspaceModelMapper
+            .LoadStateAsync(workspacePath)
+            .GetAwaiter()
+            .GetResult()
+            .Model;
     }
 
     private static void TryKillProcessTree(Process process)

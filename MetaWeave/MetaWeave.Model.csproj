@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <IsPackable>true</IsPackable>
+    <PackageId>MetaWeave.Model</PackageId>
+    <Description>Typed model classes for complete MetaWeave correspondences and embedded WeaveScript queries.</Description>
+    <PackageReadmeFile>PACKAGE-README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Workspace\MetaWeave.meta.cs" Pack="true" PackagePath="workspaces\MetaWeave\" />
+    <None Include="Workspace\workspace.meta" Pack="true" PackagePath="workspaces\MetaWeave\" />
+    <None Include="..\PACKAGE-README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <IsPackable>true</IsPackable>
+    <PackageId>MetaCli.Model</PackageId>
+    <Description>Typed MetaCli model classes for authored command surfaces.</Description>
+    <PackageReadmeFile>PACKAGE-README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Workspace\MetaCli.meta.cs" Pack="true" PackagePath="workspaces\MetaCli\" />
+    <None Include="Workspace\workspace.meta" Pack="true" PackagePath="workspaces\MetaCli\" />
+    <None Include="..\PACKAGE-README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

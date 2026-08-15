@@ -454,8 +454,8 @@ MetaTransformScript's `ParseQueryExpression`: parser reachability is an
 implementation fact, while the checklist records why the syntax belongs.
 
 Applying the current checklist to the 346-entity MetaTransformScript model
-produces the materialized closure in
-`Workspace/model.xml`: 122 retained WeaveScript entity types plus the four
+produces the materialized closure in the C# workspace
+`Workspace/MetaWeave.meta.cs`: 122 retained WeaveScript entity types plus the four
 MetaWeave scaffold entities, with
 224 excluded entity types. A structural check finds no retained relationship
 whose target entity is excluded.

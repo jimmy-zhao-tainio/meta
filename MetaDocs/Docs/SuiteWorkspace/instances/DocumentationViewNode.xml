@@ -9,14 +9,22 @@
       <ParentNodeId>view:default:node:public-reference</ParentNodeId>
       <Title>Meta-BI</Title>
     </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-adapters" DocumentationSubjectId="public:meta-bi:adapters" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-bi-adventureworks">
+      <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
+      <Title>Adapters</Title>
+    </DocumentationViewNode>
     <DocumentationViewNode Id="view:default:node:public-meta-bi-adventureworks" DocumentationSubjectId="public:meta-bi:adventureworks" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-bi-overview">
       <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
       <Selection></Selection>
       <Title>Demo</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:public-meta-bi-cli" DocumentationSubjectId="public:meta-bi:cli" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-bi-adventureworks">
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-cli" DocumentationSubjectId="public:meta-bi:cli" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-bi-adapters">
       <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
       <Title>CLI</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-meta-schema-adapter" DocumentationSubjectId="public:meta-bi:meta-schema-adapter" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-meta-bi-adapters</ParentNodeId>
+      <Title>MetaSchemaAdapter</Title>
     </DocumentationViewNode>
     <DocumentationViewNode Id="view:default:node:public-meta-bi-models" DocumentationSubjectId="public:meta-bi:models" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-bi-cli">
       <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>

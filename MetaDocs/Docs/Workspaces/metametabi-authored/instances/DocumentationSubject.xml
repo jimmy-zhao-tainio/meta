@@ -25,13 +25,29 @@
       <Status>Current</Status>
       <Summary>An agent-built, end-to-end AdventureWorks implementation of the modeled BI stack.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="public:meta-bi:cli" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta-bi" PreviousSubjectId="public:meta-bi:adventureworks">
+    <DocumentationSubject Id="public:meta-bi:adapters" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta-bi" PreviousSubjectId="public:meta-bi:adventureworks">
+      <DisplayName>Adapters</DisplayName>
+      <DisplayPath>Reference.Meta-BI.Adapters</DisplayPath>
+      <NativeId>public:meta-bi:adapters</NativeId>
+      <SourceTypeName>AuthoredPage</SourceTypeName>
+      <Status>Current</Status>
+      <Summary>Provider contracts for bringing external systems into MetaSchema, binding, and pipeline execution.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="public:meta-bi:cli" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta-bi" PreviousSubjectId="public:meta-bi:adapters">
       <DisplayName>CLI</DisplayName>
       <DisplayPath>Reference.Meta-BI.CLI</DisplayPath>
       <NativeId>public:meta-bi:cli</NativeId>
       <SourceTypeName>AuthoredPage</SourceTypeName>
       <Status>Current</Status>
       <Summary>Command-line tools for BI modeling, conversion, validation, and execution.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="public:meta-bi:meta-schema-adapter" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:guide" ParentSubjectId="public:meta-bi:adapters">
+      <DisplayName>MetaSchemaAdapter</DisplayName>
+      <DisplayPath>Reference.Meta-BI.Adapters.MetaSchemaAdapter</DisplayPath>
+      <NativeId>public:meta-bi:meta-schema-adapter</NativeId>
+      <SourceTypeName>AuthoredPage</SourceTypeName>
+      <Status>Current</Status>
+      <Summary>The provider boundary connecting external systems to MetaSchema, MetaTransformBinding, and MetaPipeline.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="public:meta-bi:models" DocumentationSourceId="source:authored:public-reference" DocumentationSubjectTypeId="subject-type:referencesection" ParentSubjectId="public:meta-bi" PreviousSubjectId="public:meta-bi:cli">
       <DisplayName>Models</DisplayName>
