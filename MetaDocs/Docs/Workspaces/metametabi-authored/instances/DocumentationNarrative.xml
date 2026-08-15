@@ -1,6 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationNarrativeList>
+    <DocumentationNarrative Id="public:meta-bi:adventureworks:narrative:summary" DocumentationSubjectId="public:meta-bi:adventureworks">
+      <Body>## A complete BI stack built by an agent
+
+The AdventureWorks stack was fully designed and built by an agent using the
+public Meta and meta-bi command-line tools. Its starting inputs were a live
+`AdventureWorks2022` database and a short
+[business request](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/Demos/AdventureWorksBiStackDemo/BUSINESS-REQUIREMENTS.md) for sales trends, channel and
+product analysis, geography, salesperson quotas, and visible data-quality
+risks.
+
+The agent made the architectural decisions that turn those inputs into a BI
+system. It selected sales order, sales line, and salesperson quota as separate
+fact grains; kept tax and freight at order grain; created shared date, product,
+geography, customer, channel, and salesperson dimensions; derived the
+Online/Store channel from source evidence; and declined to publish gross margin
+because AdventureWorks lacks complete historical cost coverage.
+
+The implementation is preserved as models rather than summarized after the
+fact. Every generated workspace was created through its owning CLI. The demo's
+MetaMesh workspace names 27 participating workspaces, 29 operations, and 614
+ordered executable steps covering discovery, model authoring, conversion,
+deployment, transformation import and binding, pipeline construction,
+execution, verification, and analytical deployment. The generated results are
+checked in alongside that construction record.
+
+## What the agent built
+
+Each product owns a concrete part of the resulting stack:
+
+| Engineering concern | AdventureWorks result | Modeled capability |
+| --- | --- | --- |
+| Discover the live source | 6 schemas, 71 tables, 20 views, 744 fields, and 90 relationships | `meta-schema` extracts a reviewable `MetaSchema` source contract. |
+| Preserve source history | 71 Raw hubs, 90 links, 71 satellites, and 341 satellite attributes | `meta-datavault-raw` and `meta-convert` turn the source contract into `MetaRawDataVault`, then into 232 deployable `MetaSql` tables through an explicit implementation model. |
+| Establish business meaning | 14 Business hubs, 19 links, 14 satellites, stable business names, and the Online/Store derivation | `meta-datavault-business` authors `MetaBusinessDataVault` concepts separately from the source-shaped Raw layer. |
+| Fix analytical grain | 3 facts, 8 conformed dimensions, 10 warehouse measures, 40 dimension attributes, and 19 fact-to-dimension relationships | `meta-data-warehouse` authors `MetaDataWarehouse`; `meta-convert` projects it through an implementation model into an 11-table physical warehouse. |
+| Make transformations provable | 53 source-to-Raw, 47 Raw-to-Business, and 20 Business-to-warehouse transformations, each strictly bound | `meta-transform-script` models the T-SQL program; `meta-transform-binding`, `MetaSchema`, `MetaDataType`, and `MetaDataTypeConversion` prove its reads, writes, target shape, and type compatibility. |
+| Turn evidence into quality checks | 176 promoted checks covering orphan joins, multiplicity expansion, duplicate risk, and outer-join null expansion | `meta-data-quality` derives reviewable `MetaDataQuality` candidates and `meta-convert` emits executable quality SQL. |
+| Operate the load | 3 pipelines containing 120 transformation tasks, plus one inferred orchestration plan over the same 120 tasks | `meta-pipeline` executes and records work; `meta-orchestration` derives and governs runtime dependencies. |
+| Publish portable analytics | 11 analytical tables, 72 attributes, 11 base measures, 3 hierarchies, and 19 relationships | `meta-analytics` carries engine-neutral `MetaAnalytics`; `meta-convert` and `meta-tabular` produce and operate the Analysis Services model. |
+| Model the conversion itself | One requirement and 24 executable Analytics-to-Tabular transformations | `meta-weave` executes a `MetaWeave` correspondence whose WeaveScript projection is readable and editable modeled transformation. |
+
+## Prerequisites
+
+- the `meta` and `meta-bi` CLIs on `PATH`;
+- a local SQL Server instance with `AdventureWorks2022` restored;
+- permission to create the four demo-owned databases;
+- Analysis Services Tabular only when running the optional Tabular deployment and processing operations.
+
+[`SOURCE-SETUP.md`](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/Demos/AdventureWorksBiStackDemo/SOURCE-SETUP.md) covers the source database. [`prepare-adventureworks-db.ps1`](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/Demos/AdventureWorksBiStackDemo/prepare-adventureworks-db.ps1) can download and restore the official backup on a local development machine.
+
+## Environment
+
+The examples below use the local default SQL Server instance:
+
+```powershell
+$env:AW_SOURCE_SQL = "Server=.;Database=AdventureWorks2022;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+$env:AW_ADMIN_SQL = "Server=.;Database=master;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+$env:AW_RDV_SQL = "Server=.;Database=AdventureWorksRawVault;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+$env:AW_BDV_SQL = "Server=.;Database=AdventureWorksBusinessVault;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+$env:AW_DW_SQL = "Server=.;Database=AdventureWorksAnalytics;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+$env:AW_PIPELINE_SQL = "Server=.;Database=AdventureWorksMetaPipeline;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+```
+
+## Build the stack
+
+Run from the mesh workspace:
+
+```powershell
+cd AdventureWorksBiStackDemo.MetaMesh
+
+meta-mesh run --operation validate-source
+meta-mesh run --operation sync-source-schema
+
+meta-mesh run --operation create-raw-vault
+meta-mesh run --operation deploy-raw-vault
+meta-mesh run --operation create-source-raw-transforms
+meta-mesh run --operation create-source-raw-pipeline
+
+meta-mesh run --operation create-business-vault
+meta-mesh run --operation deploy-business-vault
+meta-mesh run --operation create-raw-business-transforms
+meta-mesh run --operation create-raw-business-pipeline
+
+meta-mesh run --operation create-dimensional-warehouse
+meta-mesh run --operation deploy-dimensional-warehouse
+meta-mesh run --operation create-business-warehouse-transforms
+meta-mesh run --operation create-business-warehouse-pipeline
+
+meta-mesh run --operation create-orchestration
+meta-mesh run --operation deploy-pipeline-runtime
+meta-mesh run --operation create-data-quality
+meta-mesh run --operation deploy-data-quality
+meta-mesh run --operation create-analytics
+meta-mesh run --operation create-tabular
+```
+
+The three transform boundaries are strictly bound to modeled source and target schemas before their pipelines are authored. Orchestration is inferred from those pipeline tasks and binding effects.
+
+## Run and verify
+
+Execute the inferred graph across all three pipelines, then reconcile the result to the source:
+
+```powershell
+meta-mesh run --operation run-etl
+meta-mesh run --operation verify-stack
+```
+
+For an inspected layer-by-layer run, use `load-raw-vault`, `load-business-vault`, and `load-dimensional-warehouse` instead of `run-etl`.
+
+The verification operation checks Raw and Business Vault counts, warehouse fact grains, source-to-warehouse measures, deployed Data Quality results, and the latest task-level pipeline evidence. The expected static AdventureWorks result is 31,465 orders, 121,317 lines, 163 quota rows, and 176 promoted Data Quality checks with no findings.
+
+## Tabular runtime
+
+The MetaAnalytics and MetaTabular workspaces are complete without Analysis Services. The runtime operations target the local `.\TABULAR` instance and deploy the model as `AdventureWorksSales`:
+
+```powershell
+meta-mesh run --operation deploy-tabular
+meta-mesh run --operation process-tabular
+```
+
+`deploy-tabular` replaces the target database and deploys metadata without processing. `process-tabular` performs the full refresh. `drop-tabular` removes the deployed database.
+
+The deployment operation also grants the local `NT Service\MSOLAP$TABULAR` service account read access to `AdventureWorksAnalytics`. The verified deployment contains 11 tables, 72 columns, 11 measures, and 19 relationships and completes a full refresh on `.\TABULAR`. A direct model query returns Sales Amount `109846381.425`, Total Due `123216786.1159`, and Quota Amount `95714000`, matching the relational verification.
+
+## Cleanup
+
+```powershell
+meta-mesh run --operation cleanup
+```
+
+Cleanup drops `AdventureWorksRawVault`, `AdventureWorksBusinessVault`, `AdventureWorksAnalytics`, and `AdventureWorksMetaPipeline`, then removes transient pipeline execution evidence under `Runs\ops\RunArtifacts`. It keeps the checked-in modeled workspaces. It does not remove the source database or an external Tabular database.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Demo</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:cli:narrative:summary:cli" DocumentationSubjectId="public:meta-bi:cli">
       <Body>Command-line tools for BI modeling, conversion, validation, and execution.</Body>
       <Origin>Authored</Origin>
@@ -15,88 +152,86 @@
       <Slot>Summary</Slot>
       <Title>Models</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence">
-      <Body>A BI stack can begin with a source schema, pass through Raw and Business Data Vault structures, continue into a dimensional warehouse, and finish in an analytical target. At each handoff, the next workspace receives declared structure and the evidence needed to bind, generate, deploy, or execute it.
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:conversions" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:models">
+      <Body>Conversions carry one workspace into the next part of the system. `meta-convert` covers the established paths: schema to Raw Data Vault; Raw and Business Data Vault to SQL; data warehouse to SQL; SQL and TransformScript in both directions; Data Quality to SQL; and MetaAnalytics to Tabular or Multidimensional models.
 
-The result is a chain that can be inspected at every boundary instead of one opaque build script.</Body>
+MetaWeave brings the conversion itself into a model. A `MetaWeave` workspace names the source and target contracts, the available directions, their requirements, and the transformations that populate target entities. Those transformations have a readable WeaveScript form and execute through MetaWeave's in-memory engine. The result of `meta-weave execute` is a new workspace in the selected XML, SQL, or C# representation.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
-      <Slot>EndToEnd</Slot>
-      <Title>How the layers connect</Title>
+      <Slot>Conversions</Slot>
+      <Title>Conversions</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:fullstack:a-complete-stack-in-practice" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets">
-      <Body>The AdventureWorks stack composes 27 workspaces and 29 named operations over a live `AdventureWorks2022` source:
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:mesh" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:conversions">
+      <Body>A BI build uses many workspaces and many CLI calls. MetaMesh turns that construction path into a workspace of its own: participating workspaces, executables, arguments, named operations, and ordered steps.
 
-- source schema synchronization;
-- Raw and Business Data Vault and dimensional warehouse creation and deployment;
-- 53 source-to-Raw, 47 Raw-to-Business, and 20 Business-to-warehouse transforms imported and strictly bound;
-- three pipelines with modeled cross-pipeline orchestration;
-- 176 generated Data Quality checks;
-- portable `MetaAnalytics` projected into `MetaTabular`, then deployed and processed.
+An operation can begin with source discovery, create the vault and warehouse models, convert them into database structures, deploy them, import and bind transforms, build pipelines, derive orchestration, execute the load, check the result, and publish an analytical model. Other operations can refresh one layer, deploy one target, or run one verification sequence.
 
-A clean run reconciled 31,465 orders, 121,317 order lines, and 163 quota rows from source through the warehouse. It reproduced the expected sales and quota totals and produced zero findings across the promoted Data Quality checks. Repeating the ETL preserved the Raw, Business, and warehouse row totals, and the processed Tabular deployment returned the same analytical values.
-
-Once the stack is created and deployed:
-
-```powershell
-cd Demos\AdventureWorksBiStackDemo\AdventureWorksBiStackDemo.MetaMesh
-meta-mesh run --operation run-etl
-meta-mesh run --operation verify-stack
-meta-mesh run --operation deploy-tabular
-meta-mesh run --operation process-tabular
-```
-
-The operation names and workspace dependencies are part of the MetaMesh workspace, so the sequence can be inspected and repeated from the model.</Body>
+`meta-mesh validate` resolves the declared workspaces and commands before execution. `meta-mesh run` then invokes each step in the recorded order. The mesh workspace keeps the construction process alongside the model workspaces and gives the system named entry points for build, deployment, execution, verification, and cleanup.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
-      <Slot>FullStack</Slot>
-      <Title>AdventureWorks evidence</Title>
+      <Slot>Mesh</Slot>
+      <Title>Building systems with MetaMesh</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure">
-      <Body>The official BI models divide the stack by ownership:
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:models" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:summary">
+      <Body>The model set follows the working parts of a BI system, from source structure through data stores and transforms to runtime and analytics.
 
-- `MetaSchema`, `MetaDataType`, and `MetaDataTypeConversion` describe source structures and type mappings.
-- `MetaRawDataVault`, `MetaBusinessDataVault`, and `MetaDataWarehouse` describe data architecture and physical implementation.
-- `MetaTransformScript`, `MetaTransformBinding`, `MetaSql`, and `MetaSqlDeployManifest` describe transformation, binding, database objects, and deployment.
-- `MetaAnalytics` carries portable analytical meaning before a target engine is selected.
-- `MetaTabular` and `MetaMultiDimensional` describe target-specific analytical models.
-- `MetaDataQuality`, `MetaPipeline`, and `MetaOrchestration` describe assurance and execution.
+#### Schemas and data types
 
-`meta-convert` connects these workspaces through explicit model conversions.</Body>
+Work can begin by extracting SQL Server into `MetaSchema`. The resulting workspace contains schemas, objects, fields, keys, and relationships that other models can reference. `MetaDataType` gives those fields shared type identities, and `MetaDataTypeConversion` carries the conversion rules used when source and target systems use different type systems.
+
+#### Data Vault
+
+From a source contract, the Raw Data Vault model captures hubs, links, satellites, business keys, and descriptive fields in `MetaRawDataVault`. Business integration is authored in `MetaBusinessDataVault`, including Business hubs, links, satellites, bridges, point-in-time structures, and their supporting relationships.
+
+`MetaDataVaultImplementation` supplies schemas and names, SQL types, hashing policy, audit columns, defaults, and indexes. Conversion combines a vault workspace with that implementation workspace and produces the corresponding `MetaSql` database structure.
+
+#### Data warehouse
+
+Dimensional design begins with grain. `MetaDataWarehouse` carries facts, dimensions, attributes, measures, dimensional roles, table types, historization, and the relationships that connect them. `MetaDataWarehouseImplementation` applies schemas and naming, surrogate keys, slowly-changing-dimension columns, SQL types, defaults, and indexes when that design is converted into database tables.
+
+#### Transforms
+
+`MetaTransformScript` is a semantic model of supported T-SQL. It carries statements, queries, CTEs, row sources, expressions, functions, identifiers, ordering, and mutations as related model entities. SQL can be imported into that model, inspected and changed as workspace data, and emitted again as T-SQL.
+
+Binding places those transforms against source and target `MetaSchema` workspaces. `MetaTransformBinding` resolves object and field references, derives input and output rowsets, records reads and writes, matches projected columns to target columns, and applies the selected `MetaDataTypeConversion` rules. The resulting binding workspace feeds data-quality discovery, pipeline execution, and orchestration analysis.
+
+#### SQL databases
+
+`MetaSql` carries the SQL Server database structure produced by the design and transform models, and it can also be extracted from SQL Server. `meta-sql deploy-plan` compares a MetaSql workspace with a live database and writes a `MetaSqlDeployManifest` containing fingerprints, changes, and exact approvals for table drops, column drops, and column truncations. `meta-sql deploy` checks the source and live fingerprints and applies the recorded changes.
+
+#### Data quality
+
+The transform estate already contains repeated joins, projections, and grain clues. `MetaDataQuality` walks that modeled structure, follows joins through CTEs and derived queries, and gathers recurring patterns across transforms. From them it produces candidates for orphan joins, outer-join null expansion, multiplicity growth, and duplicate output.
+
+The workspace keeps each pattern, its occurrences, the generated candidates, and their promotion status. Promoted candidates become SQL views, a review dashboard, and an operational run and findings pack.
+
+#### Pipelines
+
+Bound transforms become runnable work in `MetaPipeline`. A pipeline arranges transform tasks and executable tasks into an ordered unit, with connection references, target writes, timeouts, and execution settings recorded in the workspace. During a run, the pipeline runtime reads and writes data, buffers batches, invokes processes, and records task results, row and batch counts, timings, metrics, and failures.
+
+#### Orchestration
+
+The reads and writes captured by binding give `MetaOrchestration` the information needed to connect pipeline tasks. It derives producer-consumer dependencies and object effects, then combines them with ordering, locking, retry, and failure-branch policy in an orchestration workspace.
+
+Run planning turns that workspace into planned tasks and locks. At execution time, orchestration grants work as dependencies become satisfied and locks become available, allowing independent paths to run together while recording attempts, retries, and failure paths.
+
+#### Analytics
+
+At the analytical layer, `MetaAnalytics` carries tables, attributes, relationships, hierarchies, perspectives, security, cultures, translations, and source-backed base measures with typed aggregate functions. That workspace can be converted into either analytical target.
+
+`MetaTabular` adds the Tabular structures used for DAX measures, row filters, partitions, calculation groups, roles, perspectives, and translations. `MetaMultiDimensional` carries cubes, dimensions, measure groups, MDX calculations, named sets, actions, partitions, roles, perspectives, and translations. Their CLIs deploy the target databases, process them, query them, back them up, restore them, and remove them.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
-      <Slot>ModelLayers</Slot>
-      <Title>BI model layers</Title>
+      <Slot>Models</Slot>
+      <Title>The models</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers">
-      <Body>`meta-data-quality` turns transform and schema information into generated quality checks and findings.
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:summary" DocumentationSubjectId="public:meta-bi:overview">
+      <Body>`meta-bi` brings BI engineering into the workspace system provided by `meta`. A project can move from a discovered source schema to Data Vault and dimensional models, bind SQL transforms to those structures, turn transform patterns into data-quality checks, execute loads, derive orchestration, and publish analytical models.
 
-`meta-pipeline` executes modeled tasks and records the transform, binding, row, batch, timeout, fingerprint, audit, and failure information needed to understand a run. `meta-orchestration` derives dependencies from pipeline tasks and modeled object access, while explicit ordering, synchronization, and failure policy remain part of the orchestration workspace.
-
-Target CLIs deploy or process the analytical workspaces described by the stack.</Body>
-      <LastReviewedImportBatchId></LastReviewedImportBatchId>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>OperationalEvidence</Slot>
-      <Title>Execution models</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:summary:overview">
-      <Body>SQL structure matters to the BI layers that depend on it.
-
-`MetaTransformScript` imports supported SQL into a typed syntax model and can emit equivalent SQL. `MetaTransformBinding` checks that modeled reads and writes resolve against source and target `MetaSchema` workspaces and follow the selected `MetaDataTypeConversion` policy. `MetaSql` and `MetaSqlDeployManifest` carry deployable database structure and controlled deployment.
-
-The result is a chain of declared contracts rather than independent tools guessing from SQL text.</Body>
-      <LastReviewedImportBatchId></LastReviewedImportBatchId>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>SqlSemantics</Slot>
-      <Title>SQL structure and binding</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:summary:overview" DocumentationSubjectId="public:meta-bi:overview">
-      <Body>`meta-bi` is the BI modeling layer built on `meta`. It carries source contracts through SQL transformation, Data Vault, warehouse, quality, pipeline, orchestration, and analytical target workspaces. Each handoff remains a workspace that can be reviewed, converted, deployed, or executed.</Body>
+Each stage leaves a model workspace behind. Those workspaces carry the structures and decisions used by the next stage, while the command-line tools create and operate them.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -110,7 +245,21 @@ The result is a chain of declared contracts rather than independent tools guessi
       <Slot>Summary</Slot>
       <Title>CLI</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:metaweave:narrative:summary" DocumentationSubjectId="public:meta:metaweave">
+    <DocumentationNarrative Id="public:metaweave:cli:narrative:summary" DocumentationSubjectId="public:metaweave:cli">
+      <Body>Command reference for creating, inspecting, editing, and executing MetaWeave workspaces.</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>CLI</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:metaweave:models:narrative:summary" DocumentationSubjectId="public:metaweave:models">
+      <Body>Model reference for the MetaWeave correspondence workspace.</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Models</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:metaweave:overview:narrative:summary" DocumentationSubjectId="public:metaweave:overview">
       <Body>MetaWeave is model-to-model conversion for Meta workspaces. A MetaWeave workspace is a first-class correspondence between two workspace contracts. It contains the independent directions that are supported, the requirements for entering each direction, and the transformations that populate target entities.
 
 The correspondence is the authored conversion truth. It is ordinary Meta workspace data, so it remains inspectable, versionable, and representation-neutral rather than being hidden inside handwritten converter code.
@@ -168,8 +317,7 @@ Workspace-oriented commands use the current directory by default. Pass `--worksp
       <Title>Meta CLI at a glance</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:commandguide:command-guide" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:cliataglance:the-meta-command-surface">
-      <Body>- [XML workspace contract](https://metametabi.com/docs.html#subject-public-meta-xml-workspaces) specifies the XML model and instance formats.
-- [Meta CLI reference](https://metametabi.com/docs.html#group-public-meta-cli) is generated from the modeled command surfaces.
+      <Body>- [Meta CLI reference](https://metametabi.com/docs.html#group-public-meta-cli) is generated from the modeled command surfaces.
 - [Meta model reference](https://metametabi.com/docs.html#group-public-meta-models) describes the foundation models.
 - [Development package documentation](https://github.com/jimmy-zhao-tainio/meta/blob/master/PACKAGE-README.md) records the maintained package boundaries.
 - [Contributor guidance](https://github.com/jimmy-zhao-tainio/meta/blob/master/CONTRIBUTING.md) covers repository builds and generated-artifact policy.</Body>
@@ -302,54 +450,6 @@ The line-oriented `workspace.meta` descriptor selects the surface with `represen
       <ReviewStatus>Current</ReviewStatus>
       <Slot>WorkspaceContract</Slot>
       <Title>Workspace contract</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:xml-workspaces:narrative:instancexmlcontract:xml-instance-contract" DocumentationSubjectId="public:meta:xml-workspaces" PreviousNarrativeId="public:meta:xml-workspaces:narrative:modelxmlcontract:xml-model-contract">
-      <Body>`instances/*.xml` stores the records for an XML workspace. The root element names the model, and each entity is grouped under its deterministic list container.
-
-For the small fictional `WorkspaceCatalog` model:
-
-```xml
-&lt;WorkspaceCatalog&gt;
-  &lt;SystemList&gt;
-    &lt;System Id="erp"&gt;
-      &lt;SystemName&gt;ERP&lt;/SystemName&gt;
-    &lt;/System&gt;
-  &lt;/SystemList&gt;
-&lt;/WorkspaceCatalog&gt;
-```
-
-Every record has an `Id`. Scalar properties are child elements; relationships are stored as `...Id` attributes. Missing elements mean that an optional value is unset.</Body>
-      <LastReviewedImportBatchId></LastReviewedImportBatchId>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>InstanceXmlContract</Slot>
-      <Title>Instance XML contract</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:xml-workspaces:narrative:modelxmlcontract:xml-model-contract" DocumentationSubjectId="public:meta:xml-workspaces" PreviousNarrativeId="public:meta:xml-workspaces:narrative:summary:xml-workspaces">
-      <Body>`model.xml` declares which entities exist, which scalar properties they carry, and how they relate.
-
-A model has one `&lt;Model name="WorkspaceCatalog"&gt;` root and follows a small set of rules:
-
-- `&lt;Entity name="System"&gt;` defines a record type; every entity has an implicit `Id`.
-- `&lt;PropertyList&gt;` contains scalar fields. Properties are required by default; `isRequired="false"` makes one optional.
-- `&lt;RelationshipList&gt;` contains references to other entities. Relationships are required by default.
-- A relationship role distinguishes multiple relationships to the same target entity.
-- Entity instances are grouped under deterministic `&lt;EntityName&gt;List` containers.
-
-The XML model contract keeps structure explicit and reviewable without making XML the canonical semantic representation.</Body>
-      <LastReviewedImportBatchId></LastReviewedImportBatchId>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>ModelXmlContract</Slot>
-      <Title>Model XML contract</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:xml-workspaces:narrative:summary:xml-workspaces" DocumentationSubjectId="public:meta:xml-workspaces">
-      <Body>The XML surface stores a workspace as a line-oriented `workspace.meta` descriptor, one `model.xml`, and deterministic instance files under `instances/`. This reference specifies that representation; it does not assign XML a privileged semantic role.</Body>
-      <LastReviewedImportBatchId></LastReviewedImportBatchId>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>XML workspaces</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:reference:narrative:summary:meta-meta-bi-reference" DocumentationSubjectId="public:reference">
       <Body>Command-line and model references for the current public MetaDocs suite.</Body>

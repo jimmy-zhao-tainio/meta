@@ -16,55 +16,7 @@
       <Status>Changed</Status>
       <Summary>Author shared analytics semantics for dimensions, hierarchies, measures, facts, and security across semantic model targets.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-aggregation-behavior" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-analytics:app">
-      <DisplayName>meta-analytics add-aggregation-behavior</DisplayName>
-      <DisplayPath>meta-analytics add-aggregation-behavior</DisplayPath>
-      <NativeId>exec-add-aggregation-behavior</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary>Declare a base measure aggregate function.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:description" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior">
-      <DisplayName>--description</DisplayName>
-      <DisplayPath>meta-analytics add-aggregation-behavior --description</DisplayPath>
-      <NativeId>opt-add-aggregation-behavior-description</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Description.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:function" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior" PreviousSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:description">
-      <DisplayName>--function</DisplayName>
-      <DisplayPath>meta-analytics add-aggregation-behavior --function</DisplayPath>
-      <NativeId>opt-add-aggregation-behavior-function</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Aggregate function.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:id" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior" PreviousSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:function">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-analytics add-aggregation-behavior --id</DisplayPath>
-      <NativeId>opt-add-aggregation-behavior-id</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>AggregationBehavior row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:measure" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior" PreviousSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:id">
-      <DisplayName>--measure</DisplayName>
-      <DisplayPath>meta-analytics add-aggregation-behavior --measure</DisplayPath>
-      <NativeId>opt-add-aggregation-behavior-measure</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Measure id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:workspace" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior" PreviousSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:measure">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-analytics add-aggregation-behavior --workspace</DisplayPath>
-      <NativeId>opt-add-aggregation-behavior-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaAnalytics workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-attribute" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-analytics:app" PreviousSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior">
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-attribute" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-analytics:app">
       <DisplayName>meta-analytics add-attribute</DisplayName>
       <DisplayPath>meta-analytics add-attribute</DisplayPath>
       <NativeId>exec-add-attribute</NativeId>
@@ -264,23 +216,7 @@
       <Status>New</Status>
       <Summary>Description.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-attribute:option:expression" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-attribute" PreviousSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:description">
-      <DisplayName>--expression</DisplayName>
-      <DisplayPath>meta-analytics add-attribute --expression</DisplayPath>
-      <NativeId>opt-add-attribute-expression</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Expression.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-attribute:option:expression-language" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-attribute" PreviousSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:expression">
-      <DisplayName>--expression-language</DisplayName>
-      <DisplayPath>meta-analytics add-attribute --expression-language</DisplayPath>
-      <NativeId>opt-add-attribute-expression-language</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Expression language.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-attribute:option:format-string" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-attribute" PreviousSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:expression-language">
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-attribute:option:format-string" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-attribute" PreviousSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:description">
       <DisplayName>--format-string</DisplayName>
       <DisplayPath>meta-analytics add-attribute --format-string</DisplayPath>
       <NativeId>opt-add-attribute-format-string</NativeId>
@@ -808,7 +744,63 @@
       <Status>New</Status>
       <Summary>MetaAnalytics workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-measure:option:data-type-id" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-measure">
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-measure">
+      <DisplayName>--aggregate-function</DisplayName>
+      <DisplayPath>meta-analytics add-measure --aggregate-function</DisplayPath>
+      <NativeId>opt-add-measure-aggregate-function</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Neutral aggregate function applied to the prepared source attribute.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:average" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function">
+      <DisplayName>Average</DisplayName>
+      <DisplayPath>meta-analytics add-measure --aggregate-function value Average</DisplayPath>
+      <NativeId>allowed-base-measure-aggregate-average</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:count" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function" PreviousSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:average">
+      <DisplayName>Count</DisplayName>
+      <DisplayPath>meta-analytics add-measure --aggregate-function value Count</DisplayPath>
+      <NativeId>allowed-base-measure-aggregate-count</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:distinctcount" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function" PreviousSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:count">
+      <DisplayName>DistinctCount</DisplayName>
+      <DisplayPath>meta-analytics add-measure --aggregate-function value DistinctCount</DisplayPath>
+      <NativeId>allowed-base-measure-aggregate-distinctcount</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:maximum" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function" PreviousSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:distinctcount">
+      <DisplayName>Maximum</DisplayName>
+      <DisplayPath>meta-analytics add-measure --aggregate-function value Maximum</DisplayPath>
+      <NativeId>allowed-base-measure-aggregate-maximum</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:minimum" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function" PreviousSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:maximum">
+      <DisplayName>Minimum</DisplayName>
+      <DisplayPath>meta-analytics add-measure --aggregate-function value Minimum</DisplayPath>
+      <NativeId>allowed-base-measure-aggregate-minimum</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:sum" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function" PreviousSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:allowed-value:minimum">
+      <DisplayName>Sum</DisplayName>
+      <DisplayPath>meta-analytics add-measure --aggregate-function value Sum</DisplayPath>
+      <NativeId>allowed-base-measure-aggregate-sum</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-measure:option:data-type-id" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-measure" PreviousSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function">
       <DisplayName>--data-type-id</DisplayName>
       <DisplayPath>meta-analytics add-measure --data-type-id</DisplayPath>
       <NativeId>opt-add-measure-data-type-id</NativeId>
@@ -1384,71 +1376,7 @@
       <Status>New</Status>
       <Summary>MetaAnalytics workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-role-filter" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-analytics:app" PreviousSubjectId="source:cli:meta-analytics:app:command:add-relationship">
-      <DisplayName>meta-analytics add-role-filter</DisplayName>
-      <DisplayPath>meta-analytics add-role-filter</DisplayPath>
-      <NativeId>exec-add-role-filter</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Add row-level security over a table.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-role-filter:option:description" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-role-filter">
-      <DisplayName>--description</DisplayName>
-      <DisplayPath>meta-analytics add-role-filter --description</DisplayPath>
-      <NativeId>opt-add-role-filter-description</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Description.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-role-filter:option:expression" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-role-filter" PreviousSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:description">
-      <DisplayName>--expression</DisplayName>
-      <DisplayPath>meta-analytics add-role-filter --expression</DisplayPath>
-      <NativeId>opt-add-role-filter-expression</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Expression.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-role-filter:option:expression-language" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-role-filter" PreviousSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:expression">
-      <DisplayName>--expression-language</DisplayName>
-      <DisplayPath>meta-analytics add-role-filter --expression-language</DisplayPath>
-      <NativeId>opt-add-role-filter-expression-language</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Expression language.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-role-filter:option:id" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-role-filter" PreviousSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:expression-language">
-      <DisplayName>--id</DisplayName>
-      <DisplayPath>meta-analytics add-role-filter --id</DisplayPath>
-      <NativeId>opt-add-role-filter-id</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>RoleFilter row id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-role-filter:option:role" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-role-filter" PreviousSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:id">
-      <DisplayName>--role</DisplayName>
-      <DisplayPath>meta-analytics add-role-filter --role</DisplayPath>
-      <NativeId>opt-add-role-filter-role</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>SecurityRole id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-role-filter:option:table" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-role-filter" PreviousSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:role">
-      <DisplayName>--table</DisplayName>
-      <DisplayPath>meta-analytics add-role-filter --table</DisplayPath>
-      <NativeId>opt-add-role-filter-table</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Table id.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-role-filter:option:workspace" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-analytics:app:command:add-role-filter" PreviousSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:table">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-analytics add-role-filter --workspace</DisplayPath>
-      <NativeId>opt-add-role-filter-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaAnalytics workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-role-member" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-analytics:app" PreviousSubjectId="source:cli:meta-analytics:app:command:add-role-filter">
+    <DocumentationSubject Id="source:cli:meta-analytics:app:command:add-role-member" DocumentationSourceId="source:cli:meta-analytics" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-analytics:app" PreviousSubjectId="source:cli:meta-analytics:app:command:add-relationship">
       <DisplayName>meta-analytics add-role-member</DisplayName>
       <DisplayPath>meta-analytics add-role-member</DisplayPath>
       <NativeId>exec-add-role-member</NativeId>

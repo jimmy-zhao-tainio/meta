@@ -5,11 +5,16 @@
       <ParentNodeId>view:default:node:public-reference</ParentNodeId>
       <Title>Meta</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:public-meta-bi" DocumentationSubjectId="public:meta-bi" DocumentationViewId="view:default">
+    <DocumentationViewNode Id="view:default:node:public-meta-bi" DocumentationSubjectId="public:meta-bi" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-metaweave">
       <ParentNodeId>view:default:node:public-reference</ParentNodeId>
       <Title>Meta-BI</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:public-meta-bi-cli" DocumentationSubjectId="public:meta-bi:cli" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-bi-overview">
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-adventureworks" DocumentationSubjectId="public:meta-bi:adventureworks" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-bi-overview">
+      <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
+      <Selection></Selection>
+      <Title>Demo</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:public-meta-bi-cli" DocumentationSubjectId="public:meta-bi:cli" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-bi-adventureworks">
       <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
       <Title>CLI</Title>
     </DocumentationViewNode>
@@ -21,14 +26,26 @@
       <ParentNodeId>view:default:node:public-meta-bi</ParentNodeId>
       <Title>Overview</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:public-meta-cli" DocumentationSubjectId="public:meta:cli" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-xml-workspaces">
+    <DocumentationViewNode Id="view:default:node:public-meta-cli" DocumentationSubjectId="public:meta:cli" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-overview">
       <ParentNodeId>view:default:node:public-meta</ParentNodeId>
       <Title>CLI</Title>
     </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:public-meta-metaweave" DocumentationSubjectId="public:meta:metaweave" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-models">
-      <ParentNodeId>view:default:node:public-meta</ParentNodeId>
-      <Selection></Selection>
+    <DocumentationViewNode Id="view:default:node:public-metaweave" DocumentationSubjectId="public:metaweave" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta">
+      <ParentNodeId>view:default:node:public-reference</ParentNodeId>
       <Title>MetaWeave</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:public-metaweave-cli" DocumentationSubjectId="public:metaweave:cli" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-metaweave-overview">
+      <ParentNodeId>view:default:node:public-metaweave</ParentNodeId>
+      <Title>CLI</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:public-metaweave-models" DocumentationSubjectId="public:metaweave:models" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-metaweave-cli">
+      <ParentNodeId>view:default:node:public-metaweave</ParentNodeId>
+      <Title>Models</Title>
+    </DocumentationViewNode>
+    <DocumentationViewNode Id="view:default:node:public-metaweave-overview" DocumentationSubjectId="public:metaweave:overview" DocumentationViewId="view:default">
+      <ParentNodeId>view:default:node:public-metaweave</ParentNodeId>
+      <Selection></Selection>
+      <Title>Overview</Title>
     </DocumentationViewNode>
     <DocumentationViewNode Id="view:default:node:public-meta-models" DocumentationSubjectId="public:meta:models" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-cli">
       <ParentNodeId>view:default:node:public-meta</ParentNodeId>
@@ -37,10 +54,6 @@
     <DocumentationViewNode Id="view:default:node:public-meta-overview" DocumentationSubjectId="public:meta:overview" DocumentationViewId="view:default">
       <ParentNodeId>view:default:node:public-meta</ParentNodeId>
       <Title>Overview</Title>
-    </DocumentationViewNode>
-    <DocumentationViewNode Id="view:default:node:public-meta-xml-workspaces" DocumentationSubjectId="public:meta:xml-workspaces" DocumentationViewId="view:default" PreviousNodeId="view:default:node:public-meta-overview">
-      <ParentNodeId>view:default:node:public-meta</ParentNodeId>
-      <Title>XML workspaces</Title>
     </DocumentationViewNode>
     <DocumentationViewNode Id="view:default:node:public-reference" DocumentationSubjectId="public:reference" DocumentationViewId="view:default">
       <Title>meta + meta-bi reference</Title>

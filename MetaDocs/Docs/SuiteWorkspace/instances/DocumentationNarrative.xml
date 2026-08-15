@@ -1,6 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationNarrativeList>
+    <DocumentationNarrative Id="public:meta-bi:adventureworks:narrative:summary" DocumentationSubjectId="public:meta-bi:adventureworks">
+      <Body>## A complete BI stack built by an agent
+
+The AdventureWorks stack was fully designed and built by an agent using the
+public Meta and meta-bi command-line tools. Its starting inputs were a live
+`AdventureWorks2022` database and a short
+[business request](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/Demos/AdventureWorksBiStackDemo/BUSINESS-REQUIREMENTS.md) for sales trends, channel and
+product analysis, geography, salesperson quotas, and visible data-quality
+risks.
+
+The agent made the architectural decisions that turn those inputs into a BI
+system. It selected sales order, sales line, and salesperson quota as separate
+fact grains; kept tax and freight at order grain; created shared date, product,
+geography, customer, channel, and salesperson dimensions; derived the
+Online/Store channel from source evidence; and declined to publish gross margin
+because AdventureWorks lacks complete historical cost coverage.
+
+The implementation is preserved as models rather than summarized after the
+fact. Every generated workspace was created through its owning CLI. The demo's
+MetaMesh workspace names 27 participating workspaces, 29 operations, and 614
+ordered executable steps covering discovery, model authoring, conversion,
+deployment, transformation import and binding, pipeline construction,
+execution, verification, and analytical deployment. The generated results are
+checked in alongside that construction record.
+
+## What the agent built
+
+Each product owns a concrete part of the resulting stack:
+
+| Engineering concern | AdventureWorks result | Modeled capability |
+| --- | --- | --- |
+| Discover the live source | 6 schemas, 71 tables, 20 views, 744 fields, and 90 relationships | `meta-schema` extracts a reviewable `MetaSchema` source contract. |
+| Preserve source history | 71 Raw hubs, 90 links, 71 satellites, and 341 satellite attributes | `meta-datavault-raw` and `meta-convert` turn the source contract into `MetaRawDataVault`, then into 232 deployable `MetaSql` tables through an explicit implementation model. |
+| Establish business meaning | 14 Business hubs, 19 links, 14 satellites, stable business names, and the Online/Store derivation | `meta-datavault-business` authors `MetaBusinessDataVault` concepts separately from the source-shaped Raw layer. |
+| Fix analytical grain | 3 facts, 8 conformed dimensions, 10 warehouse measures, 40 dimension attributes, and 19 fact-to-dimension relationships | `meta-data-warehouse` authors `MetaDataWarehouse`; `meta-convert` projects it through an implementation model into an 11-table physical warehouse. |
+| Make transformations provable | 53 source-to-Raw, 47 Raw-to-Business, and 20 Business-to-warehouse transformations, each strictly bound | `meta-transform-script` models the T-SQL program; `meta-transform-binding`, `MetaSchema`, `MetaDataType`, and `MetaDataTypeConversion` prove its reads, writes, target shape, and type compatibility. |
+| Turn evidence into quality checks | 176 promoted checks covering orphan joins, multiplicity expansion, duplicate risk, and outer-join null expansion | `meta-data-quality` derives reviewable `MetaDataQuality` candidates and `meta-convert` emits executable quality SQL. |
+| Operate the load | 3 pipelines containing 120 transformation tasks, plus one inferred orchestration plan over the same 120 tasks | `meta-pipeline` executes and records work; `meta-orchestration` derives and governs runtime dependencies. |
+| Publish portable analytics | 11 analytical tables, 72 attributes, 11 base measures, 3 hierarchies, and 19 relationships | `meta-analytics` carries engine-neutral `MetaAnalytics`; `meta-convert` and `meta-tabular` produce and operate the Analysis Services model. |
+| Model the conversion itself | One requirement and 24 executable Analytics-to-Tabular transformations | `meta-weave` executes a `MetaWeave` correspondence whose WeaveScript projection is readable and editable modeled transformation. |
+
+## Prerequisites
+
+- the `meta` and `meta-bi` CLIs on `PATH`;
+- a local SQL Server instance with `AdventureWorks2022` restored;
+- permission to create the four demo-owned databases;
+- Analysis Services Tabular only when running the optional Tabular deployment and processing operations.
+
+[`SOURCE-SETUP.md`](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/Demos/AdventureWorksBiStackDemo/SOURCE-SETUP.md) covers the source database. [`prepare-adventureworks-db.ps1`](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/Demos/AdventureWorksBiStackDemo/prepare-adventureworks-db.ps1) can download and restore the official backup on a local development machine.
+
+## Environment
+
+The examples below use the local default SQL Server instance:
+
+```powershell
+$env:AW_SOURCE_SQL = "Server=.;Database=AdventureWorks2022;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+$env:AW_ADMIN_SQL = "Server=.;Database=master;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+$env:AW_RDV_SQL = "Server=.;Database=AdventureWorksRawVault;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+$env:AW_BDV_SQL = "Server=.;Database=AdventureWorksBusinessVault;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+$env:AW_DW_SQL = "Server=.;Database=AdventureWorksAnalytics;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+$env:AW_PIPELINE_SQL = "Server=.;Database=AdventureWorksMetaPipeline;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
+```
+
+## Build the stack
+
+Run from the mesh workspace:
+
+```powershell
+cd AdventureWorksBiStackDemo.MetaMesh
+
+meta-mesh run --operation validate-source
+meta-mesh run --operation sync-source-schema
+
+meta-mesh run --operation create-raw-vault
+meta-mesh run --operation deploy-raw-vault
+meta-mesh run --operation create-source-raw-transforms
+meta-mesh run --operation create-source-raw-pipeline
+
+meta-mesh run --operation create-business-vault
+meta-mesh run --operation deploy-business-vault
+meta-mesh run --operation create-raw-business-transforms
+meta-mesh run --operation create-raw-business-pipeline
+
+meta-mesh run --operation create-dimensional-warehouse
+meta-mesh run --operation deploy-dimensional-warehouse
+meta-mesh run --operation create-business-warehouse-transforms
+meta-mesh run --operation create-business-warehouse-pipeline
+
+meta-mesh run --operation create-orchestration
+meta-mesh run --operation deploy-pipeline-runtime
+meta-mesh run --operation create-data-quality
+meta-mesh run --operation deploy-data-quality
+meta-mesh run --operation create-analytics
+meta-mesh run --operation create-tabular
+```
+
+The three transform boundaries are strictly bound to modeled source and target schemas before their pipelines are authored. Orchestration is inferred from those pipeline tasks and binding effects.
+
+## Run and verify
+
+Execute the inferred graph across all three pipelines, then reconcile the result to the source:
+
+```powershell
+meta-mesh run --operation run-etl
+meta-mesh run --operation verify-stack
+```
+
+For an inspected layer-by-layer run, use `load-raw-vault`, `load-business-vault`, and `load-dimensional-warehouse` instead of `run-etl`.
+
+The verification operation checks Raw and Business Vault counts, warehouse fact grains, source-to-warehouse measures, deployed Data Quality results, and the latest task-level pipeline evidence. The expected static AdventureWorks result is 31,465 orders, 121,317 lines, 163 quota rows, and 176 promoted Data Quality checks with no findings.
+
+## Tabular runtime
+
+The MetaAnalytics and MetaTabular workspaces are complete without Analysis Services. The runtime operations target the local `.\TABULAR` instance and deploy the model as `AdventureWorksSales`:
+
+```powershell
+meta-mesh run --operation deploy-tabular
+meta-mesh run --operation process-tabular
+```
+
+`deploy-tabular` replaces the target database and deploys metadata without processing. `process-tabular` performs the full refresh. `drop-tabular` removes the deployed database.
+
+The deployment operation also grants the local `NT Service\MSOLAP$TABULAR` service account read access to `AdventureWorksAnalytics`. The verified deployment contains 11 tables, 72 columns, 11 measures, and 19 relationships and completes a full refresh on `.\TABULAR`. A direct model query returns Sales Amount `109846381.425`, Total Due `123216786.1159`, and Quota Amount `95714000`, matching the relational verification.
+
+## Cleanup
+
+```powershell
+meta-mesh run --operation cleanup
+```
+
+Cleanup drops `AdventureWorksRawVault`, `AdventureWorksBusinessVault`, `AdventureWorksAnalytics`, and `AdventureWorksMetaPipeline`, then removes transient pipeline execution evidence under `Runs\ops\RunArtifacts`. It keeps the checked-in modeled workspaces. It does not remove the source database or an external Tabular database.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Demo</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:cli:narrative:summary:cli" DocumentationSubjectId="public:meta-bi:cli">
       <Body>Command-line tools for BI modeling, conversion, validation, and execution.</Body>
       <Origin>Authored</Origin>
@@ -15,88 +152,86 @@
       <Slot>Summary</Slot>
       <Title>Models</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence">
-      <Body>A BI stack can begin with a source schema, pass through Raw and Business Data Vault structures, continue into a dimensional warehouse, and finish in an analytical target. At each handoff, the next workspace receives declared structure and the evidence needed to bind, generate, deploy, or execute it.
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:conversions" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:models">
+      <Body>Conversions carry one workspace into the next part of the system. `meta-convert` covers the established paths: schema to Raw Data Vault; Raw and Business Data Vault to SQL; data warehouse to SQL; SQL and TransformScript in both directions; Data Quality to SQL; and MetaAnalytics to Tabular or Multidimensional models.
 
-The result is a chain that can be inspected at every boundary instead of one opaque build script.</Body>
+MetaWeave brings the conversion itself into a model. A `MetaWeave` workspace names the source and target contracts, the available directions, their requirements, and the transformations that populate target entities. Those transformations have a readable WeaveScript form and execute through MetaWeave's in-memory engine. The result of `meta-weave execute` is a new workspace in the selected XML, SQL, or C# representation.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
-      <Slot>EndToEnd</Slot>
-      <Title>How the layers connect</Title>
+      <Slot>Conversions</Slot>
+      <Title>Conversions</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:fullstack:a-complete-stack-in-practice" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:endtoend:from-source-contracts-to-analytical-targets">
-      <Body>The AdventureWorks stack composes 27 workspaces and 29 named operations over a live `AdventureWorks2022` source:
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:mesh" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:conversions">
+      <Body>A BI build uses many workspaces and many CLI calls. MetaMesh turns that construction path into a workspace of its own: participating workspaces, executables, arguments, named operations, and ordered steps.
 
-- source schema synchronization;
-- Raw and Business Data Vault and dimensional warehouse creation and deployment;
-- 53 source-to-Raw, 47 Raw-to-Business, and 20 Business-to-warehouse transforms imported and strictly bound;
-- three pipelines with modeled cross-pipeline orchestration;
-- 176 generated Data Quality checks;
-- portable `MetaAnalytics` projected into `MetaTabular`, then deployed and processed.
+An operation can begin with source discovery, create the vault and warehouse models, convert them into database structures, deploy them, import and bind transforms, build pipelines, derive orchestration, execute the load, check the result, and publish an analytical model. Other operations can refresh one layer, deploy one target, or run one verification sequence.
 
-A clean run reconciled 31,465 orders, 121,317 order lines, and 163 quota rows from source through the warehouse. It reproduced the expected sales and quota totals and produced zero findings across the promoted Data Quality checks. Repeating the ETL preserved the Raw, Business, and warehouse row totals, and the processed Tabular deployment returned the same analytical values.
-
-Once the stack is created and deployed:
-
-```powershell
-cd Demos\AdventureWorksBiStackDemo\AdventureWorksBiStackDemo.MetaMesh
-meta-mesh run --operation run-etl
-meta-mesh run --operation verify-stack
-meta-mesh run --operation deploy-tabular
-meta-mesh run --operation process-tabular
-```
-
-The operation names and workspace dependencies are part of the MetaMesh workspace, so the sequence can be inspected and repeated from the model.</Body>
+`meta-mesh validate` resolves the declared workspaces and commands before execution. `meta-mesh run` then invokes each step in the recorded order. The mesh workspace keeps the construction process alongside the model workspaces and gives the system named entry points for build, deployment, execution, verification, and cleanup.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
-      <Slot>FullStack</Slot>
-      <Title>AdventureWorks evidence</Title>
+      <Slot>Mesh</Slot>
+      <Title>Building systems with MetaMesh</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure">
-      <Body>The official BI models divide the stack by ownership:
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:models" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:summary">
+      <Body>The model set follows the working parts of a BI system, from source structure through data stores and transforms to runtime and analytics.
 
-- `MetaSchema`, `MetaDataType`, and `MetaDataTypeConversion` describe source structures and type mappings.
-- `MetaRawDataVault`, `MetaBusinessDataVault`, and `MetaDataWarehouse` describe data architecture and physical implementation.
-- `MetaTransformScript`, `MetaTransformBinding`, `MetaSql`, and `MetaSqlDeployManifest` describe transformation, binding, database objects, and deployment.
-- `MetaAnalytics` carries portable analytical meaning before a target engine is selected.
-- `MetaTabular` and `MetaMultiDimensional` describe target-specific analytical models.
-- `MetaDataQuality`, `MetaPipeline`, and `MetaOrchestration` describe assurance and execution.
+#### Schemas and data types
 
-`meta-convert` connects these workspaces through explicit model conversions.</Body>
+Work can begin by extracting SQL Server into `MetaSchema`. The resulting workspace contains schemas, objects, fields, keys, and relationships that other models can reference. `MetaDataType` gives those fields shared type identities, and `MetaDataTypeConversion` carries the conversion rules used when source and target systems use different type systems.
+
+#### Data Vault
+
+From a source contract, the Raw Data Vault model captures hubs, links, satellites, business keys, and descriptive fields in `MetaRawDataVault`. Business integration is authored in `MetaBusinessDataVault`, including Business hubs, links, satellites, bridges, point-in-time structures, and their supporting relationships.
+
+`MetaDataVaultImplementation` supplies schemas and names, SQL types, hashing policy, audit columns, defaults, and indexes. Conversion combines a vault workspace with that implementation workspace and produces the corresponding `MetaSql` database structure.
+
+#### Data warehouse
+
+Dimensional design begins with grain. `MetaDataWarehouse` carries facts, dimensions, attributes, measures, dimensional roles, table types, historization, and the relationships that connect them. `MetaDataWarehouseImplementation` applies schemas and naming, surrogate keys, slowly-changing-dimension columns, SQL types, defaults, and indexes when that design is converted into database tables.
+
+#### Transforms
+
+`MetaTransformScript` is a semantic model of supported T-SQL. It carries statements, queries, CTEs, row sources, expressions, functions, identifiers, ordering, and mutations as related model entities. SQL can be imported into that model, inspected and changed as workspace data, and emitted again as T-SQL.
+
+Binding places those transforms against source and target `MetaSchema` workspaces. `MetaTransformBinding` resolves object and field references, derives input and output rowsets, records reads and writes, matches projected columns to target columns, and applies the selected `MetaDataTypeConversion` rules. The resulting binding workspace feeds data-quality discovery, pipeline execution, and orchestration analysis.
+
+#### SQL databases
+
+`MetaSql` carries the SQL Server database structure produced by the design and transform models, and it can also be extracted from SQL Server. `meta-sql deploy-plan` compares a MetaSql workspace with a live database and writes a `MetaSqlDeployManifest` containing fingerprints, changes, and exact approvals for table drops, column drops, and column truncations. `meta-sql deploy` checks the source and live fingerprints and applies the recorded changes.
+
+#### Data quality
+
+The transform estate already contains repeated joins, projections, and grain clues. `MetaDataQuality` walks that modeled structure, follows joins through CTEs and derived queries, and gathers recurring patterns across transforms. From them it produces candidates for orphan joins, outer-join null expansion, multiplicity growth, and duplicate output.
+
+The workspace keeps each pattern, its occurrences, the generated candidates, and their promotion status. Promoted candidates become SQL views, a review dashboard, and an operational run and findings pack.
+
+#### Pipelines
+
+Bound transforms become runnable work in `MetaPipeline`. A pipeline arranges transform tasks and executable tasks into an ordered unit, with connection references, target writes, timeouts, and execution settings recorded in the workspace. During a run, the pipeline runtime reads and writes data, buffers batches, invokes processes, and records task results, row and batch counts, timings, metrics, and failures.
+
+#### Orchestration
+
+The reads and writes captured by binding give `MetaOrchestration` the information needed to connect pipeline tasks. It derives producer-consumer dependencies and object effects, then combines them with ordering, locking, retry, and failure-branch policy in an orchestration workspace.
+
+Run planning turns that workspace into planned tasks and locks. At execution time, orchestration grants work as dependencies become satisfied and locks become available, allowing independent paths to run together while recording attempts, retries, and failure paths.
+
+#### Analytics
+
+At the analytical layer, `MetaAnalytics` carries tables, attributes, relationships, hierarchies, perspectives, security, cultures, translations, and source-backed base measures with typed aggregate functions. That workspace can be converted into either analytical target.
+
+`MetaTabular` adds the Tabular structures used for DAX measures, row filters, partitions, calculation groups, roles, perspectives, and translations. `MetaMultiDimensional` carries cubes, dimensions, measure groups, MDX calculations, named sets, actions, partitions, roles, perspectives, and translations. Their CLIs deploy the target databases, process them, query them, back them up, restore them, and remove them.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
-      <Slot>ModelLayers</Slot>
-      <Title>BI model layers</Title>
+      <Slot>Models</Slot>
+      <Title>The models</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:operationalevidence:model-driven-execution-and-evidence" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:modellayers:sanctioned-model-layers">
-      <Body>`meta-data-quality` turns transform and schema information into generated quality checks and findings.
+    <DocumentationNarrative Id="public:meta-bi:overview:narrative:summary" DocumentationSubjectId="public:meta-bi:overview">
+      <Body>`meta-bi` brings BI engineering into the workspace system provided by `meta`. A project can move from a discovered source schema to Data Vault and dimensional models, bind SQL transforms to those structures, turn transform patterns into data-quality checks, execute loads, derive orchestration, and publish analytical models.
 
-`meta-pipeline` executes modeled tasks and records the transform, binding, row, batch, timeout, fingerprint, audit, and failure information needed to understand a run. `meta-orchestration` derives dependencies from pipeline tasks and modeled object access, while explicit ordering, synchronization, and failure policy remain part of the orchestration workspace.
-
-Target CLIs deploy or process the analytical workspaces described by the stack.</Body>
-      <LastReviewedImportBatchId></LastReviewedImportBatchId>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>OperationalEvidence</Slot>
-      <Title>Execution models</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:sqlsemantics:sql-as-modeled-structure" DocumentationSubjectId="public:meta-bi:overview" PreviousNarrativeId="public:meta-bi:overview:narrative:summary:overview">
-      <Body>SQL structure matters to the BI layers that depend on it.
-
-`MetaTransformScript` imports supported SQL into a typed syntax model and can emit equivalent SQL. `MetaTransformBinding` checks that modeled reads and writes resolve against source and target `MetaSchema` workspaces and follow the selected `MetaDataTypeConversion` policy. `MetaSql` and `MetaSqlDeployManifest` carry deployable database structure and controlled deployment.
-
-The result is a chain of declared contracts rather than independent tools guessing from SQL text.</Body>
-      <LastReviewedImportBatchId></LastReviewedImportBatchId>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>SqlSemantics</Slot>
-      <Title>SQL structure and binding</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:overview:narrative:summary:overview" DocumentationSubjectId="public:meta-bi:overview">
-      <Body>`meta-bi` is the BI modeling layer built on `meta`. It carries source contracts through SQL transformation, Data Vault, warehouse, quality, pipeline, orchestration, and analytical target workspaces. Each handoff remains a workspace that can be reviewed, converted, deployed, or executed.</Body>
+Each stage leaves a model workspace behind. Those workspaces carry the structures and decisions used by the next stage, while the command-line tools create and operate them.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
@@ -109,40 +244,6 @@ The result is a chain of declared contracts rather than independent tools guessi
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>CLI</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:metaweave:narrative:summary" DocumentationSubjectId="public:meta:metaweave">
-      <Body>MetaWeave is model-to-model conversion for Meta workspaces. A MetaWeave workspace is a first-class correspondence between two workspace contracts. It contains the independent directions that are supported, the requirements for entering each direction, and the transformations that populate target entities.
-
-The correspondence is the authored conversion truth. It is ordinary Meta workspace data, so it remains inspectable, versionable, and representation-neutral rather than being hidden inside handwritten converter code.
-
-## WeaveScript is modeled transformation
-
-WeaveScript is a modeled language for transforming models, distilled from MetaTransformScript and deliberately bounded to workspace conversion. Its recognizable T-SQL-shaped text is an authoring and inspection surface, not a collection of stored scripts. The MetaWeave workspace contains the typed semantic query graph that the text represents.
-
-MetaWeave executes that graph directly with its in-memory relational engine. It does not send conversion queries to SQL Server. SQL remains available as one workspace representation alongside XML and C#.
-
-A direction requirement is a violation query: zero rows satisfy it, while every returned row becomes a concrete diagnostic with projected evidence. All requirements run against the immutable source before target construction starts.
-
-Each transformation projects records for one target entity. MetaWeave derives their execution order from the target model dependency graph, starts with an empty target instance, and submits every insertion through normal Meta Core operations. Every successful operation becomes the next valid target state. The state after the last scheduled transformation is the completed workspace.
-
-## Execute a correspondence
-
-```text
-meta-weave execute \
-  --workspace &lt;weave-workspace&gt; \
-  --source-workspace &lt;populated-source&gt; \
-  --target-workspace &lt;target-contract&gt; \
-  --xml &lt;new-target-workspace&gt;
-```
-
-`forward` is the default direction. The target workspace supplies its model contract, not seed instances. Exactly one of `--xml`, `--csharp`, or `--sql` selects the new workspace representation. A failed requirement or transformation creates no output.
-
-`meta-weave show` summarizes a correspondence. `emit-requirement` and `emit-transformation` render modeled query graphs as readable WeaveScript. Update commands accept replacement text through standard input and store the parsed semantic model back in the same correspondence workspace.</Body>
-      <LastReviewedImportBatchId></LastReviewedImportBatchId>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>MetaWeave</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:models:narrative:summary:models" DocumentationSubjectId="public:meta:models">
       <Body>Model references for the core metadata foundation.</Body>
@@ -168,8 +269,7 @@ Workspace-oriented commands use the current directory by default. Pass `--worksp
       <Title>Meta CLI at a glance</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta:overview:narrative:commandguide:command-guide" DocumentationSubjectId="public:meta:overview" PreviousNarrativeId="public:meta:overview:narrative:cliataglance:the-meta-command-surface">
-      <Body>- [XML workspace contract](https://metametabi.com/docs.html#subject-public-meta-xml-workspaces) specifies the XML model and instance formats.
-- [Meta CLI reference](https://metametabi.com/docs.html#group-public-meta-cli) is generated from the modeled command surfaces.
+      <Body>- [Meta CLI reference](https://metametabi.com/docs.html#group-public-meta-cli) is generated from the modeled command surfaces.
 - [Meta model reference](https://metametabi.com/docs.html#group-public-meta-models) describes the foundation models.
 - [Development package documentation](https://github.com/jimmy-zhao-tainio/meta/blob/master/PACKAGE-README.md) records the maintained package boundaries.
 - [Contributor guidance](https://github.com/jimmy-zhao-tainio/meta/blob/master/CONTRIBUTING.md) covers repository builds and generated-artifact policy.</Body>
@@ -303,53 +403,53 @@ The line-oriented `workspace.meta` descriptor selects the surface with `represen
       <Slot>WorkspaceContract</Slot>
       <Title>Workspace contract</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:xml-workspaces:narrative:instancexmlcontract:xml-instance-contract" DocumentationSubjectId="public:meta:xml-workspaces" PreviousNarrativeId="public:meta:xml-workspaces:narrative:modelxmlcontract:xml-model-contract">
-      <Body>`instances/*.xml` stores the records for an XML workspace. The root element names the model, and each entity is grouped under its deterministic list container.
+    <DocumentationNarrative Id="public:metaweave:cli:narrative:summary" DocumentationSubjectId="public:metaweave:cli">
+      <Body>Command reference for creating, inspecting, editing, and executing MetaWeave workspaces.</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>CLI</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:metaweave:models:narrative:summary" DocumentationSubjectId="public:metaweave:models">
+      <Body>Model reference for the MetaWeave correspondence workspace.</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Models</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:metaweave:overview:narrative:summary" DocumentationSubjectId="public:metaweave:overview">
+      <Body>MetaWeave is model-to-model conversion for Meta workspaces. A MetaWeave workspace is a first-class correspondence between two workspace contracts. It contains the independent directions that are supported, the requirements for entering each direction, and the transformations that populate target entities.
 
-For the small fictional `WorkspaceCatalog` model:
+The correspondence is the authored conversion truth. It is ordinary Meta workspace data, so it remains inspectable, versionable, and representation-neutral rather than being hidden inside handwritten converter code.
 
-```xml
-&lt;WorkspaceCatalog&gt;
-  &lt;SystemList&gt;
-    &lt;System Id="erp"&gt;
-      &lt;SystemName&gt;ERP&lt;/SystemName&gt;
-    &lt;/System&gt;
-  &lt;/SystemList&gt;
-&lt;/WorkspaceCatalog&gt;
+## WeaveScript is modeled transformation
+
+WeaveScript is a modeled language for transforming models, distilled from MetaTransformScript and deliberately bounded to workspace conversion. Its recognizable T-SQL-shaped text is an authoring and inspection surface, not a collection of stored scripts. The MetaWeave workspace contains the typed semantic query graph that the text represents.
+
+MetaWeave executes that graph directly with its in-memory relational engine. It does not send conversion queries to SQL Server. SQL remains available as one workspace representation alongside XML and C#.
+
+A direction requirement is a violation query: zero rows satisfy it, while every returned row becomes a concrete diagnostic with projected evidence. All requirements run against the immutable source before target construction starts.
+
+Each transformation projects records for one target entity. MetaWeave derives their execution order from the target model dependency graph, starts with an empty target instance, and submits every insertion through normal Meta Core operations. Every successful operation becomes the next valid target state. The state after the last scheduled transformation is the completed workspace.
+
+## Execute a correspondence
+
+```text
+meta-weave execute \
+  --workspace &lt;weave-workspace&gt; \
+  --source-workspace &lt;populated-source&gt; \
+  --target-workspace &lt;target-contract&gt; \
+  --xml &lt;new-target-workspace&gt;
 ```
 
-Every record has an `Id`. Scalar properties are child elements; relationships are stored as `...Id` attributes. Missing elements mean that an optional value is unset.</Body>
-      <LastReviewedImportBatchId></LastReviewedImportBatchId>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>InstanceXmlContract</Slot>
-      <Title>Instance XML contract</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:xml-workspaces:narrative:modelxmlcontract:xml-model-contract" DocumentationSubjectId="public:meta:xml-workspaces" PreviousNarrativeId="public:meta:xml-workspaces:narrative:summary:xml-workspaces">
-      <Body>`model.xml` declares which entities exist, which scalar properties they carry, and how they relate.
+`forward` is the default direction. The target workspace supplies its model contract, not seed instances. Exactly one of `--xml`, `--csharp`, or `--sql` selects the new workspace representation. A failed requirement or transformation creates no output.
 
-A model has one `&lt;Model name="WorkspaceCatalog"&gt;` root and follows a small set of rules:
-
-- `&lt;Entity name="System"&gt;` defines a record type; every entity has an implicit `Id`.
-- `&lt;PropertyList&gt;` contains scalar fields. Properties are required by default; `isRequired="false"` makes one optional.
-- `&lt;RelationshipList&gt;` contains references to other entities. Relationships are required by default.
-- A relationship role distinguishes multiple relationships to the same target entity.
-- Entity instances are grouped under deterministic `&lt;EntityName&gt;List` containers.
-
-The XML model contract keeps structure explicit and reviewable without making XML the canonical semantic representation.</Body>
-      <LastReviewedImportBatchId></LastReviewedImportBatchId>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>ModelXmlContract</Slot>
-      <Title>Model XML contract</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta:xml-workspaces:narrative:summary:xml-workspaces" DocumentationSubjectId="public:meta:xml-workspaces">
-      <Body>The XML surface stores a workspace as a line-oriented `workspace.meta` descriptor, one `model.xml`, and deterministic instance files under `instances/`. This reference specifies that representation; it does not assign XML a privileged semantic role.</Body>
+`meta-weave show` summarizes a correspondence. `emit-requirement` and `emit-transformation` render modeled query graphs as readable WeaveScript. Update commands accept replacement text through standard input and store the parsed semantic model back in the same correspondence workspace.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
-      <Title>XML workspaces</Title>
+      <Title>MetaWeave</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:reference:narrative:summary:meta-meta-bi-reference" DocumentationSubjectId="public:reference">
       <Body>Command-line and model references for the current public MetaDocs suite.</Body>
@@ -358,57 +458,9 @@ The XML model contract keeps structure explicit and reviewable without making XM
       <Slot>Summary</Slot>
       <Title>meta + meta-bi reference</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior">
-      <Body>Declare a base measure aggregate function.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:description">
-      <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:function:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:function">
-      <Body>Aggregate function.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:id">
-      <Body>AggregationBehavior row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:measure:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:measure">
-      <Body>Measure id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-aggregation-behavior:option:workspace">
-      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission">
       <Body>Add object-level security for an attribute.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -416,7 +468,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:attribute">
       <Body>Attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -424,7 +476,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -432,7 +484,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:id">
       <Body>AttributePermission row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -440,7 +492,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:metadata-permission:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:metadata-permission">
       <Body>Metadata permission.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -448,7 +500,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:role:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:role">
       <Body>SecurityRole id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -456,7 +508,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-permission:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-permission:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -464,7 +516,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship">
       <Body>Declare an attribute relationship inside a table.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -472,7 +524,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:child-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:child-attribute">
       <Body>Child attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -480,7 +532,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -488,7 +540,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:id">
       <Body>AttributeRelationship row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -496,7 +548,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:parent-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:parent-attribute">
       <Body>Parent attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -504,7 +556,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:relationship-type:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:relationship-type">
       <Body>Relationship type.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -512,7 +564,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-relationship:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-relationship:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -520,7 +572,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation">
       <Body>Translate attribute metadata.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -528,7 +580,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:attribute">
       <Body>Attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -536,7 +588,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:caption:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:caption">
       <Body>Caption.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -544,7 +596,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:culture:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:culture">
       <Body>Culture id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -552,7 +604,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -560,7 +612,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:id">
       <Body>AttributeTranslation row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -568,7 +620,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute-translation:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute-translation:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -576,7 +628,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute">
       <Body>Add a typed table attribute or calculated attribute.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -584,7 +636,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:data-category:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:data-category">
       <Body>Data category.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -592,7 +644,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:data-type-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:data-type-id">
       <Body>Data type id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -600,23 +652,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:expression-language:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:expression-language">
-      <Body>Expression language.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:expression:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:expression">
-      <Body>Expression.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -624,7 +660,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:format-string:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:format-string">
       <Body>Format string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -632,7 +668,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:id">
       <Body>Attribute row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -640,7 +676,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:is-hidden:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:is-hidden">
       <Body>Whether the attribute is hidden.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -648,7 +684,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:is-key:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:is-key">
       <Body>Whether the attribute is a key.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -656,7 +692,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:is-nullable:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:is-nullable">
       <Body>Whether the attribute is nullable.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -664,7 +700,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:kind:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:kind">
       <Body>Attribute kind.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -672,7 +708,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:name">
       <Body>Attribute name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -680,7 +716,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:ordinal:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:ordinal">
       <Body>Attribute ordinal.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -688,7 +724,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:source-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:source-name">
       <Body>Source column name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -696,7 +732,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:summarize-by:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:summarize-by">
       <Body>Summarize by.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -704,7 +740,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:table">
       <Body>Table id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -712,7 +748,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-attribute:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-attribute:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -720,7 +756,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture">
       <Body>Add a model culture.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -728,7 +764,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -736,7 +772,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture:option:id">
       <Body>Culture row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -744,7 +780,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:option:model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture:option:model">
       <Body>AnalyticsModel id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -752,7 +788,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture:option:name">
       <Body>Culture name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -760,7 +796,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-culture:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-culture:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -768,7 +804,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source">
       <Body>Add an analytics source declaration.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -776,7 +812,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:connection-reference:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:connection-reference">
       <Body>Connection reference.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -784,7 +820,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -792,7 +828,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:id">
       <Body>DataSource row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -800,7 +836,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:model">
       <Body>AnalyticsModel id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -808,7 +844,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:name">
       <Body>Data source name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -816,7 +852,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:provider:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:provider">
       <Body>Provider name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -824,7 +860,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:source-kind:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:source-kind">
       <Body>Source kind.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -832,7 +868,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-data-source:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-data-source:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -840,7 +876,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level">
       <Body>Add an ordered hierarchy level.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -848,7 +884,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:attribute">
       <Body>Attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -856,7 +892,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:hierarchy:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:hierarchy">
       <Body>Hierarchy id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -864,7 +900,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:id">
       <Body>HierarchyLevel row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -872,7 +908,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:name">
       <Body>Level name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -880,7 +916,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:ordinal:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:ordinal">
       <Body>Hierarchy level ordinal.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -888,7 +924,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-level:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-level:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -896,7 +932,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation">
       <Body>Translate hierarchy metadata.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -904,7 +940,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:caption:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:caption">
       <Body>Caption.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -912,7 +948,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:culture:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:culture">
       <Body>Culture id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -920,7 +956,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -928,7 +964,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:hierarchy:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:hierarchy">
       <Body>Hierarchy id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -936,7 +972,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:id">
       <Body>HierarchyTranslation row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -944,7 +980,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy-translation:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -952,7 +988,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy">
       <Body>Add a hierarchy.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -960,7 +996,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -968,7 +1004,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:display-folder:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:display-folder">
       <Body>Display folder.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -976,7 +1012,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:id">
       <Body>Hierarchy row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -984,7 +1020,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:is-hidden:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:is-hidden">
       <Body>Whether the hierarchy is hidden.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -992,7 +1028,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:kind:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:kind">
       <Body>Hierarchy kind.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1000,7 +1036,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:name">
       <Body>Hierarchy name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1008,7 +1044,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:table">
       <Body>Table id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1016,7 +1052,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-hierarchy:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-hierarchy:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1024,7 +1060,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation">
       <Body>Translate measure metadata.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1032,7 +1068,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:caption:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:caption">
       <Body>Caption.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1040,7 +1076,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:culture:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:culture">
       <Body>Culture id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1048,7 +1084,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1056,7 +1092,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:id">
       <Body>MeasureTranslation row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1064,7 +1100,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:measure:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:measure">
       <Body>Measure id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1072,7 +1108,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure-translation:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure-translation:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1080,7 +1116,15 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure">
       <Body>Add a source-backed base measure.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function:narrative:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:aggregate-function">
+      <Body>Neutral aggregate function applied to the prepared source attribute.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1088,7 +1132,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:data-type-id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:data-type-id">
       <Body>Data type id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1096,7 +1140,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1104,7 +1148,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:display-folder:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:display-folder">
       <Body>Display folder.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1112,7 +1156,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:format-string:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:format-string">
       <Body>Format string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1120,7 +1164,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:id">
       <Body>Measure row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1128,7 +1172,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:is-hidden:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:is-hidden">
       <Body>Whether the measure is hidden.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1136,7 +1180,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:name">
       <Body>Measure name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1144,7 +1188,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:source-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:source-attribute">
       <Body>Source attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1152,7 +1196,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:table">
       <Body>Table id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1160,7 +1204,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-measure:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-measure:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1168,7 +1212,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model">
       <Body>Add an analytics model.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1176,7 +1220,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:option:default-culture:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model:option:default-culture">
       <Body>Default culture.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1184,7 +1228,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1192,7 +1236,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model:option:id">
       <Body>AnalyticsModel row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1200,7 +1244,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model:option:name">
       <Body>Analytics model name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1208,7 +1252,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-model:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-model:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1216,7 +1260,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-attribute">
       <Body>Expose an attribute in a perspective.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1224,7 +1268,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-attribute:option:attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-attribute:option:attribute">
       <Body>Attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1232,7 +1276,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-attribute:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-attribute:option:id">
       <Body>PerspectiveAttribute row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1240,7 +1284,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-attribute:option:perspective:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-attribute:option:perspective">
       <Body>Perspective id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1248,7 +1292,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-attribute:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-attribute:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1256,7 +1300,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-hierarchy:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-hierarchy">
       <Body>Expose a hierarchy in a perspective.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1264,7 +1308,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:hierarchy:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:hierarchy">
       <Body>Hierarchy id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1272,7 +1316,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:id">
       <Body>PerspectiveHierarchy row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1280,7 +1324,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:perspective:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:perspective">
       <Body>Perspective id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1288,7 +1332,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-hierarchy:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1296,7 +1340,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-measure:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-measure">
       <Body>Expose a measure in a perspective.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1304,7 +1348,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-measure:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-measure:option:id">
       <Body>PerspectiveMeasure row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1312,7 +1356,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-measure:option:measure:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-measure:option:measure">
       <Body>Measure id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1320,7 +1364,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-measure:option:perspective:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-measure:option:perspective">
       <Body>Perspective id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1328,7 +1372,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-measure:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-measure:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1336,7 +1380,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-table">
       <Body>Expose a table in a perspective.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1344,7 +1388,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-table:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-table:option:id">
       <Body>PerspectiveTable row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1352,7 +1396,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-table:option:perspective:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-table:option:perspective">
       <Body>Perspective id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1360,7 +1404,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-table:option:table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-table:option:table">
       <Body>Table id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1368,7 +1412,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-table:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-table:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1376,7 +1420,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation">
       <Body>Translate perspective metadata.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1384,7 +1428,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:caption:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:caption">
       <Body>Caption.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1392,7 +1436,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:culture:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:culture">
       <Body>Culture id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1400,7 +1444,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1408,7 +1452,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:id">
       <Body>PerspectiveTranslation row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1416,7 +1460,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:perspective:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:perspective">
       <Body>Perspective id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1424,7 +1468,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective-translation:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective-translation:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1432,7 +1476,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective">
       <Body>Add a perspective.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1440,7 +1484,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1448,7 +1492,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective:option:id">
       <Body>Perspective row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1456,7 +1500,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:option:model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective:option:model">
       <Body>AnalyticsModel id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1464,7 +1508,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective:option:name">
       <Body>Perspective name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1472,7 +1516,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-perspective:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-perspective:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1480,7 +1524,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship">
       <Body>Add a relationship between analytics tables.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1488,7 +1532,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:cardinality:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:cardinality">
       <Body>Cardinality.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1496,7 +1540,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:cross-filter-direction:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:cross-filter-direction">
       <Body>Cross-filter direction.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1504,7 +1548,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1512,7 +1556,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:from-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:from-attribute">
       <Body>From attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1520,7 +1564,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:from-table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:from-table">
       <Body>From table id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1528,7 +1572,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:granularity-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:granularity-attribute">
       <Body>Granularity attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1536,7 +1580,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:id">
       <Body>Relationship row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1544,7 +1588,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:intermediate-table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:intermediate-table">
       <Body>Intermediate table id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1552,7 +1596,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:is-active:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:is-active">
       <Body>Whether the relationship is active.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1560,7 +1604,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:is-required:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:is-required">
       <Body>Whether the relationship is required.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1568,7 +1612,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:name">
       <Body>Relationship name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1576,7 +1620,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:relationship-kind:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:relationship-kind">
       <Body>Relationship kind.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1584,7 +1628,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:role-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:role-name">
       <Body>Role name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1592,7 +1636,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:to-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:to-attribute">
       <Body>To attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1600,7 +1644,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:to-table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:to-table">
       <Body>To table id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1608,71 +1652,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-relationship:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-relationship:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter">
-      <Body>Add row-level security over a table.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:description">
-      <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:expression-language:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:expression-language">
-      <Body>Expression language.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:expression:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:expression">
-      <Body>Expression.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:id">
-      <Body>RoleFilter row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:role:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:role">
-      <Body>SecurityRole id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:table">
-      <Body>Table id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
-      <Origin>Generated</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Summary</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-filter:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-filter:option:workspace">
-      <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1680,7 +1660,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member">
       <Body>Add a member to a security role.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1688,7 +1668,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member:option:id">
       <Body>RoleMember row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1696,7 +1676,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:option:member-kind:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member:option:member-kind">
       <Body>Member kind.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1704,7 +1684,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:option:member-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member:option:member-name">
       <Body>Member name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1712,7 +1692,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:option:role:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member:option:role">
       <Body>SecurityRole id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1720,7 +1700,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-role-member:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-role-member:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1728,7 +1708,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role">
       <Body>Add a security role.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1736,7 +1716,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1744,7 +1724,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:id">
       <Body>SecurityRole row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1752,7 +1732,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:model">
       <Body>AnalyticsModel id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1760,7 +1740,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:name">
       <Body>Security role name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1768,7 +1748,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:permission:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:permission">
       <Body>Permission.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1776,7 +1756,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-security-role:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-security-role:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1784,7 +1764,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute">
       <Body>Declare one attribute as the sort key for another.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1792,7 +1772,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1800,7 +1780,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:id">
       <Body>SortByAttribute row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1808,7 +1788,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:sort-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:sort-attribute">
       <Body>Sort attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1816,7 +1796,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:source-attribute:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:source-attribute">
       <Body>Source attribute id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1824,7 +1804,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-sort-by-attribute:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1832,7 +1812,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission">
       <Body>Add object-level security for a table.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1840,7 +1820,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1848,7 +1828,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:id">
       <Body>TablePermission row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1856,7 +1836,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:metadata-permission:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:metadata-permission">
       <Body>Metadata permission.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1864,7 +1844,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:role:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:role">
       <Body>SecurityRole id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1872,7 +1852,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:table">
       <Body>Table id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1880,7 +1860,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-permission:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-permission:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1888,7 +1868,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation">
       <Body>Translate table metadata.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1896,7 +1876,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:caption:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:caption">
       <Body>Caption.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1904,7 +1884,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:culture:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:culture">
       <Body>Culture id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1912,7 +1892,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1920,7 +1900,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:id">
       <Body>TableTranslation row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1928,7 +1908,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:table">
       <Body>Table id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1936,7 +1916,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table-translation:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table-translation:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1944,7 +1924,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table">
       <Body>Add an analytics table.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1952,7 +1932,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:data-category:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:data-category">
       <Body>Data category.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1960,7 +1940,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:description:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:description">
       <Body>Description.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1968,7 +1948,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:display-folder:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:display-folder">
       <Body>Display folder.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1976,7 +1956,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:id:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:id">
       <Body>Table row id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1984,7 +1964,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:is-hidden:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:is-hidden">
       <Body>Whether the table is hidden.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -1992,7 +1972,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:kind:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:kind">
       <Body>Table kind.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -2000,7 +1980,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:model:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:model">
       <Body>AnalyticsModel id.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -2008,7 +1988,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:name">
       <Body>Table name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -2016,7 +1996,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:add-table:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:add-table:option:workspace">
       <Body>MetaAnalytics workspace. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -2024,7 +2004,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:create:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:create">
       <Body>Create a meta-analytics workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -2032,7 +2012,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:create:option:connection-env:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:create:option:connection-env">
       <Body>Environment variable containing the SQL Server connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -2040,7 +2020,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:create:option:csharp:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:create:option:csharp">
       <Body>Create a C# workspace at this directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -2048,7 +2028,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:create:option:sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:create:option:sql">
       <Body>Create a SQL workspace described by this directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -2056,7 +2036,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:create:option:xml:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:create:option:xml">
       <Body>Create an XML workspace at this directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -2064,7 +2044,7 @@ The XML model contract keeps structure explicit and reviewable without making XM
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:command:help:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app:command:help">
       <Body>Show help.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -2082,7 +2062,7 @@ Use it when analytical intent should be shared by Tabular, MultiDimensional, or 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-analytics:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-analytics:app">
       <Body>Author shared analytics semantics for dimensions, hierarchies, measures, facts, and security across semantic model targets.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260805095722121</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-analytics:batch:20260814205927926</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>

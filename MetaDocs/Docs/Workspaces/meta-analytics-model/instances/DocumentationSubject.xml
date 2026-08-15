@@ -8,39 +8,15 @@
       <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
       <Status>Current</Status>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics">
-      <DisplayName>AggregationBehavior</DisplayName>
-      <DisplayPath>MetaAnalytics.AggregationBehavior</DisplayPath>
-      <NativeId>AggregationBehavior</NativeId>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics">
+      <DisplayName>AggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.AggregateFunction</DisplayPath>
+      <NativeId>AggregateFunction</NativeId>
       <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior">
-      <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaAnalytics.AggregationBehavior.Description</DisplayPath>
-      <NativeId>Description</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:function" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior" PreviousSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior:property:description">
-      <DisplayName>Function</DisplayName>
-      <DisplayPath>MetaAnalytics.AggregationBehavior.Function</DisplayPath>
-      <NativeId>Function</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:aggregationbehavior:relationship:measure-measure" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior">
-      <DisplayName>Measure</DisplayName>
-      <DisplayPath>MetaAnalytics.AggregationBehavior.Measure</DisplayPath>
-      <NativeId>Measure:Measure</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:aggregationbehavior">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:analyticsmodel" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:aggregatefunction">
       <DisplayName>AnalyticsModel</DisplayName>
       <DisplayPath>MetaAnalytics.AnalyticsModel</DisplayPath>
       <NativeId>AnalyticsModel</NativeId>
@@ -104,23 +80,7 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:expression" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:description">
-      <DisplayName>Expression</DisplayName>
-      <DisplayPath>MetaAnalytics.Attribute.Expression</DisplayPath>
-      <NativeId>Expression</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:expression">
-      <DisplayName>ExpressionLanguage</DisplayName>
-      <DisplayPath>MetaAnalytics.Attribute.ExpressionLanguage</DisplayPath>
-      <NativeId>ExpressionLanguage</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:formatstring" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:expressionlanguage">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:attribute:property:formatstring" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:attribute" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attribute:property:description">
       <DisplayName>FormatString</DisplayName>
       <DisplayPath>MetaAnalytics.Attribute.FormatString</DisplayPath>
       <NativeId>FormatString</NativeId>
@@ -320,7 +280,39 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:averageaggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:attributetranslation">
+      <DisplayName>AverageAggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.AverageAggregateFunction</DisplayPath>
+      <NativeId>AverageAggregateFunction</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:averageaggregatefunction:relationship:aggregatefunction-aggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:averageaggregatefunction">
+      <DisplayName>AggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.AverageAggregateFunction.AggregateFunction</DisplayPath>
+      <NativeId>AggregateFunction:AggregateFunction</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:countaggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:averageaggregatefunction">
+      <DisplayName>CountAggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.CountAggregateFunction</DisplayPath>
+      <NativeId>CountAggregateFunction</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:countaggregatefunction:relationship:aggregatefunction-aggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:countaggregatefunction">
+      <DisplayName>AggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.CountAggregateFunction.AggregateFunction</DisplayPath>
+      <NativeId>AggregateFunction:AggregateFunction</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:culture" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:countaggregatefunction">
       <DisplayName>Culture</DisplayName>
       <DisplayPath>MetaAnalytics.Culture</DisplayPath>
       <NativeId>Culture</NativeId>
@@ -408,7 +400,23 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:distinctcountaggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:datasource">
+      <DisplayName>DistinctCountAggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.DistinctCountAggregateFunction</DisplayPath>
+      <NativeId>DistinctCountAggregateFunction</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:distinctcountaggregatefunction:relationship:aggregatefunction-aggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:distinctcountaggregatefunction">
+      <DisplayName>AggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.DistinctCountAggregateFunction.AggregateFunction</DisplayPath>
+      <NativeId>AggregateFunction:AggregateFunction</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:hierarchy" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:distinctcountaggregatefunction">
       <DisplayName>Hierarchy</DisplayName>
       <DisplayPath>MetaAnalytics.Hierarchy</DisplayPath>
       <NativeId>Hierarchy</NativeId>
@@ -544,7 +552,23 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:maximumaggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:hierarchytranslation">
+      <DisplayName>MaximumAggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.MaximumAggregateFunction</DisplayPath>
+      <NativeId>MaximumAggregateFunction</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:maximumaggregatefunction:relationship:aggregatefunction-aggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:maximumaggregatefunction">
+      <DisplayName>AggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.MaximumAggregateFunction.AggregateFunction</DisplayPath>
+      <NativeId>AggregateFunction:AggregateFunction</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:maximumaggregatefunction">
       <DisplayName>Measure</DisplayName>
       <DisplayPath>MetaAnalytics.Measure</DisplayPath>
       <NativeId>Measure</NativeId>
@@ -600,7 +624,15 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:aggregatefunction-aggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure">
+      <DisplayName>AggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.Measure.AggregateFunction</DisplayPath>
+      <NativeId>AggregateFunction:AggregateFunction</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:measure:relationship:sourceattribute-attribute" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:measure" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measure:relationship:aggregatefunction-aggregatefunction">
       <DisplayName>SourceAttribute</DisplayName>
       <DisplayPath>MetaAnalytics.Measure.SourceAttribute</DisplayPath>
       <NativeId>SourceAttribute:Attribute</NativeId>
@@ -656,7 +688,23 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:minimumaggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:measuretranslation">
+      <DisplayName>MinimumAggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.MinimumAggregateFunction</DisplayPath>
+      <NativeId>MinimumAggregateFunction</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:minimumaggregatefunction:relationship:aggregatefunction-aggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:minimumaggregatefunction">
+      <DisplayName>AggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.MinimumAggregateFunction.AggregateFunction</DisplayPath>
+      <NativeId>AggregateFunction:AggregateFunction</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:perspective" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:minimumaggregatefunction">
       <DisplayName>Perspective</DisplayName>
       <DisplayPath>MetaAnalytics.Perspective</DisplayPath>
       <NativeId>Perspective</NativeId>
@@ -944,55 +992,7 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship">
-      <DisplayName>RoleFilter</DisplayName>
-      <DisplayPath>MetaAnalytics.RoleFilter</DisplayPath>
-      <NativeId>RoleFilter</NativeId>
-      <SourceTypeName>GenericEntity</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:description" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolefilter">
-      <DisplayName>Description</DisplayName>
-      <DisplayPath>MetaAnalytics.RoleFilter.Description</DisplayPath>
-      <NativeId>Description</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:expression" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolefilter" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:property:description">
-      <DisplayName>Expression</DisplayName>
-      <DisplayPath>MetaAnalytics.RoleFilter.Expression</DisplayPath>
-      <NativeId>Expression</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:property:expressionlanguage" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolefilter" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:property:expression">
-      <DisplayName>ExpressionLanguage</DisplayName>
-      <DisplayPath>MetaAnalytics.RoleFilter.ExpressionLanguage</DisplayPath>
-      <NativeId>ExpressionLanguage</NativeId>
-      <SourceTypeName>GenericProperty</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolefilter">
-      <DisplayName>SecurityRole</DisplayName>
-      <DisplayPath>MetaAnalytics.RoleFilter.SecurityRole</DisplayPath>
-      <NativeId>SecurityRole:SecurityRole</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolefilter:relationship:table-table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:rolefilter" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter:relationship:securityrole-securityrole">
-      <DisplayName>Table</DisplayName>
-      <DisplayPath>MetaAnalytics.RoleFilter.Table</DisplayPath>
-      <NativeId>Table:Table</NativeId>
-      <SourceTypeName>GenericRelationship</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary></Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:rolefilter">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:rolemember" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:relationship">
       <DisplayName>RoleMember</DisplayName>
       <DisplayPath>MetaAnalytics.RoleMember</DisplayPath>
       <NativeId>RoleMember</NativeId>
@@ -1096,7 +1096,23 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute">
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sumaggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:sortbyattribute">
+      <DisplayName>SumAggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.SumAggregateFunction</DisplayPath>
+      <NativeId>SumAggregateFunction</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:sumaggregatefunction:relationship:aggregatefunction-aggregatefunction" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-analytics:entity:sumaggregatefunction">
+      <DisplayName>AggregateFunction</DisplayName>
+      <DisplayPath>MetaAnalytics.SumAggregateFunction.AggregateFunction</DisplayPath>
+      <NativeId>AggregateFunction:AggregateFunction</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-analytics:entity:table" DocumentationSourceId="source:workspace-model:meta-analytics" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-analytics:model:metaanalytics" PreviousSubjectId="source:workspace-model:meta-analytics:entity:sumaggregatefunction">
       <DisplayName>Table</DisplayName>
       <DisplayPath>MetaAnalytics.Table</DisplayPath>
       <NativeId>Table</NativeId>

@@ -32,7 +32,15 @@
       <Status>Changed</Status>
       <Summary>A model-driven BI stack from source contracts and transform syntax through execution and analytical targets.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi-cli" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi">
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi-adventureworks" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi">
+      <DisplayName>Demo</DisplayName>
+      <DisplayPath>Authored docs page instances.Reference.Meta-BI.Demo</DisplayPath>
+      <NativeId>public:meta-bi:adventureworks</NativeId>
+      <SourceTypeName>DocumentationSubject</SourceTypeName>
+      <Status>Changed</Status>
+      <Summary>An agent-built, end-to-end AdventureWorks implementation of the modeled BI stack.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi-cli" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-bi-adventureworks">
       <DisplayName>CLI</DisplayName>
       <DisplayPath>Authored docs page instances.Reference.Meta-BI.CLI</DisplayPath>
       <NativeId>public:meta-bi:cli</NativeId>
@@ -64,15 +72,7 @@
       <Status>Changed</Status>
       <Summary>Command-line tools for the core metadata foundation.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-metaweave" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-cli">
-      <DisplayName>MetaWeave</DisplayName>
-      <DisplayPath>Authored docs page instances.Reference.Meta.MetaWeave</DisplayPath>
-      <NativeId>public:meta:metaweave</NativeId>
-      <SourceTypeName>DocumentationSubject</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Modeled, executable correspondence between Meta workspace contracts.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-models" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-metaweave">
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-models" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-cli">
       <DisplayName>Models</DisplayName>
       <DisplayPath>Authored docs page instances.Reference.Meta.Models</DisplayPath>
       <NativeId>public:meta:models</NativeId>
@@ -88,15 +88,39 @@
       <Status>Changed</Status>
       <Summary>A model-first metadata foundation with isomorphic XML, SQL, and C# surfaces.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-xml-workspaces" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-overview">
-      <DisplayName>XML workspaces</DisplayName>
-      <DisplayPath>Authored docs page instances.Reference.Meta.XML workspaces</DisplayPath>
-      <NativeId>public:meta:xml-workspaces</NativeId>
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-metaweave" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-overview">
+      <DisplayName>MetaWeave</DisplayName>
+      <DisplayPath>Authored docs page instances.Reference.MetaWeave</DisplayPath>
+      <NativeId>public:metaweave</NativeId>
       <SourceTypeName>DocumentationSubject</SourceTypeName>
       <Status>New</Status>
-      <Summary>Reference contracts for the XML workspace representation.</Summary>
+      <Summary>Modeled, executable correspondence between Meta workspace contracts.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-reference" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-meta-xml-workspaces">
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-metaweave-cli" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-metaweave">
+      <DisplayName>CLI</DisplayName>
+      <DisplayPath>Authored docs page instances.Reference.MetaWeave.CLI</DisplayPath>
+      <NativeId>public:metaweave:cli</NativeId>
+      <SourceTypeName>DocumentationSubject</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Command reference for creating, inspecting, editing, and executing MetaWeave workspaces.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-metaweave-models" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-metaweave-cli">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Authored docs page instances.Reference.MetaWeave.Models</DisplayPath>
+      <NativeId>public:metaweave:models</NativeId>
+      <SourceTypeName>DocumentationSubject</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Model reference for the MetaWeave correspondence workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-metaweave-overview" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-metaweave-models">
+      <DisplayName>MetaWeave</DisplayName>
+      <DisplayPath>Authored docs page instances.Reference.MetaWeave.Overview</DisplayPath>
+      <NativeId>public:metaweave:overview</NativeId>
+      <SourceTypeName>DocumentationSubject</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Modeled, executable correspondence between Meta workspace contracts.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-reference" DocumentationSourceId="source:workspace-instances:metametabi-authored" DocumentationSubjectTypeId="subject-type:instance" ParentSubjectId="source:workspace-model:meta-docs:entity:documentationsubject" PreviousSubjectId="source:workspace-instances:metametabi-authored:instance:documentationsubject:public-metaweave-overview">
       <DisplayName>meta + meta-bi reference</DisplayName>
       <DisplayPath>Authored docs page instances.Reference</DisplayPath>
       <NativeId>public:reference</NativeId>
