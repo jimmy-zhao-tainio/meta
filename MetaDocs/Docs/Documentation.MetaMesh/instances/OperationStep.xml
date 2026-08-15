@@ -289,14 +289,14 @@
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-weave" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-mesh">
-      <Arguments>import-cli --source-workspace {workspace:cli-meta-weave.location} --workspace {workspace:docs-meta-weave-cli.location} --parent-subject public:metaweave:cli --source-id source:cli:meta-weave</Arguments>
+      <Arguments>import-cli --source-workspace {workspace:cli-meta-weave.location} --workspace {workspace:docs-meta-weave-cli.location} --parent-subject public:meta:cli --source-id source:cli:meta-weave</Arguments>
       <Description>Import the meta-weave CLI docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-weave</Name>
       <WorkingDirectory>{mesh.root}</WorkingDirectory>
     </OperationStep>
     <OperationStep Id="operation-step:regenerate-public-docs:import-meta-weave-model" OperationId="operation:regenerate-public-docs" PreviousStepId="operation-step:regenerate-public-docs:import-meta-transform-script-model">
-      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-weave.location} --workspace {workspace:docs-meta-weave-model.location} --source-id source:workspace-model:meta-weave --parent-subject public:metaweave:models</Arguments>
+      <Arguments>import-workspace-model --source-workspace {workspace:model-meta-weave.location} --workspace {workspace:docs-meta-weave-model.location} --source-id source:workspace-model:meta-weave --parent-subject public:meta:models</Arguments>
       <Description>Import the meta-weave model docs workspace.</Description>
       <Executable>meta-docs.exe</Executable>
       <Name>import-meta-weave-model</Name>
