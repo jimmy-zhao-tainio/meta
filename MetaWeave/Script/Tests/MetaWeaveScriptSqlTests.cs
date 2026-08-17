@@ -30,7 +30,7 @@ public sealed class MetaWeaveScriptSqlTests
         "SELECT s.Kind AS Id, COUNT(*) AS ItemCount, STRING_AGG(s.Name, ',') WITHIN GROUP (ORDER BY s.Name ASC) AS Names FROM Source AS s GROUP BY s.Kind;",
         "SELECT MIN(s.Name) AS FirstName, MAX(s.Name) AS LastName FROM Source AS s;",
         "SELECT c.Id AS Id, ROW_NUMBER() OVER (PARTITION BY c.Kind ORDER BY c.Phase ASC, COALESCE(TRY_CONVERT(int, c.Ordinal), 2147483647), c.Id) AS Ordinal FROM Source AS c;",
-        "SELECT CONCAT(LOWER('A'), UPPER('b')) AS C, TRIM(' x ') AS T, LTRIM(' x') AS LT, RTRIM('x ') AS RT, REPLACE('abc', 'b', 'x') AS R, SUBSTRING('abc', 1, 2) AS S, LEFT('abc', 1) AS L, RIGHT('abc', 1) AS RR;",
+        "SELECT CONCAT(LOWER('A'), UPPER('b')) AS C, TRIM(' x ') AS T, LTRIM(' x') AS LT, RTRIM('x ') AS RT, REPLACE('abc', 'b', 'x') AS R, SUBSTRING('abc', 1, 2) AS S, LEFT('abc', 1) AS L, RIGHT('abc', 1) AS RR, SHA256_HEX('abc') AS H;",
         "SELECT IIF(1 = 1, 'yes', 'no') AS Answer;",
         "SELECT s.Id AS Id FROM Source AS s WHERE NOT ((s.A = 'a' OR s.B <> 'b') AND s.C < 'c') OR (s.D <= 'd' AND s.E > 'e' AND s.F >= 'f' AND s.G IN ('g', 'h') AND s.H IS NULL);",
         "SELECT s.Id AS Id, CASE WHEN s.Name LIKE 'A%' THEN CONCAT(UPPER(s.Name), '!') ELSE COALESCE(NULLIF(s.Name, ''), 'unknown') END AS Name FROM Source AS s;",

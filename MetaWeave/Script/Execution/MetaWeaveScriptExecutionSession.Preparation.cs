@@ -6,7 +6,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         new(StringComparer.OrdinalIgnoreCase)
         {
             "CONCAT", "LOWER", "UPPER", "TRIM", "LTRIM", "RTRIM", "REPLACE", "SUBSTRING", "LEFT", "RIGHT",
-            "IS_BLANK"
+            "SHA256_HEX", "IS_BLANK"
         };
 
     private static readonly HashSet<string> WindowFunctionNames =
@@ -575,7 +575,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
     {
         var validArity = name.ToUpperInvariant() switch
         {
-            "COUNT" or "MIN" or "MAX" or "LOWER" or "UPPER" or "TRIM" or "LTRIM" or "RTRIM" or "IS_BLANK" =>
+            "COUNT" or "MIN" or "MAX" or "LOWER" or "UPPER" or "TRIM" or "LTRIM" or "RTRIM" or "SHA256_HEX" or "IS_BLANK" =>
                 parameterCount == 1,
             "STRING_AGG" or "LEFT" or "RIGHT" => parameterCount == 2,
             "REPLACE" or "SUBSTRING" => parameterCount == 3,

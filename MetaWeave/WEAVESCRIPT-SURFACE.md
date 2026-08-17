@@ -374,11 +374,14 @@ numeric property contract and does not own analytical processing.
 - [ ] ODBC scalar-function escapes
 
 The complete scalar-function catalog is `CONCAT`, `LOWER`, `UPPER`, `TRIM`,
-`LTRIM`, `RTRIM`, `REPLACE`, `SUBSTRING`, `LEFT`, `RIGHT`, and `IS_BLANK`.
+`LTRIM`, `RTRIM`, `REPLACE`, `SUBSTRING`, `LEFT`, `RIGHT`, `SHA256_HEX`, and
+`IS_BLANK`.
 Names, arity, indexing, null propagation, and string behavior are
 WeaveScript-owned and versioned. `IS_BLANK` returns integer `1` for `NULL`,
 empty, or Unicode-whitespace-only strings and `0` otherwise; it captures
 conversion contracts that distinguish blank from merely space-trimmed text.
+`SHA256_HEX` hashes the UTF-8 bytes of one string and returns 64 lowercase
+hexadecimal characters.
 Unlisted names fail validation; they are not passed through to a database
 engine. WeaveScript does not include function declarations or server-resolved
 functions. `LEFT` and `RIGHT` use the generic function-call shape rather than
