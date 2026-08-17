@@ -21,7 +21,6 @@ public sealed class MetaWeaveScriptExecutionTests
                 SUBSTRING('abcdef', 2, 3) AS Middle,
                 LEFT('abcdef', 2) AS Prefix,
                 RIGHT('abcdef', 2) AS Suffix,
-                SHA256_HEX('abc') AS Hash,
                 IIF(s.RoleId IS NULL, COALESCE(NULLIF(s.Name, ''), 'missing'), s.RoleId) AS Choice
             FROM Source AS s
             WHERE NOT (s.Kind <> 'k1') AND s.Id IN ('s1', 's2', NULL);
@@ -29,8 +28,8 @@ public sealed class MetaWeaveScriptExecutionTests
 
         Assert.Equal(
             [
-                "s1|beta|xaXc|bcd|ab|ef|ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad|r2",
-                "s2|ALPHA|xaXc|bcd|ab|ef|ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad|r1"
+                "s1|beta|xaXc|bcd|ab|ef|r2",
+                "s2|ALPHA|xaXc|bcd|ab|ef|r1"
             ],
             RenderRows(result));
     }

@@ -1,6 +1,4 @@
 using System.Globalization;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace MetaWeaveScript.Execution;
 
@@ -827,13 +825,6 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             case "RIGHT":
                 RequireArity(name, parameters.Length, 2, functionCall.Id);
                 return EvaluateEdgeSubstring(parameters, fromLeft: false, functionCall.Id);
-            case "SHA256_HEX":
-                RequireArity(name, parameters.Length, 1, functionCall.Id);
-                return MapString(
-                    parameters[0],
-                    value => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(value))).ToLowerInvariant(),
-                    name,
-                    functionCall.Id);
             case "IS_BLANK":
                 RequireArity(name, parameters.Length, 1, functionCall.Id);
                 if (parameters[0].IsNull)
