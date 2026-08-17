@@ -25,17 +25,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 "BinaryQueryExpression.SecondQueryExpression").QueryExpression;
             var firstResult = ExecuteQueryExpression(first, visibleCommonTableExpressionOrdinal, outerFrame);
             var secondResult = ExecuteQueryExpression(second, visibleCommonTableExpressionOrdinal, outerFrame);
-            if (firstResult.Columns.Count != secondResult.Columns.Count)
-            {
-                throw Fault(
-                    "UnionColumnCountMismatch",
-                    $"UNION ALL operands expose {firstResult.Columns.Count} and {secondResult.Columns.Count} columns.",
-                    binaryExpression.Id);
-            }
-
-            return new RuntimeRowset(
-                firstResult.Columns,
-                firstResult.Rows.Concat(secondResult.Rows).ToArray());
+            return AppendUnionAll(firstResult, secondResult, binaryExpression.Id);
         }
 
         if (navigator.TrySubtype<QueryParenthesisExpression>(queryExpression.Id) is { } parenthesis)
@@ -101,9 +91,13 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 groupByLink?.GroupByClause,
                 visibleCommonTableExpressionOrdinal,
                 outerFrame)
-            : frames.Select(frame => ProjectRow(
+            : frames.Select((frame, frameOrdinal) => ProjectRow(
                     projections,
-                    new RuntimeEvaluationContext(frame, visibleCommonTableExpressionOrdinal)))
+                    new RuntimeEvaluationContext(
+                        frame,
+                        visibleCommonTableExpressionOrdinal,
+                        WindowFrames: frames,
+                        WindowFrameOrdinal: frameOrdinal)))
                 .ToList();
 
         var uniqueRowFilter = querySpecification.UniqueRowFilter?.Trim() ?? string.Empty;

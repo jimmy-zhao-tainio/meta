@@ -123,22 +123,23 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             schemaObject.MultiPartIdentifier.Id,
             "SchemaObjectName.MultiPartIdentifier");
         var parts = navigator.IdentifierParts(identifier);
-        if (parts.Count != 1)
+        if (parts.Count is < 1 or > 2)
         {
             throw Fault(
                 "SourceEntityNameShapeInvalid",
-                $"Named source '{string.Join(".", parts)}' is not a one-part workspace entity name.",
+                $"Named source '{string.Join(".", parts)}' must be an entity name or source-workspace-qualified entity name.",
                 named.Id);
         }
 
+        var identifierItems = navigator.OrderedItems<MultiPartIdentifierIdentifiersItem>(identifier.Id);
         var baseIdentifier = navigator.RequireOwnerLink<SchemaObjectNameBaseIdentifierLink>(
             schemaObject.Id,
             "SchemaObjectName.BaseIdentifier").Identifier;
         var baseIdentifierValue = navigator.RequireIdentifier(
             baseIdentifier,
             "SchemaObjectName.BaseIdentifier");
-        if (!string.Equals(baseIdentifierValue, parts[0], StringComparison.Ordinal) ||
-            !string.Equals(baseIdentifier.Id, navigator.OrderedItems<MultiPartIdentifierIdentifiersItem>(identifier.Id)[0].Identifier.Id, StringComparison.Ordinal))
+        if (!string.Equals(baseIdentifierValue, parts[^1], StringComparison.Ordinal) ||
+            !string.Equals(baseIdentifier.Id, identifierItems[^1].Identifier.Id, StringComparison.Ordinal))
         {
             throw Fault(
                 "SchemaObjectNameBaseIdentifierMismatch",
@@ -146,16 +147,38 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 schemaObject.Id);
         }
 
-        var name = parts[0];
-        var exposedName = TryGetTableAlias(tableReference) ?? name;
-        if (cteDefinitions.TryGetValue(name, out var definition))
+        var entityName = parts[^1];
+        var exposedName = TryGetTableAlias(tableReference) ?? entityName;
+        if (parts.Count == 1 && cteDefinitions.TryGetValue(entityName, out var definition))
         {
-            if (definition.Ordinal >= visibleCommonTableExpressionOrdinal)
+            if (definition.Ordinal > visibleCommonTableExpressionOrdinal)
             {
                 throw Fault(
                     "CommonTableExpressionForwardReference",
-                    $"Common table expression '{name}' is not visible at this use; only earlier declarations may be referenced.",
+                    $"Common table expression '{entityName}' is not visible at this use; only earlier declarations may be referenced.",
                     named.Id);
+            }
+
+            if (definition.Ordinal == visibleCommonTableExpressionOrdinal)
+            {
+                if (!recursiveCteIterationRowsets.TryGetValue(definition.Name, out var iterationRows))
+                {
+                    throw Fault(
+                        "CommonTableExpressionRecursiveShapeUnsupported",
+                        $"Recursive common table expression '{entityName}' must have an anchor followed by one UNION ALL recursive member.",
+                        named.Id);
+                }
+
+                if (string.Equals(inspectedRecursiveCteName, definition.Name, StringComparison.OrdinalIgnoreCase))
+                {
+                    inspectedRecursiveCteReferenceCount++;
+                }
+
+                return ExposeRowset(
+                    iterationRows,
+                    exposedName,
+                    $"Recursive common table expression '{definition.Name}' iteration",
+                    definition.Id);
             }
 
             return ExposeRowset(
@@ -165,38 +188,22 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 definition.Id);
         }
 
-        var entity = sourceWorkspace.Model.FindEntity(name)
-            ?? throw Fault(
-                "SourceEntityNotFound",
-                $"Source workspace entity '{name}' was not found.",
+        if (parts.Count == 1 &&
+            namedRelations is not null &&
+            namedRelations.TryExecute(entityName, out var relationRowset))
+        {
+            return ExposeRowset(
+                relationRowset,
+                exposedName,
+                $"Named relation '{entityName}'",
                 named.Id);
-        var columns = new List<RuntimeColumn> { new("Id") };
-        columns.AddRange(entity.Properties.Select(property => new RuntimeColumn(property.Name)));
-        columns.AddRange(entity.Relationships.Select(relationship => new RuntimeColumn(relationship.GetColumnName())));
-        var shape = new RuntimeSourceShape(exposedName, columns);
-        var sourceRecords = sourceWorkspace.Instance.RecordsByEntity.TryGetValue(entity.Name, out var records)
-            ? records
-            : [];
-        var rows = sourceRecords
-            .OrderBy(record => record.Id, MetaIdentity.Comparer)
-            .Select(record =>
-            {
-                var values = new List<MetaWeaveScriptValue>
-                {
-                    MetaWeaveScriptValue.FromString(record.Id)
-                };
-                values.AddRange(entity.Properties.Select(property =>
-                    record.Values.TryGetValue(property.Name, out var value) && value is not null
-                        ? MetaWeaveScriptValue.FromString(value)
-                        : MetaWeaveScriptValue.Null));
-                values.AddRange(entity.Relationships.Select(relationship =>
-                    record.RelationshipIds.TryGetValue(relationship.GetColumnName(), out var value) && value is not null
-                        ? MetaWeaveScriptValue.FromString(value)
-                        : MetaWeaveScriptValue.Null));
-                return RuntimeLocalRow.From(shape, new RuntimeRow(values.ToArray()));
-            })
-            .ToArray();
-        return new RuntimeTableResult([shape], rows);
+        }
+
+        return ExposeRowset(
+            sourceTables.Resolve(parts, entityName, named.Id),
+            exposedName,
+            $"Source workspace entity '{string.Join(".", parts)}'",
+            named.Id);
     }
 
     private RuntimeTableResult ExecuteQueryDerivedTable(
@@ -390,6 +397,26 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 visibleCommonTableExpressionOrdinal,
                 allowAggregate: false,
                 withinAggregate: false);
+            if (!string.Equals(qualified.QualifiedJoinType, "Inner", StringComparison.Ordinal) &&
+                !string.Equals(qualified.QualifiedJoinType, "LeftOuter", StringComparison.Ordinal))
+            {
+                throw Fault(
+                    "QualifiedJoinTypeUnsupported",
+                    $"Qualified join type '{qualified.QualifiedJoinType}' is outside the retained surface.",
+                    qualified.Id);
+            }
+
+            if (TryExecuteHashJoin(
+                    qualified,
+                    predicate,
+                    first,
+                    second,
+                    sources,
+                    out var indexedJoin))
+            {
+                return indexedJoin;
+            }
+
             var rows = new List<RuntimeLocalRow>();
             foreach (var left in first.Rows)
             {
@@ -413,15 +440,6 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 {
                     rows.Add(left.Combine(CreateNullLocalRow(second.Sources)));
                 }
-            }
-
-            if (!string.Equals(qualified.QualifiedJoinType, "Inner", StringComparison.Ordinal) &&
-                !string.Equals(qualified.QualifiedJoinType, "LeftOuter", StringComparison.Ordinal))
-            {
-                throw Fault(
-                    "QualifiedJoinTypeUnsupported",
-                    $"Qualified join type '{qualified.QualifiedJoinType}' is outside the retained surface.",
-                    qualified.Id);
             }
 
             return new RuntimeTableResult(sources, rows);
@@ -483,6 +501,131 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         return new RuntimeTableResult(
             CombineSourceShapes(first.Sources, shapeWitness.Sources),
             applyRows);
+    }
+
+    private bool TryExecuteHashJoin(
+        QualifiedJoin qualified,
+        BooleanExpression predicate,
+        RuntimeTableResult first,
+        RuntimeTableResult second,
+        IReadOnlyList<RuntimeSourceShape> sources,
+        out RuntimeTableResult result)
+    {
+        result = null!;
+        var comparison = navigator.TrySubtype<BooleanComparisonExpression>(predicate.Id);
+        if (comparison is null ||
+            !string.Equals(comparison.ComparisonType, "Equals", StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        var firstExpression = navigator.RequireOwnerLink<BooleanComparisonExpressionFirstExpressionLink>(
+            comparison.Id,
+            "BooleanComparisonExpression.FirstExpression").ScalarExpression;
+        var secondExpression = navigator.RequireOwnerLink<BooleanComparisonExpressionSecondExpressionLink>(
+            comparison.Id,
+            "BooleanComparisonExpression.SecondExpression").ScalarExpression;
+        var firstColumn = TryGetDirectColumnReference(firstExpression);
+        var secondColumn = TryGetDirectColumnReference(secondExpression);
+        if (firstColumn is null ||
+            secondColumn is null ||
+            !resolvedColumns.TryGetValue(firstColumn.Id, out var firstResolved) ||
+            !resolvedColumns.TryGetValue(secondColumn.Id, out var secondResolved) ||
+            firstResolved.ScopeDepth != 0 ||
+            secondResolved.ScopeDepth != 0)
+        {
+            return false;
+        }
+
+        var firstSourceNames = first.Sources
+            .Select(source => source.Name)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var secondSourceNames = second.Sources
+            .Select(source => source.Name)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        RuntimeResolvedColumnReference leftColumn;
+        RuntimeResolvedColumnReference rightColumn;
+        if (firstSourceNames.Contains(firstResolved.SourceName) &&
+            secondSourceNames.Contains(secondResolved.SourceName))
+        {
+            leftColumn = firstResolved;
+            rightColumn = secondResolved;
+        }
+        else if (firstSourceNames.Contains(secondResolved.SourceName) &&
+                 secondSourceNames.Contains(firstResolved.SourceName))
+        {
+            leftColumn = secondResolved;
+            rightColumn = firstResolved;
+        }
+        else
+        {
+            return false;
+        }
+
+        var rightRowsByValue = new Dictionary<MetaWeaveScriptValue, List<RuntimeLocalRow>>(
+            MetaWeaveScriptValueEqualityComparer.Instance);
+        foreach (var right in second.Rows)
+        {
+            var value = ReadLocalColumn(right, rightColumn, comparison.Id);
+            if (value.IsNull)
+            {
+                continue;
+            }
+
+            if (!rightRowsByValue.TryGetValue(value, out var matches))
+            {
+                matches = [];
+                rightRowsByValue.Add(value, matches);
+            }
+
+            matches.Add(right);
+        }
+
+        var rows = new List<RuntimeLocalRow>();
+        var isLeftOuter = string.Equals(
+            qualified.QualifiedJoinType,
+            "LeftOuter",
+            StringComparison.Ordinal);
+        foreach (var left in first.Rows)
+        {
+            var value = ReadLocalColumn(left, leftColumn, comparison.Id);
+            if (!value.IsNull && rightRowsByValue.TryGetValue(value, out var matches))
+            {
+                rows.AddRange(matches.Select(left.Combine));
+            }
+            else if (isLeftOuter)
+            {
+                rows.Add(left.Combine(CreateNullLocalRow(second.Sources)));
+            }
+        }
+
+        result = new RuntimeTableResult(sources, rows);
+        return true;
+    }
+
+    private ColumnReferenceExpression? TryGetDirectColumnReference(ScalarExpression expression)
+    {
+        var primary = navigator.TrySubtype<PrimaryExpression>(expression.Id);
+        return primary is null
+            ? null
+            : navigator.TrySubtype<ColumnReferenceExpression>(primary.Id);
+    }
+
+    private static MetaWeaveScriptValue ReadLocalColumn(
+        RuntimeLocalRow row,
+        RuntimeResolvedColumnReference column,
+        string syntaxId)
+    {
+        if (!row.Sources.TryGetValue(column.SourceName, out var source) ||
+            column.ColumnOrdinal >= source.Row.Values.Length)
+        {
+            throw Fault(
+                "ResolvedColumnScopeChanged",
+                "A hash-join member reference no longer has its prepared source shape.",
+                syntaxId);
+        }
+
+        return source.Row.Values[column.ColumnOrdinal];
     }
 
     private RuntimeTableResult CrossProduct(RuntimeTableResult left, RuntimeTableResult right)

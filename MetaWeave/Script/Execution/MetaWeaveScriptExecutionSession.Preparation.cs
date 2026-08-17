@@ -9,6 +9,9 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             "IS_BLANK"
         };
 
+    private static readonly HashSet<string> WindowFunctionNames =
+        new(StringComparer.OrdinalIgnoreCase) { "ROW_NUMBER" };
+
     private void PrepareQueryExpression(
         QueryExpression queryExpression,
         int visibleCommonTableExpressionOrdinal,
@@ -108,7 +111,8 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 visibleCommonTableExpressionOrdinal,
                 allowAggregate: true,
                 withinAggregate: false,
-                wildcardAllowed: false);
+                wildcardAllowed: false,
+                allowWindow: true);
         }
     }
 
@@ -118,7 +122,8 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         int visibleCommonTableExpressionOrdinal,
         bool allowAggregate,
         bool withinAggregate,
-        bool wildcardAllowed)
+        bool wildcardAllowed,
+        bool allowWindow = false)
     {
         var primary = navigator.TrySubtype<PrimaryExpression>(expression.Id)
             ?? throw Fault(
@@ -274,15 +279,40 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             return;
         }
 
+        if (navigator.TrySubtype<TryConvertCall>(primary.Id) is { } tryConvert)
+        {
+            ValidateTryConvertDataType(tryConvert);
+            PrepareScalarExpression(
+                navigator.RequireOwnerLink<TryConvertCallParameterLink>(
+                    tryConvert.Id,
+                    "TryConvertCall.Parameter").ScalarExpression,
+                frame,
+                visibleCommonTableExpressionOrdinal,
+                allowAggregate,
+                withinAggregate,
+                wildcardAllowed: false);
+            return;
+        }
+
         if (navigator.TrySubtype<FunctionCall>(primary.Id) is { } function)
         {
             var name = FunctionName(function);
             var isAggregate = AggregateFunctionNames.Contains(name);
-            if (!isAggregate && !ScalarFunctionNames.Contains(name))
+            var isWindow = WindowFunctionNames.Contains(name);
+            if (!isAggregate && !isWindow && !ScalarFunctionNames.Contains(name))
             {
                 throw Fault(
                     "ScalarFunctionUnsupported",
                     $"Function '{name}' is outside the WeaveScript function catalog.",
+                    function.Id);
+            }
+
+
+            if (isWindow && !allowWindow)
+            {
+                throw Fault(
+                    "WindowFunctionContextInvalid",
+                    $"Window function '{name}' is executable only as a direct SELECT projection.",
                     function.Id);
             }
 
@@ -336,6 +366,37 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 }
             }
 
+            var overClause = navigator.TryOwnerLink<FunctionCallOverClauseLink>(function.Id);
+            if (overClause is not null)
+            {
+                foreach (var partition in navigator.OrderedItems<OverClausePartitionsItem>(overClause.OverClause.Id))
+                {
+                    PrepareScalarExpression(
+                        partition.ScalarExpression,
+                        frame,
+                        visibleCommonTableExpressionOrdinal,
+                        allowAggregate: false,
+                        withinAggregate: false,
+                        wildcardAllowed: false);
+                }
+
+                var orderByClause = navigator.RequireOwnerLink<OverClauseOrderByClauseLink>(
+                    overClause.OverClause.Id,
+                    "OverClause.OrderByClause").OrderByClause;
+                foreach (var item in navigator.OrderedItems<OrderByClauseOrderByElementsItem>(orderByClause.Id))
+                {
+                    PrepareScalarExpression(
+                        navigator.RequireOwnerLink<ExpressionWithSortOrderExpressionLink>(
+                            item.ExpressionWithSortOrder.Id,
+                            "ExpressionWithSortOrder.Expression").ScalarExpression,
+                        frame,
+                        visibleCommonTableExpressionOrdinal,
+                        allowAggregate: false,
+                        withinAggregate: false,
+                        wildcardAllowed: false);
+                }
+            }
+
             return;
         }
 
@@ -350,8 +411,17 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             return;
         }
 
-        if (navigator.TrySubtype<ValueExpression>(primary.Id) is not null)
+        if (navigator.TrySubtype<ValueExpression>(primary.Id) is { } valueExpression)
         {
+            if (navigator.TrySubtype<ParameterReferenceExpression>(valueExpression.Id) is { } parameter &&
+                !parameters.ContainsKey(parameter.Name))
+            {
+                throw Fault(
+                    "ParameterValueMissing",
+                    $"No value was supplied for WeaveScript parameter '@{parameter.Name}'.",
+                    parameter.Id);
+            }
+
             return;
         }
 
@@ -510,6 +580,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             "STRING_AGG" or "LEFT" or "RIGHT" => parameterCount == 2,
             "REPLACE" or "SUBSTRING" => parameterCount == 3,
             "CONCAT" => parameterCount >= 2,
+            "ROW_NUMBER" => parameterCount == 0,
             _ => false
         };
         if (!validArity)
@@ -535,6 +606,43 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 "WithinGroupFunctionInvalid",
                 "WITHIN GROUP is executable only for STRING_AGG.",
                 function.Id);
+        }
+
+        var overClause = navigator.TryOwnerLink<FunctionCallOverClauseLink>(function.Id);
+        if (string.Equals(name, "ROW_NUMBER", StringComparison.OrdinalIgnoreCase) && overClause is null)
+        {
+            throw Fault(
+                "RowNumberOverClauseMissing",
+                "ROW_NUMBER requires an OVER clause.",
+                function.Id);
+        }
+
+        if (!string.Equals(name, "ROW_NUMBER", StringComparison.OrdinalIgnoreCase) && overClause is not null)
+        {
+            throw Fault(
+                "OverClauseFunctionInvalid",
+                "OVER is executable only for ROW_NUMBER.",
+                function.Id);
+        }
+    }
+
+    private void ValidateTryConvertDataType(TryConvertCall tryConvert)
+    {
+        var dataType = navigator.RequireOwnerLink<TryConvertCallDataTypeLink>(
+            tryConvert.Id,
+            "TryConvertCall.DataType").DataTypeReference;
+        var parameterized = navigator.TrySubtype<ParameterizedDataTypeReference>(dataType.Id)
+            ?? throw Fault(
+                "TryConvertDataTypeUnsupported",
+                "TRY_CONVERT supports the int data type only.",
+                tryConvert.Id);
+        var sqlDataType = navigator.TrySubtype<SqlDataTypeReference>(parameterized.Id);
+        if (sqlDataType is null || !string.Equals(sqlDataType.SqlDataTypeOption, "Int", StringComparison.Ordinal))
+        {
+            throw Fault(
+                "TryConvertDataTypeUnsupported",
+                "TRY_CONVERT supports the int data type only.",
+                tryConvert.Id);
         }
     }
 }

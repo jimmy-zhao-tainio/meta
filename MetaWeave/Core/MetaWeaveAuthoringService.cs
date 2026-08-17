@@ -5,23 +5,21 @@ using MetaWeaveScript.Sql;
 
 namespace MetaWeave.Core;
 
+public sealed record MetaWeaveSourceWorkspaceDefinition(
+    string Name,
+    string ModelName);
+
 public sealed class MetaWeaveAuthoringService
 {
     public MetaWeaveModel Create(
-        string name,
-        string leftModelName,
-        string rightModelName)
+        string name)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
-        ArgumentException.ThrowIfNullOrWhiteSpace(leftModelName);
-        ArgumentException.ThrowIfNullOrWhiteSpace(rightModelName);
 
         var model = MetaWeaveModel.CreateEmpty();
         model.WeaveList.Add(new Weave
         {
             Id = name.Trim(),
-            LeftModelName = leftModelName.Trim(),
-            RightModelName = rightModelName.Trim(),
         });
         return model;
     }
@@ -30,17 +28,29 @@ public sealed class MetaWeaveAuthoringService
         MetaWeaveModel model,
         string name,
         string sourceModelName,
+        string targetModelName) =>
+        AddDirection(
+            model,
+            name,
+            [new MetaWeaveSourceWorkspaceDefinition("source", sourceModelName)],
+            targetModelName);
+
+    public Direction AddDirection(
+        MetaWeaveModel model,
+        string name,
+        IReadOnlyList<MetaWeaveSourceWorkspaceDefinition> sourceWorkspaces,
         string targetModelName)
     {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
-        ArgumentException.ThrowIfNullOrWhiteSpace(sourceModelName);
+        ArgumentNullException.ThrowIfNull(sourceWorkspaces);
         ArgumentException.ThrowIfNullOrWhiteSpace(targetModelName);
 
         var weave = RequireWeave(model);
         var normalizedName = name.Trim();
-        var normalizedSource = sourceModelName.Trim();
-        var normalizedTarget = targetModelName.Trim();
+        var normalizedTarget = MetaName.Require(
+            targetModelName.Trim(),
+            "Direction target model name.");
         if (model.DirectionList.Any(direction =>
                 MetaName.Comparer.Equals(direction.Id, normalizedName)))
         {
@@ -48,35 +58,124 @@ public sealed class MetaWeaveAuthoringService
                 $"Direction '{normalizedName}' already exists.");
         }
 
-        var isForward =
-            MetaName.Comparer.Equals(normalizedSource, weave.LeftModelName) &&
-            MetaName.Comparer.Equals(normalizedTarget, weave.RightModelName);
-        var isReverse =
-            MetaName.Comparer.Equals(normalizedSource, weave.RightModelName) &&
-            MetaName.Comparer.Equals(normalizedTarget, weave.LeftModelName);
-        if (!isForward && !isReverse)
+        if (sourceWorkspaces.Count == 0)
         {
             throw new InvalidOperationException(
-                $"Direction '{normalizedName}' must map between weave models '{weave.LeftModelName}' and '{weave.RightModelName}'.");
+                $"Direction '{normalizedName}' requires at least one source workspace.");
         }
 
-        if (model.DirectionList.Any(direction =>
-                MetaName.Comparer.Equals(direction.SourceModelName, normalizedSource) &&
-                MetaName.Comparer.Equals(direction.TargetModelName, normalizedTarget)))
+        var normalizedSources = new List<MetaWeaveSourceWorkspaceDefinition>(sourceWorkspaces.Count);
+        var sourceNames = new HashSet<string>(MetaName.Comparer);
+        foreach (var sourceWorkspace in sourceWorkspaces)
         {
-            throw new InvalidOperationException(
-                $"A direction from '{normalizedSource}' to '{normalizedTarget}' already exists.");
+            if (sourceWorkspace is null)
+            {
+                throw new InvalidOperationException(
+                    $"Direction '{normalizedName}' contains a missing source workspace declaration.");
+            }
+
+            var sourceName = MetaName.Require(
+                sourceWorkspace.Name.Trim(),
+                "Direction source workspace name.");
+            var sourceModelName = MetaName.Require(
+                sourceWorkspace.ModelName.Trim(),
+                "Direction source model name.");
+            if (!sourceNames.Add(sourceName))
+            {
+                throw new InvalidOperationException(
+                    $"Source workspace '{sourceName}' is declared more than once in direction '{normalizedName}'.");
+            }
+
+            normalizedSources.Add(new MetaWeaveSourceWorkspaceDefinition(
+                sourceName,
+                sourceModelName));
         }
 
         var direction = new Direction
         {
             Id = normalizedName,
-            SourceModelName = normalizedSource,
             TargetModelName = normalizedTarget,
             Weave = weave,
         };
         model.DirectionList.Add(direction);
+        foreach (var sourceWorkspace in normalizedSources)
+        {
+            AddSourceWorkspace(
+                model,
+                direction,
+                sourceWorkspace.Name,
+                sourceWorkspace.ModelName);
+        }
+
         return direction;
+    }
+
+    public DirectionSourceWorkspace AddSourceWorkspace(
+        MetaWeaveModel model,
+        string directionName,
+        string name,
+        string modelName) =>
+        AddSourceWorkspace(model, RequireDirection(model, directionName), name, modelName);
+
+    public DirectionStringParameter AddStringParameter(
+        MetaWeaveModel model,
+        string directionName,
+        string name)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentException.ThrowIfNullOrWhiteSpace(directionName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+
+        var direction = RequireDirection(model, directionName);
+        var normalizedName = MetaName.Require(name.Trim(), "Direction string parameter name.");
+        if (model.DirectionStringParameterList.Any(parameter =>
+                SameDirection(parameter.Direction, direction) &&
+                MetaName.Comparer.Equals(parameter.Name, normalizedName)))
+        {
+            throw new InvalidOperationException(
+                $"String parameter '{normalizedName}' already exists in direction '{direction.Id}'.");
+        }
+
+        var parameter = new DirectionStringParameter
+        {
+            Id = CreateOwnedId(direction.Id, normalizedName),
+            Name = normalizedName,
+            Direction = direction,
+        };
+        model.DirectionStringParameterList.Add(parameter);
+        return parameter;
+    }
+
+    private static DirectionSourceWorkspace AddSourceWorkspace(
+        MetaWeaveModel model,
+        Direction direction,
+        string name,
+        string modelName)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentNullException.ThrowIfNull(direction);
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        ArgumentException.ThrowIfNullOrWhiteSpace(modelName);
+
+        var normalizedName = MetaName.Require(name.Trim(), "Direction source workspace name.");
+        var normalizedModelName = MetaName.Require(modelName.Trim(), "Direction source model name.");
+        if (model.DirectionSourceWorkspaceList.Any(source =>
+                SameDirection(source.Direction, direction) &&
+                MetaName.Comparer.Equals(source.Name, normalizedName)))
+        {
+            throw new InvalidOperationException(
+                $"Source workspace '{normalizedName}' already exists in direction '{direction.Id}'.");
+        }
+
+        var sourceWorkspace = new DirectionSourceWorkspace
+        {
+            Id = CreateOwnedId(direction.Id, normalizedName),
+            Name = normalizedName,
+            ModelName = normalizedModelName,
+            Direction = direction,
+        };
+        model.DirectionSourceWorkspaceList.Add(sourceWorkspace);
+        return sourceWorkspace;
     }
 
     public Transformation AddTransformation(
@@ -126,6 +225,72 @@ public sealed class MetaWeaveAuthoringService
         };
         model.TransformationList.Add(transformation);
         return transformation;
+    }
+
+    public DirectionRelation AddRelation(
+        MetaWeaveModel model,
+        string directionName,
+        string name,
+        string script)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentException.ThrowIfNullOrWhiteSpace(directionName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        ArgumentException.ThrowIfNullOrWhiteSpace(script);
+
+        var direction = RequireDirection(model, directionName);
+        var normalizedName = MetaName.Require(name.Trim(), "Direction relation name.");
+        var relationId = CreateOwnedId(direction.Id, normalizedName);
+        if (model.DirectionRelationList.Any(relation =>
+                SameDirection(relation.Direction, direction) &&
+                MetaName.Comparer.Equals(relation.Id, relationId)))
+        {
+            throw new InvalidOperationException(
+                $"Relation '{normalizedName}' already exists in direction '{direction.Id}'.");
+        }
+
+        var sqlService = new MetaWeaveScriptSqlService();
+        _ = sqlService.ImportFromSqlCode(script);
+        var relation = new DirectionRelation
+        {
+            Id = relationId,
+            Direction = direction,
+            SelectStatement = sqlService.ImportIntoModel(model, script),
+        };
+        model.DirectionRelationList.Add(relation);
+        return relation;
+    }
+
+    public DirectionRelation UpdateRelation(
+        MetaWeaveModel model,
+        string directionName,
+        string name,
+        string script)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentException.ThrowIfNullOrWhiteSpace(directionName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        ArgumentException.ThrowIfNullOrWhiteSpace(script);
+
+        var direction = RequireDirection(model, directionName);
+        var normalizedName = name.Trim();
+        var matches = model.DirectionRelationList.Where(relation =>
+            SameDirection(relation.Direction, direction) &&
+            MetaName.Comparer.Equals(GetRelationName(relation), normalizedName)).ToArray();
+        var relation = matches.Length switch
+        {
+            1 => matches[0],
+            0 => throw new InvalidOperationException(
+                $"Relation '{normalizedName}' was not found in direction '{direction.Id}'."),
+            _ => throw new InvalidOperationException(
+                $"Relation '{normalizedName}' is ambiguous in direction '{direction.Id}'.")
+        };
+
+        var sqlService = new MetaWeaveScriptSqlService();
+        _ = sqlService.ImportFromSqlCode(script);
+        relation.SelectStatement = sqlService.ImportIntoModel(model, script);
+        RemoveUnreachableRows(model);
+        return relation;
     }
 
     public Transformation UpdateTransformation(
@@ -258,6 +423,18 @@ public sealed class MetaWeaveAuthoringService
                requirement.Id.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
             ? requirement.Id[prefix.Length..]
             : requirement.Id;
+    }
+
+    public static string GetRelationName(DirectionRelation relation)
+    {
+        ArgumentNullException.ThrowIfNull(relation);
+        var prefix = relation.Direction is null
+            ? null
+            : relation.Direction.Id + "/";
+        return !string.IsNullOrEmpty(prefix) &&
+               relation.Id.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
+            ? relation.Id[prefix.Length..]
+            : relation.Id;
     }
 
     private static Weave RequireWeave(MetaWeaveModel model) =>

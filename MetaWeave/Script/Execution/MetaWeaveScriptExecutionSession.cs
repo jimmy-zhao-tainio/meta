@@ -5,28 +5,67 @@ namespace MetaWeaveScript.Execution;
 
 internal sealed partial class MetaWeaveScriptExecutionSession
 {
+    private const int MaximumRecursiveCommonTableExpressionIterations = 32_767;
+
     private readonly MetaWeaveModel model;
     private readonly SelectStatement selectStatement;
-    private readonly InMemoryWorkspace sourceWorkspace;
+    private readonly IReadOnlyDictionary<string, InMemoryWorkspace> sourceWorkspaces;
+    private readonly IReadOnlyDictionary<string, MetaWeaveScriptValue> parameters;
     private readonly MetaWeaveScriptSemanticNavigator navigator;
+    private readonly RuntimeSourceTableContext sourceTables;
+    private readonly RuntimeNamedRelationContext? namedRelations;
     private readonly Dictionary<string, RuntimeCommonTableExpressionDefinition> cteDefinitions =
         new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, RuntimeCommonTableExpressionState> cteStates =
         new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, RuntimeRowset> cteRowsets =
         new(StringComparer.OrdinalIgnoreCase);
+    private readonly Dictionary<string, RuntimeRowset> recursiveCteIterationRowsets =
+        new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, RuntimeResolvedColumnReference> resolvedColumns =
         new(StringComparer.Ordinal);
+    private readonly Dictionary<RuntimeWindowEvaluationKey, long[]> windowRowNumbers = [];
+    private string? inspectedRecursiveCteName;
+    private int inspectedRecursiveCteReferenceCount;
 
     public MetaWeaveScriptExecutionSession(
         MetaWeaveModel model,
         SelectStatement selectStatement,
         InMemoryWorkspace sourceWorkspace)
+        : this(
+            model,
+            selectStatement,
+            new Dictionary<string, InMemoryWorkspace>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["source"] = sourceWorkspace ?? throw new ArgumentNullException(nameof(sourceWorkspace))
+            },
+            new Dictionary<string, MetaWeaveScriptValue>(StringComparer.OrdinalIgnoreCase))
+    {
+    }
+
+    public MetaWeaveScriptExecutionSession(
+        MetaWeaveModel model,
+        SelectStatement selectStatement,
+        IReadOnlyDictionary<string, InMemoryWorkspace> sourceWorkspaces,
+        IReadOnlyDictionary<string, MetaWeaveScriptValue> parameters)
+        : this(model, selectStatement, sourceWorkspaces, parameters, namedRelations: null)
+    {
+    }
+
+    internal MetaWeaveScriptExecutionSession(
+        MetaWeaveModel model,
+        SelectStatement selectStatement,
+        IReadOnlyDictionary<string, InMemoryWorkspace> sourceWorkspaces,
+        IReadOnlyDictionary<string, MetaWeaveScriptValue> parameters,
+        RuntimeNamedRelationContext? namedRelations)
     {
         this.model = model ?? throw new ArgumentNullException(nameof(model));
         this.selectStatement = selectStatement ?? throw new ArgumentNullException(nameof(selectStatement));
-        this.sourceWorkspace = sourceWorkspace ?? throw new ArgumentNullException(nameof(sourceWorkspace));
-        navigator = new MetaWeaveScriptSemanticNavigator(model);
+        this.sourceWorkspaces = sourceWorkspaces ?? throw new ArgumentNullException(nameof(sourceWorkspaces));
+        this.parameters = parameters ?? throw new ArgumentNullException(nameof(parameters));
+        this.namedRelations = namedRelations;
+        navigator = namedRelations?.Navigator ?? new MetaWeaveScriptSemanticNavigator(model);
+        sourceTables = namedRelations?.SourceTables ?? new RuntimeSourceTableContext(sourceWorkspaces);
     }
 
     public RuntimeRowset Execute()
@@ -50,6 +89,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         cteDefinitions.Clear();
         cteStates.Clear();
         cteRowsets.Clear();
+        recursiveCteIterationRowsets.Clear();
 
         var statement = navigator.RequireById<StatementWithCtes>(
             selectStatement.StatementWithCtes.Id,
@@ -119,14 +159,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         cteStates[definition.Name] = RuntimeCommonTableExpressionState.Evaluating;
         try
         {
-            PrepareQueryExpression(
-                definition.QueryExpression,
-                definition.Ordinal,
-                outerFrame: null);
-            var rowset = ExecuteQueryExpression(
-                definition.QueryExpression,
-                definition.Ordinal,
-                outerFrame: null);
+            var rowset = ExecuteCommonTableExpressionDefinition(definition);
             RequireNamedUniqueColumns(rowset, $"Common table expression '{definition.Name}'", definition.Id);
             cteRowsets[definition.Name] = rowset;
             cteStates[definition.Name] = RuntimeCommonTableExpressionState.Evaluated;
@@ -134,9 +167,183 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         }
         catch
         {
+            recursiveCteIterationRowsets.Remove(definition.Name);
+            if (string.Equals(inspectedRecursiveCteName, definition.Name, StringComparison.OrdinalIgnoreCase))
+            {
+                inspectedRecursiveCteName = null;
+            }
             cteStates[definition.Name] = RuntimeCommonTableExpressionState.Failed;
             throw;
         }
+    }
+
+    private RuntimeRowset ExecuteCommonTableExpressionDefinition(
+        RuntimeCommonTableExpressionDefinition definition)
+    {
+        if (!TryGetBinaryQueryOperands(definition.QueryExpression, out var anchor, out var recursiveMember))
+        {
+            PrepareQueryExpression(
+                definition.QueryExpression,
+                definition.Ordinal,
+                outerFrame: null);
+            return ExecuteQueryExpression(
+                definition.QueryExpression,
+                definition.Ordinal,
+                outerFrame: null);
+        }
+
+        PrepareQueryExpression(anchor, definition.Ordinal, outerFrame: null);
+        var anchorRows = ExecuteQueryExpression(anchor, definition.Ordinal, outerFrame: null);
+        RequireNamedUniqueColumns(
+            anchorRows,
+            $"Recursive common table expression '{definition.Name}' anchor",
+            definition.Id);
+
+        recursiveCteIterationRowsets[definition.Name] = anchorRows;
+        var previousInspectedRecursiveCteName = inspectedRecursiveCteName;
+        var previousInspectedRecursiveCteReferenceCount = inspectedRecursiveCteReferenceCount;
+        inspectedRecursiveCteName = definition.Name;
+        inspectedRecursiveCteReferenceCount = 0;
+        int recursiveReferenceCount;
+        try
+        {
+            PrepareQueryExpression(recursiveMember, definition.Ordinal, outerFrame: null);
+            recursiveReferenceCount = inspectedRecursiveCteReferenceCount;
+        }
+        finally
+        {
+            inspectedRecursiveCteName = previousInspectedRecursiveCteName;
+            inspectedRecursiveCteReferenceCount = previousInspectedRecursiveCteReferenceCount;
+        }
+
+        if (recursiveReferenceCount == 0)
+        {
+            recursiveCteIterationRowsets.Remove(definition.Name);
+            var secondRows = ExecuteQueryExpression(
+                recursiveMember,
+                definition.Ordinal,
+                outerFrame: null);
+            return AppendUnionAll(anchorRows, secondRows, definition.Id);
+        }
+
+        if (recursiveReferenceCount != 1)
+        {
+            throw Fault(
+                "CommonTableExpressionRecursiveReferenceCountInvalid",
+                $"Recursive common table expression '{definition.Name}' must reference itself exactly once in its recursive member; found {recursiveReferenceCount} references.",
+                definition.Id);
+        }
+
+        var rows = new List<RuntimeRow>(anchorRows.Rows);
+        var iterationRows = anchorRows;
+        try
+        {
+            for (var iteration = 1; iteration <= MaximumRecursiveCommonTableExpressionIterations; iteration++)
+            {
+                recursiveCteIterationRowsets[definition.Name] = iterationRows;
+                var nextRows = ExecuteQueryExpression(
+                    recursiveMember,
+                    definition.Ordinal,
+                    outerFrame: null);
+                RequireCompatibleUnionColumns(anchorRows, nextRows, definition.Id);
+
+                if (nextRows.Rows.Count == 0)
+                {
+                    return new RuntimeRowset(anchorRows.Columns, rows);
+                }
+
+                if (RowsAreEqual(iterationRows.Rows, nextRows.Rows))
+                {
+                    throw Fault(
+                        "CommonTableExpressionRecursionDidNotAdvance",
+                        $"Recursive common table expression '{definition.Name}' reproduced the preceding iteration and cannot terminate.",
+                        definition.Id);
+                }
+
+                rows.AddRange(nextRows.Rows);
+                iterationRows = new RuntimeRowset(anchorRows.Columns, nextRows.Rows);
+            }
+
+            throw Fault(
+                "CommonTableExpressionRecursionLimitExceeded",
+                $"Recursive common table expression '{definition.Name}' exceeded the WeaveScript limit of {MaximumRecursiveCommonTableExpressionIterations} iterations.",
+                definition.Id);
+        }
+        finally
+        {
+            recursiveCteIterationRowsets.Remove(definition.Name);
+        }
+    }
+
+    private bool TryGetBinaryQueryOperands(
+        QueryExpression queryExpression,
+        out QueryExpression first,
+        out QueryExpression second)
+    {
+        while (navigator.TrySubtype<QueryParenthesisExpression>(queryExpression.Id) is { } parenthesis)
+        {
+            queryExpression = navigator.RequireOwnerLink<QueryParenthesisExpressionQueryExpressionLink>(
+                parenthesis.Id,
+                "QueryParenthesisExpression.QueryExpression").QueryExpression;
+        }
+
+        if (navigator.TrySubtype<BinaryQueryExpression>(queryExpression.Id) is not { } binary)
+        {
+            first = null!;
+            second = null!;
+            return false;
+        }
+
+        first = navigator.RequireOwnerLink<BinaryQueryExpressionFirstQueryExpressionLink>(
+            binary.Id,
+            "BinaryQueryExpression.FirstQueryExpression").QueryExpression;
+        second = navigator.RequireOwnerLink<BinaryQueryExpressionSecondQueryExpressionLink>(
+            binary.Id,
+            "BinaryQueryExpression.SecondQueryExpression").QueryExpression;
+        return true;
+    }
+
+    private RuntimeRowset AppendUnionAll(
+        RuntimeRowset first,
+        RuntimeRowset second,
+        string syntaxId)
+    {
+        RequireCompatibleUnionColumns(first, second, syntaxId);
+        return new RuntimeRowset(first.Columns, first.Rows.Concat(second.Rows).ToArray());
+    }
+
+    private void RequireCompatibleUnionColumns(
+        RuntimeRowset first,
+        RuntimeRowset second,
+        string syntaxId)
+    {
+        if (first.Columns.Count != second.Columns.Count)
+        {
+            throw Fault(
+                "UnionColumnCountMismatch",
+                $"UNION ALL operands expose {first.Columns.Count} and {second.Columns.Count} columns.",
+                syntaxId);
+        }
+    }
+
+    private static bool RowsAreEqual(
+        IReadOnlyList<RuntimeRow> first,
+        IReadOnlyList<RuntimeRow> second)
+    {
+        if (first.Count != second.Count)
+        {
+            return false;
+        }
+
+        for (var index = 0; index < first.Count; index++)
+        {
+            if (!RuntimeRowEqualityComparer.Instance.Equals(first[index], second[index]))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static void RequireNamedUniqueColumns(RuntimeRowset rowset, string owner, string? syntaxId = null)

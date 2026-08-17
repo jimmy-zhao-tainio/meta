@@ -86,6 +86,11 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             return EvaluateScalarExpression(branch, context);
         }
 
+        if (navigator.TrySubtype<TryConvertCall>(primary.Id) is { } tryConvert)
+        {
+            return EvaluateTryConvert(tryConvert, context);
+        }
+
         if (navigator.TrySubtype<FunctionCall>(primary.Id) is { } functionCall)
         {
             return EvaluateFunctionCall(functionCall, context);
@@ -295,11 +300,27 @@ internal sealed partial class MetaWeaveScriptExecutionSession
 
     private MetaWeaveScriptValue EvaluateValueExpression(ValueExpression valueExpression)
     {
-        var literal = navigator.TrySubtype<Literal>(valueExpression.Id)
-            ?? throw Fault(
+        if (navigator.TrySubtype<ParameterReferenceExpression>(valueExpression.Id) is { } parameter)
+        {
+            if (!parameters.TryGetValue(parameter.Name, out var value))
+            {
+                throw Fault(
+                    "ParameterValueMissing",
+                    $"No value was supplied for WeaveScript parameter '@{parameter.Name}'.",
+                    parameter.Id);
+            }
+
+            return value;
+        }
+
+        var literal = navigator.TrySubtype<Literal>(valueExpression.Id);
+        if (literal is null)
+        {
+            throw Fault(
                 "ValueExpressionShapeUnsupported",
-                $"ValueExpression '{valueExpression.Id}' has no retained literal subtype.",
+                $"ValueExpression '{valueExpression.Id}' has no retained value subtype.",
                 valueExpression.Id);
+        }
         if (navigator.TrySubtype<StringLiteral>(literal.Id) is not null)
         {
             return MetaWeaveScriptValue.FromString(literal.Value ?? string.Empty);
@@ -366,7 +387,198 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         var name = FunctionName(functionCall);
         return AggregateFunctionNames.Contains(name)
             ? EvaluateAggregateFunction(functionCall, name, context)
+            : WindowFunctionNames.Contains(name)
+                ? EvaluateWindowFunction(functionCall, name, context)
             : EvaluateScalarFunction(functionCall, name, context);
+    }
+
+    private MetaWeaveScriptValue EvaluateTryConvert(
+        TryConvertCall tryConvert,
+        RuntimeEvaluationContext context)
+    {
+        var value = EvaluateScalarExpression(
+            navigator.RequireOwnerLink<TryConvertCallParameterLink>(
+                tryConvert.Id,
+                "TryConvertCall.Parameter").ScalarExpression,
+            context);
+        if (value.IsNull)
+        {
+            return MetaWeaveScriptValue.Null;
+        }
+
+        if (value.Kind == MetaWeaveScriptValueKind.Integer)
+        {
+            return value.IntegerValue is >= int.MinValue and <= int.MaxValue
+                ? value
+                : MetaWeaveScriptValue.Null;
+        }
+
+        if (value.Kind != MetaWeaveScriptValueKind.String)
+        {
+            throw Fault(
+                "TryConvertArgumentInvalid",
+                $"TRY_CONVERT(int, ...) requires a string or integer argument, but received {value.Kind}.",
+                tryConvert.Id);
+        }
+
+        return int.TryParse(
+            value.StringValue,
+            NumberStyles.Integer,
+            CultureInfo.InvariantCulture,
+            out var converted)
+            ? MetaWeaveScriptValue.FromInteger(converted)
+            : MetaWeaveScriptValue.Null;
+    }
+
+    private MetaWeaveScriptValue EvaluateWindowFunction(
+        FunctionCall functionCall,
+        string name,
+        RuntimeEvaluationContext context)
+    {
+        if (!string.Equals(name, "ROW_NUMBER", StringComparison.OrdinalIgnoreCase))
+        {
+            throw Fault(
+                "WindowFunctionUnsupported",
+                $"Window function '{name}' is outside the WeaveScript function catalog.",
+                functionCall.Id);
+        }
+
+        if (context.WindowFrames is null ||
+            context.WindowFrameOrdinal < 0 ||
+            context.WindowFrameOrdinal >= context.WindowFrames.Count)
+        {
+            throw Fault(
+                "WindowFunctionContextInvalid",
+                "ROW_NUMBER is executable only as a direct SELECT projection.",
+                functionCall.Id);
+        }
+
+        var overClause = navigator.RequireOwnerLink<FunctionCallOverClauseLink>(
+            functionCall.Id,
+            "FunctionCall.OverClause").OverClause;
+        var partitions = navigator.OrderedItems<OverClausePartitionsItem>(overClause.Id);
+        var orderByClause = navigator.RequireOwnerLink<OverClauseOrderByClauseLink>(
+            overClause.Id,
+            "OverClause.OrderByClause").OrderByClause;
+        var orderItems = navigator.OrderedItems<OrderByClauseOrderByElementsItem>(orderByClause.Id);
+        if (orderItems.Count == 0)
+        {
+            throw Fault(
+                "RowNumberOrderMissing",
+                "ROW_NUMBER requires at least one ordering expression.",
+                functionCall.Id);
+        }
+
+        var key = new RuntimeWindowEvaluationKey(functionCall.Id, context.WindowFrames);
+        if (!windowRowNumbers.TryGetValue(key, out var rowNumbers))
+        {
+            rowNumbers = EvaluateAllWindowRowNumbers(
+                partitions,
+                orderItems,
+                context.VisibleCommonTableExpressionOrdinal,
+                context.WindowFrames);
+            windowRowNumbers.Add(key, rowNumbers);
+        }
+
+        return MetaWeaveScriptValue.FromInteger(rowNumbers[context.WindowFrameOrdinal]);
+    }
+
+    private long[] EvaluateAllWindowRowNumbers(
+        IReadOnlyList<OverClausePartitionsItem> partitions,
+        IReadOnlyList<OrderByClauseOrderByElementsItem> orderItems,
+        int visibleCommonTableExpressionOrdinal,
+        IReadOnlyList<RuntimeFrame> windowFrames)
+    {
+        var groups = new Dictionary<RuntimeRow, List<(RuntimeFrame Frame, int Ordinal)>>(
+            RuntimeRowEqualityComparer.Instance);
+        for (var ordinal = 0; ordinal < windowFrames.Count; ordinal++)
+        {
+            var partition = EvaluateWindowPartition(
+                partitions,
+                windowFrames[ordinal],
+                visibleCommonTableExpressionOrdinal,
+                windowFrames,
+                ordinal);
+            if (!groups.TryGetValue(partition, out var rows))
+            {
+                rows = [];
+                groups.Add(partition, rows);
+            }
+
+            rows.Add((windowFrames[ordinal], ordinal));
+        }
+
+        var rowNumbers = new long[windowFrames.Count];
+        foreach (var rows in groups.Values)
+        {
+            rows.Sort((left, right) => CompareWindowRows(
+                left,
+                right,
+                orderItems,
+                visibleCommonTableExpressionOrdinal,
+                windowFrames));
+            for (var rank = 0; rank < rows.Count; rank++)
+            {
+                rowNumbers[rows[rank].Ordinal] = rank + 1L;
+            }
+        }
+
+        return rowNumbers;
+    }
+
+    private RuntimeRow EvaluateWindowPartition(
+        IReadOnlyList<OverClausePartitionsItem> partitions,
+        RuntimeFrame frame,
+        int visibleCommonTableExpressionOrdinal,
+        IReadOnlyList<RuntimeFrame> windowFrames,
+        int frameOrdinal) =>
+        new(partitions.Select(item => EvaluateScalarExpression(
+            item.ScalarExpression,
+            new RuntimeEvaluationContext(
+                frame,
+                visibleCommonTableExpressionOrdinal,
+                WindowFrames: windowFrames,
+                WindowFrameOrdinal: frameOrdinal))).ToArray());
+
+    private int CompareWindowRows(
+        (RuntimeFrame Frame, int Ordinal) left,
+        (RuntimeFrame Frame, int Ordinal) right,
+        IReadOnlyList<OrderByClauseOrderByElementsItem> orderItems,
+        int visibleCommonTableExpressionOrdinal,
+        IReadOnlyList<RuntimeFrame> windowFrames)
+    {
+        foreach (var item in orderItems)
+        {
+            var expression = navigator.RequireOwnerLink<ExpressionWithSortOrderExpressionLink>(
+                item.ExpressionWithSortOrder.Id,
+                "ExpressionWithSortOrder.Expression").ScalarExpression;
+            var leftValue = EvaluateScalarExpression(
+                expression,
+                new RuntimeEvaluationContext(
+                    left.Frame,
+                    visibleCommonTableExpressionOrdinal,
+                    WindowFrames: windowFrames,
+                    WindowFrameOrdinal: left.Ordinal));
+            var rightValue = EvaluateScalarExpression(
+                expression,
+                new RuntimeEvaluationContext(
+                    right.Frame,
+                    visibleCommonTableExpressionOrdinal,
+                    WindowFrames: windowFrames,
+                    WindowFrameOrdinal: right.Ordinal));
+            var comparison = CompareValues(leftValue, rightValue, nullsFirst: true);
+            if (comparison != 0)
+            {
+                return string.Equals(
+                    item.ExpressionWithSortOrder.SortOrder,
+                    "Descending",
+                    StringComparison.Ordinal)
+                    ? -comparison
+                    : comparison;
+            }
+        }
+
+        return left.Ordinal.CompareTo(right.Ordinal);
     }
 
     private MetaWeaveScriptValue EvaluateAggregateFunction(

@@ -111,9 +111,9 @@ public sealed partial class MetaWeaveScriptSqlParser
             {
                 return ParseFunctionTableReference(identifiers);
             }
-            if (identifiers.Count != 1)
+            if (identifiers.Count is < 1 or > 2)
             {
-                throw Unsupported("MetaWeaveScript source names are workspace entity names, not multipart SQL object names.");
+                throw Unsupported("MetaWeaveScript source names allow an entity name with one optional source-workspace qualifier.");
             }
             var schemaObjectName = builder.CreateSchemaObjectName(identifiers.Select(static identifier => identifier.Node).ToArray());
             BuiltNode? alias = null;
@@ -243,9 +243,9 @@ public sealed partial class MetaWeaveScriptSqlParser
         private BuiltNode ParseSchemaObjectName()
         {
             var identifiers = ParseIdentifierChain();
-            if (identifiers.Count != 1)
+            if (identifiers.Count is < 1 or > 2)
             {
-                throw Unsupported("MetaWeaveScript source names require one identifier.");
+                throw Unsupported("MetaWeaveScript source names require an entity name with one optional source-workspace qualifier.");
             }
             return builder.CreateSchemaObjectName(identifiers.Select(static identifier => identifier.Node).ToArray());
         }

@@ -2,16 +2,23 @@ namespace MetaWeaveScript.Execution;
 
 internal sealed class MetaWeaveScriptExecutionFault : Exception
 {
-    public MetaWeaveScriptExecutionFault(string code, string message, string? syntaxId = null)
+    public MetaWeaveScriptExecutionFault(
+        string code,
+        string message,
+        string? syntaxId = null,
+        string? relationName = null)
         : base(message)
     {
         Code = code;
         SyntaxId = syntaxId;
+        RelationName = relationName;
     }
 
     public string Code { get; }
 
     public string? SyntaxId { get; }
+
+    public string? RelationName { get; }
 }
 
 internal sealed record RuntimeColumn(string Name);
@@ -102,9 +109,23 @@ internal sealed record RuntimeEvaluationContext(
     RuntimeFrame Frame,
     int VisibleCommonTableExpressionOrdinal,
     IReadOnlyList<RuntimeFrame>? GroupFrames = null,
-    bool WithinAggregate = false);
+    bool WithinAggregate = false,
+    IReadOnlyList<RuntimeFrame>? WindowFrames = null,
+    int WindowFrameOrdinal = -1);
+
+internal sealed record RuntimeWindowEvaluationKey(
+    string FunctionId,
+    IReadOnlyList<RuntimeFrame> Frames);
 
 internal enum RuntimeCommonTableExpressionState
+{
+    NotEvaluated,
+    Evaluating,
+    Evaluated,
+    Failed
+}
+
+internal enum RuntimeNamedRelationState
 {
     NotEvaluated,
     Evaluating,

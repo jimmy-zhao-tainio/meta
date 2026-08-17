@@ -16,6 +16,11 @@ public sealed partial class MetaWeaveScriptSqlParser
             "COUNT", "MIN", "MAX", "STRING_AGG"
         };
 
+        private static readonly HashSet<string> SupportedWindowFunctions = new(StringComparer.OrdinalIgnoreCase)
+        {
+            "ROW_NUMBER"
+        };
+
         private BuiltNode ParseFunctionLikeExpression(IReadOnlyList<MetaWeaveScriptSqlToken> identifiers, BuiltNode? callTarget)
         {
             if (identifiers.Count == 0)
@@ -33,6 +38,7 @@ public sealed partial class MetaWeaveScriptSqlParser
                 "COALESCE" => ParseCoalesceExpression(),
                 "NULLIF" => ParseNullIfExpression(),
                 "IIF" => ParseIIfCall(),
+                "TRY_CONVERT" => ParseTryConvertCall(),
                 _ => ParseGenericFunctionCall(functionNameToken)
             };
         }
@@ -40,7 +46,9 @@ public sealed partial class MetaWeaveScriptSqlParser
         private BuiltNode ParseGenericFunctionCall(MetaWeaveScriptSqlToken functionNameToken)
         {
             var functionNameValue = functionNameToken.Value.ToUpperInvariant();
-            if (!SupportedScalarFunctions.Contains(functionNameValue) && !SupportedAggregateFunctions.Contains(functionNameValue))
+            if (!SupportedScalarFunctions.Contains(functionNameValue) &&
+                !SupportedAggregateFunctions.Contains(functionNameValue) &&
+                !SupportedWindowFunctions.Contains(functionNameValue))
             {
                 throw Unsupported($"Function '{functionNameToken.Value}' is outside the MetaWeaveScript function catalog.");
             }
@@ -98,7 +106,16 @@ public sealed partial class MetaWeaveScriptSqlParser
             }
             if (PeekKeyword("OVER"))
             {
-                throw Unsupported("MetaWeaveScript does not support window functions or OVER clauses.");
+                if (!string.Equals(functionNameValue, "ROW_NUMBER", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw Unsupported("MetaWeaveScript supports OVER only for ROW_NUMBER.");
+                }
+
+                functionCall = builder.AttachOverClause(functionCall, ParseOverClause());
+            }
+            else if (string.Equals(functionNameValue, "ROW_NUMBER", StringComparison.OrdinalIgnoreCase))
+            {
+                throw Unsupported("MetaWeaveScript ROW_NUMBER requires an OVER clause.");
             }
             return functionCall;
         }
@@ -113,6 +130,7 @@ public sealed partial class MetaWeaveScriptSqlParser
                 "SUBSTRING" => count == 3,
                 "TRIM" => count == 1,
                 "CONCAT" => count >= 2,
+                "ROW_NUMBER" => count == 0,
                 _ => false
             };
             if (!valid)
@@ -151,6 +169,27 @@ public sealed partial class MetaWeaveScriptSqlParser
             var elseExpression = ParseScalarExpression();
             Expect(MetaWeaveScriptSqlTokenKind.CloseParen);
             return builder.CreateIIfCall(predicate, thenExpression, elseExpression);
+        }
+
+        private BuiltNode ParseTryConvertCall()
+        {
+            Expect(MetaWeaveScriptSqlTokenKind.OpenParen);
+            var dataType = ParseIdentifierToken();
+            if (!string.Equals(dataType.Value, "int", StringComparison.OrdinalIgnoreCase) ||
+                !string.Equals(dataType.QuoteType, "NotQuoted", StringComparison.Ordinal))
+            {
+                throw Unsupported("MetaWeaveScript TRY_CONVERT supports the int data type only.");
+            }
+
+            Expect(MetaWeaveScriptSqlTokenKind.Comma);
+            var parameter = ParseScalarExpression();
+            if (Match(MetaWeaveScriptSqlTokenKind.Comma))
+            {
+                throw Unsupported("MetaWeaveScript TRY_CONVERT does not support a style argument.");
+            }
+
+            Expect(MetaWeaveScriptSqlTokenKind.CloseParen);
+            return builder.CreateTryConvertCall(builder.CreateIntDataTypeReference(), parameter);
         }
 
         private List<BuiltNode> ParseScalarArgumentList()

@@ -158,6 +158,11 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             var query = navigator.RequireOwnerLink<ScalarSubqueryQueryExpressionLink>(
                 subquery.Id,
                 "ScalarSubquery.QueryExpression").QueryExpression;
+            if (TryEvaluateIndexedExists(query, context, out var indexedResult))
+            {
+                return FromBoolean(indexedResult);
+            }
+
             var result = ExecuteQueryExpression(
                 query,
                 context.VisibleCommonTableExpressionOrdinal,
@@ -169,6 +174,121 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             "BooleanExpressionShapeUnsupported",
             $"BooleanExpression '{expression.Id}' has no retained semantic subtype.",
             expression.Id);
+    }
+
+    private bool TryEvaluateIndexedExists(
+        QueryExpression query,
+        RuntimeEvaluationContext context,
+        out bool result)
+    {
+        result = false;
+        var specification = navigator.TrySubtype<QuerySpecification>(query.Id);
+        if (specification is null ||
+            navigator.TryOwnerLink<QuerySpecificationGroupByClauseLink>(specification.Id) is not null)
+        {
+            return false;
+        }
+
+        var selectItems = navigator.OrderedItems<QuerySpecificationSelectElementsItem>(specification.Id);
+        if (selectItems.Any(item => ContainsAggregate(CreateProjection(item.SelectElement).Expression)))
+        {
+            return false;
+        }
+
+        var fromLink = navigator.TryOwnerLink<QuerySpecificationFromClauseLink>(specification.Id);
+        var fromItems = fromLink is null
+            ? []
+            : navigator.OrderedItems<FromClauseTableReferencesItem>(fromLink.FromClause.Id);
+        if (fromItems.Count != 1)
+        {
+            return false;
+        }
+
+        var tableReference = fromItems[0].TableReference;
+        var aliasBase = navigator.TrySubtype<TableReferenceWithAlias>(tableReference.Id);
+        var named = aliasBase is null
+            ? null
+            : navigator.TrySubtype<NamedTableReference>(aliasBase.Id);
+        if (named is null || navigator.TrySubtype<TableReferenceWithAliasAndColumns>(aliasBase!.Id) is not null)
+        {
+            return false;
+        }
+
+        var schemaObject = navigator.RequireOwnerLink<NamedTableReferenceSchemaObjectLink>(
+            named.Id,
+            "NamedTableReference.SchemaObject").SchemaObjectName;
+        var identifier = navigator.RequireById<MultiPartIdentifier>(
+            schemaObject.MultiPartIdentifier.Id,
+            "SchemaObjectName.MultiPartIdentifier");
+        var sourceParts = navigator.IdentifierParts(identifier);
+        if (sourceParts.Count != 2)
+        {
+            return false;
+        }
+
+        var localAlias = TryGetTableAlias(tableReference) ?? sourceParts[^1];
+        var whereLink = navigator.TryOwnerLink<QuerySpecificationWhereClauseLink>(specification.Id);
+        var whereExpression = whereLink is null
+            ? null
+            : navigator.TryOwnerLink<WhereClauseSearchConditionLink>(whereLink.WhereClause.Id)?.BooleanExpression;
+        var comparison = whereExpression is null
+            ? null
+            : navigator.TrySubtype<BooleanComparisonExpression>(whereExpression.Id);
+        if (comparison is null ||
+            !string.Equals(comparison.ComparisonType, "Equals", StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        var first = navigator.RequireOwnerLink<BooleanComparisonExpressionFirstExpressionLink>(
+            comparison.Id,
+            "BooleanComparisonExpression.FirstExpression").ScalarExpression;
+        var second = navigator.RequireOwnerLink<BooleanComparisonExpressionSecondExpressionLink>(
+            comparison.Id,
+            "BooleanComparisonExpression.SecondExpression").ScalarExpression;
+        var firstParts = TryGetDirectColumnReferenceParts(first);
+        var secondParts = TryGetDirectColumnReferenceParts(second);
+        if (firstParts is null || secondParts is null)
+        {
+            return false;
+        }
+
+        ScalarExpression outerExpression;
+        string localColumn;
+        if (firstParts.Count == 2 &&
+            string.Equals(firstParts[0], localAlias, StringComparison.OrdinalIgnoreCase) &&
+            !(secondParts.Count == 2 &&
+              string.Equals(secondParts[0], localAlias, StringComparison.OrdinalIgnoreCase)))
+        {
+            localColumn = firstParts[1];
+            outerExpression = second;
+        }
+        else if (secondParts.Count == 2 &&
+                 string.Equals(secondParts[0], localAlias, StringComparison.OrdinalIgnoreCase) &&
+                 !(firstParts.Count == 2 &&
+                   string.Equals(firstParts[0], localAlias, StringComparison.OrdinalIgnoreCase)))
+        {
+            localColumn = secondParts[1];
+            outerExpression = first;
+        }
+        else
+        {
+            return false;
+        }
+
+        var outerValue = EvaluateScalarExpression(
+            outerExpression,
+            context with
+            {
+                Frame = new RuntimeFrame(new RuntimeLocalRow(), context.Frame)
+            });
+        result = sourceTables.ContainsValue(
+            sourceParts,
+            sourceParts[^1],
+            localColumn,
+            outerValue,
+            comparison.Id);
+        return true;
     }
 
     private bool ContainsAggregate(BooleanExpression expression)

@@ -53,6 +53,10 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
         {
             rendered = RenderIIfCall(iIfCall);
         }
+        else if (FindByBaseId(model.TryConvertCallList, primaryExpression.Id) is { } tryConvertCall)
+        {
+            rendered = RenderTryConvertCall(tryConvertCall);
+        }
         else if (FindByBaseId(model.FunctionCallList, primaryExpression.Id) is { } functionCall)
         {
             rendered = RenderFunctionCall(functionCall);
@@ -104,6 +108,18 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
         if (literal is not null)
         {
             return RenderLiteral(literal);
+        }
+
+        var parameter = FindByBaseId(model.ParameterReferenceExpressionList, valueExpression.Id);
+        if (parameter is not null)
+        {
+            if (!IsPlainIdentifier(parameter.Name))
+            {
+                throw new InvalidOperationException(
+                    $"ParameterReferenceExpression '{parameter.Id}' has invalid name '{parameter.Name}'.");
+            }
+
+            return "@" + parameter.Name;
         }
 
         throw new InvalidOperationException($"Unsupported MetaWeaveScript ValueExpression id '{valueExpression.Id}'.");

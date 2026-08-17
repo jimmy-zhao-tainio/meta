@@ -26,14 +26,61 @@ public sealed class MetaWeaveScriptExecutionService
 
     public MetaWeaveScriptQueryResult ExecuteQuery(
         MetaWeaveModel model,
+        IReadOnlyDictionary<string, InMemoryWorkspace> sourceWorkspaces,
+        IReadOnlyDictionary<string, string>? stringParameters = null)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentNullException.ThrowIfNull(sourceWorkspaces);
+
+        if (model.SelectStatementList.Count != 1)
+        {
+            return new MetaWeaveScriptQueryResult(
+                null,
+                [new MetaWeaveScriptExecutionIssue(
+                    "SelectStatementCountInvalid",
+                    $"Standalone query execution requires exactly one SelectStatement, but the semantic model contains {model.SelectStatementList.Count}.")]);
+        }
+
+        return ExecuteQuery(
+            model,
+            model.SelectStatementList[0],
+            sourceWorkspaces,
+            stringParameters);
+    }
+
+    public MetaWeaveScriptQueryResult ExecuteQuery(
+        MetaWeaveModel model,
         SelectStatement selectStatement,
         InMemoryWorkspace sourceWorkspace)
     {
+        ArgumentNullException.ThrowIfNull(sourceWorkspace);
+        return ExecuteQuery(
+            model,
+            selectStatement,
+            new Dictionary<string, InMemoryWorkspace>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["source"] = sourceWorkspace
+            },
+            new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase));
+    }
+
+    public MetaWeaveScriptQueryResult ExecuteQuery(
+        MetaWeaveModel model,
+        SelectStatement selectStatement,
+        IReadOnlyDictionary<string, InMemoryWorkspace> sourceWorkspaces,
+        IReadOnlyDictionary<string, string>? stringParameters = null)
+    {
         ArgumentNullException.ThrowIfNull(model);
         ArgumentNullException.ThrowIfNull(selectStatement);
-        ArgumentNullException.ThrowIfNull(sourceWorkspace);
+        ArgumentNullException.ThrowIfNull(sourceWorkspaces);
 
-        var sourceIssues = ValidateSourceWorkspace(sourceWorkspace);
+        var sourceIssues = new List<MetaWeaveScriptExecutionIssue>();
+        var normalizedSources = NormalizeSourceWorkspaces(sourceWorkspaces, sourceIssues);
+        foreach (var source in normalizedSources)
+        {
+            sourceIssues.AddRange(ValidateSourceWorkspace(source.Key, source.Value));
+        }
+
         if (sourceIssues.Count > 0)
         {
             return new MetaWeaveScriptQueryResult(null, sourceIssues);
@@ -41,11 +88,21 @@ public sealed class MetaWeaveScriptExecutionService
 
         try
         {
-            var snapshot = sourceWorkspace.Clone();
+            var snapshots = normalizedSources.ToDictionary(
+                source => source.Key,
+                source => source.Value.Clone(),
+                StringComparer.OrdinalIgnoreCase);
+            var parameters = NormalizeStringParameters(stringParameters, sourceIssues);
+            if (sourceIssues.Count > 0)
+            {
+                return new MetaWeaveScriptQueryResult(null, sourceIssues);
+            }
+
             var rowset = new MetaWeaveScriptExecutionSession(
                 model,
                 selectStatement,
-                snapshot).Execute();
+                snapshots,
+                parameters).Execute();
             return new MetaWeaveScriptQueryResult(
                 new MetaWeaveScriptQueryOutput(
                     rowset.Columns.Select(column => new MetaWeaveScriptQueryColumn(column.Name)).ToArray(),
@@ -63,45 +120,149 @@ public sealed class MetaWeaveScriptExecutionService
     public MetaWeaveScriptApplicationResult ExecuteDirection(
         MetaWeaveScriptDirection direction,
         InMemoryWorkspace sourceWorkspace,
-        InMemoryWorkspace targetWorkspace)
+        InMemoryWorkspace targetWorkspace,
+        Action<MetaWeaveScriptExecutionProgress>? progress = null)
     {
         ArgumentNullException.ThrowIfNull(direction);
         ArgumentNullException.ThrowIfNull(sourceWorkspace);
         ArgumentNullException.ThrowIfNull(targetWorkspace);
 
+        if (direction.SourceWorkspaces is null || direction.SourceWorkspaces.Count != 1)
+        {
+            return new MetaWeaveScriptApplicationResult(
+                null,
+                [new MetaWeaveScriptExecutionIssue(
+                    "SourceWorkspaceCountInvalid",
+                    $"The single-source execution overload requires exactly one declared source workspace, but direction '{direction.Name}' declares {direction.SourceWorkspaces?.Count ?? 0}.")]);
+        }
+
+        return ExecuteDirection(
+            direction,
+            new Dictionary<string, InMemoryWorkspace>(StringComparer.OrdinalIgnoreCase)
+            {
+                [direction.SourceWorkspaces[0].Name] = sourceWorkspace
+            },
+            targetWorkspace,
+            progress: progress);
+    }
+
+    public MetaWeaveScriptApplicationResult ExecuteDirection(
+        MetaWeaveScriptDirection direction,
+        IReadOnlyDictionary<string, InMemoryWorkspace> sourceWorkspaces,
+        InMemoryWorkspace targetWorkspace,
+        IReadOnlyDictionary<string, string>? stringParameters = null,
+        Action<MetaWeaveScriptExecutionProgress>? progress = null)
+    {
+        ArgumentNullException.ThrowIfNull(direction);
+        ArgumentNullException.ThrowIfNull(sourceWorkspaces);
+        ArgumentNullException.ThrowIfNull(targetWorkspace);
+
+        var initialTarget = new InMemoryWorkspace(
+            targetWorkspace.Model.Clone(),
+            new GenericInstance { ModelName = targetWorkspace.Model.Name });
         var issues = new List<MetaWeaveScriptExecutionIssue>();
-        ValidateDirection(direction, sourceWorkspace, targetWorkspace, issues);
+        var normalizedSources = NormalizeSourceWorkspaces(sourceWorkspaces, issues);
+        var normalizedParameters = NormalizeStringParameters(stringParameters, issues);
+        ValidateDirection(
+            direction,
+            normalizedSources,
+            initialTarget,
+            normalizedParameters,
+            issues);
         var requirements = direction.Requirements ?? [];
         var transformations = direction.Transformations ?? [];
-        issues.AddRange(ValidateSourceWorkspace(sourceWorkspace));
-        issues.AddRange(ValidateTargetWorkspace(targetWorkspace));
+        var relations = direction.Relations ?? [];
+        foreach (var source in normalizedSources)
+        {
+            issues.AddRange(ValidateSourceWorkspace(source.Key, source.Value));
+        }
+        issues.AddRange(ValidateTargetWorkspace(initialTarget));
         ValidateRequirements(requirements, issues);
-        ValidateTransformations(transformations, targetWorkspace.Model, issues);
+        ValidateRelations(relations, issues);
+        ValidateTransformations(transformations, initialTarget.Model, issues);
         var orderedTransformations = issues.Count == 0
-            ? OrderTransformations(transformations, targetWorkspace.Model)
+            ? OrderTransformations(transformations, initialTarget.Model)
             : [];
         if (issues.Count > 0)
         {
             return new MetaWeaveScriptApplicationResult(null, issues);
         }
 
-        var sourceSnapshot = sourceWorkspace.Clone();
-        ExecuteRequirements(direction.Model, requirements, sourceSnapshot, issues);
+        var totalTaskCount = requirements.Count + relations.Count + orderedTransformations.Count;
+        var completedTaskCount = 0;
+        NotifyProgress(
+            progress,
+            new MetaWeaveScriptExecutionProgress(0, totalTaskCount, null, null));
+
+        var sourceSnapshots = normalizedSources.ToDictionary(
+            source => source.Key,
+            source => source.Value.Clone(),
+            StringComparer.OrdinalIgnoreCase);
+        var namedRelations = new RuntimeNamedRelationContext(
+            direction.Model,
+            relations,
+            sourceSnapshots,
+            normalizedParameters,
+            relation => TaskCompleted(
+                MetaWeaveScriptExecutionTaskKind.Relation,
+                relation.Name));
+        ExecuteRequirements(
+            direction.Model,
+            requirements,
+            sourceSnapshots,
+            normalizedParameters,
+            namedRelations,
+            issues,
+            requirement => TaskCompleted(
+                MetaWeaveScriptExecutionTaskKind.Requirement,
+                requirement.Name));
         if (issues.Count > 0)
         {
             return new MetaWeaveScriptApplicationResult(null, issues);
         }
 
-        var currentTarget = targetWorkspace.Clone();
-
-        foreach (var transformation in orderedTransformations)
+        try
         {
+            namedRelations.EvaluateAll();
+        }
+        catch (MetaWeaveScriptExecutionFault fault)
+        {
+            issues.Add(new MetaWeaveScriptExecutionIssue(
+                fault.Code,
+                fault.Message,
+                SyntaxId: fault.SyntaxId,
+                RelationName: fault.RelationName));
+        }
+        catch (InvalidOperationException exception)
+        {
+            issues.Add(new MetaWeaveScriptExecutionIssue(
+                "NamedRelationEvaluationFailed",
+                exception.Message));
+        }
+        catch (ArgumentException exception)
+        {
+            issues.Add(new MetaWeaveScriptExecutionIssue(
+                "NamedRelationEvaluationFailed",
+                exception.Message));
+        }
+        if (issues.Count > 0)
+        {
+            return new MetaWeaveScriptApplicationResult(null, issues);
+        }
+
+        var currentTarget = initialTarget;
+
+        for (var transformationIndex = 0; transformationIndex < orderedTransformations.Count; transformationIndex++)
+        {
+            var transformation = orderedTransformations[transformationIndex];
             try
             {
                 var rowset = new MetaWeaveScriptExecutionSession(
                     direction.Model,
                     transformation.SelectStatement,
-                    sourceSnapshot).Execute();
+                    sourceSnapshots,
+                    normalizedParameters,
+                    namedRelations).Execute();
                 var instantiation = CreateInstantiationPlan(
                     transformation,
                     rowset,
@@ -119,6 +280,10 @@ public sealed class MetaWeaveScriptExecutionService
                         currentTarget,
                         instantiation.SelfRelationshipOperations).Workspace;
                 }
+
+                TaskCompleted(
+                    MetaWeaveScriptExecutionTaskKind.TargetEntity,
+                    transformation.TargetEntityName);
             }
             catch (MetaWeaveScriptExecutionFault fault)
             {
@@ -126,7 +291,8 @@ public sealed class MetaWeaveScriptExecutionService
                     fault.Code,
                     fault.Message,
                     transformation.Name,
-                    fault.SyntaxId));
+                    fault.SyntaxId,
+                    RelationName: fault.RelationName));
                 break;
             }
             catch (MetaOperationException exception)
@@ -158,12 +324,44 @@ public sealed class MetaWeaveScriptExecutionService
         }
 
         return new MetaWeaveScriptApplicationResult(currentTarget, []);
+
+        void TaskCompleted(MetaWeaveScriptExecutionTaskKind kind, string name)
+        {
+            completedTaskCount++;
+            NotifyProgress(
+                progress,
+                new MetaWeaveScriptExecutionProgress(
+                    completedTaskCount,
+                    totalTaskCount,
+                    kind,
+                    name));
+        }
+    }
+
+    private static void NotifyProgress(
+        Action<MetaWeaveScriptExecutionProgress>? progress,
+        MetaWeaveScriptExecutionProgress value)
+    {
+        if (progress is null)
+        {
+            return;
+        }
+
+        try
+        {
+            progress(value);
+        }
+        catch
+        {
+            // Progress is observational and cannot change execution semantics.
+        }
     }
 
     private static void ValidateDirection(
         MetaWeaveScriptDirection direction,
-        InMemoryWorkspace sourceWorkspace,
+        IReadOnlyDictionary<string, InMemoryWorkspace> sourceWorkspaces,
         InMemoryWorkspace targetWorkspace,
+        IReadOnlyDictionary<string, MetaWeaveScriptValue> stringParameters,
         ICollection<MetaWeaveScriptExecutionIssue> issues)
     {
         if (string.IsNullOrWhiteSpace(direction.Name))
@@ -173,13 +371,104 @@ public sealed class MetaWeaveScriptExecutionService
                 "A WeaveScript direction requires a name."));
         }
 
-        if (!MetaName.Comparer.Equals(
-                direction.SourceModelName,
-                sourceWorkspace.Model.Name))
+        var declaredSourceNames = new HashSet<string>(MetaName.Comparer);
+        if (direction.SourceWorkspaces is null || direction.SourceWorkspaces.Count == 0)
         {
             issues.Add(new MetaWeaveScriptExecutionIssue(
-                "SourceModelMismatch",
-                $"Direction '{direction.Name}' requires source model '{direction.SourceModelName}' but received '{sourceWorkspace.Model.Name}'."));
+                "DirectionSourceWorkspacesMissing",
+                $"Direction '{direction.Name}' requires at least one source workspace declaration."));
+        }
+        else
+        {
+            foreach (var source in direction.SourceWorkspaces)
+            {
+                if (source is null || !MetaName.IsValid(source.Name))
+                {
+                    issues.Add(new MetaWeaveScriptExecutionIssue(
+                        "SourceWorkspaceNameInvalid",
+                        $"Direction '{direction.Name}' contains a source workspace with an invalid name."));
+                    continue;
+                }
+
+                if (!declaredSourceNames.Add(source.Name))
+                {
+                    issues.Add(new MetaWeaveScriptExecutionIssue(
+                        "SourceWorkspaceNameDuplicate",
+                        $"Direction '{direction.Name}' declares source workspace '{source.Name}' more than once."));
+                    continue;
+                }
+
+                if (!sourceWorkspaces.TryGetValue(source.Name, out var supplied))
+                {
+                    issues.Add(new MetaWeaveScriptExecutionIssue(
+                        "SourceWorkspaceMissing",
+                        $"Direction '{direction.Name}' requires source workspace '{source.Name}'."));
+                    continue;
+                }
+
+                if (!MetaName.Comparer.Equals(source.ModelName, supplied.Model.Name))
+                {
+                    issues.Add(new MetaWeaveScriptExecutionIssue(
+                        "SourceModelMismatch",
+                        $"Direction '{direction.Name}' requires model '{source.ModelName}' for source workspace '{source.Name}' but received '{supplied.Model.Name}'."));
+                }
+            }
+        }
+
+        foreach (var suppliedName in sourceWorkspaces.Keys)
+        {
+            if (!declaredSourceNames.Contains(suppliedName))
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "SourceWorkspaceUnexpected",
+                    $"Source workspace '{suppliedName}' is not declared by direction '{direction.Name}'."));
+            }
+        }
+
+        var declaredParameterNames = new HashSet<string>(MetaName.Comparer);
+        if (direction.StringParameters is null)
+        {
+            issues.Add(new MetaWeaveScriptExecutionIssue(
+                "DirectionStringParametersMissing",
+                $"Direction '{direction.Name}' has no string-parameter collection."));
+        }
+        else
+        {
+            foreach (var parameter in direction.StringParameters)
+            {
+                if (parameter is null || !MetaName.IsValid(parameter.Name))
+                {
+                    issues.Add(new MetaWeaveScriptExecutionIssue(
+                        "StringParameterNameInvalid",
+                        $"Direction '{direction.Name}' contains a string parameter with an invalid name."));
+                    continue;
+                }
+
+                if (!declaredParameterNames.Add(parameter.Name))
+                {
+                    issues.Add(new MetaWeaveScriptExecutionIssue(
+                        "StringParameterNameDuplicate",
+                        $"Direction '{direction.Name}' declares string parameter '{parameter.Name}' more than once."));
+                    continue;
+                }
+
+                if (!stringParameters.ContainsKey(parameter.Name))
+                {
+                    issues.Add(new MetaWeaveScriptExecutionIssue(
+                        "ParameterValueMissing",
+                        $"Direction '{direction.Name}' requires string parameter '@{parameter.Name}'."));
+                }
+            }
+        }
+
+        foreach (var suppliedName in stringParameters.Keys)
+        {
+            if (!declaredParameterNames.Contains(suppliedName))
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "ParameterValueUnexpected",
+                    $"Parameter '@{suppliedName}' is not declared by direction '{direction.Name}'."));
+            }
         }
 
         if (!MetaName.Comparer.Equals(
@@ -203,6 +492,13 @@ public sealed class MetaWeaveScriptExecutionService
             issues.Add(new MetaWeaveScriptExecutionIssue(
                 "DirectionRequirementsMissing",
                 $"Direction '{direction.Name}' has no requirement collection."));
+        }
+
+        if (direction.Relations is null)
+        {
+            issues.Add(new MetaWeaveScriptExecutionIssue(
+                "DirectionRelationsMissing",
+                $"Direction '{direction.Name}' has no named-relation collection."));
         }
 
         if (direction.Model is null)
@@ -268,11 +564,54 @@ public sealed class MetaWeaveScriptExecutionService
         }
     }
 
+    private static void ValidateRelations(
+        IReadOnlyList<MetaWeaveScriptRelation> relations,
+        ICollection<MetaWeaveScriptExecutionIssue> issues)
+    {
+        var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var relation in relations)
+        {
+            if (relation is null)
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "NamedRelationMissing",
+                    "The direction contains a null named relation."));
+                continue;
+            }
+
+            if (!MetaName.IsValid(relation.Name))
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "NamedRelationNameInvalid",
+                    $"Direction relation name '{relation.Name}' is invalid.",
+                    RelationName: relation.Name));
+            }
+            else if (!names.Add(relation.Name))
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "NamedRelationNameDuplicate",
+                    $"Direction relation name '{relation.Name}' is duplicated.",
+                    RelationName: relation.Name));
+            }
+
+            if (relation.SelectStatement is null)
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "NamedRelationSelectStatementMissing",
+                    $"Named relation '{relation.Name}' has no SELECT root.",
+                    RelationName: relation.Name));
+            }
+        }
+    }
+
     private static void ExecuteRequirements(
         MetaWeaveModel model,
         IReadOnlyList<MetaWeaveScriptRequirement> requirements,
-        InMemoryWorkspace sourceWorkspace,
-        ICollection<MetaWeaveScriptExecutionIssue> issues)
+        IReadOnlyDictionary<string, InMemoryWorkspace> sourceWorkspaces,
+        IReadOnlyDictionary<string, MetaWeaveScriptValue> stringParameters,
+        RuntimeNamedRelationContext namedRelations,
+        ICollection<MetaWeaveScriptExecutionIssue> issues,
+        Action<MetaWeaveScriptRequirement>? requirementEvaluated)
     {
         foreach (var requirement in requirements)
         {
@@ -281,7 +620,9 @@ public sealed class MetaWeaveScriptExecutionService
                 var rowset = new MetaWeaveScriptExecutionSession(
                     model,
                     requirement.SelectStatement,
-                    sourceWorkspace).Execute();
+                    sourceWorkspaces,
+                    stringParameters,
+                    namedRelations).Execute();
                 foreach (var row in rowset.Rows)
                 {
                     issues.Add(new MetaWeaveScriptExecutionIssue(
@@ -289,6 +630,8 @@ public sealed class MetaWeaveScriptExecutionService
                         FormatRequirementViolation(requirement.Message, rowset.Columns, row),
                         RequirementName: requirement.Name));
                 }
+
+                requirementEvaluated?.Invoke(requirement);
             }
             catch (MetaWeaveScriptExecutionFault fault)
             {
@@ -296,7 +639,8 @@ public sealed class MetaWeaveScriptExecutionService
                     fault.Code,
                     fault.Message,
                     SyntaxId: fault.SyntaxId,
-                    RequirementName: requirement.Name));
+                    RequirementName: requirement.Name,
+                    RelationName: fault.RelationName));
             }
             catch (InvalidOperationException exception)
             {
@@ -334,7 +678,83 @@ public sealed class MetaWeaveScriptExecutionService
             : $"{message} ({string.Join(", ", evidence)})";
     }
 
+    private static IReadOnlyDictionary<string, InMemoryWorkspace> NormalizeSourceWorkspaces(
+        IReadOnlyDictionary<string, InMemoryWorkspace> sourceWorkspaces,
+        ICollection<MetaWeaveScriptExecutionIssue> issues)
+    {
+        var normalized = new Dictionary<string, InMemoryWorkspace>(StringComparer.OrdinalIgnoreCase);
+        foreach (var source in sourceWorkspaces)
+        {
+            if (!MetaName.IsValid(source.Key))
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "SourceWorkspaceNameInvalid",
+                    $"Supplied source workspace name '{source.Key}' is invalid."));
+                continue;
+            }
+
+            if (source.Value is null)
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "SourceWorkspaceMissing",
+                    $"Supplied source workspace '{source.Key}' has no workspace value."));
+                continue;
+            }
+
+            if (!normalized.TryAdd(source.Key, source.Value))
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "SourceWorkspaceNameDuplicate",
+                    $"Source workspace name '{source.Key}' was supplied more than once."));
+            }
+        }
+
+        if (normalized.Count == 0)
+        {
+            issues.Add(new MetaWeaveScriptExecutionIssue(
+                "SourceWorkspacesMissing",
+                "At least one source workspace must be supplied."));
+        }
+
+        return normalized;
+    }
+
+    private static IReadOnlyDictionary<string, MetaWeaveScriptValue> NormalizeStringParameters(
+        IReadOnlyDictionary<string, string>? stringParameters,
+        ICollection<MetaWeaveScriptExecutionIssue> issues)
+    {
+        var normalized = new Dictionary<string, MetaWeaveScriptValue>(StringComparer.OrdinalIgnoreCase);
+        foreach (var parameter in stringParameters ?? new Dictionary<string, string>())
+        {
+            if (!MetaName.IsValid(parameter.Key))
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "StringParameterNameInvalid",
+                    $"Supplied string parameter name '{parameter.Key}' is invalid."));
+                continue;
+            }
+
+            if (parameter.Value is null)
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "ParameterValueInvalid",
+                    $"String parameter '@{parameter.Key}' has a null runtime value."));
+                continue;
+            }
+
+            if (!normalized.TryAdd(parameter.Key, MetaWeaveScriptValue.FromString(parameter.Value)))
+            {
+                issues.Add(new MetaWeaveScriptExecutionIssue(
+                    "StringParameterNameDuplicate",
+                    $"String parameter '@{parameter.Key}' was supplied more than once."));
+            }
+        }
+
+        return normalized;
+    }
+
     private static IReadOnlyList<MetaWeaveScriptExecutionIssue> ValidateSourceWorkspace(
+        string sourceName,
         InMemoryWorkspace sourceWorkspace)
     {
         var diagnostics = WorkspaceValidator.Validate(sourceWorkspace.Model, sourceWorkspace.Instance);
@@ -342,7 +762,7 @@ public sealed class MetaWeaveScriptExecutionService
             .Where(issue => issue.Severity == IssueSeverity.Error)
             .Select(issue => new MetaWeaveScriptExecutionIssue(
                 "SourceWorkspace." + issue.Code,
-                issue.Message,
+                $"Source workspace '{sourceName}': {issue.Message}",
                 SyntaxId: issue.Location))
             .ToArray();
     }

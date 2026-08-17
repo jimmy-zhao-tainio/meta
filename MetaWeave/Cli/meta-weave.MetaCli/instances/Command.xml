@@ -6,10 +6,20 @@
       <Name>add-direction</Name>
       <Token>add-direction</Token>
     </Command>
+    <Command Id="cmd-add-relation" ApplicationId="app-meta-weave">
+      <Description>Read WeaveScript from standard input and add one named relation to a direction.</Description>
+      <Name>add-relation</Name>
+      <Token>add-relation</Token>
+    </Command>
     <Command Id="cmd-add-requirement" ApplicationId="app-meta-weave">
       <Description>Add a source-domain requirement to one direction.</Description>
       <Name>add-requirement</Name>
       <Token>add-requirement</Token>
+    </Command>
+    <Command Id="cmd-add-string-parameter" ApplicationId="app-meta-weave">
+      <Description>Declare one string execution parameter on a direction.</Description>
+      <Name>add-string-parameter</Name>
+      <Token>add-string-parameter</Token>
     </Command>
     <Command Id="cmd-add-transformation" ApplicationId="app-meta-weave">
       <Description>Read WeaveScript from standard input and add one transformation to a direction.</Description>
@@ -17,9 +27,14 @@
       <Token>add-transformation</Token>
     </Command>
     <Command Id="cmd-create" ApplicationId="app-meta-weave">
-      <Description>Create a complete MetaWeave workspace for two model contracts.</Description>
+      <Description>Create a MetaWeave workspace.</Description>
       <Name>create</Name>
       <Token>create</Token>
+    </Command>
+    <Command Id="cmd-emit-relation" ApplicationId="app-meta-weave">
+      <Description>Emit one named relation as recognizable T-SQL.</Description>
+      <Name>emit-relation</Name>
+      <Token>emit-relation</Token>
     </Command>
     <Command Id="cmd-emit-requirement" ApplicationId="app-meta-weave">
       <Description>Emit one direction requirement query as recognizable T-SQL.</Description>
@@ -45,6 +60,11 @@
       <Description>Show the weave, its directions, and transformations.</Description>
       <Name>show</Name>
       <Token>show</Token>
+    </Command>
+    <Command Id="cmd-update-relation" ApplicationId="app-meta-weave">
+      <Description>Read replacement WeaveScript from standard input and update one named relation.</Description>
+      <Name>update-relation</Name>
+      <Token>update-relation</Token>
     </Command>
     <Command Id="cmd-update-requirement" ApplicationId="app-meta-weave">
       <Description>Read replacement WeaveScript from standard input and update one requirement.</Description>

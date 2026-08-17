@@ -15,20 +15,29 @@ public sealed class MetaWeaveModelTests
                 && property.PropertyType.GetGenericTypeDefinition() == typeof(List<>))
             .ToArray();
 
-        Assert.Equal(126, entityLists.Length);
+        Assert.Equal(141, entityLists.Length);
         Assert.Equal(
-            122,
+            134,
             entityLists.Count(property => property.Name is not
                 (nameof(MetaWeaveModel.WeaveList) or
                  nameof(MetaWeaveModel.DirectionList) or
+                 nameof(MetaWeaveModel.DirectionSourceWorkspaceList) or
+                 nameof(MetaWeaveModel.DirectionStringParameterList) or
+                 nameof(MetaWeaveModel.DirectionRelationList) or
                  nameof(MetaWeaveModel.DirectionRequirementList) or
                  nameof(MetaWeaveModel.TransformationList))));
         Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.WeaveList));
         Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.DirectionList));
+        Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.DirectionSourceWorkspaceList));
+        Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.DirectionStringParameterList));
+        Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.DirectionRelationList));
         Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.DirectionRequirementList));
         Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.TransformationList));
+        Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.ParameterReferenceExpressionList));
         Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.IIfCallList));
         Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.ScalarSubqueryList));
+        Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.FunctionCallOverClauseLinkList));
+        Assert.Contains(entityLists, property => property.Name == nameof(MetaWeaveModel.TryConvertCallList));
         Assert.DoesNotContain(entityLists, property => property.Name == "XmlNodesTableReferenceList");
         Assert.DoesNotContain(entityLists, property => property.Name == "PivotedTableReferenceList");
         Assert.DoesNotContain(entityLists, property => property.Name == "TransformScriptList");

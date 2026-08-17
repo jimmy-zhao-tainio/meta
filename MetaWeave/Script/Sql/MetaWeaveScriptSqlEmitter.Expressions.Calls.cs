@@ -83,6 +83,56 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
         var withinGroupSuffix = withinGroupOrderByClauseLink is null
             ? string.Empty
             : $" WITHIN GROUP ({RenderOrderByClause(withinGroupOrderByClauseLink.OrderByClause)})";
-        return $"{functionName}({string.Join(", ", args)}){withinGroupSuffix}";
+        var overClauseLink = FindOwnerLink(model.FunctionCallOverClauseLinkList, functionCall.Id);
+        var overSuffix = overClauseLink is null
+            ? string.Empty
+            : " " + RenderOverClause(overClauseLink.OverClause);
+        return $"{functionName}({string.Join(", ", args)}){withinGroupSuffix}{overSuffix}";
+    }
+
+    private string RenderTryConvertCall(TryConvertCall tryConvertCall)
+    {
+        var dataType = RenderDataTypeReference(GetOwnerLink(
+            model.TryConvertCallDataTypeLinkList,
+            tryConvertCall.Id,
+            "TryConvertCall.DataType").DataTypeReference);
+        var parameter = RenderScalarExpression(GetOwnerLink(
+            model.TryConvertCallParameterLinkList,
+            tryConvertCall.Id,
+            "TryConvertCall.Parameter").ScalarExpression);
+        return $"TRY_CONVERT({dataType}, {parameter})";
+    }
+
+    private string RenderDataTypeReference(DataTypeReference dataTypeReference)
+    {
+        var parameterized = FindByBaseId(model.ParameterizedDataTypeReferenceList, dataTypeReference.Id)
+            ?? throw new InvalidOperationException(
+                $"Unsupported MetaWeaveScript DataTypeReference id '{dataTypeReference.Id}'.");
+        var sqlDataType = FindByBaseId(model.SqlDataTypeReferenceList, parameterized.Id)
+            ?? throw new InvalidOperationException(
+                $"Unsupported MetaWeaveScript ParameterizedDataTypeReference id '{parameterized.Id}'.");
+        return string.Equals(sqlDataType.SqlDataTypeOption, "Int", StringComparison.Ordinal)
+            ? "int"
+            : throw new InvalidOperationException(
+                $"Unsupported MetaWeaveScript SqlDataTypeOption '{sqlDataType.SqlDataTypeOption}'.");
+    }
+
+    private string RenderOverClause(OverClause overClause)
+    {
+        var parts = new List<string>();
+        var partitions = GetOrderedItems(model.OverClausePartitionsItemList, overClause.Id)
+            .Select(row => RenderScalarExpression(row.ScalarExpression))
+            .ToArray();
+        if (partitions.Length > 0)
+        {
+            parts.Add("PARTITION BY " + string.Join(", ", partitions));
+        }
+
+        var orderByClause = GetOwnerLink(
+            model.OverClauseOrderByClauseLinkList,
+            overClause.Id,
+            "OverClause.OrderByClause").OrderByClause;
+        parts.Add(RenderOrderByClause(orderByClause));
+        return "OVER (" + string.Join(" ", parts) + ")";
     }
 }

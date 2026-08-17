@@ -4,13 +4,22 @@
     <OptionToken Id="token-add-direction-name" OptionId="opt-add-direction-name">
       <Token>--name</Token>
     </OptionToken>
-    <OptionToken Id="token-add-direction-source-model" OptionId="opt-add-direction-source-model">
-      <Token>--source-model</Token>
+    <OptionToken Id="token-add-direction-source" OptionId="opt-add-direction-source">
+      <Token>--source</Token>
     </OptionToken>
     <OptionToken Id="token-add-direction-target-model" OptionId="opt-add-direction-target-model">
       <Token>--target-model</Token>
     </OptionToken>
     <OptionToken Id="token-add-direction-workspace" OptionId="opt-add-direction-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-relation-direction" OptionId="opt-add-relation-direction">
+      <Token>--direction</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-relation-name" OptionId="opt-add-relation-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-relation-workspace" OptionId="opt-add-relation-workspace">
       <Token>--workspace</Token>
     </OptionToken>
     <OptionToken Id="token-add-requirement-code" OptionId="opt-add-requirement-code">
@@ -26,6 +35,15 @@
       <Token>--name</Token>
     </OptionToken>
     <OptionToken Id="token-add-requirement-workspace" OptionId="opt-add-requirement-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-string-parameter-direction" OptionId="opt-add-string-parameter-direction">
+      <Token>--direction</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-string-parameter-name" OptionId="opt-add-string-parameter-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-add-string-parameter-workspace" OptionId="opt-add-string-parameter-workspace">
       <Token>--workspace</Token>
     </OptionToken>
     <OptionToken Id="token-add-transformation-direction" OptionId="opt-add-transformation-direction">
@@ -46,14 +64,8 @@
     <OptionToken Id="token-create-csharp" OptionId="opt-create-csharp">
       <Token>--csharp</Token>
     </OptionToken>
-    <OptionToken Id="token-create-left-model" OptionId="opt-create-left-model">
-      <Token>--left-model</Token>
-    </OptionToken>
     <OptionToken Id="token-create-name" OptionId="opt-create-name">
       <Token>--name</Token>
-    </OptionToken>
-    <OptionToken Id="token-create-right-model" OptionId="opt-create-right-model">
-      <Token>--right-model</Token>
     </OptionToken>
     <OptionToken Id="token-create-sql" OptionId="opt-create-sql">
       <Token>--sql</Token>
@@ -66,6 +78,15 @@
     </OptionToken>
     <OptionToken Id="token-emit-name" OptionId="opt-emit-name">
       <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-emit-relation-direction" OptionId="opt-emit-relation-direction">
+      <Token>--direction</Token>
+    </OptionToken>
+    <OptionToken Id="token-emit-relation-name" OptionId="opt-emit-relation-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-emit-relation-workspace" OptionId="opt-emit-relation-workspace">
+      <Token>--workspace</Token>
     </OptionToken>
     <OptionToken Id="token-emit-requirement-direction" OptionId="opt-emit-requirement-direction">
       <Token>--direction</Token>
@@ -88,6 +109,9 @@
     <OptionToken Id="token-execute-direction" OptionId="opt-execute-direction">
       <Token>--direction</Token>
     </OptionToken>
+    <OptionToken Id="token-execute-parameter" OptionId="opt-execute-parameter">
+      <Token>--parameter</Token>
+    </OptionToken>
     <OptionToken Id="token-execute-source-workspace" OptionId="opt-execute-source-workspace">
       <Token>--source-workspace</Token>
     </OptionToken>
@@ -104,6 +128,15 @@
       <Token>--xml</Token>
     </OptionToken>
     <OptionToken Id="token-show-workspace" OptionId="opt-show-workspace">
+      <Token>--workspace</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-relation-direction" OptionId="opt-update-relation-direction">
+      <Token>--direction</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-relation-name" OptionId="opt-update-relation-name">
+      <Token>--name</Token>
+    </OptionToken>
+    <OptionToken Id="token-update-relation-workspace" OptionId="opt-update-relation-workspace">
       <Token>--workspace</Token>
     </OptionToken>
     <OptionToken Id="token-update-requirement-direction" OptionId="opt-update-requirement-direction">

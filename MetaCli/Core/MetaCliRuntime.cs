@@ -294,6 +294,7 @@ public sealed class MetaCliRuntime<TModel>
     public void Run(IReadOnlyList<string> arguments)
     {
         ArgumentNullException.ThrowIfNull(arguments);
+        using var startup = MetaCliActivityIndicator.TryStart();
 
         try
         {
@@ -303,6 +304,7 @@ public sealed class MetaCliRuntime<TModel>
         }
         catch (Exception exception)
         {
+            startup?.Dispose();
             Fail(new MetaCliRuntimeFailure(
                 MetaCliRuntimeFailureKind.CommandSurfaceLoadFailed,
                 4,
@@ -313,6 +315,11 @@ public sealed class MetaCliRuntime<TModel>
 
         if (useDefaultHelp)
         {
+            if (MetaCliHelpService.IsHelpRequest(arguments))
+            {
+                startup?.Dispose();
+            }
+
             var help = new MetaCliHelpService(helpOutput, helpError ?? error, helpOptions);
             if (help.TryWriteHelp(model, applicationId, arguments, out var helpExitCode))
             {
@@ -324,6 +331,7 @@ public sealed class MetaCliRuntime<TModel>
         var parse = new MetaCliParser(model, applicationId).Parse(arguments);
         if (!parse.Succeeded)
         {
+            startup?.Dispose();
             Fail(new MetaCliRuntimeFailure(
                 MetaCliRuntimeFailureKind.ParseFailed,
                 2,
@@ -334,6 +342,7 @@ public sealed class MetaCliRuntime<TModel>
         var invocation = parse.RequireInvocation();
         if (!handlers.TryGetValue(invocation.ExecutableCommand.Id, out var handler))
         {
+            startup?.Dispose();
             Fail(new MetaCliRuntimeFailure(
                 MetaCliRuntimeFailureKind.HandlerMissing,
                 4,
@@ -346,27 +355,30 @@ public sealed class MetaCliRuntime<TModel>
         {
             if (handler.HasPrimaryWorkspaceHandler)
             {
-                ExecuteWorkspaceHandlerAsync(invocation, handler)
+                ExecuteWorkspaceHandlerAsync(invocation, handler, startup)
                     .GetAwaiter()
                     .GetResult();
             }
             else if (handler.HasAdditionalWorkspacesHandler)
             {
-                ExecuteAdditionalWorkspacesHandlerAsync(invocation, handler)
+                ExecuteAdditionalWorkspacesHandlerAsync(invocation, handler, startup)
                     .GetAwaiter()
                     .GetResult();
             }
             else if (handler.AsyncHandler is not null)
             {
+                startup?.Dispose();
                 handler.AsyncHandler(invocation).GetAwaiter().GetResult();
             }
             else
             {
+                startup?.Dispose();
                 handler.Handler!(invocation);
             }
         }
         catch (MetaCliExitException exception)
         {
+            startup?.Dispose();
             if (!string.IsNullOrWhiteSpace(exception.Message))
             {
                 error.WriteLine(exception.Message);
@@ -377,6 +389,7 @@ public sealed class MetaCliRuntime<TModel>
         }
         catch (Exception exception)
         {
+            startup?.Dispose();
             Fail(new MetaCliRuntimeFailure(
                 MetaCliRuntimeFailureKind.HandlerFailed,
                 4,
@@ -391,7 +404,8 @@ public sealed class MetaCliRuntime<TModel>
 
     private async Task ExecuteWorkspaceHandlerAsync(
         MetaCliInvocation invocation,
-        HandlerBinding handler)
+        HandlerBinding handler,
+        MetaCliActivityIndicator? startup)
     {
         var hasPrimaryWorkspace = !handler.PrimaryWorkspaceOptional ||
             HasValue(invocation, workspaceParameter) ||
@@ -411,6 +425,7 @@ public sealed class MetaCliRuntime<TModel>
                 throw new InvalidOperationException("This command requires an existing workspace.");
             }
 
+            startup?.Dispose();
             handler.GenericWorkspaceHandler(invocation, workspace);
             return;
         }
@@ -422,6 +437,7 @@ public sealed class MetaCliRuntime<TModel>
                 throw new InvalidOperationException("This command requires an existing workspace.");
             }
 
+            startup?.Dispose();
             await handler.AsyncGenericWorkspaceHandler(invocation, workspace)
                 .ConfigureAwait(false);
             return;
@@ -440,6 +456,8 @@ public sealed class MetaCliRuntime<TModel>
                 invocation,
                 handler.Workspaces)
             .ConfigureAwait(false);
+
+        startup?.Dispose();
 
         if (handler.WorkspaceHandler is not null)
         {
@@ -531,12 +549,14 @@ public sealed class MetaCliRuntime<TModel>
 
     private static async Task ExecuteAdditionalWorkspacesHandlerAsync(
         MetaCliInvocation invocation,
-        HandlerBinding handler)
+        HandlerBinding handler,
+        MetaCliActivityIndicator? startup)
     {
         await using var workspaces = await ResolveWorkspacesAsync(
                 invocation,
                 handler.Workspaces)
             .ConfigureAwait(false);
+        startup?.Dispose();
         if (handler.AdditionalWorkspacesHandler is not null)
         {
             handler.AdditionalWorkspacesHandler(invocation, workspaces);

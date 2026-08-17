@@ -13,6 +13,7 @@ internal sealed class MetaWeaveScriptSemanticNavigator
     private readonly Dictionary<Type, Dictionary<string, object>> rowsById = [];
     private readonly Dictionary<Type, Dictionary<string, object>> rowsByBaseId = [];
     private readonly Dictionary<Type, Dictionary<string, List<object>>> rowsByOwnerId = [];
+    private readonly Dictionary<Type, Dictionary<string, object>> orderedRowsByOwnerId = [];
 
     public MetaWeaveScriptSemanticNavigator(MetaWeaveModel model)
     {
@@ -27,6 +28,11 @@ internal sealed class MetaWeaveScriptSemanticNavigator
             }
 
             var rowType = listProperty.PropertyType.GetGenericArguments()[0];
+            if (IsDirectionScaffold(rowType))
+            {
+                continue;
+            }
+
             var rows = (IEnumerable?)listProperty.GetValue(model)
                 ?? throw Fault("SemanticCollectionMissing", $"Semantic collection '{listProperty.Name}' is missing.");
             IndexRows(rowType, rows.Cast<object>());
@@ -83,12 +89,25 @@ internal sealed class MetaWeaveScriptSemanticNavigator
             return [];
         }
 
-        return matches
+        if (!orderedRowsByOwnerId.TryGetValue(typeof(TItem), out var orderedByOwner))
+        {
+            orderedByOwner = new Dictionary<string, object>(StringComparer.Ordinal);
+            orderedRowsByOwnerId.Add(typeof(TItem), orderedByOwner);
+        }
+
+        if (orderedByOwner.TryGetValue(ownerId, out var cached))
+        {
+            return (IReadOnlyList<TItem>)cached;
+        }
+
+        var ordered = matches
             .Select(row => (Row: (TItem)row, Ordinal: ParseOrdinal(row), Id: GetId(row)))
             .OrderBy(item => item.Ordinal)
             .ThenBy(item => item.Id, StringComparer.Ordinal)
             .Select(item => item.Row)
             .ToArray();
+        orderedByOwner.Add(ownerId, ordered);
+        return ordered;
     }
 
     public IReadOnlyList<string> IdentifierParts(MultiPartIdentifier identifier)
@@ -224,6 +243,15 @@ internal sealed class MetaWeaveScriptSemanticNavigator
     private static bool IsReferenceProperty(PropertyInfo property) =>
         property.PropertyType != typeof(string) &&
         property.PropertyType.GetProperty("Id") is not null;
+
+    private static bool IsDirectionScaffold(Type rowType) =>
+        rowType == typeof(Weave) ||
+        rowType == typeof(Direction) ||
+        rowType == typeof(DirectionRelation) ||
+        rowType == typeof(DirectionSourceWorkspace) ||
+        rowType == typeof(DirectionStringParameter) ||
+        rowType == typeof(DirectionRequirement) ||
+        rowType == typeof(Transformation);
 
     private static MetaWeaveScriptExecutionFault Fault(string code, string message, string? syntaxId = null) =>
         new(code, message, syntaxId);

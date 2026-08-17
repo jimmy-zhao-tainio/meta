@@ -69,6 +69,45 @@ internal sealed partial class MetaWeaveScriptSqlModelBuilder
             (nameof(ColumnReferenceExpression), columnReference.Id));
     }
 
+    public BuiltNode CreateParameterReferenceExpression(string name)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(name);
+
+        var scalar = new ScalarExpression
+        {
+            Id = NextId(nameof(ScalarExpression))
+        };
+        model.ScalarExpressionList.Add(scalar);
+
+        var primary = new PrimaryExpression
+        {
+            Id = NextId(nameof(PrimaryExpression)),
+            ScalarExpression = scalar
+        };
+        model.PrimaryExpressionList.Add(primary);
+
+        var value = new ValueExpression
+        {
+            Id = NextId(nameof(ValueExpression)),
+            PrimaryExpression = primary
+        };
+        model.ValueExpressionList.Add(value);
+
+        var parameter = new ParameterReferenceExpression
+        {
+            Id = NextId(nameof(ParameterReferenceExpression)),
+            Name = name,
+            ValueExpression = value
+        };
+        model.ParameterReferenceExpressionList.Add(parameter);
+
+        return BuiltNode.Create(
+            (nameof(ScalarExpression), scalar.Id),
+            (nameof(PrimaryExpression), primary.Id),
+            (nameof(ValueExpression), value.Id),
+            (nameof(ParameterReferenceExpression), parameter.Id));
+    }
+
     public BuiltNode CreateParenthesisExpression(BuiltNode expression)
     {
         var scalar = new ScalarExpression

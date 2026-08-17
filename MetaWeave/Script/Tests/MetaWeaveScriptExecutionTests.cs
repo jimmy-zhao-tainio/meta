@@ -67,6 +67,122 @@ public sealed class MetaWeaveScriptExecutionTests
     }
 
     [Fact]
+    public void ExecutesRecursiveCteAsAnchorAndIterativeUnionAllMember()
+    {
+        var result = Execute(
+            """
+            WITH hierarchy AS
+            (
+                SELECT n.Id AS Id, n.ParentId AS ParentId, n.Id AS Path
+                FROM
+                (
+                    VALUES
+                        ('root', NULL),
+                        ('child-a', 'root'),
+                        ('child-b', 'root'),
+                        ('grandchild', 'child-a')
+                ) AS n(Id, ParentId)
+                WHERE n.ParentId IS NULL
+
+                UNION ALL
+
+                SELECT n.Id AS Id, n.ParentId AS ParentId, CONCAT(h.Path, '/', n.Id) AS Path
+                FROM
+                (
+                    VALUES
+                        ('root', NULL),
+                        ('child-a', 'root'),
+                        ('child-b', 'root'),
+                        ('grandchild', 'child-a')
+                ) AS n(Id, ParentId)
+                INNER JOIN hierarchy AS h ON n.ParentId = h.Id
+            )
+            SELECT h.Id AS Id, h.ParentId AS ParentId, h.Path AS Path
+            FROM hierarchy AS h;
+            """);
+
+        Assert.Equal(
+            [
+                "root|NULL|root",
+                "child-a|root|root/child-a",
+                "child-b|root|root/child-b",
+                "grandchild|child-a|root/child-a/grandchild"
+            ],
+            RenderRows(result));
+    }
+
+    [Fact]
+    public void RecursiveCteCanRenderOrderedTextFromAModeledNodeGraph()
+    {
+        var result = Execute(
+            """
+            WITH nodes AS
+            (
+                SELECT v.Id AS Id, v.ParentId AS ParentId, v.Ordinal AS Ordinal, v.Token AS Token
+                FROM
+                (
+                    VALUES
+                        ('query', NULL, '1', ''),
+                        ('select', 'query', '1', 'SELECT '),
+                        ('literal', 'query', '2', '1'),
+                        ('alias', 'query', '3', ' AS Id'),
+                        ('terminator', 'query', '4', ';')
+                ) AS v(Id, ParentId, Ordinal, Token)
+            ),
+            walk AS
+            (
+                SELECT n.Id AS Id, n.ParentId AS ParentId, RIGHT(CONCAT('0000000000', n.Ordinal), 10) AS SortPath, n.Token AS Token
+                FROM nodes AS n
+                WHERE n.ParentId IS NULL
+
+                UNION ALL
+
+                SELECT n.Id AS Id, n.ParentId AS ParentId, CONCAT(w.SortPath, '/', RIGHT(CONCAT('0000000000', n.Ordinal), 10)) AS SortPath, n.Token AS Token
+                FROM nodes AS n
+                INNER JOIN walk AS w ON n.ParentId = w.Id
+            )
+            SELECT STRING_AGG(w.Token, '') WITHIN GROUP (ORDER BY w.SortPath ASC) AS DefinitionSql
+            FROM walk AS w;
+            """);
+
+        Assert.Equal(["SELECT 1 AS Id;"], RenderRows(result));
+    }
+
+    [Fact]
+    public void ExecutesRecursiveCteWhoseMemberUsesUnionCte()
+    {
+        var result = Execute(
+            """
+            WITH edges AS
+            (
+                SELECT v.ParentId AS ParentId, v.ChildId AS ChildId
+                FROM (VALUES ('root', 'child')) AS v(ParentId, ChildId)
+
+                UNION ALL
+
+                SELECT v.ParentId AS ParentId, v.ChildId AS ChildId
+                FROM (VALUES ('child', 'leaf')) AS v(ParentId, ChildId)
+            ),
+            walk AS
+            (
+                SELECT 'root' AS Id, 'root' AS Path
+
+                UNION ALL
+
+                SELECT e.ChildId AS Id, CONCAT(w.Path, '/', e.ChildId) AS Path
+                FROM edges AS e
+                INNER JOIN walk AS w ON e.ParentId = w.Id
+            )
+            SELECT w.Id AS Id, w.Path AS Path
+            FROM walk AS w;
+            """);
+
+        Assert.Equal(
+            ["root|root", "child|root/child", "leaf|root/child/leaf"],
+            RenderRows(result));
+    }
+
+    [Fact]
     public void ExecutesJoinsAndLateralStringSplit()
     {
         var inner = Execute(
@@ -132,6 +248,10 @@ public sealed class MetaWeaveScriptExecutionTests
             """);
 
         Assert.Equal(["s1|Beta", "s2|Alpha"], RenderRows(result));
+
+        var aggregateExists = Execute(
+            "SELECT s.Id AS Id FROM Source AS s WHERE EXISTS (SELECT COUNT(*) AS ItemCount FROM Related AS r WHERE r.Id = s.Id);");
+        Assert.Equal(["s1", "s2", "s3"], RenderRows(aggregateExists));
     }
 
     [Fact]
@@ -166,6 +286,32 @@ public sealed class MetaWeaveScriptExecutionTests
     }
 
     [Fact]
+    public void ExecutesTryConvertAndPartitionedRowNumber()
+    {
+        var result = Execute(
+            """
+            SELECT
+                v.Id AS Id,
+                ROW_NUMBER() OVER
+                (
+                    PARTITION BY v.TableId
+                    ORDER BY v.Phase, COALESCE(TRY_CONVERT(int, v.SourceOrdinal), 2147483647), v.Id
+                ) AS Ordinal
+            FROM
+            (
+                VALUES
+                    ('a', 't1', 10, '20'),
+                    ('b', 't1', 10, '100'),
+                    ('c', 't1', 10, '10'),
+                    ('d', 't1', 10, 'bad'),
+                    ('e', 't2', 10, '20')
+            ) AS v(Id, TableId, Phase, SourceOrdinal);
+            """);
+
+        Assert.Equal(["a|2", "b|3", "c|1", "d|4", "e|1"], RenderRows(result));
+    }
+
+    [Fact]
     public void ExecutesQueryParenthesesAndBracketQuotedIdentifiers()
     {
         var result = Execute(
@@ -197,6 +343,164 @@ public sealed class MetaWeaveScriptExecutionTests
     }
 
     [Fact]
+    public void ExecutesAcrossNamedSourceWorkspacesWithStringParameters()
+    {
+        var warehouse = CreateSourceWorkspace();
+        var implementation = CreateImplementationWorkspace();
+        var targetModel = new GenericModel { Name = "TargetModel" };
+        var targetEntity = new GenericEntity { Name = "Target" };
+        targetEntity.Properties.Add(new GenericProperty { Name = "Name" });
+        targetModel.Entities.Add(targetEntity);
+        var target = EmptyWorkspace(targetModel);
+        var direction = Direction(
+            [
+                new MetaWeaveScriptSourceWorkspace("warehouse", warehouse.Model.Name),
+                new MetaWeaveScriptSourceWorkspace("implementation", implementation.Model.Name)
+            ],
+            target,
+            [new TransformationSource(
+                "targets",
+                "Target",
+                "SELECT w.Id AS Id, CONCAT(w.Name, '.', i.PhysicalName, '.', @databaseName) AS Name FROM warehouse.Source AS w INNER JOIN implementation.Mapping AS i ON w.Id = i.SourceId;")],
+            stringParameters: [new MetaWeaveScriptStringParameter("databaseName")]);
+
+        var result = new MetaWeaveScriptExecutionService().ExecuteDirection(
+            direction,
+            new Dictionary<string, InMemoryWorkspace>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["warehouse"] = warehouse,
+                ["implementation"] = implementation
+            },
+            target,
+            new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["databaseName"] = "AdventureWorks"
+            });
+
+        Assert.True(result.IsSuccess, RenderIssues(result.Issues));
+        var rows = Assert.IsType<InMemoryWorkspace>(result.OutputWorkspace)
+            .Instance.RecordsByEntity["Target"];
+        Assert.Equal(
+            ["Beta.SourceOne.AdventureWorks", "alpha.SourceTwo.AdventureWorks"],
+            rows.Select(row => row.Values["Name"]));
+    }
+
+    [Fact]
+    public void UnqualifiedSourceEntityMustResolveToExactlyOneInputWorkspace()
+    {
+        var first = CreateSourceWorkspace();
+        var second = CreateSourceWorkspace();
+        second.Model.Name = "SecondSourceModel";
+        second.Instance.ModelName = second.Model.Name;
+
+        var result = new MetaWeaveScriptExecutionService().ExecuteQuery(
+            Parse("SELECT s.Id AS Id FROM Source AS s;"),
+            new Dictionary<string, InMemoryWorkspace>
+            {
+                ["first"] = first,
+                ["second"] = second
+            });
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains(result.Issues, issue => issue.Code == "SourceEntityAmbiguous");
+    }
+
+    [Fact]
+    public void DirectionRelationsComposeRequirementsAndTransformations()
+    {
+        var source = CreateSourceWorkspace();
+        var targetModel = new GenericModel { Name = "TargetModel" };
+        var targetEntity = new GenericEntity { Name = "Target" };
+        targetEntity.Properties.Add(new GenericProperty { Name = "Name" });
+        targetModel.Entities.Add(targetEntity);
+        var target = EmptyWorkspace(targetModel);
+
+        var result = new MetaWeaveScriptExecutionService().ExecuteDirection(
+            Direction(
+                source,
+                target,
+                [new TransformationSource(
+                    "targets",
+                    "Target",
+                    "SELECT s.Id AS Id, s.Name AS Name FROM SelectedSources AS s;")],
+                [new RequirementSource(
+                    "selected-names-present",
+                    "SelectedNameMissing",
+                    "Selected source rows require a name.",
+                    "SELECT s.Id AS SourceId FROM SelectedSources AS s WHERE IS_BLANK(s.Name) = 1;")],
+                [
+                    new RelationSource(
+                        "SourceNames",
+                        "SELECT s.Id AS Id, s.Name AS Name, s.Kind AS Kind FROM Source AS s;"),
+                    new RelationSource(
+                        "SelectedSources",
+                        "SELECT s.Id AS Id, UPPER(s.Name) AS Name FROM SourceNames AS s WHERE s.Kind = 'K1';")
+                ]),
+            source,
+            target);
+
+        Assert.True(result.IsSuccess, RenderIssues(result.Issues));
+        var records = result.OutputWorkspace!.Instance.RecordsByEntity["Target"];
+        Assert.Equal(["s1", "s2"], records.Select(record => record.Id));
+        Assert.Equal(["BETA", "ALPHA"], records.Select(record => record.Values["Name"]));
+    }
+
+    [Fact]
+    public void DirectionRelationCyclesFailWithTheirRelationIdentity()
+    {
+        var source = CreateSourceWorkspace();
+        var targetModel = new GenericModel { Name = "TargetModel" };
+        targetModel.Entities.Add(new GenericEntity { Name = "Target" });
+        var target = EmptyWorkspace(targetModel);
+
+        var result = new MetaWeaveScriptExecutionService().ExecuteDirection(
+            Direction(
+                source,
+                target,
+                [new TransformationSource("targets", "Target", "SELECT a.Id AS Id FROM RelationA AS a;")],
+                relations:
+                [
+                    new RelationSource("RelationA", "SELECT b.Id AS Id FROM RelationB AS b;"),
+                    new RelationSource("RelationB", "SELECT a.Id AS Id FROM RelationA AS a;")
+                ]),
+            source,
+            target);
+
+        Assert.False(result.IsSuccess);
+        var issue = Assert.Single(result.Issues);
+        Assert.Equal("NamedRelationRecursive", issue.Code);
+        Assert.NotNull(issue.RelationName);
+    }
+
+    [Fact]
+    public void DirectionRequirementsRejectBeforeUnusedRelationsAreEvaluated()
+    {
+        var source = CreateSourceWorkspace();
+        var targetModel = new GenericModel { Name = "TargetModel" };
+        targetModel.Entities.Add(new GenericEntity { Name = "Target" });
+        var target = EmptyWorkspace(targetModel);
+
+        var result = new MetaWeaveScriptExecutionService().ExecuteDirection(
+            Direction(
+                source,
+                target,
+                [new TransformationSource("targets", "Target", "SELECT s.Id AS Id FROM Source AS s;")],
+                [new RequirementSource(
+                    "source-rejected",
+                    "SourceRejected",
+                    "The source is rejected.",
+                    "SELECT s.Id AS SourceId FROM Source AS s;")],
+                [new RelationSource(
+                    "BrokenUnusedRelation",
+                    "SELECT missing.Id AS Id FROM MissingEntity AS missing;")]),
+            source,
+            target);
+
+        Assert.False(result.IsSuccess);
+        Assert.All(result.Issues, issue => Assert.Equal("SourceRejected", issue.Code));
+    }
+
+    [Fact]
     public void InstantiatesTargetThroughCoreOperationsInTargetDagOrder()
     {
         var source = CreateSourceWorkspace();
@@ -216,22 +520,41 @@ public sealed class MetaWeaveScriptExecutionTests
 
         var service = new MetaWeaveScriptExecutionService();
         var targetWorkspace = EmptyWorkspace(targetModel);
+        var progress = new List<MetaWeaveScriptExecutionProgress>();
         var result = service.ExecuteDirection(
             Direction(source, targetWorkspace,
             [
                 new TransformationSource(
                     "targets",
                     "Target",
-                    "SELECT s.Id AS Id, s.Name AS Name, s.RoleId AS RoleId FROM Source AS s;"),
+                    "SELECT s.Id AS Id, s.Name AS Name, s.RoleId AS RoleId FROM SourceRows AS s;"),
                 new TransformationSource(
                     "related",
                     "Related",
                     "SELECT r.Id AS Id, r.Name AS Name FROM Related AS r;")
-            ]),
+            ],
+            [new RequirementSource(
+                "source-identities-present",
+                "SourceIdentityMissing",
+                "Source identities are required.",
+                "SELECT s.Id AS SourceId FROM SourceRows AS s WHERE s.Id IS NULL;")],
+            [new RelationSource(
+                "SourceRows",
+                "SELECT s.Id AS Id, s.Name AS Name, s.RoleId AS RoleId FROM Source AS s;")]),
             source,
-            targetWorkspace);
+            targetWorkspace,
+            progress.Add);
 
         Assert.True(result.IsSuccess, RenderIssues(result.Issues));
+        Assert.Equal(
+            [
+                new MetaWeaveScriptExecutionProgress(0, 4, null, null),
+                new MetaWeaveScriptExecutionProgress(1, 4, MetaWeaveScriptExecutionTaskKind.Relation, "SourceRows"),
+                new MetaWeaveScriptExecutionProgress(2, 4, MetaWeaveScriptExecutionTaskKind.Requirement, "source-identities-present"),
+                new MetaWeaveScriptExecutionProgress(3, 4, MetaWeaveScriptExecutionTaskKind.TargetEntity, "Related"),
+                new MetaWeaveScriptExecutionProgress(4, 4, MetaWeaveScriptExecutionTaskKind.TargetEntity, "Target")
+            ],
+            progress);
         var output = Assert.IsType<InMemoryWorkspace>(result.OutputWorkspace);
         Assert.Equal(["s1", "s2", "s3"], output.Instance.RecordsByEntity["Target"].Select(row => row.Id));
         Assert.Equal("r2", output.Instance.RecordsByEntity["Target"][0].RelationshipIds["RoleId"]);
@@ -239,6 +562,34 @@ public sealed class MetaWeaveScriptExecutionTests
         Assert.Equal(3, source.Instance.RecordsByEntity["Source"].Count);
         Assert.Empty(targetWorkspace.Instance.RecordsByEntity);
         Assert.NotSame(source.Model, output.Model);
+    }
+
+    [Fact]
+    public void TargetWorkspaceInstancesAreNotCopiedIntoTheNewTarget()
+    {
+        var source = CreateSourceWorkspace();
+        var targetModel = new GenericModel { Name = "TargetModel" };
+        var targetEntity = new GenericEntity { Name = "Target" };
+        targetEntity.Properties.Add(new GenericProperty { Name = "Name" });
+        targetModel.Entities.Add(targetEntity);
+        var targetInstance = new GenericInstance { ModelName = targetModel.Name };
+        targetInstance.GetOrCreateEntityRecords("Target").Add(
+            Record("existing", ("Name", "Existing")));
+        var targetContract = new InMemoryWorkspace(targetModel, targetInstance);
+
+        var result = new MetaWeaveScriptExecutionService().ExecuteDirection(
+            Direction(source, targetContract,
+            [new TransformationSource(
+                "targets",
+                "Target",
+                "SELECT s.Id AS Id, s.Name AS Name FROM Source AS s;")]),
+            source,
+            targetContract);
+
+        Assert.True(result.IsSuccess, RenderIssues(result.Issues));
+        var output = Assert.IsType<InMemoryWorkspace>(result.OutputWorkspace);
+        Assert.Equal(["s1", "s2", "s3"], output.Instance.RecordsByEntity["Target"].Select(row => row.Id));
+        Assert.Equal("existing", Assert.Single(targetContract.Instance.RecordsByEntity["Target"]).Id);
     }
 
     [Fact]
@@ -306,6 +657,15 @@ public sealed class MetaWeaveScriptExecutionTests
     [InlineData(
         "WITH later AS (SELECT e.Id AS Id FROM earlier AS e), earlier AS (SELECT s.Id AS Id FROM Source AS s) SELECT l.Id AS Id FROM later AS l;",
         "CommonTableExpressionForwardReference")]
+    [InlineData(
+        "WITH recursive_cte AS (SELECT r.Id AS Id FROM recursive_cte AS r) SELECT r.Id AS Id FROM recursive_cte AS r;",
+        "CommonTableExpressionRecursiveShapeUnsupported")]
+    [InlineData(
+        "WITH recursive_cte AS (SELECT 1 AS Id UNION ALL SELECT a.Id AS Id FROM recursive_cte AS a INNER JOIN recursive_cte AS b ON a.Id = b.Id) SELECT r.Id AS Id FROM recursive_cte AS r;",
+        "CommonTableExpressionRecursiveReferenceCountInvalid")]
+    [InlineData(
+        "WITH recursive_cte AS (SELECT 1 AS Id UNION ALL SELECT r.Id AS Id FROM recursive_cte AS r) SELECT r.Id AS Id FROM recursive_cte AS r;",
+        "CommonTableExpressionRecursionDidNotAdvance")]
     [InlineData(
         "SELECT s.Missing AS Id FROM Source AS s;",
         "ColumnReferenceNotFound")]
@@ -493,6 +853,23 @@ public sealed class MetaWeaveScriptExecutionTests
         return new InMemoryWorkspace(model, instance);
     }
 
+    private static InMemoryWorkspace CreateImplementationWorkspace()
+    {
+        var model = new GenericModel { Name = "ImplementationModel" };
+        var mapping = new GenericEntity { Name = "Mapping" };
+        mapping.Properties.Add(new GenericProperty { Name = "SourceId" });
+        mapping.Properties.Add(new GenericProperty { Name = "PhysicalName" });
+        model.Entities.Add(mapping);
+
+        var instance = new GenericInstance { ModelName = model.Name };
+        instance.GetOrCreateEntityRecords("Mapping").AddRange(
+        [
+            Record("m1", ("SourceId", "s1"), ("PhysicalName", "SourceOne")),
+            Record("m2", ("SourceId", "s2"), ("PhysicalName", "SourceTwo"))
+        ]);
+        return new InMemoryWorkspace(model, instance);
+    }
+
     private static InMemoryWorkspace EmptyWorkspace(GenericModel model) =>
         new(model, new GenericInstance { ModelName = model.Name });
 
@@ -501,6 +878,7 @@ public sealed class MetaWeaveScriptExecutionTests
         InMemoryWorkspace target,
         IReadOnlyList<TransformationSource> transformations,
         IReadOnlyList<RequirementSource>? requirements = null,
+        IReadOnlyList<RelationSource>? relations = null,
         string name = "test-direction")
     {
         var model = MetaWeaveModel.CreateEmpty();
@@ -516,13 +894,56 @@ public sealed class MetaWeaveScriptExecutionTests
                 requirement.Code,
                 requirement.Message,
                 sqlService.ImportIntoModel(model, requirement.Sql))).ToArray();
+        var executableRelations = (relations ?? []).Select(relation =>
+            new MetaWeaveScriptRelation(
+                relation.Name,
+                sqlService.ImportIntoModel(model, relation.Sql))).ToArray();
         return new MetaWeaveScriptDirection(
             name,
-            source.Model.Name,
+            [new MetaWeaveScriptSourceWorkspace("source", source.Model.Name)],
             target.Model.Name,
+            [],
             model,
             executableTransformations,
-            executableRequirements);
+            executableRequirements,
+            executableRelations);
+    }
+
+    private static MetaWeaveScriptDirection Direction(
+        IReadOnlyList<MetaWeaveScriptSourceWorkspace> sourceWorkspaces,
+        InMemoryWorkspace target,
+        IReadOnlyList<TransformationSource> transformations,
+        IReadOnlyList<RequirementSource>? requirements = null,
+        IReadOnlyList<MetaWeaveScriptStringParameter>? stringParameters = null,
+        IReadOnlyList<RelationSource>? relations = null,
+        string name = "test-direction")
+    {
+        var model = MetaWeaveModel.CreateEmpty();
+        var sqlService = new MetaWeaveScriptSqlService();
+        var executableTransformations = transformations.Select(transformation =>
+            new MetaWeaveScriptTransformation(
+                transformation.Name,
+                transformation.TargetEntityName,
+                sqlService.ImportIntoModel(model, transformation.Sql))).ToArray();
+        var executableRequirements = (requirements ?? []).Select(requirement =>
+            new MetaWeaveScriptRequirement(
+                requirement.Name,
+                requirement.Code,
+                requirement.Message,
+                sqlService.ImportIntoModel(model, requirement.Sql))).ToArray();
+        var executableRelations = (relations ?? []).Select(relation =>
+            new MetaWeaveScriptRelation(
+                relation.Name,
+                sqlService.ImportIntoModel(model, relation.Sql))).ToArray();
+        return new MetaWeaveScriptDirection(
+            name,
+            sourceWorkspaces,
+            target.Model.Name,
+            stringParameters ?? [],
+            model,
+            executableTransformations,
+            executableRequirements,
+            executableRelations);
     }
 
     private sealed record TransformationSource(
@@ -534,6 +955,10 @@ public sealed class MetaWeaveScriptExecutionTests
         string Name,
         string Code,
         string Message,
+        string Sql);
+
+    private sealed record RelationSource(
+        string Name,
         string Sql);
 
     private static MetaWeaveScriptDirection LoadSampleDirection(string directionName) =>

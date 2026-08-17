@@ -12,13 +12,15 @@ semantic entities live inside the `MetaWeave` model rather than forming a
 second sanctioned workspace.
 
 The product boundary is one `MetaWeave` workspace and one `meta-weave` CLI.
-A workspace contains the weave, zero, one, or two independent directions,
-their source-domain requirements and target-entity transformations, and every
-embedded modeled query graph. Requirement and transformation authoring reads
-recognizable T-SQL from standard input and stores only the semantic query;
-the corresponding `emit-*` and `update-*` commands inspect and replace it. An
-update is parsed before the workspace is changed and removes the superseded
-semantic query graph. No raw script path is part of the durable correspondence.
+A workspace contains the weave, its independent directions, their named source
+workspace contracts, target contract, string parameters, source-domain
+requirements, reusable direction relations, target-entity transformations,
+and every embedded modeled query graph. Requirement, relation, and
+transformation authoring reads recognizable T-SQL from standard input and
+stores only the semantic query; the corresponding `emit-*` and `update-*`
+commands inspect and replace it. An update is parsed before the workspace is
+changed and removes the superseded semantic query graph. No raw script path is
+part of the durable correspondence.
 
 This document defines the complete intended language boundary, not an initial
 implementation slice. Every currently sanctioned `MetaTransformScript` syntax
@@ -48,15 +50,22 @@ Legend:
 
 ## Conversion shape
 
-A weave direction identifies its source and target model contracts and
-contains named requirements and transformations. Each requirement assigns one
-bare-`SELECT` whose returned rows are violations. Each transformation assigns
-one bare-`SELECT` document to one target entity; those assignments are supplied
-by the surrounding weave definition rather than encoded as `CREATE VIEW`.
+A weave direction identifies one or more named source workspace contracts and
+one target model contract. It contains named requirements, relations, and
+transformations. Each requirement assigns one bare-`SELECT` whose returned
+rows are violations. Each relation assigns a reusable direction-scoped name to
+one bare-`SELECT`. Each transformation assigns one bare-`SELECT` document to
+one target entity; those assignments are supplied by the surrounding weave
+definition rather than encoded as `CREATE VIEW`.
 
 Within a query:
 
-- a named source denotes an entity population in the bound source workspace;
+- `sourceRole.Entity` denotes an entity population in a named source
+  workspace;
+- a direction-relation name denotes its source-derived rowset;
+- an unqualified entity name denotes the unique matching population across all
+  source workspaces;
+- `@name` denotes a declared invocation string parameter;
 - `alias.Id` denotes record identity;
 - `alias.PropertyName` denotes a property value;
 - `alias.RoleId` denotes a relationship target identity;
@@ -70,8 +79,14 @@ The language is query-shaped, but it does not delegate execution to SQL Server.
 Retained constructs therefore require WeaveScript-owned, deterministic
 semantics.
 
-All target-entity transformations in one direction read the same immutable
-source workspace snapshot. A transformation cannot read a target population
+Direction relations are composition, not a second language feature. They use
+the same semantic query model as requirements and transformations, may depend
+on other direction relations, and are evaluated once per direction execution.
+They have no parameters of their own, cannot read the target workspace, and do
+not introduce function declaration or invocation syntax.
+
+All target-entity transformations in one direction read the same immutable set
+of source workspace snapshots. A transformation cannot read a target population
 or observe another transformation's result. Transformations instantiate the
 valid target workspace in the topological order derived from the target model
 DAG, with referenced entities before referencing entities. Each insertion is
@@ -92,14 +107,15 @@ The retained syntax operates on the values Meta workspaces expose:
 - string equality and ordering use one versioned WeaveScript comparison
   profile, never ambient database collation;
 - no property string is implicitly interpreted as a number, date, time, or SQL
-  data type;
-- counts and ordinals are language-owned
+  data type; the retained `TRY_CONVERT(int, value)` form performs an explicit
+  conversion;
+- counts and row numbers are language-owned
   integers and are serialized invariantly when projected into a target member;
 - all accepted scalar and table functions have closed WeaveScript semantics.
 
 Unordered source enumeration is never observable conversion truth. Ordering is
 available only where a retained construct, such as `STRING_AGG ... WITHIN
-GROUP`, consumes it directly.
+GROUP` or `ROW_NUMBER() OVER (...)`, consumes it directly.
 
 ## Executable core
 
@@ -108,7 +124,7 @@ workspace snapshot:
 
 - scan a bound source entity;
 - construct literal `VALUES` rows;
-- evaluate a non-recursive CTE;
+- evaluate a non-recursive or recursive CTE;
 - filter rows;
 - project expressions;
 - remove duplicate rows;
@@ -180,12 +196,19 @@ unspecified row order.
 
 - [x] `WITH`
 - [x] Non-recursive common table expressions
-- [ ] Recursive common table expressions
+- [x] Recursive common table expressions with an anchor and one `UNION ALL`
+  recursive member
 - [ ] CTE column lists
 - [x] Multiple CTEs in dependency order
 
 CTEs are part of the full surface. They provide named intermediate rowsets and
-composition without adding procedural statements.
+composition without adding procedural statements. A recursive member sees only
+the rows produced by the preceding iteration. Evaluation stops when an
+iteration produces no rows; a member that immediately reproduces its input is
+rejected, and other non-terminating forms fail after 32,767 iterations. Mutual
+recursion, recursive anchors, and multiple self-references are not retained.
+The concrete MetaWeave use is walking an ordered modeled syntax graph before
+aggregating its rendered tokens into target text.
 
 ## Rowset sources
 
@@ -297,14 +320,14 @@ numeric property contract and does not own analytical processing.
 
 ## Windows and analytic functions
 
-- [ ] `OVER (...)`
+- [x] `OVER (...)` for `ROW_NUMBER`
 - [ ] Named `WINDOW` clauses
-- [ ] `PARTITION BY`
-- [ ] Window `ORDER BY`
+- [x] `PARTITION BY` for `ROW_NUMBER`
+- [x] Window `ORDER BY` for `ROW_NUMBER`
 - [ ] `ROWS` frames
 - [ ] `RANGE` frames
 - [ ] Numeric frame delimiters
-- [ ] `ROW_NUMBER`
+- [x] `ROW_NUMBER`
 - [ ] `RANK`
 - [ ] `DENSE_RANK`
 - [ ] `NTILE`
@@ -320,6 +343,7 @@ numeric property contract and does not own analytical processing.
 ## Scalar expressions
 
 - [x] Column references
+- [x] Declared string parameter references such as `@databaseName`
 - [x] Parenthesized expressions
 - [x] Scalar subqueries
 - [ ] Unary `+` and `-`
@@ -338,7 +362,7 @@ numeric property contract and does not own analytical processing.
 - [ ] `CAST`
 - [ ] `TRY_CAST`
 - [ ] `CONVERT`
-- [ ] `TRY_CONVERT`
+- [x] `TRY_CONVERT(int, value)`
 - [ ] `PARSE`
 - [ ] `TRY_PARSE`
 - [ ] `COLLATE`
@@ -411,22 +435,22 @@ workspace-conversion use and coherent Meta value semantics.
 - [x] Bracket-quoted identifiers
 - [ ] Double-quoted identifiers
 - [x] One-part source entity names
-- [ ] Two-part source-contract/entity names
+- [x] Two-part source-workspace/entity names
 - [x] Two-part alias/member references
 - [ ] Backtick-quoted identifiers
 - [ ] Three-part database/schema/object names
 - [ ] Four-part server/database/schema/object names
 - [ ] Cross-database names
 
-The surrounding weave binds one source workspace contract and one target
-workspace contract. Database and server qualification therefore has no
-WeaveScript meaning.
+The surrounding direction binds named source workspace contracts and one target
+workspace contract. The first part of `sourceRole.Entity` is a workspace role,
+not a SQL schema. Database and server qualification has no WeaveScript meaning.
 
 ## Data types
 
-- [ ] SQL data-type references
+- [x] The `int` SQL data-type reference used by retained `TRY_CONVERT`
 - [ ] Parameterized SQL data types
-- [ ] `bigint`, `int`, `smallint`, `tinyint`, and `bit`
+- [ ] Other integer and logical types: `bigint`, `smallint`, `tinyint`, and `bit`
 - [ ] `decimal`, `numeric`, `money`, `smallmoney`, `float`, and `real`
 - [ ] `date`, `time`, `datetime`, `datetime2`, and `datetimeoffset`
 - [ ] `char`, `varchar`, `nchar`, and `nvarchar`
@@ -438,7 +462,8 @@ WeaveScript meaning.
 - [ ] SQL Server `timestamp` and `rowversion` aliases
 
 Workspace properties are values governed by the source and target model
-contracts. WeaveScript does not reproduce SQL Server's declaration and
+contracts. The single `int` reference exists to express explicit ordinal
+conversion; WeaveScript does not reproduce SQL Server's declaration and
 conversion type system.
 
 ## Extraction rule
@@ -455,9 +480,9 @@ implementation fact, while the checklist records why the syntax belongs.
 
 Applying the current checklist to the 346-entity MetaTransformScript model
 produces the materialized closure in the C# workspace
-`Workspace/MetaWeave.meta.cs`: 122 retained WeaveScript entity types plus the four
-MetaWeave scaffold entities, with
-224 excluded entity types. A structural check finds no retained relationship
+`Workspace/MetaWeave.meta.cs`: 134 retained WeaveScript entity types plus the
+seven MetaWeave scaffold entities, with 212 excluded entity types. A structural
+check finds no retained relationship
 whose target entity is excluded.
 
 Several retained entity types must also lose fields that belong only to

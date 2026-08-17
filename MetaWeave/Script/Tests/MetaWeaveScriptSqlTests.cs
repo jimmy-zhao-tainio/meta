@@ -17,6 +17,7 @@ public sealed class MetaWeaveScriptSqlTests
         "SELECT s.Id AS Id, s.Name AS Name FROM Source AS s;",
         "WITH cte AS (SELECT s.Id AS Id, s.Name AS Name FROM Source AS s) SELECT c.Id AS Id, UPPER(c.Name) AS Name FROM cte AS c WHERE c.Name IS NOT NULL;",
         "WITH first_cte AS (SELECT s.Id AS Id FROM Source AS s), second_cte AS (SELECT f.Id AS Id FROM first_cte AS f) SELECT s.Id AS Id FROM second_cte AS s;",
+        "WITH hierarchy AS (SELECT n.Id AS Id, n.ParentId AS ParentId, n.Id AS Path FROM (VALUES ('root', NULL), ('child', 'root')) AS n(Id, ParentId) WHERE n.ParentId IS NULL UNION ALL SELECT n.Id AS Id, n.ParentId AS ParentId, CONCAT(h.Path, '/', n.Id) AS Path FROM (VALUES ('root', NULL), ('child', 'root')) AS n(Id, ParentId) INNER JOIN hierarchy AS h ON n.ParentId = h.Id) SELECT h.Id AS Id, h.Path AS Path FROM hierarchy AS h;",
         "SELECT s.Id AS Id FROM Source AS s UNION ALL SELECT t.Id AS Id FROM Other AS t;",
         "SELECT s.Id AS Id FROM Source AS s UNION ALL (SELECT t.Id AS Id FROM Other AS t);",
         "SELECT l.Id AS Id FROM LeftSource AS l INNER JOIN RightSource AS r ON l.RoleId = r.Id;",
@@ -28,11 +29,13 @@ public sealed class MetaWeaveScriptSqlTests
         "SELECT s.Id AS Id, p.value AS Part FROM Source AS s OUTER APPLY STRING_SPLIT(s.Tags, ',') AS p;",
         "SELECT s.Kind AS Id, COUNT(*) AS ItemCount, STRING_AGG(s.Name, ',') WITHIN GROUP (ORDER BY s.Name ASC) AS Names FROM Source AS s GROUP BY s.Kind;",
         "SELECT MIN(s.Name) AS FirstName, MAX(s.Name) AS LastName FROM Source AS s;",
+        "SELECT c.Id AS Id, ROW_NUMBER() OVER (PARTITION BY c.Kind ORDER BY c.Phase ASC, COALESCE(TRY_CONVERT(int, c.Ordinal), 2147483647), c.Id) AS Ordinal FROM Source AS c;",
         "SELECT CONCAT(LOWER('A'), UPPER('b')) AS C, TRIM(' x ') AS T, LTRIM(' x') AS LT, RTRIM('x ') AS RT, REPLACE('abc', 'b', 'x') AS R, SUBSTRING('abc', 1, 2) AS S, LEFT('abc', 1) AS L, RIGHT('abc', 1) AS RR;",
         "SELECT IIF(1 = 1, 'yes', 'no') AS Answer;",
         "SELECT s.Id AS Id FROM Source AS s WHERE NOT ((s.A = 'a' OR s.B <> 'b') AND s.C < 'c') OR (s.D <= 'd' AND s.E > 'e' AND s.F >= 'f' AND s.G IN ('g', 'h') AND s.H IS NULL);",
         "SELECT s.Id AS Id, CASE WHEN s.Name LIKE 'A%' THEN CONCAT(UPPER(s.Name), '!') ELSE COALESCE(NULLIF(s.Name, ''), 'unknown') END AS Name FROM Source AS s;",
-        "SELECT s.Id AS Id, (SELECT r.Name AS Name FROM Related AS r WHERE r.Id = s.RoleId) AS RelatedName FROM Source AS s WHERE EXISTS (SELECT r.Id AS Id FROM Related AS r WHERE r.Id = s.RoleId);"
+        "SELECT s.Id AS Id, (SELECT r.Name AS Name FROM Related AS r WHERE r.Id = s.RoleId) AS RelatedName FROM Source AS s WHERE EXISTS (SELECT r.Id AS Id FROM Related AS r WHERE r.Id = s.RoleId);",
+        "SELECT w.Id AS Id, CONCAT(w.Name, '.', i.PhysicalName, '.', @databaseName) AS Name FROM warehouse.Source AS w INNER JOIN implementation.Mapping AS i ON w.Id = i.SourceId;"
     };
 
     [Theory]
@@ -55,7 +58,7 @@ public sealed class MetaWeaveScriptSqlTests
     [InlineData("SELECT -1 AS Id;")]
     [InlineData("SELECT 1.5 AS Id;")]
     [InlineData("SELECT CAST(s.Id AS int) AS Id FROM Source AS s;")]
-    [InlineData("SELECT s.Id AS Id FROM dbo.Source AS s;")]
+    [InlineData("SELECT s.Id AS Id FROM catalog.dbo.Source AS s;")]
     [InlineData("SELECT s.Id AS Id FROM Source AS s ORDER BY s.Id;")]
     [InlineData("SELECT s.Id AS Id FROM Source AS s RIGHT JOIN Other AS o ON s.Id = o.Id;")]
     [InlineData("SELECT s.Id AS Id FROM Source AS s WHERE CONTAINS(s.Name, 'x');")]
@@ -63,6 +66,10 @@ public sealed class MetaWeaveScriptSqlTests
     [InlineData("SELECT s.Id AS 'Id' FROM Source AS s;")]
     [InlineData("SELECT s.Id AS Id FROM Source AS s WHERE s.Id != 'x';")]
     [InlineData("SELECT STRING_AGG(s.Name, ',') AS Names FROM Source AS s;")]
+    [InlineData("SELECT ROW_NUMBER() AS Ordinal FROM Source AS s;")]
+    [InlineData("SELECT ROW_NUMBER() OVER (PARTITION BY s.Kind) AS Ordinal FROM Source AS s;")]
+    [InlineData("SELECT TRY_CONVERT(bigint, s.Id) AS Id FROM Source AS s;")]
+    [InlineData("SELECT TRY_CONVERT(int, s.Id, 1) AS Id FROM Source AS s;")]
     [InlineData("SELECT p.value AS Value FROM STRING_SPLIT('a,b', ',') AS p(value);")]
     public void ExcludedSyntaxFailsAsUnsupported(string sql)
     {

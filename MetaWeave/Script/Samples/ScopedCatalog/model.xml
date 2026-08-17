@@ -147,13 +147,25 @@
         <Relationship entity="QueryExpression" />
       </RelationshipList>
     </Entity>
+    <Entity name="DataTypeReference" />
+    <Entity name="DataTypeReferenceNameLink">
+      <RelationshipList>
+        <Relationship entity="DataTypeReference" />
+        <Relationship entity="SchemaObjectName" />
+      </RelationshipList>
+    </Entity>
     <Entity name="Direction">
       <PropertyList>
-        <Property name="SourceModelName" />
         <Property name="TargetModelName" />
       </PropertyList>
       <RelationshipList>
         <Relationship entity="Weave" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DirectionRelation">
+      <RelationshipList>
+        <Relationship entity="Direction" />
+        <Relationship entity="SelectStatement" />
       </RelationshipList>
     </Entity>
     <Entity name="DirectionRequirement">
@@ -164,6 +176,23 @@
       <RelationshipList>
         <Relationship entity="Direction" />
         <Relationship entity="SelectStatement" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DirectionSourceWorkspace">
+      <PropertyList>
+        <Property name="ModelName" />
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Direction" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DirectionStringParameter">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Direction" />
       </RelationshipList>
     </Entity>
     <Entity name="ExistsPredicate">
@@ -218,6 +247,12 @@
       <RelationshipList>
         <Relationship entity="FunctionCall" />
         <Relationship entity="Identifier" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="FunctionCallOverClauseLink">
+      <RelationshipList>
+        <Relationship entity="FunctionCall" />
+        <Relationship entity="OverClause" />
       </RelationshipList>
     </Entity>
     <Entity name="FunctionCallParametersItem">
@@ -436,6 +471,35 @@
         <Relationship entity="OrderByClause" />
       </RelationshipList>
     </Entity>
+    <Entity name="OverClause" />
+    <Entity name="OverClauseOrderByClauseLink">
+      <RelationshipList>
+        <Relationship entity="OrderByClause" />
+        <Relationship entity="OverClause" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="OverClausePartitionsItem">
+      <PropertyList>
+        <Property name="Ordinal" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="OverClause" />
+        <Relationship entity="ScalarExpression" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ParameterizedDataTypeReference">
+      <RelationshipList>
+        <Relationship entity="DataTypeReference" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="ParameterReferenceExpression">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="ValueExpression" />
+      </RelationshipList>
+    </Entity>
     <Entity name="ParenthesisExpression">
       <RelationshipList>
         <Relationship entity="PrimaryExpression" />
@@ -611,6 +675,14 @@
         <Relationship entity="SelectStatement" />
       </RelationshipList>
     </Entity>
+    <Entity name="SqlDataTypeReference">
+      <PropertyList>
+        <Property name="SqlDataTypeOption" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="ParameterizedDataTypeReference" />
+      </RelationshipList>
+    </Entity>
     <Entity name="StatementWithCtes">
       <RelationshipList>
         <Relationship entity="TSqlStatement" />
@@ -662,6 +734,23 @@
         <Relationship entity="SelectStatement" />
       </RelationshipList>
     </Entity>
+    <Entity name="TryConvertCall">
+      <RelationshipList>
+        <Relationship entity="PrimaryExpression" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="TryConvertCallDataTypeLink">
+      <RelationshipList>
+        <Relationship entity="DataTypeReference" />
+        <Relationship entity="TryConvertCall" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="TryConvertCallParameterLink">
+      <RelationshipList>
+        <Relationship entity="ScalarExpression" />
+        <Relationship entity="TryConvertCall" />
+      </RelationshipList>
+    </Entity>
     <Entity name="TSqlStatement" />
     <Entity name="UnqualifiedJoin">
       <PropertyList>
@@ -676,12 +765,7 @@
         <Relationship entity="PrimaryExpression" />
       </RelationshipList>
     </Entity>
-    <Entity name="Weave">
-      <PropertyList>
-        <Property name="LeftModelName" />
-        <Property name="RightModelName" />
-      </PropertyList>
-    </Entity>
+    <Entity name="Weave" />
     <Entity name="WhenClause" />
     <Entity name="WhenClauseThenExpressionLink">
       <RelationshipList>

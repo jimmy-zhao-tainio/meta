@@ -72,6 +72,12 @@ public sealed class MetaCliHelpService
         return true;
     }
 
+    public static bool IsHelpRequest(IReadOnlyList<string> arguments)
+    {
+        ArgumentNullException.ThrowIfNull(arguments);
+        return TryBuildHelpRoute(arguments, out _);
+    }
+
     public bool TryBuildUsage(
         MetaCliModel model,
         string? applicationId,

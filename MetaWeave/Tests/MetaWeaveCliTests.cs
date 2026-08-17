@@ -16,11 +16,15 @@ public sealed class MetaWeaveCliTests
         Assert.Equal(0, result.ExitCode);
         Assert.Contains("create", result.Output);
         Assert.Contains("add-direction", result.Output);
+        Assert.Contains("add-string-parameter", result.Output);
+        Assert.Contains("add-relation", result.Output);
         Assert.Contains("add-requirement", result.Output);
         Assert.Contains("add-transformation", result.Output);
         Assert.Contains("update-requirement", result.Output);
+        Assert.Contains("update-relation", result.Output);
         Assert.Contains("update-transformation", result.Output);
         Assert.Contains("emit-requirement", result.Output);
+        Assert.Contains("emit-relation", result.Output);
         Assert.Contains("emit-transformation", result.Output);
         Assert.Contains("show", result.Output);
         Assert.Contains("execute", result.Output);
@@ -46,17 +50,26 @@ public sealed class MetaWeaveCliTests
         try
         {
             var create = RunCli(
-                $"create --xml \"{directionPath}\" --name Catalog --left-model SourceModel --right-model TargetModel");
+                $"create --xml \"{directionPath}\" --name Catalog");
             Assert.Equal(0, create.ExitCode);
 
             var addDirection = RunCli(
-                $"add-direction --workspace \"{directionPath}\" --name forward --source-model SourceModel --target-model TargetModel");
+                $"add-direction --workspace \"{directionPath}\" --name forward --source source=SourceModel --target-model TargetModel");
             Assert.Equal(0, addDirection.ExitCode);
+
+            var addParameter = RunCli(
+                $"add-string-parameter --workspace \"{directionPath}\" --direction forward --name databaseName");
+            Assert.Equal(0, addParameter.ExitCode);
 
             var add = RunCli(
                 $"add-transformation --workspace \"{directionPath}\" --direction forward --name Target --target-entity Target",
                 standardInput: "SELECT s.Id AS Id FROM Source AS s;");
             Assert.Equal(0, add.ExitCode);
+
+            var addRelation = RunCli(
+                $"add-relation --workspace \"{directionPath}\" --direction forward --name SourceNames",
+                standardInput: "SELECT s.Id AS Id, UPPER(s.Name) AS Name FROM Source AS s;");
+            Assert.Equal(0, addRelation.ExitCode);
 
             var addRequirement = RunCli(
                 $"add-requirement --workspace \"{directionPath}\" --direction forward --name SourceNamesPresent --code SourceNameMissing --message \"Every source requires a name.\"",
@@ -66,16 +79,26 @@ public sealed class MetaWeaveCliTests
             var show = RunCli($"show --workspace \"{directionPath}\"");
             Assert.Equal(0, show.ExitCode);
             Assert.Contains("Weave: Catalog", show.Output);
-            Assert.Contains("Left model: SourceModel", show.Output);
-            Assert.Contains("Right model: TargetModel", show.Output);
-            Assert.Contains("forward: SourceModel -> TargetModel", show.Output);
+            Assert.Contains("forward: source:SourceModel -> TargetModel", show.Output);
+            Assert.Contains("string @databaseName", show.Output);
             Assert.Contains("require SourceNamesPresent [SourceNameMissing]", show.Output);
+            Assert.Contains("relation SourceNames", show.Output);
             Assert.Contains("Target -> Target", show.Output);
 
             var emitRequirement = RunCli(
                 $"emit-requirement --workspace \"{directionPath}\" --direction forward --name SourceNamesPresent");
             Assert.Equal(0, emitRequirement.ExitCode);
             Assert.Contains("s.Name IS NULL", emitRequirement.Output);
+
+            var emitRelation = RunCli(
+                $"emit-relation --workspace \"{directionPath}\" --direction forward --name SourceNames");
+            Assert.Equal(0, emitRelation.ExitCode);
+            Assert.Contains("UPPER(s.Name) AS Name", emitRelation.Output);
+
+            var updateRelation = RunCli(
+                $"update-relation --workspace \"{directionPath}\" --direction forward --name SourceNames",
+                standardInput: "SELECT s.Id AS Id, LOWER(s.Name) AS Name FROM Source AS s;");
+            Assert.Equal(0, updateRelation.ExitCode);
 
             var updateRequirement = RunCli(
                 $"update-requirement --workspace \"{directionPath}\" --direction forward --name SourceNamesPresent",
@@ -96,9 +119,17 @@ public sealed class MetaWeaveCliTests
             var updatedModel = TypedWorkspaceModelMapper.Load<MetaWeaveModel>(directionPath);
             Assert.Single(updatedModel.TransformationList);
             Assert.Single(updatedModel.DirectionRequirementList);
-            Assert.Equal(2, updatedModel.SelectStatementList.Count);
-            Assert.Equal(2, updatedModel.QuerySpecificationList.Count);
-            Assert.Equal(2, updatedModel.NamedTableReferenceList.Count);
+            Assert.Single(updatedModel.DirectionRelationList);
+            Assert.Single(updatedModel.DirectionSourceWorkspaceList);
+            Assert.Single(updatedModel.DirectionStringParameterList);
+            Assert.Equal(3, updatedModel.SelectStatementList.Count);
+            Assert.Equal(3, updatedModel.QuerySpecificationList.Count);
+            Assert.Equal(3, updatedModel.NamedTableReferenceList.Count);
+
+            var updatedRelationEmit = RunCli(
+                $"emit-relation --workspace \"{directionPath}\" --direction forward --name SourceNames");
+            Assert.Equal(0, updatedRelationEmit.ExitCode);
+            Assert.Contains("LOWER(s.Name) AS Name", updatedRelationEmit.Output);
 
             var updatedEmit = RunCli(
                 $"emit-transformation --workspace \"{directionPath}\" --direction forward --name Target");
@@ -138,11 +169,11 @@ public sealed class MetaWeaveCliTests
         try
         {
             Assert.Equal(0, RunCli(
-                $"create --xml \"{weavePath}\" --name Catalog --left-model LeftModel --right-model RightModel").ExitCode);
+                $"create --xml \"{weavePath}\" --name Catalog").ExitCode);
             Assert.Equal(0, RunCli(
-                $"add-direction --workspace \"{weavePath}\" --name forward --source-model LeftModel --target-model RightModel").ExitCode);
+                $"add-direction --workspace \"{weavePath}\" --name forward --source source=LeftModel --target-model RightModel").ExitCode);
             Assert.Equal(0, RunCli(
-                $"add-direction --workspace \"{weavePath}\" --name reverse --source-model RightModel --target-model LeftModel").ExitCode);
+                $"add-direction --workspace \"{weavePath}\" --name reverse --source source=RightModel --target-model LeftModel").ExitCode);
             Assert.Equal(0, RunCli(
                 $"add-transformation --workspace \"{weavePath}\" --direction forward --name Entity --target-entity Entity",
                 standardInput: "SELECT s.Id AS Id FROM Source AS s;").ExitCode);
@@ -153,6 +184,7 @@ public sealed class MetaWeaveCliTests
             var model = TypedWorkspaceModelMapper.Load<MetaWeaveModel>(weavePath);
             Assert.Single(model.WeaveList);
             Assert.Equal(2, model.DirectionList.Count);
+            Assert.Equal(2, model.DirectionSourceWorkspaceList.Count);
             Assert.Equal(2, model.TransformationList.Count);
             Assert.Equal(2, model.SelectStatementList.Count);
         }
@@ -188,7 +220,7 @@ public sealed class MetaWeaveCliTests
             var execute = RunCli(
                 $"execute --workspace \"{directionPath}\" --source-workspace \"{sourcePath}\" --target-workspace \"{expectedPath}\" --xml \"{targetPath}\"");
 
-            Assert.Equal(0, execute.ExitCode);
+            Assert.True(execute.ExitCode == 0, execute.Output);
             var expected = await TypedWorkspaceModelMapper.LoadStateAsync(expectedPath);
             var actual = await TypedWorkspaceModelMapper.LoadStateAsync(targetPath);
             Assert.Null(InMemoryWorkspaceComparer.FindDifference(expected, actual));
@@ -280,6 +312,81 @@ public sealed class MetaWeaveCliTests
             Assert.Contains("requirement NoGroups", execute.Output);
             Assert.Contains("GroupId=group:alpha", execute.Output);
             Assert.False(Directory.Exists(outputPath));
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
+    }
+
+    [Fact]
+    public async Task Execute_AcceptsNamedSourceWorkspacesAndStringParameters()
+    {
+        var root = TemporaryDirectory("metaweave-cli-multi-source");
+        var weavePath = Path.Combine(root, "Weave");
+        var warehousePath = Path.Combine(root, "Warehouse");
+        var implementationPath = Path.Combine(root, "Implementation");
+        var targetContractPath = Path.Combine(root, "TargetContract");
+        var outputPath = Path.Combine(root, "Output");
+        try
+        {
+            var warehouseModel = new GenericModel { Name = "WarehouseModel" };
+            var fact = new GenericEntity { Name = "Fact" };
+            fact.Properties.Add(new GenericProperty { Name = "Name" });
+            warehouseModel.Entities.Add(fact);
+            var warehouseInstance = new GenericInstance { ModelName = warehouseModel.Name };
+            var factRecord = new GenericRecord { Id = "fact:sales" };
+            factRecord.Values.Add("Name", "Sales");
+            warehouseInstance.GetOrCreateEntityRecords("Fact").Add(factRecord);
+
+            var implementationModel = new GenericModel { Name = "ImplementationModel" };
+            var mapping = new GenericEntity { Name = "FactTableImplementation" };
+            mapping.Properties.Add(new GenericProperty { Name = "FactId" });
+            mapping.Properties.Add(new GenericProperty { Name = "TableName" });
+            implementationModel.Entities.Add(mapping);
+            var implementationInstance = new GenericInstance { ModelName = implementationModel.Name };
+            var mappingRecord = new GenericRecord { Id = "mapping:sales" };
+            mappingRecord.Values.Add("FactId", "fact:sales");
+            mappingRecord.Values.Add("TableName", "FactSales");
+            implementationInstance.GetOrCreateEntityRecords("FactTableImplementation").Add(mappingRecord);
+
+            var targetModel = new GenericModel { Name = "SqlModel" };
+            var table = new GenericEntity { Name = "Table" };
+            table.Properties.Add(new GenericProperty { Name = "Name" });
+            targetModel.Entities.Add(table);
+
+            await WorkspaceSurface.CreateAsync(
+                new InMemoryWorkspace(warehouseModel, warehouseInstance),
+                warehousePath,
+                "xml");
+            await WorkspaceSurface.CreateAsync(
+                new InMemoryWorkspace(implementationModel, implementationInstance),
+                implementationPath,
+                "xml");
+            await WorkspaceSurface.CreateAsync(
+                new InMemoryWorkspace(
+                    targetModel,
+                    new GenericInstance { ModelName = targetModel.Name }),
+                targetContractPath,
+                "xml");
+
+            Assert.Equal(0, RunCli($"create --xml \"{weavePath}\" --name WarehouseToSql").ExitCode);
+            Assert.Equal(0, RunCli(
+                $"add-direction --workspace \"{weavePath}\" --name forward --source warehouse=WarehouseModel --source implementation=ImplementationModel --target-model SqlModel").ExitCode);
+            Assert.Equal(0, RunCli(
+                $"add-string-parameter --workspace \"{weavePath}\" --direction forward --name databaseName").ExitCode);
+            Assert.Equal(0, RunCli(
+                $"add-transformation --workspace \"{weavePath}\" --direction forward --name Table --target-entity Table",
+                standardInput: "SELECT f.Id AS Id, CONCAT(@databaseName, '.', i.TableName) AS Name FROM warehouse.Fact AS f INNER JOIN implementation.FactTableImplementation AS i ON f.Id = i.FactId;").ExitCode);
+
+            var execute = RunCli(
+                $"execute --workspace \"{weavePath}\" --source-workspace \"warehouse={warehousePath}\" --source-workspace \"implementation={implementationPath}\" --parameter databaseName=AdventureWorks --target-workspace \"{targetContractPath}\" --xml \"{outputPath}\"");
+
+            Assert.True(execute.ExitCode == 0, execute.Output);
+            var output = await TypedWorkspaceModelMapper.LoadStateAsync(outputPath);
+            var outputRecord = Assert.Single(output.Instance.RecordsByEntity["Table"]);
+            Assert.Equal("fact:sales", outputRecord.Id);
+            Assert.Equal("AdventureWorks.FactSales", outputRecord.Values["Name"]);
         }
         finally
         {

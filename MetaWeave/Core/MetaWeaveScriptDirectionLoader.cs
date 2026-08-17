@@ -31,6 +31,22 @@ public sealed class MetaWeaveScriptDirectionLoader
         }
 
         var direction = SelectDirection(model, directionName);
+        var sourceWorkspaces = model.DirectionSourceWorkspaceList
+            .Where(source =>
+                ReferenceEquals(source.Direction, direction) ||
+                MetaName.Comparer.Equals(source.Direction?.Id, direction.Id))
+            .OrderBy(source => source.Name, StringComparer.OrdinalIgnoreCase)
+            .Select(source => new MetaWeaveScriptSourceWorkspace(
+                source.Name,
+                source.ModelName))
+            .ToArray();
+        var stringParameters = model.DirectionStringParameterList
+            .Where(parameter =>
+                ReferenceEquals(parameter.Direction, direction) ||
+                MetaName.Comparer.Equals(parameter.Direction?.Id, direction.Id))
+            .OrderBy(parameter => parameter.Name, StringComparer.OrdinalIgnoreCase)
+            .Select(parameter => new MetaWeaveScriptStringParameter(parameter.Name))
+            .ToArray();
         var transformations = model.TransformationList
             .Where(transformation =>
                 ReferenceEquals(transformation.Direction, direction) ||
@@ -51,14 +67,25 @@ public sealed class MetaWeaveScriptDirectionLoader
                 requirement.Message,
                 requirement.SelectStatement))
             .ToArray();
+        var relations = model.DirectionRelationList
+            .Where(relation =>
+                ReferenceEquals(relation.Direction, direction) ||
+                MetaName.Comparer.Equals(relation.Direction?.Id, direction.Id))
+            .OrderBy(relation => relation.Id, StringComparer.OrdinalIgnoreCase)
+            .Select(relation => new MetaWeaveScriptRelation(
+                MetaWeaveAuthoringService.GetRelationName(relation),
+                relation.SelectStatement))
+            .ToArray();
 
         return new MetaWeaveScriptDirection(
             direction.Id,
-            direction.SourceModelName,
+            sourceWorkspaces,
             direction.TargetModelName,
+            stringParameters,
             model,
             transformations,
-            requirements);
+            requirements,
+            relations);
     }
 
     private static Direction SelectDirection(

@@ -2,25 +2,32 @@
 <MetaCli>
   <ExecutableCommandParameterList>
     <ExecutableCommandParameter Id="exec-add-direction:parameter:param-add-direction-name" ExecutableCommandId="exec-add-direction" ParameterId="param-add-direction-name" />
-    <ExecutableCommandParameter Id="exec-add-direction:parameter:param-add-direction-source-model" ExecutableCommandId="exec-add-direction" ParameterId="param-add-direction-source-model" />
+    <ExecutableCommandParameter Id="exec-add-direction:parameter:param-add-direction-source" ExecutableCommandId="exec-add-direction" ParameterId="param-add-direction-source" />
     <ExecutableCommandParameter Id="exec-add-direction:parameter:param-add-direction-target-model" ExecutableCommandId="exec-add-direction" ParameterId="param-add-direction-target-model" />
     <ExecutableCommandParameter Id="exec-add-direction:parameter:param-add-direction-workspace" ExecutableCommandId="exec-add-direction" ParameterId="param-add-direction-workspace" />
+    <ExecutableCommandParameter Id="exec-add-relation:parameter:param-add-relation-direction" ExecutableCommandId="exec-add-relation" ParameterId="param-add-relation-direction" />
+    <ExecutableCommandParameter Id="exec-add-relation:parameter:param-add-relation-name" ExecutableCommandId="exec-add-relation" ParameterId="param-add-relation-name" />
+    <ExecutableCommandParameter Id="exec-add-relation:parameter:param-add-relation-workspace" ExecutableCommandId="exec-add-relation" ParameterId="param-add-relation-workspace" />
     <ExecutableCommandParameter Id="exec-add-requirement:parameter:param-add-requirement-code" ExecutableCommandId="exec-add-requirement" ParameterId="param-add-requirement-code" />
     <ExecutableCommandParameter Id="exec-add-requirement:parameter:param-add-requirement-direction" ExecutableCommandId="exec-add-requirement" ParameterId="param-add-requirement-direction" />
     <ExecutableCommandParameter Id="exec-add-requirement:parameter:param-add-requirement-message" ExecutableCommandId="exec-add-requirement" ParameterId="param-add-requirement-message" />
     <ExecutableCommandParameter Id="exec-add-requirement:parameter:param-add-requirement-name" ExecutableCommandId="exec-add-requirement" ParameterId="param-add-requirement-name" />
     <ExecutableCommandParameter Id="exec-add-requirement:parameter:param-add-requirement-workspace" ExecutableCommandId="exec-add-requirement" ParameterId="param-add-requirement-workspace" />
+    <ExecutableCommandParameter Id="exec-add-string-parameter:parameter:param-add-string-parameter-direction" ExecutableCommandId="exec-add-string-parameter" ParameterId="param-add-string-parameter-direction" />
+    <ExecutableCommandParameter Id="exec-add-string-parameter:parameter:param-add-string-parameter-name" ExecutableCommandId="exec-add-string-parameter" ParameterId="param-add-string-parameter-name" />
+    <ExecutableCommandParameter Id="exec-add-string-parameter:parameter:param-add-string-parameter-workspace" ExecutableCommandId="exec-add-string-parameter" ParameterId="param-add-string-parameter-workspace" />
     <ExecutableCommandParameter Id="exec-add-transformation:parameter:param-add-transformation-direction" ExecutableCommandId="exec-add-transformation" ParameterId="param-add-transformation-direction" />
     <ExecutableCommandParameter Id="exec-add-transformation:parameter:param-add-transformation-name" ExecutableCommandId="exec-add-transformation" ParameterId="param-add-transformation-name" />
     <ExecutableCommandParameter Id="exec-add-transformation:parameter:param-add-transformation-target-entity" ExecutableCommandId="exec-add-transformation" ParameterId="param-add-transformation-target-entity" />
     <ExecutableCommandParameter Id="exec-add-transformation:parameter:param-add-transformation-workspace" ExecutableCommandId="exec-add-transformation" ParameterId="param-add-transformation-workspace" />
     <ExecutableCommandParameter Id="exec-create:parameter:param-create-connection-env" ExecutableCommandId="exec-create" ParameterId="param-create-connection-env" />
     <ExecutableCommandParameter Id="exec-create:parameter:param-create-csharp" ExecutableCommandId="exec-create" ParameterId="param-create-csharp" />
-    <ExecutableCommandParameter Id="exec-create:parameter:param-create-left-model" ExecutableCommandId="exec-create" ParameterId="param-create-left-model" />
     <ExecutableCommandParameter Id="exec-create:parameter:param-create-name" ExecutableCommandId="exec-create" ParameterId="param-create-name" />
-    <ExecutableCommandParameter Id="exec-create:parameter:param-create-right-model" ExecutableCommandId="exec-create" ParameterId="param-create-right-model" />
     <ExecutableCommandParameter Id="exec-create:parameter:param-create-sql" ExecutableCommandId="exec-create" ParameterId="param-create-sql" />
     <ExecutableCommandParameter Id="exec-create:parameter:param-create-xml" ExecutableCommandId="exec-create" ParameterId="param-create-xml" />
+    <ExecutableCommandParameter Id="exec-emit-relation:parameter:param-emit-relation-direction" ExecutableCommandId="exec-emit-relation" ParameterId="param-emit-relation-direction" />
+    <ExecutableCommandParameter Id="exec-emit-relation:parameter:param-emit-relation-name" ExecutableCommandId="exec-emit-relation" ParameterId="param-emit-relation-name" />
+    <ExecutableCommandParameter Id="exec-emit-relation:parameter:param-emit-relation-workspace" ExecutableCommandId="exec-emit-relation" ParameterId="param-emit-relation-workspace" />
     <ExecutableCommandParameter Id="exec-emit-requirement:parameter:param-emit-requirement-direction" ExecutableCommandId="exec-emit-requirement" ParameterId="param-emit-requirement-direction" />
     <ExecutableCommandParameter Id="exec-emit-requirement:parameter:param-emit-requirement-name" ExecutableCommandId="exec-emit-requirement" ParameterId="param-emit-requirement-name" />
     <ExecutableCommandParameter Id="exec-emit-requirement:parameter:param-emit-requirement-workspace" ExecutableCommandId="exec-emit-requirement" ParameterId="param-emit-requirement-workspace" />
@@ -30,12 +37,16 @@
     <ExecutableCommandParameter Id="exec-execute:parameter:param-execute-connection-env" ExecutableCommandId="exec-execute" ParameterId="param-execute-connection-env" />
     <ExecutableCommandParameter Id="exec-execute:parameter:param-execute-csharp" ExecutableCommandId="exec-execute" ParameterId="param-execute-csharp" />
     <ExecutableCommandParameter Id="exec-execute:parameter:param-execute-direction" ExecutableCommandId="exec-execute" ParameterId="param-execute-direction" />
+    <ExecutableCommandParameter Id="exec-execute:parameter:param-execute-parameter" ExecutableCommandId="exec-execute" ParameterId="param-execute-parameter" />
     <ExecutableCommandParameter Id="exec-execute:parameter:param-execute-source-workspace" ExecutableCommandId="exec-execute" ParameterId="param-execute-source-workspace" />
     <ExecutableCommandParameter Id="exec-execute:parameter:param-execute-sql" ExecutableCommandId="exec-execute" ParameterId="param-execute-sql" />
     <ExecutableCommandParameter Id="exec-execute:parameter:param-execute-target-workspace" ExecutableCommandId="exec-execute" ParameterId="param-execute-target-workspace" />
     <ExecutableCommandParameter Id="exec-execute:parameter:param-execute-workspace" ExecutableCommandId="exec-execute" ParameterId="param-execute-workspace" />
     <ExecutableCommandParameter Id="exec-execute:parameter:param-execute-xml" ExecutableCommandId="exec-execute" ParameterId="param-execute-xml" />
     <ExecutableCommandParameter Id="exec-show:parameter:param-show-workspace" ExecutableCommandId="exec-show" ParameterId="param-show-workspace" />
+    <ExecutableCommandParameter Id="exec-update-relation:parameter:param-update-relation-direction" ExecutableCommandId="exec-update-relation" ParameterId="param-update-relation-direction" />
+    <ExecutableCommandParameter Id="exec-update-relation:parameter:param-update-relation-name" ExecutableCommandId="exec-update-relation" ParameterId="param-update-relation-name" />
+    <ExecutableCommandParameter Id="exec-update-relation:parameter:param-update-relation-workspace" ExecutableCommandId="exec-update-relation" ParameterId="param-update-relation-workspace" />
     <ExecutableCommandParameter Id="exec-update-requirement:parameter:param-update-requirement-direction" ExecutableCommandId="exec-update-requirement" ParameterId="param-update-requirement-direction" />
     <ExecutableCommandParameter Id="exec-update-requirement:parameter:param-update-requirement-name" ExecutableCommandId="exec-update-requirement" ParameterId="param-update-requirement-name" />
     <ExecutableCommandParameter Id="exec-update-requirement:parameter:param-update-requirement-workspace" ExecutableCommandId="exec-update-requirement" ParameterId="param-update-requirement-workspace" />

@@ -62,9 +62,9 @@ internal sealed partial class MetaWeaveScriptSqlModelBuilder
     public BuiltNode CreateSchemaObjectName(IReadOnlyList<BuiltNode> identifiers)
     {
         ArgumentNullException.ThrowIfNull(identifiers);
-        if (identifiers.Count != 1)
+        if (identifiers.Count is < 1 or > 2)
         {
-            throw new InvalidOperationException("MetaWeaveScript source names require exactly one Identifier.");
+            throw new InvalidOperationException("MetaWeaveScript source names require one entity identifier with an optional source-workspace qualifier.");
         }
 
         var multiPart = CreateMultiPartIdentifier(identifiers);
@@ -78,7 +78,7 @@ internal sealed partial class MetaWeaveScriptSqlModelBuilder
         {
             Id = NextId(nameof(SchemaObjectNameBaseIdentifierLink)),
             SchemaObjectName = row,
-            Identifier = identifiers[0].GetRef<Identifier>(nameof(Identifier))
+            Identifier = identifiers[^1].GetRef<Identifier>(nameof(Identifier))
         });
         return BuiltNode.Create((nameof(MultiPartIdentifier), multiPart.GetId(nameof(MultiPartIdentifier))), (nameof(SchemaObjectName), row.Id));
     }

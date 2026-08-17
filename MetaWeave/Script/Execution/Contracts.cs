@@ -65,26 +65,59 @@ public sealed record MetaWeaveScriptTransformation(
     string TargetEntityName,
     SelectStatement SelectStatement);
 
+public sealed record MetaWeaveScriptRelation(
+    string Name,
+    SelectStatement SelectStatement);
+
 public sealed record MetaWeaveScriptRequirement(
     string Name,
     string Code,
     string Message,
     SelectStatement SelectStatement);
 
+public sealed record MetaWeaveScriptSourceWorkspace(
+    string Name,
+    string ModelName);
+
+public sealed record MetaWeaveScriptStringParameter(string Name);
+
 public sealed record MetaWeaveScriptDirection(
     string Name,
-    string SourceModelName,
+    IReadOnlyList<MetaWeaveScriptSourceWorkspace> SourceWorkspaces,
     string TargetModelName,
+    IReadOnlyList<MetaWeaveScriptStringParameter> StringParameters,
     MetaWeaveModel Model,
     IReadOnlyList<MetaWeaveScriptTransformation> Transformations,
-    IReadOnlyList<MetaWeaveScriptRequirement> Requirements);
+    IReadOnlyList<MetaWeaveScriptRequirement> Requirements,
+    IReadOnlyList<MetaWeaveScriptRelation> Relations)
+{
+    public MetaWeaveScriptDirection(
+        string name,
+        string sourceModelName,
+        string targetModelName,
+        MetaWeaveModel model,
+        IReadOnlyList<MetaWeaveScriptTransformation> transformations,
+        IReadOnlyList<MetaWeaveScriptRequirement> requirements)
+        : this(
+            name,
+            [new MetaWeaveScriptSourceWorkspace("source", sourceModelName)],
+            targetModelName,
+            [],
+            model,
+            transformations,
+            requirements,
+            [])
+    {
+    }
+}
 
 public sealed record MetaWeaveScriptExecutionIssue(
     string Code,
     string Message,
     string? TransformationName = null,
     string? SyntaxId = null,
-    string? RequirementName = null);
+    string? RequirementName = null,
+    string? RelationName = null);
 
 public sealed record MetaWeaveScriptQueryResult(
     MetaWeaveScriptQueryOutput? Output,
@@ -99,3 +132,16 @@ public sealed record MetaWeaveScriptApplicationResult(
 {
     public bool IsSuccess => OutputWorkspace is not null && Issues.Count == 0;
 }
+
+public enum MetaWeaveScriptExecutionTaskKind
+{
+    Requirement,
+    Relation,
+    TargetEntity
+}
+
+public sealed record MetaWeaveScriptExecutionProgress(
+    int CompletedTaskCount,
+    int TotalTaskCount,
+    MetaWeaveScriptExecutionTaskKind? CompletedTaskKind,
+    string? CompletedTaskName);

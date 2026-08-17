@@ -170,12 +170,30 @@ public sealed partial class CommonTableExpressionQueryExpressionLink
     public QueryExpression QueryExpression { get; set; } = null !;
 }
 
+public sealed partial class DataTypeReference
+{
+    public string Id { get; set; } = null !;
+}
+
+public sealed partial class DataTypeReferenceNameLink
+{
+    public string Id { get; set; } = null !;
+    public DataTypeReference DataTypeReference { get; set; } = null !;
+    public SchemaObjectName SchemaObjectName { get; set; } = null !;
+}
+
 public sealed partial class Direction
 {
     public string Id { get; set; } = null !;
-    public string SourceModelName { get; set; } = null !;
     public string TargetModelName { get; set; } = null !;
     public Weave Weave { get; set; } = null !;
+}
+
+public sealed partial class DirectionRelation
+{
+    public string Id { get; set; } = null !;
+    public Direction Direction { get; set; } = null !;
+    public SelectStatement SelectStatement { get; set; } = null !;
 }
 
 public sealed partial class DirectionRequirement
@@ -185,6 +203,21 @@ public sealed partial class DirectionRequirement
     public string Message { get; set; } = null !;
     public Direction Direction { get; set; } = null !;
     public SelectStatement SelectStatement { get; set; } = null !;
+}
+
+public sealed partial class DirectionSourceWorkspace
+{
+    public string Id { get; set; } = null !;
+    public string ModelName { get; set; } = null !;
+    public string Name { get; set; } = null !;
+    public Direction Direction { get; set; } = null !;
+}
+
+public sealed partial class DirectionStringParameter
+{
+    public string Id { get; set; } = null !;
+    public string Name { get; set; } = null !;
+    public Direction Direction { get; set; } = null !;
 }
 
 public sealed partial class ExistsPredicate
@@ -250,6 +283,13 @@ public sealed partial class FunctionCallFunctionNameLink
     public string Id { get; set; } = null !;
     public FunctionCall FunctionCall { get; set; } = null !;
     public Identifier Identifier { get; set; } = null !;
+}
+
+public sealed partial class FunctionCallOverClauseLink
+{
+    public string Id { get; set; } = null !;
+    public FunctionCall FunctionCall { get; set; } = null !;
+    public OverClause OverClause { get; set; } = null !;
 }
 
 public sealed partial class FunctionCallParametersItem
@@ -505,6 +545,39 @@ public sealed partial class OrderByClauseOrderByElementsItem
     public OrderByClause OrderByClause { get; set; } = null !;
 }
 
+public sealed partial class OverClause
+{
+    public string Id { get; set; } = null !;
+}
+
+public sealed partial class OverClauseOrderByClauseLink
+{
+    public string Id { get; set; } = null !;
+    public OrderByClause OrderByClause { get; set; } = null !;
+    public OverClause OverClause { get; set; } = null !;
+}
+
+public sealed partial class OverClausePartitionsItem
+{
+    public string Id { get; set; } = null !;
+    public string? Ordinal { get; set; }
+    public OverClause OverClause { get; set; } = null !;
+    public ScalarExpression ScalarExpression { get; set; } = null !;
+}
+
+public sealed partial class ParameterizedDataTypeReference
+{
+    public string Id { get; set; } = null !;
+    public DataTypeReference DataTypeReference { get; set; } = null !;
+}
+
+public sealed partial class ParameterReferenceExpression
+{
+    public string Id { get; set; } = null !;
+    public string Name { get; set; } = null !;
+    public ValueExpression ValueExpression { get; set; } = null !;
+}
+
 public sealed partial class ParenthesisExpression
 {
     public string Id { get; set; } = null !;
@@ -714,6 +787,13 @@ public sealed partial class SelectStatementQueryExpressionLink
     public SelectStatement SelectStatement { get; set; } = null !;
 }
 
+public sealed partial class SqlDataTypeReference
+{
+    public string Id { get; set; } = null !;
+    public string? SqlDataTypeOption { get; set; }
+    public ParameterizedDataTypeReference ParameterizedDataTypeReference { get; set; } = null !;
+}
+
 public sealed partial class StatementWithCtes
 {
     public string Id { get; set; } = null !;
@@ -773,6 +853,26 @@ public sealed partial class Transformation
     public SelectStatement SelectStatement { get; set; } = null !;
 }
 
+public sealed partial class TryConvertCall
+{
+    public string Id { get; set; } = null !;
+    public PrimaryExpression PrimaryExpression { get; set; } = null !;
+}
+
+public sealed partial class TryConvertCallDataTypeLink
+{
+    public string Id { get; set; } = null !;
+    public DataTypeReference DataTypeReference { get; set; } = null !;
+    public TryConvertCall TryConvertCall { get; set; } = null !;
+}
+
+public sealed partial class TryConvertCallParameterLink
+{
+    public string Id { get; set; } = null !;
+    public ScalarExpression ScalarExpression { get; set; } = null !;
+    public TryConvertCall TryConvertCall { get; set; } = null !;
+}
+
 public sealed partial class TSqlStatement
 {
     public string Id { get; set; } = null !;
@@ -794,8 +894,6 @@ public sealed partial class ValueExpression
 public sealed partial class Weave
 {
     public string Id { get; set; } = null !;
-    public string LeftModelName { get; set; } = null !;
-    public string RightModelName { get; set; } = null !;
 }
 
 public sealed partial class WhenClause
@@ -863,8 +961,13 @@ public sealed partial class MetaWeaveModel
     public List<CommonTableExpression> CommonTableExpressionList { get; set; } = new();
     public List<CommonTableExpressionExpressionNameLink> CommonTableExpressionExpressionNameLinkList { get; set; } = new();
     public List<CommonTableExpressionQueryExpressionLink> CommonTableExpressionQueryExpressionLinkList { get; set; } = new();
+    public List<DataTypeReference> DataTypeReferenceList { get; set; } = new();
+    public List<DataTypeReferenceNameLink> DataTypeReferenceNameLinkList { get; set; } = new();
     public List<Direction> DirectionList { get; set; } = new();
+    public List<DirectionRelation> DirectionRelationList { get; set; } = new();
     public List<DirectionRequirement> DirectionRequirementList { get; set; } = new();
+    public List<DirectionSourceWorkspace> DirectionSourceWorkspaceList { get; set; } = new();
+    public List<DirectionStringParameter> DirectionStringParameterList { get; set; } = new();
     public List<ExistsPredicate> ExistsPredicateList { get; set; } = new();
     public List<ExistsPredicateSubqueryLink> ExistsPredicateSubqueryLinkList { get; set; } = new();
     public List<ExpressionGroupingSpecification> ExpressionGroupingSpecificationList { get; set; } = new();
@@ -875,6 +978,7 @@ public sealed partial class MetaWeaveModel
     public List<FromClauseTableReferencesItem> FromClauseTableReferencesItemList { get; set; } = new();
     public List<FunctionCall> FunctionCallList { get; set; } = new();
     public List<FunctionCallFunctionNameLink> FunctionCallFunctionNameLinkList { get; set; } = new();
+    public List<FunctionCallOverClauseLink> FunctionCallOverClauseLinkList { get; set; } = new();
     public List<FunctionCallParametersItem> FunctionCallParametersItemList { get; set; } = new();
     public List<FunctionCallWithinGroupOrderByClauseLink> FunctionCallWithinGroupOrderByClauseLinkList { get; set; } = new();
     public List<GlobalFunctionTableReference> GlobalFunctionTableReferenceList { get; set; } = new();
@@ -913,6 +1017,11 @@ public sealed partial class MetaWeaveModel
     public List<NullLiteral> NullLiteralList { get; set; } = new();
     public List<OrderByClause> OrderByClauseList { get; set; } = new();
     public List<OrderByClauseOrderByElementsItem> OrderByClauseOrderByElementsItemList { get; set; } = new();
+    public List<OverClause> OverClauseList { get; set; } = new();
+    public List<OverClauseOrderByClauseLink> OverClauseOrderByClauseLinkList { get; set; } = new();
+    public List<OverClausePartitionsItem> OverClausePartitionsItemList { get; set; } = new();
+    public List<ParameterizedDataTypeReference> ParameterizedDataTypeReferenceList { get; set; } = new();
+    public List<ParameterReferenceExpression> ParameterReferenceExpressionList { get; set; } = new();
     public List<ParenthesisExpression> ParenthesisExpressionList { get; set; } = new();
     public List<ParenthesisExpressionExpressionLink> ParenthesisExpressionExpressionLinkList { get; set; } = new();
     public List<PrimaryExpression> PrimaryExpressionList { get; set; } = new();
@@ -945,6 +1054,7 @@ public sealed partial class MetaWeaveModel
     public List<SelectScalarExpressionExpressionLink> SelectScalarExpressionExpressionLinkList { get; set; } = new();
     public List<SelectStatement> SelectStatementList { get; set; } = new();
     public List<SelectStatementQueryExpressionLink> SelectStatementQueryExpressionLinkList { get; set; } = new();
+    public List<SqlDataTypeReference> SqlDataTypeReferenceList { get; set; } = new();
     public List<StatementWithCtes> StatementWithCtesList { get; set; } = new();
     public List<StatementWithCtesWithCtesLink> StatementWithCtesWithCtesLinkList { get; set; } = new();
     public List<StringLiteral> StringLiteralList { get; set; } = new();
@@ -954,6 +1064,9 @@ public sealed partial class MetaWeaveModel
     public List<TableReferenceWithAliasAndColumns> TableReferenceWithAliasAndColumnsList { get; set; } = new();
     public List<TableReferenceWithAliasAndColumnsColumnsItem> TableReferenceWithAliasAndColumnsColumnsItemList { get; set; } = new();
     public List<Transformation> TransformationList { get; set; } = new();
+    public List<TryConvertCall> TryConvertCallList { get; set; } = new();
+    public List<TryConvertCallDataTypeLink> TryConvertCallDataTypeLinkList { get; set; } = new();
+    public List<TryConvertCallParameterLink> TryConvertCallParameterLinkList { get; set; } = new();
     public List<TSqlStatement> TSqlStatementList { get; set; } = new();
     public List<UnqualifiedJoin> UnqualifiedJoinList { get; set; } = new();
     public List<ValueExpression> ValueExpressionList { get; set; } = new();

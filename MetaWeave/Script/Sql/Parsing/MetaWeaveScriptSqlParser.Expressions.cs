@@ -67,6 +67,19 @@ public sealed partial class MetaWeaveScriptSqlParser
                 throw Unsupported("MetaWeaveScript does not support global variables.");
             }
 
+            if (Current.Kind == MetaWeaveScriptSqlTokenKind.Identifier &&
+                Current.Value.StartsWith('@') &&
+                !Current.Value.StartsWith("@@", StringComparison.Ordinal))
+            {
+                var token = Advance();
+                if (token.Value.Length == 1)
+                {
+                    throw ParseError("A WeaveScript parameter reference requires a name after '@'.");
+                }
+
+                return builder.CreateParameterReferenceExpression(token.Value[1..]);
+            }
+
             if (Current.Kind == MetaWeaveScriptSqlTokenKind.StringLiteral)
             {
                 var token = Advance();
