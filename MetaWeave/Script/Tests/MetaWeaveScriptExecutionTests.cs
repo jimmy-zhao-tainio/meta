@@ -392,6 +392,7 @@ public sealed class MetaWeaveScriptExecutionTests
         Assert.Equal(
             ["Beta.SourceOne.AdventureWorks", "alpha.SourceTwo.AdventureWorks"],
             rows.Select(row => row.Values["Name"]));
+        Assert.Empty(result.RelationOutputs);
     }
 
     [Fact]
@@ -446,12 +447,19 @@ public sealed class MetaWeaveScriptExecutionTests
                         "SELECT s.Id AS Id, UPPER(s.Name) AS Name FROM SourceNames AS s WHERE s.Kind = 'K1';")
                 ]),
             source,
-            target);
+            target,
+            includeRelationOutputs: true);
 
         Assert.True(result.IsSuccess, RenderIssues(result.Issues));
         var records = result.OutputWorkspace!.Instance.RecordsByEntity["Target"];
         Assert.Equal(["s1", "s2"], records.Select(record => record.Id));
         Assert.Equal(["BETA", "ALPHA"], records.Select(record => record.Values["Name"]));
+        Assert.Equal(["SelectedSources", "SourceNames"], result.RelationOutputs.Keys);
+        var selectedSources = result.RelationOutputs["selectedsources"];
+        Assert.Equal(["Id", "Name"], selectedSources.Columns.Select(column => column.Name));
+        Assert.Equal(
+            ["s1|BETA", "s2|ALPHA"],
+            selectedSources.Rows.Select(row => string.Join('|', row.Values)));
     }
 
     [Fact]

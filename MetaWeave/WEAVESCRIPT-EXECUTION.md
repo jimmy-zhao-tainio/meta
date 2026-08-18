@@ -193,3 +193,9 @@ Each successful transformation produces the next valid target workspace. A
 transformation failure ends the invocation before publication. After every
 scheduled transformation succeeds, the resulting state is created on the
 selected XML, C#, or SQL provider.
+
+A caller may request immutable outputs for every named relation on the
+successful application result, keyed case-insensitively by relation name.
+Capture is opt-in so ordinary execution does not materialize result evidence
+it will not use. Consumers such as conversion reports can request that evidence
+without repeating the weave's selection or naming decisions in host code.

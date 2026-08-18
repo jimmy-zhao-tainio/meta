@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Globalization;
 using Meta.Operations.Domain;
 
@@ -131,6 +132,10 @@ public sealed record MetaWeaveScriptApplicationResult(
     IReadOnlyList<MetaWeaveScriptExecutionIssue> Issues)
 {
     public bool IsSuccess => OutputWorkspace is not null && Issues.Count == 0;
+
+    public IReadOnlyDictionary<string, MetaWeaveScriptQueryOutput> RelationOutputs { get; init; } =
+        new ReadOnlyDictionary<string, MetaWeaveScriptQueryOutput>(
+            new Dictionary<string, MetaWeaveScriptQueryOutput>(StringComparer.OrdinalIgnoreCase));
 }
 
 public enum MetaWeaveScriptExecutionTaskKind

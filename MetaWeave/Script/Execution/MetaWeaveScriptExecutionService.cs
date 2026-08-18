@@ -121,7 +121,8 @@ public sealed class MetaWeaveScriptExecutionService
         MetaWeaveScriptDirection direction,
         InMemoryWorkspace sourceWorkspace,
         InMemoryWorkspace targetWorkspace,
-        Action<MetaWeaveScriptExecutionProgress>? progress = null)
+        Action<MetaWeaveScriptExecutionProgress>? progress = null,
+        bool includeRelationOutputs = false)
     {
         ArgumentNullException.ThrowIfNull(direction);
         ArgumentNullException.ThrowIfNull(sourceWorkspace);
@@ -143,7 +144,8 @@ public sealed class MetaWeaveScriptExecutionService
                 [direction.SourceWorkspaces[0].Name] = sourceWorkspace
             },
             targetWorkspace,
-            progress: progress);
+            progress: progress,
+            includeRelationOutputs: includeRelationOutputs);
     }
 
     public MetaWeaveScriptApplicationResult ExecuteDirection(
@@ -151,7 +153,8 @@ public sealed class MetaWeaveScriptExecutionService
         IReadOnlyDictionary<string, InMemoryWorkspace> sourceWorkspaces,
         InMemoryWorkspace targetWorkspace,
         IReadOnlyDictionary<string, string>? stringParameters = null,
-        Action<MetaWeaveScriptExecutionProgress>? progress = null)
+        Action<MetaWeaveScriptExecutionProgress>? progress = null,
+        bool includeRelationOutputs = false)
     {
         ArgumentNullException.ThrowIfNull(direction);
         ArgumentNullException.ThrowIfNull(sourceWorkspaces);
@@ -323,7 +326,12 @@ public sealed class MetaWeaveScriptExecutionService
             return new MetaWeaveScriptApplicationResult(null, issues);
         }
 
-        return new MetaWeaveScriptApplicationResult(currentTarget, []);
+        return includeRelationOutputs
+            ? new MetaWeaveScriptApplicationResult(currentTarget, [])
+            {
+                RelationOutputs = namedRelations.ExportOutputs()
+            }
+            : new MetaWeaveScriptApplicationResult(currentTarget, []);
 
         void TaskCompleted(MetaWeaveScriptExecutionTaskKind kind, string name)
         {

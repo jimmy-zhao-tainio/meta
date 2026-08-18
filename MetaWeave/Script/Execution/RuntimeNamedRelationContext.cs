@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Meta.Operations.Domain;
 
 namespace MetaWeaveScript.Execution;
@@ -48,6 +49,24 @@ internal sealed class RuntimeNamedRelationContext
         {
             _ = Execute(definition);
         }
+    }
+
+    public IReadOnlyDictionary<string, MetaWeaveScriptQueryOutput> ExportOutputs()
+    {
+        var outputs = rowsets
+            .OrderBy(pair => pair.Key, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(
+                pair => pair.Key,
+                pair => new MetaWeaveScriptQueryOutput(
+                    Array.AsReadOnly(pair.Value.Columns
+                        .Select(column => new MetaWeaveScriptQueryColumn(column.Name))
+                        .ToArray()),
+                    Array.AsReadOnly(pair.Value.Rows
+                        .Select(row => new MetaWeaveScriptQueryRow(
+                            Array.AsReadOnly(row.Values)))
+                        .ToArray())),
+                StringComparer.OrdinalIgnoreCase);
+        return new ReadOnlyDictionary<string, MetaWeaveScriptQueryOutput>(outputs);
     }
 
     public bool TryExecute(string name, out RuntimeRowset rowset)
