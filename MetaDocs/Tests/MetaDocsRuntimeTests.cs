@@ -1149,6 +1149,59 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
+    public void RenderSite_CountsAndLinksGuideSubjectsInReferenceSections()
+    {
+        var model = MetaDocsModel.CreateEmpty();
+        var reference = AddPublicReferenceTree(model);
+        reference.MetaBi.DocumentationSubjectType = MetaDocsVocabulary.EnsureSubjectType(model, "ReferenceSection");
+        var authoring = new MetaDocsAuthoringService();
+        var adapters = authoring.UpsertPage(
+            model,
+            new MetaDocsAuthoredPage(
+                "public:meta-bi:adapters",
+                "Adapters",
+                "Adapter references.",
+                "Adapter references.",
+                SubjectType: "ReferenceSection",
+                DisplayPath: "Reference.Meta-BI.Adapters",
+                ParentSubjectId: reference.MetaBi.Id,
+                SourceId: "source:authored:public-reference",
+                SourceDisplayName: "Public reference"));
+        authoring.UpsertPage(
+            model,
+            new MetaDocsAuthoredPage(
+                "public:meta-bi:meta-schema-adapter",
+                "MetaSchemaAdapter",
+                "Schema discovery adapters.",
+                "Schema discovery adapters.",
+                SubjectType: "Guide",
+                DisplayPath: "Reference.Meta-BI.Adapters.MetaSchemaAdapter",
+                ParentSubjectId: adapters.Id,
+                SourceId: "source:authored:public-reference",
+                SourceDisplayName: "Public reference"));
+
+        var html = new MetametabiDocsSiteRenderer().RenderSite(model);
+
+        Assert.Contains(
+            "<a class=\"entry-card\" href=\"#group-public-meta-bi-adapters\" data-panel-link=\"group-public-meta-bi-adapters\">",
+            html,
+            StringComparison.Ordinal);
+        Assert.Contains("<p>1 reference</p>", html, StringComparison.Ordinal);
+        Assert.Contains(
+            "id=\"group-public-meta-bi-adapters\" data-panel=\"group-public-meta-bi-adapters\"",
+            html,
+            StringComparison.Ordinal);
+        Assert.Contains(
+            "href=\"#subject-public-meta-bi-meta-schema-adapter\" data-panel-link=\"subject-public-meta-bi-meta-schema-adapter\">MetaSchemaAdapter</a>",
+            html,
+            StringComparison.Ordinal);
+        Assert.DoesNotContain(
+            "id=\"group-public-meta-bi\" data-panel=\"group-public-meta-bi\"",
+            html,
+            StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void SuiteMerge_PreservesAuthoredReferenceRootAndGeneratedSubjectParents()
     {
         var authored = MetaDocsModel.CreateEmpty();

@@ -350,9 +350,15 @@ public sealed class MetametabiDocsSiteRenderer
         {
             AppendCliGroupTable(builder, model, subjects);
         }
-        else if (subjects.Any(child => IsModel(child.Subject)))
+
+        if (subjects.Any(child => IsModel(child.Subject)))
         {
             AppendModelGroupTable(builder, model, subjects);
+        }
+
+        if (subjects.Any(child => IsGenericContentSubject(child.Subject)))
+        {
+            AppendGenericGroupTable(builder, model, subjects);
         }
 
         builder.AppendLine("            </div>");
@@ -413,6 +419,33 @@ public sealed class MetametabiDocsSiteRenderer
                 .AppendLine("</td>");
             builder.Append("                    <td>")
                 .Append(entities.Sum(entity => ChildSubjects(model, entity, "Relationship").Length))
+                .AppendLine("</td>");
+            builder.AppendLine("                  </tr>");
+        }
+
+        builder.AppendLine("                </tbody>");
+        builder.AppendLine("              </table>");
+    }
+
+    private static void AppendGenericGroupTable(StringBuilder builder, MetaDocsModel model, IReadOnlyList<ReferenceNode> subjects)
+    {
+        builder.AppendLine("              <table class=\"summary-table\">");
+        builder.AppendLine("                <thead><tr><th>Reference</th><th>Summary</th></tr></thead>");
+        builder.AppendLine("                <tbody>");
+        foreach (var node in subjects.Where(node => IsGenericContentSubject(node.Subject)))
+        {
+            var subject = node.Subject;
+            var panelId = PanelId(subject);
+            builder.AppendLine("                  <tr>");
+            builder.Append("                    <td><a href=\"#")
+                .Append(Attr(panelId))
+                .Append("\" data-panel-link=\"")
+                .Append(Attr(panelId))
+                .Append("\">")
+                .Append(Html(subject.DisplayName))
+                .AppendLine("</a></td>");
+            builder.Append("                    <td>")
+                .Append(HtmlInline(SubjectSummary(model, subject)))
                 .AppendLine("</td>");
             builder.AppendLine("                  </tr>");
         }
@@ -1041,9 +1074,18 @@ public sealed class MetametabiDocsSiteRenderer
     }
 
     private static IReadOnlyList<ReferenceNode> ReferenceSubjects(ReferenceNode section) =>
-        section.Children
-            .Where(static node => IsCliApplication(node.Subject) || IsModel(node.Subject))
-            .ToArray();
+        IsReferenceSection(section.Subject) &&
+        !MetaDocsVocabulary.IsSubjectType(section.Subject.ParentSubject, "ReferenceRoot")
+            ? section.Children
+                .Where(static node =>
+                    IsCliApplication(node.Subject) ||
+                    IsModel(node.Subject) ||
+                    IsGenericContentSubject(node.Subject))
+                .ToArray()
+            : Array.Empty<ReferenceNode>();
+
+    private static bool IsReferenceSection(DocumentationSubject subject) =>
+        MetaDocsVocabulary.IsSubjectType(subject, "ReferenceSection");
 
     private static bool IsCliApplication(DocumentationSubject subject) =>
         MetaDocsVocabulary.IsSubjectType(subject, "CliApplication");
@@ -1066,7 +1108,7 @@ public sealed class MetametabiDocsSiteRenderer
             return "Models";
         }
 
-        return "Subjects";
+        return "References";
     }
 
     private static string PanelId(DocumentationSubject subject)
