@@ -286,6 +286,15 @@ public sealed class MetaWeaveScriptExecutionTests
     }
 
     [Fact]
+    public void ExecutesLenWithSqlTrailingSpaceAndNullSemantics()
+    {
+        var result = Execute(
+            "SELECT LEN('Ångström') AS UnicodeText, LEN('text   ') AS TrailingSpaces, LEN('') AS EmptyText, LEN(NULL) AS NullValue;");
+
+        Assert.Equal(["8|4|0|NULL"], RenderRows(result));
+    }
+
+    [Fact]
     public void ExecutesTryConvertAndPartitionedRowNumber()
     {
         var result = Execute(

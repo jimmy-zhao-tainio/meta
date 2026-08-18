@@ -8,7 +8,7 @@ public sealed partial class MetaWeaveScriptSqlParser
     {
         private static readonly HashSet<string> SupportedScalarFunctions = new(StringComparer.OrdinalIgnoreCase)
         {
-            "CONCAT", "LOWER", "UPPER", "TRIM", "LTRIM", "RTRIM", "IS_BLANK", "REPLACE", "SUBSTRING", "LEFT", "RIGHT"
+            "CONCAT", "LOWER", "UPPER", "TRIM", "LTRIM", "RTRIM", "LEN", "IS_BLANK", "REPLACE", "SUBSTRING", "LEFT", "RIGHT"
         };
 
         private static readonly HashSet<string> SupportedAggregateFunctions = new(StringComparer.OrdinalIgnoreCase)
@@ -124,7 +124,7 @@ public sealed partial class MetaWeaveScriptSqlParser
         {
             var valid = functionName switch
             {
-                "COUNT" or "MIN" or "MAX" or "LOWER" or "UPPER" or "LTRIM" or "RTRIM" or "IS_BLANK" => count == 1,
+                "COUNT" or "MIN" or "MAX" or "LOWER" or "UPPER" or "LTRIM" or "RTRIM" or "LEN" or "IS_BLANK" => count == 1,
                 "STRING_AGG" or "LEFT" or "RIGHT" => count == 2,
                 "REPLACE" => count == 3,
                 "SUBSTRING" => count == 3,

@@ -152,9 +152,10 @@ The executor directly implements the complete retained surface:
 - retained predicates, `CASE`, `COALESCE`, `NULLIF`, `IIF`, and the closed
   scalar-function catalog.
 
-`IS_BLANK` is a language-owned scalar returning integer `1` for `NULL`, empty,
-or Unicode-whitespace-only strings and `0` otherwise. It does not inherit a
-database collation or SQL Server trimming profile.
+`LEN` is a language-owned scalar returning the string length after excluding
+trailing U+0020 spaces; `NULL` propagates. `IS_BLANK` returns integer `1` for
+`NULL`, empty, or Unicode-whitespace-only strings and `0` otherwise. Neither
+function inherits a database collation or SQL Server trimming profile.
 
 The retained `TRY_CONVERT(int, value)` form returns a language integer for a
 convertible string or integer and `NULL` otherwise. `ROW_NUMBER` requires an

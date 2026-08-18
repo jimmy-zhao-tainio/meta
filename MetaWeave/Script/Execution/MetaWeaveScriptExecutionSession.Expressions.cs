@@ -825,6 +825,16 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             case "RIGHT":
                 RequireArity(name, parameters.Length, 2, functionCall.Id);
                 return EvaluateEdgeSubstring(parameters, fromLeft: false, functionCall.Id);
+            case "LEN":
+                RequireArity(name, parameters.Length, 1, functionCall.Id);
+                if (parameters[0].IsNull)
+                {
+                    return MetaWeaveScriptValue.Null;
+                }
+
+                RequireStringArguments(parameters, name, functionCall.Id);
+                return MetaWeaveScriptValue.FromInteger(
+                    parameters[0].StringValue!.TrimEnd(' ').Length);
             case "IS_BLANK":
                 RequireArity(name, parameters.Length, 1, functionCall.Id);
                 if (parameters[0].IsNull)
