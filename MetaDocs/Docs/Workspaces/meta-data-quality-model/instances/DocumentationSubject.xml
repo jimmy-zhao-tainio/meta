@@ -768,7 +768,15 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:firstjoininputcolumnname">
+    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:firstjoininputobjectname" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:firstjoininputcolumnname">
+      <DisplayName>FirstJoinInputObjectName</DisplayName>
+      <DisplayPath>MetaDataQuality.JoinPatternKeyPart.FirstJoinInputObjectName</DisplayPath>
+      <NativeId>FirstJoinInputObjectName</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:firstjoininputobjectname">
       <DisplayName>Ordinal</DisplayName>
       <DisplayPath>MetaDataQuality.JoinPatternKeyPart.Ordinal</DisplayPath>
       <NativeId>Ordinal</NativeId>
@@ -800,6 +808,14 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:secondjoininputobjectname" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:property:secondjoininputcolumnname">
+      <DisplayName>SecondJoinInputObjectName</DisplayName>
+      <DisplayPath>MetaDataQuality.JoinPatternKeyPart.SecondJoinInputObjectName</DisplayPath>
+      <NativeId>SecondJoinInputObjectName</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypart:relationship:joinpattern-joinpattern" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart">
       <DisplayName>JoinPattern</DisplayName>
       <DisplayPath>MetaDataQuality.JoinPatternKeyPart.JoinPattern</DisplayPath>
@@ -808,7 +824,47 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-data-quality:model:metadataquality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart">
+    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-data-quality:model:metadataquality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypart">
+      <DisplayName>JoinPatternKeyPartInputObjectIdentifierPart</DisplayName>
+      <DisplayPath>MetaDataQuality.JoinPatternKeyPartInputObjectIdentifierPart</DisplayPath>
+      <NativeId>JoinPatternKeyPartInputObjectIdentifierPart</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart:property:inputside" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart">
+      <DisplayName>InputSide</DisplayName>
+      <DisplayPath>MetaDataQuality.JoinPatternKeyPartInputObjectIdentifierPart.InputSide</DisplayPath>
+      <NativeId>InputSide</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart:property:ordinal" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart:property:inputside">
+      <DisplayName>Ordinal</DisplayName>
+      <DisplayPath>MetaDataQuality.JoinPatternKeyPartInputObjectIdentifierPart.Ordinal</DisplayPath>
+      <NativeId>Ordinal</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart:property:value" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart:property:ordinal">
+      <DisplayName>Value</DisplayName>
+      <DisplayPath>MetaDataQuality.JoinPatternKeyPartInputObjectIdentifierPart.Value</DisplayPath>
+      <NativeId>Value</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart:relationship:joinpatternkeypart-joinpatternkeypart" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart">
+      <DisplayName>JoinPatternKeyPart</DisplayName>
+      <DisplayPath>MetaDataQuality.JoinPatternKeyPartInputObjectIdentifierPart.JoinPatternKeyPart</DisplayPath>
+      <NativeId>JoinPatternKeyPart:JoinPatternKeyPart</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-data-quality:entity:joinpatternoccurrence" DocumentationSourceId="source:workspace-model:meta-data-quality" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-data-quality:model:metadataquality" PreviousSubjectId="source:workspace-model:meta-data-quality:entity:joinpatternkeypartinputobjectidentifierpart">
       <DisplayName>JoinPatternOccurrence</DisplayName>
       <DisplayPath>MetaDataQuality.JoinPatternOccurrence</DisplayPath>
       <NativeId>JoinPatternOccurrence</NativeId>

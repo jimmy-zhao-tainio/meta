@@ -33,21 +33,21 @@
       <Status>New</Status>
       <Summary>Direction name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-direction:option:source-model" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-direction" PreviousSubjectId="source:cli:meta-weave:app:command:add-direction:option:name">
-      <DisplayName>--source-model</DisplayName>
-      <DisplayPath>meta-weave add-direction --source-model</DisplayPath>
-      <NativeId>opt-add-direction-source-model</NativeId>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-direction:option:source" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-direction" PreviousSubjectId="source:cli:meta-weave:app:command:add-direction:option:name">
+      <DisplayName>--source</DisplayName>
+      <DisplayPath>meta-weave add-direction --source</DisplayPath>
+      <NativeId>opt-add-direction-source</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
-      <Summary>Source model name; must be one side of the weave.</Summary>
+      <Summary>Named source workspace contract as name=model. Repeat for additional sources.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-direction:option:target-model" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-direction" PreviousSubjectId="source:cli:meta-weave:app:command:add-direction:option:source-model">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-direction:option:target-model" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-direction" PreviousSubjectId="source:cli:meta-weave:app:command:add-direction:option:source">
       <DisplayName>--target-model</DisplayName>
       <DisplayPath>meta-weave add-direction --target-model</DisplayPath>
       <NativeId>opt-add-direction-target-model</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Target model name; must be the other side of the weave.</Summary>
+      <Status>Changed</Status>
+      <Summary>Target workspace model contract.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:add-direction:option:workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-direction" PreviousSubjectId="source:cli:meta-weave:app:command:add-direction:option:target-model">
       <DisplayName>--workspace</DisplayName>
@@ -57,7 +57,39 @@
       <Status>New</Status>
       <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-requirement" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:add-direction">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-relation" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:add-direction">
+      <DisplayName>meta-weave add-relation</DisplayName>
+      <DisplayPath>meta-weave add-relation</DisplayPath>
+      <NativeId>exec-add-relation</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Read WeaveScript from standard input and add one named relation to a direction.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-relation:option:direction" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-relation">
+      <DisplayName>--direction</DisplayName>
+      <DisplayPath>meta-weave add-relation --direction</DisplayPath>
+      <NativeId>opt-add-relation-direction</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Direction that owns the relation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-relation:option:name" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-relation" PreviousSubjectId="source:cli:meta-weave:app:command:add-relation:option:direction">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-weave add-relation --name</DisplayPath>
+      <NativeId>opt-add-relation-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Relation name within the direction.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-relation:option:workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-relation" PreviousSubjectId="source:cli:meta-weave:app:command:add-relation:option:name">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-weave add-relation --workspace</DisplayPath>
+      <NativeId>opt-add-relation-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-requirement" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:add-relation">
       <DisplayName>meta-weave add-requirement</DisplayName>
       <DisplayPath>meta-weave add-requirement</DisplayPath>
       <NativeId>exec-add-requirement</NativeId>
@@ -105,7 +137,39 @@
       <Status>New</Status>
       <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-transformation" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:add-requirement">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-string-parameter" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:add-requirement">
+      <DisplayName>meta-weave add-string-parameter</DisplayName>
+      <DisplayPath>meta-weave add-string-parameter</DisplayPath>
+      <NativeId>exec-add-string-parameter</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Declare one string execution parameter on a direction.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-string-parameter:option:direction" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-string-parameter">
+      <DisplayName>--direction</DisplayName>
+      <DisplayPath>meta-weave add-string-parameter --direction</DisplayPath>
+      <NativeId>opt-add-string-parameter-direction</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Direction that declares the parameter.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-string-parameter:option:name" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-string-parameter" PreviousSubjectId="source:cli:meta-weave:app:command:add-string-parameter:option:direction">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-weave add-string-parameter --name</DisplayPath>
+      <NativeId>opt-add-string-parameter-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>String parameter name, referenced from WeaveScript as @name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-string-parameter:option:workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:add-string-parameter" PreviousSubjectId="source:cli:meta-weave:app:command:add-string-parameter:option:name">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-weave add-string-parameter --workspace</DisplayPath>
+      <NativeId>opt-add-string-parameter-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:add-transformation" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:add-string-parameter">
       <DisplayName>meta-weave add-transformation</DisplayName>
       <DisplayPath>meta-weave add-transformation</DisplayPath>
       <NativeId>exec-add-transformation</NativeId>
@@ -151,7 +215,7 @@
       <NativeId>exec-create</NativeId>
       <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>Create a complete MetaWeave workspace for two model contracts.</Summary>
+      <Summary>Create a MetaWeave workspace.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:connection-env" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create">
       <DisplayName>--connection-env</DisplayName>
@@ -169,15 +233,7 @@
       <Status>Changed</Status>
       <Summary>Create a C# MetaWeave workspace.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:left-model" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create" PreviousSubjectId="source:cli:meta-weave:app:command:create:option:csharp">
-      <DisplayName>--left-model</DisplayName>
-      <DisplayPath>meta-weave create --left-model</DisplayPath>
-      <NativeId>opt-create-left-model</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Left model contract name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:name" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create" PreviousSubjectId="source:cli:meta-weave:app:command:create:option:left-model">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:name" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create" PreviousSubjectId="source:cli:meta-weave:app:command:create:option:csharp">
       <DisplayName>--name</DisplayName>
       <DisplayPath>meta-weave create --name</DisplayPath>
       <NativeId>opt-create-name</NativeId>
@@ -185,15 +241,7 @@
       <Status>Changed</Status>
       <Summary>Weave name.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:right-model" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create" PreviousSubjectId="source:cli:meta-weave:app:command:create:option:name">
-      <DisplayName>--right-model</DisplayName>
-      <DisplayPath>meta-weave create --right-model</DisplayPath>
-      <NativeId>opt-create-right-model</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Right model contract name.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:sql" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create" PreviousSubjectId="source:cli:meta-weave:app:command:create:option:right-model">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:create:option:sql" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:create" PreviousSubjectId="source:cli:meta-weave:app:command:create:option:name">
       <DisplayName>--sql</DisplayName>
       <DisplayPath>meta-weave create --sql</DisplayPath>
       <NativeId>opt-create-sql</NativeId>
@@ -217,7 +265,39 @@
       <Status>Changed</Status>
       <Summary>Choose one MetaWeave workspace representation.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:emit-requirement" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:create">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:emit-relation" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:create">
+      <DisplayName>meta-weave emit-relation</DisplayName>
+      <DisplayPath>meta-weave emit-relation</DisplayPath>
+      <NativeId>exec-emit-relation</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Emit one named relation as recognizable T-SQL.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:emit-relation:option:direction" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:emit-relation">
+      <DisplayName>--direction</DisplayName>
+      <DisplayPath>meta-weave emit-relation --direction</DisplayPath>
+      <NativeId>opt-emit-relation-direction</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Direction that owns the relation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:emit-relation:option:name" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:emit-relation" PreviousSubjectId="source:cli:meta-weave:app:command:emit-relation:option:direction">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-weave emit-relation --name</DisplayPath>
+      <NativeId>opt-emit-relation-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Relation name within the direction.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:emit-relation:option:workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:emit-relation" PreviousSubjectId="source:cli:meta-weave:app:command:emit-relation:option:name">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-weave emit-relation --workspace</DisplayPath>
+      <NativeId>opt-emit-relation-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:emit-requirement" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:emit-relation">
       <DisplayName>meta-weave emit-requirement</DisplayName>
       <DisplayPath>meta-weave emit-requirement</DisplayPath>
       <NativeId>exec-emit-requirement</NativeId>
@@ -313,13 +393,21 @@
       <Status>New</Status>
       <Summary>Direction to execute. Defaults to forward.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:execute:option:source-workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:execute" PreviousSubjectId="source:cli:meta-weave:app:command:execute:option:direction">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:execute:option:parameter" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:execute" PreviousSubjectId="source:cli:meta-weave:app:command:execute:option:direction">
+      <DisplayName>--parameter</DisplayName>
+      <DisplayPath>meta-weave execute --parameter</DisplayPath>
+      <NativeId>opt-execute-parameter</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>String execution parameter as name=value. Repeat for additional parameters.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:execute:option:source-workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:execute" PreviousSubjectId="source:cli:meta-weave:app:command:execute:option:parameter">
       <DisplayName>--source-workspace</DisplayName>
       <DisplayPath>meta-weave execute --source-workspace</DisplayPath>
       <NativeId>opt-execute-source-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>Populated source workspace read by the direction.</Summary>
+      <Summary>Populated source workspace as name=path. Repeat for additional sources; a bare path is accepted for a single-source direction.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-weave:app:command:execute:option:sql" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:execute" PreviousSubjectId="source:cli:meta-weave:app:command:execute:option:source-workspace">
       <DisplayName>--sql</DisplayName>
@@ -385,7 +473,39 @@
       <Status>Changed</Status>
       <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-weave:app:command:update-requirement" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:show">
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:update-relation" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:show">
+      <DisplayName>meta-weave update-relation</DisplayName>
+      <DisplayPath>meta-weave update-relation</DisplayPath>
+      <NativeId>exec-update-relation</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Read replacement WeaveScript from standard input and update one named relation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:update-relation:option:direction" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:update-relation">
+      <DisplayName>--direction</DisplayName>
+      <DisplayPath>meta-weave update-relation --direction</DisplayPath>
+      <NativeId>opt-update-relation-direction</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Direction that owns the relation.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:update-relation:option:name" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:update-relation" PreviousSubjectId="source:cli:meta-weave:app:command:update-relation:option:direction">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-weave update-relation --name</DisplayPath>
+      <NativeId>opt-update-relation-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Relation name within the direction.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:update-relation:option:workspace" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-weave:app:command:update-relation" PreviousSubjectId="source:cli:meta-weave:app:command:update-relation:option:name">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-weave update-relation --workspace</DisplayPath>
+      <NativeId>opt-update-relation-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaWeave workspace. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-weave:app:command:update-requirement" DocumentationSourceId="source:cli:meta-weave" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-weave:app" PreviousSubjectId="source:cli:meta-weave:app:command:update-relation">
       <DisplayName>meta-weave update-requirement</DisplayName>
       <DisplayPath>meta-weave update-requirement</DisplayPath>
       <NativeId>exec-update-requirement</NativeId>
