@@ -58,6 +58,9 @@
     <XmlWorkspace Id="workspace:cli-meta-transform-binding" WorkspaceId="workspace:cli-meta-transform-binding">
       <Path>..\meta-bi\MetaTransform\Binding\Cli\meta-transform-binding.MetaCli</Path>
     </XmlWorkspace>
+    <XmlWorkspace Id="workspace:cli-meta-transform-pattern" WorkspaceId="workspace:cli-meta-transform-pattern">
+      <Path>..\meta-bi\MetaTransform\Pattern\Cli\meta-transform-pattern.MetaCli</Path>
+    </XmlWorkspace>
     <XmlWorkspace Id="workspace:cli-meta-transform-script" WorkspaceId="workspace:cli-meta-transform-script">
       <Path>..\meta-bi\MetaTransform\Script\Cli\meta-transform-script.MetaCli</Path>
     </XmlWorkspace>
@@ -181,6 +184,12 @@
     <XmlWorkspace Id="workspace:docs-meta-transform-binding-model" WorkspaceId="workspace:docs-meta-transform-binding-model">
       <Path>MetaDocs\Docs\Workspaces\meta-transform-binding-model</Path>
     </XmlWorkspace>
+    <XmlWorkspace Id="workspace:docs-meta-transform-pattern-cli" WorkspaceId="workspace:docs-meta-transform-pattern-cli">
+      <Path>MetaDocs\Docs\Workspaces\meta-transform-pattern-cli</Path>
+    </XmlWorkspace>
+    <XmlWorkspace Id="workspace:docs-meta-transform-pattern-model" WorkspaceId="workspace:docs-meta-transform-pattern-model">
+      <Path>MetaDocs\Docs\Workspaces\meta-transform-pattern-model</Path>
+    </XmlWorkspace>
     <XmlWorkspace Id="workspace:docs-meta-transform-script-cli" WorkspaceId="workspace:docs-meta-transform-script-cli">
       <Path>MetaDocs\Docs\Workspaces\meta-transform-script-cli</Path>
     </XmlWorkspace>
@@ -262,11 +271,20 @@
     <XmlWorkspace Id="workspace:model-meta-transform-binding" WorkspaceId="workspace:model-meta-transform-binding">
       <Path>..\meta-bi\MetaTransform\Binding\Workspaces\MetaTransformBinding</Path>
     </XmlWorkspace>
+    <XmlWorkspace Id="workspace:model-meta-transform-pattern" WorkspaceId="workspace:model-meta-transform-pattern">
+      <Path>..\meta-bi\MetaTransform\Pattern\Workspace</Path>
+    </XmlWorkspace>
     <XmlWorkspace Id="workspace:model-meta-transform-script" WorkspaceId="workspace:model-meta-transform-script">
       <Path>..\meta-bi\MetaTransform\Script\Workspaces\MetaTransformScript</Path>
     </XmlWorkspace>
     <XmlWorkspace Id="workspace:model-meta-weave" WorkspaceId="workspace:model-meta-weave">
       <Path>MetaWeave\Workspace</Path>
+    </XmlWorkspace>
+    <XmlWorkspace Id="xml-workspace:docs-meta-transform-pattern-instance-model" WorkspaceId="workspace:docs-meta-transform-pattern-instance-model">
+      <Path>MetaDocs\Docs\Workspaces\meta-transform-pattern-instance-model</Path>
+    </XmlWorkspace>
+    <XmlWorkspace Id="xml-workspace:model-meta-transform-pattern-instance" WorkspaceId="workspace:model-meta-transform-pattern-instance">
+      <Path>..\meta-bi\MetaTransform\PatternInstance\Workspace</Path>
     </XmlWorkspace>
   </XmlWorkspaceList>
 </MetaMesh>

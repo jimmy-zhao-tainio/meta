@@ -248,7 +248,71 @@
       <Status>New</Status>
       <Summary>Choose one workspace target.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:help" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files">
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-files">
+      <DisplayName>meta-transform-script from sql-script-workspace</DisplayName>
+      <DisplayPath>meta-transform-script from sql-script-workspace</DisplayPath>
+      <NativeId>exec-from-sql-script-workspace</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Import every script from a MetaSqlScript workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-connection-env" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-transform-script from sql-script-workspace --output-connection-env</DisplayPath>
+      <NativeId>option-from-sql-script-workspace-output-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-csharp" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-transform-script from sql-script-workspace --output-csharp</DisplayPath>
+      <NativeId>option-from-sql-script-workspace-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a C# workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-sql" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-transform-script from sql-script-workspace --output-sql</DisplayPath>
+      <NativeId>option-from-sql-script-workspace-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a SQL workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-xml" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-transform-script from sql-script-workspace --output-xml</DisplayPath>
+      <NativeId>option-from-sql-script-workspace-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as an XML workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:source-workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-xml">
+      <DisplayName>--source-workspace</DisplayName>
+      <DisplayPath>meta-transform-script from sql-script-workspace --source-workspace</DisplayPath>
+      <NativeId>option-from-sql-script-workspace-source-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Source MetaSqlScript workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:workspace" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:source-workspace">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-transform-script from sql-script-workspace --workspace</DisplayPath>
+      <NativeId>option-from-sql-script-workspace-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Existing MetaTransformScript workspace to update.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:parameter-group:target" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta-transform-script from sql-script-workspace group target</DisplayPath>
+      <NativeId>group-from-sql-script-workspace-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace target.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-transform-script:app:command:help" DocumentationSourceId="source:cli:meta-transform-script" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-script:app" PreviousSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace">
       <DisplayName>meta-transform-script help</DisplayName>
       <DisplayPath>meta-transform-script help</DisplayPath>
       <NativeId>exec-help</NativeId>

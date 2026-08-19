@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="MetaDocs">
+  <EntityList>
+    <Entity name="DocumentationComponentTemplate">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="TemplateText" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationComponentTemplateType" />
+        <Relationship entity="DocumentationTheme" />
+        <Relationship entity="DocumentationComponentTemplate" role="PreviousComponent" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationComponentTemplateType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationEntityImportSpec">
+      <PropertyList>
+        <Property name="DisplayNameProperty" isRequired="false" />
+        <Property name="EntityName" />
+        <Property name="IncludeInstances" />
+        <Property name="ReviewStatus" />
+        <Property name="SummaryProperty" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationInstanceImportSpec" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationFact">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="SourceFingerprint" isRequired="false" />
+        <Property name="Status" />
+        <Property name="Value" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationFactType" />
+        <Relationship entity="DocumentationImportBatch" />
+        <Relationship entity="DocumentationSource" />
+        <Relationship entity="DocumentationSubject" />
+        <Relationship entity="DocumentationValueType" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationFactType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationImportBatch">
+      <PropertyList>
+        <Property name="ImportedAt" />
+        <Property name="ImporterId" />
+        <Property name="ImporterVersion" />
+        <Property name="SourceFingerprint" isRequired="false" />
+        <Property name="Status" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationSource" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationInstanceImportSpec">
+      <PropertyList>
+        <Property name="IncludeInstances" />
+        <Property name="Name" />
+        <Property name="SafetyStatus" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationSource" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationLayout">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationLayoutType" />
+        <Relationship entity="DocumentationTheme" />
+        <Relationship entity="DocumentationLayout" role="PreviousLayout" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationLayoutType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationNarrative">
+      <PropertyList>
+        <Property name="Body" isRequired="false" />
+        <Property name="LastReviewedImportBatchId" isRequired="false" />
+        <Property name="Origin" />
+        <Property name="ReviewStatus" />
+        <Property name="Slot" />
+        <Property name="Title" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationSubject" />
+        <Relationship entity="DocumentationNarrative" role="PreviousNarrative" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationPropertyImportSpec">
+      <PropertyList>
+        <Property name="Include" />
+        <Property name="PropertyName" />
+        <Property name="ReviewStatus" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationEntityImportSpec" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationRelationship">
+      <RelationshipList>
+        <Relationship entity="DocumentationImportBatch" />
+        <Relationship entity="DocumentationRelationshipType" />
+        <Relationship entity="DocumentationSource" />
+        <Relationship entity="DocumentationSubject" role="FromSubject" />
+        <Relationship entity="DocumentationRelationship" role="PreviousRelationship" isRequired="false" />
+        <Relationship entity="DocumentationSubject" role="ToSubject" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationRelationshipImportSpec">
+      <PropertyList>
+        <Property name="Include" />
+        <Property name="RelationshipSelector" />
+        <Property name="ReviewStatus" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationEntityImportSpec" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationRelationshipType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationSource">
+      <PropertyList>
+        <Property name="DisplayName" />
+        <Property name="ImportedAt" isRequired="false" />
+        <Property name="ImporterId" isRequired="false" />
+        <Property name="Locator" isRequired="false" />
+        <Property name="SourceFingerprint" isRequired="false" />
+        <Property name="Status" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationSourceType" />
+        <Relationship entity="DocumentationWorkspace" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationSourceType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationSubject">
+      <PropertyList>
+        <Property name="DisplayName" />
+        <Property name="DisplayPath" isRequired="false" />
+        <Property name="NativeId" isRequired="false" />
+        <Property name="SourceTypeName" isRequired="false" />
+        <Property name="Status" />
+        <Property name="Summary" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationSource" />
+        <Relationship entity="DocumentationSubjectType" />
+        <Relationship entity="DocumentationSubject" role="ParentSubject" isRequired="false" />
+        <Relationship entity="DocumentationSubject" role="PreviousSubject" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationSubjectAlias">
+      <PropertyList>
+        <Property name="Alias" />
+        <Property name="Reason" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationSubject" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationSubjectType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationTemplate">
+      <PropertyList>
+        <Property name="Html" isRequired="false" />
+        <Property name="Name" />
+        <Property name="SourceUrl" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationTemplateType" />
+        <Relationship entity="DocumentationTheme" />
+        <Relationship entity="DocumentationTemplate" role="PreviousTemplate" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationTemplateRegion">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationTemplate" />
+        <Relationship entity="DocumentationTemplateRegionType" />
+        <Relationship entity="DocumentationTemplateRegion" role="PreviousRegion" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationTemplateRegionType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationTemplateType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationTheme">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="RenderOptions" isRequired="false" />
+        <Property name="Version" isRequired="false" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationThemeAsset">
+      <PropertyList>
+        <Property name="Content" isRequired="false" />
+        <Property name="Hash" isRequired="false" />
+        <Property name="Href" isRequired="false" />
+        <Property name="MediaType" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationThemeAssetType" />
+        <Relationship entity="DocumentationTheme" />
+        <Relationship entity="DocumentationThemeAsset" role="PreviousAsset" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationThemeAssetType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationValueType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationView">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="Summary" isRequired="false" />
+        <Property name="Title" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationViewType" />
+        <Relationship entity="DocumentationSubject" role="RootSubject" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationViewNode">
+      <PropertyList>
+        <Property name="ParentNodeId" isRequired="false" />
+        <Property name="Selection" isRequired="false" />
+        <Property name="Title" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationSubject" isRequired="false" />
+        <Relationship entity="DocumentationView" />
+        <Relationship entity="DocumentationViewNode" role="PreviousNode" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationViewType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+    <Entity name="DocumentationWorkspace">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="Summary" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="DocumentationWorkspaceType" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="DocumentationWorkspaceType">
+      <PropertyList>
+        <Property name="Description" isRequired="false" />
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+  </EntityList>
+</Model>

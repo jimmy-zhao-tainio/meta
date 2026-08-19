@@ -249,6 +249,8 @@ Dimensional design begins with grain. `MetaDataWarehouse` carries facts, dimensi
 
 `MetaTransformScript` is a semantic model of supported T-SQL. It carries statements, queries, CTEs, row sources, expressions, functions, identifiers, ordering, and mutations as related model entities. SQL can be imported into that model, inspected and changed as workspace data, and emitted again as T-SQL.
 
+`MetaTransformPattern` models reusable SQL transform shapes as ordered text and named placeholders. Its workspace contains definitions only, so a pattern library can be shared and versioned on its own. `MetaTransformPatternInstance` keeps concrete uses in a separate workspace: each instance identifies a pattern and supplies one SQL fragment for each placeholder. The `TransformPatternToSqlScript` weave takes both workspaces and produces one `MetaSqlScript` record per instance; the existing SQL importer then parses those statements into `MetaTransformScript`.
+
 Binding places those transforms against source and target `MetaSchema` workspaces. `MetaTransformBinding` resolves object and field references, derives input and output rowsets, records reads and writes, matches projected columns to target columns, and applies the selected `MetaDataTypeConversion` rules. The resulting binding workspace feeds data-quality discovery, pipeline execution, and orchestration analysis.
 
 #### SQL databases
@@ -283,7 +285,7 @@ At the analytical layer, `MetaAnalytics` carries tables, attributes, relationshi
       <Title>The models</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:summary" DocumentationSubjectId="public:meta-bi:overview">
-      <Body>`meta-bi` brings BI engineering into the workspace system provided by `meta`. A project can move from a discovered source schema to Data Vault and dimensional models, bind SQL transforms to those structures, turn transform patterns into data-quality checks, execute loads, derive orchestration, and publish analytical models.
+      <Body>`meta-bi` brings BI engineering into the workspace system provided by `meta`. A project can move from a discovered source schema to Data Vault and dimensional models, bind SQL transforms to those structures, analyze them for data-quality checks, execute loads, derive orchestration, and publish analytical models.
 
 Each stage leaves a model workspace behind. Those workspaces carry the structures and decisions used by the next stage, while the command-line tools create and operate them.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
@@ -3152,7 +3154,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional">
       <Body>Convert MetaAnalytics workspace to MetaMultiDimensional workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3160,7 +3162,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3168,7 +3170,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-csharp">
       <Body>Create the output as a C# workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3176,7 +3178,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-sql:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-sql">
       <Body>Create the output as a SQL workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3184,7 +3186,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-xml:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:output-xml">
       <Body>Create the output as an XML workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3192,7 +3194,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:option:workspace">
       <Body>Source workspace path. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3200,7 +3202,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-tabular:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular">
       <Body>Convert MetaAnalytics workspace to MetaTabular workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3208,7 +3210,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3216,7 +3218,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-csharp">
       <Body>Create the output as a C# workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3224,7 +3226,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-sql:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-sql">
       <Body>Create the output as a SQL workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3232,7 +3234,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-xml:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:option:output-xml">
       <Body>Create the output as an XML workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3240,7 +3242,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:analytics-to-tabular:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:option:workspace">
       <Body>Source workspace path. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3248,7 +3250,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:business-datavault-to-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql">
       <Body>Convert MetaBusinessDataVault workspace to MetaSql workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3256,7 +3258,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:database-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:database-name">
       <Body>Target MetaSql database name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3264,7 +3266,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:implementation-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:implementation-workspace">
       <Body>Implementation policy workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3272,7 +3274,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3280,7 +3282,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-csharp">
       <Body>Create the output as a C# workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3288,7 +3290,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-sql:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-sql">
       <Body>Create the output as a SQL workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3296,7 +3298,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-xml:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:output-xml">
       <Body>Create the output as an XML workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3304,7 +3306,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:business-datavault-to-sql:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:option:workspace">
       <Body>Source workspace path. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3312,7 +3314,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-quality-to-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-quality-to-sql">
       <Body>Convert promoted MetaDataQuality candidates to SQL data-quality views.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3320,7 +3322,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-quality-to-sql:option:out:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-quality-to-sql:option:out">
       <Body>Output workspace or script folder path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3328,7 +3330,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-quality-to-sql:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-quality-to-sql:option:workspace">
       <Body>Source workspace path. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3336,7 +3338,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql">
       <Body>Convert MetaDataWarehouse workspace to MetaSql workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3344,7 +3346,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:database-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:database-name">
       <Body>Target MetaSql database name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3352,7 +3354,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:implementation-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:implementation-workspace">
       <Body>Implementation policy workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3360,7 +3362,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3368,7 +3370,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-csharp">
       <Body>Create the output as a C# workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3376,7 +3378,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-sql:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-sql">
       <Body>Create the output as a SQL workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3384,7 +3386,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-xml:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:output-xml">
       <Body>Create the output as an XML workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3392,7 +3394,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:option:workspace">
       <Body>Source workspace path. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3400,7 +3402,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:help:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:help">
       <Body>Show help.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3408,7 +3410,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql">
       <Body>Convert MetaRawDataVault workspace to MetaSql workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3416,7 +3418,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:database-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:database-name">
       <Body>Target MetaSql database name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3424,7 +3426,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:implementation-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:implementation-workspace">
       <Body>Implementation policy workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3432,7 +3434,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3440,7 +3442,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-csharp">
       <Body>Create the output as a C# workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3448,7 +3450,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-sql:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-sql">
       <Body>Create the output as a SQL workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3456,7 +3458,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-xml:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:output-xml">
       <Body>Create the output as an XML workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3464,7 +3466,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:option:workspace">
       <Body>Source workspace path. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3472,7 +3474,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault">
       <Body>Convert MetaSchema workspace to MetaRawDataVault workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3480,7 +3482,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:connection-env:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:connection-env">
       <Body>Environment variable containing the SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3488,7 +3490,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:ignore-field-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:ignore-field-name">
       <Body>Source field name to ignore. May be repeated.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3496,7 +3498,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:ignore-field-suffix:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:ignore-field-suffix">
       <Body>Source field suffix to ignore. May be repeated.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3504,7 +3506,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:include-views:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:include-views">
       <Body>Include source views.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3512,7 +3514,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-connection-env:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3520,7 +3522,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-csharp:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-csharp">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3528,7 +3530,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-sql">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3536,7 +3538,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-xml:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:output-xml">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3544,7 +3546,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:source-workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:source-workspace">
       <Body>MetaSchema workspace to convert.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3552,7 +3554,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:verbose:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault:option:verbose">
       <Body>Print conversion summary.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3560,7 +3562,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:sql-to-transform-script:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script">
       <Body>Convert MetaSql SQL modules to MetaTransformScript workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3568,7 +3570,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:allow-empty:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:allow-empty">
       <Body>Create an empty MetaTransformScript workspace when selected module kinds have no convertible modules.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3576,7 +3578,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-functions:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-functions">
       <Body>Convert function modules. If no include switch is provided, all module kinds are selected.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3584,7 +3586,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-stored-procedures:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-stored-procedures">
       <Body>Convert stored procedure modules. If no include switch is provided, all module kinds are selected.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3592,7 +3594,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-views:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:include-views">
       <Body>Convert view modules. If no include switch is provided, all module kinds are selected.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3600,7 +3602,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3608,7 +3610,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-csharp">
       <Body>Create the output as a C# workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3616,7 +3618,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-sql:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-sql">
       <Body>Create the output as a SQL workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3624,7 +3626,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-xml:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:output-xml">
       <Body>Create the output as an XML workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3632,7 +3634,63 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:sql-to-transform-script:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:option:workspace">
       <Body>Source MetaSql workspace path. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script">
+      <Body>Materialize MetaTransformPattern definitions and MetaTransformPatternInstance values as a MetaSqlScript workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:instance-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:instance-workspace">
+      <Body>Source MetaTransformPatternInstance workspace containing concrete instances.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-connection-env">
+      <Body>Environment variable containing the output SQL workspace connection string.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-csharp">
+      <Body>Create the output as a C# workspace at this path.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-sql:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-sql">
+      <Body>Create the output as a SQL workspace at this path.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-xml:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-xml">
+      <Body>Create the output as an XML workspace at this path.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:pattern-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:pattern-workspace">
+      <Body>Source MetaTransformPattern workspace containing reusable definitions.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3640,7 +3698,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-script-to-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql">
       <Body>Convert MetaTransformScript SQL modules to MetaSql workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3648,7 +3706,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:database-name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:database-name">
       <Body>Target MetaSql database name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3656,7 +3714,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3664,7 +3722,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-csharp">
       <Body>Create the output as a C# workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3672,7 +3730,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-sql:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-sql">
       <Body>Create the output as a SQL workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3680,7 +3738,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-xml:narrative:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:output-xml">
       <Body>Create the output as an XML workspace at this path.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3688,7 +3746,7 @@ The runtime, help output, and documentation import all read the same modeled com
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:command:transform-script-to-sql:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:option:workspace">
       <Body>Source MetaTransformScript workspace path. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -3719,7 +3777,7 @@ Each conversion names its source and destination workspaces and applies the rule
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-convert:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-convert:app">
       <Body>Convert between sanctioned BI workspaces, including schema, vault, warehouse, SQL, transform, analytics, tabular, and multidimensional models.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260811132213839</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-convert:batch:20260818220942196</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15108,9 +15166,393 @@ A successful binding is a concrete statement about what the transform reads and 
       <Slot>Summary</Slot>
       <Title>Summary</Title>
     </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-instance:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-instance">
+      <Body>Add one concrete instance of a reusable transform pattern.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-instance:option:id:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-instance:option:id">
+      <Body>Stable instance identity and output script identity.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-instance:option:name:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-instance:option:name">
+      <Body>Instance and output script name.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-instance:option:pattern-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-instance:option:pattern-workspace">
+      <Body>MetaTransformPattern workspace containing the reusable pattern.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-instance:option:pattern:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-instance:option:pattern">
+      <Body>Stable identity of the reusable pattern.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-instance:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-instance:option:workspace">
+      <Body>MetaTransformPatternInstance workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-pattern:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-pattern">
+      <Body>Read a pattern projection from standard input and add it.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-pattern:option:description:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-pattern:option:description">
+      <Body>Pattern description.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-pattern:option:id:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-pattern:option:id">
+      <Body>Stable pattern identity.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-pattern:option:name:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-pattern:option:name">
+      <Body>Pattern display name.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:add-pattern:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:add-pattern:option:workspace">
+      <Body>MetaTransformPattern workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:clear-binding:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding">
+      <Body>Set one instance placeholder to empty SQL text.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:clear-binding:option:instance:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding:option:instance">
+      <Body>Transform-pattern instance identity.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:clear-binding:option:pattern-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding:option:pattern-workspace">
+      <Body>MetaTransformPattern workspace used to resolve the placeholder.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:clear-binding:option:placeholder:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding:option:placeholder">
+      <Body>Placeholder name or stable identity.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:clear-binding:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding:option:workspace">
+      <Body>MetaTransformPatternInstance workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:create-instance-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:create-instance-workspace">
+      <Body>Create an empty MetaTransformPatternInstance workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:create-instance-workspace:option:connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:create-instance-workspace:option:connection-env">
+      <Body>Environment variable containing the SQL workspace connection string.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:create-instance-workspace:option:csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:create-instance-workspace:option:csharp">
+      <Body>Create a C# MetaTransformPatternInstance workspace at this path.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:create-instance-workspace:option:sql:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:create-instance-workspace:option:sql">
+      <Body>Create a SQL MetaTransformPatternInstance workspace described by this directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:create-instance-workspace:option:xml:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:create-instance-workspace:option:xml">
+      <Body>Create an XML MetaTransformPatternInstance workspace at this path.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:create:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:create">
+      <Body>Create an empty MetaTransformPattern workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:create:option:connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:create:option:connection-env">
+      <Body>Environment variable containing the SQL workspace connection string.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:create:option:csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:create:option:csharp">
+      <Body>Create a C# workspace at this path.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:create:option:sql:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:create:option:sql">
+      <Body>Create a SQL workspace described by this directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:create:option:xml:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:create:option:xml">
+      <Body>Create an XML workspace at this path.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:emit-pattern:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:emit-pattern">
+      <Body>Write one pattern as its editable text projection.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:emit-pattern:option:id:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:emit-pattern:option:id">
+      <Body>Pattern identity.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:emit-pattern:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:emit-pattern:option:workspace">
+      <Body>MetaTransformPattern workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:help:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:help">
+      <Body>Show help.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:set-binding:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:set-binding">
+      <Body>Replace one instance placeholder with a SQL fragment read from standard input.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:set-binding:option:instance:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:set-binding:option:instance">
+      <Body>Transform-pattern instance identity.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:set-binding:option:pattern-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:set-binding:option:pattern-workspace">
+      <Body>MetaTransformPattern workspace used to resolve the placeholder.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:set-binding:option:placeholder:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:set-binding:option:placeholder">
+      <Body>Placeholder name or stable identity.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:set-binding:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:set-binding:option:workspace">
+      <Body>MetaTransformPatternInstance workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:show-instances:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:show-instances">
+      <Body>Show concrete pattern instances and placeholder coverage.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:show-instances:option:pattern-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:show-instances:option:pattern-workspace">
+      <Body>MetaTransformPattern workspace containing the reusable definitions.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:show-instances:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:show-instances:option:workspace">
+      <Body>MetaTransformPatternInstance workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:show:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:show">
+      <Body>Show reusable transform-pattern definitions.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:show:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:show:option:workspace">
+      <Body>MetaTransformPattern workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:update-pattern:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:update-pattern">
+      <Body>Read a replacement pattern projection from standard input.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:update-pattern:option:id:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:update-pattern:option:id">
+      <Body>Pattern identity.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:command:update-pattern:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app:command:update-pattern:option:workspace">
+      <Body>MetaTransformPattern workspace. Defaults to the current directory.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:narrative:example-example-meta-transform-pattern-render" DocumentationSubjectId="source:cli:meta-transform-pattern:app" PreviousNarrativeId="source:cli:meta-transform-pattern:app:narrative:guide">
+      <Body>Create a reusable pattern library and a separate workspace for concrete instances:
+
+```text
+meta-transform-pattern create --xml .\Patterns
+meta-transform-pattern add-pattern --workspace .\Patterns --id insert-select --name "Insert select" &lt; insert-select.pattern.sql
+meta-transform-pattern create-instance-workspace --xml .\PatternInstances
+meta-transform-pattern add-instance --workspace .\PatternInstances --pattern-workspace .\Patterns --id load-customer --name LoadCustomer --pattern insert-select
+```
+
+Supply each placeholder through standard input, then materialize the instances:
+
+```text
+echo [dbo].[Customer] | meta-transform-pattern set-binding --workspace .\PatternInstances --pattern-workspace .\Patterns --instance load-customer --placeholder target
+meta-convert transform-pattern-to-sql-script --pattern-workspace .\Patterns --instance-workspace .\PatternInstances --output-xml .\SqlScripts
+```</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Example.example:meta-transform-pattern:render</Slot>
+      <Title>Render pattern instances</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:narrative:guide" DocumentationSubjectId="source:cli:meta-transform-pattern:app" PreviousNarrativeId="source:cli:meta-transform-pattern:app:narrative:summary">
+      <Body>`MetaTransformPattern` and `MetaTransformPatternInstance` deliberately use separate workspaces. The pattern workspace is a reusable library of ordered SQL text and placeholders. The instance workspace identifies those patterns and supplies the concrete values used by one project.
+
+`meta-transform-pattern` authors both workspace types. Definition commands use the pattern workspace; instance commands use the instance workspace together with `--pattern-workspace` so placeholder identities are resolved against the reusable definition. The sanctioned weave takes both workspaces and produces `MetaSqlScript`. SQL parsing remains in the existing MetaTransformScript importer.</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Guide</Slot>
+      <Title>Working with transform patterns</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-pattern:app">
+      <Body>Author reusable SQL transform patterns and their concrete instance workspaces.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-pattern:batch:20260819043956619</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-code:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-code">
       <Body>Import SQL text.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15118,7 +15560,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-code:option:code:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:code">
       <Body>SQL text to import.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15126,7 +15568,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-code:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:name">
       <Body>Required when SQL code is bare SELECT or mutation text without a CREATE wrapper.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15134,7 +15576,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-code:option:output-connection-env:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15142,7 +15584,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-code:option:output-csharp:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:output-csharp">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15150,7 +15592,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-code:option:output-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:output-sql">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15158,7 +15600,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-code:option:output-xml:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:output-xml">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15166,7 +15608,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-code:option:target:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:target">
       <Body>Optional for CREATE VIEW imports; required for bare SELECT; not allowed for inline CREATE FUNCTION or mutation imports.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15174,7 +15616,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-code:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-code:option:workspace">
       <Body>Add one script to an existing workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15182,7 +15624,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-file:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-file">
       <Body>Import one .sql file.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15190,7 +15632,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-file:option:output-connection-env:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15198,7 +15640,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-file:option:output-csharp:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:output-csharp">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15206,7 +15648,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-file:option:output-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:output-sql">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15214,7 +15656,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-file:option:output-xml:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:output-xml">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15222,7 +15664,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-file:option:path:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:path">
       <Body>SQL file to import.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15230,7 +15672,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-file:option:target:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:target">
       <Body>Optional for CREATE VIEW imports; required for bare SELECT; not allowed for inline CREATE FUNCTION or mutation imports.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15238,7 +15680,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-file:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-file:option:workspace">
       <Body>Add one script to an existing workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15246,7 +15688,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-files:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-files">
       <Body>Import many .sql files from an explicit manifest.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15254,7 +15696,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-files:option:manifest:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:manifest">
       <Body>TSV manifest with a Path column and optional Target column.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15262,7 +15704,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-files:option:output-connection-env:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:output-connection-env">
       <Body>Environment variable containing the output SQL workspace connection string.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15270,7 +15712,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-files:option:output-csharp:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:output-csharp">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15278,7 +15720,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-files:option:output-sql:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:output-sql">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15286,7 +15728,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-files:option:output-xml:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:output-xml">
       <Body>Create the output on the selected workspace surface.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15294,7 +15736,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-files:option:report:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:report">
       <Body>Write per-file Success/Failure rows.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15302,7 +15744,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-files:option:verbose:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:verbose">
       <Body>Print one progress line per imported file.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15310,7 +15752,63 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-files:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-files:option:workspace">
       <Body>Add successful imports to an existing workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace">
+      <Body>Import every script from a MetaSqlScript workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-connection-env:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-connection-env">
+      <Body>Environment variable containing the output SQL workspace connection string.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-csharp:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-csharp">
+      <Body>Create the output as a C# workspace at this path.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-sql:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-sql">
+      <Body>Create the output as a SQL workspace at this path.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-xml:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:output-xml">
+      <Body>Create the output as an XML workspace at this path.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:source-workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:source-workspace">
+      <Body>Source MetaSqlScript workspace.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
+      <Origin>Generated</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Summary</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:workspace:narrative:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:from-sql-script-workspace:option:workspace">
+      <Body>Existing MetaTransformScript workspace to update.</Body>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15318,7 +15816,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:help:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:help">
       <Body>Show help.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15326,7 +15824,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract">
       <Body>Add or replace stored procedure contract metadata.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15334,7 +15832,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:name">
       <Body>Stored procedure transform script name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15342,7 +15840,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:notes:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:notes">
       <Body>Human note stored on the contract.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15350,7 +15848,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:operation:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:operation">
       <Body>Declare an ordered operation: `&lt;ordinal&gt;:&lt;kind&gt;:&lt;sql-id&gt;[=&lt;role&gt;]`.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15358,7 +15856,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-column:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-column">
       <Body>Declare a result column for a named result rowset.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15366,7 +15864,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-rowset:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:result-rowset">
       <Body>Declare the optional result rowset.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15374,7 +15872,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-add-contract:option:workspace">
       <Body>MetaTransformScript workspace to update. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15382,7 +15880,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract">
       <Body>Remove a stored procedure contract and its declared rows.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15390,7 +15888,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:name">
       <Body>Stored procedure transform script name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15398,7 +15896,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-remove-contract:option:workspace">
       <Body>MetaTransformScript workspace to update. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15406,7 +15904,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-view-contract">
       <Body>View stored procedure contracts.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15414,7 +15912,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:name">
       <Body>Inspect one stored procedure transform script by name.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15422,7 +15920,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:stored-procedure-view-contract:option:workspace">
       <Body>MetaTransformScript workspace to inspect. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15430,7 +15928,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern">
       <Body>Derive view target identifiers from transform script names.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15438,7 +15936,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:allow-empty:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:allow-empty">
       <Body>Exit successfully even when the pattern updates no target identifiers.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15446,7 +15944,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:dry-run:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:dry-run">
       <Body>Show what would change without saving the workspace.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15454,7 +15952,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:only-missing:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:only-missing">
       <Body>Skip view scripts that already have a target identifier.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15462,7 +15960,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:source-pattern:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:source-pattern">
       <Body>Pattern matched against TransformScript.Name. Tokens use {name}.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15470,7 +15968,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:target-pattern:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:target-pattern">
       <Body>Pattern rendered into TargetSqlIdentifier from captured source tokens.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15478,7 +15976,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:verbose:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:verbose">
       <Body>Print each target identifier update.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15486,7 +15984,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:target-identifiers-from-pattern:option:workspace">
       <Body>MetaTransformScript workspace to update. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15494,7 +15992,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:to-sql-code:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:to-sql-code">
       <Body>Emit one transform script as SQL text.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15502,7 +16000,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:to-sql-code:option:name:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:to-sql-code:option:name">
       <Body>Required when the workspace contains multiple scripts.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15510,7 +16008,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:to-sql-code:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:to-sql-code:option:workspace">
       <Body>MetaTransformScript workspace to export. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15518,7 +16016,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:to-sql-path:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:to-sql-path">
       <Body>Emit SQL scripts to a file or folder.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15526,7 +16024,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:to-sql-path:option:out:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:to-sql-path:option:out">
       <Body>Output .sql file or target folder.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15534,7 +16032,7 @@ A successful binding is a concrete statement about what the transform reads and 
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:command:to-sql-path:option:workspace:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app:command:to-sql-path:option:workspace">
       <Body>MetaTransformScript workspace to export. Defaults to the current directory.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
@@ -15566,7 +16064,7 @@ That workspace gives binding and quality tools access to statements, sources, pr
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-script:app:narrative:summary:summary" DocumentationSubjectId="source:cli:meta-transform-script:app">
       <Body>Import SQL transform scripts into a structured model, export equivalent SQL, and manage transform contracts.</Body>
-      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260805095719242</LastReviewedImportBatchId>
+      <LastReviewedImportBatchId>source:cli:meta-transform-script:batch:20260818211827690</LastReviewedImportBatchId>
       <Origin>Generated</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>

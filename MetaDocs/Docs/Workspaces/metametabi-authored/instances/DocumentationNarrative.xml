@@ -202,6 +202,8 @@ Dimensional design begins with grain. `MetaDataWarehouse` carries facts, dimensi
 
 `MetaTransformScript` is a semantic model of supported T-SQL. It carries statements, queries, CTEs, row sources, expressions, functions, identifiers, ordering, and mutations as related model entities. SQL can be imported into that model, inspected and changed as workspace data, and emitted again as T-SQL.
 
+`MetaTransformPattern` models reusable SQL transform shapes as ordered text and named placeholders. Its workspace contains definitions only, so a pattern library can be shared and versioned on its own. `MetaTransformPatternInstance` keeps concrete uses in a separate workspace: each instance identifies a pattern and supplies one SQL fragment for each placeholder. The `TransformPatternToSqlScript` weave takes both workspaces and produces one `MetaSqlScript` record per instance; the existing SQL importer then parses those statements into `MetaTransformScript`.
+
 Binding places those transforms against source and target `MetaSchema` workspaces. `MetaTransformBinding` resolves object and field references, derives input and output rowsets, records reads and writes, matches projected columns to target columns, and applies the selected `MetaDataTypeConversion` rules. The resulting binding workspace feeds data-quality discovery, pipeline execution, and orchestration analysis.
 
 #### SQL databases
@@ -283,7 +285,7 @@ The provider receives the MetaTransformScript semantic model together with the v
       <Title>Bound transforms</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:summary" DocumentationSubjectId="public:meta-bi:overview">
-      <Body>`meta-bi` brings BI engineering into the workspace system provided by `meta`. A project can move from a discovered source schema to Data Vault and dimensional models, bind SQL transforms to those structures, turn transform patterns into data-quality checks, execute loads, derive orchestration, and publish analytical models.
+      <Body>`meta-bi` brings BI engineering into the workspace system provided by `meta`. A project can move from a discovered source schema to Data Vault and dimensional models, bind SQL transforms to those structures, analyze them for data-quality checks, execute loads, derive orchestration, and publish analytical models.
 
 Each stage leaves a model workspace behind. Those workspaces carry the structures and decisions used by the next stage, while the command-line tools create and operate them.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>

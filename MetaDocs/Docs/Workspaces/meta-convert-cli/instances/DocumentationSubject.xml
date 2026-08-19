@@ -512,7 +512,63 @@
       <Status>New</Status>
       <Summary>Source MetaSql workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script">
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script">
+      <DisplayName>meta-convert transform-pattern-to-sql-script</DisplayName>
+      <DisplayPath>meta-convert transform-pattern-to-sql-script</DisplayPath>
+      <NativeId>exec-transform-pattern-to-sql-script</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>Changed</Status>
+      <Summary>Materialize MetaTransformPattern definitions and MetaTransformPatternInstance values as a MetaSqlScript workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:instance-workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script">
+      <DisplayName>--instance-workspace</DisplayName>
+      <DisplayPath>meta-convert transform-pattern-to-sql-script --instance-workspace</DisplayPath>
+      <NativeId>option-transform-pattern-to-sql-script-instance-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Source MetaTransformPatternInstance workspace containing concrete instances.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-connection-env" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script" PreviousSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:instance-workspace">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-convert transform-pattern-to-sql-script --output-connection-env</DisplayPath>
+      <NativeId>option-transform-pattern-to-sql-script-output-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-csharp" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script" PreviousSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-convert transform-pattern-to-sql-script --output-csharp</DisplayPath>
+      <NativeId>option-transform-pattern-to-sql-script-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a C# workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script" PreviousSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-convert transform-pattern-to-sql-script --output-sql</DisplayPath>
+      <NativeId>option-transform-pattern-to-sql-script-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as a SQL workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-xml" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script" PreviousSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-convert transform-pattern-to-sql-script --output-xml</DisplayPath>
+      <NativeId>option-transform-pattern-to-sql-script-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output as an XML workspace at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:pattern-workspace" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script" PreviousSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:option:output-xml">
+      <DisplayName>--pattern-workspace</DisplayName>
+      <DisplayPath>meta-convert transform-pattern-to-sql-script --pattern-workspace</DisplayPath>
+      <NativeId>option-transform-pattern-to-sql-script-pattern-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Source MetaTransformPattern workspace containing reusable definitions.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script">
       <DisplayName>meta-convert transform-script-to-sql</DisplayName>
       <DisplayPath>meta-convert transform-script-to-sql</DisplayPath>
       <NativeId>exec-transform-script-to-sql</NativeId>

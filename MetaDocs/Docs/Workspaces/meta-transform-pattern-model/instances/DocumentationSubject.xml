@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaDocs>
+  <DocumentationSubjectList>
+    <DocumentationSubject Id="public:meta-bi:models" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:referencesection">
+      <DisplayName>Models</DisplayName>
+      <DisplayPath>Models</DisplayPath>
+      <NativeId>public:meta-bi:models</NativeId>
+      <SourceTypeName>MetaDocs.ReferenceSection</SourceTypeName>
+      <Status>Current</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpattern" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-pattern:model:metatransformpattern">
+      <DisplayName>TransformPattern</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPattern</DisplayPath>
+      <NativeId>TransformPattern</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpattern:property:description" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpattern">
+      <DisplayName>Description</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPattern.Description</DisplayPath>
+      <NativeId>Description</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpattern:property:name" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpattern" PreviousSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpattern:property:description">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPattern.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatternitem" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-pattern:model:metatransformpattern" PreviousSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpattern">
+      <DisplayName>TransformPatternItem</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternItem</DisplayPath>
+      <NativeId>TransformPatternItem</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatternitem:relationship:previousitem-transformpatternitem" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternitem">
+      <DisplayName>PreviousItem</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternItem.PreviousItem</DisplayPath>
+      <NativeId>PreviousItem:TransformPatternItem</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatternitem:relationship:transformpattern-transformpattern" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternitem" PreviousSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternitem:relationship:previousitem-transformpatternitem">
+      <DisplayName>TransformPattern</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternItem.TransformPattern</DisplayPath>
+      <NativeId>TransformPattern:TransformPattern</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholder" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-pattern:model:metatransformpattern" PreviousSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternitem">
+      <DisplayName>TransformPatternPlaceholder</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternPlaceholder</DisplayPath>
+      <NativeId>TransformPatternPlaceholder</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholder:property:name" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholder">
+      <DisplayName>Name</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternPlaceholder.Name</DisplayPath>
+      <NativeId>Name</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholder:relationship:transformpattern-transformpattern" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholder">
+      <DisplayName>TransformPattern</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternPlaceholder.TransformPattern</DisplayPath>
+      <NativeId>TransformPattern:TransformPattern</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholderitem" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-pattern:model:metatransformpattern" PreviousSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholder">
+      <DisplayName>TransformPatternPlaceholderItem</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternPlaceholderItem</DisplayPath>
+      <NativeId>TransformPatternPlaceholderItem</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholderitem:relationship:transformpatternitem-transformpatternitem" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholderitem">
+      <DisplayName>TransformPatternItem</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternPlaceholderItem.TransformPatternItem</DisplayPath>
+      <NativeId>TransformPatternItem:TransformPatternItem</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholderitem:relationship:transformpatternplaceholder-transformpatternplaceholder" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholderitem" PreviousSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholderitem:relationship:transformpatternitem-transformpatternitem">
+      <DisplayName>TransformPatternPlaceholder</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternPlaceholderItem.TransformPatternPlaceholder</DisplayPath>
+      <NativeId>TransformPatternPlaceholder:TransformPatternPlaceholder</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatterntext" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-pattern:model:metatransformpattern" PreviousSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatternplaceholderitem">
+      <DisplayName>TransformPatternText</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternText</DisplayPath>
+      <NativeId>TransformPatternText</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatterntext:property:sqltext" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatterntext">
+      <DisplayName>SqlText</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternText.SqlText</DisplayPath>
+      <NativeId>SqlText</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:entity:transformpatterntext:relationship:transformpatternitem-transformpatternitem" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-pattern:entity:transformpatterntext">
+      <DisplayName>TransformPatternItem</DisplayName>
+      <DisplayPath>MetaTransformPattern.TransformPatternText.TransformPatternItem</DisplayPath>
+      <NativeId>TransformPatternItem:TransformPatternItem</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:model:metatransformpattern" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:model" ParentSubjectId="public:meta-bi:models">
+      <DisplayName>MetaTransformPattern</DisplayName>
+      <DisplayPath>MetaTransformPattern.MetaTransformPattern</DisplayPath>
+      <NativeId>MetaTransformPattern</NativeId>
+      <SourceTypeName>GenericModel</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-pattern:workspace" DocumentationSourceId="source:workspace-model:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:workspace">
+      <DisplayName>MetaTransformPattern</DisplayName>
+      <DisplayPath>MetaTransformPattern</DisplayPath>
+      <NativeId>source:workspace-model:meta-transform-pattern</NativeId>
+      <SourceTypeName>Workspace</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+  </DocumentationSubjectList>
+</MetaDocs>
