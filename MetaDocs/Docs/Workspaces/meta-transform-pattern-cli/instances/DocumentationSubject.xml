@@ -105,47 +105,7 @@
       <Status>New</Status>
       <Summary>MetaTransformPattern workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:clear-binding" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-pattern:app" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:add-pattern">
-      <DisplayName>meta-transform-pattern clear-binding</DisplayName>
-      <DisplayPath>meta-transform-pattern clear-binding</DisplayPath>
-      <NativeId>exec-clear-binding</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary>Set one instance placeholder to empty SQL text.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:clear-binding:option:instance" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding">
-      <DisplayName>--instance</DisplayName>
-      <DisplayPath>meta-transform-pattern clear-binding --instance</DisplayPath>
-      <NativeId>opt-clear-binding-instance</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Transform-pattern instance identity.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:clear-binding:option:pattern-workspace" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding:option:instance">
-      <DisplayName>--pattern-workspace</DisplayName>
-      <DisplayPath>meta-transform-pattern clear-binding --pattern-workspace</DisplayPath>
-      <NativeId>opt-clear-binding-pattern-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaTransformPattern workspace used to resolve the placeholder.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:clear-binding:option:placeholder" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding:option:pattern-workspace">
-      <DisplayName>--placeholder</DisplayName>
-      <DisplayPath>meta-transform-pattern clear-binding --placeholder</DisplayPath>
-      <NativeId>opt-clear-binding-placeholder</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary>Placeholder name or stable identity.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:clear-binding:option:workspace" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding:option:placeholder">
-      <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-transform-pattern clear-binding --workspace</DisplayPath>
-      <NativeId>opt-clear-binding-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary>MetaTransformPatternInstance workspace. Defaults to the current directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:create" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-pattern:app" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:clear-binding">
+    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:create" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-pattern:app" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:add-pattern">
       <DisplayName>meta-transform-pattern create</DisplayName>
       <DisplayPath>meta-transform-pattern create</DisplayPath>
       <NativeId>exec-create</NativeId>
@@ -273,47 +233,47 @@
       <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:set-binding" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-pattern:app" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:help">
-      <DisplayName>meta-transform-pattern set-binding</DisplayName>
-      <DisplayPath>meta-transform-pattern set-binding</DisplayPath>
-      <NativeId>exec-set-binding</NativeId>
+    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:set-placeholder" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-pattern:app" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:help">
+      <DisplayName>meta-transform-pattern set-placeholder</DisplayName>
+      <DisplayPath>meta-transform-pattern set-placeholder</DisplayPath>
+      <NativeId>exec-set-placeholder</NativeId>
       <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
       <Summary>Replace one instance placeholder with a SQL fragment read from standard input.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:set-binding:option:instance" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:set-binding">
+    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:set-placeholder:option:instance" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:set-placeholder">
       <DisplayName>--instance</DisplayName>
-      <DisplayPath>meta-transform-pattern set-binding --instance</DisplayPath>
-      <NativeId>opt-set-binding-instance</NativeId>
+      <DisplayPath>meta-transform-pattern set-placeholder --instance</DisplayPath>
+      <NativeId>opt-set-placeholder-instance</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Transform-pattern instance identity.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:set-binding:option:pattern-workspace" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:set-binding" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:set-binding:option:instance">
+    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:set-placeholder:option:pattern-workspace" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:set-placeholder" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:set-placeholder:option:instance">
       <DisplayName>--pattern-workspace</DisplayName>
-      <DisplayPath>meta-transform-pattern set-binding --pattern-workspace</DisplayPath>
-      <NativeId>opt-set-binding-pattern-workspace</NativeId>
+      <DisplayPath>meta-transform-pattern set-placeholder --pattern-workspace</DisplayPath>
+      <NativeId>opt-set-placeholder-pattern-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>MetaTransformPattern workspace used to resolve the placeholder.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:set-binding:option:placeholder" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:set-binding" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:set-binding:option:pattern-workspace">
+    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:set-placeholder:option:placeholder" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:set-placeholder" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:set-placeholder:option:pattern-workspace">
       <DisplayName>--placeholder</DisplayName>
-      <DisplayPath>meta-transform-pattern set-binding --placeholder</DisplayPath>
-      <NativeId>opt-set-binding-placeholder</NativeId>
+      <DisplayPath>meta-transform-pattern set-placeholder --placeholder</DisplayPath>
+      <NativeId>opt-set-placeholder-placeholder</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
       <Summary>Placeholder name or stable identity.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:set-binding:option:workspace" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:set-binding" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:set-binding:option:placeholder">
+    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:set-placeholder:option:workspace" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-transform-pattern:app:command:set-placeholder" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:set-placeholder:option:placeholder">
       <DisplayName>--workspace</DisplayName>
-      <DisplayPath>meta-transform-pattern set-binding --workspace</DisplayPath>
-      <NativeId>opt-set-binding-workspace</NativeId>
+      <DisplayPath>meta-transform-pattern set-placeholder --workspace</DisplayPath>
+      <NativeId>opt-set-placeholder-workspace</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>Changed</Status>
+      <Status>New</Status>
       <Summary>MetaTransformPatternInstance workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:show" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-pattern:app" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:set-binding">
+    <DocumentationSubject Id="source:cli:meta-transform-pattern:app:command:show" DocumentationSourceId="source:cli:meta-transform-pattern" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-transform-pattern:app" PreviousSubjectId="source:cli:meta-transform-pattern:app:command:set-placeholder">
       <DisplayName>meta-transform-pattern show</DisplayName>
       <DisplayPath>meta-transform-pattern show</DisplayPath>
       <NativeId>exec-show</NativeId>
