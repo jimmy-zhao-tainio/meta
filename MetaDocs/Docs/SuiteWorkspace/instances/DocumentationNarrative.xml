@@ -15493,9 +15493,9 @@ meta-convert transform-pattern-to-sql-script --pattern-workspace .\Patterns --in
       <Title>Render pattern instances</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="source:cli:meta-transform-pattern:app:narrative:guide" DocumentationSubjectId="source:cli:meta-transform-pattern:app" PreviousNarrativeId="source:cli:meta-transform-pattern:app:narrative:summary">
-      <Body>`MetaTransformPattern` and `MetaTransformPatternInstance` deliberately use separate workspaces. The pattern workspace is a reusable library of ordered SQL text and placeholders. The instance workspace identifies those patterns and supplies the concrete values used by one project.
+      <Body>`MetaTransformPattern` stores reusable transform patterns as ordered SQL text and named placeholders. `MetaTransformPatternInstance` stores concrete uses of those patterns, with one SQL fragment supplied for each placeholder. A pattern library can therefore be shared across projects while each project keeps its own transform instances.
 
-`meta-transform-pattern` authors both workspace types. Definition commands use the pattern workspace; instance commands use the instance workspace together with `--pattern-workspace` so placeholder identities are resolved against the reusable definition. The sanctioned weave takes both workspaces and produces `MetaSqlScript`. SQL parsing remains in the existing MetaTransformScript importer.</Body>
+`meta-transform-pattern` works with both workspace types. Definition commands create and update reusable patterns. Instance commands select a pattern and supply its placeholder values, using `--pattern-workspace` to locate the referenced definition. `TransformPatternToSqlScript` combines the two workspaces into `MetaSqlScript`, which can then be imported into `MetaTransformScript`.</Body>
       <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
