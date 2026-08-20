@@ -4,17 +4,21 @@
 workspace operations and carries the same modeled structure through XML, SQL,
 and C# surfaces.
 
-The repository also contains [MetaCli](MetaCli/README.md),
-[MetaDocs](MetaDocs/README.md), [MetaMesh](MetaMesh/README.md), and
-[MetaWeave](MetaWeave/README.md). Together they provide modeled command
-surfaces, documentation, reproducible workspace operations, and model-to-model
-correspondence. BI-specific models and tools live in the companion
+The repository also contains
+[MetaCli](https://metametabi.com/docs.html#cli-meta-cli),
+[MetaDocs](https://metametabi.com/docs.html#cli-meta-docs),
+[MetaMesh](https://metametabi.com/docs.html#cli-meta-mesh), and
+[MetaWeave](https://metametabi.com/docs.html#cli-meta-weave). Together they
+provide modeled command surfaces, documentation, reproducible workspace
+operations, and model-to-model correspondence. BI-specific models and tools
+live in the companion
 [`meta-bi`](https://github.com/jimmy-zhao-tainio/meta-bi) repository and consume
 `meta` as packages.
 
 ## Documentation
 
-The canonical public reference is [metametabi.com/docs.html](https://metametabi.com/docs.html).
+The canonical public reference starts with the
+[Meta overview](https://metametabi.com/docs.html#subject-public-meta-overview).
 It covers the concepts, models, and command surfaces in both repositories.
 Local generated outputs and their authored workflow are under
 [`MetaDocs/Docs`](MetaDocs/Docs); they are kept here so documentation remains
