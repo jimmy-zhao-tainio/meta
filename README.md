@@ -4,11 +4,11 @@
 workspace operations and carries the same modeled structure through XML, SQL,
 and C# surfaces.
 
-The repository also contains [MetaCli](MetaCli/), [MetaDocs](MetaDocs/),
-[MetaMesh](MetaMesh/), and [MetaWeave](MetaWeave/README.md). Together they
-provide modeled command surfaces, documentation, reproducible workspace
-operations, and model-to-model correspondence. BI-specific models and tools
-live in the companion
+The repository also contains [MetaCli](MetaCli/README.md),
+[MetaDocs](MetaDocs/README.md), [MetaMesh](MetaMesh/README.md), and
+[MetaWeave](MetaWeave/README.md). Together they provide modeled command
+surfaces, documentation, reproducible workspace operations, and model-to-model
+correspondence. BI-specific models and tools live in the companion
 [`meta-bi`](https://github.com/jimmy-zhao-tainio/meta-bi) repository and consume
 `meta` as packages.
 
