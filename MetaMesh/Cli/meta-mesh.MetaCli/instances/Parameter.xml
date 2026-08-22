@@ -54,6 +54,20 @@
       <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
       <Name>workspace</Name>
     </Parameter>
+    <Parameter Id="param-remove-step-name" ValueShapeId="shape-text">
+      <Description>Step name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-remove-step-operation" ValueShapeId="shape-text">
+      <Description>Operation containing the step.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>operation</Name>
+    </Parameter>
+    <Parameter Id="param-remove-step-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-run-operation" ValueShapeId="shape-text">
       <Description>Operation name.</Description>
       <IsRequired>true</IsRequired>
@@ -121,6 +135,48 @@
     </Parameter>
     <Parameter Id="param-steps-workspace" ValueShapeId="shape-workspace-location">
       <Description>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Description>
+      <Name>workspace</Name>
+    </Parameter>
+    <Parameter Id="param-update-step-arguments" ValueShapeId="shape-arguments">
+      <Description>Replace the executable arguments.</Description>
+      <Name>arguments</Name>
+    </Parameter>
+    <Parameter Id="param-update-step-arguments-stdin" ValueShapeId="shape-flag">
+      <Description>Read replacement executable arguments from standard input.</Description>
+      <Name>arguments-stdin</Name>
+    </Parameter>
+    <Parameter Id="param-update-step-description" ValueShapeId="shape-text">
+      <Description>Replace the step description.</Description>
+      <Name>description</Name>
+    </Parameter>
+    <Parameter Id="param-update-step-executable" ValueShapeId="shape-path">
+      <Description>Replace the executable.</Description>
+      <Name>executable</Name>
+    </Parameter>
+    <Parameter Id="param-update-step-expected-exit-code" ValueShapeId="shape-text">
+      <Description>Replace the expected successful exit code.</Description>
+      <Name>expected-exit-code</Name>
+    </Parameter>
+    <Parameter Id="param-update-step-name" ValueShapeId="shape-text">
+      <Description>Step name.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>name</Name>
+    </Parameter>
+    <Parameter Id="param-update-step-operation" ValueShapeId="shape-text">
+      <Description>Operation containing the step.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>operation</Name>
+    </Parameter>
+    <Parameter Id="param-update-step-previous-step" ValueShapeId="shape-text">
+      <Description>Replace the predecessor step.</Description>
+      <Name>previous-step</Name>
+    </Parameter>
+    <Parameter Id="param-update-step-working-directory" ValueShapeId="shape-path">
+      <Description>Replace the working directory.</Description>
+      <Name>working-directory</Name>
+    </Parameter>
+    <Parameter Id="param-update-step-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaMesh workspace location.</Description>
       <Name>workspace</Name>
     </Parameter>
     <Parameter Id="param-validate-operation" ValueShapeId="shape-text">

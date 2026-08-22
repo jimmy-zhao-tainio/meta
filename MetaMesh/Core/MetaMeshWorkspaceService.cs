@@ -203,6 +203,104 @@ public sealed class MetaMeshWorkspaceService
         return ToOperationSummary(model, operation);
     }
 
+    public MetaMeshOperationSummary UpdateStep(
+        MetaMesh.MetaMeshModel model,
+        string operationName,
+        string stepName,
+        MetaMeshStepUpdate update)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentNullException.ThrowIfNull(update);
+        var operation = RequireOperation(model, operationName);
+        var step = RequireOperationStep(model, operation, stepName);
+
+        if (!update.UpdateExecutable &&
+            !update.UpdateArguments &&
+            !update.UpdateWorkingDirectory &&
+            !update.UpdatePreviousStep &&
+            !update.UpdateExpectedExitCode &&
+            !update.UpdateDescription)
+        {
+            throw new InvalidOperationException("At least one step field must be selected for update.");
+        }
+
+        if (update.UpdateExecutable)
+        {
+            step.Executable = RequiredName(update.Executable);
+        }
+
+        if (update.UpdateArguments)
+        {
+            step.Arguments = NormalizeOptional(update.Arguments);
+        }
+
+        if (update.UpdateWorkingDirectory)
+        {
+            step.WorkingDirectory = NormalizeOptional(update.WorkingDirectory);
+        }
+
+        if (update.UpdatePreviousStep)
+        {
+            var previousStep = string.IsNullOrWhiteSpace(update.PreviousStepName)
+                ? null
+                : RequireOperationStep(model, operation, update.PreviousStepName);
+            if (ReferenceEquals(previousStep, step))
+            {
+                throw new InvalidOperationException($"Step '{step.Name}' cannot be its own previous step.");
+            }
+
+            var originalPreviousStep = step.PreviousStep;
+            step.PreviousStep = previousStep;
+            try
+            {
+                OrderOperationSteps(model, operation, strict: true);
+            }
+            catch
+            {
+                step.PreviousStep = originalPreviousStep;
+                throw;
+            }
+        }
+
+        if (update.UpdateExpectedExitCode)
+        {
+            step.ExpectedExitCode = NormalizeExpectedExitCode(update.ExpectedExitCode);
+        }
+
+        if (update.UpdateDescription)
+        {
+            step.Description = NormalizeOptional(update.Description);
+        }
+
+        return ToOperationSummary(model, operation);
+    }
+
+    public MetaMeshOperationSummary RemoveStep(
+        MetaMesh.MetaMeshModel model,
+        string operationName,
+        string stepName)
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        var operation = RequireOperation(model, operationName);
+        var step = RequireOperationStep(model, operation, stepName);
+        var followingSteps = model.OperationStepList
+            .Where(item => ReferenceEquals(item.Operation, operation) && ReferenceEquals(item.PreviousStep, step))
+            .ToArray();
+        if (followingSteps.Length > 1)
+        {
+            throw new InvalidOperationException(
+                $"Cannot remove step '{step.Name}' because multiple steps refer to it as their predecessor.");
+        }
+
+        if (followingSteps.Length == 1)
+        {
+            followingSteps[0].PreviousStep = step.PreviousStep;
+        }
+
+        model.OperationStepList.Remove(step);
+        return ToOperationSummary(model, operation);
+    }
+
     public MetaMeshRunResult RunOperation(
         MetaMesh.MetaMeshModel model,
         string operationName,

@@ -12,5 +12,11 @@
       <IsRequired>true</IsRequired>
       <Name>output</Name>
     </ParameterGroup>
+    <ParameterGroup Id="group-update-step-change" ExecutableCommandId="exec-update-step">
+      <AllowsMultiple>true</AllowsMultiple>
+      <Description>Select one or more step fields to update.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>change</Name>
+    </ParameterGroup>
   </ParameterGroupList>
 </MetaCli>

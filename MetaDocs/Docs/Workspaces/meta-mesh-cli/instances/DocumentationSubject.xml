@@ -304,7 +304,39 @@
       <Status>Changed</Status>
       <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:operations">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:remove-step" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:operations">
+      <DisplayName>meta-mesh remove-step</DisplayName>
+      <DisplayPath>meta-mesh remove-step</DisplayPath>
+      <NativeId>exec-remove-step</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Remove one executable operation step and preserve operation order.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:remove-step:option:name" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:remove-step">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-mesh remove-step --name</DisplayPath>
+      <NativeId>opt-remove-step-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Step name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:remove-step:option:operation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:remove-step" PreviousSubjectId="source:cli:meta-mesh:app:command:remove-step:option:name">
+      <DisplayName>--operation</DisplayName>
+      <DisplayPath>meta-mesh remove-step --operation</DisplayPath>
+      <NativeId>opt-remove-step-operation</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Operation containing the step.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:remove-step:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:remove-step" PreviousSubjectId="source:cli:meta-mesh:app:command:remove-step:option:operation">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh remove-step --workspace</DisplayPath>
+      <NativeId>opt-remove-step-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace location.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:run" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:remove-step">
       <DisplayName>meta-mesh run</DisplayName>
       <DisplayPath>meta-mesh run</DisplayPath>
       <NativeId>exec-run</NativeId>
@@ -384,7 +416,103 @@
       <Status>Changed</Status>
       <Summary>MetaMesh workspace location. Defaults to the current directory for XML and C#.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:steps">
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:steps">
+      <DisplayName>meta-mesh update-step</DisplayName>
+      <DisplayPath>meta-mesh update-step</DisplayPath>
+      <NativeId>exec-update-step</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Update one executable operation step.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:option:arguments" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:update-step">
+      <DisplayName>--arguments</DisplayName>
+      <DisplayPath>meta-mesh update-step --arguments</DisplayPath>
+      <NativeId>opt-update-step-arguments</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Replace the executable arguments.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:option:arguments-stdin" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:update-step" PreviousSubjectId="source:cli:meta-mesh:app:command:update-step:option:arguments">
+      <DisplayName>--arguments-stdin</DisplayName>
+      <DisplayPath>meta-mesh update-step --arguments-stdin</DisplayPath>
+      <NativeId>opt-update-step-arguments-stdin</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Read replacement executable arguments from standard input.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:option:description" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:update-step" PreviousSubjectId="source:cli:meta-mesh:app:command:update-step:option:arguments-stdin">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-mesh update-step --description</DisplayPath>
+      <NativeId>opt-update-step-description</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Replace the step description.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:option:executable" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:update-step" PreviousSubjectId="source:cli:meta-mesh:app:command:update-step:option:description">
+      <DisplayName>--executable</DisplayName>
+      <DisplayPath>meta-mesh update-step --executable</DisplayPath>
+      <NativeId>opt-update-step-executable</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Replace the executable.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:option:expected-exit-code" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:update-step" PreviousSubjectId="source:cli:meta-mesh:app:command:update-step:option:executable">
+      <DisplayName>--expected-exit-code</DisplayName>
+      <DisplayPath>meta-mesh update-step --expected-exit-code</DisplayPath>
+      <NativeId>opt-update-step-expected-exit-code</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Replace the expected successful exit code.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:option:name" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:update-step" PreviousSubjectId="source:cli:meta-mesh:app:command:update-step:option:expected-exit-code">
+      <DisplayName>--name</DisplayName>
+      <DisplayPath>meta-mesh update-step --name</DisplayPath>
+      <NativeId>opt-update-step-name</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Step name.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:option:operation" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:update-step" PreviousSubjectId="source:cli:meta-mesh:app:command:update-step:option:name">
+      <DisplayName>--operation</DisplayName>
+      <DisplayPath>meta-mesh update-step --operation</DisplayPath>
+      <NativeId>opt-update-step-operation</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Operation containing the step.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:option:previous-step" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:update-step" PreviousSubjectId="source:cli:meta-mesh:app:command:update-step:option:operation">
+      <DisplayName>--previous-step</DisplayName>
+      <DisplayPath>meta-mesh update-step --previous-step</DisplayPath>
+      <NativeId>opt-update-step-previous-step</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Replace the predecessor step.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:option:working-directory" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:update-step" PreviousSubjectId="source:cli:meta-mesh:app:command:update-step:option:previous-step">
+      <DisplayName>--working-directory</DisplayName>
+      <DisplayPath>meta-mesh update-step --working-directory</DisplayPath>
+      <NativeId>opt-update-step-working-directory</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Replace the working directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:option:workspace" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-mesh:app:command:update-step" PreviousSubjectId="source:cli:meta-mesh:app:command:update-step:option:working-directory">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-mesh update-step --workspace</DisplayPath>
+      <NativeId>opt-update-step-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaMesh workspace location.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:update-step:parameter-group:change" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-mesh:app:command:update-step">
+      <DisplayName>change</DisplayName>
+      <DisplayPath>meta-mesh update-step group change</DisplayPath>
+      <NativeId>group-update-step-change</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Select one or more step fields to update.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-mesh:app:command:validate" DocumentationSourceId="source:cli:meta-mesh" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-mesh:app" PreviousSubjectId="source:cli:meta-mesh:app:command:update-step">
       <DisplayName>meta-mesh validate</DisplayName>
       <DisplayPath>meta-mesh validate</DisplayPath>
       <NativeId>exec-validate</NativeId>

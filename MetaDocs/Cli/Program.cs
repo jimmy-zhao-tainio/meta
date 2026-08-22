@@ -122,13 +122,20 @@ internal static class Program
         try
         {
             var matrix = new MetaDocsCliMatrixService().Build(model);
+            MetaDocsCliMeshInvocationMatrix? invocationMatrix = null;
             var (csv, rowCount) = view switch
             {
                 "commands" => (FormatCliCommandsCsv(matrix), matrix.Commands.Count),
                 "cohorts" => (FormatCliDecisionCohortsCsv(matrix), matrix.DecisionCohorts.Count),
                 "findings" => (FormatCliFindingsCsv(matrix), matrix.Findings.Count),
-                _ => throw new MetaCliExitException(2, "--view must be commands, cohorts, or findings."),
+                "invocations" => BuildInvocationCsv(),
+                _ => throw new MetaCliExitException(2, "--view must be commands, cohorts, findings, or invocations."),
             };
+            if (invocation.Flag("require-conformant") && invocationMatrix is null)
+            {
+                throw new MetaCliExitException(2, "--require-conformant requires --view invocations.");
+            }
+
             var outputDirectory = Path.GetDirectoryName(outputPath);
             if (string.IsNullOrWhiteSpace(outputDirectory))
             {
@@ -159,6 +166,32 @@ internal static class Program
                 Presenter.WriteInfo(
                     $"  {findingGroup.Key}: {findingGroup.Count()} finding(s), {affectedRowCount} command row(s) - " +
                     findingGroup.First().Message);
+            }
+
+            if (invocationMatrix is not null)
+            {
+                Presenter.WriteInfo(
+                    $"Mesh invocations: {invocationMatrix.MeshCount} mesh(es), " +
+                    $"{invocationMatrix.ConformantCount} conformant, {invocationMatrix.ViolationCount} violation(s).");
+                if (invocation.Flag("require-conformant") && invocationMatrix.ViolationCount != 0)
+                {
+                    throw new MetaCliExitException(
+                        4,
+                        $"CLI mesh conformance failed with {invocationMatrix.ViolationCount} violating invocation(s). See: {outputPath}");
+                }
+            }
+
+            (string Csv, int Count) BuildInvocationCsv()
+            {
+                var roots = invocation.Values("mesh-root");
+                if (roots.Count == 0)
+                {
+                    throw new MetaCliExitException(2, "--view invocations requires at least one --mesh-root.");
+                }
+
+                var service = new MetaDocsCliMeshInvocationService();
+                invocationMatrix = service.Build(matrix, service.LoadSources(roots));
+                return (FormatCliInvocationsCsv(invocationMatrix), invocationMatrix.Invocations.Count);
             }
         }
         catch (Exception exception) when (exception is not MetaCliExitException)
@@ -689,6 +722,44 @@ internal static class Program
                 string.Join(" | ", finding.AffectedCommands),
                 finding.Message,
                 finding.Evidence);
+        }
+
+        return builder.ToString();
+    }
+
+    private static string FormatCliInvocationsCsv(MetaDocsCliMeshInvocationMatrix matrix)
+    {
+        var builder = new StringBuilder();
+        AppendCsvRow(
+            builder,
+            "MeshWorkspace",
+            "Mesh",
+            "Operation",
+            "StepIndex",
+            "Step",
+            "Executable",
+            "Arguments",
+            "Application",
+            "Command",
+            "Status",
+            "Codes",
+            "Evidence");
+        foreach (var row in matrix.Invocations)
+        {
+            AppendCsvRow(
+                builder,
+                row.MeshWorkspace,
+                row.Mesh,
+                row.Operation,
+                row.StepIndex.ToString(),
+                row.Step,
+                row.Executable,
+                row.Arguments,
+                row.Application,
+                row.Command,
+                row.Status,
+                string.Join(" | ", row.Codes),
+                string.Join(" | ", row.Evidence));
         }
 
         return builder.ToString();

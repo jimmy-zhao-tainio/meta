@@ -29,6 +29,20 @@ public sealed record MetaMeshOperationSummary(
     string Description,
     IReadOnlyList<MetaMeshOperationStepSummary> Steps);
 
+public sealed record MetaMeshStepUpdate(
+    bool UpdateExecutable,
+    string? Executable,
+    bool UpdateArguments,
+    string? Arguments,
+    bool UpdateWorkingDirectory,
+    string? WorkingDirectory,
+    bool UpdatePreviousStep,
+    string? PreviousStepName,
+    bool UpdateExpectedExitCode,
+    string? ExpectedExitCode,
+    bool UpdateDescription,
+    string? Description);
+
 public sealed record MetaMeshValidationStepSummary(
     string Name,
     string Command,

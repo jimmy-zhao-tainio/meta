@@ -31,6 +31,11 @@
       <Name>operations</Name>
       <Token>operations</Token>
     </Command>
+    <Command Id="cmd-remove-step" ApplicationId="app-meta-mesh">
+      <Description>Remove one executable operation step and preserve operation order.</Description>
+      <Name>remove-step</Name>
+      <Token>remove-step</Token>
+    </Command>
     <Command Id="cmd-run" ApplicationId="app-meta-mesh">
       <Description>Run the steps declared for one operation.</Description>
       <Name>run</Name>
@@ -45,6 +50,11 @@
       <Description>List steps for one operation.</Description>
       <Name>steps</Name>
       <Token>steps</Token>
+    </Command>
+    <Command Id="cmd-update-step" ApplicationId="app-meta-mesh">
+      <Description>Update one executable operation step.</Description>
+      <Name>update-step</Name>
+      <Token>update-step</Token>
     </Command>
     <Command Id="cmd-validate" ApplicationId="app-meta-mesh">
       <Description>Validate one operation before running it.</Description>

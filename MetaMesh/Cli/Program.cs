@@ -36,6 +36,8 @@ internal static class Program
             .Bind("exec-add-workspace", RunAddWorkspace)
             .Bind("exec-add-operation", RunAddOperation)
             .Bind("exec-add-step", RunAddStep)
+            .Bind("exec-update-step", RunUpdateStep)
+            .Bind("exec-remove-step", RunRemoveStep)
             .BindReadOnly("exec-run", RunOperation);
 
         runtime.Run(args);
@@ -192,6 +194,44 @@ internal static class Program
         }
 
         return MetaCliStandardInput.ReadToEnd().TrimEnd('\r', '\n');
+    }
+
+    private static void RunUpdateStep(
+        MetaCliInvocation invocation,
+        MetaMeshModel model,
+        MetaCliCommandCompletion completion)
+    {
+        var updateArguments = invocation.IsPresent("arguments") || invocation.Flag("arguments-stdin");
+        Service.UpdateStep(
+            model,
+            invocation.Required("operation"),
+            invocation.Required("name"),
+            new MetaMeshStepUpdate(
+                invocation.IsPresent("executable"),
+                invocation.Optional("executable"),
+                updateArguments,
+                updateArguments ? ResolveStepArguments(invocation) : null,
+                invocation.IsPresent("working-directory"),
+                invocation.Optional("working-directory"),
+                invocation.IsPresent("previous-step"),
+                invocation.Optional("previous-step"),
+                invocation.IsPresent("expected-exit-code"),
+                invocation.Optional("expected-exit-code"),
+                invocation.IsPresent("description"),
+                invocation.Optional("description")));
+        completion.OnSucceeded(() => Presenter.WriteOk());
+    }
+
+    private static void RunRemoveStep(
+        MetaCliInvocation invocation,
+        MetaMeshModel model,
+        MetaCliCommandCompletion completion)
+    {
+        Service.RemoveStep(
+            model,
+            invocation.Required("operation"),
+            invocation.Required("name"));
+        completion.OnSucceeded(() => Presenter.WriteOk());
     }
 
     private static void RunOperation(MetaCliInvocation invocation, MetaMeshModel model)

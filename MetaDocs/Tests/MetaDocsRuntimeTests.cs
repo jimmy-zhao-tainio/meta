@@ -166,7 +166,7 @@ public sealed class MetaDocsRuntimeTests
         var matrix = new MetaDocsCliMatrixService().Build(suite);
 
         Assert.Equal(22, matrix.ApplicationCount);
-        Assert.Equal(352, matrix.CommandCount);
+        Assert.Equal(354, matrix.CommandCount);
 
         var commandIds = suite.DocumentationSubjectList
             .Where(IsActive)
@@ -301,18 +301,19 @@ public sealed class MetaDocsRuntimeTests
             var outputPath = Path.Combine(root, "cli-matrix.csv");
             var cohortPath = Path.Combine(root, "cli-cohorts.csv");
             var findingPath = Path.Combine(root, "cli-findings.csv");
+            var invocationPath = Path.Combine(root, "cli-invocations.csv");
             var help = RunCli("help cli-matrix");
             Assert.Equal(0, help.ExitCode);
-            Assert.Contains("meta-docs cli-matrix --out <path> [--view commands|cohorts|findings] [--workspace <workspace>]", help.Output);
+            Assert.Contains("meta-docs cli-matrix [--mesh-root <path>] --out <path> [--require-conformant] [--view commands|cohorts|findings|invocations] [--workspace <workspace>]", help.Output);
 
             var result = RunCli(
                 $"cli-matrix --workspace {QuoteArgument(suiteWorkspace)} --out {QuoteArgument(outputPath)}");
             Assert.Equal(0, result.ExitCode);
-            Assert.Contains("Coverage: 22 application(s), 352 command(s)", result.Output);
-            Assert.Contains("352 classified, 0 unclassified", result.Output);
+            Assert.Contains("Coverage: 22 application(s), 354 command(s)", result.Output);
+            Assert.Contains("354 classified, 0 unclassified", result.Output);
             Assert.DoesNotContain("MDCLI001", result.Output);
             Assert.True(File.Exists(outputPath));
-            Assert.Equal(353, File.ReadLines(outputPath).Count());
+            Assert.Equal(355, File.ReadLines(outputPath).Count());
             var csv = File.ReadAllText(outputPath);
             Assert.StartsWith("\"ApplicationId\",\"Application\",\"CommandId\",\"Command\"", csv, StringComparison.Ordinal);
             Assert.Contains("\"SurfaceVerb\",\"RoutePattern\",\"ActionFamily\",\"OperationIntent\",\"Subject\",\"SubjectScope\"", csv, StringComparison.Ordinal);
@@ -341,6 +342,50 @@ public sealed class MetaDocsRuntimeTests
             Assert.Equal(0, findingResult.ExitCode);
             Assert.Equal(matrix.Findings.Count + 1, File.ReadLines(findingPath).Count());
             Assert.StartsWith("\"Code\",\"Category\",\"DecisionKey\"", File.ReadAllText(findingPath), StringComparison.Ordinal);
+
+            var meshWorkspace = Path.Combine(root, "Conformance.MetaMesh");
+            var meshModel = global::MetaMesh.MetaMeshModel.CreateEmpty();
+            var mesh = new global::MetaMesh.Mesh { Id = "mesh:test", Name = "Conformance" };
+            var operation = new global::MetaMesh.Operation { Id = "operation:audit", Mesh = mesh, Name = "audit" };
+            var conformantStep = new global::MetaMesh.OperationStep
+            {
+                Id = "operation-step:audit:status",
+                Operation = operation,
+                Name = "status",
+                Executable = "meta.exe",
+                Arguments = "status --workspace ."
+            };
+            meshModel.MeshList.Add(mesh);
+            meshModel.OperationList.Add(operation);
+            meshModel.OperationStepList.Add(conformantStep);
+            TypedWorkspaceXmlSerializer.Save(meshModel, meshWorkspace);
+
+            var invocationResult = RunCli(
+                $"cli-matrix --workspace {QuoteArgument(suiteWorkspace)} --view invocations " +
+                $"--mesh-root {QuoteArgument(meshWorkspace)} --out {QuoteArgument(invocationPath)} --require-conformant");
+            Assert.Equal(0, invocationResult.ExitCode);
+            Assert.Contains("1 conformant, 0 violation(s)", invocationResult.Output);
+            Assert.Contains("\"conformant\"", File.ReadAllText(invocationPath), StringComparison.Ordinal);
+
+            meshModel.OperationStepList.Add(new global::MetaMesh.OperationStep
+            {
+                Id = "operation-step:audit:legacy-create",
+                Operation = operation,
+                PreviousStep = conformantStep,
+                Name = "legacy-create",
+                Executable = "meta.exe",
+                Arguments = "create --new-workspace Legacy --xml"
+            });
+            TypedWorkspaceXmlSerializer.Save(meshModel, meshWorkspace);
+
+            var violationResult = RunCli(
+                $"cli-matrix --workspace {QuoteArgument(suiteWorkspace)} --view invocations " +
+                $"--mesh-root {QuoteArgument(meshWorkspace)} --out {QuoteArgument(invocationPath)} --require-conformant");
+            Assert.Equal(4, violationResult.ExitCode);
+            Assert.Contains("1 violation(s)", violationResult.Output);
+            var invocationCsv = File.ReadAllText(invocationPath);
+            Assert.Contains("\"violation\"", invocationCsv, StringComparison.Ordinal);
+            Assert.Contains("MDCLIINV003", invocationCsv, StringComparison.Ordinal);
         }
         finally
         {

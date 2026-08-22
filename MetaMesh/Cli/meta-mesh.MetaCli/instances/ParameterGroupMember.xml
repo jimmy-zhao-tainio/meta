@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaCli>
   <ParameterGroupMemberList>
+    <ParameterGroupMember Id="group-update-step-change:member:arguments" ParameterGroupId="group-update-step-change" ParameterId="param-update-step-arguments" PreviousMemberId="group-update-step-change:member:executable" />
+    <ParameterGroupMember Id="group-update-step-change:member:arguments-stdin" ParameterGroupId="group-update-step-change" ParameterId="param-update-step-arguments-stdin" PreviousMemberId="group-update-step-change:member:arguments" />
+    <ParameterGroupMember Id="group-update-step-change:member:description" ParameterGroupId="group-update-step-change" ParameterId="param-update-step-description" PreviousMemberId="group-update-step-change:member:arguments-stdin" />
+    <ParameterGroupMember Id="group-update-step-change:member:executable" ParameterGroupId="group-update-step-change" ParameterId="param-update-step-executable" />
+    <ParameterGroupMember Id="group-update-step-change:member:expected-exit-code" ParameterGroupId="group-update-step-change" ParameterId="param-update-step-expected-exit-code" PreviousMemberId="group-update-step-change:member:description" />
+    <ParameterGroupMember Id="group-update-step-change:member:previous-step" ParameterGroupId="group-update-step-change" ParameterId="param-update-step-previous-step" PreviousMemberId="group-update-step-change:member:expected-exit-code" />
+    <ParameterGroupMember Id="group-update-step-change:member:working-directory" ParameterGroupId="group-update-step-change" ParameterId="param-update-step-working-directory" PreviousMemberId="group-update-step-change:member:previous-step" />
     <ParameterGroupMember Id="member-add-workspace-representation-csharp" ParameterGroupId="group-add-workspace-representation" ParameterId="param-workspace-csharp-path" PreviousMemberId="member-add-workspace-representation-xml" />
     <ParameterGroupMember Id="member-add-workspace-representation-sql" ParameterGroupId="group-add-workspace-representation" ParameterId="param-workspace-sql-connection-env" PreviousMemberId="member-add-workspace-representation-csharp" />
     <ParameterGroupMember Id="member-add-workspace-representation-xml" ParameterGroupId="group-add-workspace-representation" ParameterId="param-workspace-xml-path" />

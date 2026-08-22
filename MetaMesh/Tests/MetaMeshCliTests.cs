@@ -18,6 +18,8 @@ public sealed class MetaMeshCliTests
         Assert.Contains("add-workspace", result.Output);
         Assert.Contains("add-operation", result.Output);
         Assert.Contains("add-step", result.Output);
+        Assert.Contains("update-step", result.Output);
+        Assert.Contains("remove-step", result.Output);
         Assert.Contains("run", result.Output);
         Assert.Contains("show", result.Output);
         Assert.Contains("create", result.Output);
@@ -36,6 +38,40 @@ public sealed class MetaMeshCliTests
         Assert.Contains("--arguments <arguments>", result.Output);
         Assert.Contains("--arguments-stdin", result.Output);
         Assert.Contains("--expected-exit-code <value>", result.Output);
+    }
+
+    [Fact]
+    public void UpdateAndRemoveStep_MaintainTheOperationChain()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metamesh-cli-step-maintenance", Guid.NewGuid().ToString("N"));
+        try
+        {
+            Assert.Equal(0, RunCli($"create --xml \"{root}\" --name Chain").ExitCode);
+            Assert.Equal(0, RunCli($"add-operation --workspace \"{root}\" --name refresh").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{root}\" --operation refresh --name first --executable cmd.exe --arguments \"/c echo first\"").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{root}\" --operation refresh --name middle --executable cmd.exe --arguments \"/c echo old\" --previous-step first").ExitCode);
+            Assert.Equal(0, RunCli($"add-step --workspace \"{root}\" --operation refresh --name last --executable cmd.exe --arguments \"/c echo last\" --previous-step middle").ExitCode);
+
+            var update = RunCli($"update-step --workspace \"{root}\" --operation refresh --name middle --arguments \"/c echo updated\"");
+            Assert.Equal(0, update.ExitCode);
+
+            var updatedSteps = RunCli($"steps --workspace \"{root}\" --operation refresh");
+            Assert.Equal(0, updatedSteps.ExitCode);
+            Assert.Contains("cmd.exe /c echo updated", updatedSteps.Output);
+
+            var remove = RunCli($"remove-step --workspace \"{root}\" --operation refresh --name middle");
+            Assert.Equal(0, remove.ExitCode);
+
+            var model = Meta.Surfaces.Xml.TypedWorkspaceXmlSerializer.Load<MetaMesh.MetaMeshModel>(root, searchUpward: false);
+            var first = Assert.Single(model.OperationStepList, step => step.Name == "first");
+            var last = Assert.Single(model.OperationStepList, step => step.Name == "last");
+            Assert.DoesNotContain(model.OperationStepList, step => step.Name == "middle");
+            Assert.Same(first, last.PreviousStep);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(root);
+        }
     }
 
     [Fact]

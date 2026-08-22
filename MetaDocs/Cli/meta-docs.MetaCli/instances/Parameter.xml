@@ -81,14 +81,22 @@
       <Description>Documentation path to browse, for example cli/meta-sql/deploy.</Description>
       <Name>path</Name>
     </Parameter>
+    <Parameter Id="param-cli-matrix-mesh-root" ValueShapeId="shape-path">
+      <Description>Root directory or MetaMesh workspace to inspect. Repeat for multiple roots.</Description>
+      <IsRepeatable>true</IsRepeatable>
+      <Name>mesh-root</Name>
+    </Parameter>
     <Parameter Id="param-cli-matrix-out" ValueShapeId="shape-path">
       <Description>CSV output path.</Description>
       <IsRequired>true</IsRequired>
       <Name>out</Name>
     </Parameter>
-    <Parameter Id="param-cli-matrix-view" ValueShapeId="shape-cli-matrix-view">
-      <DefaultValue>commands</DefaultValue>
-      <Description>Export command inventory, decision cohorts, or raw finding occurrences.</Description>
+    <Parameter Id="param-cli-matrix-require-conformant" ValueShapeId="shape-flag">
+      <Description>Exit with code 4 when any mesh invocation violates the CLI matrix.</Description>
+      <Name>require-conformant</Name>
+    </Parameter>
+    <Parameter Id="param-cli-matrix-view" ValueShapeId="shape-cli-matrix-export-view">
+      <Description>Export command inventory, decision cohorts, raw findings, or mesh invocation conformance.</Description>
       <Name>view</Name>
     </Parameter>
     <Parameter Id="param-cli-matrix-workspace" ValueShapeId="shape-workspace-location">

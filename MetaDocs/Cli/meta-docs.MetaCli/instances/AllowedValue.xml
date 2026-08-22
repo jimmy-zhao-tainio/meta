@@ -7,6 +7,18 @@
     <AllowedValue Id="allowed-boolean-true" ValueShapeId="shape-bool">
       <Value>true</Value>
     </AllowedValue>
+    <AllowedValue Id="allowed-cli-matrix-export-view-cohorts" ValueShapeId="shape-cli-matrix-export-view">
+      <Value>cohorts</Value>
+    </AllowedValue>
+    <AllowedValue Id="allowed-cli-matrix-export-view-commands" ValueShapeId="shape-cli-matrix-export-view">
+      <Value>commands</Value>
+    </AllowedValue>
+    <AllowedValue Id="allowed-cli-matrix-export-view-findings" ValueShapeId="shape-cli-matrix-export-view">
+      <Value>findings</Value>
+    </AllowedValue>
+    <AllowedValue Id="allowed-cli-matrix-export-view-invocations" ValueShapeId="shape-cli-matrix-export-view">
+      <Value>invocations</Value>
+    </AllowedValue>
     <AllowedValue Id="allowed-cli-matrix-view-cohorts" ValueShapeId="shape-cli-matrix-view">
       <Value>cohorts</Value>
     </AllowedValue>
@@ -15,6 +27,10 @@
     </AllowedValue>
     <AllowedValue Id="allowed-cli-matrix-view-findings" ValueShapeId="shape-cli-matrix-view">
       <Value>findings</Value>
+    </AllowedValue>
+    <AllowedValue Id="allowed-cli-matrix-view-invocations" ValueShapeId="shape-cli-matrix-view">
+      <Description>Mesh invocation conformance rows.</Description>
+      <Value>invocations</Value>
     </AllowedValue>
   </AllowedValueList>
 </MetaCli>
