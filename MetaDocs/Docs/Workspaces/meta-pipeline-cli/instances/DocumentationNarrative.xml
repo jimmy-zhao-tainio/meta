@@ -647,9 +647,10 @@
 Tasks and execution context are added to a named pipeline after the workspace exists. The resulting plan can then be inspected, executed, or used as orchestration input.
 
 ```powershell
-meta-pipeline new-workspace .\Pipeline.Workspace
+meta-pipeline create --xml .\Pipeline.Workspace
 meta-pipeline add-pipeline --workspace .\Pipeline.Workspace --name CustomerLoad
 ```</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta-pipeline:start-pipeline</Slot>

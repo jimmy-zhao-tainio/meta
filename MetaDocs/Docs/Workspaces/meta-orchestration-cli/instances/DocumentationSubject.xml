@@ -14,7 +14,7 @@
       <NativeId>app-meta-orchestration</NativeId>
       <SourceTypeName>MetaCli.Application</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>Infer, author, and execute orchestration plans with task ordering, concurrency policy, and run evidence.</Summary>
+      <Summary>Create, inspect, plan, and execute orchestration plans with task ordering, concurrency policy, and run evidence.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-orchestration:app:command:add-dependency" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-orchestration:app">
       <DisplayName>meta-orchestration add-dependency</DisplayName>
@@ -192,7 +192,71 @@
       <Status>New</Status>
       <Summary>MetaOrchestration workspace. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-orchestration:app" PreviousSubjectId="source:cli:meta-orchestration:app:command:allow-concurrent-append">
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:create" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-orchestration:app" PreviousSubjectId="source:cli:meta-orchestration:app:command:allow-concurrent-append">
+      <DisplayName>meta-orchestration create</DisplayName>
+      <DisplayPath>meta-orchestration create</DisplayPath>
+      <NativeId>exec-create</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create a MetaOrchestration workspace from a modeled MetaPipeline workspace.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:create:option:description" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:create">
+      <DisplayName>--description</DisplayName>
+      <DisplayPath>meta-orchestration create --description</DisplayPath>
+      <NativeId>opt-create-description</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Description recorded on the orchestration plan.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:create:option:output-connection-env" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:create" PreviousSubjectId="source:cli:meta-orchestration:app:command:create:option:description">
+      <DisplayName>--output-connection-env</DisplayName>
+      <DisplayPath>meta-orchestration create --output-connection-env</DisplayPath>
+      <NativeId>opt-create-output-connection-env</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:create:option:output-csharp" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:create" PreviousSubjectId="source:cli:meta-orchestration:app:command:create:option:output-connection-env">
+      <DisplayName>--output-csharp</DisplayName>
+      <DisplayPath>meta-orchestration create --output-csharp</DisplayPath>
+      <NativeId>opt-create-output-csharp</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:create:option:output-sql" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:create" PreviousSubjectId="source:cli:meta-orchestration:app:command:create:option:output-csharp">
+      <DisplayName>--output-sql</DisplayName>
+      <DisplayPath>meta-orchestration create --output-sql</DisplayPath>
+      <NativeId>opt-create-output-sql</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:create:option:output-xml" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:create" PreviousSubjectId="source:cli:meta-orchestration:app:command:create:option:output-sql">
+      <DisplayName>--output-xml</DisplayName>
+      <DisplayPath>meta-orchestration create --output-xml</DisplayPath>
+      <NativeId>opt-create-output-xml</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Create the output on the selected workspace surface.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:create:option:pipeline-workspace" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:create" PreviousSubjectId="source:cli:meta-orchestration:app:command:create:option:output-xml">
+      <DisplayName>--pipeline-workspace</DisplayName>
+      <DisplayPath>meta-orchestration create --pipeline-workspace</DisplayPath>
+      <NativeId>opt-create-pipeline-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaPipeline workspace to analyze.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:create:parameter-group:target" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-orchestration:app:command:create">
+      <DisplayName>target</DisplayName>
+      <DisplayPath>meta-orchestration create group target</DisplayPath>
+      <NativeId>group-create-target</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Choose one workspace target.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:execute" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-orchestration:app" PreviousSubjectId="source:cli:meta-orchestration:app:command:create">
       <DisplayName>meta-orchestration execute</DisplayName>
       <DisplayPath>meta-orchestration execute</DisplayPath>
       <NativeId>exec-execute</NativeId>
@@ -304,71 +368,7 @@
       <Status>New</Status>
       <Summary>Show help.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-orchestration:app" PreviousSubjectId="source:cli:meta-orchestration:app:command:help">
-      <DisplayName>meta-orchestration infer</DisplayName>
-      <DisplayPath>meta-orchestration infer</DisplayPath>
-      <NativeId>exec-infer</NativeId>
-      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Infer a MetaOrchestration workspace from a modeled MetaPipeline workspace.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer:option:description" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:infer">
-      <DisplayName>--description</DisplayName>
-      <DisplayPath>meta-orchestration infer --description</DisplayPath>
-      <NativeId>opt-infer-description</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Description recorded on the orchestration plan.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer:option:output-connection-env" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:infer" PreviousSubjectId="source:cli:meta-orchestration:app:command:infer:option:description">
-      <DisplayName>--output-connection-env</DisplayName>
-      <DisplayPath>meta-orchestration infer --output-connection-env</DisplayPath>
-      <NativeId>option-infer-output-connection-env</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Environment variable containing the output SQL workspace connection string.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer:option:output-csharp" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:infer" PreviousSubjectId="source:cli:meta-orchestration:app:command:infer:option:output-connection-env">
-      <DisplayName>--output-csharp</DisplayName>
-      <DisplayPath>meta-orchestration infer --output-csharp</DisplayPath>
-      <NativeId>option-infer-output-csharp</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary>Create the output on the selected workspace surface.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer:option:output-sql" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:infer" PreviousSubjectId="source:cli:meta-orchestration:app:command:infer:option:output-csharp">
-      <DisplayName>--output-sql</DisplayName>
-      <DisplayPath>meta-orchestration infer --output-sql</DisplayPath>
-      <NativeId>option-infer-output-sql</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary>Create the output on the selected workspace surface.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer:option:output-xml" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:infer" PreviousSubjectId="source:cli:meta-orchestration:app:command:infer:option:output-sql">
-      <DisplayName>--output-xml</DisplayName>
-      <DisplayPath>meta-orchestration infer --output-xml</DisplayPath>
-      <NativeId>option-infer-output-xml</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>Changed</Status>
-      <Summary>Create the output on the selected workspace surface.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer:option:pipeline-workspace" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-orchestration:app:command:infer" PreviousSubjectId="source:cli:meta-orchestration:app:command:infer:option:output-xml">
-      <DisplayName>--pipeline-workspace</DisplayName>
-      <DisplayPath>meta-orchestration infer --pipeline-workspace</DisplayPath>
-      <NativeId>opt-infer-pipeline-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>MetaPipeline workspace to analyze.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:infer:parameter-group:target" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-orchestration:app:command:infer">
-      <DisplayName>target</DisplayName>
-      <DisplayPath>meta-orchestration infer group target</DisplayPath>
-      <NativeId>group-infer-target</NativeId>
-      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Choose one workspace target.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-orchestration:app" PreviousSubjectId="source:cli:meta-orchestration:app:command:infer">
+    <DocumentationSubject Id="source:cli:meta-orchestration:app:command:inspect" DocumentationSourceId="source:cli:meta-orchestration" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-orchestration:app" PreviousSubjectId="source:cli:meta-orchestration:app:command:help">
       <DisplayName>meta-orchestration inspect</DisplayName>
       <DisplayPath>meta-orchestration inspect</DisplayPath>
       <NativeId>exec-inspect</NativeId>

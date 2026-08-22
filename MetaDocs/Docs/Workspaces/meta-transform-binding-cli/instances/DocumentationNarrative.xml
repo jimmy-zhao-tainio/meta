@@ -135,8 +135,9 @@
 Binding records the resolved source and target evidence only when every required reference and type rule can be proven from the supplied workspaces.
 
 ```powershell
-meta-transform-binding bind --transform-workspace .\Transforms.Workspace --source-schema .\SourceSchema.Workspace --target-schema .\WarehouseSchema.Workspace --execute-system SourceWarehouse --execute-system-default-schema-name dbo --new-workspace .\Binding.Workspace
+meta-transform-binding bind --transform-workspace .\Transforms.Workspace --source-schema .\SourceSchema.Workspace --target-schema .\WarehouseSchema.Workspace --execute-system SourceWarehouse --execute-system-default-schema-name dbo --output-xml .\Binding.Workspace
 ```</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta-transform-binding:validate-contract</Slot>

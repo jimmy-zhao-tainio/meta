@@ -607,8 +607,9 @@
 Use a MetaSchema workspace as the source contract, then create the raw-vault design that will carry its source identities and relationships forward.
 
 ```powershell
-meta-convert schema-to-raw-datavault --source-workspace .\SourceSchema.Workspace --new-workspace .\RawVault.Workspace
+meta-convert schema-to-raw-datavault --source-workspace .\SourceSchema.Workspace --output-xml .\RawVault.Workspace
 ```</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta-convert:schema-to-raw-vault</Slot>

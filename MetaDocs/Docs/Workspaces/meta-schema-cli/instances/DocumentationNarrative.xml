@@ -103,8 +103,9 @@
 Capture the source schema once, then use the resulting workspace as the contract for transform binding and downstream design.
 
 ```powershell
-meta-schema extract sqlserver --new-workspace .\SourceSchema.Workspace --connection-env META_SOURCE_SQL --system SourceWarehouse --schema dbo --all-tables
+meta-schema extract sqlserver --output-xml .\SourceSchema.Workspace --connection-env META_SOURCE_SQL --system SourceWarehouse --schema dbo --all-tables
 ```</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta-schema:extract-source</Slot>

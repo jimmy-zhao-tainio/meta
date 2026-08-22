@@ -276,14 +276,17 @@ public sealed class MetaDocsRuntimeTests
         Assert.DoesNotContain(matrix.DecisionCohorts, cohort =>
             cohort.Code.Contains("MDCLI006", StringComparison.OrdinalIgnoreCase) &&
             cohort.ActionFamilies.Contains("add", StringComparer.OrdinalIgnoreCase));
-        var infer = Assert.Single(matrix.Commands, row => row.Application == "meta-orchestration" && row.Command == "infer");
-        Assert.Equal("create", infer.ActionFamily);
-        Assert.Equal("derive", infer.OperationIntent);
-        Assert.Contains(matrix.DecisionCohorts, cohort =>
+        var createOrchestration = Assert.Single(matrix.Commands, row =>
+            row.Application == "meta-orchestration" &&
+            row.Command == "create");
+        Assert.Equal("create", createOrchestration.ActionFamily);
+        Assert.Equal("create", createOrchestration.OperationIntent);
+        Assert.DoesNotContain(matrix.Commands, row =>
+            row.Application == "meta-orchestration" &&
+            row.Command == "infer");
+        Assert.DoesNotContain(matrix.DecisionCohorts, cohort =>
             cohort.Code == "MDCLI006" &&
-            cohort.ActionFamilies.Contains("create", StringComparer.OrdinalIgnoreCase) &&
-            cohort.SurfaceVerbs.Contains("create", StringComparer.OrdinalIgnoreCase) &&
-            cohort.SurfaceVerbs.Contains("infer", StringComparer.OrdinalIgnoreCase));
+            cohort.ActionFamilies.Contains("create", StringComparer.OrdinalIgnoreCase));
         Assert.Contains(matrix.DecisionCohorts, cohort =>
             cohort.Code == "MDCLI009" &&
             cohort.DecisionKey.Contains("boolean-value-shape", StringComparison.OrdinalIgnoreCase));
@@ -335,7 +338,7 @@ public sealed class MetaDocsRuntimeTests
             Assert.Equal(matrix.DecisionCohorts.Count + 1, File.ReadLines(cohortPath).Count());
             var cohortCsv = File.ReadAllText(cohortPath);
             Assert.StartsWith("\"DecisionKey\",\"Code\",\"Category\",\"Decision\"", cohortCsv, StringComparison.Ordinal);
-            Assert.Contains("\"create | infer\"", cohortCsv, StringComparison.Ordinal);
+            Assert.DoesNotContain("\"create | infer\"", cohortCsv, StringComparison.Ordinal);
 
             var findingResult = RunCli(
                 $"cli-matrix --workspace {QuoteArgument(suiteWorkspace)} --view findings --out {QuoteArgument(findingPath)}");

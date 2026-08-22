@@ -151,11 +151,12 @@
 The binding workspace limits discovery to scripts whose source and target contracts are known. Promotion marks the candidates that should become generated SQL assets.
 
 ```powershell
-meta-data-quality from-transform-workspace --transform-workspace .\Transforms.Workspace --binding-workspace .\Binding.Workspace --new-workspace .\DataQuality.Workspace
+meta-data-quality from-transform-workspace --transform-workspace .\Transforms.Workspace --binding-workspace .\Binding.Workspace --output-xml .\DataQuality.Workspace
 meta-data-quality inspect --workspace .\DataQuality.Workspace
 meta-data-quality promote --workspace .\DataQuality.Workspace --all
 meta-convert data-quality-to-sql --workspace .\DataQuality.Workspace --out .\DataQuality.sql
 ```</Body>
+      <LastReviewedImportBatchId></LastReviewedImportBatchId>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Example.example:meta-data-quality:derive-and-promote</Slot>
