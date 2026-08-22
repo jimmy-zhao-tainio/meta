@@ -31,6 +31,7 @@ internal static class Program
             .UseDefaultHelp(options: new MetaCliHelpOptions("meta-docs browse"))
             .BindTarget("exec-author-page", OutputWorkspace(), RunAuthorPage)
             .BindReadOnly("exec-browse", RunBrowse)
+            .BindReadOnly("exec-cli-matrix", RunCliMatrix)
             .BindReadOnly("exec-contents", RunContents)
             .BindReadOnly("exec-search", RunSearch)
             .Bind("exec-update-description", RunUpdateDescription)
@@ -111,6 +112,58 @@ internal static class Program
         catch (Exception exception)
         {
             throw new InvalidOperationException($"Cannot browse documentation. {exception.Message}", exception);
+        }
+    }
+
+    private static void RunCliMatrix(MetaCliInvocation invocation, MetaDocsModel model)
+    {
+        var outputPath = Path.GetFullPath(invocation.Required("out"));
+        var view = FirstNonEmpty(Optional(invocation, "view"), "commands").ToLowerInvariant();
+        try
+        {
+            var matrix = new MetaDocsCliMatrixService().Build(model);
+            var (csv, rowCount) = view switch
+            {
+                "commands" => (FormatCliCommandsCsv(matrix), matrix.Commands.Count),
+                "cohorts" => (FormatCliDecisionCohortsCsv(matrix), matrix.DecisionCohorts.Count),
+                "findings" => (FormatCliFindingsCsv(matrix), matrix.Findings.Count),
+                _ => throw new MetaCliExitException(2, "--view must be commands, cohorts, or findings."),
+            };
+            var outputDirectory = Path.GetDirectoryName(outputPath);
+            if (string.IsNullOrWhiteSpace(outputDirectory))
+            {
+                throw new InvalidOperationException($"Could not resolve the output directory for '{outputPath}'.");
+            }
+
+            Directory.CreateDirectory(outputDirectory);
+            File.WriteAllText(
+                outputPath,
+                csv,
+                new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+            Presenter.WriteInfo($"Wrote CLI matrix ({view}, {rowCount} row(s)): {outputPath}");
+            Presenter.WriteInfo(
+                $"Coverage: {matrix.ApplicationCount} application(s), {matrix.CommandCount} command(s), " +
+                $"{matrix.ParameterCount} parameter(s), {matrix.ParameterGroupCount} parameter group(s).");
+            Presenter.WriteInfo(
+                $"Classification: {matrix.CommandCount - matrix.UnclassifiedCount} classified, " +
+                $"{matrix.UnclassifiedCount} unclassified, {matrix.Findings.Count} finding occurrence(s), " +
+                $"{matrix.DecisionCohorts.Count} decision cohort(s).");
+            foreach (var findingGroup in matrix.Findings
+                         .GroupBy(static finding => finding.Code, StringComparer.OrdinalIgnoreCase)
+                         .OrderBy(static group => group.Key, StringComparer.OrdinalIgnoreCase))
+            {
+                var affectedRowCount = findingGroup
+                    .SelectMany(static finding => finding.AffectedCommands.Select(command => CommandKey(finding.Application, command)))
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .Count();
+                Presenter.WriteInfo(
+                    $"  {findingGroup.Key}: {findingGroup.Count()} finding(s), {affectedRowCount} command row(s) - " +
+                    findingGroup.First().Message);
+            }
+        }
+        catch (Exception exception) when (exception is not MetaCliExitException)
+        {
+            throw new InvalidOperationException($"Cannot generate CLI matrix. Output: {outputPath}. {exception.Message}", exception);
         }
     }
 
@@ -479,6 +532,223 @@ internal static class Program
 
         return builder.ToString().TrimEnd();
     }
+
+    private static string FormatCliCommandsCsv(MetaDocsCliMatrix matrix)
+    {
+        var findingsByCommand = matrix.Findings
+            .SelectMany(static finding => finding.AffectedCommands.Select(command => new
+            {
+                Key = CommandKey(finding.Application, command),
+                Finding = finding,
+            }))
+            .GroupBy(static finding => finding.Key, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(
+                static group => group.Key,
+                static group => group.Select(static item => item.Finding).ToArray(),
+                StringComparer.OrdinalIgnoreCase);
+        var builder = new StringBuilder();
+        AppendCsvRow(
+            builder,
+            "ApplicationId",
+            "Application",
+            "CommandId",
+            "Command",
+            "CommandPath",
+            "SurfaceVerb",
+            "RoutePattern",
+            "ActionFamily",
+            "OperationIntent",
+            "Subject",
+            "SubjectScope",
+            "SubjectSelection",
+            "InputPattern",
+            "ResultPattern",
+            "SideEffect",
+            "ClassificationStatus",
+            "WorkspaceInputs",
+            "OutputMode",
+            "ParameterCount",
+            "Parameters",
+            "ParameterGroupCount",
+            "ParameterGroups",
+            "Findings",
+            "FindingEvidence",
+            "Summary");
+
+        foreach (var row in matrix.Commands)
+        {
+            var commandKey = CommandKey(row.Application, row.Command);
+            findingsByCommand.TryGetValue(commandKey, out var rowFindings);
+            rowFindings ??= [];
+            AppendCsvRow(
+                builder,
+                row.ApplicationId,
+                row.Application,
+                row.CommandId,
+                row.Command,
+                row.CommandPath,
+                row.Verb,
+                row.RoutePattern,
+                row.ActionFamily,
+                row.OperationIntent,
+                row.Subject,
+                row.SubjectScope,
+                row.SubjectSelection,
+                row.InputPattern,
+                row.ResultPattern,
+                row.SideEffect,
+                row.ClassificationStatus,
+                string.Join(" | ", row.WorkspaceInputs),
+                row.OutputMode,
+                (row.Options.Count + row.Arguments.Count).ToString(),
+                string.Join(" | ", row.Options.Concat(row.Arguments).Select(FormatCliMatrixParameter)),
+                row.ParameterGroups.Count.ToString(),
+                string.Join(" | ", row.ParameterGroups.Select(FormatCliMatrixParameterGroup)),
+                string.Join(" | ", rowFindings.Select(static finding => finding.Code).Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(static code => code, StringComparer.OrdinalIgnoreCase)),
+                string.Join(" | ", rowFindings.Select(static finding => $"{finding.Code}: {finding.Evidence}").Distinct(StringComparer.Ordinal).OrderBy(static evidence => evidence, StringComparer.OrdinalIgnoreCase)),
+                row.Summary);
+        }
+
+        return builder.ToString();
+    }
+
+    private static string FormatCliDecisionCohortsCsv(MetaDocsCliMatrix matrix)
+    {
+        var builder = new StringBuilder();
+        AppendCsvRow(
+            builder,
+            "DecisionKey",
+            "Code",
+            "Category",
+            "Decision",
+            "OperationIntent",
+            "ActionFamily",
+            "SubjectScope",
+            "Subject",
+            "SubjectSelection",
+            "InputPattern",
+            "ResultPattern",
+            "SideEffect",
+            "SurfaceVerbs",
+            "RoutePatterns",
+            "ApplicationCount",
+            "Applications",
+            "CommandCount",
+            "Commands",
+            "Evidence");
+        foreach (var cohort in matrix.DecisionCohorts)
+        {
+            AppendCsvRow(
+                builder,
+                cohort.DecisionKey,
+                cohort.Code,
+                cohort.Category,
+                cohort.Title,
+                string.Join(" | ", cohort.OperationIntents),
+                string.Join(" | ", cohort.ActionFamilies),
+                string.Join(" | ", cohort.SubjectScopes),
+                string.Join(" | ", cohort.Subjects),
+                string.Join(" | ", cohort.SubjectSelections),
+                string.Join(" | ", cohort.InputPatterns),
+                string.Join(" | ", cohort.ResultPatterns),
+                string.Join(" | ", cohort.SideEffects),
+                string.Join(" | ", cohort.SurfaceVerbs),
+                string.Join(" | ", cohort.RoutePatterns),
+                cohort.ApplicationCount.ToString(),
+                string.Join(" | ", cohort.Applications),
+                cohort.CommandCount.ToString(),
+                string.Join(" | ", cohort.Commands),
+                string.Join(" | ", cohort.Evidence));
+        }
+
+        return builder.ToString();
+    }
+
+    private static string FormatCliFindingsCsv(MetaDocsCliMatrix matrix)
+    {
+        var builder = new StringBuilder();
+        AppendCsvRow(
+            builder,
+            "Code",
+            "Category",
+            "DecisionKey",
+            "Application",
+            "Command",
+            "AffectedCommands",
+            "Finding",
+            "Evidence");
+        foreach (var finding in matrix.Findings)
+        {
+            AppendCsvRow(
+                builder,
+                finding.Code,
+                finding.Category,
+                finding.DecisionKey,
+                finding.Application,
+                finding.Command,
+                string.Join(" | ", finding.AffectedCommands),
+                finding.Message,
+                finding.Evidence);
+        }
+
+        return builder.ToString();
+    }
+
+    private static string FormatCliMatrixParameter(MetaDocsCliMatrixParameter parameter)
+    {
+        var details = new List<string>
+        {
+            $"parameter={FirstNonEmpty(parameter.ParameterId, parameter.SubjectId)}",
+            $"shape={FirstNonEmpty(parameter.ValueShape, "none")}",
+            $"arity={FirstNonEmpty(parameter.ValueArity, "none")}",
+            $"required={FormatNullableBoolean(parameter.Required)}",
+            $"repeatable={FormatNullableBoolean(parameter.Repeatable)}",
+        };
+        if (!string.IsNullOrWhiteSpace(parameter.DefaultValue))
+        {
+            details.Add($"default={parameter.DefaultValue}");
+        }
+
+        if (parameter.Aliases.Count != 0)
+        {
+            details.Add($"aliases={string.Join("/", parameter.Aliases)}");
+        }
+
+        if (parameter.AllowedValues.Count != 0)
+        {
+            details.Add($"values={string.Join("/", parameter.AllowedValues)}");
+        }
+
+        var valueName = string.IsNullOrWhiteSpace(parameter.ValueName) ? string.Empty : " " + parameter.ValueName;
+        return $"{parameter.Kind}:{parameter.Name}{valueName} [{string.Join(";", details)}]";
+    }
+
+    private static string FormatCliMatrixParameterGroup(MetaDocsCliMatrixParameterGroup group) =>
+        $"{group.Name} [required={FormatNullableBoolean(group.Required)};multiple={FormatNullableBoolean(group.AllowsMultiple)}]:" +
+        string.Join("/", group.Members);
+
+    private static string FormatNullableBoolean(bool? value) =>
+        value is null ? "unspecified" : value.Value ? "true" : "false";
+
+    private static void AppendCsvRow(StringBuilder builder, params string?[] values)
+    {
+        builder.AppendLine(string.Join(",", values.Select(Csv)));
+    }
+
+    private static string Csv(string? value)
+    {
+        var normalized = (value ?? string.Empty)
+            .Replace("\r\n", " ", StringComparison.Ordinal)
+            .Replace('\r', ' ')
+            .Replace('\n', ' ');
+        return $"\"{normalized.Replace("\"", "\"\"", StringComparison.Ordinal)}\"";
+    }
+
+    private static string CommandKey(string application, string command) =>
+        $"{application}\u001f{command}";
+
+    private static string FirstNonEmpty(params string?[] values) =>
+        values.FirstOrDefault(static value => !string.IsNullOrWhiteSpace(value)) ?? string.Empty;
 
     private static void AppendContentNode(StringBuilder builder, MetaDocsContentNode node, int depth)
     {

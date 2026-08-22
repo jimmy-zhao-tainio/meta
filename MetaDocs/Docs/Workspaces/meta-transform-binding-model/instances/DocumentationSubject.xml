@@ -328,7 +328,39 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:storedprocedureoperationbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:sourcetarget">
+      <DisplayName>StoredProcedureOperationBinding</DisplayName>
+      <DisplayPath>MetaTransformBinding.StoredProcedureOperationBinding</DisplayPath>
+      <NativeId>StoredProcedureOperationBinding</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:storedprocedureoperationbinding:property:metatransformscriptstoredprocedurecontractoperationid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:storedprocedureoperationbinding">
+      <DisplayName>MetaTransformScriptStoredProcedureContractOperationId</DisplayName>
+      <DisplayPath>MetaTransformBinding.StoredProcedureOperationBinding.MetaTransformScriptStoredProcedureContractOperationId</DisplayPath>
+      <NativeId>MetaTransformScriptStoredProcedureContractOperationId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:storedprocedureoperationbinding:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:storedprocedureoperationbinding">
+      <DisplayName>Rowset</DisplayName>
+      <DisplayPath>MetaTransformBinding.StoredProcedureOperationBinding.Rowset</DisplayPath>
+      <NativeId>Rowset:Rowset</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:storedprocedureoperationbinding:relationship:transformbinding-transformbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:storedprocedureoperationbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:storedprocedureoperationbinding:relationship:rowset-rowset">
+      <DisplayName>TransformBinding</DisplayName>
+      <DisplayPath>MetaTransformBinding.StoredProcedureOperationBinding.TransformBinding</DisplayPath>
+      <NativeId>TransformBinding:TransformBinding</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:tablesource" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:storedprocedureoperationbinding">
       <DisplayName>TableSource</DisplayName>
       <DisplayPath>MetaTransformBinding.TableSource</DisplayPath>
       <NativeId>TableSource</NativeId>
@@ -568,6 +600,14 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:property:resolvedsqlidentifier" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:property:metaschematableid">
+      <DisplayName>ResolvedSqlIdentifier</DisplayName>
+      <DisplayPath>MetaTransformBinding.ValidationSourceRowsetLink.ResolvedSqlIdentifier</DisplayPath>
+      <NativeId>ResolvedSqlIdentifier</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink">
       <DisplayName>Rowset</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationSourceRowsetLink.Rowset</DisplayPath>
@@ -584,7 +624,47 @@
       <Status>Changed</Status>
       <Summary></Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink">
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationsourcerowsetlink">
+      <DisplayName>ValidationStoredProcedureOperationLink</DisplayName>
+      <DisplayPath>MetaTransformBinding.ValidationStoredProcedureOperationLink</DisplayPath>
+      <NativeId>ValidationStoredProcedureOperationLink</NativeId>
+      <SourceTypeName>GenericEntity</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink:property:metaschematableid" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink">
+      <DisplayName>MetaSchemaTableId</DisplayName>
+      <DisplayPath>MetaTransformBinding.ValidationStoredProcedureOperationLink.MetaSchemaTableId</DisplayPath>
+      <NativeId>MetaSchemaTableId</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink:property:resolvedsqlidentifier" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink:property:metaschematableid">
+      <DisplayName>ResolvedSqlIdentifier</DisplayName>
+      <DisplayPath>MetaTransformBinding.ValidationStoredProcedureOperationLink.ResolvedSqlIdentifier</DisplayPath>
+      <NativeId>ResolvedSqlIdentifier</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink:relationship:storedprocedureoperationbinding-storedprocedureoperationbinding" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink">
+      <DisplayName>StoredProcedureOperationBinding</DisplayName>
+      <DisplayPath>MetaTransformBinding.ValidationStoredProcedureOperationLink.StoredProcedureOperationBinding</DisplayPath>
+      <NativeId>StoredProcedureOperationBinding:StoredProcedureOperationBinding</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink:relationship:validation-validation" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink:relationship:storedprocedureoperationbinding-storedprocedureoperationbinding">
+      <DisplayName>Validation</DisplayName>
+      <DisplayPath>MetaTransformBinding.ValidationStoredProcedureOperationLink.Validation</DisplayPath>
+      <NativeId>Validation:Validation</NativeId>
+      <SourceTypeName>GenericRelationship</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetcolumnlink" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:entity" ParentSubjectId="source:workspace-model:meta-transform-binding:model:metatransformbinding" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationstoredprocedureoperationlink">
       <DisplayName>ValidationTargetColumnLink</DisplayName>
       <DisplayPath>MetaTransformBinding.ValidationTargetColumnLink</DisplayPath>
       <NativeId>ValidationTargetColumnLink</NativeId>
@@ -718,6 +798,14 @@
       <NativeId>MetaSchemaTableId</NativeId>
       <SourceTypeName>GenericProperty</SourceTypeName>
       <Status>Changed</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:property:resolvedsqlidentifier" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:property" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink" PreviousSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:property:metaschematableid">
+      <DisplayName>ResolvedSqlIdentifier</DisplayName>
+      <DisplayPath>MetaTransformBinding.ValidationTargetRowsetLink.ResolvedSqlIdentifier</DisplayPath>
+      <NativeId>ResolvedSqlIdentifier</NativeId>
+      <SourceTypeName>GenericProperty</SourceTypeName>
+      <Status>New</Status>
       <Summary></Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink:relationship:rowset-rowset" DocumentationSourceId="source:workspace-model:meta-transform-binding" DocumentationSubjectTypeId="subject-type:relationship" ParentSubjectId="source:workspace-model:meta-transform-binding:entity:validationtargetrowsetlink">

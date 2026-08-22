@@ -110,17 +110,9 @@
       <NativeId>option-create-csharp</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>Create the destination on the selected workspace surface.</Summary>
+      <Summary>Create a C# workspace at this directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:create:option:new-workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:csharp">
-      <DisplayName>--new-workspace</DisplayName>
-      <DisplayPath>meta create --new-workspace</DisplayPath>
-      <NativeId>option-create-new-workspace</NativeId>
-      <SourceTypeName>MetaCli.Option</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Destination workspace directory.</Summary>
-    </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta:app:command:create:option:source-workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:new-workspace">
+    <DocumentationSubject Id="source:cli:meta:app:command:create:option:source-workspace" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:csharp">
       <DisplayName>--source-workspace</DisplayName>
       <DisplayPath>meta create --source-workspace</DisplayPath>
       <NativeId>option-create-source-workspace</NativeId>
@@ -134,7 +126,7 @@
       <NativeId>option-create-sql</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>Create the destination on the selected workspace surface.</Summary>
+      <Summary>Create a SQL workspace described by this directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:create:option:strict" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta:app:command:create" PreviousSubjectId="source:cli:meta:app:command:create:option:sql">
       <DisplayName>--strict</DisplayName>
@@ -166,15 +158,15 @@
       <NativeId>option-create-xml</NativeId>
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>Changed</Status>
-      <Summary>Create the destination on the selected workspace surface.</Summary>
+      <Summary>Create an XML workspace at this directory.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:create:parameter-group:output" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta:app:command:create">
       <DisplayName>output</DisplayName>
       <DisplayPath>meta create group output</DisplayPath>
       <NativeId>group-create-output</NativeId>
       <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
-      <Status>New</Status>
-      <Summary>Choose one workspace representation.</Summary>
+      <Status>Changed</Status>
+      <Summary>Choose exactly one workspace surface and destination.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta:app:command:delete" DocumentationSourceId="source:cli:meta" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta:app" PreviousSubjectId="source:cli:meta:app:command:create">
       <DisplayName>meta delete</DisplayName>

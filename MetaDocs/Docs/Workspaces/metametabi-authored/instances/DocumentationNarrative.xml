@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MetaDocs>
   <DocumentationNarrativeList>
+    <DocumentationNarrative Id="public:meta-bi:adapters:narrative:summary:adapters" DocumentationSubjectId="public:meta-bi:adapters">
+      <Body>Provider contracts for bringing external systems into MetaSchema, binding, and pipeline execution.</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>Adapters</Title>
+    </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:adventureworks:narrative:summary" DocumentationSubjectId="public:meta-bi:adventureworks">
       <Body>## A complete BI stack built by an agent
 
@@ -138,19 +145,59 @@ Cleanup drops `AdventureWorksRawVault`, `AdventureWorksBusinessVault`, `Adventur
       <Slot>Summary</Slot>
       <Title>Demo</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:adapters:narrative:summary:adapters" DocumentationSubjectId="public:meta-bi:adapters">
-      <Body>Provider contracts for bringing external systems into MetaSchema, binding, and pipeline execution.</Body>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>Adapters</Title>
-    </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:cli:narrative:summary:cli" DocumentationSubjectId="public:meta-bi:cli">
       <Body>Command-line tools for BI modeling, conversion, validation, and execution.</Body>
       <Origin>Authored</Origin>
       <ReviewStatus>Current</ReviewStatus>
       <Slot>Summary</Slot>
       <Title>CLI</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:meta-schema-adapter:narrative:binding" DocumentationSubjectId="public:meta-bi:meta-schema-adapter" PreviousNarrativeId="public:meta-bi:meta-schema-adapter:narrative:summary">
+      <Body>`IMetaSchemaDiscoveryAdapter` receives a provider-resolved connection reference and a system name, then returns a `MetaSchemaModel`. The provider describes the schemas, objects, fields, keys, and relationships available from that system using the normal MetaSchema contract. `MetaSchemaAdapterWorkspaceService` writes that model as an ordinary XML, C#, or SQL workspace through the normal workspace mapper.
+
+Binding follows the existing meta-bi path. `TransformBindingWorkspaceService` binds a MetaTransformScript workspace against the discovered source and target MetaSchema workspaces and creates a validated MetaTransformBinding workspace. No adapter-specific binding path is introduced.</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Binding</Slot>
+      <Title>Discovery and binding</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:meta-schema-adapter:narrative:pipeline" DocumentationSubjectId="public:meta-bi:meta-schema-adapter" PreviousNarrativeId="public:meta-bi:meta-schema-adapter:narrative:transforms">
+      <Body>`MetaSchemaAdapterExecutionService` loads the selected MetaSchema, MetaTransformScript, and MetaTransformBinding workspaces and uses MetaPipeline's existing execution resolver. For a row-producing transform it obtains an `IPipelineRowStreamSource` from `IMetaSchemaTransformAdapter` and an `IPipelineTargetWriteOperation` from `IMetaSchemaTargetWriteAdapter`. MetaPipeline checks the row shape, moves rows in batches, reports progress, and records the execution result. The execution service disposes the provider-owned target operation after the run.
+
+For a mutating transform, the same service supplies the modeled contracts and selected identities to `IMetaSchemaMutationAdapter` and returns the provider's affected-row evidence.
+
+Connection references are names resolved by the provider. Provider configuration, credentials, authentication, and physical I/O stay with the provider implementation.</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Pipeline</Slot>
+      <Title>Pipeline execution</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:meta-schema-adapter:narrative:providers" DocumentationSubjectId="public:meta-bi:meta-schema-adapter" PreviousNarrativeId="public:meta-bi:meta-schema-adapter:narrative:pipeline">
+      <Body>A provider references `MetaSchema.Adapter`, implements `IMetaSchemaAdapter`, and adds only the capability interfaces it supports. Implementations translate the supported semantic forms using the transform model and binding evidence and report unsupported forms clearly. The application supplies configured adapter instances; provider package loading is left to the application host.
+
+The meta-bi repository includes a test provider for tab-separated files in [`MetaSchemaAdapter/Tests/ExternalProvider`](https://github.com/jimmy-zhao-tainio/meta-bi/tree/main/MetaSchemaAdapter/Tests/ExternalProvider). Its integration test creates a MetaSchema workspace, imports a MetaTransformScript workspace, creates a validated MetaTransformBinding workspace through the existing binding service, evaluates the supported projection and predicate entities, and writes the result through MetaPipeline. The provider lives outside the MetaSchemaAdapter namespace and requires no changes to MetaSchema, MetaTransformBinding, or MetaPipeline.</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Providers</Slot>
+      <Title>Implementing a provider</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:meta-schema-adapter:narrative:summary" DocumentationSubjectId="public:meta-bi:meta-schema-adapter">
+      <Body>`MetaSchemaAdapter` is the provider boundary for systems outside the built-in SQL Server path. It lets a provider describe an external system as MetaSchema and supply the runtime capabilities it supports for bound transforms and pipeline writes.
+
+The contract is split by capability. A read-only provider can offer discovery and row-producing transforms, while another provider may also support mutations or target inserts.</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Summary</Slot>
+      <Title>MetaSchemaAdapter</Title>
+    </DocumentationNarrative>
+    <DocumentationNarrative Id="public:meta-bi:meta-schema-adapter:narrative:transforms" DocumentationSubjectId="public:meta-bi:meta-schema-adapter" PreviousNarrativeId="public:meta-bi:meta-schema-adapter:narrative:binding">
+      <Body>`IMetaSchemaTransformAdapter` creates an `IPipelineRowStreamSource` for a row-producing transform. `IMetaSchemaMutationAdapter` executes a bound mutating transform and returns the affected row count when the provider can report it.
+
+The provider receives the MetaTransformScript semantic model together with the validated binding workspace and the identities of the selected transform and binding. The binding supplies resolved table sources, column references, rowsets, target evidence, and output shape. The provider works from those modeled entities rather than recovering meaning from emitted SQL text. Each provider implements the semantic forms its external system can execute.</Body>
+      <Origin>Authored</Origin>
+      <ReviewStatus>Current</ReviewStatus>
+      <Slot>Transforms</Slot>
+      <Title>Bound transforms</Title>
     </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:models:narrative:summary:models" DocumentationSubjectId="public:meta-bi:models">
       <Body>Model references for the sanctioned BI metadata workspaces.</Body>
@@ -237,53 +284,6 @@ At the analytical layer, `MetaAnalytics` carries tables, attributes, relationshi
       <Slot>Models</Slot>
       <Title>The models</Title>
     </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:meta-schema-adapter:narrative:binding" DocumentationSubjectId="public:meta-bi:meta-schema-adapter" PreviousNarrativeId="public:meta-bi:meta-schema-adapter:narrative:summary">
-      <Body>`IMetaSchemaDiscoveryAdapter` receives a provider-resolved connection reference and a system name, then returns a `MetaSchemaModel`. The provider describes the schemas, objects, fields, keys, and relationships available from that system using the normal MetaSchema contract. `MetaSchemaAdapterWorkspaceService` writes that model as an ordinary XML, C#, or SQL workspace through the normal workspace mapper.
-
-Binding follows the existing meta-bi path. `TransformBindingWorkspaceService` binds a MetaTransformScript workspace against the discovered source and target MetaSchema workspaces and creates a validated MetaTransformBinding workspace. No adapter-specific binding path is introduced.</Body>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Binding</Slot>
-      <Title>Discovery and binding</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:meta-schema-adapter:narrative:pipeline" DocumentationSubjectId="public:meta-bi:meta-schema-adapter" PreviousNarrativeId="public:meta-bi:meta-schema-adapter:narrative:transforms">
-      <Body>`MetaSchemaAdapterExecutionService` loads the selected MetaSchema, MetaTransformScript, and MetaTransformBinding workspaces and uses MetaPipeline's existing execution resolver. For a row-producing transform it obtains an `IPipelineRowStreamSource` from `IMetaSchemaTransformAdapter` and an `IPipelineTargetWriteOperation` from `IMetaSchemaTargetWriteAdapter`. MetaPipeline checks the row shape, moves rows in batches, reports progress, and records the execution result. The execution service disposes the provider-owned target operation after the run.
-
-For a mutating transform, the same service supplies the modeled contracts and selected identities to `IMetaSchemaMutationAdapter` and returns the provider's affected-row evidence.
-
-Connection references are names resolved by the provider. Provider configuration, credentials, authentication, and physical I/O stay with the provider implementation.</Body>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Pipeline</Slot>
-      <Title>Pipeline execution</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:meta-schema-adapter:narrative:providers" DocumentationSubjectId="public:meta-bi:meta-schema-adapter" PreviousNarrativeId="public:meta-bi:meta-schema-adapter:narrative:pipeline">
-      <Body>A provider references `MetaSchema.Adapter`, implements `IMetaSchemaAdapter`, and adds only the capability interfaces it supports. Implementations translate the supported semantic forms using the transform model and binding evidence and report unsupported forms clearly. The application supplies configured adapter instances; provider package loading is left to the application host.
-
-The meta-bi repository includes a test provider for tab-separated files in [`MetaSchemaAdapter/Tests/ExternalProvider`](https://github.com/jimmy-zhao-tainio/meta-bi/tree/main/MetaSchemaAdapter/Tests/ExternalProvider). Its integration test creates a MetaSchema workspace, imports a MetaTransformScript workspace, creates a validated MetaTransformBinding workspace through the existing binding service, evaluates the supported projection and predicate entities, and writes the result through MetaPipeline. The provider lives outside the MetaSchemaAdapter namespace and requires no changes to MetaSchema, MetaTransformBinding, or MetaPipeline.</Body>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Providers</Slot>
-      <Title>Implementing a provider</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:meta-schema-adapter:narrative:summary" DocumentationSubjectId="public:meta-bi:meta-schema-adapter">
-      <Body>`MetaSchemaAdapter` is the provider boundary for systems outside the built-in SQL Server path. It lets a provider describe an external system as MetaSchema and supply the runtime capabilities it supports for bound transforms and pipeline writes.
-
-The contract is split by capability. A read-only provider can offer discovery and row-producing transforms, while another provider may also support mutations or target inserts.</Body>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Summary</Slot>
-      <Title>MetaSchemaAdapter</Title>
-    </DocumentationNarrative>
-    <DocumentationNarrative Id="public:meta-bi:meta-schema-adapter:narrative:transforms" DocumentationSubjectId="public:meta-bi:meta-schema-adapter" PreviousNarrativeId="public:meta-bi:meta-schema-adapter:narrative:binding">
-      <Body>`IMetaSchemaTransformAdapter` creates an `IPipelineRowStreamSource` for a row-producing transform. `IMetaSchemaMutationAdapter` executes a bound mutating transform and returns the affected row count when the provider can report it.
-
-The provider receives the MetaTransformScript semantic model together with the validated binding workspace and the identities of the selected transform and binding. The binding supplies resolved table sources, column references, rowsets, target evidence, and output shape. The provider works from those modeled entities rather than recovering meaning from emitted SQL text. Each provider implements the semantic forms its external system can execute.</Body>
-      <Origin>Authored</Origin>
-      <ReviewStatus>Current</ReviewStatus>
-      <Slot>Transforms</Slot>
-      <Title>Bound transforms</Title>
-    </DocumentationNarrative>
     <DocumentationNarrative Id="public:meta-bi:overview:narrative:summary" DocumentationSubjectId="public:meta-bi:overview">
       <Body>`meta-bi` brings BI engineering into the workspace system provided by `meta`. A project can move from a discovered source schema to Data Vault and dimensional models, bind SQL transforms to those structures, analyze them for data-quality checks, execute loads, derive orchestration, and publish analytical models.
 
@@ -339,7 +339,7 @@ Workspace-oriented commands use the current directory by default. Pass `--worksp
       <Body>Create an XML workspace and give its initial model one entity and two records:
 
 ```powershell
-meta create --new-workspace .\XmlWorkspace --xml
+meta create --xml .\XmlWorkspace
 meta model rename-model MetadataModel WorkspaceCatalog --workspace .\XmlWorkspace
 meta model add-entity System --workspace .\XmlWorkspace
 meta model add-property System SystemName --workspace .\XmlWorkspace
@@ -351,8 +351,8 @@ Now create SQL and C# workspaces from that exact model and instance graph:
 
 ```powershell
 $env:META_SQL_CONNECTION = "Server=.;Database=WorkspaceCatalog;Integrated Security=true;TrustServerCertificate=true;Encrypt=false"
-meta create --new-workspace .\SqlWorkspace --source-workspace .\XmlWorkspace --with-instances --connection-env META_SQL_CONNECTION --sql
-meta create --new-workspace .\CSharpWorkspace --source-workspace .\XmlWorkspace --with-instances --csharp
+meta create --sql .\SqlWorkspace --source-workspace .\XmlWorkspace --with-instances --connection-env META_SQL_CONNECTION
+meta create --csharp .\CSharpWorkspace --source-workspace .\XmlWorkspace --with-instances
 ```
 
 The C# surface contains the generated `WorkspaceCatalogModel`, the `System` type, and the same two records. Application or service code can consume them directly:

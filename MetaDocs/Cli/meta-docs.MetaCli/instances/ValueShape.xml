@@ -5,6 +5,11 @@
       <Name>Boolean</Name>
       <ValueLabel>true|false</ValueLabel>
     </ValueShape>
+    <ValueShape Id="shape-cli-matrix-view" ValueArityId="arity-one">
+      <Description>Select the CLI analysis table to export.</Description>
+      <Name>CliMatrixView</Name>
+      <ValueLabel>commands|cohorts|findings</ValueLabel>
+    </ValueShape>
     <ValueShape Id="shape-flag" ValueArityId="arity-none">
       <Name>Flag</Name>
     </ValueShape>

@@ -208,7 +208,63 @@
       <Status>New</Status>
       <Summary>MetaDocs workspace to browse. Defaults to the current directory.</Summary>
     </DocumentationSubject>
-    <DocumentationSubject Id="source:cli:meta-docs:app:command:contents" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-docs:app" PreviousSubjectId="source:cli:meta-docs:app:command:browse">
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:cli-matrix" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-docs:app" PreviousSubjectId="source:cli:meta-docs:app:command:browse">
+      <DisplayName>meta-docs cli-matrix</DisplayName>
+      <DisplayPath>meta-docs cli-matrix</DisplayPath>
+      <NativeId>exec-cli-matrix</NativeId>
+      <SourceTypeName>MetaCli.ExecutableCommand</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Generate an exhaustive CLI command matrix with structural classifications and discrepancy evidence.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:cli-matrix:option:out" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:cli-matrix">
+      <DisplayName>--out</DisplayName>
+      <DisplayPath>meta-docs cli-matrix --out</DisplayPath>
+      <NativeId>option-cli-matrix-out</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>CSV output path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:cli-matrix:option:view" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:cli-matrix" PreviousSubjectId="source:cli:meta-docs:app:command:cli-matrix:option:out">
+      <DisplayName>--view</DisplayName>
+      <DisplayPath>meta-docs cli-matrix --view</DisplayPath>
+      <NativeId>option-cli-matrix-view</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Export command inventory, decision cohorts, or raw finding occurrences.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:cli-matrix:option:view:allowed-value:cohorts" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-docs:app:command:cli-matrix:option:view">
+      <DisplayName>cohorts</DisplayName>
+      <DisplayPath>meta-docs cli-matrix --view value cohorts</DisplayPath>
+      <NativeId>allowed-cli-matrix-view-cohorts</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:cli-matrix:option:view:allowed-value:commands" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-docs:app:command:cli-matrix:option:view" PreviousSubjectId="source:cli:meta-docs:app:command:cli-matrix:option:view:allowed-value:cohorts">
+      <DisplayName>commands</DisplayName>
+      <DisplayPath>meta-docs cli-matrix --view value commands</DisplayPath>
+      <NativeId>allowed-cli-matrix-view-commands</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:cli-matrix:option:view:allowed-value:findings" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:cliallowedvalue" ParentSubjectId="source:cli:meta-docs:app:command:cli-matrix:option:view" PreviousSubjectId="source:cli:meta-docs:app:command:cli-matrix:option:view:allowed-value:commands">
+      <DisplayName>findings</DisplayName>
+      <DisplayPath>meta-docs cli-matrix --view value findings</DisplayPath>
+      <NativeId>allowed-cli-matrix-view-findings</NativeId>
+      <SourceTypeName>MetaCli.AllowedValue</SourceTypeName>
+      <Status>New</Status>
+      <Summary></Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:cli-matrix:option:workspace" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clioption" ParentSubjectId="source:cli:meta-docs:app:command:cli-matrix" PreviousSubjectId="source:cli:meta-docs:app:command:cli-matrix:option:view">
+      <DisplayName>--workspace</DisplayName>
+      <DisplayPath>meta-docs cli-matrix --workspace</DisplayPath>
+      <NativeId>option-cli-matrix-workspace</NativeId>
+      <SourceTypeName>MetaCli.Option</SourceTypeName>
+      <Status>New</Status>
+      <Summary>MetaDocs workspace to analyze. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:contents" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-docs:app" PreviousSubjectId="source:cli:meta-docs:app:command:cli-matrix">
       <DisplayName>meta-docs contents</DisplayName>
       <DisplayPath>meta-docs contents</DisplayPath>
       <NativeId>exec-contents</NativeId>
@@ -647,6 +703,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Create the merged workspace as XML at this path.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-docs:app:command:merge:parameter-group:output" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-docs:app:command:merge">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-docs merge group output</DisplayPath>
+      <NativeId>group-merge-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Select exactly one workspace output surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-docs:app:command:render-site" DocumentationSourceId="source:cli:meta-docs" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-docs:app" PreviousSubjectId="source:cli:meta-docs:app:command:merge">
       <DisplayName>meta-docs render-site</DisplayName>

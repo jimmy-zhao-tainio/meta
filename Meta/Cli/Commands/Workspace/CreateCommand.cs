@@ -45,7 +45,7 @@ internal sealed partial class CliRuntime
 
         presenter.WriteOk(
             "workspace created",
-            ("Path", RequiredValue("new-workspace")));
+            ("Path", MetaCli.Core.MetaCliWorkspace.OutputLocation(Invocation)));
 
         return 0;
     }

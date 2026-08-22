@@ -14,7 +14,7 @@ internal sealed partial class CliRuntime
             "exec-create",
             [
                 MetaCliWorkspace.OpenOptional("source-workspace"),
-                MetaCliWorkspace.CreateAt("output", "new-workspace", "xml", "csharp", "sql"),
+                MetaCliWorkspace.Create("output", "xml", "csharp", "sql"),
             ],
             (invocation, workspaces) => ExecuteBoundAsync(
                 invocation,

@@ -11,7 +11,11 @@
     <ParameterGroupMember Id="member-import-sql-target-first" ParameterGroupId="group-import-sql-target" ParameterId="param-import-sql-output-xml" />
     <ParameterGroupMember Id="member-import-sql-target-output-csharp" ParameterGroupId="group-import-sql-target" ParameterId="param-import-sql-output-csharp" PreviousMemberId="member-import-sql-target-first" />
     <ParameterGroupMember Id="member-import-sql-target-output-sql" ParameterGroupId="group-import-sql-target" ParameterId="param-import-sql-output-sql" PreviousMemberId="member-import-sql-target-output-csharp" />
+    <ParameterGroupMember Id="member-instance-diff-aligned-output-csharp" ParameterGroupId="group-instance-diff-aligned-output" ParameterId="param-instance-diff-aligned-output-csharp" PreviousMemberId="member-instance-diff-aligned-output-xml" />
+    <ParameterGroupMember Id="member-instance-diff-aligned-output-sql" ParameterGroupId="group-instance-diff-aligned-output" ParameterId="param-instance-diff-aligned-output-sql" PreviousMemberId="member-instance-diff-aligned-output-csharp" />
     <ParameterGroupMember Id="member-instance-diff-aligned-output-xml" ParameterGroupId="group-instance-diff-aligned-output" ParameterId="param-instance-diff-aligned-output-xml" />
+    <ParameterGroupMember Id="member-instance-diff-output-csharp" ParameterGroupId="group-instance-diff-output" ParameterId="param-instance-diff-output-csharp" PreviousMemberId="member-instance-diff-output-xml" />
+    <ParameterGroupMember Id="member-instance-diff-output-sql" ParameterGroupId="group-instance-diff-output" ParameterId="param-instance-diff-output-sql" PreviousMemberId="member-instance-diff-output-csharp" />
     <ParameterGroupMember Id="member-instance-diff-output-xml" ParameterGroupId="group-instance-diff-output" ParameterId="param-instance-diff-output-xml" />
     <ParameterGroupMember Id="member-workspace-merge-target-first" ParameterGroupId="group-workspace-merge-target" ParameterId="param-workspace-merge-output-xml" />
     <ParameterGroupMember Id="member-workspace-merge-target-output-csharp" ParameterGroupId="group-workspace-merge-target" ParameterId="param-workspace-merge-output-csharp" PreviousMemberId="member-workspace-merge-target-first" />

@@ -81,6 +81,20 @@
       <Description>Documentation path to browse, for example cli/meta-sql/deploy.</Description>
       <Name>path</Name>
     </Parameter>
+    <Parameter Id="param-cli-matrix-out" ValueShapeId="shape-path">
+      <Description>CSV output path.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>out</Name>
+    </Parameter>
+    <Parameter Id="param-cli-matrix-view" ValueShapeId="shape-cli-matrix-view">
+      <DefaultValue>commands</DefaultValue>
+      <Description>Export command inventory, decision cohorts, or raw finding occurrences.</Description>
+      <Name>view</Name>
+    </Parameter>
+    <Parameter Id="param-cli-matrix-workspace" ValueShapeId="shape-workspace-location">
+      <Description>MetaDocs workspace to analyze. Defaults to the current directory.</Description>
+      <Name>workspace</Name>
+    </Parameter>
     <Parameter Id="param-contents-option-depth" ValueShapeId="shape-text">
       <Description>Maximum tree depth. Default: 4.</Description>
       <Name>depth</Name>

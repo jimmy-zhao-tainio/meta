@@ -16,5 +16,11 @@
       <IsRequired>false</IsRequired>
       <Name>target</Name>
     </ParameterGroup>
+    <ParameterGroup Id="group-merge-output" ExecutableCommandId="exec-merge">
+      <AllowsMultiple>false</AllowsMultiple>
+      <Description>Select exactly one workspace output surface.</Description>
+      <IsRequired>true</IsRequired>
+      <Name>output</Name>
+    </ParameterGroup>
   </ParameterGroupList>
 </MetaCli>

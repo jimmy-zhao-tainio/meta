@@ -2,7 +2,8 @@
 <MetaCli>
   <ParameterGroupList>
     <ParameterGroup Id="group-create-output" ExecutableCommandId="exec-create">
-      <Description>Choose one workspace representation.</Description>
+      <AllowsMultiple>false</AllowsMultiple>
+      <Description>Choose exactly one workspace surface and destination.</Description>
       <IsRequired>true</IsRequired>
       <Name>output</Name>
     </ParameterGroup>

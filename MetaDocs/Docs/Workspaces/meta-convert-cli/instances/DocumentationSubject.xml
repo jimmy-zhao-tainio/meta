@@ -64,6 +64,14 @@
       <Status>New</Status>
       <Summary>Source workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-convert analytics-to-multi-dimensional group output</DisplayPath>
+      <NativeId>group-analytics-to-multi-dimensional-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Select exactly one workspace output surface.</Summary>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional">
       <DisplayName>meta-convert analytics-to-tabular</DisplayName>
       <DisplayPath>meta-convert analytics-to-tabular</DisplayPath>
@@ -111,6 +119,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Source workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-convert analytics-to-tabular group output</DisplayPath>
+      <NativeId>group-analytics-to-tabular-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Select exactly one workspace output surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular">
       <DisplayName>meta-convert business-datavault-to-sql</DisplayName>
@@ -175,6 +191,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Source workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-convert business-datavault-to-sql group output</DisplayPath>
+      <NativeId>group-business-datavault-to-sql-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Select exactly one workspace output surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:data-quality-to-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql">
       <DisplayName>meta-convert data-quality-to-sql</DisplayName>
@@ -264,6 +288,14 @@
       <Status>New</Status>
       <Summary>Source workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-convert data-warehouse-to-sql group output</DisplayPath>
+      <NativeId>group-data-warehouse-to-sql-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Select exactly one workspace output surface.</Summary>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:help" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql">
       <DisplayName>meta-convert help</DisplayName>
       <DisplayPath>meta-convert help</DisplayPath>
@@ -335,6 +367,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Source workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-convert raw-datavault-to-sql group output</DisplayPath>
+      <NativeId>group-raw-datavault-to-sql-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Select exactly one workspace output surface.</Summary>
     </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:schema-to-raw-datavault" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql">
       <DisplayName>meta-convert schema-to-raw-datavault</DisplayName>
@@ -512,6 +552,14 @@
       <Status>New</Status>
       <Summary>Source MetaSql workspace path. Defaults to the current directory.</Summary>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-convert sql-to-transform-script group output</DisplayPath>
+      <NativeId>group-sql-to-transform-script-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Select exactly one workspace output surface.</Summary>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script">
       <DisplayName>meta-convert transform-pattern-to-sql-script</DisplayName>
       <DisplayPath>meta-convert transform-pattern-to-sql-script</DisplayPath>
@@ -568,6 +616,14 @@
       <Status>New</Status>
       <Summary>Source MetaTransformPattern workspace containing reusable definitions.</Summary>
     </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-convert transform-pattern-to-sql-script group output</DisplayPath>
+      <NativeId>group-transform-pattern-to-sql-script-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Select exactly one workspace output surface.</Summary>
+    </DocumentationSubject>
     <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:clicommand" ParentSubjectId="source:cli:meta-convert:app" PreviousSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script">
       <DisplayName>meta-convert transform-script-to-sql</DisplayName>
       <DisplayPath>meta-convert transform-script-to-sql</DisplayPath>
@@ -623,6 +679,14 @@
       <SourceTypeName>MetaCli.Option</SourceTypeName>
       <Status>New</Status>
       <Summary>Source MetaTransformScript workspace path. Defaults to the current directory.</Summary>
+    </DocumentationSubject>
+    <DocumentationSubject Id="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectTypeId="subject-type:cliparametergroup" ParentSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql">
+      <DisplayName>output</DisplayName>
+      <DisplayPath>meta-convert transform-script-to-sql group output</DisplayPath>
+      <NativeId>group-transform-script-to-sql-output</NativeId>
+      <SourceTypeName>MetaCli.ParameterGroup</SourceTypeName>
+      <Status>New</Status>
+      <Summary>Select exactly one workspace output surface.</Summary>
     </DocumentationSubject>
   </DocumentationSubjectList>
 </MetaDocs>

@@ -34,8 +34,8 @@
     <DocumentationFact Id="source:cli:meta-sql:app:command:deploy-plan:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-sql:batch:20260811132211513" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan" DocumentationValueTypeId="value-type:number">
       <Name>ParameterGroupCount</Name>
       <SourceFingerprint>a8b665c48849959013bf56cb9c4347248bb968441ad8b3a373c7701bfec38d2a</SourceFingerprint>
-      <Status>New</Status>
-      <Value>0</Value>
+      <Status>Changed</Status>
+      <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-sql:app:command:deploy-plan:fact:cli:positionalcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-sql:batch:20260811132211513" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan" DocumentationValueTypeId="value-type:number">
       <Name>PositionalCount</Name>
@@ -1134,6 +1134,42 @@
       <SourceFingerprint>a8b665c48849959013bf56cb9c4347248bb968441ad8b3a373c7701bfec38d2a</SourceFingerprint>
       <Status>New</Status>
       <Value>shape-path</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output:fact:cli:allowsmultiple" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-sql:batch:20260811132211513" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>AllowsMultiple</Name>
+      <SourceFingerprint>a8b665c48849959013bf56cb9c4347248bb968441ad8b3a373c7701bfec38d2a</SourceFingerprint>
+      <Status>New</Status>
+      <Value>false</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output:fact:cli:membercount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-sql:batch:20260811132211513" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output" DocumentationValueTypeId="value-type:number">
+      <Name>MemberCount</Name>
+      <SourceFingerprint>a8b665c48849959013bf56cb9c4347248bb968441ad8b3a373c7701bfec38d2a</SourceFingerprint>
+      <Status>New</Status>
+      <Value>3</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output:fact:cli:members" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-sql:batch:20260811132211513" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Members</Name>
+      <SourceFingerprint>a8b665c48849959013bf56cb9c4347248bb968441ad8b3a373c7701bfec38d2a</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output-csharp, output-sql, output-xml</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output:fact:cli:name" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-sql:batch:20260811132211513" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>a8b665c48849959013bf56cb9c4347248bb968441ad8b3a373c7701bfec38d2a</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output:fact:cli:parametergroupid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-sql:batch:20260811132211513" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>ParameterGroupId</Name>
+      <SourceFingerprint>a8b665c48849959013bf56cb9c4347248bb968441ad8b3a373c7701bfec38d2a</SourceFingerprint>
+      <Status>New</Status>
+      <Value>group-deploy-plan-output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output:fact:cli:required" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-sql:batch:20260811132211513" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy-plan:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Required</Name>
+      <SourceFingerprint>a8b665c48849959013bf56cb9c4347248bb968441ad8b3a373c7701bfec38d2a</SourceFingerprint>
+      <Status>New</Status>
+      <Value>true</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-sql:app:command:deploy:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-sql:batch:20260811132211513" DocumentationSourceId="source:cli:meta-sql" DocumentationSubjectId="source:cli:meta-sql:app:command:deploy" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>

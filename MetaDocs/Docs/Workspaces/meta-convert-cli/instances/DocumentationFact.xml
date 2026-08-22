@@ -34,8 +34,8 @@
     <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional" DocumentationValueTypeId="value-type:number">
       <Name>ParameterGroupCount</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
-      <Status>New</Status>
-      <Value>0</Value>
+      <Status>Changed</Status>
+      <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:fact:cli:positionalcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional" DocumentationValueTypeId="value-type:number">
       <Name>PositionalCount</Name>
@@ -595,6 +595,42 @@
       <Status>New</Status>
       <Value>shape-path</Value>
     </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output:fact:cli:allowsmultiple" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>AllowsMultiple</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>false</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output:fact:cli:membercount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output" DocumentationValueTypeId="value-type:number">
+      <Name>MemberCount</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>3</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output:fact:cli:members" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Members</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output-csharp, output-sql, output-xml</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output:fact:cli:name" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output:fact:cli:parametergroupid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>ParameterGroupId</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>group-analytics-to-multi-dimensional-output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output:fact:cli:required" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-multi-dimensional:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Required</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>true</Value>
+    </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-tabular:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
@@ -628,8 +664,8 @@
     <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-tabular:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular" DocumentationValueTypeId="value-type:number">
       <Name>ParameterGroupCount</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
-      <Status>New</Status>
-      <Value>0</Value>
+      <Status>Changed</Status>
+      <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-tabular:fact:cli:positionalcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular" DocumentationValueTypeId="value-type:number">
       <Name>PositionalCount</Name>
@@ -1189,6 +1225,42 @@
       <Status>New</Status>
       <Value>shape-path</Value>
     </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output:fact:cli:allowsmultiple" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>AllowsMultiple</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>false</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output:fact:cli:membercount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output" DocumentationValueTypeId="value-type:number">
+      <Name>MemberCount</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>3</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output:fact:cli:members" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Members</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output-csharp, output-sql, output-xml</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output:fact:cli:name" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output:fact:cli:parametergroupid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>ParameterGroupId</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>group-analytics-to-tabular-output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output:fact:cli:required" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:analytics-to-tabular:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Required</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>true</Value>
+    </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:business-datavault-to-sql:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
@@ -1222,8 +1294,8 @@
     <DocumentationFact Id="source:cli:meta-convert:app:command:business-datavault-to-sql:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql" DocumentationValueTypeId="value-type:number">
       <Name>ParameterGroupCount</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
-      <Status>New</Status>
-      <Value>0</Value>
+      <Status>Changed</Status>
+      <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:business-datavault-to-sql:fact:cli:positionalcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql" DocumentationValueTypeId="value-type:number">
       <Name>PositionalCount</Name>
@@ -1999,6 +2071,42 @@
       <Status>New</Status>
       <Value>shape-path</Value>
     </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output:fact:cli:allowsmultiple" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>AllowsMultiple</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>false</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output:fact:cli:membercount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:number">
+      <Name>MemberCount</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>3</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output:fact:cli:members" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Members</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output-csharp, output-sql, output-xml</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output:fact:cli:name" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output:fact:cli:parametergroupid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>ParameterGroupId</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>group-business-datavault-to-sql-output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output:fact:cli:required" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:business-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Required</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>true</Value>
+    </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:data-quality-to-sql:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:data-quality-to-sql" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
@@ -2302,8 +2410,8 @@
     <DocumentationFact Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql" DocumentationValueTypeId="value-type:number">
       <Name>ParameterGroupCount</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
-      <Status>New</Status>
-      <Value>0</Value>
+      <Status>Changed</Status>
+      <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:fact:cli:positionalcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql" DocumentationValueTypeId="value-type:number">
       <Name>PositionalCount</Name>
@@ -3079,6 +3187,42 @@
       <Status>New</Status>
       <Value>shape-path</Value>
     </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output:fact:cli:allowsmultiple" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>AllowsMultiple</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>false</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output:fact:cli:membercount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:number">
+      <Name>MemberCount</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>3</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output:fact:cli:members" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Members</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output-csharp, output-sql, output-xml</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output:fact:cli:name" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output:fact:cli:parametergroupid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>ParameterGroupId</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>group-data-warehouse-to-sql-output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output:fact:cli:required" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:data-warehouse-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Required</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>true</Value>
+    </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:help:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:help" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
@@ -3166,8 +3310,8 @@
     <DocumentationFact Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql" DocumentationValueTypeId="value-type:number">
       <Name>ParameterGroupCount</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
-      <Status>New</Status>
-      <Value>0</Value>
+      <Status>Changed</Status>
+      <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:fact:cli:positionalcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql" DocumentationValueTypeId="value-type:number">
       <Name>PositionalCount</Name>
@@ -3942,6 +4086,42 @@
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
       <Status>New</Status>
       <Value>shape-path</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output:fact:cli:allowsmultiple" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>AllowsMultiple</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>false</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output:fact:cli:membercount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:number">
+      <Name>MemberCount</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>3</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output:fact:cli:members" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Members</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output-csharp, output-sql, output-xml</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output:fact:cli:name" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output:fact:cli:parametergroupid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>ParameterGroupId</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>group-raw-datavault-to-sql-output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output:fact:cli:required" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:raw-datavault-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Required</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>true</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:schema-to-raw-datavault:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:schema-to-raw-datavault" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
@@ -5146,8 +5326,8 @@
     <DocumentationFact Id="source:cli:meta-convert:app:command:sql-to-transform-script:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script" DocumentationValueTypeId="value-type:number">
       <Name>ParameterGroupCount</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
-      <Status>New</Status>
-      <Value>0</Value>
+      <Status>Changed</Status>
+      <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:sql-to-transform-script:fact:cli:positionalcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script" DocumentationValueTypeId="value-type:number">
       <Name>PositionalCount</Name>
@@ -6139,6 +6319,42 @@
       <Status>New</Status>
       <Value>shape-path</Value>
     </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output:fact:cli:allowsmultiple" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>AllowsMultiple</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>false</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output:fact:cli:membercount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output" DocumentationValueTypeId="value-type:number">
+      <Name>MemberCount</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>3</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output:fact:cli:members" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Members</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output-csharp, output-sql, output-xml</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output:fact:cli:name" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output:fact:cli:parametergroupid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>ParameterGroupId</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>group-sql-to-transform-script-output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output:fact:cli:required" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:sql-to-transform-script:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Required</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>true</Value>
+    </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
@@ -6172,8 +6388,8 @@
     <DocumentationFact Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script" DocumentationValueTypeId="value-type:number">
       <Name>ParameterGroupCount</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
-      <Status>New</Status>
-      <Value>0</Value>
+      <Status>Changed</Status>
+      <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:fact:cli:positionalcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script" DocumentationValueTypeId="value-type:number">
       <Name>PositionalCount</Name>
@@ -6841,6 +7057,42 @@
       <Status>New</Status>
       <Value>shape-path</Value>
     </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output:fact:cli:allowsmultiple" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>AllowsMultiple</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>false</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output:fact:cli:membercount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output" DocumentationValueTypeId="value-type:number">
+      <Name>MemberCount</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>3</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output:fact:cli:members" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Members</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output-csharp, output-sql, output-xml</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output:fact:cli:name" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output:fact:cli:parametergroupid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>ParameterGroupId</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>group-transform-pattern-to-sql-script-output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output:fact:cli:required" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-pattern-to-sql-script:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Required</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>true</Value>
+    </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:transform-script-to-sql:fact:cli:commandid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql" DocumentationValueTypeId="value-type:string">
       <Name>CommandId</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
@@ -6874,8 +7126,8 @@
     <DocumentationFact Id="source:cli:meta-convert:app:command:transform-script-to-sql:fact:cli:parametergroupcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql" DocumentationValueTypeId="value-type:number">
       <Name>ParameterGroupCount</Name>
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
-      <Status>New</Status>
-      <Value>0</Value>
+      <Status>Changed</Status>
+      <Value>1</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:command:transform-script-to-sql:fact:cli:positionalcount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql" DocumentationValueTypeId="value-type:number">
       <Name>PositionalCount</Name>
@@ -7542,6 +7794,42 @@
       <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
       <Status>New</Status>
       <Value>shape-path</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output:fact:cli:allowsmultiple" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>AllowsMultiple</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>false</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output:fact:cli:membercount" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:number">
+      <Name>MemberCount</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>3</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output:fact:cli:members" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Members</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output-csharp, output-sql, output-xml</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output:fact:cli:name" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Name</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output:fact:cli:parametergroupid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>ParameterGroupId</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>group-transform-script-to-sql-output</Value>
+    </DocumentationFact>
+    <DocumentationFact Id="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output:fact:cli:required" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app:command:transform-script-to-sql:parameter-group:output" DocumentationValueTypeId="value-type:string">
+      <Name>Required</Name>
+      <SourceFingerprint>213d85c88732c2ecd3a9d03854206beacb94b879b217052733ea6c100e0028c3</SourceFingerprint>
+      <Status>New</Status>
+      <Value>true</Value>
     </DocumentationFact>
     <DocumentationFact Id="source:cli:meta-convert:app:fact:cli:applicationid" DocumentationFactTypeId="fact-type:cli" DocumentationImportBatchId="source:cli:meta-convert:batch:20260818220942196" DocumentationSourceId="source:cli:meta-convert" DocumentationSubjectId="source:cli:meta-convert:app" DocumentationValueTypeId="value-type:string">
       <Name>ApplicationId</Name>
