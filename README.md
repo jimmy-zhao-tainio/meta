@@ -20,10 +20,10 @@ live in the companion
 The canonical public reference starts with the
 [Meta overview](https://metametabi.com/docs.html#subject-public-meta-overview).
 It covers the concepts, models, and command surfaces in both repositories.
-Local generated outputs and their authored workflow are under
-[`MetaDocs/Docs`](MetaDocs/Docs); they are kept here so documentation remains
-reviewable and reproducible without duplicating the full reference in this
-README.
+Its authored workspaces, generated reference, site, and regeneration mesh live
+in the dedicated
+[`meta-docs`](https://github.com/jimmy-zhao-tainio/meta-docs) repository. The
+MetaDocs model, runtime, and CLI remain here in `meta`.
 
 Use `meta help` for local command help and `meta-docs browse` for the modeled
 reference.

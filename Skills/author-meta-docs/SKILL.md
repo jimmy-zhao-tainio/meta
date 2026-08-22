@@ -6,21 +6,23 @@ description: Author and regenerate the combined Meta and Meta-BI documentation t
 # Author MetaDocs
 
 Use this skill for public documentation spanning `meta` and `meta-bi`. The
-combined documentation pipeline lives in the `meta` repository even when the
-subject belongs to a `meta-bi` product.
+MetaDocs model, runtime, and CLI live in `meta`; the combined documentation
+pipeline and its generated artifacts live in the sibling `meta-docs`
+repository. Keep checkouts named `meta`, `meta-bi`, and `meta-docs` under the
+same parent directory because the canonical mesh uses that coordinate system.
 
 ## Know the locations
 
 - Authored public prose workspace:
-  `MetaDocs/Docs/Workspaces/metametabi-authored`
+  `meta-docs/Workspaces/metametabi-authored`
 - Imported CLI and model reference workspaces:
-  `MetaDocs/Docs/Workspaces/<subject>`
+  `meta-docs/Workspaces/<subject>`
 - Combined generated suite:
-  `MetaDocs/Docs/SuiteWorkspace`
+  `meta-docs/SuiteWorkspace`
 - Canonical regeneration mesh:
-  `MetaDocs/Docs/Documentation.MetaMesh`
+  `meta-docs/Documentation.MetaMesh`
 - Rendered site output:
-  `MetaDocs/Docs/Site/docs.html`
+  `meta-docs/Site/docs.html`
 - Published site: `https://metametabi.com/docs.html`
 
 The regeneration operation imports the 22 modeled CLI surfaces and documented
@@ -47,18 +49,20 @@ the full public narrative back into them.
 
 ## Validate and regenerate
 
-From the `meta` repository root:
+From the `meta-docs` repository root:
 
 ```powershell
-meta-docs validate --workspace MetaDocs/Docs/Workspaces/metametabi-authored
-meta-mesh validate --operation regenerate-public-docs --workspace MetaDocs/Docs/Documentation.MetaMesh
-meta-mesh run --operation regenerate-public-docs --workspace MetaDocs/Docs/Documentation.MetaMesh
+meta-docs validate --workspace Workspaces/metametabi-authored
+meta-mesh validate --operation regenerate-public-docs --workspace Documentation.MetaMesh
+meta-mesh run --operation regenerate-public-docs --workspace Documentation.MetaMesh
 ```
 
 The mesh currently contains one 53-step operation over 95 declared workspaces.
 Use `meta-mesh steps` to inspect it rather than reproducing those imports by
-hand. Ensure current CLI model workspaces and both repository checkouts are
-available before regeneration.
+hand. Ensure current CLI model workspaces and all three sibling checkouts are
+available before regeneration. The modeled operation is the end-to-end
+documentation gate; MetaDocs tests remain focused on the model, runtime, and
+CLI behavior.
 
 ## Review output
 

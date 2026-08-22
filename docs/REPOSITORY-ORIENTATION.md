@@ -89,4 +89,4 @@ the normal correctness feedback loop.
 - [`meta-bi` guardrails](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/docs/META-MODELING-GUARDRAILS.md)
 - [`meta-bi` documentation index](https://github.com/jimmy-zhao-tainio/meta-bi/blob/main/docs/README.md)
 - [Foundation services and surfaces](SERVICES_API.md)
-- [Public reference source](../MetaDocs/Docs/Documentation.MetaMesh)
+- [`meta-docs` public reference source](https://github.com/jimmy-zhao-tainio/meta-docs)

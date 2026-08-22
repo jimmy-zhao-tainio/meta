@@ -30,8 +30,9 @@ MetaDocs reference.
 
 ## Repository rules
 
-- Do not hand-edit generated MetaDocs workspaces, `docs.html`, or generated
-  workspace artifacts.
+- Combined public documentation is owned by the sibling `meta-docs` repository;
+  do not hand-edit its generated workspaces, `docs.html`, or generated workspace
+  artifacts.
 - Use the owning CLI and the selected workspace surface.
 - Resolve output paths before generation and stop if a path repeats logical
   directory segments.

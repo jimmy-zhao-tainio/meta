@@ -39,8 +39,8 @@ everyday correctness path. The continuous-integration workflow in
 - Change the authoring model or generator, then regenerate affected outputs.
 - Do not hand-edit generated workspace instance XML or the generated MetaDocs
   site.
-- The public documentation source and regeneration mesh live under
-  [`MetaDocs/Docs`](MetaDocs/Docs).
+- The public documentation source and regeneration mesh live in the dedicated
+  [`meta-docs`](https://github.com/jimmy-zhao-tainio/meta-docs) repository.
 - Include generated changes in the same pull request so reviewers can verify
   the result against its source.
 

@@ -15,49 +15,6 @@ namespace MetaDocs.Tests;
 public sealed class MetaDocsRuntimeTests
 {
     [Fact]
-    public void PublicCliSourceWorkspaces_HaveAuthoredGuides()
-    {
-        var repoRoot = FindRepositoryRoot();
-        var sourceWorkspaces = new (string Workspace, string Cli)[]
-        {
-            ("meta-cli", "meta"),
-            ("meta-cli-cli", "meta-cli"),
-            ("meta-docs-cli", "meta-docs"),
-            ("meta-mesh-cli", "meta-mesh"),
-            ("meta-weave-cli", "meta-weave"),
-            ("meta-schema-cli", "meta-schema"),
-            ("meta-data-type-cli", "meta-data-type"),
-            ("meta-data-type-conversion-cli", "meta-data-type-conversion"),
-            ("meta-convert-cli", "meta-convert"),
-            ("meta-datavault-raw-cli", "meta-datavault-raw"),
-            ("meta-datavault-business-cli", "meta-datavault-business"),
-            ("meta-data-warehouse-cli", "meta-data-warehouse"),
-            ("meta-analytics-cli", "meta-analytics"),
-            ("meta-tabular-cli", "meta-tabular"),
-            ("meta-multi-dimensional-cli", "meta-multi-dimensional"),
-            ("meta-sql-cli", "meta-sql"),
-            ("meta-pipeline-cli", "meta-pipeline"),
-            ("meta-orchestration-cli", "meta-orchestration"),
-            ("meta-transform-script-cli", "meta-transform-script"),
-            ("meta-transform-binding-cli", "meta-transform-binding"),
-            ("meta-data-quality-cli", "meta-data-quality"),
-        };
-
-        foreach (var (workspace, cli) in sourceWorkspaces)
-        {
-            var documentation = TypedWorkspaceXmlSerializer.Load<MetaDocsModel>(
-                Path.Combine(repoRoot, "MetaDocs", "Docs", "Workspaces", workspace),
-                searchUpward: false);
-
-            Assert.Contains(documentation.DocumentationNarrativeList, narrative =>
-                narrative.DocumentationSubject?.Id == $"source:cli:{cli}:app" &&
-                narrative.Origin == "Authored" &&
-                narrative.Slot == "Guide" &&
-                !string.IsNullOrWhiteSpace(narrative.Body));
-        }
-    }
-
-    [Fact]
     public void Cli_HelpIsDerivedFromAuthoredMetaCliWorkspace()
     {
         var repoRoot = FindRepositoryRoot();
@@ -85,12 +42,22 @@ public sealed class MetaDocsRuntimeTests
         Assert.Contains("Next: meta-docs browse", appHelp.Output);
         Assert.DoesNotContain("import-command-prose", appHelp.Output);
 
-        var rootBrowse = RunCli(
-            "browse",
-            Path.Combine(repoRoot, "MetaDocs", "Docs", "SuiteWorkspace"));
-        Assert.Equal(0, rootBrowse.ExitCode);
-        AssertBrowseHasNoRouteNoise(rootBrowse.Output);
-        Assert.Contains("meta-docs browse cli", rootBrowse.Output);
+        var browseWorkspace = Path.Combine(Path.GetTempPath(), "metadocs-help-browse-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            var browseModel = MetaDocsModel.CreateEmpty();
+            AddPublicReferenceTree(browseModel);
+            TypedWorkspaceXmlSerializer.Save(browseModel, browseWorkspace);
+
+            var rootBrowse = RunCli("browse", browseWorkspace);
+            Assert.Equal(0, rootBrowse.ExitCode);
+            AssertBrowseHasNoRouteNoise(rootBrowse.Output);
+            Assert.Contains("meta-docs browse cli", rootBrowse.Output);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(browseWorkspace);
+        }
 
         var commandHelp = RunCli("help import-cli");
         Assert.Equal(0, commandHelp.ExitCode);
@@ -158,15 +125,31 @@ public sealed class MetaDocsRuntimeTests
     }
 
     [Fact]
-    public void CliMatrix_GeneratesEveryCombinedCommandAndKnownDiscrepancyWitness()
+    public void CliMatrix_GeneratesClassifiedCommandsAndInvocationConformance()
     {
-        var repoRoot = FindRepositoryRoot();
-        var suiteWorkspace = Path.Combine(repoRoot, "MetaDocs", "Docs", "SuiteWorkspace");
-        var suite = TypedWorkspaceXmlSerializer.Load<MetaDocsModel>(suiteWorkspace, searchUpward: false);
+        var suite = MetaDocsModel.CreateEmpty();
+        var reference = AddPublicReferenceTree(suite);
+        var importer = new MetaDocsCliImporter();
+        importer.ImportApplication(
+            suite,
+            CreateCliApp(
+                "meta",
+                "Core metadata model + instance engine.",
+                new TestCliCommand("status", "Show workspace summary."),
+                new TestCliCommand(
+                    "create",
+                    "Create a metadata workspace.",
+                    new TestCliOption("--xml", "<path>", "Write an XML workspace."))),
+            parentSubjectId: reference.MetaCli.Id);
+        importer.ImportApplication(suite, CreateMetaDocsApp(), parentSubjectId: reference.MetaCli.Id);
+        importer.ImportApplication(
+            suite,
+            CreateBindingApp("Bind transforms."),
+            parentSubjectId: reference.MetaBiCli.Id);
         var matrix = new MetaDocsCliMatrixService().Build(suite);
 
-        Assert.Equal(22, matrix.ApplicationCount);
-        Assert.Equal(354, matrix.CommandCount);
+        Assert.Equal(3, matrix.ApplicationCount);
+        Assert.Equal(4, matrix.CommandCount);
 
         var commandIds = suite.DocumentationSubjectList
             .Where(IsActive)
@@ -187,120 +170,19 @@ public sealed class MetaDocsRuntimeTests
         Assert.Equal(expectedGroupCount, matrix.ParameterGroupCount);
         Assert.True(commandIds.SetEquals(matrix.Commands.Select(static row => row.CommandId)));
         Assert.Equal(0, matrix.UnclassifiedCount);
-        Assert.True(matrix.DecisionCohorts.Count < matrix.Findings.Count);
-
-        Assert.DoesNotContain(matrix.Findings, static finding => finding.Code == "MDCLI001");
-        Assert.DoesNotContain(matrix.Findings, static finding => finding.Code == "MDCLI002");
-        Assert.Contains(matrix.Findings, finding =>
-            finding.Code == "MDCLI003" &&
-            finding.Application == "meta-transform-pattern" &&
-            finding.AffectedCommands.Contains("create", StringComparer.OrdinalIgnoreCase));
-        Assert.DoesNotContain(matrix.Findings, static finding => finding.Code == "MDCLI004");
-        Assert.Contains(matrix.Findings, finding =>
-            finding.Code == "MDCLI005" &&
-            finding.Application == "meta-tabular");
-        Assert.Contains(matrix.Findings, static finding => finding.Code == "MDCLI006");
 
         var create = Assert.Single(matrix.Commands, row => row.Application == "meta" && row.Command == "create");
-        Assert.Equal("workspace-required", create.ResultPattern);
-        Assert.Equal("required-surface-choice", create.OutputMode);
         Assert.DoesNotContain(create.Options, option => option.Name.Equals("--new-workspace", StringComparison.OrdinalIgnoreCase));
-        foreach (var surface in new[] { "--xml", "--csharp", "--sql" })
-        {
-            var option = Assert.Single(create.Options, candidate => candidate.Name.Equals(surface, StringComparison.OrdinalIgnoreCase));
-            Assert.Equal("Path", option.ValueShape);
-            Assert.Equal("One", option.ValueArity);
-            Assert.Equal(1, option.MinValueCount);
-            Assert.Equal(1, option.MaxValueCount);
-        }
-        var createOutputGroup = Assert.Single(create.ParameterGroups, group => group.Name.Equals("output", StringComparison.OrdinalIgnoreCase));
-        Assert.True(createOutputGroup.Required);
-        Assert.NotEqual(true, createOutputGroup.AllowsMultiple);
-        Assert.Equal(
-            ["csharp", "sql", "xml"],
-            createOutputGroup.Members.Order(StringComparer.OrdinalIgnoreCase).ToArray());
-
-        var diff = Assert.Single(matrix.Commands, row => row.Application == "meta" && row.Command == "instance diff");
-        Assert.Equal("diff", diff.Verb);
-        Assert.Equal("scoped-space", diff.RoutePattern);
-        Assert.Equal("diff", diff.ActionFamily);
-        Assert.Equal("derive", diff.OperationIntent);
-        Assert.Equal("instance", diff.Subject);
-        Assert.Equal("current-plus-multiple-named-workspaces", diff.InputPattern);
-        Assert.Equal("workspace-required", diff.ResultPattern);
-        var outputGroup = Assert.Single(diff.ParameterGroups, group => group.Name == "output");
-        Assert.Equal(["output-csharp", "output-sql", "output-xml"], outputGroup.Members.Order(StringComparer.OrdinalIgnoreCase).ToArray());
-        Assert.True(outputGroup.Required);
-        Assert.NotEqual(true, outputGroup.AllowsMultiple);
-
-        var correctedWorkspaceOutputCommands = new (string Application, string Command)[]
-        {
-            ("meta", "instance diff"),
-            ("meta", "instance diff-aligned"),
-            ("meta-convert", "analytics-to-multi-dimensional"),
-            ("meta-convert", "analytics-to-tabular"),
-            ("meta-convert", "business-datavault-to-sql"),
-            ("meta-convert", "data-warehouse-to-sql"),
-            ("meta-convert", "raw-datavault-to-sql"),
-            ("meta-convert", "sql-to-transform-script"),
-            ("meta-convert", "transform-pattern-to-sql-script"),
-            ("meta-convert", "transform-script-to-sql"),
-            ("meta-docs", "merge"),
-            ("meta-sql", "deploy-plan"),
-        };
-        foreach (var expected in correctedWorkspaceOutputCommands)
-        {
-            var command = Assert.Single(matrix.Commands, row =>
-                row.Application == expected.Application &&
-                row.Command == expected.Command);
-            Assert.Equal("required-surface-choice", command.OutputMode);
-            var group = Assert.Single(command.ParameterGroups, candidate => candidate.Name.Equals("output", StringComparison.OrdinalIgnoreCase));
-            Assert.True(group.Required);
-            Assert.NotEqual(true, group.AllowsMultiple);
-            Assert.Equal(
-                ["output-csharp", "output-sql", "output-xml"],
-                group.Members.Order(StringComparer.OrdinalIgnoreCase).ToArray());
-        }
-
-        var set = Assert.Single(matrix.Commands, row => row.Application == "meta-cli" && row.Command == "set-default-command");
-        var update = Assert.Single(matrix.Commands, row => row.Application == "meta-docs" && row.Command == "update-description");
-        Assert.Equal("update", set.ActionFamily);
-        Assert.Equal("update", update.ActionFamily);
-        Assert.NotEqual(set.Subject, update.Subject);
-        var modelAdd = Assert.Single(matrix.Commands, row => row.Application == "meta" && row.Command == "model add-entity");
-        var instanceInsert = Assert.Single(matrix.Commands, row => row.Application == "meta" && row.Command == "insert");
-        Assert.Equal("add", modelAdd.ActionFamily);
-        Assert.Equal("add", instanceInsert.ActionFamily);
-        Assert.Equal("model", modelAdd.SubjectScope);
-        Assert.Equal("instance", instanceInsert.SubjectScope);
-        Assert.DoesNotContain(matrix.DecisionCohorts, cohort =>
-            cohort.Code.Contains("MDCLI006", StringComparison.OrdinalIgnoreCase) &&
-            cohort.ActionFamilies.Contains("add", StringComparer.OrdinalIgnoreCase));
-        var createOrchestration = Assert.Single(matrix.Commands, row =>
-            row.Application == "meta-orchestration" &&
-            row.Command == "create");
-        Assert.Equal("create", createOrchestration.ActionFamily);
-        Assert.Equal("create", createOrchestration.OperationIntent);
-        Assert.DoesNotContain(matrix.Commands, row =>
-            row.Application == "meta-orchestration" &&
-            row.Command == "infer");
-        Assert.DoesNotContain(matrix.DecisionCohorts, cohort =>
-            cohort.Code == "MDCLI006" &&
-            cohort.ActionFamilies.Contains("create", StringComparer.OrdinalIgnoreCase));
-        Assert.Contains(matrix.DecisionCohorts, cohort =>
-            cohort.Code == "MDCLI009" &&
-            cohort.DecisionKey.Contains("boolean-value-shape", StringComparison.OrdinalIgnoreCase));
-        Assert.DoesNotContain(matrix.Findings, finding =>
-            finding.Code == "MDCLI007" &&
-            finding.Evidence.Contains("Option --target", StringComparison.OrdinalIgnoreCase));
-        Assert.Contains(matrix.DecisionCohorts, cohort =>
-            cohort.Code == "MDCLI010" &&
-            cohort.Commands.Contains("meta-docs cli-matrix", StringComparer.OrdinalIgnoreCase));
+        var xml = Assert.Single(create.Options, option => option.Name.Equals("--xml", StringComparison.OrdinalIgnoreCase));
+        Assert.Equal("Path", xml.ValueShape);
+        Assert.Equal("One", xml.ValueArity);
 
         var root = Path.Combine(Path.GetTempPath(), "metadocs-cli-matrix-" + Guid.NewGuid().ToString("N"));
         try
         {
             Directory.CreateDirectory(root);
+            var suiteWorkspace = Path.Combine(root, "SuiteWorkspace");
+            TypedWorkspaceXmlSerializer.Save(suite, suiteWorkspace);
             var outputPath = Path.Combine(root, "cli-matrix.csv");
             var cohortPath = Path.Combine(root, "cli-cohorts.csv");
             var findingPath = Path.Combine(root, "cli-findings.csv");
@@ -312,24 +194,17 @@ public sealed class MetaDocsRuntimeTests
             var result = RunCli(
                 $"cli-matrix --workspace {QuoteArgument(suiteWorkspace)} --out {QuoteArgument(outputPath)}");
             Assert.Equal(0, result.ExitCode);
-            Assert.Contains("Coverage: 22 application(s), 354 command(s)", result.Output);
-            Assert.Contains("354 classified, 0 unclassified", result.Output);
-            Assert.DoesNotContain("MDCLI001", result.Output);
+            Assert.Contains("Coverage: 3 application(s), 4 command(s)", result.Output);
+            Assert.Contains("4 classified, 0 unclassified", result.Output);
             Assert.True(File.Exists(outputPath));
-            Assert.Equal(355, File.ReadLines(outputPath).Count());
+            Assert.Equal(5, File.ReadLines(outputPath).Count());
             var csv = File.ReadAllText(outputPath);
             Assert.StartsWith("\"ApplicationId\",\"Application\",\"CommandId\",\"Command\"", csv, StringComparison.Ordinal);
             Assert.Contains("\"SurfaceVerb\",\"RoutePattern\",\"ActionFamily\",\"OperationIntent\",\"Subject\",\"SubjectScope\"", csv, StringComparison.Ordinal);
             Assert.Contains("\"FindingEvidence\"", csv, StringComparison.Ordinal);
             Assert.Contains("\"meta\",\"source:cli:meta:app:command:create\",\"create\"", csv, StringComparison.Ordinal);
             Assert.DoesNotContain("--new-workspace", csv, StringComparison.Ordinal);
-            Assert.Contains("option:--csharp <path>", csv, StringComparison.Ordinal);
-            Assert.Contains("option:--sql <path>", csv, StringComparison.Ordinal);
             Assert.Contains("option:--xml <path>", csv, StringComparison.Ordinal);
-            Assert.DoesNotContain("Option --csharp: meta uses None", csv, StringComparison.Ordinal);
-            Assert.DoesNotContain("Option --sql: meta uses None", csv, StringComparison.Ordinal);
-            Assert.DoesNotContain("Option --xml: meta uses None", csv, StringComparison.Ordinal);
-            Assert.Contains("\"meta-tabular\"", csv, StringComparison.Ordinal);
 
             var cohortResult = RunCli(
                 $"cli-matrix --workspace {QuoteArgument(suiteWorkspace)} --view cohorts --out {QuoteArgument(cohortPath)}");
@@ -356,7 +231,7 @@ public sealed class MetaDocsRuntimeTests
                 Operation = operation,
                 Name = "status",
                 Executable = "meta.exe",
-                Arguments = "status --workspace ."
+                Arguments = "status"
             };
             meshModel.MeshList.Add(mesh);
             meshModel.OperationList.Add(operation);
@@ -377,7 +252,7 @@ public sealed class MetaDocsRuntimeTests
                 PreviousStep = conformantStep,
                 Name = "legacy-create",
                 Executable = "meta.exe",
-                Arguments = "create --new-workspace Legacy --xml"
+                Arguments = "create --new-workspace Legacy --xml Output"
             });
             TypedWorkspaceXmlSerializer.Save(meshModel, meshWorkspace);
 
