@@ -54,17 +54,25 @@ source. Use the documented MetaDocs and MetaMesh commands when changing it.
 
 ## Verification
 
-Build and test serially when projects share local foundation outputs. CLI test
-projects declare the executable they exercise in their build graph. Prefer the
-focused project test for a change, then run the relevant solution build.
+Build serially when projects share local foundation outputs. After a successful
+build, the repository test runner uses bounded concurrency across independent,
+already-built test projects. CLI test projects declare the executable they
+exercise in their build graph. Prefer the focused project test for a change,
+then run the full correctness profile.
 
 The current foundation entry points are:
 
 ```powershell
-dotnet build Metadata.Framework.sln --nologo -m:1 -nr:false
+.\eng\test.ps1 -Profile Correctness
+.\eng\test.ps1 -Profile Correctness -NoBuild
 dotnet test Meta\Tests\Meta.Core.Tests.csproj --nologo -m:1 -nr:false
 dotnet test Meta\Operations.Tests\Meta.Operations.Tests.csproj --nologo -m:1 -nr:false
 ```
+
+The first command restores, builds serially, and runs correctness tests. Use
+`-NoBuild` only after the prerequisite build has succeeded. The
+`Performance100K` and explicit `Performance1M` profiles keep scale gates out of
+the normal correctness feedback loop.
 
 ## Repository Rules
 

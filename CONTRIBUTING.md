@@ -17,12 +17,22 @@ because projects share local generated and package outputs:
 
 ```powershell
 dotnet restore Metadata.Framework.sln
-dotnet build Metadata.Framework.sln --configuration Release --no-restore --nologo -m:1 -nr:false
+dotnet build Metadata.Framework.sln --configuration Release --no-restore --nologo -m:1 -nr:false -p:UpdateMetaPublishDir=false -p:UpdateMetaDocsPublishDir=false -p:UpdateMetaWeavePublishDir=false
 ```
 
-Run the focused test project for the changed area and the relevant solution or
-suite. The continuous-integration workflow in [`.github/workflows/ci.yml`](.github/workflows/ci.yml)
-is the authoritative full verification list.
+Run the focused test project for the changed area. Run the full correctness
+profile after a successful build with:
+
+```powershell
+.\eng\test.ps1 -Profile Correctness -Configuration Release -NoBuild
+```
+
+The runner keeps builds serial, then runs already-built test projects with
+bounded concurrency and reports each project's duration. Omit `-NoBuild` to
+restore, build, and test in one command. The `Performance100K` and
+`Performance1M` profiles are separate scale witnesses rather than part of the
+everyday correctness path. The continuous-integration workflow in
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) uses the same runner.
 
 ## Generated artifacts and documentation
 

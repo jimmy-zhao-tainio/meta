@@ -32,32 +32,11 @@ jobs:
         run: dotnet restore Metadata.Framework.sln
 
       - name: Build
-        run: dotnet build Metadata.Framework.sln --configuration Release --no-restore --nologo -m:1 -nr:false
+        run: dotnet build Metadata.Framework.sln --configuration Release --no-restore --nologo -m:1 -nr:false -p:UpdateMetaPublishDir=false -p:UpdateMetaDocsPublishDir=false -p:UpdateMetaWeavePublishDir=false
 
-      - name: Test (operations)
-        run: dotnet test Meta/Operations.Tests/Meta.Operations.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
-      - name: Test (core)
-        run: dotnet test Meta/Tests/Meta.Core.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
-      - name: Test (XML correctness)
-        run: dotnet test Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false --filter "FullyQualifiedName!~LargeWorkspacePerformanceTests"
-      - name: Test (C# surface)
-        run: dotnet test Meta/Surfaces.CSharp.Tests/Meta.Surfaces.CSharp.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
-      - name: Test (SQL surface)
-        run: dotnet test Meta/Surfaces.Sql.Tests/Meta.Surfaces.Sql.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
-      - name: Test (integration correctness)
-        run: dotnet test Meta/Integration.Tests/Meta.Integration.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false --filter "FullyQualifiedName!~DeterminismGoldenTests"
-      - name: Test (determinism golden)
-        run: dotnet test Meta/Integration.Tests/Meta.Integration.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false --filter "FullyQualifiedName~DeterminismGoldenTests"
-      - name: Test (architecture)
-        run: dotnet test Meta/Architecture.Tests/Meta.Architecture.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
-      - name: Test (MetaCli)
-        run: dotnet test MetaCli/Tests/MetaCli.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
-      - name: Test (MetaDocs)
-        run: dotnet test MetaDocs/Tests/MetaDocs.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
-      - name: Test (MetaMesh)
-        run: dotnet test MetaMesh/Tests/MetaMesh.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
-      - name: Test (MetaWeave)
-        run: dotnet test MetaWeave/Tests/MetaWeave.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false
+      - name: Test (correctness)
+        shell: pwsh
+        run: ./eng/test.ps1 -Profile Correctness -Configuration Release -NoBuild -MaxConcurrency 4
 
   perf_100k:
     runs-on: windows-latest
@@ -79,7 +58,8 @@ jobs:
           Meta_PERF_MAX_SAVE_MS: 45000
           Meta_PERF_MAX_LOAD_MS: 45000
           Meta_PERF_MAX_ALLOCATED_MB: 2048
-        run: dotnet test Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false --filter "FullyQualifiedName~LargeWorkspacePerformanceTests.SaveAndLoad_100kRows_WithinConfiguredBudgets"
+        shell: pwsh
+        run: ./eng/test.ps1 -Profile Performance100K -Configuration Release -NoBuild -MaxConcurrency 1
 
   perf_1m_optional:
     runs-on: windows-latest
@@ -102,4 +82,5 @@ jobs:
           Meta_PERF_1M_MAX_SAVE_MS: 300000
           Meta_PERF_1M_MAX_LOAD_MS: 300000
           Meta_PERF_1M_MAX_ALLOCATED_MB: 6144
-        run: dotnet test Meta/Surfaces.Xml.Tests/Meta.Surfaces.Xml.Tests.csproj --configuration Release --no-build --nologo -m:1 -nr:false --filter "FullyQualifiedName~LargeWorkspacePerformanceTests.SaveAndLoad_1MRows_WithinConfiguredBudgets_WhenEnabled"
+        shell: pwsh
+        run: ./eng/test.ps1 -Profile Performance1M -Configuration Release -NoBuild -MaxConcurrency 1
