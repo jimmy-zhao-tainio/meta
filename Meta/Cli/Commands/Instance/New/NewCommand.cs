@@ -25,11 +25,6 @@ internal sealed partial class CliRuntime
             return PrintArgumentError("Error: do not use --set Id. Use positional <Id> or --auto-id.");
         }
 
-        if (parseResult.SetValues.Count == 0)
-        {
-            return PrintArgumentError("Error: insert requires at least one --set Field=Value.");
-        }
-
         try
         {
             var model = await WorkspaceComposition.MaterializeModelAsync(CurrentWorkspace)

@@ -953,6 +953,89 @@ public sealed partial class CliStrictModeTests
     }
 
     [Fact]
+    public async Task Insert_ZeroPropertyEntity_AllowsPositionalIdWithoutSetters()
+    {
+        var workspaceRoot = CreateTempWorkspaceForZeroSetterInsert();
+        try
+        {
+            var result = await RunCliAsync(
+                "insert",
+                "BusinessConceptModel",
+                "HotelBusiness",
+                "--workspace",
+                workspaceRoot,
+                "--strict");
+
+            Assert.Equal(0, result.ExitCode);
+
+            var businessConceptModel = XDocument
+                .Load(Path.Combine(workspaceRoot, "instances", "BusinessConceptModel.xml"))
+                .Descendants("BusinessConceptModel")
+                .Single();
+            Assert.Equal("HotelBusiness", (string?)businessConceptModel.Attribute("Id"));
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task Insert_ZeroPropertyEntity_AllowsAutoIdWithoutSetters()
+    {
+        var workspaceRoot = CreateTempWorkspaceForZeroSetterInsert();
+        try
+        {
+            var result = await RunCliAsync(
+                "insert",
+                "BusinessConceptModel",
+                "--auto-id",
+                "--workspace",
+                workspaceRoot,
+                "--strict");
+
+            Assert.Equal(0, result.ExitCode);
+
+            var businessConceptModel = XDocument
+                .Load(Path.Combine(workspaceRoot, "instances", "BusinessConceptModel.xml"))
+                .Descendants("BusinessConceptModel")
+                .Single();
+            Assert.Equal("1", (string?)businessConceptModel.Attribute("Id"));
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
+    public async Task Insert_WithoutSetters_StillRejectsIncompleteRecord()
+    {
+        var workspaceRoot = CreateTempWorkspaceForZeroSetterInsert();
+        try
+        {
+            var result = await RunCliAsync(
+                "insert",
+                "RequiredRecord",
+                "Incomplete",
+                "--workspace",
+                workspaceRoot,
+                "--strict");
+
+            Assert.Equal(4, result.ExitCode);
+            Assert.Contains(
+                "RequiredRecord Incomplete is missing required value Description",
+                result.CombinedOutput,
+                StringComparison.OrdinalIgnoreCase);
+            Assert.False(File.Exists(Path.Combine(workspaceRoot, "instances", "RequiredRecord.xml")));
+        }
+        finally
+        {
+            DeleteDirectorySafe(workspaceRoot);
+        }
+    }
+
+    [Fact]
     public async Task Insert_AutoId_CannotBeCombinedWithPositionalId()
     {
         var workspaceRoot = CreateTempWorkspaceFromSamples();
@@ -6182,6 +6265,31 @@ public sealed partial class CliStrictModeTests
                 <Order Id="ORD-001" />
               </OrderList>
             </Mini>
+            """);
+
+        return root;
+    }
+
+    private static string CreateTempWorkspaceForZeroSetterInsert()
+    {
+        var root = Path.Combine(Path.GetTempPath(), "metadata-zero-setter-insert", Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(Path.Combine(root, "instances"));
+        WriteXmlWorkspaceDescriptor(root);
+
+        File.WriteAllText(
+            Path.Combine(root, "model.xml"),
+            """
+            <?xml version="1.0" encoding="utf-8"?>
+            <Model name="InsertZeroSetter">
+              <EntityList>
+                <Entity name="BusinessConceptModel" />
+                <Entity name="RequiredRecord">
+                  <PropertyList>
+                    <Property name="Description" isRequired="true" />
+                  </PropertyList>
+                </Entity>
+              </EntityList>
+            </Model>
             """);
 
         return root;
