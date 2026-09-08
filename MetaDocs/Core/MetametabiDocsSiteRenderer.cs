@@ -996,6 +996,7 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("        const viewer = document.getElementById('viewer');");
         builder.AppendLine("        const app = document.getElementById('docs-app');");
         builder.AppendLine("        const sidebar = document.getElementById('reference-navigation');");
+        builder.AppendLine("        const defaultPanel = sidebar?.querySelector('[data-panel-link]')?.getAttribute('data-panel-link') || 'home';");
         builder.AppendLine("        const menuButton = document.querySelector('.menu-button');");
         builder.AppendLine("        function setMenuOpen(open) {");
         builder.AppendLine("          if (!sidebar || !menuButton) return;");
@@ -1006,8 +1007,8 @@ public sealed class MetametabiDocsSiteRenderer
         builder.AppendLine("          if (viewer) viewer.focus({ preventScroll: true });");
         builder.AppendLine("        }");
         builder.AppendLine("        function normalizeHash() {");
-        builder.AppendLine("          const raw = window.location.hash ? window.location.hash.slice(1) : 'home';");
-        builder.AppendLine("          return raw || 'home';");
+        builder.AppendLine("          const raw = window.location.hash ? window.location.hash.slice(1) : defaultPanel;");
+        builder.AppendLine("          return raw || defaultPanel;");
         builder.AppendLine("        }");
         builder.AppendLine("        const initialRoute = normalizeHash();");
         builder.AppendLine("        if (window.location.hash) {");
