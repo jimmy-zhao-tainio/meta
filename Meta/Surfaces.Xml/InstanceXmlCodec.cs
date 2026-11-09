@@ -21,7 +21,7 @@ public static class InstanceXmlCodec
 
         ArgumentNullException.ThrowIfNull(model);
 
-        var document = XDocument.Load(instancePath, LoadOptions.None);
+        var document = XDocument.Load(instancePath, LoadOptions.PreserveWhitespace);
         var instance = new GenericInstance
         {
             ModelName = model.Name ?? string.Empty,
@@ -50,7 +50,7 @@ public static class InstanceXmlCodec
 
         foreach (var path in shardPaths)
         {
-            var document = XDocument.Load(path, LoadOptions.None);
+            var document = XDocument.Load(path, LoadOptions.PreserveWhitespace);
             MergeDocument(instance, document, model);
         }
 

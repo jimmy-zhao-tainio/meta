@@ -8,6 +8,65 @@ namespace Meta.Core.Tests;
 
 public sealed class TypedWorkspaceXmlSerializerTests
 {
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData("   ")]
+    [InlineData("\t")]
+    [InlineData("\n")]
+    [InlineData("\r")]
+    [InlineData("\r\n")]
+    [InlineData(" \t\r\n ")]
+    [InlineData(" leading and trailing ")]
+    [InlineData("first\r\nsecond")]
+    [InlineData("Åsa äter räksmörgås.")]
+    public void XmlWorkspace_RoundTripPreservesExactTextValues(string? value)
+    {
+        var tempRoot = CreateTempRoot();
+        try
+        {
+            var workspacePath = Path.Combine(tempRoot, "workspace");
+            var model = new TestTypedModel
+            {
+                AlphaList = { new Alpha { Id = "one", Name = "One", Note = value } },
+            };
+            TypedWorkspaceModelMapper.Create(model, workspacePath, "xml");
+
+            var restored = TypedWorkspaceModelMapper.Load<TestTypedModel>(workspacePath);
+            Assert.Equal(value, Assert.Single(restored.AlphaList).Note);
+
+            var shardPath = Path.Combine(workspacePath, "instances", "Alpha.xml");
+            var semanticModel = TypedModelMapper.ToWorkspace(model).Model;
+            foreach (var instance in new[]
+                     {
+                         InstanceXmlCodec.LoadFromPath(shardPath, semanticModel),
+                         InstanceXmlCodec.LoadFromPaths(new[] { shardPath }, semanticModel),
+                     })
+            {
+                var row = Assert.Single(instance.RecordsByEntity["Alpha"]);
+                if (value is null)
+                {
+                    Assert.False(row.Values.ContainsKey("Note"));
+                }
+                else
+                {
+                    Assert.Equal(value, row.Values["Note"]);
+                }
+            }
+
+            var originalBytes = File.ReadAllBytes(shardPath);
+            TypedWorkspaceXmlSerializer.Save(restored, workspacePath);
+            Assert.Equal(originalBytes, File.ReadAllBytes(shardPath));
+            Assert.Equal(value, Assert.Single(
+                TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath).AlphaList).Note);
+        }
+        finally
+        {
+            DeleteDirectoryIfExists(tempRoot);
+        }
+    }
+
     [Fact]
     public void TypedWorkspaceModelMapper_RoundTripsScalarsAndReferences()
     {

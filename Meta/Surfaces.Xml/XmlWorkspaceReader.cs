@@ -198,7 +198,8 @@ public static class XmlWorkspaceReader
         {
             var loadedRecords = InstanceXmlCodec.MergeDocumentAndGetRecordIdentities(
                 instance,
-                XDocument.Load(path, LoadOptions.None),
+                // Whitespace-only property text is data, including SQL literals.
+                XDocument.Load(path, LoadOptions.PreserveWhitespace),
                 model);
             var shardFileName = Path.GetFileName(path);
             foreach (var record in loadedRecords)

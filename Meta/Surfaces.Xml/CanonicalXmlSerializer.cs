@@ -18,7 +18,9 @@ internal static class CanonicalXmlSerializer
             Encoding = Utf8NoBom,
             Indent = indented,
             NewLineChars = "\n",
-            NewLineHandling = NewLineHandling.Replace,
+            // Keep CR and CRLF inside values exact across XML newline normalization.
+            // Formatting still uses LF through NewLineChars above.
+            NewLineHandling = NewLineHandling.Entitize,
             OmitXmlDeclaration = false,
         }))
         {
