@@ -1,6 +1,7 @@
 using Meta.Operations.Domain;
 using Meta.Operations;
 using Meta.Integration;
+using Meta.TypedModels;
 
 namespace MetaCli.Core;
 
@@ -41,9 +42,7 @@ public static class MetaCliWorkspace
                 workspace,
                 cancellationToken)
             .ConfigureAwait(false);
-        return TypedWorkspaceModelMapper.FromInMemoryWorkspace(
-            state,
-            static () => MetaCliModel.CreateEmpty());
+        return new MetaCliWorkspaceBinding().Read(state);
     }
 
     public static string OutputLocation(
@@ -204,6 +203,20 @@ public sealed class MetaCliWorkspaces : IAsyncDisposable
     public Task CreateAsync<TModel>(
         string output,
         TModel model,
+        GenericModel contract,
+        ITypedWorkspaceBinding<TModel> binding,
+        CancellationToken cancellationToken = default)
+        where TModel : class
+    {
+        ArgumentNullException.ThrowIfNull(model);
+        ArgumentNullException.ThrowIfNull(contract);
+        ArgumentNullException.ThrowIfNull(binding);
+        return CreateAsync(output, binding.Write(model, contract), cancellationToken);
+    }
+
+    public Task CreateAsync<TModel>(
+        string output,
+        TModel model,
         CancellationToken cancellationToken = default)
         where TModel : class
     {
@@ -227,6 +240,18 @@ public sealed class MetaCliWorkspaces : IAsyncDisposable
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(parameter);
         return workspaces.GetValueOrDefault(parameter.Trim());
+    }
+
+    public async Task<TModel> RequiredAsync<TModel>(
+        string parameter,
+        ITypedWorkspaceBinding<TModel> binding,
+        CancellationToken cancellationToken = default)
+        where TModel : class
+    {
+        ArgumentNullException.ThrowIfNull(binding);
+        var state = await WorkspaceComposition.MaterializeAsync(Required(parameter), cancellationToken)
+            .ConfigureAwait(false);
+        return binding.Read(state);
     }
 
     public async Task<TModel> RequiredAsync<TModel>(

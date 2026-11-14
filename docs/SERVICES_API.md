@@ -71,6 +71,14 @@ referential-integrity, and model rules before a surface publishes the result.
 `InMemoryWorkspace` state. The mapper owns no filesystem, XML, Roslyn, or SQL
 behavior; each surface remains responsible for its own representation.
 
+New typed consumers supply an `ITypedWorkspaceBinding<TModel>` explicitly.
+Its generated `Read` and `Write` methods use compiled member access, validate
+the selected metadata contract, and preserve canonical object references.
+`Write` receives that contract rather than inferring a model from CLR types.
+The explicit overloads of `TypedWorkspaceModelMapper` load and save through
+the selected surface without invoking the legacy reflective mapper. Existing
+unmigrated callers of the older overloads still require migration.
+
 ## XML Workspace
 
 `XmlWorkspaceReader.OpenAsync` opens one exact workspace directory and returns
@@ -102,6 +110,15 @@ sources back and reject a semantic difference before publishing them.
 Object references are the natural in-memory C# integrity surface. Serialized
 identities are transport details used to persist and reconstruct those
 references.
+
+`MetaCSharpBindingWriter.Write(GenericModel)` derives compiler-checked typed
+access from a model and returns a `MetaCSharp` artifact containing
+`<Model>.bindings.cs`. The generated access uses ordinary members, not CLR
+reflection, and contains no instance records. Export it with
+`meta export csharp-bindings --workspace <workspace> --out <new-directory>`.
+The source may use any supported workspace surface. The output directory must
+be new and outside the source workspace; derived access code is a consumer
+build input, not an authored workspace source or a new workspace.
 
 ## SQL Workspace
 

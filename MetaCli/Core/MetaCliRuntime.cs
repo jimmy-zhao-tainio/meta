@@ -1,5 +1,6 @@
 using Meta.Integration;
 using Meta.Operations;
+using Meta.TypedModels;
 
 namespace MetaCli.Core;
 
@@ -82,6 +83,7 @@ public sealed class MetaCliRuntime<TModel>
     private readonly string workspaceParameter;
     private readonly TextWriter error;
     private readonly Action<int> setExitCode;
+    private readonly ITypedWorkspaceBinding<TModel>? workspaceBinding;
     private readonly Dictionary<string, HandlerBinding> handlers = new(StringComparer.Ordinal);
     private bool useDefaultHelp;
     private TextWriter? helpOutput;
@@ -105,6 +107,19 @@ public sealed class MetaCliRuntime<TModel>
         this.workspaceParameter = workspaceParameter.Trim();
         this.error = error ?? Console.Error;
         this.setExitCode = setExitCode ?? (code => Environment.ExitCode = code);
+    }
+
+    public MetaCliRuntime(
+        string commandWorkspacePath,
+        ITypedWorkspaceBinding<TModel> workspaceBinding,
+        string? applicationId = null,
+        string workspaceParameter = "workspace",
+        TextWriter? error = null,
+        Action<int>? setExitCode = null)
+        : this(commandWorkspacePath, applicationId, workspaceParameter, error, setExitCode)
+    {
+        ArgumentNullException.ThrowIfNull(workspaceBinding);
+        this.workspaceBinding = workspaceBinding;
     }
 
     public MetaCliRuntime<TModel> UseDefaultHelp(
@@ -445,13 +460,18 @@ public sealed class MetaCliRuntime<TModel>
             return;
         }
 
+        if (workspace is null && workspaceBinding is not null)
+        {
+            throw new InvalidOperationException("This typed command requires an existing workspace contract.");
+        }
+
         var baseline = workspace is null
             ? TypedWorkspaceModelMapper.ToInMemoryWorkspace(new TModel())
             : await WorkspaceComposition.MaterializeAsync(workspace)
                 .ConfigureAwait(false);
-        var domainModel = TypedWorkspaceModelMapper.FromInMemoryWorkspace(
-            baseline,
-            static () => new TModel());
+        var domainModel = workspaceBinding is not null
+            ? workspaceBinding.Read(baseline)
+            : TypedWorkspaceModelMapper.FromInMemoryWorkspace(baseline, static () => new TModel());
         var completion = new MetaCliCommandCompletion();
 
         await using var additionalWorkspaces = await ResolveWorkspacesAsync(
@@ -500,8 +520,9 @@ public sealed class MetaCliRuntime<TModel>
             return;
         }
 
-        var desired = TypedWorkspaceModelMapper.ToInMemoryWorkspace(
-            domainModel);
+        var desired = workspaceBinding is not null
+            ? workspaceBinding.Write(domainModel, baseline.Model)
+            : TypedWorkspaceModelMapper.ToInMemoryWorkspace(domainModel);
         var operations = WorkspaceSynchronization.PlanInstanceChanges(
             baseline,
             desired);

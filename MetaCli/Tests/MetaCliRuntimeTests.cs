@@ -8,7 +8,7 @@ using MetaCli.Core;
 
 namespace MetaCli.Tests;
 
-public sealed class MetaCliRuntimeTests
+public sealed partial class MetaCliRuntimeTests
 {
     [Fact]
     public async Task Runtime_OpensDescriptorAndCreatesSelectedWorkspace()
