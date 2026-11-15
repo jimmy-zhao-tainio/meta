@@ -26,6 +26,8 @@ internal static class Program
         var exitCode = 0;
         var runtime = new MetaCliRuntime<MetaDocsModel>(
                 CommandWorkspacePath,
+                new MetaDocsWorkspaceBinding(),
+                MetaDocsModels.CreateMetaDocsModel,
                 ApplicationId,
                 setExitCode: code => exitCode = code)
             .UseDefaultHelp(options: new MetaCliHelpOptions("meta-docs browse"))
@@ -267,7 +269,7 @@ internal static class Program
         var sourceWorkspace = invocation.Required("source-workspace");
         try
         {
-            var cli = TypedWorkspaceModelMapper.Load<MetaCliModel>(sourceWorkspace, searchUpward: false);
+            var cli = TypedWorkspaceModelMapper.Load(sourceWorkspace, new MetaCliWorkspaceBinding(), searchUpward: false);
             var application = new MetaDocsCliImporter().ImportApplication(
                 model,
                 cli,
@@ -397,18 +399,18 @@ internal static class Program
             var models = new List<MetaDocsModel>();
             foreach (var include in invocation.Values("include"))
             {
-                models.Add(TypedWorkspaceModelMapper.LoadAsync<MetaDocsModel>(include, searchUpward: false).GetAwaiter().GetResult());
+                models.Add(await TypedWorkspaceModelMapper.LoadAsync(include, new MetaDocsWorkspaceBinding(), searchUpward: false).ConfigureAwait(false));
             }
 
             var merged = new MetaDocsSuiteMerger().MergeIntoNew(models);
             var outputMetaPath = Path.Combine(Path.GetFullPath(outputWorkspace), WorkspaceMetaFile.FileName);
             if (File.Exists(outputMetaPath))
             {
-                TypedWorkspaceModelMapper.Save(merged, outputWorkspace);
+                TypedWorkspaceModelMapper.Save(merged, outputWorkspace, new MetaDocsWorkspaceBinding());
             }
             else
             {
-                await workspaces.CreateAsync("output", merged).ConfigureAwait(false);
+                await workspaces.CreateAsync("output", merged, MetaDocsModels.CreateMetaDocsModel(), new MetaDocsWorkspaceBinding()).ConfigureAwait(false);
             }
             Presenter.WriteInfo($"Rebuilt suite workspace: {Path.GetFullPath(outputWorkspace)}");
             Presenter.WriteInfo($"Included {models.Count} source workspace(s), {merged.DocumentationSourceList.Count} documentation source(s).");
@@ -479,7 +481,7 @@ internal static class Program
     {
         if (MetaCliWorkspace.OptionalOutputLocation(invocation) is not null)
         {
-            await workspaces.CreateAsync("output", model).ConfigureAwait(false);
+            await workspaces.CreateAsync("output", model, MetaDocsModels.CreateMetaDocsModel(), new MetaDocsWorkspaceBinding()).ConfigureAwait(false);
         }
     }
 

@@ -16,7 +16,7 @@ public sealed class CSharpWorkspaceContractTests
             "demo",
             standardCliShapes: true,
             defaultHelp: true);
-        var sourceState = TypedWorkspaceModelMapper.ToInMemoryWorkspace(typed);
+        var sourceState = TypedWorkspaceModelMapper.ToInMemoryWorkspace(typed, global::MetaCli.Core.MetaCliWorkspaceContract.LoadModel(), new global::MetaCli.MetaCliWorkspaceBinding());
 
         var csharp = MetaCSharpWriter.Write(sourceState);
         var source = Assert.Single(csharp.Sources.Values);
@@ -30,7 +30,7 @@ public sealed class CSharpWorkspaceContractTests
         var readState = MetaCSharpReader.Read(csharp);
         var consumed = TypedWorkspaceModelMapper.FromInMemoryWorkspace(
             readState,
-            static () => new MetaCliModel());
+            new global::MetaCli.MetaCliWorkspaceBinding());
 
         Assert.Null(InMemoryWorkspaceComparer.FindDifference(
             sourceState,

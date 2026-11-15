@@ -24,6 +24,8 @@
     <ProjectReference Include="..\TypedModels\Meta.TypedModels.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Fixtures\TestTyped\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Fixtures\SqlTyped\**\*" CopyToOutputDirectory="PreserveNewest" />
     <Compile Include="..\Tests\ConnectionEnvironmentVariableResolverTests.cs" Link="ConnectionEnvironmentVariableResolverTests.cs" />
     <Compile Include="..\Tests\CliStrictModeTests.cs" Link="CliStrictModeTests.cs" />
     <Compile Include="..\Tests\CliStrictMode.RemovedCommandsTests.cs" Link="CliStrictMode.RemovedCommandsTests.cs" />

@@ -85,8 +85,8 @@ public sealed class MetaWeaveScriptSqlTests
         var model = service.ImportFromSqlCode("SELECT s.Id AS Id, s.Name AS Name FROM Source AS s;");
         var workspacePath = Path.Combine(Path.GetTempPath(), "meta", "metaweavescript-tests", Guid.NewGuid().ToString("N"));
 
-        TypedWorkspaceModelMapper.Create(model, workspacePath, "xml");
-        var loaded = TypedWorkspaceModelMapper.Load<MetaWeaveModel>(workspacePath);
+        TypedWorkspaceModelMapper.Create(model, MetaWeave.Core.MetaWeaveWorkspaceContract.LoadModel(), new MetaWeaveWorkspaceBinding(), workspacePath, "xml");
+        var loaded = TypedWorkspaceModelMapper.Load(workspacePath, new MetaWeaveWorkspaceBinding());
 
         Assert.Equal(service.ExportToSqlCode(model), service.ExportToSqlCode(loaded));
         Assert.Equal(CreateStructuralFingerprint(model), CreateStructuralFingerprint(loaded));

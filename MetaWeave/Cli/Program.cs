@@ -25,6 +25,7 @@ internal static class Program
         var exitCode = 0;
         var runtime = new MetaCliRuntime<MetaWeaveModel>(
                 CommandWorkspacePath,
+                new MetaWeaveWorkspaceBinding(),
                 ApplicationId,
                 setExitCode: code => exitCode = code)
             .UseDefaultHelp(options: new MetaCliHelpOptions("meta-weave show"))
@@ -65,7 +66,9 @@ internal static class Program
     {
         var model = new MetaWeaveAuthoringService().Create(
             invocation.Required("name"));
-        await workspaces.CreateAsync("output", model).ConfigureAwait(false);
+        await workspaces.CreateAsync(
+                "output", model, MetaWeaveWorkspaceContract.LoadModel(), new MetaWeaveWorkspaceBinding())
+            .ConfigureAwait(false);
         Presenter.WriteOk("MetaWeave workspace created");
     }
 

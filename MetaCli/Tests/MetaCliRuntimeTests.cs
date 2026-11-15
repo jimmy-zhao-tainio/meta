@@ -22,6 +22,8 @@ public sealed partial class MetaCliRuntimeTests
         var exitCode = -1;
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .Bind(
@@ -66,6 +68,8 @@ public sealed partial class MetaCliRuntimeTests
         var exitCode = -1;
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .UseDefaultHelp(output, error);
@@ -88,6 +92,8 @@ public sealed partial class MetaCliRuntimeTests
         var exitCode = -1;
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .Bind(
@@ -114,6 +120,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: new StringWriter(),
                 setExitCode: code => exitCode = code)
             .Bind(
@@ -134,7 +142,7 @@ public sealed partial class MetaCliRuntimeTests
         Assert.Equal(0, exitCode);
         Assert.Equal(
             "changed",
-            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace)
+            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace, new MetaCliWorkspaceBinding())
                 .ApplicationList.Single(application => application.Id == "app-domain")
                 .Name);
     }
@@ -152,6 +160,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .Bind("exec-add-property", (MetaCliInvocation command, MetaCliModel domainModel) =>
@@ -172,7 +182,7 @@ public sealed partial class MetaCliRuntimeTests
         Assert.NotNull(handlerModel);
         Assert.Contains(handlerModel.ApplicationList, application => application.Id == "app-domain");
         Assert.Contains(
-            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace).ApplicationList,
+            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace, new MetaCliWorkspaceBinding()).ApplicationList,
             application => application.Id == "app-added-by-handler");
         Assert.NotNull(invocation);
         Assert.Equal("model add-property", invocation.CommandRoute);
@@ -191,6 +201,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: new StringWriter(),
                 setExitCode: code => exitCode = code)
             .Bind(
@@ -199,8 +211,7 @@ public sealed partial class MetaCliRuntimeTests
                 {
                     domainModel.ApplicationList.Single().Name = "changed";
                     completion.OnSucceeded(() =>
-                        persistedNameAtCompletion = TypedWorkspaceXmlSerializer
-                            .Load<MetaCliModel>(domainWorkspace)
+                        persistedNameAtCompletion = TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace, new MetaCliWorkspaceBinding())
                             .ApplicationList.Single().Name);
                 });
 
@@ -222,6 +233,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .Bind(
@@ -238,7 +251,7 @@ public sealed partial class MetaCliRuntimeTests
         Assert.False(completed);
         Assert.Equal(
             "domain",
-            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace).ApplicationList.Single().Name);
+            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace, new MetaCliWorkspaceBinding()).ApplicationList.Single().Name);
     }
 
     [Fact]
@@ -251,6 +264,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: new StringWriter(),
                 setExitCode: code => exitCode = code)
             .BindReadOnly(
@@ -263,7 +278,7 @@ public sealed partial class MetaCliRuntimeTests
         Assert.Equal(0, exitCode);
         Assert.Equal(
             "domain",
-            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace).ApplicationList.Single().Name);
+            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(domainWorkspace, new MetaCliWorkspaceBinding()).ApplicationList.Single().Name);
     }
 
     [Fact]
@@ -278,6 +293,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: new StringWriter(),
                 setExitCode: code => exitCode = code)
             .Bind("exec-add-property", (MetaCliInvocation _, MetaCliModel domainModel) => handlerModel = domainModel);
@@ -308,6 +325,8 @@ public sealed partial class MetaCliRuntimeTests
         var previousCurrentDirectory = Directory.GetCurrentDirectory();
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .BindTarget(
@@ -336,7 +355,7 @@ public sealed partial class MetaCliRuntimeTests
         Assert.True(exitCode == 0, error.ToString());
         Assert.Equal(
             "updated",
-            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(temp.Path)
+            TypedWorkspaceXmlSerializer.Load<MetaCliModel>(temp.Path, new MetaCliWorkspaceBinding())
                 .ApplicationList.Single().Name);
     }
 
@@ -350,6 +369,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: new StringWriter(),
                 setExitCode: code => exitCode = code)
             .Bind("exec-help", command => invocation = command);
@@ -374,6 +395,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 workspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .Bind("exec-add-option", (MetaCliInvocation command, MetaCliModel domainModel) =>
@@ -425,6 +448,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
             commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
             error: error,
             setExitCode: code => exitCode = code);
 
@@ -444,6 +469,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
             commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
             error: error,
             setExitCode: code => exitCode = code);
 
@@ -463,6 +490,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .Bind("exec-add-property", static (MetaCliInvocation _, MetaCliModel _) => { });
@@ -484,6 +513,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .Bind("exec-add-property", _ => throw new MetaCliExitException(2));
@@ -503,6 +534,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
             Path.Combine(temp.Path, "Missing.MetaCli"),
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
             error: error,
             setExitCode: code => exitCode = code);
 
@@ -616,6 +649,8 @@ public sealed partial class MetaCliRuntimeTests
         MetaCliInvocation? selectedInvocation = null;
         var selected = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 applicationId: "app-demo",
                 error: new StringWriter(),
                 setExitCode: code => selectedExitCode = code)
@@ -642,6 +677,8 @@ public sealed partial class MetaCliRuntimeTests
 
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: new StringWriter(),
                 setExitCode: code => exitCode = code)
             .Bind("exec-add-entity", (MetaCliInvocation _, MetaCliModel _) => callCount++);
@@ -683,6 +720,8 @@ public sealed partial class MetaCliRuntimeTests
         var exitCode = -1;
         var runtime = new MetaCliRuntime<MetaCliModel>(
             commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
             applicationId: applicationId,
             error: error,
             setExitCode: code => exitCode = code);
@@ -702,6 +741,8 @@ public sealed partial class MetaCliRuntimeTests
         var ran = false;
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .Bind("exec-add-property", invocation =>
@@ -728,6 +769,8 @@ public sealed partial class MetaCliRuntimeTests
         var exitCode = -1;
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 commandWorkspace,
+                new MetaCliWorkspaceBinding(),
+                MetaCliWorkspaceContract.LoadModel,
                 error: error,
                 setExitCode: code => exitCode = code)
             .UseDefaultHelp(output, error);
@@ -1033,7 +1076,7 @@ public sealed partial class MetaCliRuntimeTests
         public string SaveCommandSurface(MetaCliModel model)
         {
             var workspace = System.IO.Path.Combine(Path, "CommandSurface.MetaCli");
-            TypedWorkspaceXmlSerializer.Save(model, workspace);
+            TypedWorkspaceXmlSerializer.Save(model, workspace, MetaCliWorkspaceContract.LoadModel(), new MetaCliWorkspaceBinding());
             return workspace;
         }
 
@@ -1041,7 +1084,7 @@ public sealed partial class MetaCliRuntimeTests
         {
             var workspace = System.IO.Path.Combine(Path, "CommandSurfaceCSharp.MetaCli");
             await CSharpWorkspace.CreateAsync(
-                    TypedWorkspaceModelMapper.ToInMemoryWorkspace(model),
+                    TypedWorkspaceModelMapper.ToInMemoryWorkspace(model, MetaCliWorkspaceContract.LoadModel(), new MetaCliWorkspaceBinding()),
                     workspace)
                 .ConfigureAwait(false);
             return workspace;
@@ -1057,7 +1100,7 @@ public sealed partial class MetaCliRuntimeTests
                 Name = "domain",
                 ExecutableName = "domain",
             });
-            TypedWorkspaceXmlSerializer.Save(model, workspace);
+            TypedWorkspaceXmlSerializer.Save(model, workspace, MetaCliWorkspaceContract.LoadModel(), new MetaCliWorkspaceBinding());
             return workspace;
         }
 

@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Concurrent;
 using System.Globalization;
-using System.Reflection;
 
 namespace MetaWeaveScript.Execution;
 
 internal sealed class MetaWeaveScriptSemanticNavigator
 {
-    private static readonly ConcurrentDictionary<Type, PropertyInfo?> BasePropertyByType = new();
-    private static readonly ConcurrentDictionary<Type, PropertyInfo?> OwnerPropertyByType = new();
-
+    private readonly Dictionary<Type, EntityAccess> entitiesByType = [];
     private readonly Dictionary<Type, Dictionary<string, object>> rowsById = [];
     private readonly Dictionary<Type, Dictionary<string, object>> rowsByBaseId = [];
     private readonly Dictionary<Type, Dictionary<string, List<object>>> rowsByOwnerId = [];
@@ -19,23 +14,12 @@ internal sealed class MetaWeaveScriptSemanticNavigator
     {
         ArgumentNullException.ThrowIfNull(model);
 
-        foreach (var listProperty in typeof(MetaWeaveModel).GetProperties(BindingFlags.Instance | BindingFlags.Public))
+        var access = new ModelAccess(model, entitiesByType);
+        MetaWeaveModelAccess.VisitCollections(access);
+        MetaWeaveModelAccess.VisitRelationships(access);
+        foreach (var (rowType, entity) in entitiesByType)
         {
-            if (!listProperty.PropertyType.IsGenericType ||
-                listProperty.PropertyType.GetGenericTypeDefinition() != typeof(List<>))
-            {
-                continue;
-            }
-
-            var rowType = listProperty.PropertyType.GetGenericArguments()[0];
-            if (IsDirectionScaffold(rowType))
-            {
-                continue;
-            }
-
-            var rows = (IEnumerable?)listProperty.GetValue(model)
-                ?? throw Fault("SemanticCollectionMissing", $"Semantic collection '{listProperty.Name}' is missing.");
-            IndexRows(rowType, rows.Cast<object>());
+            IndexRows(rowType, entity);
         }
     }
 
@@ -46,7 +30,7 @@ internal sealed class MetaWeaveScriptSemanticNavigator
             return (T)row;
         }
 
-        throw Fault("SemanticReferenceMissing", $"Required semantic reference '{label}' to {typeof(T).Name} '{id}' was not found.", id);
+        throw Fault("SemanticReferenceMissing", $"Required semantic reference '{label}' to {entitiesByType[typeof(T)].EntityName} '{id}' was not found.", id);
     }
 
     public T? TrySubtype<T>(string baseId) where T : class
@@ -68,7 +52,7 @@ internal sealed class MetaWeaveScriptSemanticNavigator
         {
             throw Fault(
                 "SemanticLinkMultiplicityInvalid",
-                $"Semantic link {typeof(TLink).Name} has {matches.Count} rows for owner '{ownerId}', where at most one is allowed.",
+                $"Semantic link {entitiesByType[typeof(TLink)].EntityName} has {matches.Count} rows for owner '{ownerId}', where at most one is allowed.",
                 ownerId);
         }
 
@@ -81,7 +65,7 @@ internal sealed class MetaWeaveScriptSemanticNavigator
             ?? throw Fault("SemanticLinkMissing", $"Required semantic link '{label}' for owner '{ownerId}' was not found.", ownerId);
     }
 
-    public IReadOnlyList<TItem> OrderedItems<TItem>(string ownerId) where TItem : class
+    public IReadOnlyList<TItem> OrderedItems<TItem>(string ownerId, Func<TItem, string?> selectOrdinal) where TItem : class
     {
         if (!rowsByOwnerId.TryGetValue(typeof(TItem), out var rows) ||
             !rows.TryGetValue(ownerId, out var matches))
@@ -100,8 +84,9 @@ internal sealed class MetaWeaveScriptSemanticNavigator
             return (IReadOnlyList<TItem>)cached;
         }
 
+        var entity = entitiesByType[typeof(TItem)];
         var ordered = matches
-            .Select(row => (Row: (TItem)row, Ordinal: ParseOrdinal(row), Id: GetId(row)))
+            .Select(row => (Row: (TItem)row, Ordinal: ParseOrdinal(selectOrdinal((TItem)row), entity.EntityName, entity.ReadId(row)), Id: entity.ReadId(row)))
             .OrderBy(item => item.Ordinal)
             .ThenBy(item => item.Id, StringComparer.Ordinal)
             .Select(item => item.Row)
@@ -112,7 +97,7 @@ internal sealed class MetaWeaveScriptSemanticNavigator
 
     public IReadOnlyList<string> IdentifierParts(MultiPartIdentifier identifier)
     {
-        return OrderedItems<MultiPartIdentifierIdentifiersItem>(identifier.Id)
+        return OrderedItems<MultiPartIdentifierIdentifiersItem>(identifier.Id, static row => row.Ordinal)
             .Select(item => RequireIdentifier(item.Identifier, "MultiPartIdentifier.Identifier"))
             .ToArray();
     }
@@ -127,30 +112,33 @@ internal sealed class MetaWeaveScriptSemanticNavigator
         return identifier.Value;
     }
 
-    private void IndexRows(Type rowType, IEnumerable<object> rows)
+    private void IndexRows(Type rowType, EntityAccess entity)
     {
         var idIndex = new Dictionary<string, object>(StringComparer.Ordinal);
         var baseIndex = new Dictionary<string, object>(StringComparer.Ordinal);
         var ownerIndex = new Dictionary<string, List<object>>(StringComparer.Ordinal);
-        var baseProperty = ResolveBaseProperty(rowType);
-        var ownerProperty = ResolveOwnerProperty(rowType);
+        var baseReference = entity.References.Count == 1 ? entity.References[0] : null;
+        var ownerReference = entity.References
+            .OrderByDescending(reference => reference.NavigationName.Length)
+            .FirstOrDefault(reference => entity.EntityName.StartsWith(reference.NavigationName, StringComparison.Ordinal))
+            ?? entity.References.FirstOrDefault();
 
-        foreach (var row in rows)
+        foreach (var row in entity.Rows)
         {
-            var id = GetId(row);
+            var id = entity.ReadId(row);
             if (string.IsNullOrWhiteSpace(id))
             {
-                throw Fault("SemanticIdentityMissing", $"{rowType.Name} contains a row with a blank Id.");
+                throw Fault("SemanticIdentityMissing", $"{entity.EntityName} contains a row with a blank Id.");
             }
 
             if (!idIndex.TryAdd(id, row))
             {
-                throw Fault("SemanticIdentityDuplicate", $"{rowType.Name} contains duplicate Id '{id}'.", id);
+                throw Fault("SemanticIdentityDuplicate", $"{entity.EntityName} contains duplicate Id '{id}'.", id);
             }
 
-            AddSingleReferenceIndex(baseIndex, baseProperty, row, rowType, "base");
+            AddSingleReferenceIndex(baseIndex, baseReference, row, entity.EntityName, "base");
 
-            var ownerId = GetRelatedId(ownerProperty, row);
+            var ownerId = ownerReference?.ReadTargetId(row) ?? string.Empty;
             if (!string.IsNullOrWhiteSpace(ownerId))
             {
                 if (!ownerIndex.TryGetValue(ownerId, out var ownerRows))
@@ -170,12 +158,12 @@ internal sealed class MetaWeaveScriptSemanticNavigator
 
     private static void AddSingleReferenceIndex(
         IDictionary<string, object> index,
-        PropertyInfo? property,
+        ReferenceAccess? reference,
         object row,
-        Type rowType,
+        string entityName,
         string role)
     {
-        var relatedId = GetRelatedId(property, row);
+        var relatedId = reference?.ReadTargetId(row) ?? string.Empty;
         if (string.IsNullOrWhiteSpace(relatedId))
         {
             return;
@@ -185,73 +173,64 @@ internal sealed class MetaWeaveScriptSemanticNavigator
         {
             throw Fault(
                 "SemanticSubtypeMultiplicityInvalid",
-                $"{rowType.Name} contains more than one row for {role} '{relatedId}'.",
+                $"{entityName} contains more than one row for {role} '{relatedId}'.",
                 relatedId);
         }
     }
 
-    private static string GetId(object row) =>
-        (string?)row.GetType().GetProperty("Id")?.GetValue(row) ?? string.Empty;
-
-    private static string GetRelatedId(PropertyInfo? property, object row)
+    private static int ParseOrdinal(string? text, string entityName, string id)
     {
-        var related = property?.GetValue(row);
-        return related is null ? string.Empty : GetId(related);
-    }
-
-    private static int ParseOrdinal(object row)
-    {
-        var text = (string?)row.GetType().GetProperty("Ordinal")?.GetValue(row);
         if (!int.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var ordinal) || ordinal < 0)
         {
-            throw Fault("SemanticOrdinalInvalid", $"{row.GetType().Name} '{GetId(row)}' has invalid ordinal '{text}'.", GetId(row));
+            throw Fault("SemanticOrdinalInvalid", $"{entityName} '{id}' has invalid ordinal '{text}'.", id);
         }
 
         return ordinal;
     }
 
-    private static PropertyInfo? ResolveBaseProperty(Type type)
+    private sealed class EntityAccess(string entityName, IEnumerable<object> rows, Func<object, string> readId)
     {
-        return BasePropertyByType.GetOrAdd(type, static rowType =>
-        {
-            var references = rowType.GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(IsReferenceProperty)
-                .ToArray();
-            return references.Length == 1 ? references[0] : null;
-        });
+        public string EntityName { get; } = entityName;
+        public IEnumerable<object> Rows { get; } = rows;
+        public Func<object, string> ReadId { get; } = readId;
+        public List<ReferenceAccess> References { get; } = [];
     }
 
-    private static PropertyInfo? ResolveOwnerProperty(Type type)
+    private sealed record ReferenceAccess(string NavigationName, Func<object, string> ReadTargetId);
+
+    private sealed class ModelAccess(MetaWeaveModel model, IDictionary<Type, EntityAccess> entities)
+        : IMetaWeaveCollectionVisitor, IMetaWeaveRelationshipVisitor
     {
-        return OwnerPropertyByType.GetOrAdd(type, static rowType =>
+        public void Visit<TEntity>(string entityName, Func<MetaWeaveModel, IList<TEntity>> rows,
+            Func<TEntity, string> readId, Action<TEntity, string> writeId) where TEntity : class
         {
-            var references = rowType.GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(IsReferenceProperty)
-                .ToArray();
-            if (references.Length <= 1)
+            if (!IsDirectionScaffold(entityName))
             {
-                return references.FirstOrDefault();
+                var collection = rows(model)
+                    ?? throw Fault("SemanticCollectionMissing", $"Semantic collection '{entityName}List' is missing.");
+                entities.Add(typeof(TEntity), new EntityAccess(entityName, collection, row => readId((TEntity)row) ?? string.Empty));
             }
+        }
 
-            return references
-                .OrderByDescending(property => property.Name.Length)
-                .FirstOrDefault(property => rowType.Name.StartsWith(property.Name, StringComparison.Ordinal))
-                ?? references[0];
-        });
+        public void Visit<TRow, TTarget>(string entityName, string navigationName, string targetEntityName, bool isNullable,
+            Func<MetaWeaveModel, IList<TRow>> rows, Func<TRow, TTarget?> read, Action<TRow, TTarget?> write,
+            Func<TTarget, string> readTargetId) where TRow : class where TTarget : class
+        {
+            if (entities.TryGetValue(typeof(TRow), out var entity))
+            {
+                entity.References.Add(new ReferenceAccess(navigationName, row =>
+                {
+                    var target = read((TRow)row);
+                    return target is null ? string.Empty : readTargetId(target) ?? string.Empty;
+                }));
+            }
+        }
     }
 
-    private static bool IsReferenceProperty(PropertyInfo property) =>
-        property.PropertyType != typeof(string) &&
-        property.PropertyType.GetProperty("Id") is not null;
-
-    private static bool IsDirectionScaffold(Type rowType) =>
-        rowType == typeof(Weave) ||
-        rowType == typeof(Direction) ||
-        rowType == typeof(DirectionRelation) ||
-        rowType == typeof(DirectionSourceWorkspace) ||
-        rowType == typeof(DirectionStringParameter) ||
-        rowType == typeof(DirectionRequirement) ||
-        rowType == typeof(Transformation);
+    private static bool IsDirectionScaffold(string entityName) =>
+        entityName is nameof(Weave) or nameof(Direction) or nameof(DirectionRelation) or
+            nameof(DirectionSourceWorkspace) or nameof(DirectionStringParameter) or
+            nameof(DirectionRequirement) or nameof(Transformation);
 
     private static MetaWeaveScriptExecutionFault Fault(string code, string message, string? syntaxId = null) =>
         new(code, message, syntaxId);

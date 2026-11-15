@@ -1,4 +1,5 @@
 using Meta.Integration;
+using Meta.Operations.Domain;
 using Meta.Operations;
 using Meta.TypedModels;
 
@@ -76,7 +77,7 @@ public enum MetaCliRuntimeFailureKind
 }
 
 public sealed class MetaCliRuntime<TModel>
-    where TModel : class, new()
+    where TModel : class
 {
     private readonly string commandWorkspacePath;
     private readonly string? applicationId;
@@ -84,6 +85,7 @@ public sealed class MetaCliRuntime<TModel>
     private readonly TextWriter error;
     private readonly Action<int> setExitCode;
     private readonly ITypedWorkspaceBinding<TModel>? workspaceBinding;
+    private readonly Func<GenericModel>? createContract;
     private readonly Dictionary<string, HandlerBinding> handlers = new(StringComparer.Ordinal);
     private bool useDefaultHelp;
     private TextWriter? helpOutput;
@@ -120,6 +122,20 @@ public sealed class MetaCliRuntime<TModel>
     {
         ArgumentNullException.ThrowIfNull(workspaceBinding);
         this.workspaceBinding = workspaceBinding;
+    }
+
+    public MetaCliRuntime(
+        string commandWorkspacePath,
+        ITypedWorkspaceBinding<TModel> workspaceBinding,
+        Func<GenericModel> createContract,
+        string? applicationId = null,
+        string workspaceParameter = "workspace",
+        TextWriter? error = null,
+        Action<int>? setExitCode = null)
+        : this(commandWorkspacePath, workspaceBinding, applicationId, workspaceParameter, error, setExitCode)
+    {
+        ArgumentNullException.ThrowIfNull(createContract);
+        this.createContract = createContract;
     }
 
     public MetaCliRuntime<TModel> UseDefaultHelp(
@@ -460,18 +476,21 @@ public sealed class MetaCliRuntime<TModel>
             return;
         }
 
-        if (workspace is null && workspaceBinding is not null)
+        if (workspaceBinding is null)
+        {
+            throw new InvalidOperationException("A typed command requires an explicit workspace binding.");
+        }
+
+        if (workspace is null && createContract is null)
         {
             throw new InvalidOperationException("This typed command requires an existing workspace contract.");
         }
 
         var baseline = workspace is null
-            ? TypedWorkspaceModelMapper.ToInMemoryWorkspace(new TModel())
+            ? CreateEmptyWorkspace()
             : await WorkspaceComposition.MaterializeAsync(workspace)
                 .ConfigureAwait(false);
-        var domainModel = workspaceBinding is not null
-            ? workspaceBinding.Read(baseline)
-            : TypedWorkspaceModelMapper.FromInMemoryWorkspace(baseline, static () => new TModel());
+        var domainModel = workspaceBinding.Read(baseline);
         var completion = new MetaCliCommandCompletion();
 
         await using var additionalWorkspaces = await ResolveWorkspacesAsync(
@@ -520,9 +539,7 @@ public sealed class MetaCliRuntime<TModel>
             return;
         }
 
-        var desired = workspaceBinding is not null
-            ? workspaceBinding.Write(domainModel, baseline.Model)
-            : TypedWorkspaceModelMapper.ToInMemoryWorkspace(domainModel);
+        var desired = workspaceBinding.Write(domainModel, baseline.Model);
         var operations = WorkspaceSynchronization.PlanInstanceChanges(
             baseline,
             desired);
@@ -532,6 +549,12 @@ public sealed class MetaCliRuntime<TModel>
         }
 
         completion.Complete();
+    }
+
+    private InMemoryWorkspace CreateEmptyWorkspace()
+    {
+        var contract = createContract!();
+        return new InMemoryWorkspace(contract, new GenericInstance { ModelName = contract.Name });
     }
 
     private static bool HasValue(

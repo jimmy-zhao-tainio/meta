@@ -258,12 +258,11 @@ internal sealed class WorkspaceLockRecord
             // ignore
         }
 
-        var toolVersion = typeof(WorkspaceWriteLock).Assembly.GetName().Version?.ToString() ?? "unknown";
         return new WorkspaceLockRecord
         {
             Pid = Environment.ProcessId,
             MachineName = Environment.MachineName,
-            ToolVersion = toolVersion,
+            ToolVersion = MetaBuildVersion.Value,
             ProcessStartTimeUtc = processStart,
             AcquiredUtc = DateTime.UtcNow,
         };

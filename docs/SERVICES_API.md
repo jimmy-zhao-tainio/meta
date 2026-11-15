@@ -10,8 +10,8 @@ C# are supported surfaces for the same model and instance structure.
   validation, and operations.
 - `Meta.Core` owns shared domain algorithms and foundation services that are
   independent of one workspace surface.
-- `Meta.TypedModels` owns representation-neutral mapping between typed CLR
-  models and semantic workspace state. It depends only on Operations.
+- `Meta.TypedModels` owns the explicit typed workspace binding contract and
+  shared projection validation. It depends only on Operations.
 - `Meta.Surfaces` owns the lightweight workspace descriptor and shared
   publication infrastructure. It has no Roslyn or SqlClient dependency.
 - `Meta.Surfaces.Xml` owns XML readers, writers, codecs, and layout.
@@ -67,17 +67,14 @@ var execution = InMemoryOperations.Execute(
 Operation construction and execution enforce the common Meta identity,
 referential-integrity, and model rules before a surface publishes the result.
 
-`TypedModelMapper` maps typed CLR contracts to and from the same
-`InMemoryWorkspace` state. The mapper owns no filesystem, XML, Roslyn, or SQL
-behavior; each surface remains responsible for its own representation.
-
-New typed consumers supply an `ITypedWorkspaceBinding<TModel>` explicitly.
+Typed consumers supply an `ITypedWorkspaceBinding<TModel>` explicitly.
 Its generated `Read` and `Write` methods use compiled member access, validate
 the selected metadata contract, and preserve canonical object references.
 `Write` receives that contract rather than inferring a model from CLR types.
-The explicit overloads of `TypedWorkspaceModelMapper` load and save through
-the selected surface without invoking the legacy reflective mapper. Existing
-unmigrated callers of the older overloads still require migration.
+`TypedWorkspaceModelMapper` loads and saves through the selected surface using
+the supplied binding. Creation also requires a `GenericModel`; saving an
+existing workspace uses its actual model. Schema interpretation belongs to
+the workspace surface.
 
 ## XML Workspace
 
@@ -99,6 +96,8 @@ await XmlWorkspaceWriter.WriteAsync(
 
 Use `XmlWorkspaceWriter.WriteNewAsync` for a new XML workspace. XML loading
 uses the exact path supplied by the caller; it does not search parent folders.
+The typed convenience methods on `TypedWorkspaceXmlSerializer` require an
+explicit binding and, for creation, a generic model contract.
 
 ## C# Workspace
 
@@ -113,8 +112,10 @@ references.
 
 `MetaCSharpBindingWriter.Write(GenericModel)` derives compiler-checked typed
 access from a model and returns a `MetaCSharp` artifact containing
-`<Model>.bindings.cs`. The generated access uses ordinary members, not CLR
-reflection, and contains no instance records. Export it with
+`<Model>.bindings.cs` and `<Model>.access.cs`. The binding projects generic
+workspace state to and from typed objects. The BCL-only access file supplies
+collection and relationship visitors with typed member delegates for graph
+algorithms. Both use ordinary members and contain no instance records. Export them with
 `meta export csharp-bindings --workspace <workspace> --out <new-directory>`.
 The source may use any supported workspace surface. The output directory must
 be new and outside the source workspace; derived access code is a consumer

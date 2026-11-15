@@ -42,7 +42,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
 
         if (navigator.TrySubtype<CoalesceExpression>(primary.Id) is { } coalesce)
         {
-            foreach (var item in navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id))
+            foreach (var item in navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id, static row => row.Ordinal))
             {
                 var value = EvaluateScalarExpression(item.ScalarExpression, context);
                 if (!value.IsNull)
@@ -272,7 +272,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         CaseExpression caseExpression,
         RuntimeEvaluationContext context)
     {
-        foreach (var item in navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id))
+        foreach (var item in navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id, static row => row.Ordinal))
         {
             var searchedWhen = item.SearchedWhenClause;
             var predicate = navigator.RequireOwnerLink<SearchedWhenClauseWhenExpressionLink>(
@@ -456,11 +456,11 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         var overClause = navigator.RequireOwnerLink<FunctionCallOverClauseLink>(
             functionCall.Id,
             "FunctionCall.OverClause").OverClause;
-        var partitions = navigator.OrderedItems<OverClausePartitionsItem>(overClause.Id);
+        var partitions = navigator.OrderedItems<OverClausePartitionsItem>(overClause.Id, static row => row.Ordinal);
         var orderByClause = navigator.RequireOwnerLink<OverClauseOrderByClauseLink>(
             overClause.Id,
             "OverClause.OrderByClause").OrderByClause;
-        var orderItems = navigator.OrderedItems<OrderByClauseOrderByElementsItem>(orderByClause.Id);
+        var orderItems = navigator.OrderedItems<OrderByClauseOrderByElementsItem>(orderByClause.Id, static row => row.Ordinal);
         if (orderItems.Count == 0)
         {
             throw Fault(
@@ -602,7 +602,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 functionCall.Id);
         }
 
-        var parameters = navigator.OrderedItems<FunctionCallParametersItem>(functionCall.Id);
+        var parameters = navigator.OrderedItems<FunctionCallParametersItem>(functionCall.Id, static row => row.Ordinal);
         if (string.Equals(name, "COUNT", StringComparison.OrdinalIgnoreCase))
         {
             RequireArity(name, parameters.Count, 1, functionCall.Id);
@@ -665,7 +665,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 "StringAggregateOrderMissing",
                 "STRING_AGG requires WITHIN GROUP ordering.",
                 functionCall.Id);
-        var orderItems = navigator.OrderedItems<OrderByClauseOrderByElementsItem>(orderLink.OrderByClause.Id);
+        var orderItems = navigator.OrderedItems<OrderByClauseOrderByElementsItem>(orderLink.OrderByClause.Id, static row => row.Ordinal);
         if (orderItems.Count == 0)
         {
             throw Fault(
@@ -785,7 +785,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         string name,
         RuntimeEvaluationContext context)
     {
-        var parameters = navigator.OrderedItems<FunctionCallParametersItem>(functionCall.Id)
+        var parameters = navigator.OrderedItems<FunctionCallParametersItem>(functionCall.Id, static row => row.Ordinal)
             .Select(item => EvaluateScalarExpression(item.ScalarExpression, context))
             .ToArray();
         switch (name.ToUpperInvariant())
@@ -1026,7 +1026,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         if (navigator.TrySubtype<FunctionCall>(primary.Id) is { } function)
         {
             return AggregateFunctionNames.Contains(FunctionName(function)) ||
-                   navigator.OrderedItems<FunctionCallParametersItem>(function.Id)
+                   navigator.OrderedItems<FunctionCallParametersItem>(function.Id, static row => row.Ordinal)
                        .Any(item => ContainsAggregate(item.ScalarExpression));
         }
 
@@ -1034,7 +1034,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         {
             var searched = navigator.TrySubtype<SearchedCaseExpression>(caseExpression.Id);
             return searched is not null &&
-                   (navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id).Any(item =>
+                   (navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id, static row => row.Ordinal).Any(item =>
                        ContainsAggregate(navigator.RequireOwnerLink<SearchedWhenClauseWhenExpressionLink>(
                            item.SearchedWhenClause.Id,
                            "SearchedWhenClause.WhenExpression").BooleanExpression) ||
@@ -1047,7 +1047,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
 
         if (navigator.TrySubtype<CoalesceExpression>(primary.Id) is { } coalesce)
         {
-            return navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id)
+            return navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id, static row => row.Ordinal)
                 .Any(item => ContainsAggregate(item.ScalarExpression));
         }
 
@@ -1104,7 +1104,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 return false;
             }
 
-            return navigator.OrderedItems<FunctionCallParametersItem>(function.Id)
+            return navigator.OrderedItems<FunctionCallParametersItem>(function.Id, static row => row.Ordinal)
                 .Any(item => ContainsColumnOutsideAggregate(item.ScalarExpression));
         }
 
@@ -1112,7 +1112,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         {
             var searched = navigator.TrySubtype<SearchedCaseExpression>(caseExpression.Id);
             return searched is not null &&
-                   (navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id).Any(item =>
+                   (navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id, static row => row.Ordinal).Any(item =>
                        ContainsColumnOutsideAggregate(navigator.RequireOwnerLink<SearchedWhenClauseWhenExpressionLink>(
                            item.SearchedWhenClause.Id,
                            "SearchedWhenClause.WhenExpression").BooleanExpression) ||
@@ -1125,7 +1125,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
 
         if (navigator.TrySubtype<CoalesceExpression>(primary.Id) is { } coalesce)
         {
-            return navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id)
+            return navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id, static row => row.Ordinal)
                 .Any(item => ContainsColumnOutsideAggregate(item.ScalarExpression));
         }
 

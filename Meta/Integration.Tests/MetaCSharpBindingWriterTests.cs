@@ -13,8 +13,8 @@ public sealed class MetaCSharpBindingWriterTests
     {
         var state = CreateState();
         var generated = MetaCSharpBindingWriter.Write(state.Model);
-        var source = Assert.Single(generated.Sources);
-        Assert.Equal("namespace.bindings.cs", source.Key);
+        Assert.Equal(2, generated.Sources.Count);
+        var source = new KeyValuePair<string, string>("namespace.bindings.cs", generated.Sources["namespace.bindings.cs"]);
         Assert.Contains("namespace @namespace;", source.Value);
         Assert.Contains("public sealed class namespaceWorkspaceBinding", source.Value);
         Assert.Contains("ITypedWorkspaceBinding<global::@namespace.namespaceModel>", source.Value);
@@ -31,7 +31,15 @@ public sealed class MetaCSharpBindingWriterTests
             entity.Properties.Reverse();
             entity.Relationships.Reverse();
         }
-        Assert.Equal(source.Value, Assert.Single(MetaCSharpBindingWriter.Write(reordered).Sources).Value);
+        var regenerated = MetaCSharpBindingWriter.Write(reordered);
+        foreach (var artifact in generated.Sources)
+            Assert.Equal(artifact.Value, regenerated.Sources[artifact.Key]);
+        var access = generated.Sources["namespace.access.cs"];
+        Assert.Contains("public static class namespaceModelAccess", access);
+        Assert.Contains("VisitRelationships", access);
+        Assert.DoesNotContain("Meta.TypedModels", access);
+        Assert.DoesNotContain("System.Reflection", access);
+        Assert.DoesNotContain("sentinel instance text", access);
     }
 
     [Fact]
@@ -43,8 +51,8 @@ public sealed class MetaCSharpBindingWriterTests
         {
             var state = CreateState();
             var modelSource = Assert.Single(MetaCSharpWriter.Write(state).Sources).Value;
-            var bindingSource = Assert.Single(MetaCSharpBindingWriter.Write(state.Model).Sources).Value;
-            var sources = new[] { modelSource, bindingSource, HarnessSource };
+            var generated = MetaCSharpBindingWriter.Write(state.Model);
+            var sources = new[] { modelSource, HarnessSource }.Concat(generated.Sources.Values);
             var platformAssemblies = AppContext.GetData("TRUSTED_PLATFORM_ASSEMBLIES") as string
                 ?? throw new InvalidOperationException("Trusted platform assemblies are unavailable.");
             var dependencyNames = new[] { "Meta.Operations.dll", "Meta.TypedModels.dll" };
@@ -113,6 +121,9 @@ public sealed class MetaCSharpBindingWriterTests
     [InlineData("namespaceWorkspaceBinding")]
     [InlineData("namespaceModel")]
     [InlineData("namespaceInstance")]
+    [InlineData("namespaceModelAccess")]
+    [InlineData("InamespaceCollectionVisitor")]
+    [InlineData("InamespaceRelationshipVisitor")]
     public void EntityNamesCannotCollideWithGeneratedTypes(string entityName)
     {
         var model = CreateState().Model;
@@ -151,6 +162,7 @@ public sealed class MetaCSharpBindingWriterTests
 
     private const string HarnessSource = """
         using System;
+        using System.Collections.Generic;
         using Meta.Operations.Domain;
         using Meta.TypedModels;
 
@@ -213,7 +225,55 @@ public sealed class MetaCSharpBindingWriterTests
                 stale.Model.Entities[0].Properties.Add(new GenericProperty { Name = "Added", IsNullable = true });
                 Reject(() => binding.Read(stale), "stale read schema");
                 Reject(() => binding.Write(binding.Read(valid), stale.Model), "stale write schema");
+                var graph = binding.Read(State());
+                var collections = new Collections(graph);
+                global::@namespace.namespaceModelAccess.VisitCollections(collections);
+                Check(collections.Count == 2, "all generated collection delegates visited");
+                var relationships = new Relationships(graph);
+                global::@namespace.namespaceModelAccess.VisitRelationships(relationships);
+                Check(relationships.Count == 2, "all generated relationship delegates visited");
+                Check(ReferenceEquals(graph.classList[0].parent, graph.classList[0]), "visitation preserves canonical self reference");
                 Console.WriteLine("PASS exact projection, fresh canonical graphs, and integrity rejection");
+            }
+
+            private sealed class Collections(global::@namespace.namespaceModel graph) : global::@namespace.InamespaceCollectionVisitor
+            {
+                public int Count;
+                public void Visit<TEntity>(string entityName, Func<global::@namespace.namespaceModel, IList<TEntity>> rows,
+                    Func<TEntity, string> readId, Action<TEntity, string> writeId) where TEntity : class
+                {
+                    Count++;
+                    Check(rows(graph).Count == 1, "collection selects the authored row");
+                    foreach (var row in rows(graph))
+                    {
+                        var id = readId(row);
+                        writeId(row, "rewritten/" + id);
+                        Check(readId(row) == "rewritten/" + id, "collection ID setter and getter");
+                    }
+                }
+            }
+
+            private sealed class Relationships(global::@namespace.namespaceModel graph) : global::@namespace.InamespaceRelationshipVisitor
+            {
+                public int Count;
+                public void Visit<TRow, TTarget>(string entityName, string navigationName, string targetEntityName, bool isNullable,
+                    Func<global::@namespace.namespaceModel, IList<TRow>> rows, Func<TRow, TTarget?> read,
+                    Action<TRow, TTarget?> write, Func<TTarget, string> readTargetId) where TRow : class where TTarget : class
+                {
+                    Count++;
+                    foreach (var row in rows(graph))
+                    {
+                        var target = read(row)!;
+                        Check(readTargetId(target).StartsWith("rewritten/", StringComparison.Ordinal), "relationship reaches canonical mutated target");
+                        if (isNullable)
+                        {
+                            write(row, null);
+                            Check(read(row) is null, "nullable relationship setter");
+                        }
+                        write(row, target);
+                        Check(ReferenceEquals(read(row), target), "relationship setter preserves identity");
+                    }
+                }
             }
 
             private static void Check(bool condition, string name)

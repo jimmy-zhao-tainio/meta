@@ -11,7 +11,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         RuntimeFrame? outerFrame)
     {
         var result = new RuntimeTableResult([], [new RuntimeLocalRow()]);
-        foreach (var item in navigator.OrderedItems<FromClauseTableReferencesItem>(fromClause.Id))
+        foreach (var item in navigator.OrderedItems<FromClauseTableReferencesItem>(fromClause.Id, static row => row.Ordinal))
         {
             var next = ExecuteTableReference(
                 item.TableReference,
@@ -131,7 +131,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 named.Id);
         }
 
-        var identifierItems = navigator.OrderedItems<MultiPartIdentifierIdentifiersItem>(identifier.Id);
+        var identifierItems = navigator.OrderedItems<MultiPartIdentifierIdentifiersItem>(identifier.Id, static row => row.Ordinal);
         var baseIdentifier = navigator.RequireOwnerLink<SchemaObjectNameBaseIdentifierLink>(
             schemaObject.Id,
             "SchemaObjectName.BaseIdentifier").Identifier;
@@ -255,9 +255,9 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             evaluationFrame,
             visibleCommonTableExpressionOrdinal);
         var rows = new List<RuntimeRow>();
-        foreach (var item in navigator.OrderedItems<InlineDerivedTableRowValuesItem>(inlineDerived.Id))
+        foreach (var item in navigator.OrderedItems<InlineDerivedTableRowValuesItem>(inlineDerived.Id, static row => row.Ordinal))
         {
-            var values = navigator.OrderedItems<RowValueColumnValuesItem>(item.RowValue.Id)
+            var values = navigator.OrderedItems<RowValueColumnValuesItem>(item.RowValue.Id, static row => row.Ordinal)
                 .Select(value => EvaluateScalarExpression(value.ScalarExpression, context))
                 .ToArray();
             if (values.Length != aliasInfo.Columns.Count)
@@ -297,7 +297,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 function.Id);
         }
 
-        var parameters = navigator.OrderedItems<GlobalFunctionTableReferenceParametersItem>(function.Id);
+        var parameters = navigator.OrderedItems<GlobalFunctionTableReferenceParametersItem>(function.Id, static row => row.Ordinal);
         if (parameters.Count is < 2 or > 3)
         {
             throw Fault(

@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="..\Workspace\**\*" Link="MetaCli\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"
+             Pack="true" PackagePath="contentFiles\any\net8.0\MetaCli\%(RecursiveDir)%(Filename)%(Extension)"
+             PackageCopyToOutput="true" BuildAction="None" />
+    <None Include="Package\MetaCli.Core.targets" Pack="true" PackagePath="buildTransitive\MetaCli.Core.targets" />
     <None Include="..\..\PACKAGE-README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 

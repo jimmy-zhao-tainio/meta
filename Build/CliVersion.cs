@@ -1,4 +1,3 @@
-using System.Reflection;
 using Meta.Core.Presentation;
 
 namespace Meta.Core.Presentation.Cli;
@@ -22,24 +21,7 @@ public static class CliVersion
             return false;
         }
 
-        presenter.WriteInfo($"{appName} {ResolveVersion()}");
+        presenter.WriteInfo($"{appName} {MetaBuildVersion.Value}");
         return true;
-    }
-
-    private static string ResolveVersion()
-    {
-        var assembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
-        var informationalVersion = assembly
-            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-            ?.InformationalVersion;
-        if (!string.IsNullOrWhiteSpace(informationalVersion))
-        {
-            return informationalVersion;
-        }
-
-        var version = assembly.GetName().Version;
-        return version is null
-            ? "0.0.0"
-            : version.ToString();
     }
 }

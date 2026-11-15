@@ -6,7 +6,7 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
 {
     private string RenderCoalesceExpression(CoalesceExpression coalesceExpression)
     {
-        var expressions = GetOrderedItems(model.CoalesceExpressionExpressionsItemList, coalesceExpression.Id)
+        var expressions = GetOrderedItems(model.CoalesceExpressionExpressionsItemList, static row => row.CoalesceExpression?.Id, static row => row.Ordinal, coalesceExpression.Id)
             .Select(row => RenderScalarExpression(row.ScalarExpression))
             .ToArray();
         return "COALESCE(" + string.Join(", ", expressions) + ")";
@@ -15,11 +15,11 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
     private string RenderNullIfExpression(NullIfExpression nullIfExpression)
     {
         var first = RenderScalarExpression(GetOwnerLink(
-            model.NullIfExpressionFirstExpressionLinkList,
+            model.NullIfExpressionFirstExpressionLinkList, static row => row.NullIfExpression?.Id,
             nullIfExpression.Id,
             "NullIfExpression.FirstExpression").ScalarExpression);
         var second = RenderScalarExpression(GetOwnerLink(
-            model.NullIfExpressionSecondExpressionLinkList,
+            model.NullIfExpressionSecondExpressionLinkList, static row => row.NullIfExpression?.Id,
             nullIfExpression.Id,
             "NullIfExpression.SecondExpression").ScalarExpression);
         return $"NULLIF({first}, {second})";
@@ -28,15 +28,15 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
     private string RenderIIfCall(IIfCall iIfCall)
     {
         var predicate = RenderBooleanExpression(GetOwnerLink(
-            model.IIfCallPredicateLinkList,
+            model.IIfCallPredicateLinkList, static row => row.IIfCall?.Id,
             iIfCall.Id,
             "IIfCall.Predicate").BooleanExpression);
         var thenExpression = RenderScalarExpression(GetOwnerLink(
-            model.IIfCallThenExpressionLinkList,
+            model.IIfCallThenExpressionLinkList, static row => row.IIfCall?.Id,
             iIfCall.Id,
             "IIfCall.ThenExpression").ScalarExpression);
         var elseExpression = RenderScalarExpression(GetOwnerLink(
-            model.IIfCallElseExpressionLinkList,
+            model.IIfCallElseExpressionLinkList, static row => row.IIfCall?.Id,
             iIfCall.Id,
             "IIfCall.ElseExpression").ScalarExpression);
         return $"IIF({predicate}, {thenExpression}, {elseExpression})";
@@ -44,17 +44,17 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
 
     private string RenderLiteral(Literal literal)
     {
-        if (FindByBaseId(model.StringLiteralList, literal.Id) is not null)
+        if (FindByBaseId(model.StringLiteralList, static row => row.Literal?.Id, literal.Id) is not null)
         {
             return "'" + (literal.Value ?? string.Empty).Replace("'", "''", StringComparison.Ordinal) + "'";
         }
 
-        if (FindByBaseId(model.IntegerLiteralList, literal.Id) is not null)
+        if (FindByBaseId(model.IntegerLiteralList, static row => row.Literal?.Id, literal.Id) is not null)
         {
             return RequireLiteralValue(literal);
         }
 
-        if (FindByBaseId(model.NullLiteralList, literal.Id) is not null)
+        if (FindByBaseId(model.NullLiteralList, static row => row.Literal?.Id, literal.Id) is not null)
         {
             return "NULL";
         }
@@ -70,20 +70,20 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
     private string RenderFunctionCall(FunctionCall functionCall)
     {
         var functionName = RenderIdentifier(GetOwnerLink(
-            model.FunctionCallFunctionNameLinkList,
+            model.FunctionCallFunctionNameLinkList, static row => row.FunctionCall?.Id,
             functionCall.Id,
             "FunctionCall.FunctionName").Identifier);
-        var args = GetOrderedItems(model.FunctionCallParametersItemList, functionCall.Id)
+        var args = GetOrderedItems(model.FunctionCallParametersItemList, static row => row.FunctionCall?.Id, static row => row.Ordinal, functionCall.Id)
             .Select(row => RenderScalarExpression(row.ScalarExpression))
             .ToArray();
 
         var withinGroupOrderByClauseLink = FindOwnerLink(
-            model.FunctionCallWithinGroupOrderByClauseLinkList,
+            model.FunctionCallWithinGroupOrderByClauseLinkList, static row => row.FunctionCall?.Id,
             functionCall.Id);
         var withinGroupSuffix = withinGroupOrderByClauseLink is null
             ? string.Empty
             : $" WITHIN GROUP ({RenderOrderByClause(withinGroupOrderByClauseLink.OrderByClause)})";
-        var overClauseLink = FindOwnerLink(model.FunctionCallOverClauseLinkList, functionCall.Id);
+        var overClauseLink = FindOwnerLink(model.FunctionCallOverClauseLinkList, static row => row.FunctionCall?.Id, functionCall.Id);
         var overSuffix = overClauseLink is null
             ? string.Empty
             : " " + RenderOverClause(overClauseLink.OverClause);
@@ -93,11 +93,11 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
     private string RenderTryConvertCall(TryConvertCall tryConvertCall)
     {
         var dataType = RenderDataTypeReference(GetOwnerLink(
-            model.TryConvertCallDataTypeLinkList,
+            model.TryConvertCallDataTypeLinkList, static row => row.TryConvertCall?.Id,
             tryConvertCall.Id,
             "TryConvertCall.DataType").DataTypeReference);
         var parameter = RenderScalarExpression(GetOwnerLink(
-            model.TryConvertCallParameterLinkList,
+            model.TryConvertCallParameterLinkList, static row => row.TryConvertCall?.Id,
             tryConvertCall.Id,
             "TryConvertCall.Parameter").ScalarExpression);
         return $"TRY_CONVERT({dataType}, {parameter})";
@@ -105,10 +105,10 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
 
     private string RenderDataTypeReference(DataTypeReference dataTypeReference)
     {
-        var parameterized = FindByBaseId(model.ParameterizedDataTypeReferenceList, dataTypeReference.Id)
+        var parameterized = FindByBaseId(model.ParameterizedDataTypeReferenceList, static row => row.DataTypeReference?.Id, dataTypeReference.Id)
             ?? throw new InvalidOperationException(
                 $"Unsupported MetaWeaveScript DataTypeReference id '{dataTypeReference.Id}'.");
-        var sqlDataType = FindByBaseId(model.SqlDataTypeReferenceList, parameterized.Id)
+        var sqlDataType = FindByBaseId(model.SqlDataTypeReferenceList, static row => row.ParameterizedDataTypeReference?.Id, parameterized.Id)
             ?? throw new InvalidOperationException(
                 $"Unsupported MetaWeaveScript ParameterizedDataTypeReference id '{parameterized.Id}'.");
         return string.Equals(sqlDataType.SqlDataTypeOption, "Int", StringComparison.Ordinal)
@@ -120,7 +120,7 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
     private string RenderOverClause(OverClause overClause)
     {
         var parts = new List<string>();
-        var partitions = GetOrderedItems(model.OverClausePartitionsItemList, overClause.Id)
+        var partitions = GetOrderedItems(model.OverClausePartitionsItemList, static row => row.OverClause?.Id, static row => row.Ordinal, overClause.Id)
             .Select(row => RenderScalarExpression(row.ScalarExpression))
             .ToArray();
         if (partitions.Length > 0)
@@ -129,7 +129,7 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
         }
 
         var orderByClause = GetOwnerLink(
-            model.OverClauseOrderByClauseLinkList,
+            model.OverClauseOrderByClauseLinkList, static row => row.OverClause?.Id,
             overClause.Id,
             "OverClause.OrderByClause").OrderByClause;
         parts.Add(RenderOrderByClause(orderByClause));

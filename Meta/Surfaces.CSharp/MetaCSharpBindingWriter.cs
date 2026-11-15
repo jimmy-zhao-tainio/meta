@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp;
 namespace Meta.Surfaces.CSharp;
 
 /// <summary>Emits derived typed access code separately from authored C# workspace sources.</summary>
-public static class MetaCSharpBindingWriter
+public static partial class MetaCSharpBindingWriter
 {
     private const string Rules = "global::Meta.TypedModels.TypedWorkspaceBindingValidation";
     private const string Domain = "global::Meta.Operations.Domain.";
@@ -30,7 +30,10 @@ public static class MetaCSharpBindingWriter
         {
             RequireIdentifier(entity.Name);
             if (entity.Name == model.Name + "WorkspaceBinding" ||
-                entity.Name == model.Name + "Model" || entity.Name == model.Name + "Instance")
+                entity.Name == model.Name + "Model" || entity.Name == model.Name + "Instance" ||
+                entity.Name == model.Name + "ModelAccess" ||
+                entity.Name == "I" + model.Name + "CollectionVisitor" ||
+                entity.Name == "I" + model.Name + "RelationshipVisitor")
             {
                 throw new InvalidOperationException(
                     $"Entity '{entity.Name}' conflicts with a generated C# type in namespace '{model.Name}'.");
@@ -40,8 +43,10 @@ public static class MetaCSharpBindingWriter
         }
 
         var source = BuildSource(model, entities);
+        var accessSource = BuildAccessSource(model, entities);
         var tree = CSharpSyntaxTree.ParseText(source);
-        var errors = tree.GetDiagnostics().Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
+        var accessTree = CSharpSyntaxTree.ParseText(accessSource);
+        var errors = tree.GetDiagnostics().Concat(accessTree.GetDiagnostics()).Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
             .Take(5).Select(diagnostic => diagnostic.ToString()).ToArray();
         if (errors.Length > 0)
         {
@@ -51,6 +56,7 @@ public static class MetaCSharpBindingWriter
         return new MetaCSharp(new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
         {
             [model.Name + ".bindings.cs"] = tree.GetRoot().NormalizeWhitespace().ToFullString(),
+            [model.Name + ".access.cs"] = accessTree.GetRoot().NormalizeWhitespace().ToFullString(),
         });
     }
 

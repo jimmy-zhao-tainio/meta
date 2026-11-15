@@ -90,7 +90,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         var groupByLink = navigator.TryOwnerLink<QuerySpecificationGroupByClauseLink>(querySpecification.Id);
         if (groupByLink is not null)
         {
-            foreach (var item in navigator.OrderedItems<GroupByClauseGroupingSpecificationsItem>(groupByLink.GroupByClause.Id))
+            foreach (var item in navigator.OrderedItems<GroupByClauseGroupingSpecificationsItem>(groupByLink.GroupByClause.Id, static row => row.Ordinal))
             {
                 PrepareScalarExpression(
                     RequireGroupingExpression(item.GroupingSpecification),
@@ -102,7 +102,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             }
         }
 
-        foreach (var item in navigator.OrderedItems<QuerySpecificationSelectElementsItem>(querySpecification.Id))
+        foreach (var item in navigator.OrderedItems<QuerySpecificationSelectElementsItem>(querySpecification.Id, static row => row.Ordinal))
         {
             var projection = CreateProjection(item.SelectElement);
             PrepareScalarExpression(
@@ -174,7 +174,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                     "CaseExpressionShapeUnsupported",
                     $"CaseExpression '{caseExpression.Id}' has no retained searched-case subtype.",
                     caseExpression.Id);
-            foreach (var item in navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id))
+            foreach (var item in navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id, static row => row.Ordinal))
             {
                 PrepareBooleanExpression(
                     navigator.RequireOwnerLink<SearchedWhenClauseWhenExpressionLink>(
@@ -211,7 +211,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
 
         if (navigator.TrySubtype<CoalesceExpression>(primary.Id) is { } coalesce)
         {
-            foreach (var item in navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id))
+            foreach (var item in navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id, static row => row.Ordinal))
             {
                 PrepareScalarExpression(
                     item.ScalarExpression,
@@ -326,7 +326,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                     function.Id);
             }
 
-            var parameters = navigator.OrderedItems<FunctionCallParametersItem>(function.Id);
+            var parameters = navigator.OrderedItems<FunctionCallParametersItem>(function.Id, static row => row.Ordinal);
             ValidatePreparedFunctionShape(function, name, parameters.Count);
             for (var index = 0; index < parameters.Count; index++)
             {
@@ -352,7 +352,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                         function.Id);
                 }
 
-                foreach (var item in navigator.OrderedItems<OrderByClauseOrderByElementsItem>(withinGroup.OrderByClause.Id))
+                foreach (var item in navigator.OrderedItems<OrderByClauseOrderByElementsItem>(withinGroup.OrderByClause.Id, static row => row.Ordinal))
                 {
                     PrepareScalarExpression(
                         navigator.RequireOwnerLink<ExpressionWithSortOrderExpressionLink>(
@@ -369,7 +369,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             var overClause = navigator.TryOwnerLink<FunctionCallOverClauseLink>(function.Id);
             if (overClause is not null)
             {
-                foreach (var partition in navigator.OrderedItems<OverClausePartitionsItem>(overClause.OverClause.Id))
+                foreach (var partition in navigator.OrderedItems<OverClausePartitionsItem>(overClause.OverClause.Id, static row => row.Ordinal))
                 {
                     PrepareScalarExpression(
                         partition.ScalarExpression,
@@ -383,7 +383,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 var orderByClause = navigator.RequireOwnerLink<OverClauseOrderByClauseLink>(
                     overClause.OverClause.Id,
                     "OverClause.OrderByClause").OrderByClause;
-                foreach (var item in navigator.OrderedItems<OrderByClauseOrderByElementsItem>(orderByClause.Id))
+                foreach (var item in navigator.OrderedItems<OrderByClauseOrderByElementsItem>(orderByClause.Id, static row => row.Ordinal))
                 {
                     PrepareScalarExpression(
                         navigator.RequireOwnerLink<ExpressionWithSortOrderExpressionLink>(
@@ -522,7 +522,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             first = navigator.RequireOwnerLink<InPredicateExpressionLink>(
                 inPredicate.Id,
                 "InPredicate.Expression").ScalarExpression;
-            rest = navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id)
+            rest = navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id, static row => row.Ordinal)
                 .Select(item => item.ScalarExpression)
                 .ToArray();
         }

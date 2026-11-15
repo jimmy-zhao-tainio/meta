@@ -15,7 +15,7 @@ var handlers = new CliRuntime();
 handlers.UseArguments(args);
 
 Environment.ExitCode = 0;
-var runtime = new MetaCliRuntime<MetaCliModel>(CommandWorkspacePath(), ApplicationId)
+var runtime = new MetaCliRuntime<MetaCliModel>(CommandWorkspacePath(), new global::MetaCli.MetaCliWorkspaceBinding(), () => global::MetaCli.Core.MetaCliWorkspaceContract.LoadModel(), ApplicationId)
     .UseDefaultHelp()
     .OnFailure(handlers.HandleRuntimeFailure);
 

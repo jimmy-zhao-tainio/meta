@@ -25,8 +25,9 @@ public sealed class CSharpBindingExportIntegrationTests
             var result = await RunCliAsync("export", "csharp-bindings", "--workspace", source, "--out", output);
 
             Assert.True(result.ExitCode == 0, result.Output);
-            var artifact = Assert.Single(Directory.GetFiles(output));
-            Assert.Equal("BindingExportFixture.bindings.cs", Path.GetFileName(artifact));
+            Assert.Equal(2, Directory.GetFiles(output).Length);
+            var artifact = Path.Combine(output, "BindingExportFixture.bindings.cs");
+            Assert.True(File.Exists(Path.Combine(output, "BindingExportFixture.access.cs")));
             Assert.Equal(
                 MetaCSharpBindingWriter.Write(state.Model).Sources[Path.GetFileName(artifact)],
                 await File.ReadAllTextAsync(artifact));

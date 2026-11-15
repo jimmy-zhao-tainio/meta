@@ -1,8 +1,7 @@
-using System.Xml.Serialization;
 using Meta.Operations.Domain;
 using Meta.Integration;
 using Meta.Surfaces.Xml;
-using Meta.TypedModels;
+using TestTyped;
 
 namespace Meta.Core.Tests;
 
@@ -20,7 +19,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
     [InlineData(" \t\r\n ")]
     [InlineData(" leading and trailing ")]
     [InlineData("first\r\nsecond")]
-    [InlineData("Åsa äter räksmörgås.")]
+    [InlineData("\u00c5sa \u00e4ter r\u00e4ksm\u00f6rg\u00e5s.")]
     public void XmlWorkspace_RoundTripPreservesExactTextValues(string? value)
     {
         var tempRoot = CreateTempRoot();
@@ -31,13 +30,13 @@ public sealed class TypedWorkspaceXmlSerializerTests
             {
                 AlphaList = { new Alpha { Id = "one", Name = "One", Note = value } },
             };
-            TypedWorkspaceModelMapper.Create(model, workspacePath, "xml");
+            TypedWorkspaceModelMapper.Create(model, FixtureContract(), Binding, workspacePath, "xml");
 
-            var restored = TypedWorkspaceModelMapper.Load<TestTypedModel>(workspacePath);
+            var restored = TypedWorkspaceModelMapper.Load<TestTypedModel>(workspacePath, Binding);
             Assert.Equal(value, Assert.Single(restored.AlphaList).Note);
 
             var shardPath = Path.Combine(workspacePath, "instances", "Alpha.xml");
-            var semanticModel = TypedModelMapper.ToWorkspace(model).Model;
+            var semanticModel = Binding.Write(model, FixtureContract()).Model;
             foreach (var instance in new[]
                      {
                          InstanceXmlCodec.LoadFromPath(shardPath, semanticModel),
@@ -56,10 +55,10 @@ public sealed class TypedWorkspaceXmlSerializerTests
             }
 
             var originalBytes = File.ReadAllBytes(shardPath);
-            TypedWorkspaceXmlSerializer.Save(restored, workspacePath);
+            TypedWorkspaceXmlSerializer.Save(restored, workspacePath, FixtureContract(), Binding);
             Assert.Equal(originalBytes, File.ReadAllBytes(shardPath));
             Assert.Equal(value, Assert.Single(
-                TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath).AlphaList).Note);
+                TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath, Binding).AlphaList).Note);
         }
         finally
         {
@@ -91,7 +90,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
             BetaList = { target },
         };
 
-        var semantic = TypedModelMapper.ToWorkspace(typed);
+        var semantic = Binding.Write(typed, FixtureContract());
         var source = Assert.Single(
             semantic.Instance.RecordsByEntity["Alpha"],
             row => row.Id == "source");
@@ -102,16 +101,14 @@ public sealed class TypedWorkspaceXmlSerializerTests
             row => row.Id == "missing");
         Assert.False(missing.Values.ContainsKey("Note"));
 
-        var restored = TypedModelMapper.FromWorkspace(
-            semantic,
-            static () => new TestTypedModel());
+        var restored = Binding.Read(semantic);
         var restoredSource = Assert.Single(restored.AlphaList, row => row.Id == "source");
         var restoredMissing = Assert.Single(restored.AlphaList, row => row.Id == "missing");
         Assert.Same(Assert.Single(restored.BetaList), restoredSource.Parent);
         Assert.Equal(string.Empty, restoredSource.Note);
         Assert.Null(restoredMissing.Note);
 
-        var roundTripped = TypedModelMapper.ToWorkspace(restored);
+        var roundTripped = Binding.Write(restored, FixtureContract());
         Assert.Null(InMemoryWorkspaceComparer.FindDifference(
             semantic,
             roundTripped));
@@ -129,12 +126,12 @@ public sealed class TypedWorkspaceXmlSerializerTests
                 AlphaList = { new Alpha { Id = "one", Name = "One", Note = string.Empty } },
             };
 
-            TypedWorkspaceModelMapper.Create(model, workspacePath, "csharp");
-            var restored = TypedWorkspaceModelMapper.Load<TestTypedModel>(workspacePath);
+            TypedWorkspaceModelMapper.Create(model, FixtureContract(), Binding, workspacePath, "csharp");
+            var restored = TypedWorkspaceModelMapper.Load<TestTypedModel>(workspacePath, Binding);
 
             Assert.Null(InMemoryWorkspaceComparer.FindDifference(
-                TypedModelMapper.ToWorkspace(model),
-                TypedModelMapper.ToWorkspace(restored)));
+                Binding.Write(model, FixtureContract()),
+                Binding.Write(restored, FixtureContract())));
         }
         finally
         {
@@ -161,7 +158,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
             };
 
             var exception = Assert.Throws<InvalidOperationException>(
-                () => TypedWorkspaceXmlSerializer.Save(model, Path.Combine(tempRoot, "workspace")));
+                () => TypedWorkspaceXmlSerializer.Save(model, Path.Combine(tempRoot, "workspace"), FixtureContract(), Binding));
 
             Assert.Contains(
                 Meta.Operations.Domain.MetaIdentity.MaximumLength.ToString(),
@@ -193,7 +190,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
                 },
             };
 
-            TypedWorkspaceXmlSerializer.Save(model, workspacePath);
+            TypedWorkspaceXmlSerializer.Save(model, workspacePath, FixtureContract(), Binding);
 
             var modelXmlPath = Path.Combine(workspacePath, "model.xml");
             var alphaShardPath = Path.Combine(workspacePath, "instances", "Alpha.xml");
@@ -203,7 +200,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
             File.SetLastWriteTimeUtc(alphaShardPath, oldTimestamp);
             File.SetLastWriteTimeUtc(betaShardPath, oldTimestamp);
 
-            TypedWorkspaceXmlSerializer.Save(model, workspacePath);
+            TypedWorkspaceXmlSerializer.Save(model, workspacePath, FixtureContract(), Binding);
 
             Assert.Equal(oldTimestamp, File.GetLastWriteTimeUtc(modelXmlPath));
             Assert.Equal(oldTimestamp, File.GetLastWriteTimeUtc(alphaShardPath));
@@ -234,12 +231,12 @@ public sealed class TypedWorkspaceXmlSerializerTests
                 },
             };
 
-            TypedWorkspaceXmlSerializer.Save(model, workspacePath);
+            TypedWorkspaceXmlSerializer.Save(model, workspacePath, FixtureContract(), Binding);
             var instancePath = Path.Combine(workspacePath, "instances");
             File.WriteAllText(Path.Combine(instancePath, "Stale.xml"), "<TestTypedModel />");
             model.BetaList.Clear();
 
-            TypedWorkspaceXmlSerializer.Save(model, workspacePath);
+            TypedWorkspaceXmlSerializer.Save(model, workspacePath, FixtureContract(), Binding);
 
             Assert.True(File.Exists(Path.Combine(instancePath, "Alpha.xml")));
             Assert.False(File.Exists(Path.Combine(instancePath, "Beta.xml")));
@@ -266,13 +263,13 @@ public sealed class TypedWorkspaceXmlSerializerTests
                 },
             };
 
-            TypedWorkspaceXmlSerializer.Save(model, workspacePath);
+            TypedWorkspaceXmlSerializer.Save(model, workspacePath, FixtureContract(), Binding);
             var instancePath = Path.Combine(workspacePath, "instances");
             var canonicalShardPath = Path.Combine(instancePath, "Alpha.xml");
             var splitShardPath = Path.Combine(instancePath, "Alpha.part-a.xml");
             File.Move(canonicalShardPath, splitShardPath);
 
-            var loaded = TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath);
+            var loaded = TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath, Binding);
 
             var row = Assert.Single(loaded.AlphaList);
             Assert.Equal("1", row.Id);
@@ -297,7 +294,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
                 {
                     new Alpha { Id = "1", Name = "One" },
                 },
-            }, workspacePath);
+            }, workspacePath, FixtureContract(), Binding);
 
             var xmlPaths = Directory.GetFiles(workspacePath, "*.xml", SearchOption.AllDirectories);
             Assert.NotEmpty(xmlPaths);
@@ -326,7 +323,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
             };
 
             var exception = Assert.Throws<InvalidOperationException>(
-                () => TypedWorkspaceXmlSerializer.Save(model, workspacePath));
+                () => TypedWorkspaceXmlSerializer.Save(model, workspacePath, FixtureContract(), Binding));
 
             Assert.Contains("duplicate Id 'dup'", exception.Message, StringComparison.Ordinal);
         }
@@ -343,12 +340,12 @@ public sealed class TypedWorkspaceXmlSerializerTests
         try
         {
             var workspacePath = Path.Combine(tempRoot, "workspace");
-            TypedWorkspaceXmlSerializer.Save(new TestTypedModel(), workspacePath);
+            TypedWorkspaceXmlSerializer.Save(new TestTypedModel(), workspacePath, FixtureContract(), Binding);
             var childPath = Path.Combine(workspacePath, "child");
             Directory.CreateDirectory(childPath);
 
             var exception = Assert.Throws<NotSupportedException>(
-                () => TypedWorkspaceXmlSerializer.Load<TestTypedModel>(childPath, searchUpward: true));
+                () => TypedWorkspaceXmlSerializer.Load<TestTypedModel>(childPath, Binding, searchUpward: true));
 
             Assert.Contains("does not search parent directories", exception.Message, StringComparison.Ordinal);
         }
@@ -368,7 +365,7 @@ public sealed class TypedWorkspaceXmlSerializerTests
             Directory.CreateDirectory(workspacePath);
 
             var exception = Assert.Throws<InvalidDataException>(
-                () => TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath));
+                () => TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath, Binding));
 
             Assert.Contains("workspace.meta", exception.Message, StringComparison.Ordinal);
             Assert.Empty(Directory.EnumerateFileSystemEntries(workspacePath));
@@ -389,12 +386,12 @@ public sealed class TypedWorkspaceXmlSerializerTests
             var model = new TestTypedModel();
 
             var exception = Assert.Throws<InvalidOperationException>(
-                () => TypedWorkspaceModelMapper.Save(model, workspacePath));
+                () => TypedWorkspaceModelMapper.Save(model, workspacePath, Binding));
 
             Assert.Contains("explicit representation", exception.Message, StringComparison.OrdinalIgnoreCase);
             Assert.False(Directory.Exists(workspacePath));
 
-            TypedWorkspaceModelMapper.Create(model, workspacePath, "xml");
+            TypedWorkspaceModelMapper.Create(model, FixtureContract(), Binding, workspacePath, "xml");
             Assert.True(File.Exists(Path.Combine(workspacePath, "workspace.meta")));
         }
         finally
@@ -410,15 +407,15 @@ public sealed class TypedWorkspaceXmlSerializerTests
         try
         {
             var workspacePath = Path.Combine(tempRoot, "workspace");
-            TypedWorkspaceXmlSerializer.Save(new TestTypedModel(), workspacePath);
-            Assert.True(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(workspacePath));
+            TypedWorkspaceXmlSerializer.Save(new TestTypedModel(), workspacePath, FixtureContract(), Binding);
+            Assert.True(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(workspacePath, Binding));
 
             var emptyPath = Path.Combine(tempRoot, "empty");
             Directory.CreateDirectory(emptyPath);
-            Assert.False(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(emptyPath));
+            Assert.False(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(emptyPath, Binding));
 
             File.WriteAllText(Path.Combine(workspacePath, "model.xml"), "<model name=\"OtherModel\" />");
-            Assert.False(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(workspacePath));
+            Assert.False(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(workspacePath, Binding));
         }
         finally
         {
@@ -434,13 +431,13 @@ public sealed class TypedWorkspaceXmlSerializerTests
         {
             var workspacePath = Path.Combine(tempRoot, "workspace");
 
-            var createdPath = TypedWorkspaceXmlSerializer.CreateWorkspace<TestTypedModel>(workspacePath);
+            var createdPath = TypedWorkspaceXmlSerializer.CreateWorkspace<TestTypedModel>(workspacePath, FixtureContract(), Binding);
 
             Assert.Equal(Path.GetFullPath(workspacePath), createdPath);
             Assert.True(File.Exists(Path.Combine(workspacePath, "workspace.meta")));
             Assert.True(File.Exists(Path.Combine(workspacePath, "model.xml")));
-            Assert.True(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(workspacePath));
-            var loaded = TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath);
+            Assert.True(TypedWorkspaceXmlSerializer.IsWorkspace<TestTypedModel>(workspacePath, Binding));
+            var loaded = TypedWorkspaceXmlSerializer.Load<TestTypedModel>(workspacePath, Binding);
             Assert.Empty(loaded.AlphaList);
             Assert.Empty(loaded.BetaList);
         }
@@ -449,6 +446,12 @@ public sealed class TypedWorkspaceXmlSerializerTests
             DeleteDirectoryIfExists(tempRoot);
         }
     }
+
+    private static readonly TestTypedWorkspaceBinding Binding = new();
+
+    private static GenericModel FixtureContract() =>
+        TypedWorkspaceModelMapper.LoadStateAsync(Path.Combine(AppContext.BaseDirectory, "Fixtures", "TestTyped"))
+            .GetAwaiter().GetResult().Model;
 
     private static string CreateTempRoot()
     {
@@ -482,39 +485,4 @@ public sealed class TypedWorkspaceXmlSerializerTests
                bytes[2] == 0xbf;
     }
 
-    [XmlRoot("TestTypedModel")]
-    public sealed class TestTypedModel
-    {
-        [XmlArray("AlphaList")]
-        [XmlArrayItem("Alpha")]
-        public List<Alpha> AlphaList { get; set; } = new();
-
-        public bool ShouldSerializeAlphaList() => AlphaList.Count > 0;
-
-        [XmlArray("BetaList")]
-        [XmlArrayItem("Beta")]
-        public List<Beta> BetaList { get; set; } = new();
-
-        public bool ShouldSerializeBetaList() => BetaList.Count > 0;
-    }
-
-    public sealed class Alpha
-    {
-        [XmlAttribute]
-        public string Id { get; set; } = string.Empty;
-
-        public string Name { get; set; } = string.Empty;
-
-        public string? Note { get; set; }
-
-        public Beta? Parent { get; set; }
-    }
-
-    public sealed class Beta
-    {
-        [XmlAttribute]
-        public string Id { get; set; } = string.Empty;
-
-        public string Name { get; set; } = string.Empty;
-    }
 }

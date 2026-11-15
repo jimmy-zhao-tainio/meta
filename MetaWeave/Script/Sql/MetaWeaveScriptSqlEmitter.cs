@@ -14,10 +14,10 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
 
     public string Render(TSqlStatement root)
     {
-        var statementWithCtes = FindByBaseId(model.StatementWithCtesList, root.Id);
+        var statementWithCtes = FindByBaseId(model.StatementWithCtesList, static row => row.TSqlStatement?.Id, root.Id);
         if (statementWithCtes is not null)
         {
-            var selectStatement = FindByBaseId(model.SelectStatementList, statementWithCtes.Id);
+            var selectStatement = FindByBaseId(model.SelectStatementList, static row => row.StatementWithCtes?.Id, statementWithCtes.Id);
             if (selectStatement is not null)
             {
                 return RenderStatementWithCtes(
@@ -34,7 +34,7 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
     public string Render(SelectStatement root)
     {
         var statementBase = GetById(
-            model.StatementWithCtesList,
+            model.StatementWithCtesList, static row => row.Id,
             root.StatementWithCtes.Id,
             "SelectStatement.Base");
         return RenderStatementWithCtes(statementBase, RenderSelectStatementBody(root));
@@ -46,7 +46,7 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
     {
         var builder = new StringBuilder();
 
-        var withCtesLink = FindOwnerLink(model.StatementWithCtesWithCtesLinkList, statementBase.Id);
+        var withCtesLink = FindOwnerLink(model.StatementWithCtesWithCtesLinkList, static row => row.StatementWithCtes?.Id, statementBase.Id);
         if (withCtesLink is not null)
         {
             builder.Append(RenderWithClause(withCtesLink.WithCtes));
@@ -59,7 +59,7 @@ internal sealed partial class MetaWeaveScriptSqlEmitter
 
     private string RenderSelectStatementBody(SelectStatement root)
     {
-        var queryExpressionLink = GetOwnerLink(model.SelectStatementQueryExpressionLinkList, root.Id, "SelectStatement.QueryExpression");
+        var queryExpressionLink = GetOwnerLink(model.SelectStatementQueryExpressionLinkList, static row => row.SelectStatement?.Id, root.Id, "SelectStatement.QueryExpression");
         return RenderQueryExpression(queryExpressionLink.QueryExpression);
     }
 }

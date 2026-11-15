@@ -15,7 +15,7 @@ internal static class Program
         var exitCode = 0;
         var runtime = new MetaCliRuntime<MetaCliModel>(
                 CommandWorkspacePath,
-                ApplicationId,
+                new global::MetaCli.MetaCliWorkspaceBinding(), () => global::MetaCli.Core.MetaCliWorkspaceContract.LoadModel(),                ApplicationId,
                 setExitCode: code => exitCode = code)
             .UseDefaultHelp()
             .Bind(
@@ -56,7 +56,8 @@ internal static class Program
             invocation.Optional("application"),
             invocation.Flag("standard-cli-shapes"),
             invocation.Flag("default-help"));
-        await workspaces.CreateAsync("output", model).ConfigureAwait(false);
+        await workspaces.CreateAsync("output", model, MetaCliWorkspaceContract.LoadModel(),
+            new MetaCliWorkspaceBinding()).ConfigureAwait(false);
 
         Presenter.WriteInfo($"Created MetaCli workspace: {MetaCliWorkspace.OutputLocation(invocation)}");
         if (model.ApplicationList.Count > 0)

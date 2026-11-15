@@ -103,7 +103,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             return;
         }
 
-        var items = navigator.OrderedItems<WithCtesCommonTableExpressionsItem>(withLink.WithCtes.Id);
+        var items = navigator.OrderedItems<WithCtesCommonTableExpressionsItem>(withLink.WithCtes.Id, static row => row.Ordinal);
         for (var ordinal = 0; ordinal < items.Count; ordinal++)
         {
             var cte = items[ordinal].CommonTableExpression;
@@ -389,7 +389,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             return null;
         }
 
-        var columns = navigator.OrderedItems<TableReferenceWithAliasAndColumnsColumnsItem>(aliasAndColumns.Id)
+        var columns = navigator.OrderedItems<TableReferenceWithAliasAndColumnsColumnsItem>(aliasAndColumns.Id, static row => row.Ordinal)
             .Select(item => navigator.RequireIdentifier(item.Identifier, "TableReferenceWithAliasAndColumns.Column"))
             .ToArray();
         return (aliasAndColumns, columns);

@@ -47,7 +47,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         int visibleCommonTableExpressionOrdinal,
         RuntimeFrame? outerFrame)
     {
-        var selectItems = navigator.OrderedItems<QuerySpecificationSelectElementsItem>(querySpecification.Id);
+        var selectItems = navigator.OrderedItems<QuerySpecificationSelectElementsItem>(querySpecification.Id, static row => row.Ordinal);
         if (selectItems.Count == 0)
         {
             throw Fault(
@@ -129,7 +129,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
     {
         var groupingExpressions = groupByClause is null
             ? []
-            : navigator.OrderedItems<GroupByClauseGroupingSpecificationsItem>(groupByClause.Id)
+            : navigator.OrderedItems<GroupByClauseGroupingSpecificationsItem>(groupByClause.Id, static row => row.Ordinal)
                 .Select(item => RequireGroupingExpression(item.GroupingSpecification))
                 .ToArray();
 

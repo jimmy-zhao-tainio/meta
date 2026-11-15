@@ -15,7 +15,16 @@
     <ProjectReference Include="..\..\MetaCli\Core\MetaCli.Core.csproj" />
     <ProjectReference Include="..\..\MetaCli\MetaCli.Model.csproj" />
     <ProjectReference Include="..\..\MetaMesh\MetaMesh.Model.csproj" />
+    <ProjectReference Include="..\..\MetaMesh\Core\MetaMesh.Core.csproj" />
     <ProjectReference Include="..\MetaDocs.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Package\MetaDocs.Core.targets" Pack="true" PackagePath="buildTransitive\MetaDocs.Core.targets" />
+    <Content Include="..\Workspace\**\*" Link="MetaDocs\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"
+             Pack="true" PackagePath="contentFiles\any\net8.0\MetaDocs\%(RecursiveDir)%(Filename)%(Extension)"
+             PackageCopyToOutput="true" BuildAction="None" />
   </ItemGroup>
 
 </Project>
