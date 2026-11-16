@@ -37,12 +37,13 @@ development builds, not a statement that the source repository is private.
 
 ## Quick start
 
-The current build requires the .NET 8 SDK. Windows is the environment exercised
-by continuous integration.
+The current build requires the .NET 8 SDK. Windows is the verified development
+environment. `Meta.sln` groups the foundation libraries, modeled tools, Installer
+and tests.
 
 ```powershell
-dotnet restore Metadata.Framework.sln
-dotnet build Metadata.Framework.sln --configuration Release --no-restore --nologo -m:1 -nr:false
+dotnet restore Meta.sln
+dotnet build Meta.sln --configuration Release --no-restore --nologo -m:1 -nr:false -p:UpdateMetaPublishDir=false -p:UpdateMetaDocsPublishDir=false -p:UpdateMetaWeavePublishDir=false -p:UpdateInstallMetaPublishDir=false
 dotnet run --project Meta/Cli/Meta.Cli.csproj -- help
 ```
 

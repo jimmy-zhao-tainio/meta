@@ -54,7 +54,7 @@ public sealed class CliVersionIntegrationTests
     {
         for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory is not null; directory = directory.Parent)
         {
-            if (File.Exists(Path.Combine(directory.FullName, "Metadata.Framework.sln"))) return directory.FullName;
+            if (File.Exists(Path.Combine(directory.FullName, "Meta.sln"))) return directory.FullName;
         }
         throw new DirectoryNotFoundException("Could not locate the repository root.");
     }

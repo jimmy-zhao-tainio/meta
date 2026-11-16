@@ -2225,7 +2225,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         var directory = AppContext.BaseDirectory;
         while (!string.IsNullOrWhiteSpace(directory))
         {
-            if (File.Exists(Path.Combine(directory, "Metadata.Framework.sln")))
+            if (File.Exists(Path.Combine(directory, "Meta.sln")))
             {
                 return directory;
             }

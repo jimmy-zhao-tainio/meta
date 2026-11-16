@@ -296,7 +296,7 @@ public sealed class FoundationBoundaryTests
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
         while (directory is not null)
         {
-            if (File.Exists(Path.Combine(directory.FullName, "Metadata.Framework.sln")))
+            if (File.Exists(Path.Combine(directory.FullName, "Meta.sln")))
             {
                 return directory.FullName;
             }
@@ -304,7 +304,7 @@ public sealed class FoundationBoundaryTests
             directory = directory.Parent;
         }
 
-        throw new InvalidOperationException("Could not locate Metadata.Framework.sln.");
+        throw new InvalidOperationException("Could not locate Meta.sln.");
     }
 
     private sealed record DeclaredDependencies(

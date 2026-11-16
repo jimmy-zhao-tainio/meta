@@ -1012,7 +1012,7 @@ public sealed class MetaWeaveScriptExecutionTests
         var directory = AppContext.BaseDirectory;
         while (directory != null)
         {
-            if (File.Exists(Path.Combine(directory, "Metadata.Framework.sln")))
+            if (File.Exists(Path.Combine(directory, "Meta.sln")))
             {
                 return directory;
             }
