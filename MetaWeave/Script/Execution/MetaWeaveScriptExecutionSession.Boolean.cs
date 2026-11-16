@@ -106,7 +106,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             }
 
             var sawNull = false;
-            foreach (var item in navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id))
+            foreach (var item in navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id, static row => row.Ordinal))
             {
                 var candidate = EvaluateScalarExpression(item.ScalarExpression, context);
                 if (candidate.IsNull)
@@ -189,7 +189,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             return false;
         }
 
-        var selectItems = navigator.OrderedItems<QuerySpecificationSelectElementsItem>(specification.Id);
+        var selectItems = navigator.OrderedItems<QuerySpecificationSelectElementsItem>(specification.Id, static row => row.Ordinal);
         if (selectItems.Any(item => ContainsAggregate(CreateProjection(item.SelectElement).Expression)))
         {
             return false;
@@ -198,7 +198,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         var fromLink = navigator.TryOwnerLink<QuerySpecificationFromClauseLink>(specification.Id);
         var fromItems = fromLink is null
             ? []
-            : navigator.OrderedItems<FromClauseTableReferencesItem>(fromLink.FromClause.Id);
+            : navigator.OrderedItems<FromClauseTableReferencesItem>(fromLink.FromClause.Id, static row => row.Ordinal);
         if (fromItems.Count != 1)
         {
             return false;
@@ -339,7 +339,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             return ContainsAggregate(navigator.RequireOwnerLink<InPredicateExpressionLink>(
                        inPredicate.Id,
                        "InPredicate.Expression").ScalarExpression) ||
-                   navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id)
+                   navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id, static row => row.Ordinal)
                        .Any(item => ContainsAggregate(item.ScalarExpression));
         }
 
@@ -404,7 +404,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             return ContainsColumnOutsideAggregate(navigator.RequireOwnerLink<InPredicateExpressionLink>(
                        inPredicate.Id,
                        "InPredicate.Expression").ScalarExpression) ||
-                   navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id)
+                   navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id, static row => row.Ordinal)
                        .Any(item => ContainsColumnOutsideAggregate(item.ScalarExpression));
         }
 

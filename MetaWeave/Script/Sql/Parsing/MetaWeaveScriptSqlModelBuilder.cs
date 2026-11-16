@@ -4,10 +4,12 @@ internal sealed partial class MetaWeaveScriptSqlModelBuilder
 {
     private readonly MetaWeave.MetaWeaveModel model;
     private readonly Dictionary<string, int> nextIdByEntityName = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, Func<string, object?>> findRowByEntityName = new(StringComparer.Ordinal);
 
     public MetaWeaveScriptSqlModelBuilder()
     {
         model = MetaWeave.MetaWeaveModel.CreateEmpty();
+        InitializeModelAccess();
         BuiltNode.SetResolver(ResolveBuiltNodeReference);
     }
 
@@ -15,7 +17,7 @@ internal sealed partial class MetaWeaveScriptSqlModelBuilder
     {
         ArgumentNullException.ThrowIfNull(seedModel);
         model = seedModel;
-        InitializeNextIdState(seedModel);
+        InitializeModelAccess();
         BuiltNode.SetResolver(ResolveBuiltNodeReference);
     }
 
@@ -34,63 +36,37 @@ internal sealed partial class MetaWeaveScriptSqlModelBuilder
         ArgumentException.ThrowIfNullOrWhiteSpace(entityName);
         ArgumentException.ThrowIfNullOrWhiteSpace(id);
 
-        var listProperty = model.GetType().GetProperty(entityName + "List")
-            ?? throw new InvalidOperationException($"Model does not expose list for '{entityName}'.");
-        if (listProperty.GetValue(model) is not System.Collections.IEnumerable rows)
+        if (!findRowByEntityName.TryGetValue(entityName, out var findRow))
         {
-            throw new InvalidOperationException($"Model list for '{entityName}' is not readable.");
+            throw new InvalidOperationException($"Model does not expose list for '{entityName}'.");
         }
 
-        foreach (var row in rows)
-        {
-            if (row is null)
-            {
-                continue;
-            }
-
-            var rowId = row.GetType().GetProperty("Id")?.GetValue(row) as string;
-            if (string.Equals(rowId, id, StringComparison.Ordinal))
-            {
-                return row;
-            }
-        }
-
-        throw new InvalidOperationException($"Could not resolve '{entityName}' row '{id}'.");
+        return findRow(id)
+            ?? throw new InvalidOperationException($"Could not resolve '{entityName}' row '{id}'.");
     }
 
-    private void InitializeNextIdState(MetaWeave.MetaWeaveModel seedModel)
+    private void InitializeModelAccess() =>
+        MetaWeave.MetaWeaveModelAccess.VisitCollections(new ModelCollectionAccess(this));
+
+    private sealed class ModelCollectionAccess(MetaWeaveScriptSqlModelBuilder builder) : MetaWeave.IMetaWeaveCollectionVisitor
     {
-        var modelType = seedModel.GetType();
-        var properties = modelType.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-        foreach (var property in properties)
+        public void Visit<TEntity>(string entityName,
+            Func<MetaWeave.MetaWeaveModel, IList<TEntity>> rows,
+            Func<TEntity, string> readId, Action<TEntity, string> writeId) where TEntity : class
         {
-            if (!property.Name.EndsWith("List", StringComparison.Ordinal))
+            var collection = rows(builder.model);
+            builder.findRowByEntityName.Add(entityName, id => collection.FirstOrDefault(row =>
+                row is not null && string.Equals(readId(row), id, StringComparison.Ordinal)));
+            foreach (var row in collection)
             {
-                continue;
-            }
-
-            if (!typeof(System.Collections.IEnumerable).IsAssignableFrom(property.PropertyType))
-            {
-                continue;
-            }
-
-            var rows = property.GetValue(seedModel) as System.Collections.IEnumerable;
-            if (rows is null)
-            {
-                continue;
-            }
-
-            foreach (var row in rows)
-            {
-                var idValue = row?.GetType().GetProperty("Id")?.GetValue(row) as string;
-                if (!TryReadEntityId(idValue, out var entityName, out var numericId))
+                if (row is null || !TryReadEntityId(readId(row), out var idEntityName, out var numericId))
                 {
                     continue;
                 }
 
-                if (!nextIdByEntityName.TryGetValue(entityName, out var current) || numericId > current)
+                if (!builder.nextIdByEntityName.TryGetValue(idEntityName, out var current) || numericId > current)
                 {
-                    nextIdByEntityName[entityName] = numericId;
+                    builder.nextIdByEntityName[idEntityName] = numericId;
                 }
             }
         }

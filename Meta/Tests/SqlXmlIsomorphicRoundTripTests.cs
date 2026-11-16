@@ -11,7 +11,7 @@ using Meta.Integration;
 using Meta.Surfaces.CSharp;
 using Meta.Surfaces.Sql;
 using Meta.Surfaces.Xml;
-using Meta.TypedModels;
+using SqlTypedFixture = MetaTypedModelsSqlOrchestrationProof;
 using Meta.Core.Services;
 
 namespace Meta.Core.Tests;
@@ -713,7 +713,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 "SQL typed-model verification requires SQL Server. Set Meta_SQL_TEST_CONNECTION or make the local '.' SQL Server endpoint available.");
         }
 
-        const string databaseName = nameof(MetaTypedModelsSqlOrchestrationProof);
+        const string databaseName = "MetaTypedModelsSqlOrchestrationProof";
         var root = Path.Combine(
             Path.GetTempPath(),
             "MetaTypedSql-" + Guid.NewGuid().ToString("N"));
@@ -728,29 +728,34 @@ public sealed class SqlXmlIsomorphicRoundTripTests
                 InitialCatalog = databaseName,
             }.ConnectionString;
             Environment.SetEnvironmentVariable(environmentVariable, connectionString);
-            var model = new MetaTypedModelsSqlOrchestrationProof
+            var contract = (await TypedWorkspaceModelMapper.LoadStateAsync(
+                Path.Combine(AppContext.BaseDirectory, "Fixtures", "SqlTyped"))).Model;
+            var binding = new SqlTypedFixture.MetaTypedModelsSqlOrchestrationProofWorkspaceBinding();
+            var model = new SqlTypedFixture.MetaTypedModelsSqlOrchestrationProofModel
             {
                 ItemList =
                 {
-                    new MetaTypedModelsSqlItem
+                    new SqlTypedFixture.Item
                     {
                         Id = "one",
                         Note = string.Empty,
                     },
-                    new MetaTypedModelsSqlItem { Id = "two" },
+                    new SqlTypedFixture.Item { Id = "two" },
                 },
             };
 
             await TypedWorkspaceModelMapper.CreateAsync(
                 model,
+                contract,
+                binding,
                 root,
                 "sql",
                 environmentVariable);
-            var restored = await TypedWorkspaceModelMapper.LoadAsync<MetaTypedModelsSqlOrchestrationProof>(root);
+            var restored = await TypedWorkspaceModelMapper.LoadAsync(root, binding);
 
             Assert.Null(InMemoryWorkspaceComparer.FindDifference(
-                TypedModelMapper.ToWorkspace(model),
-                TypedModelMapper.ToWorkspace(restored)));
+                binding.Write(model, contract),
+                binding.Write(restored, contract)));
         }
         finally
         {
@@ -2060,18 +2065,6 @@ public sealed class SqlXmlIsomorphicRoundTripTests
             instance);
     }
 
-    public sealed class MetaTypedModelsSqlOrchestrationProof
-    {
-        public List<MetaTypedModelsSqlItem> ItemList { get; set; } = new();
-    }
-
-    public sealed class MetaTypedModelsSqlItem
-    {
-        public string Id { get; set; } = string.Empty;
-
-        public string? Note { get; set; }
-    }
-
     private static InMemoryWorkspace BuildRefactorWorkspace(
         string modelName)
     {
@@ -2232,7 +2225,7 @@ public sealed class SqlXmlIsomorphicRoundTripTests
         var directory = AppContext.BaseDirectory;
         while (!string.IsNullOrWhiteSpace(directory))
         {
-            if (File.Exists(Path.Combine(directory, "Metadata.Framework.sln")))
+            if (File.Exists(Path.Combine(directory, "Meta.sln")))
             {
                 return directory;
             }

@@ -31,6 +31,11 @@
       <Name>export</Name>
       <Token>export</Token>
     </Command>
+    <Command Id="cmd-export-csharp-bindings" ApplicationId="app-meta" ParentCommandId="cmd-export">
+      <Description>Export compiler-checked typed workspace bindings without instance data.</Description>
+      <Name>csharp-bindings</Name>
+      <Token>csharp-bindings</Token>
+    </Command>
     <Command Id="cmd-export-csv" ApplicationId="app-meta" ParentCommandId="cmd-export">
       <Description>Export instances as CSV.</Description>
       <Name>csv</Name>

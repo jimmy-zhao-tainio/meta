@@ -1,5 +1,3 @@
-using System.Collections;
-using Meta.Integration;
 using Meta.Operations.Domain;
 using MetaWeaveScript.Sql;
 
@@ -477,83 +475,89 @@ public sealed class MetaWeaveAuthoringService
 
     private static void RemoveUnreachableRows(MetaWeaveModel model)
     {
-        var workspace = TypedWorkspaceModelMapper.ToInMemoryWorkspace(model);
-        var records = new Dictionary<string, GenericRecord>(StringComparer.OrdinalIgnoreCase);
-        var neighbors = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
+        var graph = new QueryGraph(model);
+        MetaWeaveModelAccess.VisitCollections(graph);
+        MetaWeaveModelAccess.VisitRelationships(graph);
+        graph.Prune();
+    }
 
-        foreach (var entityRecords in workspace.Instance.RecordsByEntity)
+    private sealed class QueryGraph(MetaWeaveModel model)
+        : IMetaWeaveCollectionVisitor, IMetaWeaveRelationshipVisitor
+    {
+        private readonly Dictionary<string, HashSet<string>> neighbors = new(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<object, string> keyByRow = new(ReferenceEqualityComparer.Instance);
+        private readonly List<Action<HashSet<string>>> removeUnreachable = [];
+
+        public void Visit<TEntity>(string entityName, Func<MetaWeaveModel, IList<TEntity>> rows,
+            Func<TEntity, string> readId, Action<TEntity, string> writeId) where TEntity : class
         {
-            foreach (var record in entityRecords.Value)
+            var collection = rows(model);
+            foreach (var row in collection)
             {
-                var key = RowKey(entityRecords.Key, record.Id);
-                records.Add(key, record);
+                if (row is null)
+                {
+                    throw new InvalidOperationException($"MetaWeaveModel member '{entityName}List' contains a null row.");
+                }
+
+                var key = RowKey(entityName, readId(row));
                 neighbors.Add(key, new HashSet<string>(StringComparer.OrdinalIgnoreCase));
+                keyByRow.Add(row, key);
             }
-        }
 
-        foreach (var entityRecords in workspace.Instance.RecordsByEntity)
-        {
-            var entity = workspace.Model.FindEntity(entityRecords.Key)
-                ?? throw new InvalidOperationException(
-                    $"Entity '{entityRecords.Key}' was not found while pruning a MetaWeave query graph.");
-            foreach (var record in entityRecords.Value)
+            removeUnreachable.Add(reachable =>
             {
-                var key = RowKey(entity.Name, record.Id);
-                foreach (var relationshipValue in record.RelationshipIds)
+                for (var index = collection.Count - 1; index >= 0; index--)
                 {
-                    var relationship = entity.FindRelationshipByColumnName(relationshipValue.Key)
-                        ?? throw new InvalidOperationException(
-                            $"Relationship column '{relationshipValue.Key}' was not found on entity '{entity.Name}'.");
-                    var targetKey = RowKey(relationship.Entity, relationshipValue.Value);
-                    if (!neighbors.ContainsKey(targetKey))
+                    if (!reachable.Contains(keyByRow[collection[index]]))
                     {
-                        continue;
+                        collection.RemoveAt(index);
                     }
-
-                    neighbors[key].Add(targetKey);
-                    neighbors[targetKey].Add(key);
                 }
-            }
+            });
         }
 
-        var reachable = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        var pending = new Queue<string>(
-            workspace.Instance.RecordsByEntity
-                .GetValueOrDefault(nameof(Weave), [])
-                .Select(record => RowKey(nameof(Weave), record.Id)));
-        while (pending.TryDequeue(out var key))
+        public void Visit<TRow, TTarget>(string entityName, string navigationName, string targetEntityName, bool isNullable,
+            Func<MetaWeaveModel, IList<TRow>> rows, Func<TRow, TTarget?> read, Action<TRow, TTarget?> write,
+            Func<TTarget, string> readTargetId) where TRow : class where TTarget : class
         {
-            if (!reachable.Add(key))
+            foreach (var row in rows(model))
             {
-                continue;
-            }
-
-            foreach (var neighbor in neighbors[key])
-            {
-                pending.Enqueue(neighbor);
-            }
-        }
-
-        foreach (var entity in workspace.Model.Entities)
-        {
-            var property = typeof(MetaWeaveModel).GetProperty(entity.GetListName())
-                ?? throw new InvalidOperationException(
-                    $"MetaWeaveModel does not expose list '{entity.GetListName()}'.");
-            var list = property.GetValue(model) as IList
-                ?? throw new InvalidOperationException(
-                    $"MetaWeaveModel member '{property.Name}' is not a mutable list.");
-            for (var index = list.Count - 1; index >= 0; index--)
-            {
-                var item = list[index]
-                    ?? throw new InvalidOperationException(
-                        $"MetaWeaveModel member '{property.Name}' contains a null row.");
-                var id = item.GetType().GetProperty(nameof(Weave.Id))?.GetValue(item) as string
-                    ?? throw new InvalidOperationException(
-                        $"MetaWeave row '{item.GetType().Name}' does not expose an identity.");
-                if (!reachable.Contains(RowKey(entity.Name, id)))
+                var target = read(row);
+                if (target is null)
                 {
-                    list.RemoveAt(index);
+                    continue;
                 }
+
+                var key = keyByRow[row];
+                var targetKey = RowKey(targetEntityName, readTargetId(target));
+                if (neighbors.TryGetValue(targetKey, out var targetNeighbors))
+                {
+                    neighbors[key].Add(targetKey);
+                    targetNeighbors.Add(key);
+                }
+            }
+        }
+
+        public void Prune()
+        {
+            var reachable = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var pending = new Queue<string>(model.WeaveList.Select(weave => RowKey(nameof(Weave), weave.Id)));
+            while (pending.TryDequeue(out var key))
+            {
+                if (!reachable.Add(key))
+                {
+                    continue;
+                }
+
+                foreach (var neighbor in neighbors[key])
+                {
+                    pending.Enqueue(neighbor);
+                }
+            }
+
+            foreach (var remove in removeUnreachable)
+            {
+                remove(reachable);
             }
         }
     }

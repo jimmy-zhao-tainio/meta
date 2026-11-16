@@ -9,18 +9,22 @@ public static class TypedWorkspaceModelMapper
 {
     public static TModel Load<TModel>(
         string workspacePath,
-        bool searchUpward = false)
-        where TModel : class, new() =>
-        LoadAsync<TModel>(workspacePath, searchUpward)
+        ITypedWorkspaceBinding<TModel> binding,
+        bool searchUpward = false,
+        CancellationToken cancellationToken = default)
+        where TModel : class =>
+        LoadAsync(workspacePath, binding, searchUpward, cancellationToken)
             .GetAwaiter()
             .GetResult();
 
     public static async Task<TModel> LoadAsync<TModel>(
         string workspacePath,
+        ITypedWorkspaceBinding<TModel> binding,
         bool searchUpward = false,
         CancellationToken cancellationToken = default)
-        where TModel : class, new()
+        where TModel : class
     {
+        ArgumentNullException.ThrowIfNull(binding);
         if (searchUpward)
         {
             throw new NotSupportedException(
@@ -28,9 +32,7 @@ public static class TypedWorkspaceModelMapper
         }
 
         var state = await LoadStateAsync(workspacePath, cancellationToken).ConfigureAwait(false);
-        return FromInMemoryWorkspace(
-            state,
-            static () => new TModel());
+        return FromInMemoryWorkspace(state, binding);
     }
 
     public static async Task<InMemoryWorkspace> LoadStateAsync(
@@ -50,31 +52,41 @@ public static class TypedWorkspaceModelMapper
 
     public static void Create<TModel>(
         TModel model,
+        GenericModel contract,
+        ITypedWorkspaceBinding<TModel> binding,
         string workspacePath,
         string representation,
-        string? connectionEnvironmentVariable = null)
-        where TModel : class, new() =>
+        string? connectionEnvironmentVariable = null,
+        CancellationToken cancellationToken = default)
+        where TModel : class =>
         CreateAsync(
                 model,
+                contract,
+                binding,
                 workspacePath,
                 representation,
-                connectionEnvironmentVariable)
+                connectionEnvironmentVariable,
+                cancellationToken)
             .GetAwaiter()
             .GetResult();
 
     public static async Task CreateAsync<TModel>(
         TModel model,
+        GenericModel contract,
+        ITypedWorkspaceBinding<TModel> binding,
         string workspacePath,
         string representation,
         string? connectionEnvironmentVariable = null,
         CancellationToken cancellationToken = default)
-        where TModel : class, new()
+        where TModel : class
     {
         ArgumentNullException.ThrowIfNull(model);
+        ArgumentNullException.ThrowIfNull(contract);
+        ArgumentNullException.ThrowIfNull(binding);
         ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
         ArgumentException.ThrowIfNullOrWhiteSpace(representation);
         await WorkspaceSurface.CreateAsync(
-                ToInMemoryWorkspace(model),
+                ToInMemoryWorkspace(model, contract, binding),
                 workspacePath,
                 representation,
                 connectionEnvironmentVariable,
@@ -84,21 +96,24 @@ public static class TypedWorkspaceModelMapper
 
     public static void Save<TModel>(
         TModel model,
-        string workspacePath)
-        where TModel : class, new() =>
-        SaveAsync(model, workspacePath)
+        string workspacePath,
+        ITypedWorkspaceBinding<TModel> binding,
+        CancellationToken cancellationToken = default)
+        where TModel : class =>
+        SaveAsync(model, workspacePath, binding, cancellationToken)
             .GetAwaiter()
             .GetResult();
 
     public static async Task SaveAsync<TModel>(
         TModel model,
         string workspacePath,
+        ITypedWorkspaceBinding<TModel> binding,
         CancellationToken cancellationToken = default)
-        where TModel : class, new()
+        where TModel : class
     {
         ArgumentNullException.ThrowIfNull(model);
+        ArgumentNullException.ThrowIfNull(binding);
         ArgumentException.ThrowIfNullOrWhiteSpace(workspacePath);
-        var desired = ToInMemoryWorkspace(model);
         var rootPath = Path.GetFullPath(workspacePath);
         if (!File.Exists(Path.Combine(rootPath, WorkspaceMetaFile.FileName)))
         {
@@ -114,34 +129,33 @@ public static class TypedWorkspaceModelMapper
                 workspace,
                 cancellationToken)
             .ConfigureAwait(false);
-        var operations = WorkspaceSynchronization.PlanInstanceChanges(
-            current,
-            desired);
+        var desired = ToInMemoryWorkspace(model, current.Model, binding);
+        var operations = WorkspaceSynchronization.PlanInstanceChanges(current, desired);
         if (operations.Count > 0)
         {
-            await workspace.ExecuteAsync(
-                    operations,
-                    cancellationToken)
-                .ConfigureAwait(false);
+            await workspace.ExecuteAsync(operations, cancellationToken).ConfigureAwait(false);
         }
     }
 
     public static TModel FromInMemoryWorkspace<TModel>(
         InMemoryWorkspace workspace,
-        Func<TModel> createModel)
+        ITypedWorkspaceBinding<TModel> binding)
         where TModel : class
     {
         ArgumentNullException.ThrowIfNull(workspace);
-        ArgumentNullException.ThrowIfNull(createModel);
-        return TypedModelMapper.FromWorkspace(
-            workspace,
-            createModel);
+        ArgumentNullException.ThrowIfNull(binding);
+        return binding.Read(workspace);
     }
 
-    public static InMemoryWorkspace ToInMemoryWorkspace<TModel>(TModel model)
+    public static InMemoryWorkspace ToInMemoryWorkspace<TModel>(
+        TModel model,
+        GenericModel contract,
+        ITypedWorkspaceBinding<TModel> binding)
         where TModel : class
     {
         ArgumentNullException.ThrowIfNull(model);
-        return TypedModelMapper.ToWorkspace(model);
+        ArgumentNullException.ThrowIfNull(contract);
+        ArgumentNullException.ThrowIfNull(binding);
+        return binding.Write(model, contract);
     }
 }

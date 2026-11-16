@@ -14,6 +14,7 @@ public sealed class MetaWeaveScriptDirectionLoader
 
         var model = TypedWorkspaceModelMapper.Load<MetaWeaveModel>(
             Path.GetFullPath(workspacePath),
+            new MetaWeaveWorkspaceBinding(),
             searchUpward: false);
         return Load(model, directionName);
     }

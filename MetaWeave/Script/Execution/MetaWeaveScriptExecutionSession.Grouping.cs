@@ -71,7 +71,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                 return;
             }
 
-            foreach (var item in navigator.OrderedItems<FunctionCallParametersItem>(function.Id))
+            foreach (var item in navigator.OrderedItems<FunctionCallParametersItem>(function.Id, static row => row.Ordinal))
             {
                 ValidateGroupedScalarExpression(item.ScalarExpression, groupingSignatures, directlyGroupedColumns);
             }
@@ -86,7 +86,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
                     "CaseExpressionShapeUnsupported",
                     $"CaseExpression '{caseExpression.Id}' has no retained searched-case subtype.",
                     caseExpression.Id);
-            foreach (var item in navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id))
+            foreach (var item in navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id, static row => row.Ordinal))
             {
                 ValidateGroupedBooleanExpression(
                     navigator.RequireOwnerLink<SearchedWhenClauseWhenExpressionLink>(
@@ -115,7 +115,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
 
         if (navigator.TrySubtype<CoalesceExpression>(primary.Id) is { } coalesce)
         {
-            foreach (var item in navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id))
+            foreach (var item in navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id, static row => row.Ordinal))
             {
                 ValidateGroupedScalarExpression(item.ScalarExpression, groupingSignatures, directlyGroupedColumns);
             }
@@ -238,7 +238,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             scalars.Add(navigator.RequireOwnerLink<InPredicateExpressionLink>(
                 inPredicate.Id,
                 "InPredicate.Expression").ScalarExpression);
-            scalars.AddRange(navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id)
+            scalars.AddRange(navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id, static row => row.Ordinal)
                 .Select(item => item.ScalarExpression));
         }
         else if (navigator.TrySubtype<LikePredicate>(expression.Id) is { } like)
@@ -283,13 +283,13 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         if (navigator.TrySubtype<FunctionCall>(primary.Id) is { } function)
         {
             return "function:" + FunctionName(function).ToUpperInvariant() + "(" +
-                   string.Join(",", navigator.OrderedItems<FunctionCallParametersItem>(function.Id)
+                   string.Join(",", navigator.OrderedItems<FunctionCallParametersItem>(function.Id, static row => row.Ordinal)
                        .Select(item => CreateScalarExpressionSignature(item.ScalarExpression))) + ")";
         }
 
         if (navigator.TrySubtype<CoalesceExpression>(primary.Id) is { } coalesce)
         {
-            return "coalesce(" + string.Join(",", navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id)
+            return "coalesce(" + string.Join(",", navigator.OrderedItems<CoalesceExpressionExpressionsItem>(coalesce.Id, static row => row.Ordinal)
                 .Select(item => CreateScalarExpressionSignature(item.ScalarExpression))) + ")";
         }
 
@@ -321,7 +321,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
         if (navigator.TrySubtype<CaseExpression>(primary.Id) is { } caseExpression &&
             navigator.TrySubtype<SearchedCaseExpression>(caseExpression.Id) is { } searched)
         {
-            var whenSignatures = navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id)
+            var whenSignatures = navigator.OrderedItems<SearchedCaseExpressionWhenClausesItem>(searched.Id, static row => row.Ordinal)
                 .Select(item =>
                     CreateBooleanExpressionSignature(navigator.RequireOwnerLink<SearchedWhenClauseWhenExpressionLink>(
                         item.SearchedWhenClause.Id,
@@ -415,7 +415,7 @@ internal sealed partial class MetaWeaveScriptExecutionSession
             return "in(" + CreateScalarExpressionSignature(navigator.RequireOwnerLink<InPredicateExpressionLink>(
                        inPredicate.Id,
                        "InPredicate.Expression").ScalarExpression) + ";" +
-                   string.Join(",", navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id)
+                   string.Join(",", navigator.OrderedItems<InPredicateValuesItem>(inPredicate.Id, static row => row.Ordinal)
                        .Select(item => CreateScalarExpressionSignature(item.ScalarExpression))) + ")";
         }
 

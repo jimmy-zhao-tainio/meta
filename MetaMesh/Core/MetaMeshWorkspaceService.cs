@@ -3,12 +3,16 @@ using Meta.Surfaces;
 using SurfaceCSharpWorkspace = global::Meta.Surfaces.CSharp.CSharpWorkspace;
 using SurfaceSqlWorkspace = global::Meta.Surfaces.Sql.SqlWorkspace;
 using Meta.Core.Connections;
+using Meta.Integration;
 
 namespace MetaMesh.Core;
 
 public sealed class MetaMeshWorkspaceService
 {
     private const string DefaultMeshName = "Mesh";
+
+    public MetaMesh.MetaMeshModel Load(string workspacePath) =>
+        TypedWorkspaceModelMapper.Load(workspacePath, new MetaMesh.MetaMeshWorkspaceBinding());
 
     public MetaMesh.MetaMeshModel CreateEmpty(
         string? meshName = null,
@@ -91,7 +95,7 @@ public sealed class MetaMeshWorkspaceService
             Description = NormalizeOptional(description)
         };
 
-        RequireUniqueId(model.WorkspaceList, workspace.Id, "Workspace");
+        RequireUniqueId(model.WorkspaceList, static row => row.Id, workspace.Id, "Workspace");
         model.WorkspaceList.Add(workspace);
         switch (locations[0].Surface)
         {
@@ -102,7 +106,7 @@ public sealed class MetaMeshWorkspaceService
                     Workspace = workspace,
                     Path = locations[0].Location!
                 };
-                RequireUniqueId(model.XmlWorkspaceList, xmlWorkspace.Id, "XmlWorkspace");
+                RequireUniqueId(model.XmlWorkspaceList, static row => row.Id, xmlWorkspace.Id, "XmlWorkspace");
                 model.XmlWorkspaceList.Add(xmlWorkspace);
                 break;
             case "csharp":
@@ -112,7 +116,7 @@ public sealed class MetaMeshWorkspaceService
                     Workspace = workspace,
                     Path = locations[0].Location!
                 };
-                RequireUniqueId(model.CSharpWorkspaceList, csharpWorkspace.Id, "CSharpWorkspace");
+                RequireUniqueId(model.CSharpWorkspaceList, static row => row.Id, csharpWorkspace.Id, "CSharpWorkspace");
                 model.CSharpWorkspaceList.Add(csharpWorkspace);
                 break;
             case "sql":
@@ -122,7 +126,7 @@ public sealed class MetaMeshWorkspaceService
                     Workspace = workspace,
                     ConnectionEnvironmentVariable = locations[0].Location!
                 };
-                RequireUniqueId(model.SqlWorkspaceList, sqlWorkspace.Id, "SqlWorkspace");
+                RequireUniqueId(model.SqlWorkspaceList, static row => row.Id, sqlWorkspace.Id, "SqlWorkspace");
                 model.SqlWorkspaceList.Add(sqlWorkspace);
                 break;
         }
@@ -153,7 +157,7 @@ public sealed class MetaMeshWorkspaceService
             Description = NormalizeOptional(description)
         };
 
-        RequireUniqueId(model.OperationList, operation.Id, "Operation");
+        RequireUniqueId(model.OperationList, static row => row.Id, operation.Id, "Operation");
         model.OperationList.Add(operation);
         return ToOperationSummary(model, operation);
     }
@@ -198,7 +202,7 @@ public sealed class MetaMeshWorkspaceService
             Description = NormalizeOptional(description)
         };
 
-        RequireUniqueId(model.OperationStepList, step.Id, "OperationStep");
+        RequireUniqueId(model.OperationStepList, static row => row.Id, step.Id, "OperationStep");
         model.OperationStepList.Add(step);
         return ToOperationSummary(model, operation);
     }
@@ -1126,12 +1130,10 @@ public sealed class MetaMeshWorkspaceService
         }
     }
 
-    private static void RequireUniqueId<T>(IEnumerable<T> rows, string id, string entityName)
+    private static void RequireUniqueId<T>(IEnumerable<T> rows, Func<T, string> readId, string id, string entityName)
         where T : class
     {
-        var property = typeof(T).GetProperty("Id")
-                       ?? throw new InvalidOperationException($"Entity '{entityName}' does not expose Id.");
-        if (rows.Any(row => string.Equals((string?)property.GetValue(row), id, StringComparison.Ordinal)))
+        if (rows.Any(row => string.Equals(readId(row), id, StringComparison.Ordinal)))
         {
             throw new InvalidOperationException($"{entityName} id '{id}' already exists.");
         }

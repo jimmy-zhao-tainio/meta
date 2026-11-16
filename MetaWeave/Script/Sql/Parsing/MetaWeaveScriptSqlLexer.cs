@@ -348,8 +348,10 @@ internal sealed class MetaWeaveScriptSqlLexer
                     startColumn);
             }
 
-            builder.Append(Current);
+            var valueStart = index;
             Advance();
+            // The cursor treats CRLF as one line break; retain both source characters in the value.
+            builder.Append(text, valueStart, index - valueStart);
         }
 
         throw Error(

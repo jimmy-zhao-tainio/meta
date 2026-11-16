@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\Workspace\**\*" Link="MetaWeave\%(RecursiveDir)%(Filename)%(Extension)"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"
+             Pack="true" PackagePath="contentFiles\any\net8.0\MetaWeave\%(RecursiveDir)%(Filename)%(Extension)"
+             PackageCopyToOutput="true" BuildAction="None" />
     <ProjectReference Include="..\..\Meta\Integration\Meta.Integration.csproj" />
     <ProjectReference Include="..\MetaWeave.Model.csproj" />
     <ProjectReference Include="..\Script\Execution\MetaWeaveScript.Execution.csproj" />
@@ -18,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Package\MetaWeave.Core.targets" Pack="true" PackagePath="buildTransitive\MetaWeave.Core.targets" />
     <None Include="..\..\PACKAGE-README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 

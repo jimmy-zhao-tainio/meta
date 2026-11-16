@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Model name="TestTyped">
+  <EntityList>
+    <Entity name="Alpha">
+      <PropertyList>
+        <Property name="Name" />
+        <Property name="Note" isRequired="false" />
+      </PropertyList>
+      <RelationshipList>
+        <Relationship entity="Beta" role="Parent" isRequired="false" />
+      </RelationshipList>
+    </Entity>
+    <Entity name="Beta">
+      <PropertyList>
+        <Property name="Name" />
+      </PropertyList>
+    </Entity>
+  </EntityList>
+</Model>

@@ -16,9 +16,13 @@ The current toolchain is .NET 8 on Windows. Restore once, then build serially
 because projects share local generated and package outputs:
 
 ```powershell
-dotnet restore Metadata.Framework.sln
-dotnet build Metadata.Framework.sln --configuration Release --no-restore --nologo -m:1 -nr:false -p:UpdateMetaPublishDir=false -p:UpdateMetaDocsPublishDir=false -p:UpdateMetaWeavePublishDir=false
+dotnet restore Meta.sln
+dotnet build Meta.sln --configuration Release --no-restore --nologo -m:1 -nr:false -p:UpdateMetaPublishDir=false -p:UpdateMetaDocsPublishDir=false -p:UpdateMetaWeavePublishDir=false -p:UpdateInstallMetaPublishDir=false
 ```
+
+`Meta.sln` includes the foundation libraries, modeled tools, Installer and tests.
+The command above builds all required test artifacts without refreshing the local
+published tool directories. A separate Installer build is not required.
 
 Run the focused test project for the changed area. The unit profile contains
 only deterministic in-process tests, disables xUnit parallelism, and requires
@@ -33,9 +37,8 @@ workspace surfaces, CLIs, or cross-component behavior. The runner reports
 summed per-test execution and process time separately. It never restores or
 builds; missing outputs fail as missing prerequisites. The `Performance100K`
 and `Performance1M` profiles remain separate scale witnesses.
-The continuous-integration workflow in
-[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs the unit and
-integration profiles explicitly.
+Run these profiles locally; GitHub hosts the source repository, not the build
+or test execution.
 
 ## Generated artifacts and documentation
 

@@ -18,7 +18,8 @@ internal static class Program
         }
 
         Environment.ExitCode = 0;
-        var runtime = new MetaCliRuntime<MetaMeshModel>(CommandWorkspacePath, ApplicationId)
+        var runtime = new MetaCliRuntime<MetaMeshModel>(
+                CommandWorkspacePath, new MetaMesh.MetaMeshWorkspaceBinding(), ApplicationId)
             .UseDefaultHelp()
             .Bind(
                 "exec-create",
@@ -59,7 +60,9 @@ internal static class Program
                 invocation.Optional("name") ?? "Mesh",
                 invocation.Optional("root"),
                 invocation.Optional("description"));
-        await workspaces.CreateAsync("output", model).ConfigureAwait(false);
+        await workspaces.CreateAsync(
+                "output", model, MetaMeshWorkspaceContract.LoadModel(), new MetaMesh.MetaMeshWorkspaceBinding())
+            .ConfigureAwait(false);
 
         Presenter.WriteOk();
         Presenter.WriteInfo($"Created MetaMesh workspace: {location}");

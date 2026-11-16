@@ -77,6 +77,12 @@
       <IsRequired>true</IsRequired>
       <Name>scripts</Name>
     </Parameter>
+    <Parameter Id="param-export-csharp-bindings-out" ValueShapeId="shape-dir">
+      <Description>New directory outside the source workspace for generated binding code.</Description>
+      <IsRepeatable>false</IsRepeatable>
+      <IsRequired>true</IsRequired>
+      <Name>out</Name>
+    </Parameter>
     <Parameter Id="param-export-csv-entity" ValueShapeId="shape-text">
       <IsRequired>true</IsRequired>
       <Name>Entity</Name>

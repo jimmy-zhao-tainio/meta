@@ -10,7 +10,8 @@ public static class MetaDocsModels
     public static GenericModel CreateMetaDocsModel()
     {
         var model = TypedWorkspaceModelMapper
-            .ToInMemoryWorkspace(MetaDocsModel.CreateEmpty())
+            .LoadStateAsync(Path.Combine(AppContext.BaseDirectory, "MetaDocs"))
+            .GetAwaiter().GetResult()
             .Model;
         if (!string.Equals(model.Name, MetaDocsModelName, StringComparison.Ordinal))
         {

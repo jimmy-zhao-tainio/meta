@@ -116,7 +116,7 @@ public sealed class MetaWeaveCliTests
                 standardInput: "SELECT s.Id AS Id, UPPER(s.Name) AS Name FROM Source AS s;");
             Assert.Equal(0, update.ExitCode);
 
-            var updatedModel = TypedWorkspaceModelMapper.Load<MetaWeaveModel>(directionPath);
+            var updatedModel = TypedWorkspaceModelMapper.Load(directionPath, new MetaWeaveWorkspaceBinding());
             Assert.Single(updatedModel.TransformationList);
             Assert.Single(updatedModel.DirectionRequirementList);
             Assert.Single(updatedModel.DirectionRelationList);
@@ -181,7 +181,7 @@ public sealed class MetaWeaveCliTests
                 $"add-transformation --workspace \"{weavePath}\" --direction reverse --name Entity --target-entity Entity",
                 standardInput: "SELECT s.Id AS Id FROM Source AS s;").ExitCode);
 
-            var model = TypedWorkspaceModelMapper.Load<MetaWeaveModel>(weavePath);
+            var model = TypedWorkspaceModelMapper.Load(weavePath, new MetaWeaveWorkspaceBinding());
             Assert.Single(model.WeaveList);
             Assert.Equal(2, model.DirectionList.Count);
             Assert.Equal(2, model.DirectionSourceWorkspaceList.Count);
@@ -291,7 +291,7 @@ public sealed class MetaWeaveCliTests
 
         try
         {
-            var weave = TypedWorkspaceModelMapper.Load<MetaWeaveModel>(sourceWeavePath);
+            var weave = TypedWorkspaceModelMapper.Load(sourceWeavePath, new MetaWeaveWorkspaceBinding());
             _ = new MetaWeave.Core.MetaWeaveAuthoringService().AddRequirement(
                 weave,
                 "forward",
@@ -300,7 +300,7 @@ public sealed class MetaWeaveCliTests
                 "The source must not contain groups.",
                 "SELECT g.Id AS GroupId FROM [Group] AS g;");
             await WorkspaceSurface.CreateAsync(
-                TypedWorkspaceModelMapper.ToInMemoryWorkspace(weave),
+                TypedWorkspaceModelMapper.ToInMemoryWorkspace(weave, MetaWeave.Core.MetaWeaveWorkspaceContract.LoadModel(), new MetaWeaveWorkspaceBinding()),
                 weavePath,
                 "xml");
 
@@ -482,7 +482,7 @@ public sealed class MetaWeaveCliTests
         var directory = AppContext.BaseDirectory;
         while (!string.IsNullOrWhiteSpace(directory))
         {
-            if (File.Exists(Path.Combine(directory, "Metadata.Framework.sln")))
+            if (File.Exists(Path.Combine(directory, "Meta.sln")))
             {
                 return directory;
             }

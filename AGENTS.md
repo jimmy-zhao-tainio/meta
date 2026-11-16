@@ -19,3 +19,14 @@ in this repository.
   directory segments.
 - Build and test serially when projects share output directories.
 - Preserve unrelated worktree changes.
+
+## Metadata interpretation
+
+- Read model and instance structure through the selected workspace surface.
+  The C# surface uses Roslyn; the semantic state is the generic metadata model
+  and instance graph. Do not rediscover that structure through CLR reflection.
+- Typed projection, where needed, must use explicit compiler-checked access
+  derived from the modeled contract. Do not add reflective discovery or fallback
+  for consumers. Keep derived access code outside authored workspace source sets.
+- A shipped instance is starting data, not fixed policy. Honor selected workspace
+  data and give independently created mutable instances independent state.

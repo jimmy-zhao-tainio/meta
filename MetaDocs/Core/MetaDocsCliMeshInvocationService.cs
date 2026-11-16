@@ -1,5 +1,5 @@
 using System.Text;
-using Meta.Integration;
+using MetaMesh.Core;
 using MetaMeshModel = global::MetaMesh.MetaMeshModel;
 
 namespace MetaDocs.Core;
@@ -52,7 +52,7 @@ public sealed class MetaDocsCliMeshInvocationService
             .OrderBy(static path => path, Comparer)
             .Select(path => new MetaDocsCliMeshSource(
                 path,
-                TypedWorkspaceModelMapper.Load<MetaMeshModel>(path, searchUpward: false)))
+                new MetaMeshWorkspaceService().Load(path)))
             .ToArray();
     }
 

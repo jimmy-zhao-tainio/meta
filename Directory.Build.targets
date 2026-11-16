@@ -2,4 +2,22 @@
   <ItemGroup Condition="'$(OutputType)' == 'Exe' and $([System.String]::Copy('$(AssemblyName)').StartsWith('meta'))">
     <Compile Include="$(MSBuildThisFileDirectory)Build\CliVersion.cs" Link="CliVersion.cs" />
   </ItemGroup>
+  <Target Name="GenerateMetaBuildVersion"
+          BeforeTargets="BeforeCompile;CoreCompile"
+          DependsOnTargets="PrepareForBuild;GetAssemblyVersion;AddSourceRevisionToInformationalVersion">
+    <PropertyGroup>
+      <_MetaBuildVersionValue>$(InformationalVersion)</_MetaBuildVersionValue>
+      <_MetaBuildVersionValue Condition="'$(InformationalVersion)' == ''">$(AssemblyVersion)</_MetaBuildVersionValue>
+      <_MetaBuildVersionLiteral>$(_MetaBuildVersionValue.Replace('&quot;', '&quot;&quot;').Replace(';', '%3B'))</_MetaBuildVersionLiteral>
+      <_MetaBuildVersionNamespace>Project_$([System.Text.RegularExpressions.Regex]::Replace('$(AssemblyName)', '[^A-Za-z0-9_]', '_'))</_MetaBuildVersionNamespace>
+      <_MetaBuildVersionFile>$(IntermediateOutputPath)$(MSBuildProjectName).BuildVersion.g.cs</_MetaBuildVersionFile>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(_MetaBuildVersionFile)"
+                      Lines="global using MetaBuildVersion = global::Meta.Build.$(_MetaBuildVersionNamespace).Version%3B namespace Meta.Build.$(_MetaBuildVersionNamespace) { internal static class Version { internal const string Value = @&quot;$(_MetaBuildVersionLiteral)&quot;%3B } }"
+                      Overwrite="true" WriteOnlyWhenDifferent="true" Encoding="UTF-8" />
+    <ItemGroup>
+      <Compile Include="$(_MetaBuildVersionFile)" />
+      <FileWrites Include="$(_MetaBuildVersionFile)" />
+    </ItemGroup>
+  </Target>
 </Project>
